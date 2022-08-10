@@ -1,0 +1,20 @@
+{
+  "name": "@example/blog",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@astrojs/preact": "^1.0.0",
+    "astro": "^1.0.1"
+  },
+  "dependencies": {
+    "@astrojs/vue": "^1.0.0",
+    "preact": "^10.7.3"
+  }
+}
