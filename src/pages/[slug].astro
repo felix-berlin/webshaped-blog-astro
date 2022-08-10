@@ -1,0 +1,34 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+
+import { getAllPagesWithSlugs, getPageBySlug } from '../lib/api';
+
+export async function getStaticPaths() {
+  const pagesWithSlugs = await getAllPagesWithSlugs();
+
+  return pagesWithSlugs.edges.map(({ node }) => {
+    return {
+      params: { slug: node.slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const page = await getPageBySlug(slug);
+
+---
+
+<html lang="de">
+	<head>
+		<BaseHead title={page.title} description={page?.description} />
+	</head>
+
+	<body>
+		<Header />
+		<div class="wrapper">
+      <h1>{page.title}</h1>
+      <article set:html={page.content}></article>
+		</div>
+	</body>
+</html>
