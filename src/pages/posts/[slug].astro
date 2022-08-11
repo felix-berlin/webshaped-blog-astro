@@ -1,0 +1,49 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+import { getAllPostsWithSlugs, getPostBySlug } from '../../lib/api';
+
+export async function getStaticPaths() {
+  const pagesWithSlugs = await getAllPostsWithSlugs();
+
+  return pagesWithSlugs.edges.map(({ node }) => {
+    return {
+      params: { slug: node.slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug);
+
+
+// const {
+//   content: {}
+// }
+console.log(post);
+
+
+---
+
+<!-- <BlogPost>
+  <div class="wrapper">
+    <h1>{post.title}</h1>
+    <article set:html={post.content}></article>
+  </div>
+</BlogPost> -->
+
+<html lang="de">
+	<head>
+		<BaseHead title={post.title} description={post?.description} />
+	</head>
+
+	<body>
+		<Header />
+		<div class="wrapper">
+      <h1>{post.title}</h1>
+      <article set:html={post.content}></article>
+		</div>
+	</body>
+</html>

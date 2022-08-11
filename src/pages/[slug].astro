@@ -21,13 +21,13 @@ const page = await getPageBySlug(slug);
 
 <html lang="de">
 	<head>
-		<BaseHead title={page.title} description={page?.description} />
+		<BaseHead title={page?.title} description={page?.description} />
 	</head>
 
 	<body>
 		<Header />
 		<div class="wrapper">
-      <h1>{page.title}</h1>
+      <h1 >{page?.title}</h1>
       <article set:html={page.content}></article>
 		</div>
 	</body>

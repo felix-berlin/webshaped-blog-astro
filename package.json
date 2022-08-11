@@ -11,12 +11,12 @@
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^1.0.1",
-    "@astrojs/preact": "^1.0.0",
-    "astro": "^1.0.1"
+    "@astrojs/preact": "^1.0.1",
+    "astro": "^1.0.2"
   },
   "dependencies": {
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/vue": "^1.0.0",
-    "preact": "^10.7.3"
+    "preact": "^10.10.2"
   }
 }

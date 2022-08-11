@@ -32,7 +32,7 @@ export async function getAllPagesWithSlugs() {
   return data?.pages;
 }
 
-export async function getPageBySlug(slug: string) {
+export async function getPageBySlug(slug) {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
@@ -70,4 +70,61 @@ export async function getPrimaryMenu() {
   }
   `);
   return data?.menus?.nodes[0];
+}
+
+export async function getAllPostsWithSlugs() {
+  const data = await fetchAPI(`
+  {
+    posts(first: 10000) {
+      edges {
+        node {
+          slug
+        }
+      }
+    }
+  }
+  `);
+
+  return data?.posts;
+}
+
+export async function getPostBySlug(slug) {
+  const data = await fetchAPI(`
+    {
+      post(id: "${slug}", idType: URI) {
+        title
+        excerpt
+        dateGmt
+        modifiedGmt
+        featuredImage {
+          node {
+            altText
+            mediaItemUrl
+          }
+        }
+        categories {
+          edges {
+            node {
+              name
+              parent {
+                node {
+                  name
+                }
+              }
+              children {
+                edges {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+        content
+      }
+    }
+  `)
+
+  return data?.post;
 }

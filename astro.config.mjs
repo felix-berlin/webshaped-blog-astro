@@ -8,6 +8,6 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
 	integrations: [preact(), vue(), sitemap()],
 	site: `http://astro.build`,
-	output: 'server',
-  adapter: cloudflare({ mode: "directory" })
+	// output: import.meta.env.PROD ? 'server' : false,
+  // adapter: cloudflare({ mode: "directory" })
 });
