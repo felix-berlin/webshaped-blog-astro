@@ -12,7 +12,11 @@
   "devDependencies": {
     "@astrojs/cloudflare": "^1.0.1",
     "@astrojs/preact": "^1.0.2",
-    "astro": "^1.0.4"
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "astro": "^1.0.4",
+    "semantic-release": "^19.0.3"
   },
   "dependencies": {
     "@astrojs/sitemap": "^1.0.0",
