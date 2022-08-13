@@ -17,6 +17,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/vue": "^1.0.0",
+    "@felix_berlin/sass-butler": "^1.9.1",
+    "@vueuse/core": "^9.1.0",
     "preact": "^10.10.2"
   }
 }

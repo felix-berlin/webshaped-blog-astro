@@ -6,9 +6,9 @@ import BlogPost from '../../layouts/BlogPost.astro';
 import { getAllPostsWithSlugs, getPostBySlug } from '../../lib/api';
 
 export async function getStaticPaths() {
-  const pagesWithSlugs = await getAllPostsWithSlugs();
+  const postWithSlugs = await getAllPostsWithSlugs();
 
-  return pagesWithSlugs.edges.map(({ node }) => {
+  return postWithSlugs.edges.map(({ node }) => {
     return {
       params: { slug: node.slug },
     };
@@ -22,28 +22,26 @@ const post = await getPostBySlug(slug);
 // const {
 //   content: {}
 // }
-console.log(post);
+// console.log(post);
+//
+// console.log(window.navigator.language);
+console.log(post.dateGmt);
 
+
+const passProps = {
+  title: post.title,
+  description: post.excerpt,
+  publishDate: post.dateGmt,
+  heroImage: { // TODO: implement srcset
+    src: post.featuredImage.node.mediaItemUrl,
+    alt: post.featuredImage.node.altText
+  }
+}
 
 ---
 
-<!-- <BlogPost>
+<BlogPost content={passProps}>
   <div class="wrapper">
-    <h1>{post.title}</h1>
     <article set:html={post.content}></article>
   </div>
-</BlogPost> -->
-
-<html lang="de">
-	<head>
-		<BaseHead title={post.title} description={post?.description} />
-	</head>
-
-	<body>
-		<Header />
-		<div class="wrapper">
-      <h1>{post.title}</h1>
-      <article set:html={post.content}></article>
-		</div>
-	</body>
-</html>
+</BlogPost>

@@ -47,7 +47,7 @@ export async function getPageBySlug(slug) {
 export async function getPrimaryMenu() {
   const data = await fetchAPI(`
   {
-    menus(where: {location: PRIMARY}) {
+    menus(where: {location: PRIMARY_MENU}) {
       nodes {
         menuItems {
           edges {
@@ -127,4 +127,50 @@ export async function getPostBySlug(slug) {
   `)
 
   return data?.post;
+}
+
+export async function getAllPostsWithContent() {
+  const data = await fetchAPI(`
+    {
+      posts(first: 10000) {
+        edges {
+          node {
+            slug
+            title
+            excerpt
+            dateGmt
+            modifiedGmt
+            featuredImage {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  parent {
+                    node {
+                      name
+                    }
+                  }
+                  children {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            content
+          }
+        }
+      }
+    }
+  `)
+
+  return data?.posts;
 }

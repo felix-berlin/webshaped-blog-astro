@@ -9,7 +9,7 @@ const { menuItems } = await getPrimaryMenu();
 		<ul>
 			{menuItems.edges.map((item) =>
 					<li key={item.node.path}>
-							<a href={item.node.connectedNode.node.slug} class={`cursor-pointer p-4 ml-2 text-white`}>
+							<a href={ '/' + item.node.connectedNode.node.slug} class={`cursor-pointer p-4 ml-2 text-white`}>
 									{item.node.label}
 							</a>
 					</li>

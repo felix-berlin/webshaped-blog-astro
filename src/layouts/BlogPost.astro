@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
+import Date from "../components/Date.vue";
 
 export interface Props {
 	content: {
@@ -38,7 +39,8 @@ const {
 					/>
 				)}
 				<h1 class="title">{title}</h1>
-				<time>{publishDate}</time>
+				<Date date={publishDate}></Date>
+				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
 			</header>
 			<main>
 				<slot></slot>

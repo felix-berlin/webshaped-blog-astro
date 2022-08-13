@@ -1,8 +1,10 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
+// import BlogPostPreview from '../components/BlogPostPreview.astro';
+import BlogPostPreview from '../components/BlogPostPreview.vue';
 // import Test from '../components/Test.vue';
+import { getAllPostsWithSlugs, getAllPostsWithContent } from '../lib/api';
 
 let title = 'Example Blog';
 let description = 'The perfect starter for your perfect blog.';
@@ -14,6 +16,27 @@ let description = 'The perfect starter for your perfect blog.';
 // 		new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf()
 // 	);
 // });
+//
+//
+async function allPosts() {
+	const postWithSlugs = await getAllPostsWithContent();
+
+  // return postWithSlugs.edges.map(({ node }) => {
+  //   return {
+  //     params: { slug: node.slug },
+  //   };
+  // });
+	// const { node } =
+	return postWithSlugs;
+}
+// const pagesWithSlugs = async () => getAllPostsWithSlugs();
+
+
+
+// console.log(await allPosts());
+const {edges} = await allPosts();
+const posts = edges;
+// const unsortedPosts = await Astro.glob(allPosts());
 ---
 
 <html lang="en">
@@ -26,20 +49,30 @@ let description = 'The perfect starter for your perfect blog.';
 		<div class="wrapper">
 			<main class="content">
 				<p>Blog overview</p>
-				<!-- <section class="intro">
+				<section class="intro">
 					<h1>{title}</h1>
 					<p>{description}</p>
 				</section>
 				<section aria-label="Blog post list">
-					{posts.map(({ url, frontmatter }) => (
+					<!-- <template v-for="post in posts"> -->
+						<BlogPostPreview posts={posts} client:visible></BlogPostPreview>
+					<!-- </template> -->
+					<!-- {posts.map(post => (
+						<BlogPostPreview
+							title={post.title}
+							// description={post.description}
+							// publishDate={post.publishDate}
+						/>
+					))} -->
+					<!-- {posts.map(({ url, frontmatter }) => (
 						<BlogPostPreview
 							title={frontmatter.title}
 							description={frontmatter.description}
 							publishDate={frontmatter.publishDate}
 							url={url}
 						/>
-					))}
-				</section> -->
+					))} -->
+				</section>
 			</main>
 		</div>
 	</body>
