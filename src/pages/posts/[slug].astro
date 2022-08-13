@@ -32,9 +32,12 @@ const passProps = {
   title: post.title,
   description: post.excerpt,
   publishDate: post.dateGmt,
-  heroImage: { // TODO: implement srcset
+  heroImage: {
     src: post.featuredImage.node.mediaItemUrl,
-    alt: post.featuredImage.node.altText
+    alt: post.featuredImage.node.altText,
+    srcset: post.featuredImage.node.srcSet,
+    sizes: post.featuredImage.node.sizes,
+    mediaDetails: post.featuredImage.node.mediaDetails
   }
 }
 

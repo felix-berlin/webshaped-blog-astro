@@ -88,7 +88,7 @@ export async function getAllPostsWithSlugs() {
   return data?.posts;
 }
 
-export async function getPostBySlug(slug) {
+export async function getPostBySlug(slug:string) {
   const data = await fetchAPI(`
     {
       post(id: "${slug}", idType: URI) {
@@ -100,6 +100,12 @@ export async function getPostBySlug(slug) {
           node {
             altText
             mediaItemUrl
+            srcSet
+            sizes
+            mediaDetails {
+              height
+              width
+            }
           }
         }
         categories {
@@ -173,4 +179,55 @@ export async function getAllPostsWithContent() {
   `)
 
   return data?.posts;
+}
+
+/**
+ * Receives all available categories
+ *
+ * @return  {object}
+ */
+export async function getAllCategories() {
+  const data = await fetchAPI(`
+  {
+    categories {
+      nodes {
+        count
+        name
+        slug
+        children {
+          nodes {
+            count
+            name
+            slug
+            children {
+              nodes {
+                count
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  `)
+
+  return data?.categories;
+}
+
+export async function getAllTags() {
+  const data = await fetchAPI(`
+  {
+    tags {
+      nodes {
+        count
+        name
+        slug
+      }
+    }
+  }
+  `)
+
+  return data?.tags;
 }
