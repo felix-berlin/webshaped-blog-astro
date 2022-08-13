@@ -1,4 +1,4 @@
-# Astro Starter Kit: Blog
+# Webshaped Blog Frontend
 
 ```
 npm init astro -- --template blog
