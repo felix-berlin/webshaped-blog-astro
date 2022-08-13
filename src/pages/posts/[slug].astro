@@ -1,6 +1,5 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
+// import BlogPostVue from '../../layouts/BlogPost.vue'
 import BlogPost from '../../layouts/BlogPost.astro';
 
 import { getAllPostsWithSlugs, getPostBySlug } from '../../lib/api';
@@ -28,7 +27,7 @@ const post = await getPostBySlug(slug);
 console.log(post.dateGmt);
 
 
-const passProps = {
+const content = {
   title: post.title,
   description: post.excerpt,
   publishDate: post.dateGmt,
@@ -38,13 +37,24 @@ const passProps = {
     srcset: post.featuredImage.node.srcSet,
     sizes: post.featuredImage.node.sizes,
     mediaDetails: post.featuredImage.node.mediaDetails
-  }
+  },
+  seoData: post.seo
 }
 
 ---
 
-<BlogPost content={passProps}>
+<BlogPost content={content}>
   <div class="wrapper">
     <article set:html={post.content}></article>
   </div>
 </BlogPost>
+
+<!-- <BlogPostVue  client:visible
+              title={post.title}
+              description={post.excerpt}
+              publishDate={post.dateGmt}
+              heroImage={passProps.heroImage}>
+  <div class="wrapper">
+    <article set:html={post.content}></article>
+  </div>
+</BlogPostVue> -->

@@ -1,4 +1,5 @@
 ---
+import '@fontsource/source-sans-pro';
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Date from "../components/Date.vue";
@@ -6,7 +7,6 @@ import Date from "../components/Date.vue";
 export interface Props {
 	content: {
 		title: string;
-		description: string;
 		publishDate: string;
 		heroImage?: {
 			src: string;
@@ -15,17 +15,18 @@ export interface Props {
 			sizes: string;
 			mediaDetails: object;
 		};
+		seoData?: object;
 	};
 }
 
 const {
-	content: { title, description, publishDate, heroImage },
+	content: { title, publishDate, heroImage, seoData },
 } = Astro.props as Props;
 ---
 
 <html>
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} seo={seoData} />
 	</head>
 
 	<body>
@@ -43,7 +44,7 @@ const {
 					/>
 				)}
 				<h1 class="title">{title}</h1>
-				<Date date={publishDate}></Date>
+				<Date date={publishDate} client:visible></Date>
 				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
 			</header>
 			<main>
@@ -92,9 +93,11 @@ const {
 		border-bottom: 4px solid var(--theme-divider);
 	}
 
+	/* Font example */
 	.title,
 	time {
 		margin: 0;
+		font-family: 'Source Sans Pro', sans-serif;
 	}
 
 	time {

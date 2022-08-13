@@ -1,5 +1,5 @@
 {
-  "name": "@example/blog",
+  "name": "webshaped-blog-frontend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,8 +16,9 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "astro": "^1.0.4",
+    "astro": "^1.0.5",
     "postcss-scss": "^4.0.4",
+    "sass": "^1.54.4",
     "semantic-release": "^19.0.3",
     "stylelint": "^14.10.0",
     "stylelint-config-standard": "^27.0.0",
@@ -27,7 +28,9 @@
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/vue": "^1.0.0",
     "@felix_berlin/sass-butler": "^1.9.1",
+    "@fontsource/source-sans-pro": "^4.5.11",
     "@vueuse/core": "^9.1.0",
-    "preact": "^10.10.2"
+    "preact": "^10.10.2",
+    "prismjs": "^1.28.0"
   }
 }
