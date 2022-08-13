@@ -4,7 +4,7 @@
       <a :href="`/posts/${post.node.slug}`">
         <h2>{{ post.node.title }}</h2>
       </a>
-      <time v-text="post.node.dateGmt" />
+      <Date :date="post.node.dateGmt"></Date>
       <div v-html="post.node.excerpt"></div>
     </template>
   </article>
@@ -12,10 +12,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import { formatDate } from '../lib/prototypes'
+import Date from '../components/Date.vue'
 
 export default defineComponent ({
   name: 'BlogPostPreview',
+
+  components: {
+    Date,
+  },
 
   props: {
     posts: {
