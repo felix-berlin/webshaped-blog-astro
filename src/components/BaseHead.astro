@@ -1,13 +1,33 @@
 ---
-import '../styles/blog.css';
+import '../styles/blog.css'; // TODO: remove
+import '../styles/app.scss';
 
 export interface Props {
 	title: string;
-	description: string;
+	seo: {
+		title?: string;
+		opengraphAuthor?: string;
+		opengraphDescription?: string;
+		opengraphPublisher?: string;
+		opengraphTitle?: string;
+		opengraphType?: string;
+		opengraphUrl?: string;
+		readingTime?: string;
+		opengraphSiteName?: string;
+		twitterDescription?: string;
+		twitterTitle?: string;
+		metaRobotsNofollow?: string;
+		metaRobotsNoindex?: string;
+		canonical?: string;
+		metaDesc?: string;
+		opengraphPublishedTime?: string;
+		opengraphModifiedTime?: string;
+		opengraphImage?: object;
+	}
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description } = Astro.props;
+const { title, seo } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -18,26 +38,19 @@ const { title, description } = Astro.props;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
+<meta name="title" content={seo.title} />
+<meta name="description" content={seo.opengraphDescription} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content={canonicalURL} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content="https://astro.build/social.png" />
+<meta property="og:type" content={seo.opengraphType} />
+<meta property="og:url" content={seo.opengraphUrl} />
+<meta property="og:title" content={seo.opengraphTitle} />
+<meta property="og:description" content={seo.opengraphDescription} />
+<meta property="og:image" content={seo.opengraphImage.sourceUrl} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={canonicalURL} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
-<meta property="twitter:image" content="https://astro.build/social.png" />
-
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;700&display=swap"
-/>
+<meta property="twitter:url" content={seo.opengraphUrl} />
+<meta property="twitter:title" content={seo.twitterTitle} />
+<meta property="twitter:description" content={seo.description} />
+<meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
