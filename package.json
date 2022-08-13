@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:style": "stylelint \"**/*.{scss,sass}\" --ignore-path .gitignore"
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^1.0.1",
@@ -16,7 +17,10 @@
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "astro": "^1.0.4",
-    "semantic-release": "^19.0.3"
+    "semantic-release": "^19.0.3",
+    "stylelint": "^14.10.0",
+    "stylelint-config-standard": "^27.0.0",
+    "stylelint-config-standard-scss": "^5.0.0"
   },
   "dependencies": {
     "@astrojs/sitemap": "^1.0.0",
