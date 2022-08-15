@@ -1,8 +1,10 @@
 ---
 import '@fontsource/source-sans-pro';
 import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
+// import Header from "../components/Header.astro";
+import Header from "../components/Header.vue";
 import Date from "../components/Date.vue";
+import ReadingTime from '../components/ReadingTime.vue';
 
 export interface Props {
 	content: {
@@ -16,21 +18,29 @@ export interface Props {
 			mediaDetails: object;
 		};
 		seoData?: object;
+		language: {
+			code: string;
+			locale: string;
+			name: string;
+		},
+		navItems: object;
 	};
 }
 
 const {
-	content: { title, publishDate, heroImage, seoData },
+	content: { title, publishDate, heroImage, seoData, language, navItems },
 } = Astro.props as Props;
+
+const langAttr = language.locale.replace('_', '-');
 ---
 
-<html>
+<html lang={langAttr}>
 	<head>
 		<BaseHead title={title} seo={seoData} />
 	</head>
 
 	<body>
-		<Header />
+		<Header menuItems={navItems} client:visible/>
 		<article class="wrapper content">
 			<header>
 				{heroImage && (
@@ -45,6 +55,7 @@ const {
 				)}
 				<h1 class="title">{title}</h1>
 				<Date date={publishDate} client:visible></Date>
+				<ReadingTime time={seoData.readingTime} />
 				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
 			</header>
 			<main>
