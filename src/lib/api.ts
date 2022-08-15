@@ -4,7 +4,7 @@ async function fetchAPI(query: string, { variables } = {}) {
   const headers = { 'Content-Type': 'application/json' };
   const res = await fetch(WP_API, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: headers,
     body: JSON.stringify({ query, variables }),
   });
 
@@ -99,6 +99,35 @@ export async function getPrimaryMenu(lang='de') {
   return data?.menus?.nodes[0];
 }
 
+export async function getMenuById(id: number) {
+  const data = await fetchAPI(`
+    menu(id: ${id}, idType: DATABASE_ID) {
+    name
+    menuItems(where: {parentDatabaseId: 0}) {
+      nodes {
+        id
+        databaseId
+        label
+        parentId
+        parentDatabaseId
+        childItems {
+          nodes {
+            id
+            databaseId
+            label
+            parentId
+            parentDatabaseId
+          }
+        }
+      }
+    }
+  }
+  `);
+
+  return data?.menu;
+}
+
+
 export async function getAllPostsWithSlugs() {
   const data = await fetchAPI(`
   {
@@ -124,6 +153,7 @@ export async function getPostBySlug(slug:string) {
         dateGmt
         modifiedGmt
         content
+        postId
         featuredImage {
           node {
             altText
@@ -149,6 +179,54 @@ export async function getPostBySlug(slug:string) {
                 edges {
                   node {
                     name
+                  }
+                }
+              }
+            }
+          }
+        }
+        commentCount
+        commentStatus
+        comments(
+          first: 100
+          where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT, parent: 0}
+        ) {
+          nodes {
+            content
+            dateGmt
+            id
+            parentId
+            commentId
+            author {
+              node {
+                name
+                id
+                avatar {
+                  foundAvatar
+                  default
+                  height
+                  width
+                  url
+                }
+              }
+            }
+            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+              nodes {
+                content
+                dateGmt
+                id
+                parentId
+                commentId
+                author {
+                  node {
+                    name
+                    id
+                    avatar {
+                      height
+                      size
+                      url
+                      width
+                    }
                   }
                 }
               }
@@ -284,4 +362,46 @@ export async function getAllTags() {
   `)
 
   return data?.tags;
+}
+
+async function mutateAPI(query: string, { variables } = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  const res = await fetch(WP_API, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ query, variables }),
+  });
+
+  const json = await res.json();
+  if (json.errors) {
+    console.log(json.errors);
+    throw new Error('Failed to fetch API');
+  }
+
+  return json.data;
+}
+
+export async function createComment(id:number, content:string, author:string) {
+  const data = await mutateAPI(`
+    mutation CREATE_COMMENT {
+      createComment(input: {
+        commentOn: ${id},
+        content: ${content},
+        author: ${author}
+      }) {
+        success
+        comment {
+          id
+          content
+          author {
+            node {
+              name
+            }
+          }
+        }
+      }
+    }`
+  );
+
+  return data;
 }
