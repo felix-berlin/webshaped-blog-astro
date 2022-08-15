@@ -4,7 +4,7 @@
       <a :href="`/posts/${post.node.slug}`">
         <h2>{{ post.node.title }}</h2>
       </a>
-      <Date :date="post.node.dateGmt"></Date>
+      <Date :date="post.node.dateGmt" client:visible></Date>
       <div v-html="post.node.excerpt"></div>
     </template>
   </article>
