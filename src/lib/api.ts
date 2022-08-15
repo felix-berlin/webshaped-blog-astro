@@ -32,22 +32,49 @@ export async function getAllPagesWithSlugs() {
   return data?.pages;
 }
 
-export async function getPageBySlug(slug) {
+export async function getPageBySlug(slug:string) {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
       title
       content
+      language {
+        code
+        locale
+        name
+      }
+      seo {
+        title
+        readingTime
+        canonical
+        metaDesc
+        opengraphSiteName
+        opengraphAuthor
+        opengraphDescription
+        opengraphPublisher
+        opengraphTitle
+        opengraphType
+        opengraphUrl
+        opengraphPublishedTime
+        opengraphModifiedTime
+        opengraphImage {
+          sourceUrl
+        }
+        twitterDescription
+        twitterTitle
+        metaRobotsNofollow
+        metaRobotsNoindex
+      }
     }
   }
   `);
   return data?.page;
 }
 
-export async function getPrimaryMenu() {
+export async function getPrimaryMenu(lang='de') {
   const data = await fetchAPI(`
   {
-    menus(where: {location: PRIMARY_MENU}) {
+    menus(where: {location: PRIMARY_MENU${lang === "en" ? '____EN' : ''} }) {
       nodes {
         menuItems {
           edges {
