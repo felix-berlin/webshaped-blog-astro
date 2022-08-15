@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 // import BlogPostPreview from '../components/BlogPostPreview.astro';
 import BlogPostPreview from '../components/BlogPostPreview.vue';
 // import Test from '../components/Test.vue';
-import { getAllPostsWithSlugs, getAllPostsWithContent } from '../lib/api';
+import { getAllPostsWithContent, getPageBySlug } from '../lib/api';
 
 let title = 'Example Blog';
 let description = 'The perfect starter for your perfect blog.';
@@ -31,6 +31,8 @@ async function allPosts() {
 }
 // const pagesWithSlugs = async () => getAllPostsWithSlugs();
 
+const index = await getPageBySlug('blog-index');
+const langAttr = index.language.locale.replace('_', '-');
 
 
 // console.log(await allPosts());
@@ -39,9 +41,9 @@ const posts = edges;
 // const unsortedPosts = await Astro.glob(allPosts());
 ---
 
-<html lang="en">
+<html lang={langAttr}>
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} seo={index.seo} />
 	</head>
 
 	<body>
