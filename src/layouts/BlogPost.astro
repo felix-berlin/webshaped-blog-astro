@@ -5,6 +5,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.vue";
 import Date from "../components/Date.vue";
 import ReadingTime from '../components/ReadingTime.vue';
+import Comments from '../components/Comments.vue';
 
 export interface Props {
 	content: {
@@ -24,11 +25,12 @@ export interface Props {
 			name: string;
 		},
 		navItems: object;
+		comments: object;
 	};
 }
 
 const {
-	content: { title, publishDate, heroImage, seoData, language, navItems },
+	content: { title, publishDate, heroImage, seoData, language, navItems, comments },
 } = Astro.props as Props;
 
 const langAttr = language.locale.replace('_', '-');
@@ -62,6 +64,9 @@ const langAttr = language.locale.replace('_', '-');
 				<slot></slot>
 			</main>
 		</article>
+		<div>
+			<Comments comments={comments} client:load></Comments>
+		</div>
 	</body>
 </html>
 
