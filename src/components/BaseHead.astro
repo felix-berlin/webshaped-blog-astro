@@ -38,19 +38,19 @@ const { title, seo } = Astro.props;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta name="title" content={seo.title} />
-<meta name="description" content={seo.opengraphDescription} />
+<meta name="title" content={seo?.title} />
+<meta name="description" content={seo?.opengraphDescription} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content={seo.opengraphType} />
-<meta property="og:url" content={seo.opengraphUrl} />
-<meta property="og:title" content={seo.opengraphTitle} />
-<meta property="og:description" content={seo.opengraphDescription} />
-<meta property="og:image" content={seo.opengraphImage.sourceUrl} />
+<meta property="og:type" content={seo?.opengraphType} />
+<meta property="og:url" content={seo?.opengraphUrl} />
+<meta property="og:title" content={seo?.opengraphTitle} />
+<meta property="og:description" content={seo?.opengraphDescription} />
+<meta property="og:image" content={seo?.opengraphImage?.sourceUrl} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={seo.opengraphUrl} />
-<meta property="twitter:title" content={seo.twitterTitle} />
-<meta property="twitter:description" content={seo.description} />
-<meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
+<meta property="twitter:url" content={seo?.opengraphUrl} />
+<meta property="twitter:title" content={seo?.twitterTitle} />
+<meta property="twitter:description" content={seo?.description} />
+<meta property="twitter:image" content={seo?.opengraphImage?.sourceUrl} />
