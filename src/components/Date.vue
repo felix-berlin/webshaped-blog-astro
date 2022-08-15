@@ -1,8 +1,9 @@
 <template>
-  <time :datetime="data.formatDateString">{{ formattedDate(date) }}</time>
+  <time :datetime="data.formatDateString">{{ formattedDate(date, state.userLang) }}</time>
 </template>
 
 <script setup lang="ts">
+import { reactive , onMounted } from 'vue';
 
 const props = defineProps ({
   date: {
@@ -14,6 +15,12 @@ const props = defineProps ({
 const data = {
   formatDateString: props.date.replace(/T/g, ' '),
 }
+
+const state = reactive({ userLang: 'de-DE'});
+
+onMounted(() => {
+  state.userLang = window.navigator.language
+})
 
 const formattedDate = (date: string, locale = 'de-DE') => {
   const dumpSafariDateFormat = date.replace(/-/g, '/').replace(/T/g, ' ');
