@@ -17,11 +17,13 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const page = await getPageBySlug(slug);
 
+const langAttr = page.language.locale.replace('_', '-');
+
 ---
 
-<html lang="de">
+<html lang={langAttr}>
 	<head>
-		<BaseHead title={page?.title} description={page?.description} />
+		<BaseHead title={page.title} seo={page.seo} />
 	</head>
 
 	<body>

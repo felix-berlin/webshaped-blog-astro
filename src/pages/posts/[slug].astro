@@ -3,6 +3,7 @@
 import BlogPost from '../../layouts/BlogPost.astro';
 
 import { getAllPostsWithSlugs, getPostBySlug } from '../../lib/api';
+import { getPrimaryMenu } from '../../lib/api';
 
 export async function getStaticPaths() {
   const postWithSlugs = await getAllPostsWithSlugs();
@@ -17,15 +18,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const post = await getPostBySlug(slug);
 
-
-// const {
-//   content: {}
-// }
-// console.log(post);
-//
-// console.log(window.navigator.language);
-console.log(post.dateGmt);
-
+const { menuItems } = await getPrimaryMenu();
 
 const content = {
   title: post.title,
@@ -38,7 +31,9 @@ const content = {
     sizes: post.featuredImage.node.sizes,
     mediaDetails: post.featuredImage.node.mediaDetails
   },
-  seoData: post.seo
+  seoData: post.seo,
+  language: post.language,
+  navItems: menuItems
 }
 
 ---
