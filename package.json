@@ -30,8 +30,10 @@
     "@astrojs/vue": "^1.0.0",
     "@felix_berlin/sass-butler": "^1.9.1",
     "@fontsource/source-sans-pro": "^4.5.11",
+    "@nanostores/vue": "^0.5.5",
     "@vueuse/core": "^9.1.0",
     "lucide-vue-next": "^0.84.0",
+    "nanostores": "^0.6.0",
     "preact": "^10.10.2",
     "prismjs": "^1.28.0"
   }
