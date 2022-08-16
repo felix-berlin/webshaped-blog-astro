@@ -18,12 +18,11 @@
   // import { props } from '@astrojs/vue';
 import ColorModeToggle from "../components/ColorModeToggle.vue";
 
-const props = defineProps ({
-  menuItems: {
-    type: Object,
-    default: () => {},
-  },
-})
+interface Props {
+  menuItems: object;
+}
+
+const props = defineProps<Props>()
 
 
 </script>

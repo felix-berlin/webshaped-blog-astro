@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Comments</h2>
-    <CreateComment></CreateComment>
+    <CreateComment :currentPostId="currentPostId"></CreateComment>
     <template v-for="(comment, index) in comments.nodes" :key="comment.id">
       <CommentItem :comment="comment"></CommentItem>
     </template>
@@ -13,12 +13,12 @@ import { reactive , onMounted } from 'vue';
 import CommentItem from '../components/CommentItem.vue';
 import CreateComment from '../components/CreateComment.vue';
 
-const props = defineProps ({
-  comments: {
-    type: Object,
-    default: () => {},
-  },
-})
+interface Props {
+  comments: object;
+  currentPostId: number;
+}
+
+const props = defineProps<Props>()
 
 // const flatListToHierarchical = (
 //     data = [],

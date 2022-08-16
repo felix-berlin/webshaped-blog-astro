@@ -5,18 +5,21 @@
 <script setup lang="ts">
 import { reactive , onMounted } from 'vue';
 
-const props = defineProps ({
-  date: {
-    default: '',
-    type: String,
-  },
-})
+interface Props {
+  date: string;
+}
+
+const props = defineProps<Props>()
 
 const data = {
   formatDateString: props.date.replace(/T/g, ' '),
 }
 
-const state = reactive({ userLang: 'de-DE'});
+interface State {
+  userLang: string;
+}
+
+const state: State = reactive({ userLang: 'de-DE'});
 
 onMounted(() => {
   state.userLang = window.navigator.language

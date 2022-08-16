@@ -10,7 +10,7 @@
         <Date :date="comment.dateGmt" class="c-comment__date"></Date>
       </footer>
     </article>
-    <div v-for="(reply, index) in comment.replies.nodes" :key="index" v-if="comment.replies" class="HIER">
+    <div v-for="(reply, index) in comment.replies.nodes" :key="index" v-if="comment.replies">
       <CommentItem :comment="reply" ></CommentItem>
     </div>
   </div>
@@ -19,13 +19,11 @@
 <script setup lang="ts">
 import Date from '../components/Date.vue';
 
-const props = defineProps ({
-  comment: {
-    type: Object,
-    default: () => {},
-    required: true,
-  },
-})
+interface Props {
+  comment: object;
+}
+
+const props = defineProps<Props>()
 </script>
 
 <style scoped>

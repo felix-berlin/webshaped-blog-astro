@@ -8,12 +8,11 @@
 <script setup lang="ts">
 import { BookOpen } from 'lucide-vue-next'
 
-const props = defineProps ({
-  time: {
-    type: Number,
-    default: 0,
-  },
-})
+interface Props {
+  time: number;
+}
+
+const props = defineProps<Props>()
 
 </script>
 
