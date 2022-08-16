@@ -363,13 +363,14 @@ export async function getAllTags() {
   return data?.tags;
 }
 
-export async function createComment(id:number, content:string, author:string) {
+export async function createComment(id:number, content:string, author:string, authorEmail: string) {
   return await fetchAPI(`
     mutation {
       createComment(input: {
         commentOn: ${id},
         content: "${content}",
-        author: "${author}"
+        author: "${author}",
+        authorEmail: ${authorEmail}
       }) {
         comment {
           id
@@ -377,6 +378,7 @@ export async function createComment(id:number, content:string, author:string) {
           author {
             node {
               name
+              email
             }
           }
         }

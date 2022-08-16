@@ -2,6 +2,7 @@
   <div>
       <h2>Create Comment</h2>
       <input type="text" v-model="commentForm.author" placeholder="Author"/>
+      <input type="email" v-model="commentForm.email" placeholder="Email"/>
       <textarea type="text" v-model="commentForm.comment"/>
       <button type="button" @click.prevent="create()">Submit</button>
   </div>
@@ -13,24 +14,30 @@ import { ref, onMounted, reactive } from 'vue';
 import { useStore } from '@nanostores/vue';
 import { loadingState } from '../../store/store'
 
-const props = defineProps ({
-  currentPostId: {
-    type: Number,
-    default: undefined,
-  },
-})
+interface Props {
+  currentPostId: number;
+}
+
+const props = defineProps<Props>()
 
 const user = useStore(loadingState)
 
-const commentForm = reactive({
+interface CommentForm {
+  comment: string;
+  author: string;
+  email?: string;
+}
+
+const commentForm: CommentForm = reactive({
   comment: '',
   author: '',
+  email: '',
 })
 
 async function create() {
-  return await createComment(767, commentForm.comment, commentForm.author)
-  .then(({res}) => console.log(res)
-  ).then(data => console.log(data)).catch(err => console.log(err))
+  return await createComment(props.currentPostId, commentForm.comment, commentForm.author, commentForm.email)
+  .then(({res}) => console.log(res))
+  .then(data => console.log(data)).catch(err => console.log(err))
 };
 
 
