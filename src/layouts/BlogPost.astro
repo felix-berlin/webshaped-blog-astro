@@ -6,6 +6,9 @@ import Header from "../components/Header.vue";
 import Date from "../components/Date.vue";
 import ReadingTime from '../components/ReadingTime.vue';
 import Comments from '../components/Comments.vue';
+import CommentCount from '../components/CommentCount.vue';
+import Share from '../components/Share.vue';
+import TableOfContents from '../components/TableOfContents.vue';
 
 export interface Props {
 	content: {
@@ -26,11 +29,14 @@ export interface Props {
 		},
 		navItems: object;
 		comments: object;
+		commentCount: number;
+		id: number;
+		content: string;
 	};
 }
 
 const {
-	content: { title, publishDate, heroImage, seoData, language, navItems, comments },
+	content: { title, publishDate, heroImage, seoData, language, navItems, comments, commentCount, id, content },
 } = Astro.props as Props;
 
 const langAttr = language.locale.replace('_', '-');
@@ -57,7 +63,14 @@ const langAttr = language.locale.replace('_', '-');
 				)}
 				<h1 class="title">{title}</h1>
 				<Date date={publishDate} client:visible></Date>
+
+				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
+
+				<Share title={seoData.title} text={seoData.opengraphDescription} client:visible></Share>
+
 				<ReadingTime time={seoData.readingTime} />
+
+				<TableOfContents target="main" setIndexIdToHeadlines={true} content={content}></TableOfContents>
 				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
 			</header>
 			<main>
@@ -65,7 +78,7 @@ const langAttr = language.locale.replace('_', '-');
 			</main>
 		</article>
 		<div>
-			<Comments comments={comments} client:load></Comments>
+			<Comments comments={comments} currentPostId={id} client:load id="comments"></Comments>
 		</div>
 	</body>
 </html>
