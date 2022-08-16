@@ -1,20 +1,19 @@
-const { WP_API } = import.meta.env;
+const { PUBLIC_WP_API } = import.meta.env;
 
 async function fetchAPI(query: string, { variables } = {}) {
-  const headers = { 'Content-Type': 'application/json' };
-  const res = await fetch(WP_API, {
+  const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', };
+
+  return await fetch(PUBLIC_WP_API, {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({ query, variables }),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.log(json.errors);
+  })
+  .then((res) => res.json())
+  .then((res) => res.data)
+  .catch((err) => {
+    console.error(err);
     throw new Error('Failed to fetch API');
-  }
-
-  return json.data;
+   });
 }
 
 export async function getAllPagesWithSlugs() {
@@ -364,32 +363,14 @@ export async function getAllTags() {
   return data?.tags;
 }
 
-async function mutateAPI(query: string, { variables } = {}) {
-  const headers = { 'Content-Type': 'application/json' };
-  const res = await fetch(WP_API, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify({ query, variables }),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.log(json.errors);
-    throw new Error('Failed to fetch API');
-  }
-
-  return json.data;
-}
-
 export async function createComment(id:number, content:string, author:string) {
-  const data = await mutateAPI(`
-    mutation CREATE_COMMENT {
+  return await fetchAPI(`
+    mutation {
       createComment(input: {
         commentOn: ${id},
-        content: ${content},
-        author: ${author}
+        content: "${content}",
+        author: "${author}"
       }) {
-        success
         comment {
           id
           content
@@ -402,6 +383,4 @@ export async function createComment(id:number, content:string, author:string) {
       }
     }`
   );
-
-  return data;
 }

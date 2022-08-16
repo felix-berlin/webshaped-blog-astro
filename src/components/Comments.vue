@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Comments</h2>
+    <CreateComment></CreateComment>
     <template v-for="(comment, index) in comments.nodes" :key="comment.id">
       <CommentItem :comment="comment"></CommentItem>
     </template>
@@ -10,6 +11,7 @@
 <script setup lang="ts">
 import { reactive , onMounted } from 'vue';
 import CommentItem from '../components/CommentItem.vue';
+import CreateComment from '../components/CreateComment.vue';
 
 const props = defineProps ({
   comments: {
