@@ -27,7 +27,7 @@ export interface Props {
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, seo } = Astro.props;
+const { title, seo } = Astro.props as Props;
 ---
 
 <!-- Global Metadata -->
