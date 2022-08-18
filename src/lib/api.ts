@@ -31,10 +31,53 @@ export async function getAllPagesWithSlugs() {
   return data?.pages;
 }
 
+export async function getCategoryBySlug(slug:string) {
+  const data = await fetchAPI(`
+  {
+    categories(first: 10000, where: {slug: "${slug}"}) {
+      nodes {
+        name
+        slug
+        count
+        language {
+          code
+          locale
+          name
+          slug
+        }
+        seo {
+          title
+          canonical
+          metaDesc
+          opengraphSiteName
+          opengraphAuthor
+          opengraphDescription
+          opengraphPublisher
+          opengraphTitle
+          opengraphType
+          opengraphUrl
+          opengraphPublishedTime
+          opengraphModifiedTime
+          opengraphImage {
+            sourceUrl
+          }
+          twitterDescription
+          twitterTitle
+          metaRobotsNofollow
+          metaRobotsNoindex
+        }
+      }
+    }
+  }
+  `);
+  return data?.categories?.nodes;
+}
+
 export async function getPageBySlug(slug:string) {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
+      slug
       title
       content
       language {
@@ -100,22 +143,19 @@ export async function getPrimaryMenu(lang='de') {
 
 export async function getMenuById(id: number) {
   const data = await fetchAPI(`
+  {
     menu(id: ${id}, idType: DATABASE_ID) {
-    name
-    menuItems(where: {parentDatabaseId: 0}) {
-      nodes {
-        id
-        databaseId
-        label
-        parentId
-        parentDatabaseId
-        childItems {
-          nodes {
-            id
-            databaseId
-            label
-            parentId
-            parentDatabaseId
+      menuItems(where: {parentDatabaseId: 0}) {
+        nodes {
+          label
+          order
+          path
+          childItems {
+            nodes {
+              label
+              order
+              path
+            }
           }
         }
       }
@@ -153,6 +193,37 @@ export async function getPostBySlug(slug:string) {
         modifiedGmt
         content
         postId
+        author {
+          node {
+            avatar {
+              foundAvatar
+              height
+              url
+              width
+            }
+            email
+            firstName
+            lastName
+            description
+            id
+            seo {
+              social {
+                facebook
+                instagram
+                linkedIn
+                mySpace
+                pinterest
+                soundCloud
+                twitter
+                wikipedia
+                youTube
+              }
+            }
+            socialAdvanced {
+              github
+            }
+          }
+        }
         featuredImage {
           node {
             altText
