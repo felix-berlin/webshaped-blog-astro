@@ -6,30 +6,12 @@
     >
     <p>{{ author.firstName + ' ' + author.lastName }}</p>
     <p>{{ author.description }}</p>
-    <div>
-      <template
-        v-for="(social, index) in socials"
-        :key="index"
-      >
-        <a
-          v-if="social.length > 0 && social !== null"
-          :href="social"
-          target="_blank"
-          :title="`Besuche mich auf ${index}`"
-        >
-          <Github v-if="index === 'github'" />
-          <Facebook v-if="index === 'facebook'" />
-          <Twitter v-if="index === 'twitter'" />
-          <Instagram v-if="index === 'instagram'" />
-          <Youtube v-if="index === 'youTube'" />
-        </a>
-      </template>
-    </div>
+    <SocialList :social-items="socials" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Github, Facebook, Twitter, Instagram, Youtube } from 'lucide-vue-next'
+import SocialList from '@components/SocialList.vue'
 
 export interface AuthorProps {
   author: {
