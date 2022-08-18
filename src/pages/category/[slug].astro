@@ -1,0 +1,75 @@
+---
+// import BlogPostVue from '../../layouts/BlogPost.vue'
+import BlogPostPreview from '../../components/BlogPostPreview.vue';
+import Header from '../../components/Header.vue';
+import BaseHead from '../../components/BaseHead.astro';
+import { getAllCategories, getCategoryBySlug, getMenuById } from '../../lib/api';
+
+export async function getStaticPaths() {
+  const postWithSlugs = await getAllCategories();
+
+  return postWithSlugs.nodes.map(category => {
+    return {
+      params: { slug: category.slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+// console.log(slug);
+
+let category = await getCategoryBySlug(slug);
+
+category = category[0];
+console.log(category);
+
+const { menuItems } = await getMenuById(2);
+
+// const content = {
+//   title: category.name,
+//   description: category.excerpt,
+//   publishDate: category.dateGmt,
+//   heroImage: {
+//     src: category.featuredImage.node.mediaItemUrl,
+//     alt: category.featuredImage.node.altText,
+//     srcset: category.featuredImage.node.srcSet,
+//     sizes: category.featuredImage.node.sizes,
+//     mediaDetails: category.featuredImage.node.mediaDetails
+//   },
+//   seoData: category.seo,
+//   language: category.language,
+//   navItems: menuItems,
+//   comments: category.comments,
+//   id: category.postId,
+//   commentCount: category.commentCount,
+//   content: category.content,
+//   categories: category.categories.edges,
+// }
+
+const langAttr = category.language.locale.replace('_', '-');
+
+---
+<!-- <html> -->
+<html lang={langAttr}>
+	<head>
+		<BaseHead title={category.name} seo={category.seo} />
+	</head>
+
+	<body>
+		<Header menuItems={menuItems} client:visible />
+		<div class="wrapper">
+			<main class="content">
+				<p>Category overview</p>
+				<section class="intro">
+					<h1>{category.name}</h1>
+					<!-- <p>{description}</p> -->
+				</section>
+				<section aria-label="Blog post list">
+
+          <!-- <BlogPostPreview posts={posts} client:visible></BlogPostPreview> -->
+
+				</section>
+			</main>
+		</div>
+	</body>
+</html>
