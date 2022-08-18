@@ -1,0 +1,50 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+
+import { getPageBySlug } from '../lib/api';
+
+// Get all pages
+// export async function getStaticPaths() {
+//   const pagesWithSlugs = await getAllPagesWithSlugs();
+//   return pagesWithSlugs.edges.map(({ node }) => {
+//     return {
+//       params: { slug: node.slug },
+//     };
+//   });
+// }
+
+export async function getStaticPaths() {
+
+  const privacy = await getPageBySlug('datenschutz');
+  const imprint = await getPageBySlug('impressum');
+
+  const pages = [privacy, imprint];
+
+  return pages.map( page => {
+    return {
+      params: { pageSlug: page.slug },
+    };
+  });
+}
+
+const { pageSlug } = Astro.params;
+const page = await getPageBySlug(pageSlug);
+
+const langAttr = page.language.locale.replace('_', '-');
+
+---
+
+<html lang={langAttr}>
+	<head>
+		<BaseHead title={page.title} seo={page.seo} />
+	</head>
+
+	<body>
+		<Header />
+		<div class="wrapper">
+      <h1 >{page?.title}</h1>
+      <article set:html={page.content}></article>
+		</div>
+	</body>
+</html>

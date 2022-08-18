@@ -1,24 +1,23 @@
 ---
 // import BlogPostVue from '../../layouts/BlogPost.vue'
-import BlogPost from '../../layouts/BlogPost.astro';
+import BlogPost from '../layouts/BlogPost.astro';
 
-import { getAllPostsWithSlugs, getPostBySlug } from '../../lib/api';
-import { getPrimaryMenu } from '../../lib/api';
+import { getAllPostsWithSlugs, getPostBySlug, getMenuById } from '../lib/api';
 
 export async function getStaticPaths() {
   const postWithSlugs = await getAllPostsWithSlugs();
 
   return postWithSlugs.edges.map(({ node }) => {
     return {
-      params: { slug: node.slug },
+      params: { postSlug: node.slug },
     };
   });
 }
 
-const { slug } = Astro.params;
-const post = await getPostBySlug(slug);
+const { postSlug } = Astro.params;
+const post = await getPostBySlug(postSlug);
 
-const { menuItems } = await getPrimaryMenu();
+const { menuItems } = await getMenuById(2);
 
 const content = {
   title: post.title,
@@ -38,6 +37,8 @@ const content = {
   id: post.postId,
   commentCount: post.commentCount,
   content: post.content,
+  categories: post.categories.edges,
+  author: post.author.node,
 }
 
 ---
