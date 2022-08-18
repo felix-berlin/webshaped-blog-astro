@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BookOpen/>
+    <BookOpen />
     <time>{{ time }}</time>Min
   </div>
 </template>

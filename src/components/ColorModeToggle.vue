@@ -1,11 +1,17 @@
 <template>
-  <button type="button" @click="toggle()">
-    <Transition name="fade" mode="out-in">
+  <button
+    type="button"
+    @click="toggle()"
+  >
+    <Transition
+      name="fade"
+      mode="out-in"
+    >
       <span v-if="isDark">
-        <Moon/>
+        <Moon />
       </span>
       <span v-else-if="!isDark">
-        <Sun/>
+        <Sun />
       </span>
     </Transition>
   </button>

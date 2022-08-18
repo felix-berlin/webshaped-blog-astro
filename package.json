@@ -8,7 +8,9 @@
     "build": "astro check && tsc --noEmit && vue-tsc --noEmit && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint:style": "stylelint \"**/*.{scss,sass}\" --ignore-path .gitignore"
+    "lint:js": "eslint --ext \".ts,.js,.astro,.vue\" --ignore-path .gitignore .",
+    "lint:style": "stylelint \"**/*.{scss,sass}\" --ignore-path .gitignore",
+    "lint": "npm run lint:js && npm run lint:style"
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^1.0.1",
@@ -16,7 +18,12 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "astro": "^1.0.6",
+    "eslint": "^8.22.0",
+    "eslint-plugin-astro": "^0.17.1",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-vue": "^9.3.0",
     "postcss-scss": "^4.0.4",
     "sass": "^1.54.4",
     "semantic-release": "^19.0.3",
@@ -34,7 +41,7 @@
     "@nanostores/vue": "^0.5.5",
     "@vueuse/core": "^9.1.0",
     "floating-vue": "^2.0.0-beta.19",
-    "lucide-vue-next": "^0.84.0",
+    "lucide-vue-next": "^0.87.0",
     "nanostores": "^0.6.0",
     "preact": "^10.10.3",
     "prismjs": "^1.28.0"

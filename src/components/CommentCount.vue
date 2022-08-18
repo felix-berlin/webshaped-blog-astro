@@ -1,9 +1,12 @@
 <template>
-  <component :is="isElement" class="c-comment-count">
+  <component
+    :is="isElement"
+    class="c-comment-count"
+  >
     <span class="c-comment-count__icon">
-      <MessageSquare></MessageSquare>
+      <MessageSquare />
     </span>
-    <span class="c-comment-count__count">{{ commentTotal }}</span>
+    <span class="c-comment-count__count">{{ commentTotal ? commentTotal : 0 }}</span>
   </component>
 </template>
 
@@ -11,7 +14,7 @@
 import { MessageSquare } from 'lucide-vue-next'
 
 interface Props {
-  commentTotal: number;
+  commentTotal: number | null;
   isElement: string;
 }
 

@@ -1,9 +1,12 @@
 <template>
   <div>
     <h2>Comments</h2>
-    <CreateComment :currentPostId="currentPostId"></CreateComment>
-    <template v-for="(comment, index) in comments.nodes" :key="comment.id">
-      <CommentItem :comment="comment"></CommentItem>
+    <CreateComment :current-post-id="currentPostId" />
+    <template
+      v-for="(comment, index) in comments.nodes"
+      :key="comment.id"
+    >
+      <CommentItem :comment="comment" />
     </template>
   </div>
 </template>

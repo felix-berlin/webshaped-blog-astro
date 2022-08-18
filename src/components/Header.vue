@@ -2,29 +2,42 @@
   <header class="wrapper">
     <nav>
       <a href="/">
-        <img src="https://cms.webshaped.de/wp-content/uploads/webshaped_logo_2018_rbg_light.svg" alt="Logo">
+        <img
+          src="https://cms.webshaped.de/wp-content/uploads/webshaped_logo_2018_rbg_light.svg"
+          alt="Logo"
+        >
       </a>
       <ul>
-        <li v-for="(item, index) in menuItems.nodes" :class="{'has-child': item.childItems.nodes.length > 0}" :key="index">
-            <a :href="item.path" v-if="item.childItems.nodes.length === 0">
-              {{ item.label }}
-            </a>
-            <Menu
-              v-else
-              :distance="6"
-            >
-              <span>{{ item.label }}</span>
+        <li
+          v-for="(item, index) in menuItems.nodes"
+          :key="index"
+          :class="{'has-child': item.childItems.nodes.length > 0}"
+        >
+          <a
+            v-if="item.childItems.nodes.length === 0"
+            :href="item.path"
+          >
+            {{ item.label }}
+          </a>
+          <Menu
+            v-else
+            :distance="6"
+          >
+            <span>{{ item.label }}</span>
 
-              <template #popper>
-                <template v-for="child in item.childItems.nodes">
-                  <a :href="child.path">{{ child.label }}</a>
-                </template>
+            <template #popper>
+              <template
+                v-for="(child, index) in item.childItems.nodes"
+                :key="index"
+              >
+                <a :href="child.path">{{ child.label }}</a>
               </template>
-            </Menu>
+            </template>
+          </Menu>
         </li>
       </ul>
     </nav>
-    <ColorModeToggle></ColorModeToggle>
+    <ColorModeToggle />
   </header>
 </template>
 

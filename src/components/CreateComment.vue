@@ -1,10 +1,26 @@
 <template>
   <div>
-      <h2>Create Comment</h2>
-      <input type="text" v-model="commentForm.author" placeholder="Author"/>
-      <input type="email" v-model="commentForm.email" placeholder="Email"/>
-      <textarea type="text" v-model="commentForm.comment"/>
-      <button type="button" @click.prevent="create()">Submit</button>
+    <h2>Create Comment</h2>
+    <input
+      v-model="commentForm.author"
+      type="text"
+      placeholder="Author"
+    >
+    <input
+      v-model="commentForm.email"
+      type="email"
+      placeholder="Email"
+    >
+    <textarea
+      v-model="commentForm.comment"
+      type="text"
+    />
+    <button
+      type="button"
+      @click.prevent="create()"
+    >
+      Submit
+    </button>
   </div>
 </template>
 

@@ -1,8 +1,18 @@
 <template>
-  <div id="tableOfContents" class="c-toc">
+  <div
+    id="tableOfContents"
+    class="c-toc"
+  >
     <h2>Table of Contents</h2>
-    <template v-for="(headline, index) in getHeadlines(content)" :key="index">
-      <a :href="`#${headline.id}`" :class="`c-toc-link__depth-${headline.level}`" style="display: block">{{ headline.title }}</a>
+    <template
+      v-for="(headline, index) in getHeadlines(content)"
+      :key="index"
+    >
+      <a
+        :href="`#${headline.id}`"
+        :class="`c-toc-link__depth-${headline.level}`"
+        style="display: block"
+      >{{ headline.title }}</a>
     </template>
   </div>
 </template>

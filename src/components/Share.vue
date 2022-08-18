@@ -1,6 +1,9 @@
 <template>
-  <button type="button" @click.prevent="share(title, text, data.currentUrl)">
-    <Share2></Share2>
+  <button
+    type="button"
+    @click.prevent="share(title, text, data.currentUrl)"
+  >
+    <Share2 />
   </button>
 </template>
 

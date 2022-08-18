@@ -1,5 +1,8 @@
 <template>
-  <div id="tableOfContents" class="c-toc"></div>
+  <div
+    id="tableOfContents"
+    class="c-toc"
+  />
 </template>
 
 <script setup lang="ts">
