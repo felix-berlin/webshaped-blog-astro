@@ -1,10 +1,10 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import Header from '../components/Header.vue';
 // import BlogPostPreview from '../components/BlogPostPreview.astro';
 import BlogPostPreview from '../components/BlogPostPreview.vue';
 // import Test from '../components/Test.vue';
-import { getAllPostsWithContent, getPageBySlug } from '../lib/api';
+import { getAllPostsWithContent, getPageBySlug, getMenuById } from '../lib/api';
 
 let title = 'Example Blog';
 let description = 'The perfect starter for your perfect blog.';
@@ -34,6 +34,8 @@ async function allPosts() {
 const index = await getPageBySlug('blog-index');
 const langAttr = index.language.locale.replace('_', '-');
 
+const { menuItems } = await getMenuById(2);
+
 
 // console.log(await allPosts());
 const {edges} = await allPosts();
@@ -47,7 +49,7 @@ const posts = edges;
 	</head>
 
 	<body>
-		<Header />
+		<Header menuItems={menuItems} client:visible />
 		<div class="wrapper">
 			<main class="content">
 				<p>Blog overview</p>
