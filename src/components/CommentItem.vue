@@ -20,7 +20,27 @@
 import Date from '../components/Date.vue';
 
 interface Props {
-  comment: object;
+  comment: {
+    content: string;
+    dateGmt: string;
+    id: string;
+    parentId: string;
+    commentId: number;
+    author: {
+      node: {
+        name: string;
+        id: string;
+        avatar: {
+          url?: string;
+          width?: number;
+          height?: number;
+        }
+      }
+    }
+    replies: {
+      nodes: [];
+    }
+  };
 }
 
 const props = defineProps<Props>()
