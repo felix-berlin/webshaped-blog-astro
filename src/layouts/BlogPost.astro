@@ -9,6 +9,8 @@ import Comments from '../components/Comments.vue';
 import CommentCount from '../components/CommentCount.vue';
 import Share from '../components/Share.vue';
 import TableOfContents from '../components/TableOfContents.vue';
+import Categories from '../components/Categories.vue';
+import Author from '../components/Author.vue';
 
 export interface Props {
 	content: {
@@ -32,11 +34,26 @@ export interface Props {
 		commentCount: number;
 		id: number;
 		content: string;
+		categories: object;
+		author: object;
 	};
 }
 
 const {
-	content: { title, publishDate, heroImage, seoData, language, navItems, comments, commentCount, id, content },
+	content: {
+		title,
+		publishDate,
+		heroImage,
+		seoData,
+		language,
+		navItems,
+		comments,
+		commentCount,
+		id,
+		content,
+		categories,
+		author
+	},
 } = Astro.props as Props;
 
 const langAttr = language.locale.replace('_', '-');
@@ -70,7 +87,11 @@ const langAttr = language.locale.replace('_', '-');
 
 				<ReadingTime time={seoData.readingTime} />
 
-				<TableOfContents target="main" setIndexIdToHeadlines={true} content={content}></TableOfContents>
+				<Categories categories={categories} client:visible></Categories>
+
+				<Author author={author} client:visible></Author>
+
+				<TableOfContents content={content}></TableOfContents>
 				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
 			</header>
 			<main>
