@@ -2,44 +2,38 @@
 import '@fontsource/source-sans-pro';
 import BaseHead from "@components/BaseHead.astro";
 // import Header from "@components/Header.astro";
-import Header from '@components/Header.vue';
-import Date from '@components/Date.vue';
+import Header from "@components/Header.vue";
+import Date from "@components/Date.vue";
 import ReadingTime from '@components/ReadingTime.vue';
 import Comments from '@components/Comments.vue';
 import CommentCount from '@components/CommentCount.vue';
 import Share from '@components/Share.vue';
 import TableOfContents from '@components/TableOfContents.vue';
 import Categories from '@components/Categories.vue';
-import Author from '@components/Author.vue';
 
-import type { AuthorProps } from '@components/Author.vue';
-import type { SeoProps } from '@components/BaseHead.astro';
-import type { HeaderProps } from '@components/Header.vue';
-
-export interface BlogPost {
+export interface Props {
 	content: {
 		title: string;
 		publishDate: string;
-		heroImage: {
+		heroImage?: {
 			src: string;
 			alt: string;
 			srcset: string;
 			sizes: string;
 			mediaDetails: object;
 		};
-		seoData?: SeoProps;
+		seoData?: object;
 		language: {
 			code: string;
 			locale: string;
 			name: string;
 		},
-		navItems: HeaderProps;
+		navItems: object;
 		comments: object;
 		commentCount: number;
 		id: number;
 		content: string;
 		categories: object;
-		author: AuthorProps;
 	};
 }
 
@@ -55,10 +49,9 @@ const {
 		commentCount,
 		id,
 		content,
-		categories,
-		author
+		categories
 	},
-} = Astro.props as BlogPost;
+} = Astro.props as Props;
 
 const langAttr = language.locale.replace('_', '-');
 ---
@@ -87,13 +80,11 @@ const langAttr = language.locale.replace('_', '-');
 
 				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
 
-				<Share title={seoData.title} text={seoData?.opengraphDescription} client:visible></Share>
+				<Share title={seoData.title} text={seoData.opengraphDescription} client:visible></Share>
 
-				<ReadingTime time={seoData?.readingTime} />
+				<ReadingTime time={seoData.readingTime} />
 
 				<Categories categories={categories} client:visible></Categories>
-
-				<Author author={author} client:visible></Author>
 
 				<TableOfContents content={content}></TableOfContents>
 				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->

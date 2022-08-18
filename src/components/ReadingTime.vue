@@ -8,11 +8,11 @@
 <script setup lang="ts">
 import { BookOpen } from 'lucide-vue-next'
 
-interface Props {
+export interface ReadingTimeProps {
   time: number;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<ReadingTimeProps>()
 
 </script>
 

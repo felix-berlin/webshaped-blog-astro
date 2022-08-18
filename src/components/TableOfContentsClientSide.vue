@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref, onMounted, reactive, nextTick } from 'vue';
 
-interface Props {
+export interface TableOfContentsClientSideProps {
   target?: string,
   h2Class?: string,
   h3Class?: string,
@@ -20,7 +20,7 @@ const {
   h2Class = 'c-toc__h2',
   h3Class = 'c-toc__h3',
   setIndexIdToHeadlines = false,
-} = defineProps<Props>()
+} = defineProps<TableOfContentsClientSideProps>()
 
 
 const createTocClientSide = () => {

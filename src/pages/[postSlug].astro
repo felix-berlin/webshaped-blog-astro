@@ -1,8 +1,8 @@
 ---
-// import BlogPostVue from '../../layouts/BlogPost.vue'
-import BlogPost from '../layouts/BlogPost.astro';
+// import BlogPostVue from '@layouts/BlogPost.vue'
+import BlogPost from '@layouts/BlogPost.astro';
 
-import { getAllPostsWithSlugs, getPostBySlug, getMenuById } from '../lib/api';
+import { getAllPostsWithSlugs, getPostBySlug, getMenuById } from '@lib/api';
 
 export async function getStaticPaths() {
   const postWithSlugs = await getAllPostsWithSlugs();

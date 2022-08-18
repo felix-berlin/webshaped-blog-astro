@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import Date from '../components/Date.vue'
+import Date from '@components/Date.vue'
 
 interface Props {
   posts: object;

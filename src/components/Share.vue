@@ -11,13 +11,13 @@
 import { Share2 } from 'lucide-vue-next';
 import { ref, onMounted, reactive } from 'vue';
 
-interface Props {
+export interface ShareProps {
   title: string;
   text: string;
   url?: string;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<ShareProps>()
 
 interface Data {
   shared: boolean;

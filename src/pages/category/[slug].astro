@@ -1,8 +1,8 @@
 ---
-// import BlogPostVue from '../../layouts/BlogPost.vue'
-import BlogPostPreview from '../../components/BlogPostPreview.vue';
-import Header from '../../components/Header.vue';
-import BaseHead from '../../components/BaseHead.astro';
+// import BlogPostVue from '../@layouts/BlogPost.vue'
+import BlogPostPreview from '../@components/BlogPostPreview.vue';
+import Header from '../@components/Header.vue';
+import BaseHead from '../@components/BaseHead.astro';
 import { getAllCategories, getCategoryBySlug, getMenuById } from '../../lib/api';
 
 export async function getStaticPaths() {

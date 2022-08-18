@@ -43,11 +43,11 @@
 
 <script setup lang="ts">
   // import { props } from '@astrojs/vue';
-import ColorModeToggle from "../components/ColorModeToggle.vue";
+import ColorModeToggle from '@components/ColorModeToggle.vue';
 import { Menu } from 'floating-vue';
 import 'floating-vue/dist/style.css';
 
-interface Props {
+export interface HeaderProps {
   menuItems: {
     nodes: [
       {
@@ -68,7 +68,7 @@ interface Props {
   };
 }
 
-const props = defineProps<Props>()
+const props = defineProps<HeaderProps>()
 
 
 </script>

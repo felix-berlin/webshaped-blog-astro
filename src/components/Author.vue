@@ -21,7 +21,7 @@
           <Facebook v-if="index === 'facebook'" />
           <Twitter v-if="index === 'twitter'" />
           <Instagram v-if="index === 'instagram'" />
-          <Youtube v-if="index === 'youtube'" />
+          <Youtube v-if="index === 'youTube'" />
         </a>
       </template>
     </div>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { Github, Facebook, Twitter, Instagram, Youtube } from 'lucide-vue-next'
 
-interface Props {
+export interface AuthorProps {
   author: {
     avatar: {
       foundAvatar: boolean;
@@ -63,7 +63,7 @@ interface Props {
   }
 }
 
-const props = defineProps<Props>()
+const props = defineProps<AuthorProps>()
 
 const socials = { ...props.author.seo.social, ...props.author.socialAdvanced }
 

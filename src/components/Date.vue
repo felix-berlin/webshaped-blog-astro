@@ -5,11 +5,11 @@
 <script setup lang="ts">
 import { reactive , onMounted } from 'vue';
 
-interface Props {
+export interface DateProps {
   date: string;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<DateProps>()
 
 const data = {
   formatDateString: props.date.replace(/T/g, ' '),

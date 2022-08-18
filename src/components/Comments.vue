@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import { reactive , onMounted } from 'vue';
-import CommentItem from '../components/CommentItem.vue';
-import CreateComment from '../components/CreateComment.vue';
+import CommentItem from '@components/CommentItem.vue';
+import CreateComment from '@components/CreateComment.vue';
 
 interface Props {
   comments: object;

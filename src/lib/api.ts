@@ -1,6 +1,6 @@
 const { PUBLIC_WP_API } = import.meta.env;
 
-async function fetchAPI(query: string, { variables } = {}) {
+async function fetchAPI(query:string, { variables } = {}) {
   const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', };
 
   return await fetch(PUBLIC_WP_API, {
@@ -418,6 +418,11 @@ export async function getAllCategories() {
   return data?.categories;
 }
 
+/**
+ * receives all available tags from API
+ *
+ * @return  {object}
+ */
 export async function getAllTags() {
   const data = await fetchAPI(`
   {

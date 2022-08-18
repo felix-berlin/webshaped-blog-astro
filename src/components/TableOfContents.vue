@@ -19,13 +19,13 @@
 
 <script setup lang="ts">
 
-interface Props {
+export interface TableOfContentsProps {
   content: string,
 }
 
 const {
   content
-} = defineProps<Props>()
+} = defineProps<TableOfContentsProps>()
 
 const getHeadlines = (content:string) => {
   const headlines = []
