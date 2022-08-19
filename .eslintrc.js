@@ -2,7 +2,8 @@ module.exports = {
   extends: [
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
-    "plugin:vue/vue3-recommended"
+    "plugin:vue/vue3-recommended",
+    "plugin:vuejs-accessibility/recommended"
   ],
   overrides: [
     {

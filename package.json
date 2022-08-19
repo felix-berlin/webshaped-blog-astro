@@ -24,6 +24,7 @@
     "eslint-plugin-astro": "^0.17.1",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-vue": "^9.3.0",
+    "eslint-plugin-vuejs-accessibility": "^1.2.0",
     "postcss-scss": "^4.0.4",
     "sass": "^1.54.4",
     "semantic-release": "^19.0.3",
