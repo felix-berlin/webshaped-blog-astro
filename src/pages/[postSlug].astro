@@ -2,7 +2,7 @@
 // import BlogPostVue from '@layouts/BlogPost.vue'
 import BlogPost from '@layouts/BlogPost.astro';
 
-import { getAllPostsWithSlugs, getPostBySlug, getMenuById } from '@lib/api';
+import { getAllPostsWithSlugs, getPostBySlug } from '@lib/api';
 
 export async function getStaticPaths() {
   const postWithSlugs = await getAllPostsWithSlugs();
@@ -16,34 +16,9 @@ export async function getStaticPaths() {
 
 const { postSlug } = Astro.params;
 const post = await getPostBySlug(postSlug);
-
-const { menuItems } = await getMenuById(2);
-
-const content = {
-  title: post.title,
-  description: post.excerpt,
-  publishDate: post.dateGmt,
-  heroImage: {
-    src: post.featuredImage.node.mediaItemUrl,
-    alt: post.featuredImage.node.altText,
-    srcset: post.featuredImage.node.srcSet,
-    sizes: post.featuredImage.node.sizes,
-    mediaDetails: post.featuredImage.node.mediaDetails
-  },
-  seoData: post.seo,
-  language: post.language,
-  navItems: menuItems,
-  comments: post.comments,
-  id: post.postId,
-  commentCount: post.commentCount,
-  content: post.content,
-  categories: post.categories.edges,
-  author: post.author.node,
-}
-
 ---
 
-<BlogPost content={content}>
+<BlogPost content={post}>
   <div class="wrapper">
     <article set:html={post.content}></article>
   </div>

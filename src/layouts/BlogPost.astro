@@ -1,7 +1,6 @@
 ---
 import '@fontsource/source-sans-pro';
 import BaseHead from "@components/BaseHead.astro";
-// import Header from "@components/Header.astro";
 import Header from '@components/Header.vue';
 import Date from '@components/Date.vue';
 import ReadingTime from '@components/ReadingTime.vue';
@@ -14,43 +13,44 @@ import Author from '@components/Author.vue';
 
 import type { AuthorProps } from '@components/Author.vue';
 import type { SeoProps } from '@components/BaseHead.astro';
-import type { HeaderProps } from '@components/Header.vue';
 
-export interface BlogPost {
+import { getMenuById } from '@lib/api';
+
+export interface BlogPost extends AuthorProps, SeoProps {
 	content: {
-		title: string;
-		publishDate: string;
-		heroImage: {
-			src: string;
-			alt: string;
-			srcset: string;
-			sizes: string;
-			mediaDetails: object;
+		dateGmt: string;
+		featuredImage: {
+      node: {
+        mediaItemUrl: string;
+        altText: string;
+        srcSet: string;
+        sizes: string;
+        mediaDetails: {
+          width: number;
+          height: number;
+        },
+      }
 		};
-		seoData?: SeoProps;
 		language: {
 			code: string;
 			locale: string;
 			name: string;
 		},
-		navItems: HeaderProps;
 		comments: object;
 		commentCount: number;
 		id: number;
 		content: string;
 		categories: object;
-		author: AuthorProps;
 	};
 }
 
 const {
 	content: {
 		title,
-		publishDate,
-		heroImage,
-		seoData,
+		dateGmt,
+		featuredImage,
+		seo,
 		language,
-		navItems,
 		comments,
 		commentCount,
 		id,
@@ -61,42 +61,45 @@ const {
 } = Astro.props as BlogPost;
 
 const langAttr = language.locale.replace('_', '-');
+
+const { menuItems } = await getMenuById(2);
+
 ---
 
 <html lang={langAttr}>
 	<head>
-		<BaseHead title={title} seo={seoData} />
+		<BaseHead title={title} seo={seo} />
 	</head>
 
 	<body>
-		<Header menuItems={navItems} client:visible/>
+		<Header menuItems={menuItems} client:visible/>
 		<article class="wrapper content">
 			<header>
-				{heroImage && (
+				{featuredImage && (
 					<img
-						width={heroImage.mediaDetails.width}
-						height={heroImage.mediaDetails.height}
+						width={featuredImage.node.mediaDetails.width}
+						height={featuredImage.node.mediaDetails.height}
 						loading="eager"
-						alt={heroImage.alt}
-						src={heroImage.src}
-						srcset={heroImage.srcset}
+						alt={featuredImage.node.altText}
+						src={featuredImage.node.mediaItemUrl}
+						srcset={featuredImage.node.srcSet}
 					/>
 				)}
 				<h1 class="title">{title}</h1>
-				<Date date={publishDate} client:visible></Date>
+				<Date date={dateGmt} client:visible></Date>
 
 				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
 
-				<Share title={seoData.title} text={seoData?.opengraphDescription} client:visible></Share>
+				<Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
 
-				<ReadingTime time={seoData?.readingTime} />
+				<ReadingTime time={seo.readingTime} />
 
 				<Categories categories={categories} client:visible></Categories>
 
 				<Author author={author} client:visible></Author>
 
 				<TableOfContents content={content}></TableOfContents>
-				<!-- <time>{new Date(publishDate).toLocaleString(window.navigator.language, { year: 'numeric', month: 'long', day: 'numeric' })}</time> -->
+
 			</header>
 			<main>
 				<slot></slot>
