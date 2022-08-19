@@ -1,6 +1,5 @@
 ---
-import BaseHead from '@components/BaseHead.astro';
-import Header from '@components/Header.astro';
+import DefaultLayout from '@layouts/DefaultLayout.astro';
 
 import { getPageBySlug } from '../lib/api';
 
@@ -30,21 +29,10 @@ export async function getStaticPaths() {
 
 const { pageSlug } = Astro.params;
 const page = await getPageBySlug(pageSlug);
-
-const langAttr = page.language.locale.replace('_', '-');
-
 ---
-
-<html lang={langAttr}>
-	<head>
-		<BaseHead title={page.title} seo={page.seo} />
-	</head>
-
-	<body>
-		<Header />
-		<div class="wrapper">
-      <h1 >{page?.title}</h1>
-      <article set:html={page.content}></article>
-		</div>
-	</body>
-</html>
+<DefaultLayout content={page}>
+  <div class="wrapper">
+    <h1>{page?.title}</h1>
+    <article set:html={page.content}></article>
+  </div>
+</DefaultLayout>

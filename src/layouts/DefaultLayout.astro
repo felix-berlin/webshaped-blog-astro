@@ -1,0 +1,105 @@
+---
+import '@fontsource/source-sans-pro';
+import BaseHead from "@components/BaseHead.astro";
+import Header from '@components/Header.vue';
+
+import type { SeoProps } from '@components/BaseHead.astro';
+
+import { getMenuById } from '@lib/api';
+
+export interface DefaultLayoutProps {
+	content: {
+		title: string;
+		seo: SeoProps;
+		language: {
+			code: string;
+			locale: string;
+			name: string;
+		},
+	};
+}
+
+const {
+	content: {
+		title,
+		seo,
+		language,
+	},
+} = Astro.props as DefaultLayoutProps;
+
+const langAttr = language.locale.replace('_', '-');
+
+const { menuItems } = await getMenuById(2);
+---
+
+<html lang={langAttr}>
+	<head>
+		<BaseHead title={title} seo={seo} />
+	</head>
+
+	<body>
+		<Header menuItems={menuItems} client:visible/>
+    <main class="main">
+      <slot></slot>
+    </main>
+	</body>
+  <footer>
+    My Footer
+  </footer>
+</html>
+
+<style>
+	img {
+		width: 100vw;
+		object-fit: cover;
+		object-position: center;
+		margin-top: 2rem;
+		margin-bottom: 4rem;
+		max-width: 1280px;
+	}
+
+	@media (max-width: 50em) {
+		img {
+			height: 260px;
+			margin-top: 0;
+			margin-bottom: 2rem;
+		}
+	}
+
+	.content {
+		margin-bottom: 8rem;
+	}
+
+	.content :global(h2) {
+		margin-top: 4rem;
+	}
+
+	header {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 4px solid var(--theme-divider);
+	}
+
+	/* Font example */
+	.title,
+	time {
+		margin: 0;
+		font-family: 'Source Sans Pro', sans-serif;
+	}
+
+	time {
+		color: var(--theme-text-lighter);
+	}
+
+	.title {
+		font-size: 2.25rem;
+		font-weight: 700;
+	}
+</style>

@@ -1,86 +1,21 @@
 ---
-import BaseHead from '@components/BaseHead.astro';
-import Header from '@components/Header.vue';
-// import BlogPostPreview from '@components/BlogPostPreview.astro';
+import DefaultLayout from '@layouts/DefaultLayout.astro'
+
 import BlogPostPreview from '@components/BlogPostPreview.vue';
-// import Test from '@components/Test.vue';
-import { getAllPostsWithContent, getPageBySlug, getMenuById } from '@lib/api';
-
-let title = 'Example Blog';
-let description = 'The perfect starter for your perfect blog.';
-
-// Use Astro.glob to fetch all post with associated frontmatter
-// const unsortedPosts = await Astro.glob('./posts/*.md');
-// const posts = unsortedPosts.sort(function (a, b) {
-// 	return (
-// 		new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf()
-// 	);
-// });
-//
-//
-async function allPosts() {
-	const postWithSlugs = await getAllPostsWithContent();
-
-  // return postWithSlugs.edges.map(({ node }) => {
-  //   return {
-  //     params: { slug: node.slug },
-  //   };
-  // });
-	// const { node } =
-	return postWithSlugs;
-}
-// const pagesWithSlugs = async () => getAllPostsWithSlugs();
+import { getPostsPreview, getPageBySlug } from '@lib/api';
 
 const index = await getPageBySlug('blog-index');
-const langAttr = index.language.locale.replace('_', '-');
 
-const { menuItems } = await getMenuById(2);
-
-
-// console.log(await allPosts());
-const {edges} = await allPosts();
-const posts = edges;
-// const unsortedPosts = await Astro.glob(allPosts());
+const posts = await getPostsPreview();
 ---
-
-<html lang={langAttr}>
-	<head>
-		<BaseHead title={title} seo={index.seo} />
-	</head>
-
-	<body>
-		<Header menuItems={menuItems} client:visible />
-		<div class="wrapper">
-			<main class="content">
-				<p>Blog overview</p>
-				<section class="intro">
-					<h1>{title}</h1>
-					<p>{description}</p>
-				</section>
-				<section aria-label="Blog post list">
-					<!-- <template v-for="post in posts"> -->
-						<BlogPostPreview posts={posts} client:visible></BlogPostPreview>
-					<!-- </template> -->
-					<!-- {posts.map(post => (
-						<BlogPostPreview
-							title={post.title}
-							// description={post.description}
-							// publishDate={post.publishDate}
-						/>
-					))} -->
-					<!-- {posts.map(({ url, frontmatter }) => (
-						<BlogPostPreview
-							title={frontmatter.title}
-							description={frontmatter.description}
-							publishDate={frontmatter.publishDate}
-							url={url}
-						/>
-					))} -->
-				</section>
-			</main>
-		</div>
-	</body>
-</html>
+<DefaultLayout content={index}>
+  <section class="intro">
+    <h1>{index.title}</h1>
+  </section>
+  <section aria-label="Blog post list">
+    <BlogPostPreview posts={posts} client:visible></BlogPostPreview>
+  </section>
+</DefaultLayout>
 
 <style>
 	.content {
