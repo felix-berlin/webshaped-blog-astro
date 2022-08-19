@@ -11,4 +11,11 @@ export default defineConfig({
 	site: `http://astro.build`,
 	// output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
+  vite: {
+    plugins: [
+      vue({
+        reactivityTransform: true
+      })
+    ]
+  }
 });
