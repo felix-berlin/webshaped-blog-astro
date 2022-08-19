@@ -8,7 +8,7 @@
         v-if="social.length > 0 && social !== null"
         :href="social"
         target="_blank"
-        :title="`Besuche mich auf ${index}`"
+        :aria-label="`Besuche mich auf ${index}`"
       >
         <Github v-if="index === 'github'" />
         <Facebook v-if="index === 'facebook'" />
@@ -25,7 +25,18 @@
 import { Github, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-vue-next'
 
 export interface SocialListProps {
-  socialItems: object
+  socialItems: {
+    facebook: string;
+    instagram: string;
+    linkedIn: string;
+    mySpace: string;
+    pinterest: string;
+    soundCloud: string;
+    twitter: string;
+    wikipedia: string;
+    youTube: string;
+    github: string | null;
+  }
 }
 
 const props = defineProps<SocialListProps>()

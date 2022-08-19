@@ -1,27 +1,53 @@
 <template>
   <article>
     <template
-      v-for="(post, index) in posts"
+      v-for="(post, index) in posts.nodes"
       :key="index"
     >
-      <a :href="post.node.slug">
-        <h2>{{ post.node.title }}</h2>
+      <a :href="'/' + post.slug">
+        <h2>{{ post.title }}</h2>
       </a>
       <Date
-        :date="post.node.dateGmt"
+        :date="post.dateGmt"
       />
-      <div v-html="post.node.excerpt" />
+
+      <CommentCount
+        :comment-total="post.commentCount"
+        is-element="div"
+      />
+
+      <ReadingTime :time="post.seo.readingTime" />
+
+      <div v-html="post.excerpt" />
     </template>
   </article>
 </template>
 
 <script setup lang="ts">
 import Date from '@components/Date.vue'
+import ReadingTime from '@components/ReadingTime.vue'
+import CommentCount from '@components/CommentCount.vue'
 
-interface Props {
-  posts: object;
+export interface BlogPostPreviewProps {
+  posts: {
+    nodes: [
+      {
+        dateGmt: string;
+        modifiedGmt: string;
+        slug: string;
+        commentCount: number;
+        excerpt: string;
+        title: string;
+        language: object;
+        featuredImage: object;
+        seo: {
+          readingTime: number;
+        };
+      }
+    ]
+  };
 }
 
-const props = defineProps<Props>()
+const props = defineProps<BlogPostPreviewProps>()
 
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="(category, index) in categories"
+    v-for="(category, index) in categories.edges"
     :key="index"
     class="c-categories"
   >

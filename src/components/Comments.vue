@@ -16,12 +16,36 @@ import { reactive , onMounted } from 'vue';
 import CommentItem from '@components/CommentItem.vue';
 import CreateComment from '@components/CreateComment.vue';
 
-interface Props {
-  comments: object;
+export interface CommentsProps {
+  comments: {
+    nodes: [
+      {
+        content: string;
+        dateGmt: string;
+        id: string;
+        parentId: string;
+        commentId: string;
+        author: {
+          node: {
+            name: string;
+            id: string;
+            avatar: {
+              url?: string;
+              width?: number;
+              height?: number;
+            };
+          }
+        }
+        replies: {
+          nodes: [];
+        }
+      }
+    ]
+  },
   currentPostId: number;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<CommentsProps>()
 
 // const flatListToHierarchical = (
 //     data = [],

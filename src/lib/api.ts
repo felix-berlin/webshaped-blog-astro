@@ -1,6 +1,6 @@
 const { PUBLIC_WP_API } = import.meta.env;
 
-async function fetchAPI(query:string, { variables } = {}) {
+async function fetchAPI(query:string, { variables } = {}):Promise<void> {
   const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', };
 
   return await fetch(PUBLIC_WP_API, {
@@ -16,7 +16,7 @@ async function fetchAPI(query:string, { variables } = {}) {
    });
 }
 
-export async function getAllPagesWithSlugs() {
+export async function getAllPagesWithSlugs():Promise<object> {
   const data = await fetchAPI(`
   {
     pages(first: 10000) {
@@ -31,7 +31,7 @@ export async function getAllPagesWithSlugs() {
   return data?.pages;
 }
 
-export async function getCategoryBySlug(slug:string) {
+export async function getCategoryBySlug(slug:string):Promise<object> {
   const data = await fetchAPI(`
   {
     categories(first: 10000, where: {slug: "${slug}"}) {
@@ -73,7 +73,7 @@ export async function getCategoryBySlug(slug:string) {
   return data?.categories?.nodes;
 }
 
-export async function getPageBySlug(slug:string) {
+export async function getPageBySlug(slug:string):Promise<object> {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
@@ -113,7 +113,7 @@ export async function getPageBySlug(slug:string) {
   return data?.page;
 }
 
-export async function getPrimaryMenu(lang='de') {
+export async function getPrimaryMenu(lang='de'):Promise<object> {
   const data = await fetchAPI(`
   {
     menus(where: {location: PRIMARY_MENU${lang === "en" ? '____EN' : ''} }) {
@@ -141,7 +141,7 @@ export async function getPrimaryMenu(lang='de') {
   return data?.menus?.nodes[0];
 }
 
-export async function getMenuById(id: number) {
+export async function getMenuById(id: number):Promise<object> {
   const data = await fetchAPI(`
   {
     menu(id: ${id}, idType: DATABASE_ID) {
@@ -167,7 +167,7 @@ export async function getMenuById(id: number) {
 }
 
 
-export async function getAllPostsWithSlugs() {
+export async function getAllPostsWithSlugs():Promise<object> {
   const data = await fetchAPI(`
   {
     posts(first: 10000) {
@@ -183,7 +183,7 @@ export async function getAllPostsWithSlugs() {
   return data?.posts;
 }
 
-export async function getPostBySlug(slug:string) {
+export async function getPostBySlug(slug:string):Promise<object> {
   const data = await fetchAPI(`
     {
       post(id: "${slug}", idType: URI) {
@@ -337,43 +337,41 @@ export async function getPostBySlug(slug:string) {
   return data?.post;
 }
 
-export async function getAllPostsWithContent() {
+export async function getPostsPreview(
+  first: number = 10000,
+  status: string = 'PUBLISH',
+  orderby: string = 'DATE',
+  order: string = 'ASC'
+):Promise<object> {
   const data = await fetchAPI(`
     {
-      posts(first: 10000) {
-        edges {
-          node {
-            slug
-            title
-            excerpt
-            dateGmt
-            modifiedGmt
-            featuredImage {
-              node {
-                altText
-                mediaItemUrl
+      posts(first: ${first}, where: {status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
+        nodes {
+          dateGmt
+          modifiedGmt
+          slug
+          commentCount
+          excerpt
+          title
+          language {
+            code
+            locale
+            name
+          }
+          featuredImage {
+            node {
+              altText
+              mediaItemUrl
+              srcSet
+              sizes
+              mediaDetails {
+                height
+                width
               }
             }
-            categories {
-              edges {
-                node {
-                  name
-                  parent {
-                    node {
-                      name
-                    }
-                  }
-                  children {
-                    edges {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            content
+          }
+          seo {
+            readingTime
           }
         }
       }
@@ -388,10 +386,14 @@ export async function getAllPostsWithContent() {
  *
  * @return  {object}
  */
-export async function getAllCategories() {
+export async function getAllCategories(
+  first: number = 10000,
+  orderby: string = 'NAME',
+  hideEmpty: boolean = true
+):Promise<object> {
   const data = await fetchAPI(`
   {
-    categories {
+    categories(first: ${first}, where: {orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
       nodes {
         count
         name
@@ -418,12 +420,59 @@ export async function getAllCategories() {
   return data?.categories;
 }
 
+export async function getPostsPreviewByCategory(
+  category:string,
+  first: number = 10000,
+  field:string = 'DATE',
+  order:string = 'ASC'
+):Promise<object> {
+  const data = await fetchAPI(`
+  {
+    posts(
+      first: ${first},
+      where: {categoryName: "${category}", orderby: {field: ${field}, order: ${order}}, status: PUBLISH}
+    ) {
+      nodes {
+        dateGmt
+        modifiedGmt
+        slug
+        commentCount
+        excerpt
+        title
+        language {
+          code
+          locale
+          name
+        }
+        featuredImage {
+          node {
+            altText
+            mediaItemUrl
+            srcSet
+            sizes
+            mediaDetails {
+              height
+              width
+            }
+          }
+        }
+        seo {
+          readingTime
+        }
+      }
+    }
+  }
+  `)
+
+  return data?.posts;
+}
+
 /**
  * receives all available tags from API
  *
  * @return  {object}
  */
-export async function getAllTags() {
+export async function getAllTags():Promise<object> {
   const data = await fetchAPI(`
   {
     tags {
@@ -439,7 +488,12 @@ export async function getAllTags() {
   return data?.tags;
 }
 
-export async function createComment(id:number, content:string, author:string, authorEmail: string) {
+export async function createComment(
+  id:number,
+  content:string,
+  author:string,
+  authorEmail: string
+):Promise<object> {
   return await fetchAPI(`
     mutation {
       createComment(input: {

@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import Date from '@components/Date.vue';
 
-interface Props {
+interface CommentItemProps {
   comment: {
     content: string;
     dateGmt: string;
@@ -64,7 +64,7 @@ interface Props {
   };
 }
 
-const props = defineProps<Props>()
+const props = defineProps<CommentItemProps>()
 </script>
 
 <style scoped>
