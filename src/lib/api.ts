@@ -168,6 +168,7 @@ export async function getMenuById(id: number):Promise<object> {
 
 
 export async function getAllPostsWithSlugs():Promise<object> {
+
   const data = await fetchAPI(`
   {
     posts(first: 10000) {
@@ -492,8 +493,8 @@ export async function createComment(
   id:number,
   content:string,
   author:string,
-  authorEmail: string
-):Promise<object> {
+  authorEmail?: string
+) {
   return await fetchAPI(`
     mutation {
       createComment(input: {

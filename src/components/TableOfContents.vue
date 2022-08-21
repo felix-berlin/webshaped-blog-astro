@@ -27,7 +27,7 @@ const {
   content
 } = defineProps<TableOfContentsProps>()
 
-const getHeadlines = (content:string) => {
+const getHeadlines = (content: string):object => {
   const headlines = []
   const regex = /<h([2-3])[^>]* id="(.*?)"[^>]*>(.*?)<\/h\1>/g
   let match

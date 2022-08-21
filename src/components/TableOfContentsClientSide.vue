@@ -24,8 +24,8 @@ const {
 
 
 const createTocClientSide = () => {
-  const toc = document.getElementById('tableOfContents')
-  const matches = document.querySelectorAll(`${target} h2, ${target} h3`);
+  const toc = document.getElementById('tableOfContents') as HTMLDivElement
+  const matches = document.querySelectorAll(`${target} h2, ${target} h3`) as NodeListOf<HTMLElement>;
 
   matches.forEach((value, index) => {
     if (setIndexIdToHeadlines) {
@@ -33,9 +33,9 @@ const createTocClientSide = () => {
       value.id=headlineId
     }
 
-    const ul = document.createElement('ul');
-    const li = document.createElement('li');
-    const a = document.createElement('a');
+    const ul = document.createElement('ul') as HTMLUListElement;
+    const li = document.createElement('li') as HTMLLIElement;
+    const a = document.createElement('a') as HTMLAnchorElement;
 
     if (value.tagName === 'H2') {
       a.innerText = value.textContent;

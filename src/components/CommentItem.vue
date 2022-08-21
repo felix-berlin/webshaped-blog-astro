@@ -45,7 +45,7 @@ interface CommentItemProps {
     content: string;
     dateGmt: string;
     id: string;
-    parentId: string;
+    parentId?: string | null;
     commentId: number;
     author: {
       node: {

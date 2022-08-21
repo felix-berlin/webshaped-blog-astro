@@ -1,16 +1,23 @@
 <template>
   <button
     type="button"
+    class="c-color-mode-toggle"
     @click="toggle()"
   >
     <Transition
       name="fade"
       mode="out-in"
     >
-      <span v-if="isDark">
+      <span
+        v-if="isDark"
+        id="darkModeIcon"
+      >
         <Moon />
       </span>
-      <span v-else-if="!isDark">
+      <span
+        v-else-if="!isDark"
+        id="lightModeIcon"
+      >
         <Sun />
       </span>
     </Transition>
@@ -27,10 +34,9 @@ const isDark = useDark({
   valueLight: 'light',
 })
 const toggle = useToggle(isDark)
-
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
