@@ -3,7 +3,7 @@
     <h2>Comments</h2>
     <CreateComment :current-post-id="currentPostId" />
     <template
-      v-for="(comment, index) in comments.nodes"
+      v-for="comment in comments.nodes"
       :key="comment.id"
     >
       <CommentItem :comment="comment" />
@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive , onMounted } from 'vue';
+// import { onMounted } from 'vue';
 import CommentItem from '@components/CommentItem.vue';
 import CreateComment from '@components/CreateComment.vue';
 
@@ -23,7 +23,7 @@ export interface CommentsProps {
         content: string;
         dateGmt: string;
         id: string;
-        parentId: string;
+        parentId?: string;
         commentId: string;
         author: {
           node: {
@@ -42,7 +42,7 @@ export interface CommentsProps {
       }
     ]
   },
-  currentPostId: number;
+  currentPostId?: number | null;
 }
 
 const props = defineProps<CommentsProps>()
@@ -66,10 +66,6 @@ const props = defineProps<CommentsProps>()
 //     });
 //     return tree;
 // };
-
-
-onMounted(() => {
-})
 </script>
 
 <style scoped>

@@ -11,6 +11,8 @@ import TableOfContents from '@components/TableOfContents.vue';
 import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
 
+import Prism from '@components/Prism.vue';
+
 import type { AuthorProps } from '@components/Author.vue';
 import type { SeoProps } from '@components/BaseHead.astro';
 
@@ -38,7 +40,7 @@ export interface BlogPost extends AuthorProps, SeoProps {
 		},
 		comments: object;
 		commentCount: number;
-		id: number;
+		postId: number;
 		content: string;
 		categories: object;
 	};
@@ -53,7 +55,7 @@ const {
 		language,
 		comments,
 		commentCount,
-		id,
+		postId,
 		content,
 		categories,
 		author
@@ -72,7 +74,7 @@ const { menuItems } = await getMenuById(2);
 	</head>
 
 	<body>
-		<Header menuItems={menuItems} client:visible/>
+		<Header menuItems={menuItems} client:load/>
 		<article class="wrapper content">
 			<header>
 				{featuredImage && (
@@ -100,13 +102,14 @@ const { menuItems } = await getMenuById(2);
 
 				<TableOfContents content={content}></TableOfContents>
 
+        <Prism client:load></Prism>
 			</header>
 			<main>
 				<slot></slot>
 			</main>
 		</article>
 		<div>
-			<Comments comments={comments} currentPostId={id} client:load id="comments"></Comments>
+			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
 		</div>
 	</body>
 </html>
