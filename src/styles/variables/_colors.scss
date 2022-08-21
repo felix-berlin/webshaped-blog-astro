@@ -1,0 +1,21 @@
+/// Colors
+$lightblue: #24b4e9;
+$darkblue: #303956;
+$lightred: #ed3c63;
+
+/// Colors map
+$colors: (
+	'lightblue': $lightblue,
+	'darkblue': $darkblue,
+	'lightred': $lightred,
+);
+
+/// Alert colors
+$danger: #f33b1d;
+$success: #35a672;
+
+/// Alert colors map
+$alert-colors: (
+	'danger': $danger,
+	'success': $success
+);
