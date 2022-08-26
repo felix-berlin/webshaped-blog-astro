@@ -102,6 +102,9 @@ import { useStore } from '@nanostores/vue';
 import { loadingState } from '../../store/store'
 import Alert from '@components/Alert.vue';
 
+
+// import { useTranslation } from "i18next-vue";
+// const { t, i18next } = useTranslation();
 // const { i18next, t } = useTranslation();
 
 // const locales = {

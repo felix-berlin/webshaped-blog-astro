@@ -6,7 +6,7 @@ import vue from '@astrojs/vue';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 import prefetch from '@astrojs/prefetch';
-import astroI18next from "astro-i18next";
+import astroI18next from 'astro-i18next';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
 
 // https://astro.build/config
@@ -14,14 +14,14 @@ export default defineConfig({
   experimental: {
     integrations: true,
   },
-	integrations: [preact(), vue(), sitemap(), prefetch(), astroI18next({
-    baseLanguage: "de",
-    i18next: {
-      debug: true, // convenient during development to check for missing keys
-      supportedLngs: ["de", "en"],
-    },
-  })],
-	site: `http://astro.build`,
+	integrations: [
+    preact(),
+    vue(),
+    sitemap(),
+    prefetch(),
+    astroI18next()
+  ],
+	site: `http://webshaped.de`,
 	// output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
   vite: {
