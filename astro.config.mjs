@@ -19,7 +19,7 @@ export default defineConfig({
     vue(),
     sitemap(),
     prefetch(),
-    astroI18next()
+    // astroI18next()
   ],
 	site: `http://webshaped.de`,
 	// output: import.meta.env.PROD ? 'server' : false,
