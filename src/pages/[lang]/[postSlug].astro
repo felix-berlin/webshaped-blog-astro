@@ -8,14 +8,28 @@ export async function getStaticPaths() {
   const postWithSlugs = await getAllPostsWithSlugs();
 
   return postWithSlugs.edges.map(({ node }) => {
+    let posts = {};
+
+    if (node.translations.length) {
+      posts = {...node.translations[0]};
+    }
+    delete node.translations;
+    posts = {...node, ...posts};
+
     return {
-      params: { postSlug: node.slug },
+      params: {
+        postSlug: posts.slug,
+        lang: posts.language.slug
+      },
     };
   });
 }
 
-const { postSlug } = Astro.params;
+const { postSlug, lang } = Astro.params;
 const post = await getPostBySlug(postSlug);
+
+// console.log(post, lang);
+
 ---
 
 <BlogPost content={post}>

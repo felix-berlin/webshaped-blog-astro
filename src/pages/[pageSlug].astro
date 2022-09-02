@@ -22,12 +22,15 @@ export async function getStaticPaths() {
 
   return pages.map( page => {
     return {
-      params: { pageSlug: page.slug },
+      params: {
+        postSlug: node.slug,
+        lang: node.language.slug
+      },
     };
   });
 }
 
-const { pageSlug } = Astro.params;
+const { pageSlug, lang } = Astro.params;
 const page = await getPageBySlug(pageSlug);
 ---
 <DefaultLayout content={page}>

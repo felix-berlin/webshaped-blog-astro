@@ -4,7 +4,7 @@
       v-for="(post, index) in posts.nodes"
       :key="index"
     >
-      <a :href="'/' + post.slug">
+      <a :href="'/' + post.language.slug + '/' + post.slug">
         <h2>{{ post.title }}</h2>
       </a>
       <Date
@@ -18,6 +18,11 @@
 
       <ReadingTime :time="post.seo.readingTime" />
 
+      <HasTranslations
+        v-if="post.translations && post.translations.length"
+        :translations="post.translations"
+      />
+
       <div v-html="post.excerpt" />
     </template>
   </article>
@@ -27,6 +32,7 @@
 import Date from '@components/Date.vue'
 import ReadingTime from '@components/ReadingTime.vue'
 import CommentCount from '@components/CommentCount.vue'
+import HasTranslations from './HasTranslations.vue'
 
 export interface BlogPostPreviewProps {
   posts: {
@@ -40,6 +46,7 @@ export interface BlogPostPreviewProps {
         title: string;
         language: object;
         featuredImage: object;
+        translations: [];
         seo: {
           readingTime: number;
         };

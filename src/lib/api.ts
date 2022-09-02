@@ -171,10 +171,19 @@ export async function getAllPostsWithSlugs():Promise<object> {
 
   const data = await fetchAPI(`
   {
-    posts(first: 10000) {
+    posts(first: 10000, where: {status: PUBLISH}) {
       edges {
         node {
           slug
+          language {
+            slug
+          }
+          translations {
+            slug
+            language {
+              slug
+            }
+          }
         }
       }
     }
@@ -308,6 +317,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
           code
           locale
           name
+          slug
         }
         seo {
           title
@@ -358,6 +368,42 @@ export async function getPostsPreview(
             code
             locale
             name
+            slug
+          }
+          translations {
+            dateGmt
+            modifiedGmt
+            slug
+            commentCount
+            excerpt
+            title
+            language {
+              code
+              locale
+              name
+              slug
+            }
+            language {
+              code
+              locale
+              name
+              slug
+            }
+            featuredImage {
+              node {
+                altText
+                mediaItemUrl
+                srcSet
+                sizes
+                mediaDetails {
+                  height
+                  width
+                }
+              }
+            }
+            seo {
+              readingTime
+            }
           }
           featuredImage {
             node {
@@ -444,6 +490,15 @@ export async function getPostsPreviewByCategory(
           code
           locale
           name
+          slug
+        }
+        translations {
+          language {
+            code
+            locale
+            name
+            slug
+          }
         }
         featuredImage {
           node {
