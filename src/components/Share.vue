@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    @click.prevent="share(title, text, data.currentUrl)"
+    @click.prevent="startShare(title, text, data.currentUrl)"
   >
     <Share2 />
   </button>
@@ -10,6 +10,8 @@
 <script setup lang="ts">
 import { Share2 } from 'lucide-vue-next';
 import { ref, onMounted, reactive } from 'vue';
+import { useShare } from '@vueuse/core'
+
 
 export interface ShareProps {
   title: string;
@@ -17,11 +19,14 @@ export interface ShareProps {
   url?: string;
 }
 
+const { share, isSupported } = useShare()
+
 const props = defineProps<ShareProps>()
 
 interface Data {
   shared: boolean;
   currentUrl: string;
+  supported: boolean;
 }
 
 const data: Data = reactive({
@@ -29,15 +34,19 @@ const data: Data = reactive({
   currentUrl: props.url,
 })
 
-const share = (title:string, text:string, url:string) => {
-  try {
-    navigator.share({title, text, url})
-  } catch (err) {
-    console.log(err)
-  } finally {
-    data.shared = true
-  }
+const startShare = (title:string, text:string, url:string) => {
+  share({title, text, url})
 }
+
+// const share = (title:string, text:string, url:string) => {
+//   try {
+//     navigator.share({title, text, url})
+//   } catch (err) {
+//     console.log(err)
+//   } finally {
+//     data.shared = true
+//   }
+// }
 
 onMounted(() => {
   if (!props.url) {
