@@ -20,3 +20,5 @@ pnpm-debug.log*
 
 # Windows specific files
 .
+
+.idea
