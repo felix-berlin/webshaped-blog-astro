@@ -1,6 +1,6 @@
 <template>
   <div
-    id="tableOfContents"
+    :id="props.id"
     class="c-toc"
   />
 </template>
@@ -16,6 +16,7 @@ export interface TableOfContentsClientSideProps {
 }
 
 const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {
+  id: 'tableOfContents',
   target: '',
   h2Class: 'c-toc__h2',
   h3Class: 'c-toc__h3',
@@ -24,7 +25,7 @@ const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {
 
 
 const createTocClientSide = () => {
-  const toc = document.getElementById('tableOfContents') as HTMLDivElement
+  const toc = document.getElementById(props.id) as HTMLDivElement
   const matches = document.querySelectorAll(`${props.target} h2, ${props.target} h3`) as NodeListOf<HTMLElement>;
 
   matches.forEach((value, index) => {
