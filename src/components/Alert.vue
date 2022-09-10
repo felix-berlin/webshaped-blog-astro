@@ -1,7 +1,7 @@
 <template>
   <component
-    :is="data.element"
-    :class="[data.componentClass, data.componentClass + '--' + data.type]"
+    :is="props.element"
+    :class="[props.componentClass, props.componentClass + '--' + props.type]"
     role="alert"
   >
     <slot />
@@ -16,13 +16,11 @@ interface AlertProps {
   componentClass?: string;
 }
 
-const props = defineProps<AlertProps>()
-
-const data = {
-  element: props.element ?? 'div',
-  type: props.type ?? '',
-  componentClass: props.componentClass ?? 'c-alert',
-}
+const props = withDefaults(defineProps<AlertProps>(), {
+  element: 'div',
+  type: 'info',
+  componentClass: 'c-alert',
+})
 </script>
 
 <style lang="scss">

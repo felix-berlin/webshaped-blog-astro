@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="isElement"
+    :is="props.isElement"
     class="c-comment-count"
   >
     <span class="c-comment-count__icon">
@@ -9,7 +9,7 @@
     <span
       v-if="commentTotal"
       class="c-comment-count__count"
-    >{{ commentTotal }}</span>
+    >{{ props.commentTotal }}</span>
     <span
       v-else
       class="c-comment-count__count 2"
@@ -25,7 +25,10 @@ interface CommentCountProps {
   isElement?: string;
 }
 
-const { commentTotal, isElement = 'div'} = defineProps<CommentCountProps>()
+const props = withDefaults(defineProps<CommentCountProps>(), {
+  commentTotal: 0,
+  isElement: 'div'
+})
 </script>
 
 <style scoped>

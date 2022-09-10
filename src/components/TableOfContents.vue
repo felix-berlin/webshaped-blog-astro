@@ -5,7 +5,7 @@
   >
     <h2>Table of Contents</h2>
     <template
-      v-for="(headline, index) in getHeadlines(content)"
+      v-for="(headline, index) in getHeadlines(props.content)"
       :key="index"
     >
       <a
@@ -23,9 +23,7 @@ export interface TableOfContentsProps {
   content: string,
 }
 
-const {
-  content
-} = defineProps<TableOfContentsProps>()
+const props = defineProps<TableOfContentsProps>()
 
 const getHeadlines = (content: string):object => {
   const headlines = []

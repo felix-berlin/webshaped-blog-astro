@@ -6,29 +6,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, nextTick } from 'vue';
+import { onMounted } from 'vue';
 
 export interface TableOfContentsClientSideProps {
-  target?: string,
+  target: string,
   h2Class?: string,
   h3Class?: string,
   setIndexIdToHeadlines?: boolean,
 }
 
-const {
-  target,
-  h2Class = 'c-toc__h2',
-  h3Class = 'c-toc__h3',
-  setIndexIdToHeadlines = false,
-} = defineProps<TableOfContentsClientSideProps>()
+const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {
+  target: '',
+  h2Class: 'c-toc__h2',
+  h3Class: 'c-toc__h3',
+  setIndexIdToHeadlines: false,
+})
 
 
 const createTocClientSide = () => {
   const toc = document.getElementById('tableOfContents') as HTMLDivElement
-  const matches = document.querySelectorAll(`${target} h2, ${target} h3`) as NodeListOf<HTMLElement>;
+  const matches = document.querySelectorAll(`${props.target} h2, ${props.target} h3`) as NodeListOf<HTMLElement>;
 
   matches.forEach((value, index) => {
-    if (setIndexIdToHeadlines) {
+    if (props.setIndexIdToHeadlines) {
       const headlineId = `h-${index}`;
       value.id=headlineId
     }
@@ -51,7 +51,7 @@ const createTocClientSide = () => {
       a.innerText = value.textContent;
       a.href = `#${value.id}`;
       li.appendChild(a);
-      li.classList.add(h3Class);
+      li.classList.add(props.h3Class);
       ul.appendChild(li);
       lastLi.appendChild(ul);
     }
