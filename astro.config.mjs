@@ -26,9 +26,6 @@ export default defineConfig({
   // adapter: cloudflare({ mode: "directory" })
   vite: {
     plugins: [
-      vue({
-        reactivityTransform: true
-      }),
       vueI18n({
         // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
         // compositionOnly: false,
