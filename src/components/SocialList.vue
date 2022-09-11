@@ -9,13 +9,32 @@
         :href="social"
         target="_blank"
         :aria-label="`Besuche mich auf ${index}`"
+        class="c-social-list__link"
       >
-        <Github v-if="index === 'github'" />
-        <Facebook v-if="index === 'facebook'" />
-        <Twitter v-if="index === 'twitter'" />
-        <Instagram v-if="index === 'instagram'" />
-        <Youtube v-if="index === 'youTube'" />
-        <Linkedin v-if="index === 'linkedIn'" />
+        <Github
+          v-if="index === 'github'"
+          :class="`is-${index}`"
+        />
+        <Facebook
+          v-if="index === 'facebook'"
+          :class="`is-${index}`"
+        />
+        <Twitter
+          v-if="index === 'twitter'"
+          :class="`is-${index}`"
+        />
+        <Instagram
+          v-if="index === 'instagram'"
+          :class="`is-${index}`"
+        />
+        <Youtube
+          v-if="index === 'youTube'"
+          :class="`is-${index}`"
+        />
+        <Linkedin
+          v-if="index === 'linkedIn'"
+          :class="`is-${index}`"
+        />
       </a>
     </template>
   </div>
