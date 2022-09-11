@@ -8,18 +8,23 @@
       name="fade"
       mode="out-in"
     >
-      <span
+      <template
         v-if="isDark"
-        id="darkModeIcon"
       >
-        <Moon />
-      </span>
-      <span
+        <Moon
+          focusable="false"
+          aria-label="Dunklen Modus aktivieren"
+        />
+      </template>
+
+      <template
         v-else-if="!isDark"
-        id="lightModeIcon"
       >
-        <Sun />
-      </span>
+        <Sun
+          focusable="false"
+          aria-label="Hellen Modus aktivieren"
+        />
+      </template>
     </Transition>
   </button>
 </template>

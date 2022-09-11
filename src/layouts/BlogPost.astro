@@ -7,7 +7,7 @@ import ReadingTime from '@components/ReadingTime.vue';
 import Comments from '@components/Comments.vue';
 import CommentCount from '@components/CommentCount.vue';
 import Share from '@components/Share.vue';
-import TableOfContents from '@components/TableOfContents.vue';
+// import TableOfContents from '@components/TableOfContents.vue';
 import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
 
@@ -17,6 +17,7 @@ import type { AuthorProps } from '@components/Author.vue';
 import type { SeoProps } from '@components/BaseHead.astro';
 
 import { getMenuById } from '@lib/api';
+import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue';
 
 export interface BlogPost extends AuthorProps, SeoProps {
 	content: {
@@ -75,7 +76,7 @@ const { menuItems } = await getMenuById(2);
 
 	<body>
 		<Header menuItems={menuItems} client:load/>
-		<article class="wrapper content">
+		<article class="wrapper o-content">
 			<header>
 				{featuredImage && (
 					<img
@@ -100,7 +101,8 @@ const { menuItems } = await getMenuById(2);
 
 				<Author author={author} client:visible></Author>
 
-				<TableOfContents content={content}></TableOfContents>
+				<!-- <TableOfContents content={content}></TableOfContents> -->
+        <TableOfContentsClientSide target=".o-article" client:load></TableOfContentsClientSide>
 
         <Prism client:load></Prism>
 			</header>

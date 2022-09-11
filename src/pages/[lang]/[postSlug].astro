@@ -34,7 +34,7 @@ const post = await getPostBySlug(postSlug);
 
 <BlogPost content={post}>
   <div class="wrapper">
-    <article set:html={post.content}></article>
+    <article set:html={post.content} class="o-article"></article>
   </div>
 </BlogPost>
 

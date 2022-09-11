@@ -3,7 +3,10 @@
     type="button"
     @click.prevent="startShare(title, text, data.currentUrl)"
   >
-    <Share2 />
+    <Share2
+      focusable="false"
+      aria-label="Blog Post teilen"
+    />
   </button>
 </template>
 

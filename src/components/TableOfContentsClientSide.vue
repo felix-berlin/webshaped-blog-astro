@@ -1,7 +1,8 @@
 <template>
-  <div
+  <nav
     :id="props.id"
     class="c-toc"
+    role="doc-toc"
   />
 </template>
 
@@ -9,6 +10,7 @@
 import { onMounted } from 'vue';
 
 export interface TableOfContentsClientSideProps {
+  id?: string,
   target: string,
   h2Class?: string,
   h3Class?: string,
@@ -34,6 +36,7 @@ const createTocClientSide = () => {
       value.id=headlineId
     }
 
+    // Create all needed elements
     const ul = document.createElement('ul') as HTMLUListElement;
     const li = document.createElement('li') as HTMLLIElement;
     const a = document.createElement('a') as HTMLAnchorElement;
@@ -42,7 +45,7 @@ const createTocClientSide = () => {
       a.innerText = value.textContent;
       a.href = `#${value.id}`;
       li.appendChild(a);
-      li.classList.add(h2Class);
+      li.classList.add(props.h2Class);
       ul.appendChild(li);
       toc.appendChild(ul);
     }
