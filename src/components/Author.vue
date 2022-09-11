@@ -24,9 +24,9 @@ export interface AuthorProps {
     node: {
       avatar: {
         foundAvatar: boolean;
-        height: number | null;
-        url: string | null;
-        width: number | null;
+        height?: number | null;
+        url?: string | null;
+        width?: number | null;
       }
       email: string | null;
       firstName: string | null;

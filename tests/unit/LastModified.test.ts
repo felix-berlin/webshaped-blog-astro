@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { test, expect } from 'vitest'
-import LastModified from '../../src/components/LastModified.vue'
+import LastModified from '@components/LastModified.vue'
 
 test('Viewing the last modified text', () => {
   let wrapper = mount(LastModified, {

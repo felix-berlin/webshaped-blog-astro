@@ -1,11 +1,13 @@
 <template>
   <button
     type="button"
+    class="c-share"
     @click.prevent="startShare(title, text, data.currentUrl)"
   >
     <Share2
       focusable="false"
       aria-label="Blog Post teilen"
+      class="c-share__icon"
     />
   </button>
 </template>
@@ -19,7 +21,7 @@ import { useShare } from '@vueuse/core'
 export interface ShareProps {
   title: string;
   text: string;
-  url?: string;
+  url?: string | undefined;
 }
 
 const { share, isSupported } = useShare()
@@ -27,13 +29,10 @@ const { share, isSupported } = useShare()
 const props = defineProps<ShareProps>()
 
 interface Data {
-  shared: boolean;
   currentUrl: string;
-  supported: boolean;
 }
 
 const data: Data = reactive({
-  shared: false,
   currentUrl: props.url,
 })
 

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { test, expect } from 'vitest'
-import ReadingTime from '../../src/components/ReadingTime.vue'
+import ReadingTime from '@components/ReadingTime.vue'
 
 test('Viewing the reading time text', () => {
   let wrapper = mount(ReadingTime, {
@@ -11,5 +11,4 @@ test('Viewing the reading time text', () => {
 
   const time = wrapper.find('.c-reading-time__time')
   expect(time.text()).toBeDefined()
-  expect(time).toBeTypeOf('number')
 })
