@@ -3,10 +3,15 @@
     <img
       v-if="author.node.avatar.foundAvatar"
       :src="author.node.avatar.url"
-      alt="Author"
+      class="c-author__image"
+      :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
     >
-    <p>{{ author.node.firstName + ' ' + author.node.lastName }}</p>
-    <p>{{ author.node.description }}</p>
+    <p class="c-author__name">
+      {{ author.node.firstName + ' ' + author.node.lastName }}
+    </p>
+    <p class="c-author__description">
+      {{ author.node.description }}
+    </p>
     <SocialList :social-items="socials" />
   </div>
 </template>

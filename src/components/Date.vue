@@ -1,5 +1,8 @@
 <template>
-  <time :datetime="data.formatDateString">{{ formattedDate(date, state.userLang) }}</time>
+  <time
+    :datetime="data.formatDateString"
+    class="c-date"
+  >{{ formattedDate(date, state.userLang) }}</time>
 </template>
 
 <script setup lang="ts">

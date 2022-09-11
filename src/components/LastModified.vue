@@ -1,5 +1,5 @@
 <template>
-  <time>{{ date }}</time>
+  <time class="c-last-modified">{{ date }}</time>
 </template>
 
 <script setup lang="ts">
