@@ -1,7 +1,11 @@
 <template>
-  <div>
-    <BookOpen />
-    <time>{{ time }}</time>Min
+  <div class="c-reading-time">
+    <BookOpen
+      aria-hidden="true"
+      focusable="false"
+      class="c-reading-time__icon"
+    />
+    <time class="c-reading-time__time">{{ time }}</time>Min
   </div>
 </template>
 
