@@ -1,13 +1,15 @@
 <template>
-  <div
-    v-for="(category, index) in categories.edges"
-    :key="index"
-    class="c-categories"
-  >
-    <p class="c-categories__item">
-      {{ category.node.name }}
-    </p>
-  </div>
+  <template v-if="categories.edges[0].node.name !== 'Uncategorized'">
+    <div
+      v-for="(category, index) in categories.edges"
+      :key="index"
+      class="c-categories"
+    >
+      <p class="c-categories__item">
+        {{ category.node.name }}
+      </p>
+    </div>
+  </template>
 </template>
 
 <script setup lang="ts">
