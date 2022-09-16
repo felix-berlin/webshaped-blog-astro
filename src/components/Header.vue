@@ -44,7 +44,7 @@
 <script setup lang="ts">
   // import { props } from '@astrojs/vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
-import { Menu } from 'floating-vue';
+import Menu from 'floating-vue/src/components/Menu.vue'; // necessary without global import
 import 'floating-vue/dist/style.css';
 
 export interface HeaderProps {
