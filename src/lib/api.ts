@@ -1,6 +1,6 @@
 const { PUBLIC_WP_API } = import.meta.env;
 
-async function fetchAPI(query:string, { variables } = {}):Promise<void> {
+async function fetchAPI(query: string, { variables } = {}):Promise<object | any> {
   const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', };
 
   return await fetch(PUBLIC_WP_API, {

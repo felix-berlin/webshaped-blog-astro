@@ -21,9 +21,13 @@ describe('SocialList.vue', () => {
   test('Test if all components are mounted', () => {
     expect(wrapper.findComponent(Facebook).exists()).toBe(true)
     expect(wrapper.findComponent(Github).exists()).toBe(true)
+  })
+
+  test('Test for invisible components', () => {
     expect(wrapper.findComponent(Linkedin).exists()).toBe(false)
     expect(wrapper.findComponent(Youtube).exists()).toBe(false)
     expect(wrapper.findComponent(Instagram).exists()).toBe(false)
     expect(wrapper.findComponent(Twitter).exists()).toBe(false)
   })
+
 })

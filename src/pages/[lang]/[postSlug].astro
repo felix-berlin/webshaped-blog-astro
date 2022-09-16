@@ -5,10 +5,17 @@ import BlogPost from '@layouts/BlogPost.astro';
 import { getAllPostsWithSlugs, getPostBySlug } from '@lib/api';
 
 export async function getStaticPaths() {
-  const postWithSlugs = await getAllPostsWithSlugs();
+  const postWithSlugs: any = await getAllPostsWithSlugs();
 
-  return postWithSlugs.edges.map(({ node }) => {
-    let posts = {};
+  return postWithSlugs.edges.map(({ node }: any) => {
+    interface Posts {
+      slug: string;
+      language: {
+        slug: string;
+      }
+    }
+
+    let posts: Posts = {};
 
     if (node.translations.length) {
       posts = {...node.translations[0]};
@@ -25,8 +32,8 @@ export async function getStaticPaths() {
   });
 }
 
-const { postSlug, lang } = Astro.params;
-const post = await getPostBySlug(postSlug);
+const { postSlug, lang }: any = Astro.params;
+const post: any = await getPostBySlug(postSlug);
 
 // console.log(post, lang);
 

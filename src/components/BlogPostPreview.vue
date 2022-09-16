@@ -44,7 +44,9 @@ export interface BlogPostPreviewProps {
         commentCount: number;
         excerpt: string;
         title: string;
-        language: object;
+        language: {
+          slug: string;
+        };
         featuredImage: object;
         translations: [];
         seo: {

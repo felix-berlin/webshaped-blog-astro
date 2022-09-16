@@ -5,22 +5,22 @@ import BlogPostPreview from '@components/BlogPostPreview.vue';
 import { getAllCategories, getCategoryBySlug, getPostsPreviewByCategory } from '@lib/api';
 
 export async function getStaticPaths() {
-  const postWithSlugs = await getAllCategories();
+  const postWithSlugs: any = await getAllCategories();
 
-  return postWithSlugs.nodes.map(category => {
+  return postWithSlugs.nodes.map((category: { slug: any; }) => {
     return {
       params: { slug: category.slug },
     };
   });
 }
 
-const { slug } = Astro.params;
+const { slug }:any = Astro.params;
 
-let category = await getCategoryBySlug(slug);
+let category: any = await getCategoryBySlug(slug);
 
 category = category[0];
 
-const postsByCategory = await getPostsPreviewByCategory(slug);
+const postsByCategory: any = await getPostsPreviewByCategory(slug);
 ---
 <DefaultLayout content={category}>
   <section class="intro">

@@ -178,7 +178,8 @@ const checkForm = () => {
   *
   * @return  {Boolean}        If check passes return true
   */
-const validEmail = (email: string): boolean => {
+const validEmail = (email: string | undefined): boolean | undefined => {
+  if (!email && typeof email === 'undefined') return;
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   return re.test(email)

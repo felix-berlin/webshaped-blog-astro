@@ -4,9 +4,9 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import BlogPostPreview from '@components/BlogPostPreview.vue';
 import { getPostsPreview, getPageBySlug } from '@lib/api';
 
-const index = await getPageBySlug('blog-index');
+const index: any = await getPageBySlug('blog-index');
 
-const posts = await getPostsPreview();
+const posts: any = await getPostsPreview();
 
 // const allPost = posts.nodes.map(post => {
 //   let posts = {...post};

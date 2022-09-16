@@ -15,23 +15,23 @@ import { getPageBySlug } from '../lib/api';
 
 export async function getStaticPaths() {
 
-  const privacy = await getPageBySlug('datenschutz');
-  const imprint = await getPageBySlug('impressum');
+  const privacy: any = await getPageBySlug('datenschutz');
+  const imprint: any = await getPageBySlug('impressum');
 
   const pages = [privacy, imprint];
 
-  return pages.map( page => {
+  return pages.map( (page) => {
+
     return {
       params: {
-        postSlug: node.slug,
-        lang: node.language.slug
+        pageSlug: page.slug,
       },
     };
   });
 }
 
-const { pageSlug, lang } = Astro.params;
-const page = await getPageBySlug(pageSlug);
+const { pageSlug }: any = Astro.params;
+const page: any = await getPageBySlug(pageSlug);
 ---
 <DefaultLayout content={page}>
   <div class="wrapper">
