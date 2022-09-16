@@ -23,11 +23,13 @@ import { MessageSquare } from 'lucide-vue-next'
 interface CommentCountProps {
   commentTotal: number | null;
   isElement?: string;
+  href?: string;
 }
 
 const props = withDefaults(defineProps<CommentCountProps>(), {
   commentTotal: 0,
-  isElement: 'div'
+  isElement: 'div',
+  href: ''
 })
 </script>
 

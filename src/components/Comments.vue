@@ -18,7 +18,7 @@ import CreateComment from '@components/CreateComment.vue';
 
 export interface CommentsProps {
   comments: {
-    nodes: [
+    nodes?: [
       {
         content: string;
         dateGmt: string;
@@ -43,6 +43,7 @@ export interface CommentsProps {
     ]
   },
   currentPostId?: number | null;
+  id?: string;
 }
 
 const props = defineProps<CommentsProps>()

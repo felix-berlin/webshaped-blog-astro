@@ -2,34 +2,40 @@
 import '../styles/blog.css'; // TODO: remove
 import '../styles/app.scss';
 
+export interface Title {
+  title: string;
+}
+
+export interface Seo {
+  title: string;
+  opengraphAuthor?: string;
+  opengraphDescription?: string;
+  opengraphPublisher?: string;
+  opengraphTitle?: string;
+  opengraphType?: string;
+  opengraphUrl?: string;
+  readingTime?: number;
+  opengraphSiteName?: string;
+  twitterDescription?: string;
+  twitterTitle?: string;
+  metaRobotsNofollow?: string;
+  metaRobotsNoindex?: string;
+  canonical?: string;
+  metaDesc?: string;
+  opengraphPublishedTime?: string;
+  opengraphModifiedTime?: string;
+  opengraphImage?: {
+    sourceUrl: string;
+  };
+}
+
 export interface SeoProps {
-	title: string;
-	seo: {
-		title?: string;
-		opengraphAuthor?: string;
-		opengraphDescription?: string;
-		opengraphPublisher?: string;
-		opengraphTitle?: string;
-		opengraphType?: string;
-		opengraphUrl?: string;
-		readingTime?: string;
-		opengraphSiteName?: string;
-		twitterDescription?: string;
-		twitterTitle?: string;
-		metaRobotsNofollow?: string;
-		metaRobotsNoindex?: string;
-		canonical?: string;
-		metaDesc?: string;
-		opengraphPublishedTime?: string;
-		opengraphModifiedTime?: string;
-		opengraphImage?: {
-			sourceUrl: string;
-		};
-	}
+  title: Title
+	seo: Seo
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, seo } = Astro.props as SeoProps;
+const { title, seo } = Astro.props as SeoProps & Title;
 ---
 
 <!-- Global Metadata -->

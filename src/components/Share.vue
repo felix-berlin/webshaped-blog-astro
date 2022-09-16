@@ -19,8 +19,8 @@ import { useShare } from '@vueuse/core'
 
 
 export interface ShareProps {
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
   url?: string | undefined;
 }
 

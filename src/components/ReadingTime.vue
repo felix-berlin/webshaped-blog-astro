@@ -13,7 +13,7 @@
 import { BookOpen } from 'lucide-vue-next'
 
 export interface ReadingTimeProps {
-  time: number;
+  time: number | undefined;
 }
 
 const props = defineProps<ReadingTimeProps>()

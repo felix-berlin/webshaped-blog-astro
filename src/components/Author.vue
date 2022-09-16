@@ -19,38 +19,40 @@
 <script setup lang="ts">
 import SocialList from '@components/SocialList.vue'
 
-export interface AuthorProps {
-  author: {
-    node: {
-      avatar: {
-        foundAvatar: boolean;
-        height?: number | null;
-        url?: string | null;
-        width?: number | null;
-      }
-      email: string | null;
-      firstName: string | null;
-      lastName: string | null;
-      description: string | null;
-      id: string | null;
-      seo: {
-        social: {
-          facebook: string;
-          instagram: string;
-          linkedIn: string;
-          mySpace: string;
-          pinterest: string;
-          soundCloud: string;
-          twitter: string;
-          wikipedia: string;
-          youTube: string;
-        }
-      }
-      socialAdvanced: {
-        github: string | null;
+export interface AuthorData {
+  node: {
+    avatar: {
+      foundAvatar: boolean;
+      height?: number | null;
+      url?: string | null;
+      width?: number | null;
+    }
+    email: string | null;
+    firstName: string | null;
+    lastName: string | null;
+    description: string | null;
+    id: string | null;
+    seo: {
+      social: {
+        facebook: string;
+        instagram: string;
+        linkedIn: string;
+        mySpace: string;
+        pinterest: string;
+        soundCloud: string;
+        twitter: string;
+        wikipedia: string;
+        youTube: string;
       }
     }
+    socialAdvanced: {
+      github: string | null;
+    }
   }
+}
+
+export interface AuthorProps {
+  author: AuthorData;
 }
 
 const props = defineProps<AuthorProps>()

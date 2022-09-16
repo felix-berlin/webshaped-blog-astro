@@ -16,12 +16,12 @@
 
 interface Props {
   categories: {
-    edges: [
+    edges?: [
       {
         node: {
           name: string;
           parent: object | null;
-          children: {
+          children?: {
             edges: [];
           }
         }
