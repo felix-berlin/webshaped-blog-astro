@@ -6,14 +6,7 @@
     <span class="c-comment-count__icon">
       <MessageSquare />
     </span>
-    <span
-      v-if="commentTotal"
-      class="c-comment-count__count"
-    >{{ props.commentTotal }}</span>
-    <span
-      v-else
-      class="c-comment-count__count 2"
-    >0</span>
+    <span class="c-comment-count__count">{{ props.commentTotal }}</span>
   </component>
 </template>
 

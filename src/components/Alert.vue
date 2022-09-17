@@ -27,10 +27,9 @@ const props = withDefaults(defineProps<AlertProps>(), {
 @use '../styles/variables/colors';
 
 .c-alert {
-	--color: unset;
 	--size-font: inherit;
 
-	color: var(--color);
+	color: var(--color, unset);
 
   @each $name, $color in colors.$alert-colors {
     &--#{$name} {

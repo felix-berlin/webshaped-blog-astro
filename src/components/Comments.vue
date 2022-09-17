@@ -14,35 +14,16 @@
 <script setup lang="ts">
 // import { onMounted } from 'vue';
 import CommentItem from '@components/CommentItem.vue';
+import type { CommentData } from '@components/CommentItem.vue';
 import CreateComment from '@components/CreateComment.vue';
 
 export interface CommentsProps {
   comments: {
     nodes?: [
-      {
-        content: string;
-        dateGmt: string;
-        id: string;
-        parentId?: string;
-        commentId: string;
-        author: {
-          node: {
-            name: string;
-            id: string;
-            avatar: {
-              url?: string;
-              width?: number;
-              height?: number;
-            };
-          }
-        }
-        replies: {
-          nodes: [];
-        }
-      }
+      CommentData
     ]
   },
-  currentPostId?: number | null;
+  currentPostId: number;
   id?: string;
 }
 

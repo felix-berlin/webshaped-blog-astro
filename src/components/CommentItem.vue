@@ -40,28 +40,30 @@
 <script setup lang="ts">
 import Date from '@components/Date.vue';
 
-interface CommentItemProps {
-  comment: {
-    content: string;
-    dateGmt: string;
-    id: string;
-    parentId?: string | null;
-    commentId: number;
-    author: {
-      node: {
-        name: string;
-        id: string;
-        avatar: {
-          url?: string;
-          width?: number;
-          height?: number;
-        }
+export interface CommentData {
+  content: string;
+  dateGmt: string;
+  id: string;
+  parentId?: string | null;
+  commentId: number;
+  author: {
+    node: {
+      name: string;
+      id: string;
+      avatar: {
+        url?: string;
+        width?: number;
+        height?: number;
       }
     }
-    replies: {
-      nodes: [];
-    }
-  };
+  }
+  replies?: {
+    nodes: [];
+  }
+}
+
+interface CommentItemProps {
+  comment: CommentData;
 }
 
 const props = defineProps<CommentItemProps>()
