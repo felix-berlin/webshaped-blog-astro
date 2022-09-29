@@ -1,13 +1,13 @@
 /// Colors
-$lightblue: #24b4e9;
-$darkblue: #303956;
-$lightred: #ed3c63;
+$blue-light: #24b4e9;
+$blue-dark: #303956;
+$red-light: #ed3c63;
 
 /// Colors map
 $colors: (
-	'lightblue': $lightblue,
-	'darkblue': $darkblue,
-	'lightred': $lightred,
+	'blue-light': $blue-light,
+	'blue-dark': $blue-dark,
+	'red-light': $red-light,
 );
 
 /// Alert colors

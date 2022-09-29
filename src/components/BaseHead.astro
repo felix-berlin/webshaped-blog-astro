@@ -1,6 +1,5 @@
 ---
 import '../styles/blog.css'; // TODO: remove
-import '../styles/app.scss';
 
 export interface Title {
   title: string;
@@ -37,6 +36,23 @@ export interface SeoProps {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo } = Astro.props as SeoProps & Title;
 ---
+<!-- Block until theme class is set -->
+<script is:inline>
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('darkMode')) {
+      return localStorage.getItem('darkMode');
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    return 'light';
+  })();
+  if (theme === 'light') {
+    document.documentElement.classList.remove('dark');
+  } else {
+    document.documentElement.classList.add('dark');
+  }
+</script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />

@@ -2,14 +2,14 @@
   <button
     type="button"
     class="c-color-mode-toggle"
-    @click="toggle()"
+    @click="toggleMode()"
   >
     <Transition
       name="fade"
       mode="out-in"
     >
       <template
-        v-if="isDark"
+        v-if="state.isDark"
       >
         <Moon
           focusable="false"
@@ -18,7 +18,7 @@
       </template>
 
       <template
-        v-else-if="!isDark"
+        v-else-if="!state.isDark"
       >
         <Sun
           focusable="false"
@@ -30,15 +30,22 @@
 </template>
 
 <script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core'
 import { Moon, Sun } from 'lucide-vue-next'
+import { ref, onMounted, reactive, watch } from 'vue';
 
-const isDark = useDark({
-  selector: 'body',
-  valueDark: 'dark',
-  valueLight: 'light',
+const state = reactive({ isDark: false, });
+
+const toggleMode = () => {
+  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+  localStorage.setItem('darkMode', isDarkMode ? 'false' : 'true');
+  state.isDark = isDarkMode ? false : true;
+  state.isDark ? document.querySelector('html')?.classList.add('dark') : document.querySelector('html')?.classList.remove('dark');
+}
+
+onMounted(() => {
+  state.isDark = localStorage.getItem('darkMode') === 'true' ? true : false;
 })
-const toggle = useToggle(isDark)
 </script>
 
 <style lang="scss">

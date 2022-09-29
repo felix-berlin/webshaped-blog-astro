@@ -1,3 +1,25 @@
+@use './../../../node_modules/@felix_berlin/sass-butler/mixins.scss' as butler-mx;
+@use '../variables/colors';
+
+:root {
+	@each $name, $color in colors.$colors {
+		/* stylelint-disable-next-line custom-property-pattern */
+		--#{$name}: #{$color};
+	}
+}
+
+html {
+	background-color: var(--color-background, #fff);
+
+	@include butler-mx.feature('motion') {
+		transition: background-color 0.3s ease-in;
+	}
+}
+
+@include butler-mx.dark-mode-class('html', false) {
+	--color-background: var(--blue-dark);
+}
+
 img {
 	width: 100%;
 	height: auto;
