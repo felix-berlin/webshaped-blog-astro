@@ -8,6 +8,8 @@ import Comments from '@components/Comments.vue';
 import CommentCount from '@components/CommentCount.vue';
 import Share from '@components/Share.vue';
 // import TableOfContents from '@components/TableOfContents.vue';
+import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue';
+import Helpful from '@components/Helpful.vue';
 import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
 
@@ -17,7 +19,6 @@ import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
 
 import { getMenuById } from '@lib/api';
-import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue';
 
 export interface BlogPost {
 	content: {
@@ -69,7 +70,6 @@ const {
 const langAttr = language.locale.replace('_', '-');
 
 const { menuItems }: any = await getMenuById(2);
-console.log(author);
 
 ---
 
@@ -94,6 +94,8 @@ console.log(author);
 				)}
 				<h1 class="title">{title}</h1>
 				<Date date={dateGmt} client:visible></Date>
+
+        <Helpful client:load></Helpful>
 
 				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
 

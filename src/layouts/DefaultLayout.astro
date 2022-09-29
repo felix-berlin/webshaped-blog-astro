@@ -1,4 +1,6 @@
 ---
+import '../styles/app.scss';
+
 import '@fontsource/source-sans-pro';
 import BaseHead from "@components/BaseHead.astro";
 import Header from '@components/Header.vue';
@@ -38,6 +40,7 @@ const { menuItems }: any = await getMenuById(2);
 	</head>
 
 	<body>
+
 		<Header menuItems={menuItems} client:load/>
     <main class="main">
       <slot></slot>

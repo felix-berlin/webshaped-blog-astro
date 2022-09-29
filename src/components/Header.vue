@@ -1,5 +1,5 @@
 <template>
-  <header class="wrapper">
+  <header class="o-header wrapper">
     <nav>
       <a href="/">
         <img
