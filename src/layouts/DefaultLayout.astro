@@ -40,11 +40,11 @@ const { menuItems }: any = await getMenuById(2);
 	</head>
 
 	<body>
-
-		<Header menuItems={menuItems} client:load/>
-    <main class="main">
+    <Header menuItems={menuItems} client:load/>
+    <main class="main" id="swup">
       <slot></slot>
     </main>
+    <script type="module" src="./../../public/swup.js"></script>
 	</body>
   <footer>
     My Footer

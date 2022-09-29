@@ -1,4 +1,5 @@
 ---
+import '../styles/app.scss';
 import '@fontsource/source-sans-pro';
 import BaseHead from "@components/BaseHead.astro";
 import Header from '@components/Header.vue';
@@ -19,7 +20,6 @@ import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
 
 import { getMenuById } from '@lib/api';
-
 export interface BlogPost {
 	content: {
     title: Title;
@@ -70,7 +70,6 @@ const {
 const langAttr = language.locale.replace('_', '-');
 
 const { menuItems }: any = await getMenuById(2);
-
 ---
 
 <html lang={langAttr}>
@@ -80,7 +79,7 @@ const { menuItems }: any = await getMenuById(2);
 
 	<body>
 		<Header menuItems={menuItems} client:load/>
-		<article class="wrapper o-content">
+		<article class="wrapper o-content" id="swup">
 			<header>
 				{featuredImage && (
 					<img
@@ -119,6 +118,7 @@ const { menuItems }: any = await getMenuById(2);
 		<div>
 			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
 		</div>
+    <script type="module" src="./../../public/swup.js"></script>
 	</body>
 </html>
 

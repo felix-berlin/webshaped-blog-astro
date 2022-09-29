@@ -23,6 +23,9 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@swup/a11y-plugin": "^2.1.0",
+    "@swup/head-plugin": "^1.2.1",
+    "@swup/slide-theme": "^1.0.5",
     "@typescript-eslint/parser": "^5.38.1",
     "@vitejs/plugin-vue": "^3.1.0",
     "@vitest/coverage-c8": "^0.23.4",
@@ -51,6 +54,7 @@
     "@felix_berlin/sass-butler": "^1.10.5",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@nanostores/vue": "^0.6.0",
+    "@swup/fade-theme": "^1.0.5",
     "@vueuse/core": "^9.3.0",
     "astro-i18next": "1.0.0-beta.12",
     "flag-icons": "^6.6.6",
@@ -63,6 +67,7 @@
     "nanostores": "^0.7.0",
     "preact": "^10.11.0",
     "prismjs": "^1.29.0",
+    "swup": "^2.0.19",
     "vue-i18n": "^9.2.2"
   }
 }
