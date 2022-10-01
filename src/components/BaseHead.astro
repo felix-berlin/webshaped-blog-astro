@@ -38,16 +38,16 @@ const { title, seo } = Astro.props as SeoProps & Title;
 ---
 <!-- Block until theme class is set -->
 <script is:inline>
-  const theme = (() => {
+  const isDarkTheme = (() => {
     if (typeof localStorage !== 'undefined' && localStorage.getItem('darkMode')) {
       return localStorage.getItem('darkMode');
     }
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+      return 'true';
     }
-    return 'light';
+    return 'false';
   })();
-  if (theme === 'light') {
+  if (isDarkTheme === 'false') {
     console.log('light');
     document.documentElement.classList.remove('dark');
   } else {
