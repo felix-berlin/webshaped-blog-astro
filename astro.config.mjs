@@ -34,14 +34,14 @@ export default defineConfig({
         include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
       })
     ],
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: '[name].[hash].js',
-          chunkFileNames: '[name].[hash].js',
-          assetFileNames: '[name].[hash][extname]',
-        },
-      },
-    },
+    // build: {
+    //   rollupOptions: {
+    //     output: {
+    //       entryFileNames: '[name].[hash].js',
+    //       chunkFileNames: '[name].[hash].js',
+    //       assetFileNames: '[name].[hash][extname]',
+    //     },
+    //   },
+    // },
   }
 });
