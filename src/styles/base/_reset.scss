@@ -1,0 +1,12 @@
+@layer reset {
+	html {
+		// Normalize boxsizing
+		box-sizing: border-box;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
+	}
+}
