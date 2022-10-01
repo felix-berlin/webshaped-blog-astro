@@ -43,19 +43,7 @@ const toggleMode = () => {
   state.isDark ? document.querySelector('html')?.classList.add('dark') : document.querySelector('html')?.classList.remove('dark');
 }
 
-/**
- * Set theme mode on init page load
- *
- * @return  {[type]}  [return description]
- */
-const initTheme = () => {
-  if (typeof localStorage !== 'undefined' && !localStorage.getItem('darkMode')) {
-    window.matchMedia('(prefers-color-scheme: dark)').matches ? localStorage.setItem('darkMode', 'true') : localStorage.setItem('darkMode', 'false');
-  }
-}
-
 onMounted(() => {
-  initTheme();
   state.isDark = localStorage.getItem('darkMode') === 'true' ? true : false;
 })
 </script>

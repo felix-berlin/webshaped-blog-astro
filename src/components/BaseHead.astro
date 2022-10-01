@@ -48,8 +48,10 @@ const { title, seo } = Astro.props as SeoProps & Title;
     return 'light';
   })();
   if (theme === 'light') {
+    console.log('light');
     document.documentElement.classList.remove('dark');
   } else {
+    console.log('dark');
     document.documentElement.classList.add('dark');
   }
 </script>
