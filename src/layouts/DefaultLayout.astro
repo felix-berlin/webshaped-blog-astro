@@ -44,7 +44,9 @@ const { menuItems }: any = await getMenuById(2);
     <main class="main" id="swup">
       <slot></slot>
     </main>
-    <script type="module" src={import.meta.env.DEV ? '/../../public/swup.js' : './swup.js' }></script>
+    {import.meta.env.DEV && (
+      <script type="module" src={import.meta.env.DEV ? '/../../public/swup.js' : './swup.js' }></script>
+    )}
 	</body>
   <footer>
     My Footer
