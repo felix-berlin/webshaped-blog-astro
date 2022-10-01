@@ -118,7 +118,7 @@ const { menuItems }: any = await getMenuById(2);
 		<div>
 			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
 		</div>
-    <script type="module" src="/../../public/swup.js"></script>
+    <script type="module" src={import.meta.env.DEV ? '/../../public/swup.js' : './swup.js' }></script>
 
 	</body>
 </html>
