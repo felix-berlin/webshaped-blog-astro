@@ -11,10 +11,6 @@
 
 	html {
 		background-color: var(--color-background, #fff);
-
-		@include butler-mx.feature('motion') {
-			transition: background-color 0.3s ease-in;
-		}
 	}
 
 	@include butler-mx.dark-mode-class('html', false) {
