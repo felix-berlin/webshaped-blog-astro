@@ -4,7 +4,8 @@ import DefaultLayout from '@layouts/DefaultLayout.astro'
 import BlogPostPreview from '@components/BlogPostPreview.vue';
 import { getPostsPreview, getPageBySlug } from '@lib/api';
 
-const index: any = await getPageBySlug('blog-index');
+const indexDe: any = await getPageBySlug('blog-index-de');
+const indexEn: any = await getPageBySlug('blog-index-en');
 
 const posts: any = await getPostsPreview();
 
@@ -28,11 +29,10 @@ const posts: any = await getPostsPreview();
 //   return posts;
 // });
 
-
 ---
-<DefaultLayout content={index}>
+<DefaultLayout content={indexDe}>
   <section class="intro">
-    <h1>{index.title}</h1>
+    <h1>{indexDe.title}</h1>
   </section>
   <section aria-label="Blog post list">
     <BlogPostPreview posts={posts} client:visible></BlogPostPreview>

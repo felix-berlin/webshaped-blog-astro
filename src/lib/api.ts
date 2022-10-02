@@ -167,11 +167,13 @@ export async function getMenuById(id: number):Promise<object> {
 }
 
 
-export async function getAllPostsWithSlugs():Promise<object> {
+export async function getAllPostsWithSlugs(
+  language: string = 'DE',
+):Promise<object> {
 
   const data = await fetchAPI(`
   {
-    posts(first: 10000, where: {status: PUBLISH}) {
+    posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
       edges {
         node {
           slug
@@ -352,11 +354,12 @@ export async function getPostsPreview(
   first: number = 10000,
   status: string = 'PUBLISH',
   orderby: string = 'DATE',
-  order: string = 'ASC'
+  order: string = 'ASC',
+  language: string = 'DE',
 ):Promise<object> {
   const data = await fetchAPI(`
     {
-      posts(first: ${first}, where: {status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
+      posts(first: ${first}, where: {language: ${language}, status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
         nodes {
           dateGmt
           modifiedGmt
@@ -371,38 +374,12 @@ export async function getPostsPreview(
             slug
           }
           translations {
-            dateGmt
-            modifiedGmt
             slug
-            commentCount
-            excerpt
-            title
             language {
               code
               locale
               name
               slug
-            }
-            language {
-              code
-              locale
-              name
-              slug
-            }
-            featuredImage {
-              node {
-                altText
-                mediaItemUrl
-                srcSet
-                sizes
-                mediaDetails {
-                  height
-                  width
-                }
-              }
-            }
-            seo {
-              readingTime
             }
           }
           featuredImage {
