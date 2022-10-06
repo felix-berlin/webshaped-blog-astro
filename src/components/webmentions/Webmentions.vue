@@ -1,9 +1,12 @@
 <template>
-  <div class="c-webmentions">
+  <div
+    v-if="target"
+    class="c-webmentions"
+  >
     My Webmention's
 
     <template
-      v-for="(mention, index) in data.mentions"
+      v-for="(mention, index) in state.mentions"
       :key="index"
     >
       <div
@@ -13,6 +16,8 @@
           <img
             :src="mention.author.photo"
             :alt="mention.author.name"
+            loading="lazy"
+            decoding="async"
           >
         </a>
         <div v-text="mention.content.text" />
@@ -22,18 +27,32 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
 
-const data = {
-  mentions: [],
+export interface WebmentionsProps {
+  target?: string;
+  currentUrl?: boolean;
 }
 
-const getWebmentions = async () => {
-  const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${window.location.href}`)
+const props = withDefaults(defineProps<WebmentionsProps>(), {
+  target: '',
+  currentUrl: false,
+});
+
+const state = reactive({
+  mentions: [],
+})
+
+const getWebmentions = async (target = props.target) => {
+  if (props.currentUrl) {
+    target = window.location.href;
+  }
+
+  const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${target}`)
   const data = await response.json()
   console.log(data);
 
-  data.mentions = data.children
+  state.mentions = data.children
 }
 
 onMounted(() => {

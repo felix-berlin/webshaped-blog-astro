@@ -24,6 +24,7 @@ import { getMenuById } from '@lib/api';
 export interface BlogPost {
 	content: {
     title: Title;
+    slug: string;
     seo: Seo;
     author: AuthorData;
 		dateGmt: string;
@@ -55,6 +56,7 @@ export interface BlogPost {
 const {
 	content: {
 		title,
+    slug,
 		dateGmt,
 		featuredImage,
 		seo,
@@ -117,7 +119,7 @@ const { menuItems }: any = await getMenuById(2);
 			<main>
 				<slot></slot>
 			</main>
-      <Webmentions client:load></Webmentions>
+      <Webmentions target={import.meta.env.DEV ? `https://develop.webshaped-blog-astro.pages.dev/${language.slug}/${slug}/` : ''} currentUrl={import.meta.env.PROD} client:load></Webmentions>
 		</article>
 		<div>
 			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>

@@ -200,6 +200,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
     {
       post(id: "${slug}", idType: URI) {
         title
+        slug
         excerpt
         dateGmt
         modifiedGmt
