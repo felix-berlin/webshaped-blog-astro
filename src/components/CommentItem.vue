@@ -6,6 +6,7 @@
     >
       <header class="c-comment__header">
         <img
+          v-if="comment.author?.node?.avatar"
           :src="comment.author.node.avatar.url"
           alt=""
           :width="comment.author.node.avatar.width"
@@ -50,7 +51,7 @@ export interface CommentData {
     node: {
       name: string;
       id: string;
-      avatar: {
+      avatar?: {
         url?: string;
         width?: number;
         height?: number;

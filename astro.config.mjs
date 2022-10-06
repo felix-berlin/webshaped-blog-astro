@@ -21,7 +21,7 @@ export default defineConfig({
     prefetch(),
     // astroI18next()
   ],
-	site: `http://webshaped.de`,
+	site: `https://webshaped.de`,
 	// output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
   vite: {
