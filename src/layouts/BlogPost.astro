@@ -13,7 +13,7 @@ import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue
 import Helpful from '@components/Helpful.vue';
 import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
-
+import Footer from '@components/Footer.vue';
 import Prism from '@components/Prism.vue';
 
 import type { AuthorData } from '@components/Author.vue';
@@ -94,7 +94,7 @@ const { menuItems }: any = await getMenuById(2);
 				<h1 class="title">{title}</h1>
 				<Date date={dateGmt} client:visible></Date>
 
-        <Helpful client:load></Helpful>
+        <!-- <Helpful client:load></Helpful> -->
 
 				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
 
@@ -121,7 +121,7 @@ const { menuItems }: any = await getMenuById(2);
     <script>
       import '../lib/swup.js';
     </script>
-
+    <Footer></Footer>
 	</body>
 </html>
 

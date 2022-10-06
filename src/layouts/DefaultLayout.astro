@@ -4,6 +4,7 @@ import '../styles/app.scss';
 import '@fontsource/source-sans-pro';
 import BaseHead from "@components/BaseHead.astro";
 import Header from '@components/Header.vue';
+import Footer from '@components/Footer.vue';
 
 import type { SeoProps } from '@components/BaseHead.astro';
 
@@ -48,9 +49,7 @@ const { menuItems }: any = await getMenuById(2);
       import '../lib/swup.js';
     </script>
 	</body>
-  <footer>
-    My Footer
-  </footer>
+  <Footer></Footer>
 </html>
 
 <style>
