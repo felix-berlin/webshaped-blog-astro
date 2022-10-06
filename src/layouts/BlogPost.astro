@@ -15,7 +15,7 @@ import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
 import Footer from '@components/Footer.vue';
 import Prism from '@components/Prism.vue';
-import Webmention from '@components/Webmention.vue';
+import Webmentions from '@components/webmentions/Webmentions.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -86,10 +86,12 @@ const { menuItems }: any = await getMenuById(2);
 					<img
 						width={featuredImage.node.mediaDetails.width}
 						height={featuredImage.node.mediaDetails.height}
-						loading="eager"
 						alt={featuredImage.node.altText}
 						src={featuredImage.node.mediaItemUrl}
 						srcset={featuredImage.node.srcSet}
+						loading="eager"
+            decoding="async"
+            fetchpriority="high"
 					/>
 				)}
 				<h1 class="title">{title}</h1>
@@ -115,7 +117,7 @@ const { menuItems }: any = await getMenuById(2);
 			<main>
 				<slot></slot>
 			</main>
-      <Webmention client:load></Webmention>
+      <Webmentions client:load></Webmentions>
 		</article>
 		<div>
 			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
