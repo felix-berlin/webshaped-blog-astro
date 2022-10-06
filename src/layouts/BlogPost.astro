@@ -15,6 +15,7 @@ import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
 import Footer from '@components/Footer.vue';
 import Prism from '@components/Prism.vue';
+import Webmention from '@components/Webmention.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -114,6 +115,7 @@ const { menuItems }: any = await getMenuById(2);
 			<main>
 				<slot></slot>
 			</main>
+      <Webmention client:load></Webmention>
 		</article>
 		<div>
 			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
