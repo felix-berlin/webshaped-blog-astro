@@ -1,28 +1,22 @@
 <template>
   <div
-    v-if="target"
+    v-for="(mention, index) in state.mentions"
+    :key="index"
     class="c-webmentions"
   >
-    My Webmention's
-
-    <template
-      v-for="(mention, index) in state.mentions"
-      :key="index"
+    <div
+      class="c-webmentions__item"
     >
-      <div
-        class="c-webmentions__item"
-      >
-        <a :href="mention.author.url">
-          <img
-            :src="mention.author.photo"
-            :alt="mention.author.name"
-            loading="lazy"
-            decoding="async"
-          >
-        </a>
-        <div v-text="mention.content.text" />
-      </div>
-    </template>
+      <a :href="mention.author.url">
+        <img
+          :src="mention.author.photo"
+          :alt="mention.author.name"
+          loading="lazy"
+          decoding="async"
+        >
+      </a>
+      <div v-text="mention.content.text" />
+    </div>
   </div>
 </template>
 
