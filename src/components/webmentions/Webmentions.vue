@@ -7,7 +7,10 @@
     <div
       class="c-webmentions__item"
     >
-      <a :href="mention.author.url">
+      <a
+        :href="mention.author.url"
+        target="_blank"
+      >
         <img
           :src="mention.author.photo"
           :alt="mention.author.name"
