@@ -57,7 +57,39 @@ export interface AuthorProps {
 
 const props = defineProps<AuthorProps>()
 
-const socials = { ...props.author.node.seo.social, ...props.author.node.socialAdvanced }
+const socials = {
+  facebook: {
+    url: props.author.node.seo.social.facebook,
+  },
+  instagram: {
+    url: props.author.node.seo.social.instagram
+  },
+  linkedIn: {
+    url: props.author.node.seo.social.linkedIn
+  },
+  mySpace: {
+    url: props.author.node.seo.social.mySpace
+  },
+  pinterest: {
+    url: props.author.node.seo.social.pinterest
+  },
+  soundCloud: {
+    url: props.author.node.seo.social.soundCloud
+  },
+  twitter: {
+    url: props.author.node.seo.social.twitter
+  },
+  wikipedia: {
+    url: props.author.node.seo.social.wikipedia
+  },
+  youTube: {
+    url: props.author.node.seo.social.youTube
+  },
+  github: {
+    url: props.author.node.socialAdvanced.github,
+    rel: 'me'
+  },
+}
 
 </script>
 
