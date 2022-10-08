@@ -1,0 +1,27 @@
+@use './../../../node_modules/@felix_berlin/sass-butler/mixins.scss' as butler-mx;
+@use '../variables/fonts';
+
+// @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
+// @include fontsource-mx.fontFace($weight: 700);
+
+@layer typo {
+	@for $h from 1 to 6 {
+		h#{$h} {
+			font-family: fonts.$source-sans-pro;
+			font-weight: 700;
+		}
+	}
+
+	html {
+		font-family: fonts.$source-sans-pro;
+	}
+
+	@include butler-mx.dark-mode-class('html', false) {
+		color: #fff;
+	}
+
+	a {
+		color: #fff;
+		cursor: pointer;
+	}
+}
