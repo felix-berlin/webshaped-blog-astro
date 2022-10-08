@@ -550,3 +550,31 @@ export async function createComment(
     }`
   );
 }
+
+export async function getAuthor(
+  id:string = '1',
+  idType:string = 'DATABASE_ID',
+) {
+  return await fetchAPI(`
+    {
+      user(id: "${id}", idType: DATABASE_ID) {
+        seo {
+          social {
+            facebook
+            instagram
+            linkedIn
+            mySpace
+            pinterest
+            soundCloud
+            twitter
+            wikipedia
+            youTube
+          }
+        }
+        socialAdvanced {
+          github
+        }
+      }
+    }`
+  );
+}

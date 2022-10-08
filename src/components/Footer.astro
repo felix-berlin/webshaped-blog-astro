@@ -1,0 +1,65 @@
+---
+import SocialList from "@components/SocialList.vue";
+import { getAuthor } from '@lib/api';
+
+import _footer from '../styles/objects/_footer.scss';
+
+const author = await getAuthor();
+
+const iconStyles = {
+  size: 40,
+  strokeWidth: 1,
+};
+
+const socials = {
+  facebook: {
+    url: author.user.seo.social.facebook,
+    ...iconStyles,
+  },
+  instagram: {
+    url: author.user.seo.social.instagram,
+    ...iconStyles,
+  },
+  linkedIn: {
+    url: author.user.seo.social.linkedIn,
+    ...iconStyles,
+  },
+  mySpace: {
+    url: author.user.seo.social.mySpace,
+    ...iconStyles,
+  },
+  pinterest: {
+    url: author.user.seo.social.pinterest,
+    ...iconStyles,
+  },
+  soundCloud: {
+    url: author.user.seo.social.soundCloud,
+    ...iconStyles,
+  },
+  twitter: {
+    url: author.user.seo.social.twitter,
+    ...iconStyles,
+  },
+  wikipedia: {
+    url: author.user.seo.social.wikipedia,
+    ...iconStyles,
+  },
+  youTube: {
+    url: author.user.seo.social.youTube,
+    ...iconStyles,
+  },
+  github: {
+    url: author.user.socialAdvanced.github,
+    rel: 'me',
+    ...iconStyles,
+  },
+}
+
+---
+<footer class="o-footer">
+  <SocialList social-items={socials}></SocialList>
+  <div class="o-footer__end">
+    <div>© 2015 - present Web Shaped</div>
+    <!-- <img src="assets/wave-haikei_02.svg" alt=""> -->
+  </div>
+</footer>
