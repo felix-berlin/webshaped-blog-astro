@@ -25,7 +25,8 @@
 
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
-
+import { useStore } from '@nanostores/vue';
+import { currentWebmentionsCount } from '@stores/store';
 export interface WebmentionsProps {
   target?: string;
   currentUrl?: boolean;
@@ -47,13 +48,14 @@ const getWebmentions = async (target = props.target) => {
 
   const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${target}`)
   const data = await response.json()
-  console.log(data);
-
+  console.log('Webmentions', data);
+  currentWebmentionsCount.set(data.children.length);
   state.mentions = data.children
 }
 
 onMounted(() => {
   getWebmentions();
+  console.log(useStore(currentWebmentionsCount));
 });
 </script>
 

@@ -16,6 +16,7 @@ import Author from '@components/Author.vue';
 import Footer from '@components/Footer.vue';
 import Prism from '@components/Prism.vue';
 import Webmentions from '@components/webmentions/Webmentions.vue';
+import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -102,6 +103,8 @@ const { menuItems }: any = await getMenuById(2);
         <!-- <Helpful client:load></Helpful> -->
 
 				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
+
+        <WebmentionsCount client:load></WebmentionsCount>
 
 				<Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
 
