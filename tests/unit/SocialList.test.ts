@@ -7,8 +7,12 @@ describe('SocialList.vue', () => {
   let wrapper = mount(SocialList, {
     props: {
       socialItems: {
-        facebook: 'https://fb.test',
-        github: 'https://gh.lol'
+        facebook: {
+          url: 'https://fb.test'
+        },
+        github: {
+          url: 'https://gh.lol'
+        }
       }
     }
   })
