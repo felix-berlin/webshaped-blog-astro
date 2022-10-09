@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import { resolve, dirname } from 'node:path'
+import path, { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'url'
 import preact from '@astrojs/preact';
 import vue from '@astrojs/vue';
@@ -8,6 +8,9 @@ import cloudflare from '@astrojs/cloudflare';
 import prefetch from '@astrojs/prefetch';
 import astroI18next from 'astro-i18next';
 import vueI18n from '@intlify/vite-plugin-vue-i18n';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,9 +34,15 @@ export default defineConfig({
         // compositionOnly: false,
 
         // you need to set i18n resource including paths !
-        include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
+        include: resolve(__dirname, './src/locales/**'),
       })
     ],
+    resolve: {
+      alias: {
+        '@sass-butler/': `${path.resolve(__dirname, 'node_modules/@felix_berlin/sass-butler/')}/`,
+        '@styles/': `${path.resolve(__dirname, 'src/styles/')}/`,
+      }
+    },
     // build: {
     //   rollupOptions: {
     //     output: {

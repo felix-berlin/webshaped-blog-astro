@@ -1,5 +1,5 @@
-@use './../../../node_modules/@felix_berlin/sass-butler/mixins.scss' as butler-mx;
-@use '../variables/fonts';
+@use '@sass-butler/mixins.scss' as butler-mx;
+@use '@styles/variables/fonts';
 
 // @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
 // @include fontsource-mx.fontFace($weight: 700);

@@ -1,5 +1,5 @@
-@use './../../../node_modules/@felix_berlin/sass-butler/mixins.scss' as butler-mx;
-@use '../variables/colors';
+@use '@sass-butler/mixins.scss' as butler-mx;
+@use '@styles/variables/colors';
 
 @layer global {
 	:root {
