@@ -29,7 +29,7 @@ const { share, isSupported } = useShare()
 const props = defineProps<ShareProps>()
 
 interface Data {
-  currentUrl: string;
+  currentUrl: string | undefined;
 }
 
 const data: Data = reactive({

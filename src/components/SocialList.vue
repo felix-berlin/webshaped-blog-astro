@@ -6,6 +6,7 @@
     >
       <a
         v-if="social?.url && social !== null"
+        v-tooltip="{ content: index, placement: 'top' }"
         :href="social.url"
         :target="social.target ? social.target : '_blank'"
         :aria-label="social.label ? social.label : `Besuche mich auf ${index}`"

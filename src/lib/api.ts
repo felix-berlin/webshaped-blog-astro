@@ -145,7 +145,7 @@ export async function getMenuById(id: number):Promise<object> {
   const data = await fetchAPI(`
   {
     menu(id: ${id}, idType: DATABASE_ID) {
-      menuItems(where: {parentDatabaseId: 0}) {
+      menuItems(where: {parentDatabaseId: 0,}) {
         nodes {
           label
           order
