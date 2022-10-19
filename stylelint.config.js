@@ -1,13 +1,8 @@
 module.exports = {
-  overrides: [
-    {
-      files: ['assets/styles/**/*.{s?(a|c)ss,less,stylus}'],
-      customSyntax: 'postcss-scss'
-    }
-  ],
+  customSyntax: 'postcss-scss',
   extends: [
     'stylelint-config-standard',
-    'stylelint-config-standard-scss'
+    'stylelint-config-standard-scss',
   ],
   // plugins: ['stylelint-declaration-block-no-ignored-properties'],
   // add your custom config here
