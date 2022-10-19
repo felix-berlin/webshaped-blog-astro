@@ -19,7 +19,7 @@ export default defineConfig({
   },
 	integrations: [
     preact(),
-    vue(),
+    vue({ appEntrypoint: '/src/pages/_app' }),
     sitemap(),
     prefetch(),
     // astroI18next()

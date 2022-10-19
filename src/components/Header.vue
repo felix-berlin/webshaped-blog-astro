@@ -19,7 +19,7 @@
           >
             {{ item.label }}
           </a>
-          <Menu
+          <VMenu
             v-else
             :distance="6"
           >
@@ -33,19 +33,18 @@
                 <a :href="child.path">{{ child.label }}</a>
               </template>
             </template>
-          </Menu>
+          </VMenu>
         </li>
       </ul>
     </nav>
+    <LanguageSelect />
     <ColorModeToggle />
   </header>
 </template>
 
 <script setup lang="ts">
-  // import { props } from '@astrojs/vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
-import Menu from 'floating-vue/src/components/Menu.vue'; // necessary without global import
-import 'floating-vue/dist/style.css';
+import LanguageSelect from '@components/LanguageSelect.vue';
 
 export interface HeaderProps {
   menuItems: {
