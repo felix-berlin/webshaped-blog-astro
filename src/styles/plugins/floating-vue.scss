@@ -1,0 +1,28 @@
+@use './../../../node_modules/floating-vue/dist/style.css';
+@use '@sass-butler/mixins.scss' as butler-mx;
+@use '@sass-butler/functions' as butler-fn;
+
+html {
+	.v-popper__popper {
+		--color-background: var(--blue-dark);
+
+		&:focus {
+			outline: none;
+		}
+
+		.v-popper__inner {
+			background-color: var(--color-background);
+			padding: var(--padding, #{0.5rem 0.5rem});
+			color: var(--color, var(--primary));
+			border: none;
+			border-radius: 0;
+			max-width: 100%;
+			min-width: var(--width-min, fit-content);
+		}
+
+		.v-popper__arrow-inner,
+		.v-popper__arrow-outer {
+			border-color: var(--color-background);
+		}
+	}
+}
