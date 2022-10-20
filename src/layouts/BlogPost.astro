@@ -2,7 +2,6 @@
 import '../styles/app.scss';
 import '@fontsource/source-sans-pro/400.css';
 import '@fontsource/source-sans-pro/700.css';
-import 'floating-vue/dist/style.css';
 
 import BaseHead from "@components/BaseHead.astro";
 import Header from '@components/Header.vue';
@@ -88,6 +87,8 @@ const { menuItems }: any = await getMenuById(2); // DE
 <html lang={langAttr}>
 	<head>
 		<BaseHead title={title} seo={seo} />
+    <!-- LastFM API -->
+    <link rel="preconnect" href="//last-fm.kasimir.dev">
 	</head>
 
 	<body>
