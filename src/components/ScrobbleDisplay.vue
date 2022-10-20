@@ -1,32 +1,54 @@
 <template>
-  <div>
-    <VDropdown>
-      <MusicBars :animate="state.scrobbling" />
+  <div class="c-scrobble-display">
+    <VDropdown popper-class="c-scrobble-display__dropdown">
+      <MusicBars
+        :animate="state.scrobbling"
+        class="c-scrobble-display__music-bar"
+      />
 
       <template
         #popper
       >
-        <ol>
-          <li
+        <TransitionGroup
+          name="list"
+          tag="div"
+          mode="out-in"
+          class="c-scrobble-display__list"
+        >
+          <div
             v-for="(track, index) in state.tracks.recenttracks.track"
             :key="index"
+            class="c-scrobble-display__track-item"
             :class="{ 'is-playing': track['@attr']?.nowplaying}"
           >
             <img
               :src="track.image[1]['#text']"
-              :alt="track.album['#text']"
+              :alt="`Albumcover: ${track.album['#text']}`"
+              class="c-scrobble-display__image"
               decoding="async"
               loading="eager"
               width="64"
               height="64"
             >
-            <p>{{ track.name }}</p>
-            <p>{{ track.artist['#text'] }}</p>
-            <Music v-if="track['@attr']?.nowplaying" />
-          </li>
-        </ol>
+            <div class="c-scrobble-display__track">
+              <a
+                :href="track.url"
+                class="c-scrobble-display__track-link"
+              >{{ track.name }}</a>
+              <MusicBars
+                v-if="track['@attr']?.nowplaying"
+                :animate="true"
+                class="c-scrobble-display__now-playing"
+              />
+            </div>
+
+            <p class="c-scrobble-display__artist">
+              {{ track.artist['#text'] }}
+            </p>
+          </div>
+        </TransitionGroup>
       </template>
-    </VDropdown>
+    </vDropdown>
   </div>
 </template>
 
@@ -60,10 +82,10 @@ onMounted( async () => {
 
   setInterval(async () => {
     await checkIfPlaying();
-  }, 90000);
+  }, 90000); // check every 90 seconds (1.5 min)
 });
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/scrobble-display';
 </style>

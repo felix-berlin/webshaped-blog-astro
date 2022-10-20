@@ -1,0 +1,49 @@
+@use 'sass:color';
+@use '@styles/variables/colors';
+@use '@sass-butler/mixins' as butler-mx;
+@use '@sass-butler/functions' as butler-fn;
+
+.c-scrobble-display {
+	&__list {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	&__track-item {
+		display: grid;
+		grid-template:
+			'image track'
+			'image artist'
+			/ auto 1fr;
+		row-gap: 0.2rem;
+		column-gap: 0.75rem;
+
+		&.is-playing {
+			background-color: butler-fn.hex-to-rgb(colors.$red-light, 20%);
+			border-radius: 3px;
+		}
+	}
+
+	&__image {
+		grid-area: image;
+	}
+
+	&__track {
+		grid-area: track;
+		display: flex;
+		gap: 0.5rem;
+		align-items: end;
+	}
+
+	&__artist {
+		grid-area: artist;
+		margin: 0;
+		font-size: 0.75rem;
+		color: color.adjust(#fff, $alpha: -0.5);
+	}
+
+	&__now-playing {
+		margin-right: 0.75rem;
+	}
+}
