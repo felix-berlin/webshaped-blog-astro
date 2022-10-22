@@ -18,15 +18,18 @@
 			/ auto 1fr;
 		row-gap: 0.2rem;
 		column-gap: 0.75rem;
+		background-color: var(--color-background-item, #{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)});
+		border-radius: 3px;
+		padding: 0.25rem;
 
 		&.is-playing {
-			background-color: butler-fn.hex-to-rgb(colors.$red-light, 20%);
-			border-radius: 3px;
+			--color-background-item: #{butler-fn.hex-to-rgb(colors.$red-light, 20%)};
 		}
 	}
 
 	&__image {
 		grid-area: image;
+		border-radius: 3px;
 	}
 
 	&__track {
@@ -34,13 +37,25 @@
 		display: flex;
 		gap: 0.5rem;
 		align-items: end;
+
+		&-link {
+			color: var(--color, var(--white));
+
+			@include butler-mx.dark-mode-class {
+				--color: var(--blue-dark);
+			}
+		}
 	}
 
 	&__artist {
 		grid-area: artist;
 		margin: 0;
 		font-size: 0.75rem;
-		color: color.adjust(#fff, $alpha: -0.5);
+		color: var(--color, #{color.adjust(#fff, $alpha: -0.5)});
+
+		@include butler-mx.dark-mode-class {
+			--color: #{color.adjust(colors.$blue-dark, $alpha: -0.25)};
+		}
 	}
 
 	&__now-playing {
