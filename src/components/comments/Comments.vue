@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section class="c-comments">
     <h2>Comments</h2>
     <CreateComment :current-post-id="currentPostId" />
     <template
@@ -8,7 +8,7 @@
     >
       <CommentItem :comment="comment" />
     </template>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -50,6 +50,6 @@ const props = defineProps<CommentsProps>()
 // };
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/comments';
 </style>
