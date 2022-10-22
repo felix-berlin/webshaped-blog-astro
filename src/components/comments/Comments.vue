@@ -13,9 +13,9 @@
 
 <script setup lang="ts">
 // import { onMounted } from 'vue';
-import CommentItem from '@components/CommentItem.vue';
-import type { CommentData } from '@components/CommentItem.vue';
-import CreateComment from '@components/CreateComment.vue';
+import CommentItem from '@components/comments/CommentItem.vue';
+import type { CommentData } from '@components/comments/CommentItem.vue';
+import CreateComment from '@components/comments/CreateComment.vue';
 
 export interface CommentsProps {
   comments: {

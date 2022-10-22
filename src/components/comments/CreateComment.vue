@@ -96,10 +96,10 @@
 
 <script setup lang="ts">
 // import { useTranslation } from "i18next-vue";
-import { createComment } from '../lib/api'
+import { createComment } from '@lib/api'
 import { ref, onMounted, reactive } from 'vue';
 import { useStore } from '@nanostores/vue';
-import { loadingState } from '../../store/store'
+import { loadingState } from '@stores/store'
 import Alert from '@components/Alert.vue';
 
 

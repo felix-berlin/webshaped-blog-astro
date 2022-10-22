@@ -4,7 +4,7 @@ import '@fontsource/source-sans-pro/400.css';
 import '@fontsource/source-sans-pro/700.css';
 
 import BaseHead from "@components/BaseHead.astro";
-import Header from '@components/Header.vue';
+import Header from '@components/hero/Header.vue';
 import Footer from '@components/Footer.astro';
 import { getMenuById, getAuthor } from '@lib/api';
 
@@ -40,9 +40,9 @@ const { menuItems }: any = await getMenuById(2);
 		<BaseHead title={title} seo={seo} />
 	</head>
 
-	<body>
+	<body class="o-body">
     <Header menuItems={menuItems} client:load/>
-    <main class="main" id="swup">
+    <main class="o-main" id="swup">
       <slot></slot>
     </main>
 

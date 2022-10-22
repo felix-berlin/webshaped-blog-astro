@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import Date from '@components/Date.vue'
 import ReadingTime from '@components/ReadingTime.vue'
-import CommentCount from '@components/CommentCount.vue'
+import CommentCount from '@components/comments/CommentCount.vue'
 import HasTranslations from './HasTranslations.vue'
 
 export interface BlogPostPreviewProps {

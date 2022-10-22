@@ -4,6 +4,8 @@
 
 @layer footer {
 	.o-footer {
+		grid-area: footer;
+
 		&__end {
 			min-height: 10vw;
 
