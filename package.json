@@ -1,7 +1,6 @@
 {
   "name": "webshaped-blog-frontend",
   "version": "0.0.1",
-  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -30,8 +29,8 @@
     "@vitejs/plugin-vue": "^3.1.2",
     "@vitest/coverage-c8": "^0.24.3",
     "@vue/test-utils": "^2.1.0",
-    "astro": "^1.5.1",
-    "eslint": "^8.25.0",
+    "astro": "^1.5.2",
+    "eslint": "^8.26.0",
     "eslint-plugin-astro": "^0.20.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-vue": "^9.6.0",
@@ -48,10 +47,10 @@
     "vue-tsc": "^1.0.8"
   },
   "dependencies": {
-    "@astrojs/prefetch": "^0.0.8",
+    "@astrojs/prefetch": "^0.1.0",
     "@astrojs/rss": "^1.0.2",
     "@astrojs/sitemap": "^1.0.0",
-    "@astrojs/vue": "^1.2.0",
+    "@astrojs/vue": "^1.2.1",
     "@felix_berlin/sass-butler": "^1.10.5",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@nanostores/i18n": "^0.7.0",
@@ -63,7 +62,7 @@
     "astro-i18next": "1.0.0-beta.12",
     "flag-icons": "^6.6.6",
     "floating-vue": "2.0.0-beta.20",
-    "i18next": "^22.0.0",
+    "i18next": "^22.0.1",
     "i18next-browser-languagedetector": "^6.1.8",
     "i18next-fs-backend": "^1.1.5",
     "i18next-vue": "2.0.0",
