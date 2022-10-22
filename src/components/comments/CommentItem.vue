@@ -1,5 +1,8 @@
 <template>
-  <div class="c-comment">
+  <div
+    class="c-comment"
+    role="comment"
+  >
     <article
       :id="'Comment' + comment.commentId"
       class="c-comment__item"
