@@ -9,6 +9,7 @@
       <template
         #popper
       >
+        <p>Ohne Musik geht bei mir gar nichts,<br>deshalb habe 2017 damit angefangen meinem Musikkonsum zu tracken.<br>Hier siehst du meine zuletzt gehörten {{ numberOfDisplayedTracks }} Tracks.</p>
         <TransitionGroup
           name="list"
           tag="div"
@@ -47,13 +48,16 @@
             </p>
           </div>
         </TransitionGroup>
+        <footer>
+          <span>Seite 2017 gehört: {{ state.tracks.recenttracks['@attr'].total }}</span>
+        </footer>
       </template>
     </vDropdown>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, reactive } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, reactive } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { Music } from 'lucide-vue-next';
 
@@ -62,8 +66,11 @@ const state = reactive({
   scrobbling: false,
 })
 
+let updateIntervalId: NodeJS.Timer | undefined;
+const numberOfDisplayedTracks = 5;
+
 const getScrobbles = async () => {
-  const response = await fetch(`${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=5`);
+  const response = await fetch(`${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${numberOfDisplayedTracks}`);
   const data = await response.json();
 
   return data;
@@ -73,16 +80,20 @@ const checkIfPlaying = async () => {
   await getScrobbles().then((data) => {
     state.tracks = data;
 
-    state.scrobbling = data.recenttracks.track.find((track: { [x: string]: { nowplaying: boolean; }; hasOwnProperty: (arg0: string) => any; }) => track.hasOwnProperty('@attr') && track['@attr'].nowplaying);
+    state.scrobbling = !!data.recenttracks.track.find((track: { [x: string]: { nowplaying: boolean; }; hasOwnProperty: (arg0: string) => any; }) => track.hasOwnProperty('@attr') && track['@attr'].nowplaying);
   });
 }
 
 onMounted( async () => {
   await checkIfPlaying();
 
-  setInterval(async () => {
+  updateIntervalId = setInterval(async () => {
     await checkIfPlaying();
   }, 90000); // check every 90 seconds (1.5 min)
+});
+
+onBeforeUnmount(() => {
+  clearInterval(updateIntervalId);
 });
 </script>
 

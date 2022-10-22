@@ -6,6 +6,7 @@
       class="c-author__image"
       :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
     >
+    <ScrobbleDisplay />
     <p class="c-author__name">
       {{ author.node.firstName + ' ' + author.node.lastName }}
     </p>
@@ -18,6 +19,7 @@
 
 <script setup lang="ts">
 import SocialList from '@components/SocialList.vue'
+import ScrobbleDisplay from '@components/ScrobbleDisplay.vue'
 
 export interface AuthorData {
   node: {
