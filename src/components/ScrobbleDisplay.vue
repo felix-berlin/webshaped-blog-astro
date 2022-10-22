@@ -1,6 +1,10 @@
 <template>
   <div class="c-scrobble-display">
-    <VDropdown popper-class="c-scrobble-display__dropdown">
+    <VDropdown
+      popper-class="c-scrobble-display__dropdown"
+      :show-triggers="['hover']"
+      :placement="dropdownPlacement"
+    >
       <MusicBars
         :animate="state.scrobbling"
         class="c-scrobble-display__music-bar"
@@ -49,7 +53,18 @@
           </div>
         </TransitionGroup>
         <footer>
-          <span>Seite 2017 gehört: {{ state.tracks.recenttracks['@attr'].total }}</span>
+          <img
+            src="/assets/lastfm_scrobble.svg"
+            alt="Last.fm Logo"
+            class="c-scrobble-display__scrobble"
+            width="32"
+            height="32"
+          >
+          <span>Seit 2017 gehört: {{ state.tracks.recenttracks['@attr'].total }}</span><br>
+          <span>Folge mir auf <a
+            :href="`https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`"
+            target="_blank"
+          >LastFM</a></span>
         </footer>
       </template>
     </vDropdown>
@@ -61,16 +76,29 @@ import { onBeforeMount, onBeforeUnmount, onMounted, reactive } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { Music } from 'lucide-vue-next';
 
+export interface ScrobbleDisplayProps {
+  numberOfDisplayedTracks?: number;
+  updateRate?: number;
+  updateIfActive?: boolean;
+  dropdownPlacement?: string;
+}
+
+const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
+  numberOfDisplayedTracks: 5,
+  updateRate: 180000, // check every 180 seconds (3 min)
+  updateIfActive: false,
+  dropdownPlacement: 'left',
+});
+
 const state = reactive({
   tracks: {},
   scrobbling: false,
 })
 
 let updateIntervalId: NodeJS.Timer | undefined;
-const numberOfDisplayedTracks = 5;
 
 const getScrobbles = async () => {
-  const response = await fetch(`${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${numberOfDisplayedTracks}`);
+  const response = await fetch(`${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${ props.numberOfDisplayedTracks }`);
   const data = await response.json();
 
   return data;
@@ -87,9 +115,9 @@ const checkIfPlaying = async () => {
 onMounted( async () => {
   await checkIfPlaying();
 
-  updateIntervalId = setInterval(async () => {
-    await checkIfPlaying();
-  }, 90000); // check every 90 seconds (1.5 min)
+  if (!props.updateIfActive) {
+    updateIntervalId = setInterval(checkIfPlaying, props.updateRate);
+  }
 });
 
 onBeforeUnmount(() => {

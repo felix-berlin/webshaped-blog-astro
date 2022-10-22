@@ -4,8 +4,8 @@ import '@fontsource/source-sans-pro/400.css';
 import '@fontsource/source-sans-pro/700.css';
 
 import BaseHead from "@components/BaseHead.astro";
-import Header from '@components/hero/Header.vue';
-import Footer from '@components/Footer.astro';
+import MainHeader from '@components/hero/MainHeader.vue';
+import MainFooter from '@components/MainFooter.astro';
 import { getMenuById, getAuthor } from '@lib/api';
 
 import type { SeoProps } from '@components/BaseHead.astro';
@@ -41,8 +41,8 @@ const { menuItems }: any = await getMenuById(2);
 	</head>
 
 	<body class="o-body">
-    <Header menuItems={menuItems} client:load/>
-    <main class="o-main" id="swup">
+    <MainHeader menuItems={menuItems} client:load/>
+    <main class="o-content" id="swup">
       <slot></slot>
     </main>
 
@@ -50,7 +50,7 @@ const { menuItems }: any = await getMenuById(2);
       import '../lib/swup.js';
     </script>
 
-    <Footer></Footer>
+    <MainFooter></MainFooter>
 	</body>
 </html>
 

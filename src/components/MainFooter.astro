@@ -1,7 +1,7 @@
 ---
 import SocialList from "@components/SocialList.vue";
 import { getAuthor } from '@lib/api';
-
+import { version } from './../../package.json'
 import _footer from '../styles/objects/_footer.scss';
 
 const author = await getAuthor();
@@ -11,7 +11,7 @@ const iconStyles = {
   strokeWidth: 1,
 };
 
-const socials = {
+const socialItems = {
   facebook: {
     url: author.user.seo.social.facebook,
     ...iconStyles,
@@ -57,9 +57,11 @@ const socials = {
 
 ---
 <footer class="o-footer">
-  <SocialList social-items={socials}></SocialList>
+  <SocialList social-items={socialItems}></SocialList>
+
   <div class="o-footer__end">
-    <div>© 2015 - present Web Shaped</div>
+    <div>© 2015 - { new Date().getFullYear() } Felix Scholze</div>
+    <a href="https://github.com/felix-berlin/webshaped-blog-astro/releases" target="_blank" title="Github Releases Seite">Website Version: { version }</a>
     <!-- <img src="assets/wave-haikei_02.svg" alt=""> -->
   </div>
 </footer>

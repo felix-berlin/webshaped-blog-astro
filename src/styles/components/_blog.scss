@@ -1,0 +1,15 @@
+.c-blog {
+	display: grid;
+	grid-template:
+		' article sidebar '
+		/ 75% 25%;
+	column-gap: 25px;
+
+	&__article {
+		grid-area: article;
+	}
+
+	img {
+		max-width: 100%;
+	}
+}

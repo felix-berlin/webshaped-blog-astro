@@ -6,7 +6,7 @@
         alt="Logo"
       >
     </a>
-    <ul>
+    <menu>
       <li
         v-for="(item, index) in menuItems.nodes"
         :key="index"
@@ -34,7 +34,7 @@
           </template>
         </VMenu>
       </li>
-    </ul>
+    </menu>
   </nav>
 </template>
 

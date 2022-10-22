@@ -26,9 +26,7 @@ const post: any = await getPostBySlug(postSlug);
 ---
 
 <BlogPost content={post}>
-  <div class="wrapper">
-    <article set:html={post.content} class="o-article"></article>
-  </div>
+  <div set:html={post.content} class="c-blog__content"></div>
 </BlogPost>
 
 <!-- <BlogPostVue  client:visible

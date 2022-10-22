@@ -1,10 +1,12 @@
 ---
 import '../styles/app.scss';
+import '../styles/components/_blog.scss';
+import '../styles/components/_blog-sidebar.scss';
 import '@fontsource/source-sans-pro/400.css';
 import '@fontsource/source-sans-pro/700.css';
 
 import BaseHead from "@components/BaseHead.astro";
-import Header from '@components/hero/Header.vue';
+import MainHeader from '@components/hero/MainHeader.vue';
 import Date from '@components/Date.vue';
 import ReadingTime from '@components/ReadingTime.vue';
 import Comments from '@components/comments/Comments.vue';
@@ -15,7 +17,7 @@ import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue
 import Helpful from '@components/Helpful.vue';
 import Categories from '@components/Categories.vue';
 import Author from '@components/Author.vue';
-import Footer from '@components/Footer.astro';
+import MainFooter from '@components/MainFooter.astro';
 import Prism from '@components/Prism.vue';
 import Webmentions from '@components/webmentions/Webmentions.vue';
 import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
@@ -91,55 +93,67 @@ const { menuItems }: any = await getMenuById(2); // DE
 	</head>
 
 	<body class="o-body">
-		<Header menuItems={menuItems} client:load/>
-		<article class="wrapper o-content" id="swup">
-			<header>
-				{featuredImage && (
-					<img
-						width={featuredImage.node.mediaDetails.width}
-						height={featuredImage.node.mediaDetails.height}
-						alt={featuredImage.node.altText}
-						src={featuredImage.node.mediaItemUrl}
-						srcset={featuredImage.node.srcSet}
-						loading="eager"
-            decoding="async"
-            fetchpriority="high"
-					/>
-				)}
-				<h1 class="title">{title}</h1>
-				<Date date={dateGmt} lang={language} client:visible></Date>
+		<MainHeader menuItems={menuItems} client:load />
+    <main class="o-content c-blog">
+      <article id="swup" class="c-blog__article">
+        <header class="c-blog__header">
+          {featuredImage && (
+            <img
+              width={featuredImage.node.mediaDetails.width}
+              height={featuredImage.node.mediaDetails.height}
+              alt={featuredImage.node.altText}
+              src={featuredImage.node.mediaItemUrl}
+              srcset={featuredImage.node.srcSet}
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              class="c-blog__hero-image"
+            />
+          )}
+          <h1 class="title">{title}</h1>
+          <Date date={dateGmt} lang={language} client:visible></Date>
 
-        <!-- <Helpful client:load></Helpful> -->
+          <!-- <Helpful client:load></Helpful> -->
 
-				<CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
+          <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount>
 
-        <WebmentionsCount client:load></WebmentionsCount>
+          <WebmentionsCount client:load></WebmentionsCount>
 
-				<Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
+          <ReadingTime time={seo.readingTime} />
 
-				<ReadingTime time={seo.readingTime} />
+          <Categories categories={categories} client:visible></Categories>
 
-				<Categories categories={categories} client:visible></Categories>
+          <Prism client:load></Prism>
+        </header>
 
-				<Author author={author} client:visible></Author>
 
-				<!-- <TableOfContents content={content}></TableOfContents> -->
+        <slot></slot>
+
+        <footer>
+          <Webmentions target={import.meta.env.DEV ? `https://develop.webshaped-blog-astro.pages.dev/${language.slug}/${slug}/` : ''} currentUrl={import.meta.env.PROD} client:load></Webmentions>
+
+          <Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
+        </footer>
+
+      </article>
+
+      <aside class="c-blog-sidebar">
+        <Author author={author} client:visible></Author>
+
+        <!-- <TableOfContents content={content}></TableOfContents> -->
         <TableOfContentsClientSide target=".o-article" client:load></TableOfContentsClientSide>
 
-        <Prism client:load></Prism>
-			</header>
-			<main>
-				<slot></slot>
-			</main>
-      <Webmentions target={import.meta.env.DEV ? `https://develop.webshaped-blog-astro.pages.dev/${language.slug}/${slug}/` : ''} currentUrl={import.meta.env.PROD} client:load></Webmentions>
-		</article>
-		<div>
-			<Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
-		</div>
-    <script>
+        <Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
+
+      </aside>
+
+
+    </main>
+
+    <!-- <script>
       import '../lib/swup.js';
-    </script>
-    <Footer></Footer>
+    </script> -->
+    <MainFooter></MainFooter>
 	</body>
 </html>
 

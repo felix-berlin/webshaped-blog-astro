@@ -1,5 +1,5 @@
 <template>
-  <div class="o-music-bars">
+  <span class="o-music-bars">
     <template
       v-for="(bar, index) in 3"
       :key="index"
@@ -9,7 +9,7 @@
         :class="{ 'is-animated': props.animate }"
       />
     </template>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">

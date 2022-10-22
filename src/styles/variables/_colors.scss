@@ -1,10 +1,12 @@
 /// Colors
+$white: #eee;
 $blue-light: #24b4e9;
 $blue-dark: #303956;
 $red-light: #ed3c63;
 
 /// Colors map
 $colors: (
+	'white': $white,
 	'blue-light': $blue-light,
 	'blue-dark': $blue-dark,
 	'red-light': $red-light,

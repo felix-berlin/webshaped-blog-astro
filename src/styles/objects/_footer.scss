@@ -8,6 +8,8 @@
 
 		&__end {
 			min-height: 10vw;
+			max-width: 1260px;
+			margin: 0 auto;
 
 			&::after {
 				content: '';

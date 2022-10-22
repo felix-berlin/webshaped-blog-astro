@@ -1,10 +1,8 @@
 .o-body {
-	display: grid;
-	grid-template:
-		'header header header'
-		' . main . '
-		'footer footer footer'
-		/ auto 1fr auto;
-	max-width: 1260px;
-	margin: 0 auto;
+	// display: grid;
+	// grid-template:
+	// 	'header header header'
+	// 	' content content content '
+	// 	'footer footer footer'
+	// 	/ auto 1fr auto;
 }
