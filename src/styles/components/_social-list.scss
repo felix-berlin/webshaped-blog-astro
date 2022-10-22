@@ -1,5 +1,33 @@
-// @layer social-list {
-// 	.c-social-list {
+@use '@sass-butler/functions' as butler-fn;
+@use '@sass-butler/mixins' as butler-mx;
+@use '@styles/variables/colors';
 
-// 	}
-// }
+.c-social-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	container-type: inline-size;
+	container-name: social-list;
+
+	&__link {
+		border: 2px solid butler-fn.hex-to-rgb(colors.$red-light, 20%);
+		border-radius: 3px;
+		padding: 0.5rem;
+		color: colors.$red-light;
+
+		@include butler-mx.hover {
+			.c-social-list__icon {
+				fill: colors.$red-light;
+			}
+		}
+	}
+
+	&__icon {
+		transition: all 0.3s ease-in-out;
+
+		@container social-list (max-width: 600px) {
+			width: 20px;
+			height: 20px;
+		}
+	}
+}

@@ -1,3 +1,5 @@
-.c-blog-sidebar {
-	grid-area: sidebar;
+@layer blog-sidebar {
+	.c-blog-sidebar {
+		grid-area: sidebar;
+	}
 }

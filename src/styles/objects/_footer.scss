@@ -30,35 +30,10 @@
 
 			// padding: 1rem;
 		}
-	}
 
-	.c-social-list {
-		display: flex;
-		justify-content: center;
-		gap: 2rem;
-		container-type: inline-size;
-		container-name: social-list;
-
-		&__link {
-			border: 2px solid butler-fn.hex-to-rgb(colors.$red-light, 20%);
-			border-radius: 3px;
-			padding: 0.5rem;
-			color: colors.$red-light;
-
-			@include butler-mx.hover {
-				.c-social-list__icon {
-					fill: colors.$red-light;
-				}
-			}
-		}
-
-		&__icon {
-			transition: all 0.3s ease-in-out;
-
-			@container social-list (max-width: 600px) {
-				width: 20px;
-				height: 20px;
-			}
+		.c-social-list {
+			justify-content: center;
+			gap: 2rem;
 		}
 	}
 }
