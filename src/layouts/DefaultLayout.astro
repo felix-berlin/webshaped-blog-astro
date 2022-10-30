@@ -6,6 +6,7 @@ import '@fontsource/source-sans-pro/700.css';
 import BaseHead from "@components/BaseHead.astro";
 import MainHeader from '@components/hero/MainHeader.vue';
 import MainFooter from '@components/MainFooter.astro';
+import CookieConsent from '@components/CookieConsent.vue';
 import { getMenuById, getAuthor } from '@lib/api';
 
 import type { SeoProps } from '@components/BaseHead.astro';
@@ -49,7 +50,7 @@ const { menuItems }: any = await getMenuById(2);
     <script>
       import '../lib/swup.js';
     </script>
-
+    <CookieConsent client:load></CookieConsent>
     <MainFooter></MainFooter>
 	</body>
 </html>

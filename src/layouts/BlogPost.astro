@@ -21,6 +21,7 @@ import MainFooter from '@components/MainFooter.astro';
 import Prism from '@components/Prism.vue';
 import Webmentions from '@components/webmentions/Webmentions.vue';
 import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
+import LoadWebmentions from '@components/webmentions/LoadWebmentions.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -93,6 +94,7 @@ const { menuItems }: any = await getMenuById(2); // DE
 	</head>
 
 	<body class="o-body">
+    <LoadWebmentions client:only ></LoadWebmentions>
 		<MainHeader menuItems={menuItems} client:load />
     <main class="o-content c-blog">
       <article id="swup" class="c-blog__article">
@@ -130,7 +132,7 @@ const { menuItems }: any = await getMenuById(2); // DE
         <slot></slot>
 
         <footer>
-          <Webmentions target={import.meta.env.DEV ? `https://develop.webshaped-blog-astro.pages.dev/${language.slug}/${slug}/` : ''} currentUrl={import.meta.env.PROD} client:load></Webmentions>
+
 
           <Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
         </footer>
