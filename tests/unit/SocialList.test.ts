@@ -4,7 +4,7 @@ import SocialList from '@components/SocialList.vue'
 import { Github, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-vue-next'
 
 describe('SocialList.vue', () => {
-  let wrapper = mount(SocialList, {
+  const wrapper = mount(SocialList, {
     props: {
       socialItems: {
         facebook: {

@@ -3,7 +3,7 @@ import { test, expect } from 'vitest'
 import Date from '@components/Date.vue'
 
 describe('Date.vue', () => {
-  let wrapper = mount(Date, {
+  const wrapper = mount(Date, {
     props: {
       date: '2018-09-23 15:36:00'
     }
@@ -22,7 +22,7 @@ describe('Date.vue', () => {
   test('Check for valid Date', () => {
     const date = wrapper.find('.c-date')
 
-    expect(date.text()).toBe('September 23, 2018')
+    expect(date.text()).toBe('23. September 2018')
 
   })
 })

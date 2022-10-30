@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
 import { test, expect } from 'vitest'
-import Author from '../../src/components/Author.vue'
+import Author from '@components/Author.vue'
 
 describe('Author.vue', () => {
-  let wrapper = mount(Author, {
+  const wrapper = mount(Author, {
     props: {
       author: {
         node: {
@@ -20,7 +20,9 @@ describe('Author.vue', () => {
           id: 'XYZ',
           seo: {
             social: {
-              facebook: 'https://fb.lol',
+              facebook: {
+                url: 'https://fb.test'
+              },
               // instagram: string,
               // linkedIn: string,
               // mySpace: string,
@@ -32,11 +34,11 @@ describe('Author.vue', () => {
             }
           },
           socialAdvanced: {
-            github: 'https://gh.test',
+            github: 'https://gh.lol',
           }
         }
       }
-    }
+    },
   })
 
   test('Viewing for the author names', () => {
