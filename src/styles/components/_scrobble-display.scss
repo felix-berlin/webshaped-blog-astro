@@ -4,6 +4,15 @@
 @use '@sass-butler/functions' as butler-fn;
 
 .c-scrobble-display {
+	&__header {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__headline {
+		margin: 0;
+	}
+
 	&__list {
 		display: flex;
 		flex-direction: column;

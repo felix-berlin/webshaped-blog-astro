@@ -6,7 +6,7 @@
       class="c-author__image"
       :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
     >
-    <ScrobbleDisplay />
+    <ScrobbleDisplay :idle-after-count="1" />
     <p class="c-author__name">
       {{ author.node.firstName + ' ' + author.node.lastName }}
     </p>
