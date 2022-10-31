@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch  } from "vue";
 import MusicBars from "./MusicBars.vue";
-import { Music, X } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next';
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;

@@ -1,44 +1,46 @@
 <template>
   <nav class="c-main-nav">
-    <a href="/">
+    <a
+      href="/"
+      class="c-main-nav__logo-link"
+    >
       <img
+        class="c-main-nav__logo"
         src="https://cms.webshaped.de/wp-content/uploads/webshaped_logo_2018_rbg_light.svg"
         alt="Logo"
+        width="125"
+        height="40"
       >
     </a>
-    <menu>
-      <li
-        v-for="(item, index) in menuItems.nodes"
-        :key="index"
-        :class="{'has-child': item.childItems.nodes.length > 0}"
-      >
-        <a
-          v-if="item.childItems.nodes.length <= 0"
-          :href="item.path"
-        >
-          {{ item.label }}
-        </a>
-        <VMenu
-          v-else
-          :distance="6"
-        >
-          <span>{{ item.label }}</span>
+    <Menu
+      :menu-items="props.menuItems"
+      class="is-desktop"
+    />
+    <VMenu
+      :distance="6"
+      popper-class="c-menu-dropdown"
+    >
+      <span class="c-menu-link is-menu-title"><MenuIcon :size="40" /></span>
 
-          <template #popper>
-            <template
-              v-for="(child, childIndex) in item.childItems.nodes"
-              :key="childIndex"
-            >
-              <a :href="child.path">{{ child.label }}</a>
-            </template>
-          </template>
-        </VMenu>
-      </li>
-    </menu>
+      <template #popper>
+        <Menu
+          :menu-items="props.menuItems"
+          class="is-mobile"
+        />
+
+        <LanguageSelect />
+        <ColorModeToggle />
+      </template>
+    </VMenu>
   </nav>
 </template>
 
 <script setup lang="ts">
+import Menu from '@components/Menu.vue';
+import ColorModeToggle from '@components/ColorModeToggle.vue';
+import LanguageSelect from '@components/LanguageSelect.vue';
+import { Menu as MenuIcon } from 'lucide-vue-next';
+
 export interface MainNavProps {
   menuItems: {
     nodes: [
@@ -63,6 +65,6 @@ export interface MainNavProps {
 const props = defineProps<MainNavProps>()
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/main-nav';
 </style>

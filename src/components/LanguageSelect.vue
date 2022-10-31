@@ -54,6 +54,6 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/language-select';
 </style>

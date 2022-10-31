@@ -49,5 +49,5 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-
+@use '@styles/components/color-mode-toggle';
 </style>

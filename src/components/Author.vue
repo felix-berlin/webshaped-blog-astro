@@ -1,7 +1,7 @@
 <template>
   <div class="c-author">
     <img
-      v-if="author.node.avatar.foundAvatar"
+      v-if="author.node.avatar.url"
       :src="author.node.avatar.url"
       class="c-author__image"
       :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
@@ -89,7 +89,7 @@ const socials = {
   },
   github: {
     url: props.author.node.socialAdvanced.github,
-    rel: 'me'
+    rel: 'me',
   },
 }
 
