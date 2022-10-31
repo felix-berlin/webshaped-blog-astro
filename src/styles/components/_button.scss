@@ -1,0 +1,14 @@
+.c-button {
+	cursor: pointer;
+
+	// padding: var(--padding, #{vars.$spacer * 0.25});
+	// background-color: var(--color-background, var(--white-100));
+	// border: var(--width-border, 1px) var(--style-border, solid) var(--color-border, var(--grey-100));
+	// color: var(--color, var(--grey-100));
+	// transition: all 0.3s ease-in-out;
+}
+
+.u-button-reset {
+	background-color: transparent;
+	border: none;
+}

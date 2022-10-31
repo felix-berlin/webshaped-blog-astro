@@ -19,6 +19,7 @@
     <VMenu
       :distance="6"
       popper-class="c-menu-dropdown"
+      :boundary="mobileMenuBoundary"
     >
       <span class="c-menu-link is-menu-title"><MenuIcon :size="40" /></span>
 
@@ -63,6 +64,8 @@ export interface MainNavProps {
 }
 
 const props = defineProps<MainNavProps>()
+
+const mobileMenuBoundary = document.querySelector('.o-header')
 </script>
 
 <style lang="scss">

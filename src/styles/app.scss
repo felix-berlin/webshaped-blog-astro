@@ -7,3 +7,6 @@
 @use '@styles/objects/header';
 @use '@styles/objects/footer';
 @use '@styles/objects/content';
+
+// Import global components
+@use '@styles/components/components';
