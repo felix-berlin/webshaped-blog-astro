@@ -25,3 +25,21 @@
 .fade-leave-to {
 	opacity: 0;
 }
+
+.slide-fade-right-enter-active,
+.slide-fade-right-leave-active {
+	background-color: var(--color-background, rgb(0 0 0 / 80%));
+	transform: translateX(0);
+	transition: all 0.3s linear;
+}
+
+.slide-fade-right-enter-from,
+.slide-fade-right-leave-to {
+	transform: translateX(100%);
+	opacity: 0;
+}
+
+.u-slide-parent {
+	overflow: hidden;
+	position: relative;
+}
