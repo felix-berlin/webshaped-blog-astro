@@ -45,7 +45,7 @@
 		grid-area: track;
 		display: flex;
 		gap: 0.5rem;
-		align-items: end;
+		align-items: flex-end;
 
 		&-link {
 			color: var(--color, var(--white));
