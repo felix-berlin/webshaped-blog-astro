@@ -24,6 +24,8 @@
       "@stores/*": ["store/*"],
       "@i18n/*": ["src/i18n/*"],
     },
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
+    "esModuleInterop": true,
   }
 }

@@ -19,11 +19,14 @@
     <VMenu
       :distance="6"
       popper-class="c-menu-dropdown"
-      :boundary="mobileMenuBoundary"
     >
       <span class="c-menu-link is-menu-title"><MenuIcon :size="40" /></span>
 
       <template #popper>
+        <button v-close-popper>
+          <X />
+        </button>
+
         <Menu
           :menu-items="props.menuItems"
           class="is-mobile"
@@ -40,7 +43,7 @@
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
-import { Menu as MenuIcon } from 'lucide-vue-next';
+import { Menu as MenuIcon, X } from 'lucide-vue-next';
 
 export interface MainNavProps {
   menuItems: {
@@ -64,8 +67,6 @@ export interface MainNavProps {
 }
 
 const props = defineProps<MainNavProps>()
-
-const mobileMenuBoundary = document.querySelector('.o-header')
 </script>
 
 <style lang="scss">

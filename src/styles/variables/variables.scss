@@ -1,3 +1,3 @@
-@use 'colors';
-@use 'fonts';
-@use 'layouts';
+@forward 'colors';
+@forward 'fonts';
+@forward 'layout';
