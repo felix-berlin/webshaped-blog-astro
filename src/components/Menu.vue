@@ -3,32 +3,32 @@
     <li
       v-for="(item, index) in props.menuItems.nodes"
       :key="index"
-      :class="['c-menu-item', {'has-child': item.childItems.nodes.length > 0}]"
+      :class="['c-menu__item', {'has-child': item.childItems.nodes.length > 0}]"
     >
       <a
         v-if="item.childItems.nodes.length <= 0"
         :href="item.path"
-        class="c-menu-link"
+        class="c-menu__link"
       >
         {{ item.label }}
       </a>
       <VMenu
         v-else
         :distance="6"
-        popper-class="c-menu-dropdown"
+        popper-class="c-menu__dropdown"
       >
-        <span class="c-menu-link is-menu-title">{{ item.label }}</span>
+        <span class="c-menu__link is-menu-title">{{ item.label }}</span>
 
         <template #popper>
           <menu class="c-submenu">
             <li
               v-for="(child, childIndex) in item.childItems.nodes"
               :key="childIndex"
-              class="c-submenu-item"
+              class="c-submenu__item"
             >
               <a
                 :href="child.path"
-                class="c-submenu-link"
+                class="c-submenu__link"
               >{{ child.label }}</a>
             </li>
           </menu>

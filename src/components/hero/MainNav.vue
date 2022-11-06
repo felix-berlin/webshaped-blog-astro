@@ -16,7 +16,7 @@
       :menu-items="props.menuItems"
       class="is-desktop"
     />
-    <VMenu
+    <!-- <VMenu
       :distance="6"
       popper-class="c-menu-dropdown"
     >
@@ -35,14 +35,40 @@
         <LanguageSelect />
         <ColorModeToggle />
       </template>
-    </VMenu>
+    </VMenu> -->
+
+    <button
+      type="button"
+      @click="isOpen = true"
+    >
+      <MenuIcon
+        :menu-items="props.menuItems"
+        class="is-mobile"
+      />
+    </button>
+
+    <Modal
+      :open="isOpen"
+      transition="slide-fade-right"
+      @close="isOpen = !isOpen"
+    >
+      <Menu
+        :menu-items="props.menuItems"
+        class="is-mobile"
+      />
+
+      <LanguageSelect />
+      <ColorModeToggle />
+    </Modal>
   </nav>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
+import Modal from '@components/Modal.vue';
 import { Menu as MenuIcon, X } from 'lucide-vue-next';
 
 export interface MainNavProps {
@@ -67,6 +93,8 @@ export interface MainNavProps {
 }
 
 const props = defineProps<MainNavProps>()
+
+const isOpen = ref(false)
 </script>
 
 <style lang="scss">
