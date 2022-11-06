@@ -1,9 +1,21 @@
+@use '@styles/mixins/mixins' as mx;
+
 .c-main-nav {
 	display: flex;
 	justify-content: space-between;
 
 	.c-menu {
 		&.is-desktop {
+			display: var(--display-desktop, none);
+
+			@include mx.breakpoint('md') {
+				--display-desktop: flex;
+			}
+		}
+	}
+
+	.o-mobile-nav-toggle {
+		@include mx.breakpoint('md') {
 			display: none;
 		}
 	}

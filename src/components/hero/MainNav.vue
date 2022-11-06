@@ -39,6 +39,7 @@
 
     <button
       type="button"
+      class="c-button o-mobile-nav-toggle"
       @click="isOpen = true"
     >
       <MenuIcon

@@ -3,25 +3,23 @@
 @use '@sass-butler/mixins' as butler-mx;
 @use '@sass-butler/functions' as butler-fn;
 
-@layer global {
-	:root {
-		@each $name, $color in colors.$colors {
-			/* stylelint-disable-next-line custom-property-pattern */
-			--#{$name}: #{$color};
-		}
+:root {
+	@each $name, $color in colors.$colors {
+		/* stylelint-disable-next-line custom-property-pattern */
+		--#{$name}: #{$color};
 	}
+}
 
-	html {
-		background-color: var(--color-background-doc, #fff);
+html {
+	background-color: var(--color-background-doc, #fff);
 
-		&::after {
-			background: linear-gradient(40deg, #{butler-fn.hex-to-rgb(colors.$red-light, 65.6%)} 0%, #{butler-fn.hex-to-rgb(colors.$blue-dark, 40%)});
-		}
+	&::after {
+		background: linear-gradient(40deg, #{butler-fn.hex-to-rgb(colors.$red-light, 65.6%)} 0%, #{butler-fn.hex-to-rgb(colors.$blue-dark, 40%)});
 	}
+}
 
-	@include butler-mx.dark-mode-class('html', false) {
-		--color-background-doc: var(--blue-dark);
-	}
+@include butler-mx.dark-mode-class('html', false) {
+	--color-background-doc: var(--blue-dark);
 }
 
 body {
