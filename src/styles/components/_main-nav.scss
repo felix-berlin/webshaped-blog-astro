@@ -1,22 +1,26 @@
 @use '@styles/mixins/mixins' as mx;
 
 .c-main-nav {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: 'logo toggle' 'menu menu';
+	position: relative;
 
-	.c-menu {
-		&.is-desktop {
-			display: var(--display-desktop, none);
-
-			@include mx.breakpoint('md') {
-				--display-desktop: flex;
-			}
-		}
+	&__logo-link {
+		grid-area: logo;
 	}
 
-	.o-mobile-nav-toggle {
-		@include mx.breakpoint('md') {
-			display: none;
-		}
+	&__menu {
+		grid-area: menu;
+		position: absolute;
+		background: black;
+		top: 100%;
+		bottom: -100vh;
+		left: -15px;
+		width: calc(100% + 30px);
+	}
+
+	&__toggle {
+		grid-area: toggle;
 	}
 }

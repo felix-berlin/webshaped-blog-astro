@@ -12,35 +12,11 @@
         height="40"
       >
     </a>
-    <Menu
-      :menu-items="props.menuItems"
-      class="is-desktop"
-    />
-    <!-- <VMenu
-      :distance="6"
-      popper-class="c-menu-dropdown"
-    >
-      <span class="c-menu-link is-menu-title"><MenuIcon :size="40" /></span>
-
-      <template #popper>
-        <button v-close-popper>
-          <X />
-        </button>
-
-        <Menu
-          :menu-items="props.menuItems"
-          class="is-mobile"
-        />
-
-        <LanguageSelect />
-        <ColorModeToggle />
-      </template>
-    </VMenu> -->
 
     <button
       type="button"
-      class="c-button o-mobile-nav-toggle"
-      @click="isOpen = true"
+      class="c-button c-main-nav__toggle"
+      @click="isOpen = !isOpen"
     >
       <MenuIcon
         :menu-items="props.menuItems"
@@ -48,7 +24,20 @@
       />
     </button>
 
-    <Modal
+    <Transition
+      name="fade"
+    >
+      <Menu
+        v-show="isOpen"
+        :menu-items="props.menuItems"
+        class="c-main-nav__menu"
+        :class="{'is-open': isOpen}"
+      />
+    </Transition>
+
+
+
+    <!-- <Modal
       :open="isOpen"
       transition="slide-fade-right"
       @close="isOpen = !isOpen"
@@ -60,12 +49,12 @@
 
       <LanguageSelect />
       <ColorModeToggle />
-    </Modal>
+    </Modal> -->
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
@@ -95,7 +84,23 @@ export interface MainNavProps {
 
 const props = defineProps<MainNavProps>()
 
-const isOpen = ref(false)
+const isOpen = ref(false);
+
+/**
+ * Toggle disable scroll on body
+ *
+ * @param   {boolean}  status  yes/no
+ *
+ * @return  {void}
+ */
+const disableScroll = (status: boolean): void => {
+  if (status) document.body.style.overflow = 'hidden';
+  if (!status) document.body.removeAttribute('style');
+};
+
+watch(() => isOpen.value, (value) => {
+  disableScroll(value);
+});
 </script>
 
 <style lang="scss">
