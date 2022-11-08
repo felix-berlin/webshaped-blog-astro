@@ -38,21 +38,3 @@ const posts: any = await getPostsPreview();
     <BlogPostPreview posts={posts} client:visible></BlogPostPreview>
   </section>
 </DefaultLayout>
-
-<style>
-	.content {
-		margin-top: 4rem;
-		margin-bottom: 8rem;
-	}
-
-	.intro {
-		padding-bottom: 4rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
-	}
-
-	h1 {
-		font-size: 2.5rem;
-		font-weight: 700;
-	}
-</style>
