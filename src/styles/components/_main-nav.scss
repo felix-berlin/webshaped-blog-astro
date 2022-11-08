@@ -1,26 +1,91 @@
-@use '@styles/mixins/mixins' as mx;
+@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+@use '@styles/variables/layout';
+@use '@styles/variables/shadows';
+@use '@styles/variables/colors' as colors;
+@use '@sass-butler/functions' as butler-fn;
 
 .c-main-nav {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-areas: 'logo toggle' 'menu menu';
+	grid-template-columns: max-content 1fr;
+	grid-template-areas: var(--grid-areas, 'logo toggle' 'flyout flyout');
 	position: relative;
+	padding: layout.$spacing-edge 0;
+	row-gap: layout.$spacing-edge;
+	column-gap: 3rem;
+
+	@include mx.breakpoint('sm') {
+		--grid-areas: 'logo flyout';
+	}
 
 	&__logo-link {
 		grid-area: logo;
 	}
 
+	&__flyout {
+		grid-area: flyout;
+
+		@include mx.breakpoint('sm', 'max') {
+			position: absolute;
+			background-color: var(--blue-dark);
+			top: 100%;
+			bottom: calc(-100vh - -74px);
+			left: -15px;
+			width: calc(100% + 30px);
+			z-index: 1;
+			padding: 0 layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+
+			&::after {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background:
+					linear-gradient(
+						0deg,
+						butler-fn.hex-to-rgb(colors.$red-light, 25%) 0%,
+						butler-fn.hex-to-rgb(colors.$blue-light, 8%) 25%,
+						butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
+					);
+			}
+		}
+		@include mx.breakpoint('sm') {
+			display: flex !important;
+			justify-content: space-between;
+		}
+	}
+
 	&__menu {
 		grid-area: menu;
-		position: absolute;
-		background-color: var(--blue-dark);
-		top: 100%;
-		bottom: -100vh;
-		left: -15px;
-		width: calc(100% + 30px);
+		flex-direction: var(--direction-flex, column);
+
+		@include mx.breakpoint('sm') {
+			--direction-flex: row;
+
+			align-items: center;
+			column-gap: 2rem;
+		}
+
+		.c-menu__link {
+			font-size: var(--size-font, 24px);
+
+			@include mx.breakpoint('sm') {
+				--size-font: 18px;
+			}
+		}
 	}
 
 	&__toggle {
 		grid-area: toggle;
+		justify-self: flex-end;
+
+		@include mx.breakpoint('sm') {
+			--display-button: none;
+		}
 	}
 }

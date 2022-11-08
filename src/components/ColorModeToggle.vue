@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="c-color-mode-toggle c-button u-button-reset"
+    class="c-color-mode-toggle c-button c-button--icon"
     @click="toggleMode()"
   >
     <Transition

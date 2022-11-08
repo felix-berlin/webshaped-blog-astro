@@ -13,26 +13,33 @@
       >
     </a>
 
+    <!-- <LanguageSelect /> -->
+
     <button
       type="button"
-      class="c-button c-main-nav__toggle"
-      @click="isOpen = !isOpen"
+      class="c-main-nav__toggle c-button c-button--icon"
+      @click="toggleFlyout"
     >
       <MenuIcon
         :menu-items="props.menuItems"
-        class="is-mobile"
+        class="c-main-nav__menu-icon is-mobile"
       />
     </button>
 
     <Transition
       name="fade"
     >
-      <Menu
+      <div
         v-show="isOpen"
-        :menu-items="props.menuItems"
-        class="c-main-nav__menu"
-        :class="{'is-open': isOpen}"
-      />
+        class="c-main-nav__flyout"
+      >
+        <Menu
+          :menu-items="props.menuItems"
+          class="c-main-nav__menu"
+          :class="{'is-open': isOpen}"
+        />
+        <ColorModeToggle />
+      </div>
     </Transition>
 
 
@@ -85,6 +92,10 @@ export interface MainNavProps {
 const props = defineProps<MainNavProps>()
 
 const isOpen = ref(false);
+
+const toggleFlyout = (): void => {
+  isOpen.value = !isOpen.value;
+}
 
 /**
  * Toggle disable scroll on body

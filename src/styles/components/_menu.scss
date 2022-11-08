@@ -2,8 +2,11 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
+	display: flex;
+	row-gap: 2rem;
 
-	&__item {
-		padding: 0.5rem 0;
+	&__link {
+		text-transform: uppercase;
+		text-decoration: none;
 	}
 }

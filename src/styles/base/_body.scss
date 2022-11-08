@@ -25,7 +25,6 @@ html {
 body {
 	position: relative;
 	margin: 0;
-	text-rendering: optimizelegibility;
 
 	@include butler-mx.font-smoothing;
 

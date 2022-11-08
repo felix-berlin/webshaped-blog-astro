@@ -1,0 +1,4 @@
+@use '@styles/variables/colors';
+@use '@sass-butler/functions' as butler-fn;
+
+$white-light-shadow: 0 0 4px butler-fn.hex-to-rgb(colors.$white, 35%);

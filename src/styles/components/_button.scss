@@ -1,11 +1,35 @@
+@use '@styles/variables/shadows';
+@use '@styles/variables/colors';
+@use '@styles/variables/base';
+
 .c-button {
 	cursor: pointer;
+	border-radius: base.$border-radius;
 
 	// padding: var(--padding, #{vars.$spacer * 0.25});
 	// background-color: var(--color-background, var(--white-100));
 	// border: var(--width-border, 1px) var(--style-border, solid) var(--color-border, var(--grey-100));
 	// color: var(--color, var(--grey-100));
 	// transition: all 0.3s ease-in-out;
+
+	&--icon {
+		@extend .u-button-reset;
+
+		display: var(--display-button, flex);
+		align-items: center;
+		justify-content: center;
+		color: var(--blue-light);
+		transition: all 0.3s ease-in-out;
+
+		&:active {
+			background-color: colors.$red-light;
+			color: colors.$white;
+		}
+
+		svg {
+			filter: drop-shadow(shadows.$white-light-shadow);
+		}
+	}
 }
 
 .u-button-reset {

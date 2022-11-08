@@ -49,7 +49,7 @@ const emit = defineEmits(['close', 'open']);
 const modalContentWrap = ref<HTMLElement | null>(null);
 
 onClickOutside(modalContentWrap, () =>{
-   if (props.closeOnClickOutside) close()
+  if (props.closeOnClickOutside) close()
 });
 
 /**
