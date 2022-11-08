@@ -1,7 +1,7 @@
 <template>
   <header class="o-header">
     <MainNav :menu-items="props.menuItems" />
-    <LanguageSelect class="is-desktop" />
+    <!-- <LanguageSelect class="is-desktop" /> -->
     <ColorModeToggle class="is-desktop" />
   </header>
 </template>

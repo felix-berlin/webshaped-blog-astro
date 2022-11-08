@@ -13,7 +13,7 @@
 	&__menu {
 		grid-area: menu;
 		position: absolute;
-		background: black;
+		background-color: var(--blue-dark);
 		top: 100%;
 		bottom: -100vh;
 		left: -15px;
