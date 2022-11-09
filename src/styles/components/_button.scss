@@ -19,7 +19,7 @@
 		align-items: center;
 		justify-content: center;
 		color: var(--blue-light);
-		transition: all 0.3s ease-in-out;
+		transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
 		&:active {
 			background-color: colors.$red-light;
