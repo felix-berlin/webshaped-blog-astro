@@ -32,7 +32,7 @@ const {
 
 const langAttr = language.locale.replace('_', '-');
 
-const { menuItems }: any = await getMenuById(2);
+const mainMenuItems = await getMenuById(2);
 
 ---
 
@@ -42,7 +42,7 @@ const { menuItems }: any = await getMenuById(2);
 	</head>
 
 	<body class="o-body">
-    <MainHeader menuItems={menuItems} client:load/>
+    <MainHeader menuItems={mainMenuItems.menuItems} client:load/>
     <main class="o-content" id="swup">
       <slot></slot>
     </main>
