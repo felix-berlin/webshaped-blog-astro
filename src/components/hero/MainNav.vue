@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
@@ -139,6 +139,8 @@ watch(() => isOpen.value, (value) => {
 });
 
 onMounted(() => bodyWidth.observe(document.body));
+
+onUnmounted(() => bodyWidth.disconnect());
 </script>
 
 <style lang="scss">
