@@ -19,9 +19,9 @@
 	}
 
 	*:not(.c-main-nav__flyout) {
-		@include mx.breakpoint('sm', 'max') {
+		@include mx.breakpoint('sm', 'max', $max-overlap: 0.1) {
 			position: relative;
-			z-index: 1;
+			z-index: 2;
 		}
 	}
 
@@ -32,23 +32,35 @@
 	&__flyout {
 		grid-area: flyout;
 
-		@include mx.breakpoint('sm', 'max') {
+		@include mx.breakpoint('sm', 'max', $max-overlap: 0.1) {
+			--height-header: 70px;
+
 			position: fixed;
+			z-index: 1;
 			background-color: var(--blue-dark);
 			inset: 0;
-			padding: 70px layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
+			padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+			overflow-y: scroll;
+
+			&::before {
+				content: '';
+				position: fixed;
+				z-index: 3;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: var(--height-header);
+				background-color: var(--blue-dark);
+			}
 
 			&::after {
 				content: '';
-				position: absolute;
+				position: fixed;
 				z-index: -1;
-				bottom: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
+				inset: 0;
 				background:
 					linear-gradient(
 						0deg,

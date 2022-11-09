@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
@@ -93,9 +93,34 @@ const props = defineProps<MainNavProps>()
 
 const isOpen = ref(false);
 
+const mainHeaderWidth = ref(0);
+
+/**
+ * Toggle the flyout menu
+ *
+ * @return  {void}
+ */
 const toggleFlyout = (): void => {
   isOpen.value = !isOpen.value;
 }
+
+/**
+ * Observe the body with
+ *
+ * @param   {object}  entries
+ *
+ * @return  {void}
+ */
+const bodyWidth = new ResizeObserver(entries => {
+  mainHeaderWidth.value = entries[0].contentRect.width;
+
+  if (entries[0].contentRect.width > 767 && isOpen.value) {
+    controlScroll(false);
+  }
+  if (entries[0].contentRect.width < 767 && isOpen.value) {
+    controlScroll(true);
+  }
+});
 
 /**
  * Toggle disable scroll on body
@@ -104,14 +129,16 @@ const toggleFlyout = (): void => {
  *
  * @return  {void}
  */
-const disableScroll = (status: boolean): void => {
+const controlScroll = (status: boolean): void => {
   if (status) document.body.style.overflow = 'hidden';
   if (!status) document.body.removeAttribute('style');
 };
 
 watch(() => isOpen.value, (value) => {
-  disableScroll(value);
+  controlScroll(value);
 });
+
+onMounted(() => bodyWidth.observe(document.body));
 </script>
 
 <style lang="scss">
