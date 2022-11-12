@@ -65,12 +65,14 @@ const socialItems = {
   <SocialList social-items={socialItems}></SocialList>
 
   <div class="o-footer__end">
-    <div class="o-footer__credits">© 2015 - { new Date().getFullYear() } Felix Scholze</div>
-    <a href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
-       class="o-footer__version"
-       target="_blank"
-       title="Github Releases Seite">Website Version: { version }</a>
-    <!-- <img src="assets/wave-haikei_02.svg" alt=""> -->
-    <Menu class:list={"o-footer__menu"} menu-items={footerMenuItems.menuItems}></Menu>
+    <div class="o-footer__end-wrapper">
+      <div class="o-footer__credits">© 2015 - { new Date().getFullYear() } Felix Scholze</div>
+      <a href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
+         class="o-footer__version"
+         target="_blank"
+         title="Github Releases Seite">Website Version: { version }</a>
+      <!-- <img src="assets/wave-haikei_02.svg" alt=""> -->
+      <Menu class:list={"o-footer__menu c-menu--footer"} menu-items={footerMenuItems.menuItems}></Menu>
+    </div>
   </div>
 </footer>

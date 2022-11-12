@@ -1,7 +1,8 @@
-@use '@sass-butler/functions' as butler-fn;
-@use '@sass-butler/mixins' as butler-mx;
+@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/colors';
 @use '@styles/variables/layout';
+@use '@sass-butler/functions' as butler-fn;
+@use '@sass-butler/mixins' as butler-mx;
 
 // @layer footer {
 .o-footer {
@@ -9,14 +10,7 @@
 	margin: 0 -1 * layout.$spacing-edge;
 
 	&__end {
-		max-width: layout.$content-width;
-		margin: 0 auto;
 		position: relative;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-areas: 'menu' 'credits' 'version';
-		padding: layout.$spacing-edge;
-		align-items: flex-end;
 
 		&::after {
 			content: '';
@@ -35,6 +29,30 @@
 				position: bottom;
 			}
 		}
+
+		&-wrapper {
+			max-width: layout.$content-width;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: var(--columns-grid, 1fr);
+			grid-template-areas: var(--areas-grid, 'menu' 'credits' 'version');
+			padding: 2rem layout.$spacing-edge layout.$spacing-edge;
+			align-items: flex-end;
+
+			@include mx.breakpoint('xs') {
+				--columns-grid: max-content 1fr;
+				--areas-grid: 'credits menu' 'version menu';
+			}
+			@include mx.breakpoint('sm') {
+				--columns-grid: max-content max-content 1fr;
+				--areas-grid: 'credits version menu';
+			}
+		}
+	}
+
+	&__credits,
+	&__version {
+		font-size: 0.8rem;
 	}
 
 	&__credits {
@@ -45,9 +63,20 @@
 		grid-area: version;
 	}
 
-	&__menu {
+	&__menu.c-menu {
 		grid-area: menu;
-		margin-bottom: 0.75rem;
+
+		@include mx.breakpoint('xs') {
+			align-self: var(--align-self, flex-start);
+			justify-self: var(--justify-self, flex-end);
+		}
+		@include mx.breakpoint('sm') {
+			--align-self: baseline;
+			--justify-self: flex-end;
+		}
+		@include mx.breakpoint('xs', 'max', $max-overlap: 0.01) {
+			margin-bottom: 1.5rem;
+		}
 	}
 
 	.c-social-list {
