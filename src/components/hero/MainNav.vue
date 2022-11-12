@@ -18,6 +18,8 @@
     <button
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
+      aria-label="Toggle navigation"
+      :aria-expanded="isOpen"
       @click="toggleFlyout"
     >
       <MenuIcon
