@@ -94,7 +94,6 @@ const { menuItems }: any = await getMenuById(2); // DE
 	</head>
 
 	<body class="o-body">
-    <LoadWebmentions client:only ></LoadWebmentions>
 		<MainHeader menuItems={menuItems} client:load />
     <main class="o-content c-blog">
       <article id="swup" class="c-blog__article">
@@ -132,6 +131,9 @@ const { menuItems }: any = await getMenuById(2); // DE
         <slot></slot>
 
         <footer>
+          <Author author={author} client:visible></Author>
+
+          <LoadWebmentions client:only ></LoadWebmentions>
 
 
           <Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
@@ -140,10 +142,10 @@ const { menuItems }: any = await getMenuById(2); // DE
       </article>
 
       <aside class="c-blog-sidebar">
-        <Author author={author} client:visible></Author>
 
         <!-- <TableOfContents content={content}></TableOfContents> -->
-        <TableOfContentsClientSide target=".o-article" client:load></TableOfContentsClientSide>
+        <h2>Inhaltsverzeichnis</h2>
+        <TableOfContentsClientSide target=".c-blog__content" client:load></TableOfContentsClientSide>
 
         <Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
 

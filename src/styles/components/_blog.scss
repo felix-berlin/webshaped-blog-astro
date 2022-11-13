@@ -1,9 +1,16 @@
+@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+
 .c-blog {
 	display: grid;
-	grid-template:
-		' article sidebar '
-		/ 75% 25%;
+	grid-template: var(--template-grid, ' sidebar ' ' article ');
+	grid-template-columns: var(--columns-grid, 1fr);
 	column-gap: 25px;
+	word-break: break-word;
+
+	@include mx.breakpoint('sm') {
+		--template-grid: ' article sidebar ';
+		--columns-grid: 3fr 1fr;
+	}
 
 	&__article {
 		grid-area: article;
@@ -12,5 +19,15 @@
 	img {
 		max-width: 100%;
 		height: auto;
+	}
+
+	.code-toolbar {
+		overflow-y: scroll;
+		display: grid;
+
+		pre {
+			max-width: 100%;
+			overflow: scroll;
+		}
 	}
 }

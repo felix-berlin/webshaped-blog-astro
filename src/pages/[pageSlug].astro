@@ -34,7 +34,7 @@ const { pageSlug }: any = Astro.params;
 const page: any = await getPageBySlug(pageSlug);
 ---
 <DefaultLayout content={page}>
-  <div class="wrapper">
+  <div>
     <h1>{page?.title}</h1>
     <article set:html={page.content}></article>
   </div>
