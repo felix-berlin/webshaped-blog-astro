@@ -1,5 +1,5 @@
 <template>
-  <menu class="c-menu">
+  <menu class="c-menu u-list-reset">
     <li
       v-for="(item, index) in props.menuItems.nodes"
       :key="index"
@@ -12,15 +12,19 @@
       >
         {{ item.label }}
       </a>
+
       <VMenu
         v-else
         :distance="6"
         popper-class="c-menu__dropdown"
       >
-        <span class="c-menu__link is-menu-title">{{ item.label }}</span>
+        <span class="c-menu__link is-menu-title">
+          <span>{{ item.label }}</span>
+          <ChevronDown :size="18" />
+        </span>
 
         <template #popper>
-          <menu class="c-submenu">
+          <menu class="c-submenu u-list-reset">
             <li
               v-for="(child, childIndex) in item.childItems.nodes"
               :key="childIndex"
@@ -39,6 +43,8 @@
 </template>
 
 <script setup lang="ts">
+import { ChevronDown } from 'lucide-vue-next';
+
 export interface MenuProps {
   menuItems: {
     nodes: [

@@ -1,0 +1,12 @@
+@forward '@styles/utilities/transitions';
+
+.u-slide-parent {
+	overflow: hidden;
+	position: relative;
+}
+
+.u-list-reset {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
