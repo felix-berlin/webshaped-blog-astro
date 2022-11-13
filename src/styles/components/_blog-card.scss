@@ -1,0 +1,9 @@
+@use '@styles/variables/colors';
+@use '@styles/variables/base';
+@use '@sass-butler/functions' as butler-fn;
+
+.c-blog-card {
+	background-color: butler-fn.hex-to-rgb(colors.$blue-light, 5%);
+	padding: 1rem 1rem 1rem 12%;
+	border-radius: base.$border-radius;
+}

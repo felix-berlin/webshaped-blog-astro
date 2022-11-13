@@ -1,30 +1,29 @@
 <template>
-  <article>
-    <template
-      v-for="(post, index) in posts.nodes"
-      :key="index"
-    >
-      <a :href="'/' + post.language.slug + '/' + post.slug">
-        <h2>{{ post.title }}</h2>
-      </a>
-      <Date
-        :date="post.dateGmt"
-      />
+  <article
+    v-for="(post, index) in posts.nodes"
+    :key="index"
+    class="c-blog-card"
+  >
+    <a :href="'/' + post.language.slug + '/' + post.slug">
+      <h2>{{ post.title }}</h2>
+    </a>
+    <Date
+      :date="post.dateGmt"
+    />
 
-      <CommentCount
-        :comment-total="post.commentCount"
-        is-element="div"
-      />
+    <CommentCount
+      :comment-total="post.commentCount"
+      is-element="div"
+    />
 
-      <ReadingTime :time="post.seo.readingTime" />
+    <ReadingTime :time="post.seo.readingTime" />
 
-      <HasTranslations
-        v-if="post.translations && post.translations.length"
-        :translations="post.translations"
-      />
+    <HasTranslations
+      v-if="post.translations && post.translations.length"
+      :translations="post.translations"
+    />
 
-      <div v-html="post.excerpt" />
-    </template>
+    <div v-html="post.excerpt" />
   </article>
 </template>
 
@@ -60,3 +59,7 @@ export interface BlogPostPreviewProps {
 const props = defineProps<BlogPostPreviewProps>()
 
 </script>
+
+<style lang="scss">
+@use '@styles/components/blog-card';
+</style>

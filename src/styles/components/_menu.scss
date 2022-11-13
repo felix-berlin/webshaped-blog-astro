@@ -1,13 +1,21 @@
 .c-menu {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
 	display: flex;
 	row-gap: 2rem;
+
+	&__item {
+		&.has-child {
+			.is-menu-title {
+				display: flex;
+				align-items: center;
+				gap: 0.25rem;
+			}
+		}
+	}
 
 	&__link {
 		text-transform: uppercase;
 		text-decoration: none;
+		cursor: pointer;
 	}
 
 	&--footer {
