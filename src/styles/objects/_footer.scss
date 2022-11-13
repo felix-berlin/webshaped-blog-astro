@@ -46,6 +46,8 @@
 			@include mx.breakpoint('sm') {
 				--columns-grid: max-content max-content 1fr;
 				--areas-grid: 'credits version menu';
+
+				gap: 2rem;
 			}
 		}
 	}
