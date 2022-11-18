@@ -1,6 +1,8 @@
 @use '@styles/variables/shadows';
 @use '@styles/variables/colors';
 @use '@styles/variables/base';
+@use '@sass-butler/functions' as butler-fn;
+@use '@sass-butler/mixins' as butler-mx;
 
 .c-button {
 	cursor: pointer;
@@ -19,11 +21,20 @@
 		align-items: center;
 		justify-content: center;
 		color: var(--blue-light);
-		transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
+
+		@include butler-mx.feature('motion') {
+			transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
+		}
 
 		&:active {
 			background-color: colors.$red-light;
 			color: colors.$white;
+		}
+
+		@include butler-mx.hover {
+			svg {
+				--shadow: #{butler-fn.hex-to-rgb(colors.$red-light, 100%)};
+			}
 		}
 
 		svg {
