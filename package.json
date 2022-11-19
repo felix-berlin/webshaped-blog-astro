@@ -31,7 +31,7 @@
     "@vue/test-utils": "^2.2.3",
     "astro": "^1.6.10",
     "autoprefixer": "^10.4.13",
-    "eslint": "^8.27.0",
+    "eslint": "^8.28.0",
     "eslint-plugin-astro": "^0.21.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-vue": "^9.7.0",
