@@ -1,56 +1,54 @@
-import { mount } from '@vue/test-utils'
-import { test, expect } from 'vitest'
-import Author from '@components/Author.vue'
+// import { mount } from '@vue/test-utils'
+// import { test, expect } from 'vitest'
+// import Author from '@components/Author.vue'
 
-describe('Author.vue', () => {
-  const wrapper = mount(Author, {
-    props: {
-      author: {
-        node: {
-          avatar: {
-            foundAvatar: false,
-            height: null,
-            url: null,
-            width:  null,
-          },
-          email: 'test@lol.cool',
-          firstName: 'Testerella',
-          lastName: 'Doe',
-          description: 'Cool Dev with lot of skills',
-          id: 'XYZ',
-          seo: {
-            social: {
-              facebook: {
-                url: 'https://fb.test'
-              },
-              // instagram: string,
-              // linkedIn: string,
-              // mySpace: string,
-              // pinterest: string,
-              // soundCloud: string,
-              // twitter: string,
-              // wikipedia: string,
-              // youTube: string,
-            }
-          },
-          socialAdvanced: {
-            github: 'https://gh.lol',
-          }
-        }
-      }
-    },
-  })
+// describe('Author.vue', () => {
+//   const wrapper = mount(Author, {
+//     props: {
+//       author: {
+//         node: {
+//           avatar: {
+//             foundAvatar: false,
+//             height: null,
+//             url: null,
+//             width:  null,
+//           },
+//           email: 'test@lol.cool',
+//           firstName: 'Testerella',
+//           lastName: 'Doe',
+//           description: 'Cool Dev with lot of skills',
+//           id: 'XYZ',
+//           seo: {
+//             social: {
+//               facebook: {
+//                 url: 'https://fb.test'
+//               },
+//               // instagram: string,
+//               // linkedIn: string,
+//               // mySpace: string,
+//               // pinterest: string,
+//               // soundCloud: string,
+//               // twitter: string,
+//               // wikipedia: string,
+//               // youTube: string,
+//             }
+//           },
+//           socialAdvanced: {
+//             github: 'https://gh.lol',
+//           }
+//         }
+//       }
+//     },
+//   })
 
-  test('Viewing for the author names', () => {
-    const name = wrapper.find('.c-author__name')
-    expect(name.text()).toBeDefined()
-  })
+//   test('Viewing for the author names', () => {
+//     const name = wrapper.find('.c-author__name')
+//     expect(name.text()).toBeDefined()
+//   })
 
-  test('Make sure author image is not every time availalbe', () => {
-    const image = wrapper.find('.c-author__image')
+//   test('Make sure author image is not every time availalbe', () => {
+//     const image = wrapper.find('.c-author__image')
 
-    expect(image.exists()).toBe(false)
-  })
-})
-
-
+//     expect(image.exists()).toBe(false)
+//   })
+// })
