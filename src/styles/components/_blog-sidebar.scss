@@ -1,5 +1,13 @@
+@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+
 @layer blog-sidebar {
 	.c-blog-sidebar {
 		grid-area: sidebar;
+
+		@include mx.breakpoint('md') {
+			position: sticky;
+			top: 0;
+			align-self: start;
+		}
 	}
 }
