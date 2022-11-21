@@ -41,20 +41,6 @@
         class="c-post-card__read-more-arrow"
       />
     </a>
-    <!-- <div class="background" style="background-image: image-set()">
-      <img
-        v-if="post.featuredImage"
-        :width="post.featuredImage.node.mediaDetails.width"
-        :height="post.featuredImage.node.mediaDetails.height"
-        :alt="post.featuredImage.node.altText"
-        :src="post.featuredImage.node.mediaItemUrl"
-        :srcset="post.featuredImage.node.srcSet"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-        class="c-blog__hero-image"
-      >
-    </div> -->
   </article>
 </template>
 

@@ -14,6 +14,8 @@
 
 	@include butler-mx.hover {
 		--opacity-arrow: 1;
+		--rotate-background: 0deg;
+		--translate-background: 0, 0;
 	}
 
 	&::after {
@@ -24,27 +26,10 @@
 		height: 100%;
 		width: 100%;
 		inset: 0;
-		transform: rotate(1deg) translate(10px, -7px);
+		transform: rotate(var(--rotate-background, 1deg)) translate(var(--translate-background, 10px, -7px));
 		z-index: -1;
 		backdrop-filter: blur(3px) hue-rotate(21deg);
-	}
-
-	.background {
-		content: '';
-		position: absolute;
-		border-radius: base.$border-radius;
-		height: 100%;
-		width: 100%;
-		inset: 0;
-		overflow: hidden;
-		transform: rotate(1deg) translate(10px, -7px);
-		z-index: -1;
-
-		img {
-			max-width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
+		transition: all 0.3s ease-in-out;
 	}
 
 	p,
