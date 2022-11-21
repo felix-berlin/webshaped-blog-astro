@@ -7,9 +7,9 @@
 	column-gap: 25px;
 	word-break: break-word;
 
-	@include mx.breakpoint('sm') {
+	@include mx.breakpoint('md') {
 		--template-grid: ' article sidebar ';
-		--columns-grid: 3fr 1fr;
+		--columns-grid: 3fr minmax(310px, 1fr);
 	}
 
 	&__article {
@@ -22,12 +22,13 @@
 	}
 
 	.code-toolbar {
-		overflow-y: scroll;
+		// overflow-y: scroll;
 		display: grid;
 
 		pre {
 			max-width: 100%;
-			overflow: scroll;
+
+			// overflow: scroll;
 		}
 	}
 }
