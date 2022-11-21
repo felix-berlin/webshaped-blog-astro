@@ -1,7 +1,7 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/layout';
 @use '@styles/variables/shadows';
-@use '@styles/variables/colors' as colors;
+@use '@styles/variables/colors';
 @use '@sass-butler/functions' as butler-fn;
 
 .c-main-nav {
@@ -11,8 +11,19 @@
 	grid-template-areas: var(--grid-areas, 'logo toggle' 'flyout flyout');
 	position: relative;
 	padding: layout.$spacing-edge 0;
-	row-gap: layout.$spacing-edge;
+
+	// row-gap: layout.$spacing-edge;
 	column-gap: 3rem;
+
+	border: {
+		bottom-width: 2px;
+		bottom-style: solid;
+		image: linear-gradient(
+			to right,
+			#{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)} 14%,
+			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} 55%
+		) 1;
+	}
 
 	@include mx.breakpoint('sm') {
 		--grid-areas: 'logo flyout';
