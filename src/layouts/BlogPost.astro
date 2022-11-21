@@ -91,6 +91,7 @@ const { menuItems }: any = await getMenuById(2); // DE
 		<BaseHead title={title} seo={seo} />
     <!-- LastFM API -->
     <link rel="preconnect" href="//last-fm.kasimir.dev">
+    <script src="../lib/smooth-scroll-anchor.ts"></script>
 	</head>
 
 	<body class="o-body">
@@ -145,7 +146,7 @@ const { menuItems }: any = await getMenuById(2); // DE
 
         <!-- <TableOfContents content={content}></TableOfContents> -->
         <h2>Inhaltsverzeichnis</h2>
-        <TableOfContentsClientSide target=".c-blog__content" client:load></TableOfContentsClientSide>
+        <TableOfContentsClientSide target=".c-blog__content" client:only></TableOfContentsClientSide>
 
         <Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
 
