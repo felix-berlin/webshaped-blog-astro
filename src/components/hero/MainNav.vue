@@ -1,17 +1,6 @@
 <template>
   <nav class="c-main-nav">
-    <a
-      href="/"
-      class="c-main-nav__logo-link"
-    >
-      <img
-        class="c-main-nav__logo"
-        src="https://cms.webshaped.de/wp-content/uploads/webshaped_logo_2018_rbg_light.svg"
-        alt="Logo"
-        width="125"
-        height="40"
-      >
-    </a>
+    <Logo/>
 
     <!-- <LanguageSelect /> -->
 
@@ -68,6 +57,7 @@ import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
 import Modal from '@components/Modal.vue';
+import Logo from '@components/Logo.vue';
 import { Menu as MenuIcon, X } from 'lucide-vue-next';
 
 export interface MainNavProps {

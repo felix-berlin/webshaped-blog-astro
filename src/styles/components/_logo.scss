@@ -1,0 +1,17 @@
+.c-logo {
+	text-transform: uppercase;
+	white-space: nowrap;
+	font-size: var(--font-size-logo, 24px);
+	display: flex;
+	gap: 7px;
+	align-items: center;
+	justify-content: center;
+
+	&__start {
+		font-weight: 300;
+	}
+
+	&__end {
+		font-weight: 700;
+	}
+}
