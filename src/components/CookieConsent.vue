@@ -84,6 +84,6 @@ onBeforeUnmount(() => {
 
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/cookie-consent';
 </style>
