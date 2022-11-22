@@ -6,7 +6,7 @@ import '@fontsource/source-sans-pro/700.css';
 import BaseHead from "@components/BaseHead.astro";
 import MainHeader from '@components/hero/MainHeader.vue';
 import MainFooter from '@components/MainFooter.astro';
-import CookieConsent from '@components/CookieConsent.vue';
+import Matomo from '@components/Matomo.vue';
 import { getMenuById, getAuthor } from '@lib/api';
 
 import type { SeoProps } from '@components/BaseHead.astro';
@@ -50,7 +50,11 @@ const mainMenuItems = await getMenuById(2);
     <!-- <script>
       import '../lib/swup.js';
     </script> -->
-    <CookieConsent client:only></CookieConsent>
+    <Matomo client:only
+            site-id={"3"}
+            cookie-domain={"*.webshaped.de"}
+            host={"analytics.webshaped.de"}
+            debug-mode={true}></Matomo>
     <MainFooter></MainFooter>
 	</body>
 </html>

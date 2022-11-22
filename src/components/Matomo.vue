@@ -2,12 +2,11 @@
 <template />
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, onMounted, reactive, watchEffect } from "vue";
+import { onMounted } from "vue";
 
 export interface MatomoProps {
   siteId?: string | null;
   host?: string | null;
-  requireConsent: boolean,
   cookieDomain?: string | null;
   debugMode?: boolean;
 }
@@ -15,7 +14,6 @@ export interface MatomoProps {
 const props = withDefaults(defineProps<MatomoProps>(), {
   siteId: null,
   host: null,
-  requireConsent: true,
   cookieDomain: null,
   debugMode: false,
 });
@@ -59,22 +57,8 @@ const removeMatomo = () => {
   }
 };
 
-watchEffect(() => {
-  // if (props.requireConsent) {
-  //   removeMatomo();
-  // }
-});
-
 onMounted(() => {
     initMatomo();
-
-  // if (props.requireConsent) {
-  //   console.log('matomo consent true');
-
-
-  //   initMatomo();
-
-  // }
 });
 
 </script>

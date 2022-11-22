@@ -22,6 +22,7 @@ import Prism from '@components/Prism.vue';
 import Webmentions from '@components/webmentions/Webmentions.vue';
 import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
 import LoadWebmentions from '@components/webmentions/LoadWebmentions.vue';
+import Matomo from '@components/Matomo.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -158,6 +159,11 @@ const { menuItems }: any = await getMenuById(2); // DE
     <!-- <script>
       import '../lib/swup.js';
     </script> -->
+    <Matomo client:only
+            site-id={"3"}
+            cookie-domain={"*.webshaped.de"}
+            host={"analytics.webshaped.de"}
+            debug-mode={true}></Matomo>
     <MainFooter></MainFooter>
 	</body>
 </html>

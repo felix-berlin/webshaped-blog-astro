@@ -3,18 +3,18 @@
     <slot name="text">
       <Cookie />
       Cookie Consent
-      <p>{{ data.cookieConsent }}</p>
+      <p>{{ data.acceptAllCookies }}</p>
     </slot>
     <div>
       <button
         type="button"
-        @click="data.cookieConsent = false"
+        @click="data.acceptAllCookies = false"
       >
         Reject all
       </button>
       <button
         type="button"
-        @click="data.cookieConsent = true"
+        @click="data.acceptAllCookies = true"
       >
         Accept all
       </button>
@@ -29,11 +29,12 @@
       Options
     </div>
     <Matomo
-      v-if="data.showOptions"
+      v-if="data.isMounted && data.acceptAllCookies"
       site-id="3"
       cookie-domain="*.webshaped.de"
       host="analytics.webshaped.de"
       :debug-mode="true"
+      :require-consent="false"
     />
   </div>
 </template>
@@ -45,18 +46,18 @@ import Matomo from '@components/Matomo.vue';
 
 const data = reactive({
   showOptions: false,
-  cookieConsent: localStorage.getItem('cookieConsent') ? localStorage.getItem('cookieConsent') : false,
+  acceptAllCookies: localStorage.getItem('acceptAllCookies') ? localStorage.getItem('acceptAllCookies') : false,
   isMounted: false,
 });
 
 
 
 const stop = watchEffect(() => {
-  if (data.cookieConsent !== null) localStorage.setItem('cookieConsent', data.cookieConsent.toString())
+  if (data.acceptAllCookies !== null) localStorage.setItem('acceptAllCookies', data.acceptAllCookies.toString())
 })
 
 const cookieChoice = (choice: boolean) => {
-  localStorage.setItem('cookieConsent', choice.toString());
+  localStorage.setItem('acceptAllCookies', choice.toString());
 };
 
 const showOptions = () => {
@@ -65,17 +66,17 @@ const showOptions = () => {
 };
 
 // onBeforeMount(() => {
-//   const cookieConsent = localStorage.getItem('cookieConsent');
-//   console.log(cookieConsent);
+//   const acceptAllCookies = localStorage.getItem('acceptAllCookies');
+//   console.log(acceptAllCookies);
 
-//   if (cookieConsent) {
-//     data.cookieConsent = localStorage.getItem('cookieConsent');
+//   if (acceptAllCookies) {
+//     data.acceptAllCookies = localStorage.getItem('acceptAllCookies');
 //   }
 // });
 //
 onMounted(() => {
   data.isMounted = true;
-  console.log('mounted');
+  console.log('mounted', data.isMounted && data.acceptAllCookies);
 });
 
 onBeforeUnmount(() => {
