@@ -11,8 +11,6 @@
 	grid-template-areas: var(--grid-areas, 'logo toggle' 'flyout flyout');
 	position: relative;
 	padding: layout.$spacing-edge 0;
-
-	// row-gap: layout.$spacing-edge;
 	column-gap: 3rem;
 
 	border: {
@@ -20,8 +18,8 @@
 		bottom-style: solid;
 		image: linear-gradient(
 			to right,
-			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 14%,
-			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} 55%
+			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 0%),
+			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
 		) 1;
 	}
 

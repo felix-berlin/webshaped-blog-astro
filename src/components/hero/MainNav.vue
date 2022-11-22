@@ -1,5 +1,5 @@
 <template>
-  <nav class="c-main-nav">
+  <nav class="c-main-nav" ref="mainNav">
     <Logo/>
 
     <!-- <LanguageSelect /> -->
@@ -32,9 +32,6 @@
         <ColorModeToggle />
       </div>
     </Transition>
-
-
-
     <!-- <Modal
       :open="isOpen"
       transition="slide-fade-right"
@@ -52,13 +49,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
 import Menu from '@components/Menu.vue';
 import ColorModeToggle from '@components/ColorModeToggle.vue';
 import LanguageSelect from '@components/LanguageSelect.vue';
 import Modal from '@components/Modal.vue';
 import Logo from '@components/Logo.vue';
 import { Menu as MenuIcon, X } from 'lucide-vue-next';
+import { useMouseInElement } from '@vueuse/core';
 
 export interface MainNavProps {
   menuItems: {
@@ -86,6 +84,17 @@ const props = defineProps<MainNavProps>()
 const isOpen = ref(false);
 
 const mainHeaderWidth = ref(0);
+
+const mainNav = ref(null);
+
+const mouse = reactive(useMouseInElement(mainNav));
+
+const gradientPrimaryPostion = computed(() => {
+  return !mouse.isOutside ? mouse.elementX * 100 / mouse.elementWidth + '%' : '55%';
+})
+const gradientSecondaryPostion = computed(() => {
+  return mouse.isOutside ? '14%' : '0%';
+})
 
 /**
  * Toggle the flyout menu
@@ -137,4 +146,9 @@ onUnmounted(() => bodyWidth.disconnect());
 
 <style lang="scss">
 @use '@styles/components/main-nav';
+
+.c-main-nav {
+  --gradient-primary-postion: v-bind(gradientPrimaryPostion);
+  --gradient-secondary-postion: v-bind(gradientSecondaryPostion);
+}
 </style>
