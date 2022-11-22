@@ -14,17 +14,26 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
+  site: `https://webshaped.de`,
   experimental: {
     integrations: true,
   },
 	integrations: [
     preact(),
     vue({ appEntrypoint: '/src/pages/_app' }),
-    sitemap(),
+    sitemap({
+      lastmod: new Date(),
+      i18n: {
+        defaultLocale: 'de',   // All urls that don't contain `de` or `en` after `https://webshaped.de/` will be treated as default locale, i.e. `de`
+        locales: {
+          de: 'de-DE', // The `defaultLocale` value must present in `locales` keys
+          en: 'en-US',
+        },
+      },
+    }),
     prefetch(),
     // astroI18next()
   ],
-	site: `https://webshaped.de`,
 	// output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
   vite: {
