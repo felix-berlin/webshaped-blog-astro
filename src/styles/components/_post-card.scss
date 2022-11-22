@@ -72,6 +72,10 @@
 			@include butler-mx.feature('no-motion') {
 				--opacity-arrow: 1;
 			}
+
+			@media (hover: none) {
+				--opacity-arrow: 1;
+			}
 		}
 	}
 }
