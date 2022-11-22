@@ -49,9 +49,16 @@
 		align-items: center;
 		gap: 0.25rem;
 
+		@include butler-mx.hover {
+			--transform-arrow: translateX(0.15rem);
+			--color-arrow: #{colors.$red-light};
+		}
+
 		&-arrow {
 			opacity: var(--opacity-arrow, 0);
-			transition: opacity 0.2s ease-in-out;
+			transition: all 0.2s ease-in-out;
+			transform: var(--transform-arrow, translateX(0));
+			color: var(--color-arrow, currentColor);
 		}
 	}
 }
