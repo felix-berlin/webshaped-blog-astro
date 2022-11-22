@@ -20,7 +20,7 @@
 		bottom-style: solid;
 		image: linear-gradient(
 			to right,
-			#{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)} 14%,
+			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 14%,
 			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} 55%
 		) 1;
 	}
