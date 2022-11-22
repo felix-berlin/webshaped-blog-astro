@@ -12,10 +12,12 @@
 	gap: 1.2rem;
 	position: relative;
 
-	@include butler-mx.hover {
-		--opacity-arrow: 1;
-		--rotate-background: 0deg;
-		--translate-background: 0, 0;
+	@include butler-mx.feature('motion') {
+		@include butler-mx.hover {
+			--opacity-arrow: 1;
+			--rotate-background: 0deg;
+			--translate-background: 0, 0;
+		}
 	}
 
 	&::after {
@@ -26,10 +28,14 @@
 		height: 100%;
 		width: 100%;
 		inset: 0;
-		transform: rotate(var(--rotate-background, 1deg)) translate(var(--translate-background, 10px, -7px));
+		transform: rotate(var(--rotate-background, 1deg)) translate(var(--translate-background, 8px, -7px));
 		z-index: -1;
 		backdrop-filter: blur(3px) hue-rotate(21deg);
 		transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+
+		@include butler-mx.breakpoint('xs') {
+			--translate-background: 10px, -7px;
+		}
 	}
 
 	p,
@@ -48,10 +54,13 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
+		margin-top: auto;
 
-		@include butler-mx.hover {
-			--transform-arrow: translateX(0.15rem);
-			--color-arrow: #{colors.$red-light};
+		@include butler-mx.feature('motion') {
+			@include butler-mx.hover {
+				--transform-arrow: translateX(0.15rem);
+				--color-arrow: #{colors.$red-light};
+			}
 		}
 
 		&-arrow {
@@ -59,6 +68,10 @@
 			transition: all 0.2s ease-in-out;
 			transform: var(--transform-arrow, translateX(0));
 			color: var(--color-arrow, currentColor);
+
+			@include butler-mx.feature('no-motion') {
+				--opacity-arrow: 1;
+			}
 		}
 	}
 }

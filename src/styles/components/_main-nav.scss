@@ -18,7 +18,7 @@
 		bottom-style: solid;
 		image: linear-gradient(
 			to right,
-			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 0%),
+			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
 			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
 		) 1;
 	}

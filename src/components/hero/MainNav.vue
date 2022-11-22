@@ -146,9 +146,12 @@ onUnmounted(() => bodyWidth.disconnect());
 
 <style lang="scss">
 @use '@styles/components/main-nav';
+@use '@sass-butler/mixins' as butler-mx;
 
 .c-main-nav {
-  --gradient-primary-postion: v-bind(gradientPrimaryPostion);
-  --gradient-secondary-postion: v-bind(gradientSecondaryPostion);
+  @include butler-mx.feature('motion') {
+    --gradient-primary-postion: v-bind(gradientPrimaryPostion);
+    --gradient-secondary-postion: v-bind(gradientSecondaryPostion);
+  }
 }
 </style>

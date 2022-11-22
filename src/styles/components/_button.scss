@@ -21,19 +21,20 @@
 		align-items: center;
 		justify-content: center;
 		color: var(--blue-light);
-
-		@include butler-mx.feature('motion') {
-			transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
-		}
+		transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
 		&:active {
-			background-color: colors.$red-light;
-			color: colors.$white;
+			@include butler-mx.feature('motion') {
+				background-color: colors.$red-light;
+				color: colors.$white;
+			}
 		}
 
-		@include butler-mx.hover {
-			svg {
-				--shadow: #{butler-fn.hex-to-rgb(colors.$red-light, 100%)};
+		@include butler-mx.feature('motion') {
+			@include butler-mx.hover {
+				svg {
+					--shadow: #{butler-fn.hex-to-rgb(colors.$red-light, 100%)};
+				}
 			}
 		}
 
