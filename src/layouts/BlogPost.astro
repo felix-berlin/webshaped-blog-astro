@@ -148,7 +148,7 @@ const { menuItems }: any = await getMenuById(2); // DE
         <h2>Inhaltsverzeichnis</h2>
         <TableOfContentsClientSide target=".c-blog__content" client:only></TableOfContentsClientSide>
 
-        <Share title={seo.title} text={seo.opengraphDescription} client:visible></Share>
+        <Share title={seo.title} text={seo.opengraphDescription} client:load></Share>
 
       </aside>
 
