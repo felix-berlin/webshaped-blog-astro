@@ -13,15 +13,13 @@
         class="c-has-translation__link"
         :aria-label="`Blog in ${translation.language.name} lesen`"
       >
-        <span :class="`c-has-translation__flag fi fi-${translation.language.slug === 'en' ? 'gb' : translation.language.slug}`" />
+        {{ translation.language.slug }}
       </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import '/node_modules/flag-icons/css/flag-icons.min.css';
-
 interface HasTranslationsProps {
   translations: [
     {

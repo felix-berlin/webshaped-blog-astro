@@ -60,7 +60,6 @@
     "@swup/progress-plugin": "^1.2.1",
     "@vueuse/core": "^9.6.0",
     "astro-i18next": "1.0.0-beta.13",
-    "flag-icons": "^6.6.6",
     "floating-vue": "2.0.0-beta.20",
     "i18next": "^22.0.6",
     "i18next-browser-languagedetector": "^7.0.1",
