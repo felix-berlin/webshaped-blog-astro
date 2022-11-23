@@ -1,3 +1,5 @@
+@use '@sass-butler/mixins' as butler-mx;
+
 .c-logo {
 	text-transform: uppercase;
 	white-space: nowrap;
@@ -6,6 +8,18 @@
 	gap: 7px;
 	align-items: center;
 	justify-content: center;
+
+	&__start,
+	&__end {
+		color: var(--color-logo-partial);
+		transition: color 0.3s ease-in-out;
+
+		@include butler-mx.feature('motion') {
+			@include butler-mx.hover {
+				--color-logo-partial: var(--blue-light);
+			}
+		}
+	}
 
 	&__start {
 		font-weight: 300;

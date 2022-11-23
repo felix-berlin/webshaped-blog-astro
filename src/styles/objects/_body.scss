@@ -1,11 +1,5 @@
 @use '@styles/variables/layout';
 
 .o-body {
-	// display: grid;
-	// grid-template:
-	// 	'header header header'
-	// 	' content content content '
-	// 	'footer footer footer'
-	// 	/ auto 1fr auto;
 	padding: 0 layout.$spacing-edge;
 }
