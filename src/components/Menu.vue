@@ -15,8 +15,7 @@
 
       <VMenu
         v-else
-        :distance="6"
-        popper-class="c-menu__dropdown"
+        theme="submenu"
       >
         <span class="c-menu__link is-menu-title">
           <span>{{ item.label }}</span>
@@ -72,4 +71,5 @@ const props = defineProps<MenuProps>()
 
 <style lang="scss">
 @use '@styles/components/menu';
+@use '@styles/components/submenu';
 </style>
