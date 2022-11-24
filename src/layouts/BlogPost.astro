@@ -23,6 +23,7 @@ import Webmentions from '@components/webmentions/Webmentions.vue';
 import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
 import LoadWebmentions from '@components/webmentions/LoadWebmentions.vue';
 import Matomo from '@components/Matomo.vue';
+import PostOlderThan from '@components/PostOlderThan.vue';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -35,6 +36,7 @@ export interface BlogPost {
     seo: Seo;
     author: AuthorData;
 		dateGmt: string;
+    modifiedGmt: string;
 		featuredImage: {
       node: {
         mediaItemUrl: string;
@@ -66,6 +68,7 @@ const {
 		title,
     slug,
 		dateGmt,
+    modifiedGmt,
 		featuredImage,
 		seo,
 		language,
@@ -114,7 +117,9 @@ const { menuItems }: any = await getMenuById(2); // DE
             />
           )}
           <h1 class="title">{title}</h1>
-          <Date date={dateGmt} lang={language} client:visible></Date>
+          <Date date={dateGmt} dateModified={modifiedGmt} lang={language} client:visible></Date>
+
+          <PostOlderThan date={dateGmt}></PostOlderThan>
 
           <!-- <Helpful client:load></Helpful> -->
 
