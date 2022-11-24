@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getYearDiff(date, Date.now()) >= 4" class="c-post-older-than">
+  <div v-if="getYearDiff(date, Date.now()) >= showAfterYears" class="c-post-older-than">
     <p class="c-post-older-than__text">Dieser Post ist bereits {{ getYearDiff(date, Date.now()) }} alt. Möglicherweise ist der Inhalt nicht mehr ganz aktuell.</p>
   </div>
 </template>
@@ -7,6 +7,7 @@
 <script setup lang="ts">
 export interface PostOlderThanProps {
   date: string;
+  showAfterYears: number;
 }
 
 const props = defineProps<PostOlderThanProps>()

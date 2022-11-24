@@ -119,7 +119,7 @@ const { menuItems }: any = await getMenuById(2); // DE
           <h1 class="title">{title}</h1>
           <Date date={dateGmt} dateModified={modifiedGmt} lang={language} client:visible></Date>
 
-          <PostOlderThan date={dateGmt}></PostOlderThan>
+          <PostOlderThan date={dateGmt} showAfterYears={4}></PostOlderThan>
 
           <!-- <Helpful client:load></Helpful> -->
 
