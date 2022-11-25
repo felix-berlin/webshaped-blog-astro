@@ -1,15 +1,28 @@
 <template>
-  <time
-    class="c-date"
-  >{{ formattedDate(date, props.lang?.locale) }}</time>
+  <div>
+    <Calendar></Calendar>
+    <time
+      class="c-date"
+    >
+    {{ formattedDate(date, props.lang?.locale ?? '') }}</time>
+    <Edit3></Edit3>
+    <time
+      class="c-date"
+    >
+    {{ formattedDate(dateModified ?? '', props.lang?.locale ?? '') }}</time>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { reactive , onMounted } from 'vue';
+import { Calendar, Edit3 } from 'lucide-vue-next';
 
 export interface DateProps {
   date: string;
-  lang?: object;
+  dateModified?: string;
+  lang?: {
+    locale: string;
+  };
 }
 
 const props = defineProps<DateProps>()
