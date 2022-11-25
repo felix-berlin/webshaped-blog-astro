@@ -16,7 +16,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^4.0.1",
+    "@astrojs/cloudflare": "^4.1.0",
     "@astrojs/preact": "^1.2.0",
     "@intlify/vite-plugin-vue-i18n": "^6.0.3",
     "@semantic-release/changelog": "^6.0.1",
@@ -28,12 +28,12 @@
     "@vitejs/plugin-vue": "^3.2.0",
     "@vitest/coverage-c8": "^0.25.3",
     "@vue/test-utils": "^2.2.4",
-    "astro": "^1.6.10",
+    "astro": "^1.6.11",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",
     "eslint-plugin-astro": "^0.21.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-vue": "^9.7.0",
+    "eslint-plugin-vue": "^9.8.0",
     "eslint-plugin-vuejs-accessibility": "^2.0.0",
     "jsdom": "^20.0.3",
     "postcss-scss": "^4.0.5",
