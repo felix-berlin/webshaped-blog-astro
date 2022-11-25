@@ -24,6 +24,7 @@ import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
 import LoadWebmentions from '@components/webmentions/LoadWebmentions.vue';
 import Matomo from '@components/Matomo.vue';
 import PostOlderThan from '@components/PostOlderThan.vue';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -87,7 +88,7 @@ const { menuItems }: any = await getMenuById(2); // DE
 // const { menuItemsEn }: any = await getMenuById(125); // EN
 
 // console.log(Astro.url.pathname, menuItemsEn, language);
-
+//
 ---
 
 <html lang={langAttr}>
@@ -100,8 +101,9 @@ const { menuItems }: any = await getMenuById(2); // DE
 
 	<body class="o-body">
 		<MainHeader menuItems={menuItems} client:load />
+    <Breadcrumbs indexText={"Index"}></Breadcrumbs>
     <main class="o-content c-blog">
-      <article id="swup" class="c-blog__article">
+      <article id="swup" class="c-blog__post">
         <header class="c-blog__header">
           {featuredImage && (
             <img
