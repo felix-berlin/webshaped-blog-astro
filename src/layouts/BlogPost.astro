@@ -101,7 +101,9 @@ const { menuItems }: any = await getMenuById(2); // DE
 
 	<body class="o-body">
 		<MainHeader menuItems={menuItems} client:load />
-    <Breadcrumbs indexText={"Index"}></Breadcrumbs>
+    <Breadcrumbs indexText={"Index"}>
+      <span slot="separator">Test</span>
+    </Breadcrumbs>
     <main class="o-content c-blog">
       <article id="swup" class="c-blog__post">
         <header class="c-blog__header">

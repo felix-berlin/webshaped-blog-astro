@@ -1,6 +1,11 @@
 ---
-const { indexText = 'Home' } = Astro.props;
-const paths = Astro.url.pathname.split('/').filter(x => x);
+interface BreadcrumbsProps {
+  indexText: string;
+}
+
+const { indexText = 'Home' } = Astro.props as BreadcrumbsProps;
+
+const paths = Astro.url.pathname.split('/').filter(crumb => crumb);
 const ariaCurrent = Astro.request.url.pathname === '/' ? 'page' : undefined;
 
 interface BreadcrumbItem {
@@ -32,11 +37,12 @@ paths.forEach((text, i) => {
 ---
 
 <nav aria-label="Breadcrumb" class="c-breadcrumb">
-  <ol class="c-breadcrumb__crumbs" role="list">
+  <ol class="c-breadcrumb__crumbs">
     {
-      parts.map(({ text, ...attrs }) =>
-      <li class="c-breadcrumb__crumb" role="listitem">
+      parts.map(({ text, ...attrs }, index, array) =>
+      <li class="c-breadcrumb__crumb">
         <a {...attrs}>{text}</a>
+        {(Astro.slots.has('separator') && array.length - 1 !== index) && <slot name="separator"></slot>}
       </li>)
     }
   </ol>
