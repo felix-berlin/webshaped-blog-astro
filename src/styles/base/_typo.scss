@@ -1,8 +1,16 @@
 @use '@sass-butler/mixins.scss' as butler-mx;
+@use '@sass-butler/functions' as butler-fn;
 @use '@styles/variables/fonts';
+@use '@styles/variables/colors';
 
 // @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
 // @include fontsource-mx.fontFace($weight: 700);
+
+:root {
+	@each $name, $size in fonts.$font-sizes {
+		--font-size-#{$name}: #{$size};
+	}
+}
 
 @layer typo {
 	@for $h from 1 to 6 {
@@ -17,11 +25,11 @@
 	}
 
 	@include butler-mx.dark-mode-class('html', false) {
-		color: #fff;
+		color: colors.$white;
 	}
 
 	a {
-		color: #fff;
+		color: colors.$white;
 		cursor: pointer;
 		text-decoration: none;
 	}
