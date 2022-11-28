@@ -5,14 +5,16 @@
       :key="index"
       class="c-categories"
     >
-      <p class="c-categories__item">
+      <Hash :size="18"></Hash>
+      <span class="c-categories__item">
         {{ category.node.name }}
-      </p>
+      </span>
     </div>
   </template>
 </template>
 
 <script setup lang="ts">
+import { Hash } from 'lucide-vue-next'
 
 interface Props {
   categories: {
