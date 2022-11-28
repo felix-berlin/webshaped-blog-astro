@@ -1,19 +1,51 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+@use '@sass-butler/functions' as butler-fn;
+@use '@styles/components/breadcrumbs';
 
 .c-blog {
 	display: grid;
-	grid-template: var(--template-grid, ' sidebar ' ' article ');
+	grid-template:
+		var(
+			--template-grid,
+			' header '
+			' sidebar '
+			' article '
+		);
 	grid-template-columns: var(--columns-grid, 1fr);
 	column-gap: 25px;
 	word-break: break-word;
 
 	@include mx.breakpoint('md') {
-		--template-grid: ' article sidebar ';
+		--template-grid: 'header header' ' article sidebar ';
 		--columns-grid: 3fr minmax(310px, 1fr);
+	}
+
+	&__header {
+		grid-area: header;
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: 25px;
+		row-gap: 10px;
+		margin-top: 70px;
+	}
+
+	&__title {
+		flex: 1 0 100%;
+		font-size: var(--font-size-3xl);
+		margin: 0;
 	}
 
 	&__post {
 		grid-area: article;
+	}
+
+	&__content {
+		padding: 0 50px;
+
+		p {
+			font-size: var(--font-size-lg);
+			line-height: butler-fn.px-to-rem(34);
+		}
 	}
 
 	img {
@@ -24,11 +56,23 @@
 	.code-toolbar {
 		// overflow-y: scroll;
 		display: grid;
+		margin: 0 -50px;
 
 		pre {
 			max-width: 100%;
 
 			// overflow: scroll;
 		}
+	}
+
+	.c-date,
+	.c-reading-time,
+	.c-webmentions-count,
+	.c-categories {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--color-text, var(--blue-shallow-dark));
+		gap: 5px;
 	}
 }
