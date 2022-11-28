@@ -1,1 +1,14 @@
+@use '@sass-butler/functions' as butler-fn;
+
 $source-sans-pro: 'Source Sans Pro', sans-serif;
+
+/// Font sizes
+$font-sizes: (
+	'xs': butler-fn.px-to-rem(12),
+	'sm': butler-fn.px-to-rem(14),
+	'md': butler-fn.px-to-rem(16),
+	'lg': butler-fn.px-to-rem(20),
+	'xl': butler-fn.px-to-rem(24),
+	'2xl': butler-fn.px-to-rem(28),
+	'3xl': butler-fn.px-to-rem(36),
+);
