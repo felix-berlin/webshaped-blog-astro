@@ -1,25 +1,19 @@
 <template>
-  <div>
-    <Calendar></Calendar>
+  <div class="c-date">
+    <slot name="before"></slot>
+
     <time
       class="c-date"
-    >
-    {{ formattedDate(date, props.lang?.locale ?? '') }}</time>
-    <Edit3></Edit3>
-    <time
-      class="c-date"
-    >
-    {{ formattedDate(dateModified ?? '', props.lang?.locale ?? '') }}</time>
+      v-text="formattedDate(date, props.lang?.locale ?? '')"
+    />
+
+    <slot name="after"></slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive , onMounted } from 'vue';
-import { Calendar, Edit3 } from 'lucide-vue-next';
-
 export interface DateProps {
   date: string;
-  dateModified?: string;
   lang?: {
     locale: string;
   };
@@ -27,17 +21,11 @@ export interface DateProps {
 
 const props = defineProps<DateProps>()
 
-// const data = {
-//   formatDateString: props.date.replace(/T/g, ' '),
-// }
-
-
-const formattedDate = (date: string, locale: string) => {
+const formattedDate = (date: string, locale: string): string => {
   const dumpSafariDateFormat = date.replace(/-/g, '/').replace(/T/g, ' ');
 
-  if (!locale) {
-    locale = 'de-DE';
-  }
+  if (!locale) locale = 'de-DE';
+
   const formattedLocale = locale.replace(/_/g, '-')
 
   const dateToFormat = new Date(dumpSafariDateFormat);
