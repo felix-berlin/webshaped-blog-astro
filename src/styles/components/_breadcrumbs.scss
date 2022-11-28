@@ -1,0 +1,15 @@
+@use '@styles/utilities/utilities';
+
+.c-breadcrumbs {
+	text-transform: lowercase;
+
+	&__crumbs {
+		@extend .u-list-reset;
+
+		display: flex;
+	}
+
+	&__separator {
+		margin: 0 0.25rem;
+	}
+}
