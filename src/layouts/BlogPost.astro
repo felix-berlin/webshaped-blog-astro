@@ -26,6 +26,7 @@ import Matomo from '@components/Matomo.vue';
 import PostOlderThan from '@components/PostOlderThan.vue';
 import { Breadcrumbs } from 'astro-breadcrumbs';
 // import Breadcrumbs from '@components/Breadcrumbs.astro';
+import { __ } from '@i18n/i18n'
 
 import type { AuthorData } from '@components/Author.vue';
 import type { Seo, Title } from '@components/BaseHead.astro';
@@ -131,8 +132,8 @@ const breadcrumbItems = [
           <span slot="separator" class="c-breadcrumbs__separator">/</span>
         </Breadcrumbs> -->
         <h1 class="c-blog__title">{title}</h1>
-        <DateModified date={modifiedGmt} lang={language}/>
-        <ReadingTime time={seo.readingTime} />
+        <DateModified date={modifiedGmt} lang={language} client:load/>
+        <ReadingTime time={seo.readingTime} lang={language}/>
         <WebmentionsCount elementIs={'a'} href={'#webmentions'} client:load></WebmentionsCount>
         <Categories categories={categories} client:visible></Categories>
       </header>
@@ -176,10 +177,10 @@ const breadcrumbItems = [
       <aside class="c-blog-sidebar">
 
         <!-- <TableOfContents content={content}></TableOfContents> -->
-        <h2>Inhaltsverzeichnis</h2>
+        <h2>{ __(language.locale, 'blog.table_of_contents') }</h2>
         <TableOfContentsClientSide target=".c-blog__content" client:only></TableOfContentsClientSide>
 
-        <Share title={seo.title} text={seo.opengraphDescription} client:only></Share>
+        <Share title={seo.title} text={seo.opengraphDescription} lang={language} client:only></Share>
 
       </aside>
 

@@ -35,7 +35,7 @@
       class="c-post-card__read-more"
       :href="'/' + post.language.slug + '/' + post.slug"
     >
-      <span>Read more</span>
+      <span>{{ __(post.language.locale, 'blog.read_more') }}</span>
       <ArrowRight
         :size="22"
         class="c-post-card__read-more-arrow"
@@ -50,6 +50,7 @@ import Date from '@components/Date.vue'
 import ReadingTime from '@components/ReadingTime.vue'
 import CommentCount from '@components/comments/CommentCount.vue'
 import HasTranslations from './HasTranslations.vue'
+import { __ } from '@i18n/i18n'
 
 export interface BlogPostPreviewProps {
   posts: {

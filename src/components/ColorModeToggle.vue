@@ -13,7 +13,7 @@
       >
         <Moon
           focusable="false"
-          aria-label="Dunklen Modus aktivieren"
+          :aria-label="__('de_DE', 'color_mode_toggle.dark_label')"
         />
       </template>
 
@@ -22,7 +22,7 @@
       >
         <Sun
           focusable="false"
-          aria-label="Hellen Modus aktivieren"
+          :aria-label="__('de_DE', 'color_mode_toggle.light_label')"
         />
       </template>
     </Transition>
@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { Moon, Sun } from 'lucide-vue-next'
 import { ref, onMounted, reactive, watch } from 'vue';
+import { __ } from '@i18n/i18n'
 
 const state = reactive({ isDark: false, });
 

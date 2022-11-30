@@ -8,7 +8,7 @@
       @blur="changeLanguage($event)"
     >
       <template
-        v-for="[code, name] in Object.entries(languages)"
+        v-for="[code, name] in Object.entries(availableLanguages)"
         :key="code"
       >
         <option :value="code">
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import languages from '@i18n/languages.ts';
+import { availableLanguages } from '@i18n/i18n';
 import { onMounted, reactive } from 'vue';
 import { useStore } from '@nanostores/vue';
 import { currentLanguage } from '@stores/i18n';

@@ -7,7 +7,7 @@
   >
     <Share2
       focusable="false"
-      aria-label="Blog Post teilen"
+      :aria-label="__(lang?.locale, 'share.label')"
       class="c-share__icon"
     />
   </button>
@@ -17,12 +17,16 @@
 import { Share2 } from 'lucide-vue-next';
 import { ref, onMounted, reactive } from 'vue';
 import { useShare } from '@vueuse/core'
+import { __ } from '@i18n/i18n'
 
 
 export interface ShareProps {
   title?: string;
   text?: string;
   url?: string | undefined;
+  lang?: {
+    locale: string;
+  };
 }
 
 const { share, isSupported } = useShare()
