@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^4.1.0",
-    "@astrojs/preact": "^1.2.0",
     "@intlify/vite-plugin-vue-i18n": "^6.0.3",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/exec": "^6.0.3",
