@@ -60,17 +60,11 @@
     "@swup/progress-plugin": "^1.2.1",
     "@vueuse/core": "^9.6.0",
     "astro-breadcrumbs": "^1.1.0",
-    "astro-i18next": "1.0.0-beta.14",
     "floating-vue": "2.0.0-beta.20",
-    "i18next": "^22.0.6",
-    "i18next-browser-languagedetector": "^7.0.1",
-    "i18next-fs-backend": "^2.0.1",
-    "i18next-vue": "2.1.1",
     "lucide-vue-next": "^0.102.0",
     "nanostores": "^0.7.1",
     "preact": "^10.11.3",
     "prismjs": "^1.29.0",
-    "swup": "^2.0.19",
-    "vue-i18n": "^9.2.2"
+    "swup": "^2.0.19"
   }
 }
