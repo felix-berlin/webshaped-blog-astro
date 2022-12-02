@@ -9,7 +9,7 @@
         v-tooltip="{ content: index, placement: 'top' }"
         :href="social.url"
         :target="social.target ? social.target : '_blank'"
-        :aria-label="social.label ? social.label : `Besuche mich auf ${index}`"
+        :aria-label="social.label ? social.label : __( lang.locale, 'social_list.link.label', { platform: index } )"
         :class="`c-social-list__link ${social.class ? social.class : ''}`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
       >
@@ -57,6 +57,7 @@
 
 <script setup lang="ts">
 import { Github, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-vue-next'
+import { __ } from '@i18n/i18n'
 
 export interface SocialListItem {
   url: string;
@@ -81,6 +82,9 @@ export interface SocialListProps {
     wikipedia?: SocialListItem;
     youTube?: SocialListItem;
     github?: SocialListItem;
+  },
+  lang: {
+    locale: string;
   }
 }
 

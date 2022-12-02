@@ -23,14 +23,6 @@ const __ = (locale: string, translationString: string, varsToReplace?: object, p
   // console.log(vars);
   if (varsToReplace) {
 
-    /**
-     * [entries description]
-     *
-     * @param   {[type]}  variable  [variable description]
-     * @param   {[type]}  value     [value description]
-     *
-     * @return  {string}                [return description]
-     */
     const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, 'gi');
 
     return translations[locale as keyof typeof translations][translationString].replace(regex, (matched:string, offset:number, string:string) => {

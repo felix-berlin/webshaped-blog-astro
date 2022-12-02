@@ -6,9 +6,9 @@
       class="c-categories"
     >
       <Hash :size="18"></Hash>
-      <span class="c-categories__item">
+      <a :href="`/category/${category.node.name}`" class="c-categories__item">
         {{ category.node.name }}
-      </span>
+      </a>
     </div>
   </template>
 </template>

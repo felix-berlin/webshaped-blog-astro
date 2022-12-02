@@ -30,6 +30,9 @@ const {
 	},
 } = Astro.props as DefaultLayoutProps;
 
+console.log('language', language);
+
+
 const langAttr = language.locale.replace('_', '-');
 
 const mainMenuItems = await getMenuById(2);
@@ -55,7 +58,7 @@ const mainMenuItems = await getMenuById(2);
             cookie-domain={"*.webshaped.de"}
             host={"analytics.webshaped.de"}
             debug-mode={true}></Matomo>
-    <MainFooter></MainFooter>
+    <MainFooter lang={language}></MainFooter>
 	</body>
 </html>
 

@@ -16,20 +16,19 @@
         #popper
       >
         <header class="c-scrobble-display__header">
-          <h2 class="c-scrobble-display__headline">
-            Meine zuletzt gehörten {{ numberOfDisplayedTracks }} Tracks
-          </h2>
+          <h2 class="c-scrobble-display__headline" v-text="__(lang.locale, 'scrobble_display.headline', {count: numberOfDisplayedTracks})"/>
+
           <button
             v-close-popper
             class="c-scrobble-display__close"
           >
             <X
               :size="14"
-              aria-label="Track Liste schließen"
+              :aria-label="__(lang.locale, 'scrobble_display.close')"
             />
           </button>
         </header>
-        <p>Ohne Musik geht bei mir gar nichts,<br>deshalb habe 2017 damit angefangen meinem Musikkonsum zu tracken.</p>
+        <p v-html="__(lang.locale, 'scrobble_display.text')"/>
 
         <TransitionGroup
           name="list"
@@ -45,7 +44,7 @@
           >
             <img
               :src="track.image[1]['#text']"
-              :alt="`Albumcover: ${track.album['#text']}`"
+              :alt="__(lang.locale, 'scrobble_display.album_cover.alt', {album: track.album['#text'], artist: track.artist['#text']})"
               class="c-scrobble-display__image"
               decoding="async"
               loading="eager"
@@ -77,11 +76,8 @@
             width="32"
             height="32"
           >
-          <span>Seit 2017 habe ich {{ state.tracks.recenttracks['@attr'].total }} Tracks gehört.</span><br>
-          <span>Folge mir auf <a
-            :href="`https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`"
-            target="_blank"
-          >LastFM</a></span>
+          <span>{{ __(lang.locale, 'scrobble_display.total_text', {total: state.tracks.recenttracks['@attr'].total}) }}</span><br>
+          <span v-html="__(lang.locale, 'scrobble_display.follow_me', {link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`})"></span>
         </footer>
       </template>
     </vDropdown>
@@ -92,6 +88,7 @@
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch  } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { X } from 'lucide-vue-next';
+import { __ } from '@i18n/i18n'
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
@@ -99,6 +96,9 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleIfInactive?: boolean;
   idleAfterCount?: number;
+  lang: {
+    locale: string;
+  }
 }
 
 interface State {
@@ -116,6 +116,9 @@ const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
   dropdownPlacement: 'left',
   idleIfInactive: false,
   idleAfterCount: undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
+  lang: {
+    locale: 'de'
+  }
 });
 
 const state: State = reactive({

@@ -9,6 +9,12 @@ import _footer from '../styles/objects/_footer.scss';
 const footerMenuItems:object = await getMenuById(38);
 const author = await getAuthor();
 
+interface MainFooterProps {
+  lang: {
+    locale: string;
+  }
+}
+
 const iconStyles = {
   size: 40,
   strokeWidth: 1,
@@ -58,9 +64,11 @@ const socialItems = {
   },
 }
 
+const { lang } = Astro.props as MainFooterProps;
+
 ---
 <footer class="o-footer">
-  <SocialList social-items={socialItems} client:visible></SocialList>
+  <SocialList social-items={socialItems} lang={lang} client:visible></SocialList>
 
   <div class="o-footer__end">
     <div class="o-footer__end-wrapper">

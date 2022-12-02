@@ -134,7 +134,7 @@ const breadcrumbItems = [
         <h1 class="c-blog__title">{title}</h1>
         <DateModified date={modifiedGmt} lang={language} client:load/>
         <ReadingTime time={seo.readingTime} lang={language}/>
-        <WebmentionsCount elementIs={'a'} href={'#webmentions'} client:load></WebmentionsCount>
+        <WebmentionsCount elementIs={'a'} href={'#webmentions'} lang={language} client:load></WebmentionsCount>
         <Categories categories={categories} client:visible></Categories>
       </header>
       <article id="swup" class="c-blog__post">
@@ -164,7 +164,7 @@ const breadcrumbItems = [
         <slot></slot>
 
         <footer>
-          <Author author={author} client:visible></Author>
+          <Author author={author} lang={language} client:visible></Author>
 
           <LoadWebmentions client:only></LoadWebmentions>
 
@@ -175,9 +175,7 @@ const breadcrumbItems = [
       </article>
 
       <aside class="c-blog-sidebar">
-
-        <!-- <TableOfContents content={content}></TableOfContents> -->
-        <h2>{ __(language.locale, 'blog.table_of_contents') }</h2>
+        <h2 class="c-blog-sidebar__headline">{ __(language.locale, 'blog.table_of_contents') }</h2>
         <TableOfContentsClientSide target=".c-blog__content" client:only></TableOfContentsClientSide>
 
         <Share title={seo.title} text={seo.opengraphDescription} lang={language} client:only></Share>
@@ -195,7 +193,7 @@ const breadcrumbItems = [
             cookie-domain={"*.webshaped.de"}
             host={"analytics.webshaped.de"}
             debug-mode={true}></Matomo>
-    <MainFooter></MainFooter>
+    <MainFooter lang={language}></MainFooter>
 	</body>
 </html>
 

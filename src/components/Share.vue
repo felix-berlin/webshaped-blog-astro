@@ -7,7 +7,7 @@
   >
     <Share2
       focusable="false"
-      :aria-label="__(lang?.locale, 'share.label')"
+      :aria-label="__(lang.locale, 'share.label')"
       class="c-share__icon"
     />
   </button>
@@ -24,7 +24,7 @@ export interface ShareProps {
   title?: string;
   text?: string;
   url?: string | undefined;
-  lang?: {
+  lang: {
     locale: string;
   };
 }

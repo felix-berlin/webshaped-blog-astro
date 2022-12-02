@@ -6,14 +6,14 @@
       class="c-author__image"
       :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
     >
-    <ScrobbleDisplay :idle-after-count="1" />
+    <ScrobbleDisplay :idle-after-count="1" :lang="lang" />
     <p class="c-author__name">
       {{ author.node.firstName + ' ' + author.node.lastName }}
     </p>
     <p class="c-author__description">
       {{ author.node.description }}
     </p>
-    <SocialList :social-items="socials" />
+    <SocialList :social-items="socials" :lang="lang" />
   </div>
 </template>
 
@@ -50,11 +50,14 @@ export interface AuthorData {
     socialAdvanced: {
       github: string | null;
     }
-  }
+  },
 }
 
 export interface AuthorProps {
   author: AuthorData;
+  lang: {
+    locale: string;
+  }
 }
 
 const props = defineProps<AuthorProps>()

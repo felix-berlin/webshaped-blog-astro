@@ -6,7 +6,7 @@
       :size="18"
     />
     <span class="c-webmentions-count__count">
-      {{ count }}
+      {{ count + ' ' + __(lang.locale, 'webmentions_count.label') }}
     </span>
   </component>
 </template>
@@ -15,9 +15,13 @@
 import { useStore } from '@nanostores/vue';
 import { currentWebmentionsCount } from '@stores/store';
 import { AtSign } from 'lucide-vue-next'
+import { __ } from '@i18n/i18n'
 
 interface WebmentionsCountProps {
   elementIs?: string;
+  lang: {
+    locale: string;
+  };
 }
 
 const props = withDefaults(defineProps<WebmentionsCountProps>(), {
@@ -25,6 +29,7 @@ const props = withDefaults(defineProps<WebmentionsCountProps>(), {
 });
 
 const count = useStore(currentWebmentionsCount)
+
 
 </script>
 
