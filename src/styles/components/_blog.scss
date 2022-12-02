@@ -13,6 +13,7 @@
 		);
 	grid-template-columns: var(--columns-grid, 1fr);
 	column-gap: 25px;
+	row-gap: 25px;
 	word-break: break-word;
 
 	@include mx.breakpoint('md') {
