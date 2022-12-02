@@ -11,7 +11,7 @@ const pluralFormFor = (forms: string, count: number, locale: string) => {
   return forms[matchingForm];
 }
 
-const __ = (locale: string, key: string, vars?: object, plural?: number):string => {
+const __ = (locale: string, translationString: string, varsToReplace?: object, plural?: number):string => {
   const lang = locale.replace('_', '-');
   const translations: object = {de_DE, en_US};
 
@@ -21,7 +21,7 @@ const __ = (locale: string, key: string, vars?: object, plural?: number):string 
   // }
   //
   // console.log(vars);
-  if (vars) {
+  if (varsToReplace) {
 
     /**
      * [entries description]
@@ -31,16 +31,17 @@ const __ = (locale: string, key: string, vars?: object, plural?: number):string 
      *
      * @return  {string}                [return description]
      */
-    for (const [variable, value] of Object.entries(vars)) {
-      const regex = new RegExp(`{\\s*${variable}\\s*}`, 'gi');
+    const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, 'gi');
 
-      return translations[locale][key].replace(regex, value);
-   }
+    return translations[locale as keyof typeof translations][translationString].replace(regex, (matched:string, offset:number, string:string) => {
+
+        return varsToReplace[offset as keyof typeof varsToReplace];
+    });
   }
 
 
 
-  return translations[locale][key] || key;
+  return translations[locale as keyof typeof translations][translationString] || translationString;
 }
 
-export {__, availableLanguages};
+export { __, availableLanguages };
