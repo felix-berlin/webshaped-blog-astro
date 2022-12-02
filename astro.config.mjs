@@ -5,7 +5,6 @@ import vue from '@astrojs/vue';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 import prefetch from '@astrojs/prefetch';
-import vueI18n from '@intlify/vite-plugin-vue-i18n';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
