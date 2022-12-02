@@ -14,5 +14,12 @@ export default {
   'scrobble_display.total_text': 'Seit 2017 habe ich { total } Tracks gehört.',
   'scrobble_display.follow_me': 'Folge mir auf Folge mir auf <a href="{ link }" target="_blank">LastFM</a>',
   'scrobble_display.close': 'Track Liste schließen',
-  'webmentions_count.label': 'Erwähnungen',
+  'webmentions_count.label--plural': {
+    'one': '{ count } Erwähnung',
+    'other': '{ count } Erwähnungen',
+  },
+  'reading_time.text--plural': {
+    'one': '{ minutes } Minute',
+    'other': '{ minutes } Minuten',
+  },
 }

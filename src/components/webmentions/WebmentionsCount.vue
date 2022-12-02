@@ -6,7 +6,7 @@
       :size="18"
     />
     <span class="c-webmentions-count__count">
-      {{ count + ' ' + __(lang.locale, 'webmentions_count.label') }}
+      {{ __(lang.locale, 'webmentions_count.label--plural', {count: count}, count) }}
     </span>
   </component>
 </template>

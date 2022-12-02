@@ -6,7 +6,7 @@
       class="c-reading-time__icon"
       :size="18"
     />
-    <time class="c-reading-time__time">{{ time }}</time>Min
+    <span class="c-reading-time__time">{{ __(lang.locale, 'reading_time.text--plural', {minutes: time}, time) }}</span>
   </div>
 </template>
 

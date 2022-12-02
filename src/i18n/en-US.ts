@@ -15,4 +15,12 @@ export default {
   'scrobble_display.follow_me': 'Follow me on <a href="{ link }" target="_blank">LastFM</a>',
   'scrobble_display.close': 'Close track list',
   'webmentions_count.label': 'Mentions',
+  'webmentions_count.label--plural': {
+    'one': '{ count } mention',
+    'other': '{ count } mentions',
+  },
+  'reading_time.text--plural': {
+    'one': '{ minutes } minute',
+    'other': '{ minutes } minutes',
+  },
 }
