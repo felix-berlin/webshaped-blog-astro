@@ -3,7 +3,6 @@
     <VDropdown
       v-model:shown="state.isDropdownShown"
       popper-class="c-scrobble-display__dropdown"
-      :show-triggers="['hover']"
       :placement="dropdownPlacement"
       :distance="10"
     >
@@ -113,7 +112,7 @@ interface State {
 const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
   numberOfDisplayedTracks: 5,
   updateRate: 180000, // check every 180 seconds (3 min)
-  dropdownPlacement: 'left',
+  dropdownPlacement: 'auto',
   idleIfInactive: false,
   idleAfterCount: undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
   lang: {
