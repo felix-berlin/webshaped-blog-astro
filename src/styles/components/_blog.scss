@@ -1,6 +1,8 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@sass-butler/functions' as butler-fn;
+@use '@sass-butler/mixins' as butler-mx;
 @use '@styles/components/breadcrumbs';
+@use '@styles/variables/base';
 
 .c-blog {
 	display: grid;
@@ -75,5 +77,35 @@
 		justify-content: center;
 		color: var(--color-text, var(--blue-shallow-dark));
 		gap: 5px;
+	}
+
+	.c-categories {
+		gap: 10px;
+
+		&__item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--color-text, var(--blue-shallow-dark));
+			gap: 5px;
+			position: relative;
+
+			@include butler-mx.hover {
+				--opacity: 1;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				z-index: -1;
+				width: 110%;
+				height: 120%;
+				opacity: var(--opacity, 0);
+				display: block;
+				border-radius: base.$border-radius;
+				border: 1px solid var(--red-light);
+				transition: all 0.3s ease-in-out;
+			}
+		}
 	}
 }

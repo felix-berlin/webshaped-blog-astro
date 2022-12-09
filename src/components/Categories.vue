@@ -1,16 +1,16 @@
 <template>
-  <template v-if="categories.edges[0].node.name !== 'Uncategorized'">
+  <div v-if="categories.edges[0].node.name !== 'Uncategorized'" class="c-categories">
     <div
       v-for="(category, index) in categories.edges"
       :key="index"
-      class="c-categories"
+      class="c-categories__item"
     >
       <Hash :size="18"></Hash>
-      <a :href="`/category/${category.node.name}`" class="c-categories__item">
+      <a :href="`/category/${category.node.name.toLowerCase()}`" class="c-categories__link">
         {{ category.node.name }}
       </a>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup lang="ts">
