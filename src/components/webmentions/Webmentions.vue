@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <div
+  <div
       v-for="(mention, index) in state.mentions"
       :key="index"
       class="c-webmentions"
+      id="webmentions"
     >
       <div
         class="c-webmentions__item"
@@ -11,25 +11,38 @@
         <a
           :href="mention.author.url"
           target="_blank"
+          class="c-webmentions__author-image-link"
         >
           <img
             :src="mention.author.photo"
             :alt="mention.author.name"
+            width="75"
+            height="75"
             loading="lazy"
             decoding="async"
+            class="c-webmentions__author-image"
           >
         </a>
-        <div v-text="mention.content.text" />
+        <a
+          :href="mention.url"
+          target="_blank">
+            <Twitter v-if="domainName(mention.url) === 'twitter'"></Twitter>
+            <Github v-if="domainName(mention.url) === 'github'"></Github>
+            <ExternalLink v-if="domainName(mention.url) !== 'github' && domainName(mention.url) !== 'twitter'"></ExternalLink>
+        </a>
+        <h2 class="c-webmentions__author-name">{{ mention.author.name }}</h2>
+        <Date class="c-webmentions__date" :date="mention.published"></Date>
+        <div class="c-webmentions__text" v-text="mention.content.text" />
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-
 import { onMounted, reactive } from 'vue';
 import { useStore } from '@nanostores/vue';
 import { currentWebmentionsCount } from '@stores/store';
+import Date from '@components/Date.vue';
+import { Twitter, Github, ExternalLink } from 'lucide-vue-next';
 
 export interface WebmentionsProps {
   target?: string;
@@ -102,6 +115,10 @@ const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${pr
 //   await getWebmentions();
 //   console.log(useStore(currentWebmentionsCount));
 // });
+//
+const domainName = (url: string) => {
+  return url.replace(/.+\/\/|www.|\..+/g, '');
+}
 </script>
 
 <style scoped>
