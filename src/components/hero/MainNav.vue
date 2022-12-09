@@ -7,7 +7,7 @@
     <button
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
-      aria-label="Toggle navigation"
+      :aria-label="__(lang.locale, 'main_nav.toggle_button.label')"
       :aria-expanded="isOpen"
       @click="toggleFlyout"
     >
@@ -57,6 +57,7 @@ import Modal from '@components/Modal.vue';
 import Logo from '@components/Logo.vue';
 import { Menu as MenuIcon, X } from 'lucide-vue-next';
 import { useMouseInElement } from '@vueuse/core';
+import { __ } from '@i18n/i18n';
 
 export interface MainNavProps {
   menuItems: {
@@ -76,6 +77,9 @@ export interface MainNavProps {
         }
       }
     ]
+  };
+  lang: {
+    locale: string;
   };
 }
 

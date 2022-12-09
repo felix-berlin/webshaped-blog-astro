@@ -30,9 +30,6 @@ const {
 	},
 } = Astro.props as DefaultLayoutProps;
 
-console.log('language', language);
-
-
 const langAttr = language.locale.replace('_', '-');
 
 const mainMenuItems = await getMenuById(2);
@@ -45,7 +42,7 @@ const mainMenuItems = await getMenuById(2);
 	</head>
 
 	<body class="o-body">
-    <MainHeader menuItems={mainMenuItems.menuItems} client:load/>
+    <MainHeader menuItems={mainMenuItems.menuItems} lang={language} client:load/>
     <main class="o-content" id="swup">
       <slot></slot>
     </main>

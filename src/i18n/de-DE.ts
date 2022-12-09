@@ -6,7 +6,7 @@ export default {
   'blog.read_more': 'Weiterlesen',
   'blog.table_of_contents': 'Inhaltsverzeichnis',
   'share.label': 'Seite teilen',
-  'post_older_than.text': 'Dieser Post ist bereits { years } alt. Möglicherweise ist der Inhalt nicht mehr ganz aktuell.',
+  'post_older_than.text': 'Dieser Post wurde seid { years } Jahren nicht mehr aktualisiert. Möglicherweise ist der Inhalt nicht mehr ganz aktuell.',
   'social_list.link.label': 'Besuche mich auf { platform }',
   'scrobble_display.headline': ' Meine zuletzt gehörten { count } Tracks',
   'scrobble_display.text': 'Ohne Musik geht bei mir gar nichts,<br>deshalb habe 2017 damit angefangen meinem Musikkonsum zu tracken.',
@@ -22,4 +22,5 @@ export default {
     'one': '{ minutes } Minute',
     'other': '{ minutes } Minuten',
   },
+  'main_nav.toggle_button.label': 'Menü öffnen',
 }

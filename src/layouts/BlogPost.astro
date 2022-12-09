@@ -121,7 +121,7 @@ const breadcrumbItems = [
 	</head>
 
 	<body class="o-body">
-		<MainHeader menuItems={menuItems} client:load />
+		<MainHeader menuItems={menuItems} lang={language} client:load />
 
     <main class="o-content c-blog">
       <header class="c-blog__header">
@@ -158,7 +158,7 @@ const breadcrumbItems = [
           <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
           <Prism client:load></Prism>
         </header>
-          <PostOlderThan date={dateGmt} showAfterYears={4}></PostOlderThan>
+          <PostOlderThan date={modifiedGmt} showAfterYears={4} lang={language}></PostOlderThan>
 
 
         <slot></slot>

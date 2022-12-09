@@ -1,6 +1,6 @@
 <template>
   <div v-if="getYearDiff(date, Date.now()) >= showAfterYears" class="c-post-older-than">
-    <p class="c-post-older-than__text">{{ __('de_DE', 'post_older_than.text', {years: getYearDiff(date, Date.now())}) }}</p>
+    <p class="c-post-older-than__text">{{ __(lang.locale, 'post_older_than.text', {years: getYearDiff(date, Date.now())}) }}</p>
   </div>
 </template>
 
@@ -10,6 +10,9 @@ import { __ } from '@i18n/i18n'
 export interface PostOlderThanProps {
   date: string;
   showAfterYears: number;
+  lang: {
+    locale: string;
+  };
 }
 
 const props = defineProps<PostOlderThanProps>()
@@ -20,6 +23,6 @@ const getYearDiff = (date1: string | number, date2: string | number) => {
 
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/post-older-than';
 </style>

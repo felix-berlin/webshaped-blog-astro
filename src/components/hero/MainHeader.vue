@@ -1,6 +1,6 @@
 <template>
   <header class="o-header">
-    <MainNav :menu-items="props.menuItems" />
+    <MainNav :menu-items="props.menuItems" :lang="lang" />
     <!-- <LanguageSelect class="is-desktop" /> -->
   </header>
 </template>
@@ -27,6 +27,9 @@ export interface HeaderProps {
         }
       }
     ]
+  };
+  lang: {
+    locale: string;
   };
 }
 

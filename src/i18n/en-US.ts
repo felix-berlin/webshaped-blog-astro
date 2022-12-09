@@ -6,7 +6,7 @@ export default {
   'blog.read_more': 'Read more',
   'share.label': 'Share this page',
   'blog.table_of_contents': 'Table of contents',
-  'post_older_than.text': 'This post is already { years } old. The content might not be up to date anymore.',
+  'post_older_than.text': 'This post is already { years } years old. The content might not be up to date anymore.',
   'social_list.link.label': 'Visit me on { platform }',
   'scrobble_display.headline': ' My last { count } scrobbles',
   'scrobble_display.text': 'Music is a big part of my life,<br>so I started tracking my music consumption in 2017.',
@@ -23,4 +23,5 @@ export default {
     'one': '{ minutes } minute',
     'other': '{ minutes } minutes',
   },
+  'main_nav.toggle_button.label': 'Open menu',
 }
