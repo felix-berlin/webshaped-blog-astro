@@ -9,6 +9,10 @@
 	grid-area: footer;
 	margin: 0 -1 * layout.$spacing-edge;
 
+	&__social-list {
+		margin: 45px 0 25px;
+	}
+
 	&__end {
 		position: relative;
 
