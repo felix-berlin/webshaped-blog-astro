@@ -20,6 +20,8 @@ html {
 	--color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
 
 	background-image: base.$background-image;
+
+	@include butler-mx.select-style(colors.$blue-shallow-dark, colors.$blue-dark);
 }
 
 body {
