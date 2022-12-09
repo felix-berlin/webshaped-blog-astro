@@ -68,7 +68,7 @@ const { lang } = Astro.props as MainFooterProps;
 
 ---
 <footer class="o-footer">
-  <SocialList social-items={socialItems} lang={lang} client:visible></SocialList>
+  <SocialList class:list={"o-footer__social-list"} social-items={socialItems} lang={lang} client:visible></SocialList>
 
   <div class="o-footer__end">
     <div class="o-footer__end-wrapper">
