@@ -24,4 +24,6 @@ export default {
     'other': '{ minutes } minutes',
   },
   'main_nav.toggle_button.label': 'Open menu',
+  'comments.headline': 'Comments',
+  'comments.no_comments': 'No comments available.'
 }

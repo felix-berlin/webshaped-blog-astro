@@ -132,13 +132,13 @@ const breadcrumbItems = [
           <span slot="separator" class="c-breadcrumbs__separator">/</span>
         </Breadcrumbs> -->
         <h1 class="c-blog__title">{title}</h1>
-        <DateModified date={modifiedGmt} lang={language} client:load/>
+        <DateModified date={modifiedGmt} lang={language}/>
         <ReadingTime time={seo.readingTime} lang={language}/>
         <WebmentionsCount elementIs={'a'} href={'#webmentions'} lang={language} client:load></WebmentionsCount>
-        <Categories categories={categories} client:visible></Categories>
+        <Categories categories={categories}></Categories>
       </header>
       <article id="swup" class="c-blog__post">
-        <header >
+        <header class="c-blog__post__hero-header">
           {featuredImage && (
             <img
               width={featuredImage.node.mediaDetails.width}
@@ -169,7 +169,7 @@ const breadcrumbItems = [
           <LoadWebmentions client:only></LoadWebmentions>
 
 
-          <Comments comments={comments} currentPostId={postId} client:load id="comments"></Comments>
+          <Comments comments={comments} currentPostId={postId} client:only id="comments" lang={language} authorId={author.node.id}></Comments>
         </footer>
 
       </article>

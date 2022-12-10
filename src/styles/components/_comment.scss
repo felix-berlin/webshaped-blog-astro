@@ -1,0 +1,105 @@
+@use '@styles/variables/colors';
+@use '@styles/variables/base';
+@use '@sass-butler/functions' as butler-fn;
+
+.c-comment {
+	&__item {
+		display: grid;
+		grid-template-columns: var(--columns-grid-comment);
+		grid-template-areas:
+			' . content'
+			'header . ';
+		gap: 15px;
+	}
+
+	&__header {
+		padding: 10px;
+		border-radius: base.$border-radius;
+		background-color: var(--color-background-author-image, #{butler-fn.hex-to-rgb(colors.$white, 10%)});
+		grid-area: header;
+		align-self: center;
+	}
+
+	&__author-image {
+		border-radius: base.$border-radius;
+	}
+
+	&__author-name {
+		margin: 0;
+		font-size: var(--font-size-xs);
+	}
+
+	&__content {
+		grid-area: content;
+		padding: 10px;
+		border-radius: base.$border-radius;
+		background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
+		position: relative;
+		color: var(--blue-dark);
+
+		&::after,
+		&::before {
+			content: '';
+			position: absolute;
+			background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
+			border-radius: base.$border-radius;
+			z-index: -1;
+			height: 8px;
+		}
+
+		&::after {
+			bottom: -18px;
+			width: 80px;
+		}
+
+		&::before {
+			bottom: -36px;
+			width: 8px;
+		}
+	}
+
+	&.is-odd {
+		> .c-comment__item {
+			--columns-grid-comment: 1fr 106px;
+
+			grid-template-areas:
+				'content .'
+				' . header';
+
+			.c-comment__content {
+				&::after,
+				&::before {
+					right: 0;
+				}
+			}
+		}
+	}
+
+	&.is-even {
+		> .c-comment__item {
+			--columns-grid-comment: 106px 1fr;
+
+			grid-template-areas:
+				' . content'
+				'header .';
+			gap: 15px;
+
+			.c-comment__content {
+				&::after,
+				&::before {
+					left: 0;
+				}
+			}
+		}
+	}
+
+	&.is-reply {
+		margin-top: 15px;
+	}
+
+	&.is-author {
+		.c-comment__header {
+			--color-background-author-image: #{butler-fn.hex-to-rgb(colors.$red-light, 40%)};
+		}
+	}
+}

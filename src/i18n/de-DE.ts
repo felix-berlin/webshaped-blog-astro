@@ -23,4 +23,6 @@ export default {
     'other': '{ minutes } Minuten',
   },
   'main_nav.toggle_button.label': 'Menü öffnen',
+  'comments.headline': 'Kommentare',
+  'comments.no_comments': 'Keine Kommentare vorhanden.'
 }

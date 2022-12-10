@@ -1,12 +1,15 @@
 <template>
   <section class="c-comments">
-    <h2>Comments</h2>
+    <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
+
+    <p v-if="!comments.nodes?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
+
     <CreateComment :current-post-id="currentPostId" />
     <template
       v-for="comment in comments.nodes"
       :key="comment.id"
     >
-      <CommentItem :comment="comment" />
+      <CommentItem :comment="comment" :depth="0" :author-id="authorId" />
     </template>
   </section>
 </template>
@@ -16,6 +19,7 @@
 import CommentItem from '@components/comments/CommentItem.vue';
 import type { CommentData } from '@components/comments/CommentItem.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
+import { __ } from '@i18n/i18n'
 
 export interface CommentsProps {
   comments: {
@@ -25,6 +29,10 @@ export interface CommentsProps {
   },
   currentPostId: number;
   id?: string;
+  authorId: string;
+  lang: {
+    locale: string;
+  }
 }
 
 const props = defineProps<CommentsProps>()

@@ -312,6 +312,90 @@ export async function getPostBySlug(slug:string):Promise<object> {
                     }
                   }
                 }
+                replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                  nodes {
+                    content
+                    dateGmt
+                    id
+                    parentId
+                    commentId
+                    author {
+                      node {
+                        name
+                        id
+                        avatar {
+                          height
+                          size
+                          url
+                          width
+                        }
+                      }
+                    }
+                    replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                      nodes {
+                        content
+                        dateGmt
+                        id
+                        parentId
+                        commentId
+                        author {
+                          node {
+                            name
+                            id
+                            avatar {
+                              height
+                              size
+                              url
+                              width
+                            }
+                          }
+                        }
+                        replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                          nodes {
+                            content
+                            dateGmt
+                            id
+                            parentId
+                            commentId
+                            author {
+                              node {
+                                name
+                                id
+                                avatar {
+                                  height
+                                  size
+                                  url
+                                  width
+                                }
+                              }
+                            }
+                            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                              nodes {
+                                content
+                                dateGmt
+                                id
+                                parentId
+                                commentId
+                                author {
+                                  node {
+                                    name
+                                    id
+                                    avatar {
+                                      height
+                                      size
+                                      url
+                                      width
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
