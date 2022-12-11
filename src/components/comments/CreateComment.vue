@@ -2,13 +2,20 @@
   <div>
     <h2>{{ __(props.lang.locale, 'comment_form.headline') }}</h2>
     <Alert
-      v-if="formResponseErrors.length > 0"
+      v-if="formResponses.errors.length > 0"
       type="danger"
       class="c-alert--small"
     >
-      <template v-for="error in formResponseErrors">
-        {{ error.message }}
+      <template v-for="error in formResponses.errors">
+        <AlertCircle></AlertCircle> {{ error.message }}
       </template>
+    </Alert>
+    <Alert
+      v-if="formResponses.success"
+      type="success"
+      class="c-alert--small"
+    >
+      <CheckCircle></CheckCircle>
     </Alert>
     <form
       novalidate="true"
@@ -16,7 +23,7 @@
     >
       <div
         class="c-form__item is-vertical"
-        :class="{'has-error': formErrors.email.length}"
+        :class="{'has-error': formErrors.email && formErrors.email.length}"
       >
         <label
           class="c-label c-form__label"
@@ -32,7 +39,7 @@
             placeholder=" "
           >
           <Alert
-            v-if="formErrors.email.length"
+            v-if="formErrors.email && formErrors.email.length"
             type="danger"
             class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
           >
@@ -94,9 +101,7 @@
           </Alert>
         </div>
       </div>
-      <button
-        type="submit"
-      >
+      <button type="submit">
         {{ __(props.lang.locale, 'comment_form.submit.button') }}
       </button>
     </form>
@@ -110,6 +115,7 @@ import { useStore } from '@nanostores/vue';
 import { loadingState } from '@stores/store'
 import Alert from '@components/Alert.vue';
 import { __ } from '@i18n/i18n';
+import { CheckCircle, AlertCircle } from 'lucide-vue-next';
 
 interface Props {
   currentPostId: number;
@@ -134,15 +140,36 @@ const commentForm: CommentForm = reactive({
   email: '',
 })
 
-const formErrors = reactive({
+const formErrors: CommentForm = reactive({
   comment: '',
   author: '',
   email: '',
 })
 
-let formResponseErrors:Array<Object> = [];
+let formResponses: {
+  success: boolean;
+  errors: Array<Object>;
+} = reactive({
+  success: false,
+  errors: [],
+})
 
-const checkForm = () => {
+// reset commentForm function
+const resetCommentForm = () => {
+  Object.keys(commentForm).forEach(value => commentForm[value as keyof CommentForm] = '');
+}
+
+// reset formErrors function
+const resetFormErrors = () => {
+  Object.keys(formErrors).forEach(value => formErrors[value as keyof CommentForm] = '');
+}
+
+/**
+ * checks if the given form data is valid
+ *
+ * @return  {void}
+ */
+const checkForm = ():void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = __(props.lang.locale, 'comment_form.error.comment_to_short');
   }
@@ -175,7 +202,12 @@ const validEmail = (email: string | undefined): boolean | undefined => {
   return re.test(email)
 }
 
-async function create() {
+/**
+ * Send a GraphQL request to create a comment
+ *
+ * @return  {Promise}
+ */
+async function create():Promise<object | any> {
   await createComment(
     props.currentPostId,
     commentForm.comment,
@@ -183,8 +215,16 @@ async function create() {
     commentForm.email
   ).then(
     data => {
+      console.log('success', data);
+
+      if (typeof data.data?.createComment?.success !== 'undefined') {
+        formResponses.success = data.data.createComment.success;
+
+        resetCommentForm();
+      }
+
       if (typeof data.errors !== 'undefined') {
-        formResponseErrors = data.errors;
+        formResponses.errors = data.errors;
       }
     },
     error => {

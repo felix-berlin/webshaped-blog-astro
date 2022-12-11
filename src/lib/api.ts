@@ -673,6 +673,8 @@ export async function createComment(
         comment {
           id
           content
+          status
+          isRestricted
           author {
             node {
               name
@@ -680,6 +682,7 @@ export async function createComment(
             }
           }
         }
+        success
       }
     }`
   );
