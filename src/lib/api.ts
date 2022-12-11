@@ -8,12 +8,29 @@ async function fetchAPI(query: string, { variables } = {}):Promise<object | any>
     headers: headers,
     body: JSON.stringify({ query, variables }),
   })
-  .then((res) => res.json())
-  .then((res) => res.data)
-  .catch((err) => {
-    console.error(err);
-    throw new Error('Failed to fetch API');
-   });
+  .then(async response => {
+      if (response.ok) {
+        // console.log('response', response);
+
+        return await response.json()
+      } else {
+        const errorMessage = await response.text()
+        return Promise.reject(new Error(errorMessage))
+      }
+    })
+  // .then((res) => {
+  //   if (res.errors && res.errors.length > 0) {
+  //     // console.error(res.errors);
+  //     return Promise.reject(new Error(res.errors))
+  //   }
+  //   // console.log('res', res);
+  //   return res.data;
+
+  // });
+  // .catch((err) => {
+  //   console.error(err);
+  //   throw new Error('Failed to fetch API');
+  //  });
 }
 
 export async function getAllPagesWithSlugs():Promise<object> {
@@ -69,7 +86,7 @@ export async function getCategoryBySlug(slug:string):Promise<object> {
       }
     }
   }
-  `);
+  `).then(res => res.data);
   return data?.categories?.nodes;
 }
 
@@ -109,7 +126,7 @@ export async function getPageBySlug(slug:string):Promise<object> {
       }
     }
   }
-  `);
+  `).then(res => res.data);
   return data?.page;
 }
 
@@ -137,7 +154,7 @@ export async function getPrimaryMenu(lang='de'):Promise<object> {
       }
     }
   }
-  `);
+  `).then(res => res.data);
   return data?.menus?.nodes[0];
 }
 
@@ -161,7 +178,7 @@ export async function getMenuById(id: number):Promise<object> {
       }
     }
   }
-  `);
+  `).then(res => res.data);
 
   return data?.menu;
 }
@@ -190,7 +207,7 @@ export async function getAllPostsWithSlugs(
       }
     }
   }
-  `);
+  `).then(res => res.data);
 
   return data?.posts;
 }
@@ -305,6 +322,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
                     name
                     id
                     avatar {
+                      foundAvatar
                       height
                       size
                       url
@@ -324,6 +342,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
                         name
                         id
                         avatar {
+                          foundAvatar
                           height
                           size
                           url
@@ -343,6 +362,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
                             name
                             id
                             avatar {
+                              foundAvatar
                               height
                               size
                               url
@@ -362,6 +382,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
                                 name
                                 id
                                 avatar {
+                                  foundAvatar
                                   height
                                   size
                                   url
@@ -381,6 +402,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
                                     name
                                     id
                                     avatar {
+                                      foundAvatar
                                       height
                                       size
                                       url
@@ -430,7 +452,7 @@ export async function getPostBySlug(slug:string):Promise<object> {
         }
       }
     }
-  `)
+  `).then(res => res.data);
 
   return data?.post;
 }
@@ -485,7 +507,7 @@ export async function getPostsPreview(
         }
       }
     }
-  `)
+  `).then(res => res.data);
 
   return data?.posts;
 }
@@ -524,7 +546,7 @@ export async function getAllCategories(
       }
     }
   }
-  `)
+  `).then(res => res.data);
 
   return data?.categories;
 }
@@ -580,7 +602,7 @@ export async function getPostsPreviewByCategory(
       }
     }
   }
-  `)
+  `).then(res => res.data);
 
   return data?.posts;
 }
@@ -601,38 +623,9 @@ export async function getAllTags():Promise<object> {
       }
     }
   }
-  `)
+  `).then(res => res.data);
 
   return data?.tags;
-}
-
-export async function createComment(
-  id:number,
-  content:string,
-  author:string,
-  authorEmail?: string
-) {
-  return await fetchAPI(`
-    mutation {
-      createComment(input: {
-        commentOn: ${id},
-        content: "${content}",
-        author: "${author}",
-        authorEmail: ${authorEmail}
-      }) {
-        comment {
-          id
-          content
-          author {
-            node {
-              name
-              email
-            }
-          }
-        }
-      }
-    }`
-  );
 }
 
 export async function getAuthor(
@@ -657,6 +650,35 @@ export async function getAuthor(
         }
         socialAdvanced {
           github
+        }
+      }
+    }`
+  ).then(res => res.data);
+}
+
+export async function createComment(
+  commentOn: number,
+  content: string,
+  author: string,
+  authorEmail?: string
+) {
+  return await fetchAPI(`
+    mutation {
+      createComment(input: {
+        commentOn: ${commentOn},
+        content: "${content}",
+        author: "${author}",
+        authorEmail: "${authorEmail}"
+      }) {
+        comment {
+          id
+          content
+          author {
+            node {
+              name
+              email
+            }
+          }
         }
       }
     }`
