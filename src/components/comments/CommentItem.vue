@@ -28,10 +28,12 @@
         <a v-if="comment.parentId" :href="`#comment-${comment.parentId}`" class="c-comment__reply-to">Reply to</a>
         <p class="c-comment__text" v-html="comment.content"></p>
         <footer class="c-comment__footer">
-          <Date
-            :date="comment.dateGmt"
-            class="c-comment__date"
-          />
+          <Date :date="comment.dateGmt" class="c-comment__date">
+            <template #before>
+              {{ __(lang.locale, 'comment.date') }}
+            </template>
+          </Date>
+
         </footer>
       </main>
     </article>
@@ -41,7 +43,7 @@
       v-for="(reply, index) in comment.replies.nodes"
       :key="index"
     >
-      <CommentItem :comment="reply" :depth="depth + 1" :author-id="authorId" />
+      <CommentItem :comment="reply" :depth="depth + 1" :author-id="authorId" :lang="lang" />
 
     </template>
 
@@ -51,6 +53,8 @@
 <script setup lang="ts">
 import Date from '@components/Date.vue';
 import { computed } from 'vue';
+import { __ } from '@i18n/i18n';
+
 
 export interface CommentData {
   content: string;
@@ -78,6 +82,9 @@ interface CommentItemProps {
   comment: CommentData;
   depth: number;
   authorId?: string;
+  lang: {
+    locale: string;
+  }
 }
 
 const props = defineProps<CommentItemProps>()

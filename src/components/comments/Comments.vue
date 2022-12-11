@@ -4,12 +4,12 @@
 
     <p v-if="!comments.nodes?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
 
-    <CreateComment :current-post-id="currentPostId" />
+    <CreateComment :current-post-id="currentPostId" :lang="lang" />
     <template
       v-for="comment in comments.nodes"
       :key="comment.id"
     >
-      <CommentItem :comment="comment" :depth="0" :author-id="authorId" />
+      <CommentItem :comment="comment" :depth="0" :author-id="authorId" :lang="lang" />
     </template>
   </section>
 </template>
@@ -19,7 +19,7 @@
 import CommentItem from '@components/comments/CommentItem.vue';
 import type { CommentData } from '@components/comments/CommentItem.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
-import { __ } from '@i18n/i18n'
+import { __ } from '@i18n/i18n';
 
 export interface CommentsProps {
   comments: {

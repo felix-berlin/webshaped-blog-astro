@@ -29,6 +29,10 @@
 		font-size: var(--font-size-xs);
 	}
 
+	&__date {
+		font-size: var(--font-size-xs);
+	}
+
 	&__content {
 		grid-area: content;
 		padding: 10px;
@@ -36,6 +40,7 @@
 		background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
 		position: relative;
 		color: var(--blue-dark);
+		margin-bottom: -35px;
 
 		&::after,
 		&::before {
