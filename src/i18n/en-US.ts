@@ -25,5 +25,14 @@ export default {
   },
   'main_nav.toggle_button.label': 'Open menu',
   'comments.headline': 'Comments',
-  'comments.no_comments': 'No comments available.'
+  'comments.no_comments': 'No comments available.',
+  'comment.date': 'commented on: ',
+  'comment_form.headline': 'Write a comment',
+  'comment_form.email.label': 'Email address (optional)',
+  'comment_form.name.label': 'Name',
+  'comment_form.comment.label': 'Write a comment',
+  'comment_form.submit.button': 'Submit comment',
+  'comment_form.error.comment_to_short': 'Your comment is too short.',
+  'comment_form.error.author_to_short': 'Your name is too short.',
+  'comment_form.error.email_invalid': 'Please check your email address, the format seems to be invalid.',
 }

@@ -1,6 +1,15 @@
 <template>
   <div>
-    <h2>Create Comment</h2>
+    <h2>{{ __(props.lang.locale, 'comment_form.headline') }}</h2>
+    <Alert
+      v-if="formResponseErrors.length > 0"
+      type="danger"
+      class="c-alert--small"
+    >
+      <template v-for="error in formResponseErrors">
+        {{ error.message }}
+      </template>
+    </Alert>
     <form
       novalidate="true"
       @submit.prevent="checkForm"
@@ -12,7 +21,7 @@
         <label
           class="c-label c-form__label"
           for="user-email"
-        >Deine E-Mailadresse (optional)</label>
+        >{{ __(props.lang.locale, 'comment_form.email.label') }}</label>
         <div class="c-floating-label">
           <input
             id="user-email"
@@ -39,7 +48,7 @@
         <label
           class="c-form__label c-label is-required"
           for="author"
-        >Author</label>
+        >{{ __(props.lang.locale, 'comment_form.name.label') }}</label>
         <div class="c-floating-label">
           <input
             id="author"
@@ -66,7 +75,7 @@
         <label
           class="c-label c-form__label"
           for="comment"
-        >Schreibe einen Kommentar</label>
+        >{{ __(props.lang.locale, 'comment_form.comment.label') }}</label>
         <div class="c-floating-label">
           <textarea
             id="comment"
@@ -88,43 +97,25 @@
       <button
         type="submit"
       >
-        Submit
+        {{ __(props.lang.locale, 'comment_form.submit.button') }}
       </button>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { useTranslation } from "i18next-vue";
 import { createComment } from '@lib/api'
 import { ref, onMounted, reactive } from 'vue';
 import { useStore } from '@nanostores/vue';
 import { loadingState } from '@stores/store'
 import Alert from '@components/Alert.vue';
-
-
-// import { useTranslation } from "i18next-vue";
-// const { t, i18next } = useTranslation();
-// const { i18next, t } = useTranslation();
-
-// const locales = {
-//   en: {
-//     comment_label: 'Hello!',
-//   },
-//   de: {
-//     comment_label: 'Hallo!',
-//   }
-// };
-
-// i18next.init({
-//   lng: 'en',
-//   resources: {
-//     en: { translation: locales.en },
-//   },
-// });
+import { __ } from '@i18n/i18n';
 
 interface Props {
   currentPostId: number;
+  lang: {
+    locale: string;
+  };
 }
 
 const props = defineProps<Props>()
@@ -149,21 +140,20 @@ const formErrors = reactive({
   email: '',
 })
 
+let formResponseErrors:Array<Object> = [];
+
 const checkForm = () => {
-  // for (const error in formErrors) {
-  //   formErrors[error] = ''
-  // }
   if (commentForm.comment.length <= 1) {
-    formErrors.comment = 'Kommentar ist zu kurz';
+    formErrors.comment = __(props.lang.locale, 'comment_form.error.comment_to_short');
   }
 
   if (commentForm.author.length <= 1) {
-    formErrors.author = 'Du hast nen sehr kleinen Namen'
+    formErrors.author = __(props.lang.locale, 'comment_form.error.author_to_short');
   }
 
   // If an e-mail address is given, validate it
-  if (commentForm.email.length > 0 && !validEmail(commentForm.email)) {
-    formErrors.email = 'Bitte überprüfe deine E-Mailadresse, das Format scheint nicht korrekt zu sein.';
+  if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
+    formErrors.email = __(props.lang.locale, 'comment_form.error.email_invalid');
   }
 
   if (Object.values(formErrors).every(v => v.length === 0)) {
@@ -186,26 +176,29 @@ const validEmail = (email: string | undefined): boolean | undefined => {
 }
 
 async function create() {
-  return await createComment(props.currentPostId, commentForm.comment, commentForm.author, commentForm.email)
-  .then(({res}) => console.log(res))
-  .then(data => console.log(data)).catch(err => console.log(err))
+  await createComment(
+    props.currentPostId,
+    commentForm.comment,
+    commentForm.author,
+    commentForm.email
+  ).then(
+    data => {
+      if (typeof data.errors !== 'undefined') {
+        formResponseErrors = data.errors;
+      }
+    },
+    error => {
+      console.error('oh no, login failed', error)
+    },
+  );
 };
 
 
 onMounted(() => {
-  // createComment(767, 'Test Kommentar', 'Felix Test');
-  // console.log(create());
+
 
 })
 </script>
-
-
-<!-- <i18n lang="yaml">
-  en:
-    comment_label: 'Hello!'
-  de:
-    comment_label: 'Hallo!'
-</i18n> -->
 <style scoped>
 
 </style>
