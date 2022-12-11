@@ -17,7 +17,7 @@
         <img
           v-if="comment.author?.node?.avatar"
           :src="comment.author.node.avatar.url"
-          alt=""
+          :alt="__(lang.locale, 'comment.author.image.alt', { author: comment.author.node.name })"
           :width="comment.author.node.avatar.width"
           :height="comment.author.node.avatar.height"
           class="c-comment__author-image"
