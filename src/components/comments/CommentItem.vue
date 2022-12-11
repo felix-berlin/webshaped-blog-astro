@@ -22,6 +22,9 @@
           :height="comment.author.node.avatar.height"
           class="c-comment__author-image"
         >
+        <div v-else class="c-comment__author-icon">
+          <User :size="86"/>
+        </div>
         <h2 class="c-comment__author-name">{{ comment.author.node.name }}</h2>
       </header>
       <main class="c-comment__content">
@@ -54,7 +57,7 @@
 import Date from '@components/Date.vue';
 import { computed } from 'vue';
 import { __ } from '@i18n/i18n';
-
+import { User } from 'lucide-vue-next';
 
 export interface CommentData {
   content: string;

@@ -33,6 +33,12 @@
 		font-size: var(--font-size-xs);
 	}
 
+	&__author-icon {
+		display: flex;
+		border: 1px solid var(--white);
+		border-radius: base.$border-radius;
+	}
+
 	&__content {
 		grid-area: content;
 		padding: 10px;
