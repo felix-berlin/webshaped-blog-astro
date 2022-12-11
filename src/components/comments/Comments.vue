@@ -3,13 +3,13 @@
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
     <p v-if="!comments.nodes?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
-
     <CreateComment :current-post-id="currentPostId" :lang="lang" />
+
     <template
       v-for="comment in comments.nodes"
       :key="comment.id"
     >
-      <CommentItem :comment="comment" :depth="0" :author-id="authorId" :lang="lang" />
+      <CommentItem :comment="comment" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
     </template>
   </section>
 </template>
@@ -20,6 +20,7 @@ import CommentItem from '@components/comments/CommentItem.vue';
 import type { CommentData } from '@components/comments/CommentItem.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
 import { __ } from '@i18n/i18n';
+
 
 export interface CommentsProps {
   comments: {
@@ -36,26 +37,6 @@ export interface CommentsProps {
 }
 
 const props = defineProps<CommentsProps>()
-
-// const flatListToHierarchical = (
-//     data = [],
-//     {idKey='key',parentKey='parentId',childrenKey='children'} = {}
-// ) => {
-//     const tree = [];
-//     const childrenOf = {};
-//     data.forEach((item) => {
-//         const newItem = {...item};
-//         const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-//         childrenOf[id] = childrenOf[id] || [];
-//         newItem[childrenKey] = childrenOf[id];
-//         parentId
-//             ? (
-//                 childrenOf[parentId] = childrenOf[parentId] || []
-//             ).push(newItem)
-//             : tree.push(newItem);
-//     });
-//     return tree;
-// };
 </script>
 
 <style lang="scss">

@@ -29,7 +29,16 @@
       </header>
       <main class="c-comment__content">
         <a v-if="comment.parentId" :href="`#comment-${comment.parentId}`" class="c-comment__reply-to">Reply to</a>
+
+        <button type="button"
+                class="c-comment__reply-button"
+                v-if="depth < 5"
+                @click="toggleReplyCommentForm()">
+          <Reply :size="18"/> {{ __(lang.locale, 'comment.reply_button') }}
+        </button>
+
         <p class="c-comment__text" v-html="comment.content"></p>
+
         <footer class="c-comment__footer">
           <Date :date="comment.dateGmt" class="c-comment__date">
             <template #before>
@@ -41,13 +50,17 @@
       </main>
     </article>
 
+    <Transition name="fade" mode="in-out">
+      <CreateComment v-if="replyToCommentForm" :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" />
+    </Transition>
+
+
     <template
       v-if="comment.replies"
       v-for="(reply, index) in comment.replies.nodes"
       :key="index"
     >
-      <CommentItem :comment="reply" :depth="depth + 1" :author-id="authorId" :lang="lang" />
-
+      <CommentItem :comment="reply" :depth="depth + 1" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
     </template>
 
   </div>
@@ -55,9 +68,10 @@
 
 <script setup lang="ts">
 import Date from '@components/Date.vue';
-import { computed } from 'vue';
+import CreateComment from '@components/comments/CreateComment.vue';
+import { computed, ref } from 'vue';
 import { __ } from '@i18n/i18n';
-import { User } from 'lucide-vue-next';
+import { User, Reply } from 'lucide-vue-next';
 
 export interface CommentData {
   content: string;
@@ -87,14 +101,23 @@ interface CommentItemProps {
   authorId?: string;
   lang: {
     locale: string;
-  }
+  },
+  currentPostId: number
 }
 
 const props = defineProps<CommentItemProps>()
 
+const replyToCommentForm = ref(false);
+
 const isAuthor = computed(() => props.comment.author.node.id === props.authorId);
 
+/**
+ * Methods
+ */
+
 const isOdd = (num: number) => num % 2;
+
+const toggleReplyCommentForm = () => replyToCommentForm.value = !replyToCommentForm.value;
 
 const itemStyling = (depth: number) => {
   const spacing = 121;

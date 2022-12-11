@@ -27,6 +27,7 @@ export default {
   'comments.no_comments': 'Keine Kommentare vorhanden.',
   'comment.date': 'kommentiert am: ',
   'comment.author.image.alt': 'Profilbild von { author }',
+  'comment.reply_button': 'Antworten',
   'comment_form.headline': 'Kommentar schreiben',
   'comment_form.email.label': 'E-Mail Adresse (optional)',
   'comment_form.name.label': 'Name',

@@ -660,7 +660,8 @@ export async function createComment(
   commentOn: number,
   content: string,
   author: string,
-  authorEmail?: string
+  authorEmail?: string,
+  parent?: number
 ) {
   return await fetchAPI(`
     mutation {
@@ -668,7 +669,8 @@ export async function createComment(
         commentOn: ${commentOn},
         content: "${content}",
         author: "${author}",
-        authorEmail: "${authorEmail}"
+        authorEmail: "${authorEmail}",
+        parent: "${parent}"
       }) {
         comment {
           id

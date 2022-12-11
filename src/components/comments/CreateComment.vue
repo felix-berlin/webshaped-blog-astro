@@ -122,6 +122,7 @@ interface Props {
   lang: {
     locale: string;
   };
+  replyToCommentId?: number;
 }
 
 const props = defineProps<Props>()
@@ -212,7 +213,8 @@ async function create():Promise<object | any> {
     props.currentPostId,
     commentForm.comment,
     commentForm.author,
-    commentForm.email
+    commentForm.email,
+    props.replyToCommentId,
   ).then(
     data => {
       console.log('success', data);
