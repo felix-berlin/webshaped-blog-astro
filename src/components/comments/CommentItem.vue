@@ -51,7 +51,10 @@
     </article>
 
     <Transition name="fade" mode="in-out">
-      <CreateComment v-if="replyToCommentForm" :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" />
+      <div v-if="replyToCommentForm">
+        <CreateComment  :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" />
+        <button type="button" @click="toggleReplyCommentForm()"><X/></button>
+      </div>
     </Transition>
 
 
@@ -71,7 +74,7 @@ import Date from '@components/Date.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
 import { computed, ref } from 'vue';
 import { __ } from '@i18n/i18n';
-import { User, Reply } from 'lucide-vue-next';
+import { User, Reply, X } from 'lucide-vue-next';
 
 export interface CommentData {
   content: string;
