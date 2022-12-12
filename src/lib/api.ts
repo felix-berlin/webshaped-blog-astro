@@ -656,6 +656,164 @@ export async function getAuthor(
   ).then(res => res.data);
 }
 
+export async function getCommentsById(
+  contentId:number,
+  first:number,
+  after?:string
+) {
+  return await fetchAPI(`
+    {
+      comments(
+        where: {
+          contentId: "${contentId}",
+          contentStatus: PUBLISH,
+          orderby: COMMENT_DATE_GMT
+        },
+        first: ${first},
+        ${after ? `after: "${after}"` : ''}
+      ) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          cursor
+          node {
+            content
+            dateGmt
+            id
+            parentId
+            commentId
+            author {
+              node {
+                name
+                id
+                avatar {
+                  foundAvatar
+                  default
+                  height
+                  width
+                  url
+                }
+              }
+            }
+            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+              nodes {
+                content
+                dateGmt
+                id
+                parentId
+                commentId
+                author {
+                  node {
+                    name
+                    id
+                    avatar {
+                      foundAvatar
+                      height
+                      size
+                      url
+                      width
+                    }
+                  }
+                }
+                replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                  nodes {
+                    content
+                    dateGmt
+                    id
+                    parentId
+                    commentId
+                    author {
+                      node {
+                        name
+                        id
+                        avatar {
+                          foundAvatar
+                          height
+                          size
+                          url
+                          width
+                        }
+                      }
+                    }
+                    replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                      nodes {
+                        content
+                        dateGmt
+                        id
+                        parentId
+                        commentId
+                        author {
+                          node {
+                            name
+                            id
+                            avatar {
+                              foundAvatar
+                              height
+                              size
+                              url
+                              width
+                            }
+                          }
+                        }
+                        replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                          nodes {
+                            content
+                            dateGmt
+                            id
+                            parentId
+                            commentId
+                            author {
+                              node {
+                                name
+                                id
+                                avatar {
+                                  foundAvatar
+                                  height
+                                  size
+                                  url
+                                  width
+                                }
+                              }
+                            }
+                            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                              nodes {
+                                content
+                                dateGmt
+                                id
+                                parentId
+                                commentId
+                                author {
+                                  node {
+                                    name
+                                    id
+                                    avatar {
+                                      foundAvatar
+                                      height
+                                      size
+                                      url
+                                      width
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }`
+  );
+}
+
 export async function createComment(
   commentOn: number,
   content: string,

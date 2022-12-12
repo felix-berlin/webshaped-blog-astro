@@ -26,6 +26,7 @@ export default {
   'main_nav.toggle_button.label': 'Open menu',
   'comments.headline': 'Comments',
   'comments.no_comments': 'No comments available.',
+  'comments.load_more.button': 'Load more comments',
   'comment.date': 'commented on: ',
   'comment.author.image.alt': 'Profile picture of { author }',
   'comment.reply_button': 'Reply',

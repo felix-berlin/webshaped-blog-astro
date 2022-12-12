@@ -25,6 +25,7 @@ export default {
   'main_nav.toggle_button.label': 'Menü öffnen',
   'comments.headline': 'Kommentare',
   'comments.no_comments': 'Keine Kommentare vorhanden.',
+  'comments.load_more.button': 'Mehr Kommentare laden',
   'comment.date': 'kommentiert am: ',
   'comment.author.image.alt': 'Profilbild von { author }',
   'comment.reply_button': 'Antworten',
