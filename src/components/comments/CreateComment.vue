@@ -155,6 +155,8 @@ let formResponses: {
   errors: [],
 })
 
+const emit = defineEmits(['commentCreated'])
+
 // reset commentForm function
 const resetCommentForm = () => {
   Object.keys(commentForm).forEach(value => commentForm[value as keyof CommentForm] = '');
@@ -221,6 +223,8 @@ async function create():Promise<object | any> {
 
       if (typeof data.data?.createComment?.success !== 'undefined') {
         formResponses.success = data.data.createComment.success;
+
+        emit('commentCreated', data.data.createComment.comment);
 
         resetCommentForm();
       }

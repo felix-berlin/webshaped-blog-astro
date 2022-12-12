@@ -2,15 +2,18 @@
   <section class="c-comments">
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
-    <CreateComment :current-post-id="currentPostId" :lang="lang" />
+    <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
     <p v-if="!data.comments?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
 
-    <template
-      v-for="comment in data.comments"
-      :key="comment.id"
-    >
-      <CommentItem :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
-    </template>
+    <TransitionGroup name="list">
+      <template
+        v-show="data.loaded"
+        v-for="comment in data.comments"
+        :key="comment"
+      >
+        <CommentItem :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+      </template>
+    </TransitionGroup>
 
     <button v-if="data?.pageInfo?.hasNextPage" @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor)"><RefreshCw/> {{ __(lang.locale, 'comments.load_more.button') }}</button>
   </section>
@@ -64,6 +67,13 @@ const getComments = async (
         data.loaded = true;
       }
     );
+}
+
+const reloadComments = () => {
+  data.comments = [];
+  data.pageInfo = {};
+  data.loaded = false;
+  getComments();
 }
 
 onMounted(async() => {
