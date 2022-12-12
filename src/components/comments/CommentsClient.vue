@@ -7,11 +7,10 @@
 
     <TransitionGroup name="list">
       <template
-        v-show="data.loaded"
         v-for="comment in data.comments"
         :key="comment"
       >
-        <CommentItem :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+        <CommentItem v-show="data.loaded" :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
       </template>
     </TransitionGroup>
 
@@ -83,4 +82,22 @@ onMounted(async() => {
 
 <style lang="scss">
 @use '@styles/components/comments';
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
+}
 </style>

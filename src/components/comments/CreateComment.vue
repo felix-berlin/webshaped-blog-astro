@@ -224,7 +224,7 @@ async function create():Promise<object | any> {
       if (typeof data.data?.createComment?.success !== 'undefined') {
         formResponses.success = data.data.createComment.success;
 
-        emit('commentCreated', data.data.createComment.comment);
+        emit('commentCreated');
 
         resetCommentForm();
       }
