@@ -10,6 +10,7 @@ import MainHeader from '@components/hero/MainHeader.vue';
 import DateModified from '@components/post/DateModified.vue';
 import ReadingTime from '@components/ReadingTime.vue';
 import Comments from '@components/comments/Comments.vue';
+import CommentsClient from '@components/comments/CommentsClient.vue';
 import CommentCount from '@components/comments/CommentCount.vue';
 import Share from '@components/Share.vue';
 // import TableOfContents from '@components/TableOfContents.vue';
@@ -166,10 +167,11 @@ const breadcrumbItems = [
         <footer>
           <Author author={author} lang={language} client:visible></Author>
 
-          <LoadWebmentions client:only></LoadWebmentions>
+          <!-- <LoadWebmentions client:only></LoadWebmentions> -->
 
 
-          <Comments comments={comments} currentPostId={postId} client:only id="comments" lang={language} authorId={author.node.id}></Comments>
+          <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
+          <CommentsClient currentPostId={postId} id="comments" lang={language} authorId={author.node.id} client:visible></CommentsClient>
         </footer>
 
       </article>
