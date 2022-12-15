@@ -1,6 +1,7 @@
 ---
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
+import GreenHosted from "@components/GreenHosted.vue";
 import { getMenuById, getAuthor } from '@lib/api';
 import { version } from './../../package.json'
 import _footer from '../styles/objects/_footer.scss';
@@ -77,6 +78,8 @@ const { lang } = Astro.props as MainFooterProps;
          class="o-footer__version"
          target="_blank"
          title="Github Releases Seite">Website Version: { version }</a>
+
+      <GreenHosted lang={lang}></GreenHosted>
 
       <Menu class:list={"o-footer__menu c-menu--footer"} menu-items={footerMenuItems.menuItems}></Menu>
     </div>

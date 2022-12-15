@@ -44,11 +44,11 @@
 
 			@include mx.breakpoint('xs') {
 				--columns-grid: max-content 1fr;
-				--areas-grid: 'credits menu' 'version menu';
+				--areas-grid: 'credits menu' 'version menu' 'green-hosted menu';
 			}
 			@include mx.breakpoint('sm') {
 				--columns-grid: max-content max-content 1fr;
-				--areas-grid: 'credits version menu';
+				--areas-grid: 'credits version green-hosted menu';
 
 				gap: 2rem;
 			}
@@ -56,7 +56,8 @@
 	}
 
 	&__credits,
-	&__version {
+	&__version,
+	.c-green-hosted {
 		font-size: 0.8rem;
 	}
 
@@ -66,6 +67,10 @@
 
 	&__version {
 		grid-area: version;
+	}
+
+	.c-green-hosted {
+		grid-area: green-hosted;
 	}
 
 	&__menu.c-menu {

@@ -37,4 +37,5 @@ export default {
   'comment_form.error.comment_to_short': 'Dein Kommentar ist zu kurz.',
   'comment_form.error.author_to_short': 'Dein Name ist zu kurz.',
   'comment_form.error.email_invalid': 'Bitte überprüfe deine E-Mailadresse, das Format scheint nicht korrekt zu sein.',
+  'green_hosted': '100% CO2 neutral gehosted',
 }
