@@ -3,15 +3,16 @@
 
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User :size="86"/>
+        <User :size="86" v-if="!validEmail(commentForm.email)"/>
+        <span v-else>{{ __(props.lang.locale, 'comment_form.gravatar_hint') }}</span>
       </div>
 
       <div class="c-comment__author-name-wrap">
-        <h2 class="c-comment__author-name">{{ commentForm.author }}</h2>
+        <h2 class="c-comment__author-name">{{ commentForm.author ? commentForm.author : __(props.lang.locale, 'comment_form.your_name') }}</h2>
       </div>
     </header>
 
-    <main class="c-comment__content">
+    <main class="c-comment__content is-comment-item">
       <slot name="beforeContent"></slot>
 
       <h2>{{ __(props.lang.locale, 'comment_form.headline') }}</h2>

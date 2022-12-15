@@ -24,22 +24,24 @@ $spacing: 121;
 
 .c-comment {
 	@include butler-mx.hover {
-		.c-comment__content {
-			--float-distance: -20px;
+		&:not(.is-create-comment) {
+			.c-comment__content:not(.is-comment-item) {
+				--float-distance: -20px;
 
-			&::before,
-			&::after,
-			& {
-				transform: translateY(0);
-				animation: float 5s ease-in-out infinite;
-			}
+				&::before,
+				&::after,
+				& {
+					transform: translateY(0);
+					animation: var(--animation-comment, float 5s ease-in-out infinite);
+				}
 
-			&::before {
-				--float-distance: -15px;
-			}
+				&::before {
+					--float-distance: -15px;
+				}
 
-			&::after {
-				--float-distance: -8px;
+				&::after {
+					--float-distance: -8px;
+				}
 			}
 		}
 	}

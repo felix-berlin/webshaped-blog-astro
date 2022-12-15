@@ -39,5 +39,7 @@ export default {
   'comment_form.error.author_to_short': 'Your name is too short.',
   'comment_form.error.email_invalid': 'Please check your email address, the format seems to be invalid.',
   'comment_form.email.tooltip': 'Your email address will not be published.<br> If you enter your email address and have deposited it with Gravatar, your profile picture will be displayed.',
+  'comment_form.your_name': 'Your name',
+  'comment_form.gravatar_hint': 'Your Gravatar profile picture.',
   'green_hosted': '100% CO2 neutral hosted'
 }
