@@ -2,7 +2,9 @@
   <section class="c-comments">
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
-    <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
+    <div class="c-comment is-create-comment is-level-0 is-even">
+      <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
+    </div>
 
     <p v-if="!data.hasComments">{{ __(lang.locale, 'comments.no_comments') }}</p>
 
@@ -23,7 +25,12 @@
     <button v-if="data?.pageInfo?.hasNextPage"
             @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor); data.partLoading = true;"
             class="c-comments__load-more-button c-button c-button--outline">
-            <RefreshCw :size="20" :class="[ 'c-comments__loading-icon', { 'is-loading': data.partLoading }]"/> <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
+            <RefreshCw :size="20"
+                       :class="[
+                          'c-comments__loading-icon',
+                          { 'is-loading': data.partLoading }
+                       ]"/>
+            <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
     </button>
   </section>
 </template>

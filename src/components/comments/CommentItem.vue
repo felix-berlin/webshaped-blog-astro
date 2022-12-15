@@ -54,9 +54,12 @@
     </article>
 
     <Transition name="fade" mode="in-out">
-      <div v-if="replyToCommentForm">
-        <CreateComment  :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" />
-        <button type="button" @click="toggleReplyCommentForm()"><X/></button>
+      <div class="c-comment is-create-comment" :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even': 'is-odd'}`" v-if="replyToCommentForm">
+        <CreateComment  :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" >
+          <template #beforeContent>
+            <button type="button" @click="toggleReplyCommentForm()"><X/></button>
+          </template>
+        </CreateComment>
       </div>
     </Transition>
 
