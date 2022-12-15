@@ -3,22 +3,15 @@
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
     <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
-    <span v-if="data.hasComments">hasComments</span>
-    <span v-if="data.loading">Loading</span>
 
     <p v-if="!data.hasComments">{{ __(lang.locale, 'comments.no_comments') }}</p>
 
-        <div class="card is-loading" v-if="data.loading">
-          <div class="image" />
-          <div class="content">
-            <h2 />
-            <p />
-          </div>
-        </div>
+    <!-- <TransitionGroup name="list"> -->
+      <template v-for="item in 5" :key="item">
+        <CommentItemSkeleton v-if="!data.hasLoaded"/>
+      </template>
+    <!-- </TransitionGroup> -->
 
-    <!-- <CommentItemSkeleton v-if="data.loading"/> -->
-
-    <CommentItemSkeleton/>
     <TransitionGroup name="list">
       <template
         v-for="comment in data.comments"
@@ -61,6 +54,7 @@ interface CommentsData {
     endCursor?: string
   },
   loading: boolean,
+  hasLoaded: boolean,
   partLoading: boolean,
   hasComments: boolean,
 }
@@ -71,6 +65,7 @@ const data = reactive<CommentsData>({
   comments: [],
   pageInfo: {},
   loading: false,
+  hasLoaded: false,
   partLoading: false,
   hasComments: true,
 })
@@ -88,6 +83,7 @@ const getComments = async (
         data.comments = [...data.comments, ...response.data.comments.edges];
         data.pageInfo = response.data.comments.pageInfo;
         data.loading = false;
+        data.hasLoaded = true;
         data.hasComments = !!data.comments?.length;
 
         if (after) {
