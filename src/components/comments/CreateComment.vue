@@ -43,7 +43,11 @@
           <label
             class="c-label c-form__label"
             for="user-email"
-          >{{ __(props.lang.locale, 'comment_form.email.label') }} <Info v-tooltip="{ content: 'test'}"/></label>
+          >{{ __(props.lang.locale, 'comment_form.email.label') }} <Info :size="18" v-tooltip="{
+                                                                          content: __(props.lang.locale, 'comment_form.email.tooltip'),
+                                                                          html: true
+                                                                          }"/>
+          </label>
           <div class="c-floating-label">
             <input
               id="user-email"
