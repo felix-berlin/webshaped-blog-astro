@@ -1,8 +1,26 @@
+@use 'sass:math';
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/colors';
 @use '@styles/variables/base';
 @use '@sass-butler/mixins' as butler-mx;
 @use '@sass-butler/functions' as butler-fn;
+
+$spacing: 121;
+
+@mixin scaling-spacing-in-depth($startingDepth, $depth, $parity) {
+	@for $i from $startingDepth through $depth {
+		&.is-level-#{$i} {
+			> .c-comment__item {
+				@if $parity == 'even' {
+					--spacing-outer: 0 #{math.div($i, 2) * $spacing + px};
+				}
+				@if $parity == 'odd' {
+					--spacing-outer: 0 #{$spacing + px} 0 #{math.div($i, 1.5) * $spacing + px};
+				}
+			}
+		}
+	}
+}
 
 .c-comment {
 	@include butler-mx.hover {
@@ -105,6 +123,13 @@
 		}
 	}
 
+	&.is-odd,
+	&.is-even {
+		> .c-comment__item {
+			margin: var(--spacing-outer);
+		}
+	}
+
 	&.is-odd {
 		> .c-comment__item {
 			--columns-grid-comment: 1fr;
@@ -128,6 +153,12 @@
 				}
 			}
 		}
+
+		&.is-level-1 > .c-comment__item {
+			--spacing-outer: 0 0 0 #{1 * $spacing + px};
+		}
+
+		@include scaling-spacing-in-depth(2, 5, 'odd');
 	}
 
 	&.is-even {
@@ -154,6 +185,8 @@
 				}
 			}
 		}
+
+		@include scaling-spacing-in-depth(1, 5, 'even');
 	}
 
 	&.is-reply {

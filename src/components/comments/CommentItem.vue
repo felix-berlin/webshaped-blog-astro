@@ -11,7 +11,6 @@
     <article
       :id="'comment-' + comment.id"
       class="c-comment__item"
-      :style="itemStyling(depth)"
     >
       <header class="c-comment__header">
         <img
@@ -125,19 +124,6 @@ const isAuthor = computed(() => props.comment.author.node.id === props.authorId)
 const isOdd = (num: number) => num % 2;
 
 const toggleReplyCommentForm = () => replyToCommentForm.value = !replyToCommentForm.value;
-
-const itemStyling = (depth: number) => {
-  const spacing = 121;
-
-  if (!isOdd(depth) && depth > 0) {
-    return { 'margin': `0 ${depth / 2 * spacing}px`};
-  }
-
-  if (isOdd(depth)) {
-    if (depth === 1) return {'margin-left': `${depth * spacing}px`};
-    else return {'margin': `0 ${spacing}px 0 ${depth / 1.5 * spacing}px`};
-  }
-}
 </script>
 
 <style lang="scss">
