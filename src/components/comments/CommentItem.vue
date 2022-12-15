@@ -25,21 +25,25 @@
         <div v-else class="c-comment__author-icon">
           <User :size="86"/>
         </div>
-        <h2 class="c-comment__author-name">{{ comment.author.node.name }}</h2>
+
+        <div class="c-comment__author-name-wrap">
+          <h2 class="c-comment__author-name">{{ comment.author.node.name }}</h2>
+          <Verified v-if="isAuthor" :size="18"></Verified>
+        </div>
       </header>
       <main class="c-comment__content">
         <a v-if="comment.parentId" :href="`#comment-${comment.parentId}`" class="c-comment__reply-to">Reply to</a>
 
-        <button type="button"
-                class="c-comment__reply-button"
-                v-if="depth < 5"
-                @click="toggleReplyCommentForm()">
-          <Reply :size="18"/> {{ __(lang.locale, 'comment.reply_button') }}
-        </button>
-
         <p class="c-comment__text" v-html="comment.content"></p>
 
         <footer class="c-comment__footer">
+          <button type="button"
+                  class="c-comment__reply-button c-button c-button--icon"
+                  v-if="depth < 5"
+                  @click="toggleReplyCommentForm()">
+            <Reply :size="18"/> {{ __(lang.locale, 'comment.reply_button') }}
+          </button>
+
           <Date :date="comment.dateGmt" class="c-comment__date">
             <template #before>
               {{ __(lang.locale, 'comment.date') }}
@@ -74,7 +78,7 @@ import Date from '@components/Date.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
 import { computed, ref } from 'vue';
 import { __ } from '@i18n/i18n';
-import { User, Reply, X } from 'lucide-vue-next';
+import { User, Reply, X, Verified } from 'lucide-vue-next';
 
 export interface CommentData {
   content: string;

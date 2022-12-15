@@ -13,6 +13,13 @@
 	// border: var(--width-border, 1px) var(--style-border, solid) var(--color-border, var(--grey-100));
 	// color: var(--color, var(--grey-100));
 	// transition: all 0.3s ease-in-out;
+	//
+	&--outline {
+		border: 1px solid var(--color-border, var(--red-light));
+		color: var(--color, var(--white));
+		background-color: transparent;
+		padding: 0.5rem 1rem;
+	}
 
 	&--icon {
 		@extend .u-button-reset;

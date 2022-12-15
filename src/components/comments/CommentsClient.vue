@@ -3,24 +3,42 @@
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
     <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
-    <p v-if="!data.comments?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
+    <span v-if="data.hasComments">hasComments</span>
+    <span v-if="data.loading">Loading</span>
 
+    <p v-if="!data.hasComments">{{ __(lang.locale, 'comments.no_comments') }}</p>
+
+        <div class="card is-loading" v-if="data.loading">
+          <div class="image" />
+          <div class="content">
+            <h2 />
+            <p />
+          </div>
+        </div>
+
+    <!-- <CommentItemSkeleton v-if="data.loading"/> -->
+
+    <CommentItemSkeleton/>
     <TransitionGroup name="list">
       <template
         v-for="comment in data.comments"
         :key="comment"
       >
-        <CommentItem v-show="data.loaded" :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+        <CommentItem v-show="data.hasComments" :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
       </template>
     </TransitionGroup>
-
-    <button v-if="data?.pageInfo?.hasNextPage" @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor)"><RefreshCw/> {{ __(lang.locale, 'comments.load_more.button') }}</button>
+    <button v-if="data?.pageInfo?.hasNextPage"
+            @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor); data.partLoading = true;"
+            class="c-comments__load-more-button c-button c-button--outline">
+            <RefreshCw :size="20" :class="[ 'c-comments__loading-icon', { 'is-loading': data.partLoading }]"/> <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
+    </button>
   </section>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 import CommentItem from '@components/comments/CommentItem.vue';
+import CommentItemSkeleton from '@components/comments/CommentItemSkeleton.vue';
 import type { CommentData } from '@components/comments/CommentItem.vue';
 import CreateComment from '@components/comments/CreateComment.vue';
 import { __ } from '@i18n/i18n';
@@ -42,7 +60,9 @@ interface CommentsData {
     hasNextPage?: boolean,
     endCursor?: string
   },
-  loaded: boolean,
+  loading: boolean,
+  partLoading: boolean,
+  hasComments: boolean,
 }
 
 const props = defineProps<CommentsProps>()
@@ -50,20 +70,29 @@ const props = defineProps<CommentsProps>()
 const data = reactive<CommentsData>({
   comments: [],
   pageInfo: {},
-  loaded: false,
+  loading: false,
+  partLoading: false,
+  hasComments: true,
 })
 
 const getComments = async (
     currentPostId = props.currentPostId,
     first = 5,
-    after?:string
+    after?:string,
   ):Promise<object | any> => {
+ data.loading = true;
+
   await getCommentsById(currentPostId, first, after)
     .then(
       response => {
         data.comments = [...data.comments, ...response.data.comments.edges];
         data.pageInfo = response.data.comments.pageInfo;
-        data.loaded = true;
+        data.loading = false;
+        data.hasComments = !!data.comments?.length;
+
+        if (after) {
+          data.partLoading = false;
+        }
       }
     );
 }
@@ -71,7 +100,7 @@ const getComments = async (
 const reloadComments = () => {
   data.comments = [];
   data.pageInfo = {};
-  data.loaded = false;
+  data.loading = false;
   getComments();
 }
 

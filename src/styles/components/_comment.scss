@@ -1,3 +1,4 @@
+@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/colors';
 @use '@styles/variables/base';
 @use '@sass-butler/functions' as butler-fn;
@@ -7,9 +8,15 @@
 		display: grid;
 		grid-template-columns: var(--columns-grid-comment);
 		grid-template-areas:
+			'content'
+			'header';
+		gap: 15px;
+	}
+
+	@include mx.breakpoint('md') {
+		grid-template-areas:
 			' . content'
 			'header . ';
-		gap: 15px;
 	}
 
 	&__header {
@@ -22,6 +29,10 @@
 
 	&__author-image {
 		border-radius: base.$border-radius;
+	}
+
+	&__author-name-wrap {
+		display: flex;
 	}
 
 	&__author-name {
@@ -46,7 +57,10 @@
 		background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
 		position: relative;
 		color: var(--blue-dark);
-		margin-bottom: -35px;
+
+		@include mx.breakpoint('md') {
+			margin-bottom: -35px;
+		}
 
 		&::after,
 		&::before {
@@ -71,11 +85,19 @@
 
 	&.is-odd {
 		> .c-comment__item {
-			--columns-grid-comment: 1fr 106px;
+			--columns-grid-comment: 1fr;
 
 			grid-template-areas:
-				'content .'
-				' . header';
+				'content'
+				'header';
+
+			@include mx.breakpoint('md') {
+				--columns-grid-comment: 1fr 106px;
+
+				grid-template-areas:
+					'content .'
+					' . header';
+			}
 
 			.c-comment__content {
 				&::after,
@@ -88,12 +110,20 @@
 
 	&.is-even {
 		> .c-comment__item {
-			--columns-grid-comment: 106px 1fr;
+			--columns-grid-comment: 1fr;
 
 			grid-template-areas:
-				' . content'
-				'header .';
+				'content'
+				'header';
 			gap: 15px;
+
+			@include mx.breakpoint('md') {
+				--columns-grid-comment: 106px 1fr;
+
+				grid-template-areas:
+					' . content'
+					'header .';
+			}
 
 			.c-comment__content {
 				&::after,
@@ -112,5 +142,12 @@
 		.c-comment__header {
 			--color-background-author-image: #{butler-fn.hex-to-rgb(colors.$red-light, 40%)};
 		}
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 15px;
 	}
 }
