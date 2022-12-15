@@ -1,9 +1,31 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/colors';
 @use '@styles/variables/base';
+@use '@sass-butler/mixins' as butler-mx;
 @use '@sass-butler/functions' as butler-fn;
 
 .c-comment {
+	@include butler-mx.hover {
+		.c-comment__content {
+			--float-distance: -20px;
+
+			&::before,
+			&::after,
+			& {
+				transform: translateY(0);
+				animation: float 5s ease-in-out infinite;
+			}
+
+			&::before {
+				--float-distance: -15px;
+			}
+
+			&::after {
+				--float-distance: -8px;
+			}
+		}
+	}
+
 	&__item {
 		display: grid;
 		grid-template-columns: var(--columns-grid-comment);
@@ -149,5 +171,19 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-top: 15px;
+	}
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(var(--float-distance, -20px));
+	}
+
+	100% {
+		transform: translateY(0);
 	}
 }
