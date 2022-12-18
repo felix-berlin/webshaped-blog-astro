@@ -12,10 +12,10 @@ $spacing: 121;
 		&.is-level-#{$i} {
 			> .c-comment__item {
 				@if $parity == 'even' {
-					--spacing-outer: 0 #{math.div($i, 2) * $spacing + px};
+					--spacing-outer-depth: 0 #{math.div($i, 2) * $spacing + px};
 				}
 				@if $parity == 'odd' {
-					--spacing-outer: 0 #{$spacing + px} 0 #{math.div($i, 1.5) * $spacing + px};
+					--spacing-outer-depth: 0 #{$spacing + px} 0 #{math.div($i, 1.5) * $spacing + px};
 				}
 			}
 		}
@@ -99,9 +99,10 @@ $spacing: 121;
 		background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
 		position: relative;
 		color: var(--blue-dark);
+		margin: var(--spacing-outer-content, 0 0 35px 0);
 
 		@include mx.breakpoint('md') {
-			margin-bottom: -35px;
+			--spacing-outer-content: 0 0 -35px 0;
 		}
 
 		&::after,
@@ -128,17 +129,17 @@ $spacing: 121;
 	&.is-odd,
 	&.is-even {
 		> .c-comment__item {
-			margin: var(--spacing-outer);
+			margin: var(--spacing-outer-depth);
 		}
 	}
 
 	&.is-odd {
 		> .c-comment__item {
-			--columns-grid-comment: 1fr;
+			--columns-grid-comment: 1fr max-content;
 
 			grid-template-areas:
-				'content'
-				'header';
+				'content content'
+				'. header';
 
 			@include mx.breakpoint('md') {
 				--columns-grid-comment: 1fr 106px;
@@ -160,16 +161,18 @@ $spacing: 121;
 			--spacing-outer: 0 0 0 #{1 * $spacing + px};
 		}
 
-		@include scaling-spacing-in-depth(2, 5, 'odd');
+		@include mx.breakpoint('md') {
+			@include scaling-spacing-in-depth(2, 5, 'odd');
+		}
 	}
 
 	&.is-even {
 		> .c-comment__item {
-			--columns-grid-comment: 1fr;
+			--columns-grid-comment: max-content 1fr;
 
 			grid-template-areas:
-				'content'
-				'header';
+				'content content'
+				'header . ';
 			gap: 15px;
 
 			@include mx.breakpoint('md') {
@@ -188,7 +191,9 @@ $spacing: 121;
 			}
 		}
 
-		@include scaling-spacing-in-depth(1, 5, 'even');
+		@include mx.breakpoint('md') {
+			@include scaling-spacing-in-depth(1, 5, 'even');
+		}
 	}
 
 	&.is-reply {
