@@ -26,3 +26,6 @@ pnpm-debug.log*
 .
 
 .idea
+/test-results/
+/playwright-report/
+/playwright/.cache/
