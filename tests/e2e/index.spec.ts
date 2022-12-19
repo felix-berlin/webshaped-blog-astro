@@ -5,16 +5,20 @@ test('homepage has title and links to intro page', async ({ page }) => {
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Blog Index/);
+});
 
-  // // create a locator
-  // const getStarted = page.getByRole('link', { name: 'Get started' });
+test('dark mode toggle class', async ({ page }) => {
+  await page.goto('http://localhost:3000/');
 
-  // // Expect an attribute "to be strictly equal" to the value.
-  // await expect(getStarted).toHaveAttribute('href', '/docs/intro');
+  // Toggle dark mode
+  await page.locator('.c-color-mode-toggle').click();
+  await expect(page.locator('html')).toHaveClass('dark');
+  await expect(page.locator('html')).not.toHaveClass('light');
+  await expect(page.locator('.c-color-mode-toggle .lucide-moon-icon')).toHaveAttribute('aria-label', 'Dunklen Modus aktivieren');
 
-  // // Click the get started link.
-  // await getStarted.click();
+  // Toggle light mode
+  await page.locator('.c-color-mode-toggle').click();
+  await expect(page.locator('html')).toHaveClass('');
+  await expect(page.locator('.c-color-mode-toggle .lucide-sun-icon')).toHaveAttribute('aria-label', 'Hellen Modus aktivieren');
 
-  // // Expects the URL to contain intro.
-  // await expect(page).toHaveURL(/.*intro/);
 });
