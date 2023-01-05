@@ -58,7 +58,7 @@
 		@include butler-mx.feature('motion') {
 			@include butler-mx.hover {
 				--transform-arrow: translateX(0.15rem);
-				--color-arrow: #{colors.$red-light};
+				--color-arrow: var(--accent-color);
 			}
 		}
 

@@ -15,7 +15,7 @@
 	// transition: all 0.3s ease-in-out;
 	//
 	&--outline {
-		border: 1px solid var(--color-border, var(--red-light));
+		border: 1px solid var(--color-border, var(--accent-color));
 		color: var(--color, var(--white));
 		background-color: transparent;
 		padding: 0.5rem 1rem;
@@ -32,7 +32,7 @@
 
 		&:active {
 			@include butler-mx.feature('motion') {
-				background-color: colors.$red-light;
+				background-color: var(--accent-color);
 				color: colors.$white;
 			}
 		}
@@ -40,7 +40,7 @@
 		@include butler-mx.feature('motion') {
 			@include butler-mx.hover {
 				svg {
-					--shadow: #{butler-fn.hex-to-rgb(colors.$red-light, 100%)};
+					--shadow: var(--accent-color);
 				}
 			}
 		}
