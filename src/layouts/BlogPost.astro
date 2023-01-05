@@ -33,6 +33,12 @@ import type { AuthorData } from "@components/Author.vue";
 import type { Seo, Title } from "@components/BaseHead.astro";
 
 import { getMenuById } from "@lib/api";
+
+interface FeaturedImageSizes {
+  width: string;
+  sourceUrl: string;
+  mimeType: string;
+}
 export interface BlogPost {
   content: {
     title: Title;
@@ -47,9 +53,11 @@ export interface BlogPost {
         altText: string;
         srcSet: string;
         sizes: string;
+        mimeType: string;
         mediaDetails: {
           width: number;
           height: number;
+          sizes: [FeaturedImageSizes];
         };
       };
     };
@@ -112,6 +120,8 @@ const breadcrumbItems = [
     url: `/blog/${slug}`,
   },
 ];
+
+const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
 ---
 
 <html lang={langAttr}>
@@ -119,6 +129,25 @@ const breadcrumbItems = [
     <BaseHead title={title} seo={seo} />
     <!-- LastFM API -->
     <link rel="preconnect" href="//last-fm.kasimir.dev" />
+    <!-- Preload featured image -->
+    {
+      featuredImageSizes.map((size: FeaturedImageSizes) => (
+        <link
+          rel="preload"
+          href={size.sourceUrl}
+          as="image"
+          type={size.mimeType}
+          media={`(max-width: ${size.width}px)`}
+        />
+      ))
+    }
+    <link
+      rel="preload"
+      href={featuredImage.node.mediaItemUrl}
+      as="image"
+      type={featuredImage.node.mimeType}
+      media={`(max-width: ${featuredImage.node.mediaDetails.width}px)`}
+    />
     <script src="../lib/smooth-scroll-anchor.ts"></script>
   </head>
 
@@ -224,5 +253,6 @@ const breadcrumbItems = [
       debug-mode={true}
     />
     <MainFooter lang={language} />
-  </body><style></style>
+    <style></style>
+  </body>
 </html>

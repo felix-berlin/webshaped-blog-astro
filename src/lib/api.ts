@@ -260,9 +260,15 @@ export async function getPostBySlug(slug:string):Promise<object> {
             mediaItemUrl
             srcSet
             sizes
+            mimeType
             mediaDetails {
               height
               width
+              sizes {
+                width
+                sourceUrl
+                mimeType
+              }
             }
           }
         }
