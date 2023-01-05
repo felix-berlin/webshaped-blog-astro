@@ -1,4 +1,7 @@
 ---
+import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
+import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
+
 export interface Title {
   title: string;
 }
@@ -27,28 +30,32 @@ export interface Seo {
 }
 
 export interface SeoProps {
-  title: Title
-	seo: Seo
+  title: Title;
+  seo: Seo;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo } = Astro.props as SeoProps & Title;
 ---
+
 <!-- Block until theme class is set -->
 <script is:inline>
   const isDarkTheme = (() => {
-    if (typeof localStorage !== 'undefined' && localStorage.getItem('darkMode')) {
-      return localStorage.getItem('darkMode');
+    if (
+      typeof localStorage !== "undefined" &&
+      localStorage.getItem("darkMode")
+    ) {
+      return localStorage.getItem("darkMode");
     }
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'true';
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "true";
     }
-    return 'false';
+    return "false";
   })();
-  if (isDarkTheme === 'false') {
-    document.documentElement.classList.remove('dark');
+  if (isDarkTheme === "false") {
+    document.documentElement.classList.remove("dark");
   } else {
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.add("dark");
   }
 </script>
 
@@ -80,4 +87,20 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <!-- Webmention -->
 <link rel="webmention" href={`${import.meta.env.WEBMENTION_URL}/webmention`} />
 <link rel="pingback" href={`${import.meta.env.WEBMENTION_URL}/xmlrpc`} />
-<link rel="preconnect" href="//webmention.io">
+<link rel="preconnect" href="//webmention.io" />
+
+<!-- Preloads -->
+<link
+  rel="preload"
+  href={SourceSansPro400}
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href={SourceSansPro700}
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
