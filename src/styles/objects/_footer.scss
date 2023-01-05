@@ -1,6 +1,7 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
 @use '@styles/variables/colors';
 @use '@styles/variables/layout';
+@use '@styles/variables/base';
 @use '@sass-butler/functions' as butler-fn;
 @use '@sass-butler/mixins' as butler-mx;
 
@@ -26,10 +27,14 @@
 			z-index: -1;
 			filter: drop-shadow(0 -2px 10px butler-fn.hex-to-rgb(colors.$red-light, 35%));
 			background: {
-				image: url('/assets/wave-haikei_02.svg');
+				image: var(--image-background-footer-end, #{base.$wave-haikei-2-light});
 				size: cover;
 				repeat: no-repeat;
 				position: bottom;
+			}
+
+			@include butler-mx.dark-mode-class {
+				--image-background-footer-end: #{base.$wave-haikei-2-dark};
 			}
 		}
 

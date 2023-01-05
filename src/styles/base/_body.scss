@@ -11,15 +11,16 @@
 }
 
 html {
-	background-color: var(--color-background-doc, #fff);
+	background-color: var(--color-background-doc, #{butler-fn.hex-to-rgb(colors.$white, 100%)});
 	background-attachment: fixed;
 	background-size: cover;
+	background-image: base.$background-image-light;
 }
 
 @include butler-mx.dark-mode-class('html', false) {
 	--color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
 
-	background-image: base.$background-image;
+	background-image: base.$background-image-dark;
 
 	@include butler-mx.select-style(colors.$blue-shallow-dark, colors.$blue-dark);
 }
@@ -40,14 +41,27 @@ body {
 			width: 100%;
 			height: 100%;
 			background:
-				linear-gradient(
-					25deg,
-					#{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 0%,
-					#{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-top, 10%),
-					#{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-bottom, 90%),
-					#{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 100%
+				var(
+					--gradient-background,
+					linear-gradient(
+						25deg,
+						#{butler-fn.hex-to-rgb(colors.$white, 10%)} 0%,
+						#{butler-fn.hex-to-rgb(colors.$white, 95%)} var(--gradient-opacity-top, 10%),
+						#{butler-fn.hex-to-rgb(colors.$white, 95%)} var(--gradient-opacity-bottom, 90%),
+						#{butler-fn.hex-to-rgb(colors.$white, 10%)} 100%
+					)
 				);
 
+			@include butler-mx.dark-mode-class {
+				--gradient-background:
+					linear-gradient(
+						25deg,
+						#{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 0%,
+						#{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-top, 10%),
+						#{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-bottom, 90%),
+						#{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 100%
+					);
+			}
 			@include butler-mx.breakpoint('md') {
 				--gradient-opacity-top: 20%;
 				--gradient-opacity-bottom: 80%;
@@ -72,9 +86,18 @@ body {
 		--gradient-background:
 			linear-gradient(
 				14deg,
-				#{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 0%,
-				#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 40%
+				#{butler-fn.hex-to-rgb(colors.$orange-light, 60%)} 0%,
+				#{butler-fn.hex-to-rgb(colors.$blue-light, 0%)} 40%
 			);
+
+		@include butler-mx.dark-mode-class {
+			--gradient-background:
+				linear-gradient(
+					14deg,
+					#{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 0%,
+					#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 40%
+				);
+		}
 	}
 
 	&::before {
@@ -84,8 +107,17 @@ body {
 		--gradient-background:
 			linear-gradient(
 				25deg,
-				#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 60%,
-				#{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 100%
+				#{butler-fn.hex-to-rgb(colors.$blue-light, 0%)} 60%,
+				#{butler-fn.hex-to-rgb(colors.$orange-light, 60%)} 100%
 			);
+
+		@include butler-mx.dark-mode-class {
+			--gradient-background:
+				linear-gradient(
+					25deg,
+					#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 60%,
+					#{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 100%
+				);
+		}
 	}
 }

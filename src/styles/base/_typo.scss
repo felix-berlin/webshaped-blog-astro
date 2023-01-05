@@ -22,15 +22,20 @@
 
 	html {
 		font-family: fonts.$source-sans-pro;
+		color: var(--color-base, #{colors.$blue-dark});
 	}
 
 	@include butler-mx.dark-mode-class('html', false) {
-		color: colors.$white;
+		--color-base: #{colors.$white};
 	}
 
 	a {
-		color: colors.$white;
+		color: var(--color-link-base);
 		cursor: pointer;
 		text-decoration: none;
+
+		@include butler-mx.dark-mode-class {
+			--color-link-base: #{colors.$white};
+		}
 	}
 }
