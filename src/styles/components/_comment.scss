@@ -88,19 +88,29 @@ $spacing: 121;
 
 	&__author-icon {
 		display: flex;
-		border: 1px solid var(--white);
+		border: 1px solid var(--color-border-author-icon, var(--blue-dark));
 		border-radius: base.$border-radius;
+
+		@include butler-mx.dark-mode-class {
+			--color-border-author-icon: var(--white);
+		}
 	}
 
 	&__content {
+		--color-background-comment-content: #{butler-fn.hex-to-rgb(colors.$blue-dark, 90%)};
+
 		grid-area: content;
 		padding: 10px;
 		border-radius: base.$border-radius;
-		background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
+		background-color: var(--color-background-comment-content);
 		position: relative;
-		color: var(--blue-dark);
+		color: var(--color-comment-content, var(--white));
 		margin: var(--spacing-outer-content, 0 0 35px 0);
 
+		@include butler-mx.dark-mode-class {
+			--color-background-comment-content: #{butler-fn.hex-to-rgb(colors.$white, 90%)};
+			--color-comment-content: var(--blue-dark);
+		}
 		@include mx.breakpoint('md') {
 			--spacing-outer-content: 0 0 -35px 0;
 		}
@@ -109,7 +119,7 @@ $spacing: 121;
 		&::before {
 			content: '';
 			position: absolute;
-			background-color: butler-fn.hex-to-rgb(colors.$white, 90%);
+			background-color: var(--color-background-comment-content);
 			border-radius: base.$border-radius;
 			z-index: -1;
 			height: 8px;
