@@ -1,63 +1,58 @@
 ---
-import '../styles/app.scss';
-import '@fontsource/source-sans-pro/400.css';
-import '@fontsource/source-sans-pro/700.css';
+import "../styles/app.scss";
+import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/700.css";
 
 import BaseHead from "@components/BaseHead.astro";
-import MainHeader from '@components/hero/MainHeader.vue';
-import MainFooter from '@components/MainFooter.astro';
-import Matomo from '@components/Matomo.vue';
-import { getMenuById, getAuthor } from '@lib/api';
+import MainHeader from "@components/hero/MainHeader.vue";
+import MainFooter from "@components/MainFooter.astro";
+import Matomo from "@components/Matomo.vue";
+import { getMenuById, getAuthor } from "@lib/api";
 
-import type { SeoProps } from '@components/BaseHead.astro';
+import type { SeoProps } from "@components/BaseHead.astro";
 export interface DefaultLayoutProps {
-	content: {
-		title: string;
-		seo: SeoProps;
-		language: {
-			code: string;
-			locale: string;
-			name: string;
-		},
-	};
+  content: {
+    title: string;
+    seo: SeoProps;
+    language: {
+      code: string;
+      locale: string;
+      name: string;
+    };
+  };
 }
 
 const {
-	content: {
-		title,
-		seo,
-		language,
-	},
+  content: { title, seo, language },
 } = Astro.props as DefaultLayoutProps;
 
-const langAttr = language.locale.replace('_', '-');
+const langAttr = language.locale.replace("_", "-");
 
 const mainMenuItems = await getMenuById(2);
-
 ---
 
 <html lang={langAttr}>
-	<head>
-		<BaseHead title={title} seo={seo} />
-	</head>
+  <head>
+    <BaseHead title={title} seo={seo} />
+  </head>
 
-	<body class="o-body">
-    <MainHeader menuItems={mainMenuItems.menuItems} lang={language} client:load/>
-    <main class="o-content" id="swup">
-      <slot></slot>
+  <body class="o-body">
+    <MainHeader
+      menuItems={mainMenuItems.menuItems}
+      lang={language}
+      client:load
+    />
+    <main class="o-content">
+      <slot />
     </main>
 
-    <!-- <script>
-      import '../lib/swup.js';
-    </script> -->
-    <Matomo client:only
-            site-id={"3"}
-            cookie-domain={"*.webshaped.de"}
-            host={"analytics.webshaped.de"}
-            debug-mode={true}></Matomo>
-    <MainFooter lang={language}></MainFooter>
-	</body>
+    <Matomo
+      client:only
+      site-id={"3"}
+      cookie-domain={"*.webshaped.de"}
+      host={"analytics.webshaped.de"}
+      debug-mode={true}
+    />
+    <MainFooter lang={language} />
+  </body><style></style>
 </html>
-
-<style>
-</style>

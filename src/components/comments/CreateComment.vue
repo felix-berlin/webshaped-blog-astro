@@ -1,19 +1,23 @@
 <template>
   <article class="c-comment__item">
-
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User :size="86" v-if="!validEmail(commentForm.email)"/>
+        <User
+          v-if="!validEmail(commentForm.email)"
+          :size="86"
+        />
         <span v-else>{{ __(props.lang.locale, 'comment_form.gravatar_hint') }}</span>
       </div>
 
       <div class="c-comment__author-name-wrap">
-        <h2 class="c-comment__author-name">{{ commentForm.author ? commentForm.author : __(props.lang.locale, 'comment_form.your_name') }}</h2>
+        <h2 class="c-comment__author-name">
+          {{ commentForm.author ? commentForm.author : __(props.lang.locale, 'comment_form.your_name') }}
+        </h2>
       </div>
     </header>
 
     <main class="c-comment__content is-comment-item">
-      <slot name="beforeContent"></slot>
+      <slot name="beforeContent" />
 
       <h2>{{ __(props.lang.locale, 'comment_form.headline') }}</h2>
       <Alert
@@ -21,8 +25,11 @@
         type="danger"
         class="c-alert--small"
       >
-        <template v-for="error in formResponses.errors">
-          <AlertCircle></AlertCircle> {{ error.message }}
+        <template
+          v-for="(error, index) in formResponses.errors"
+          :key="index"
+        >
+          <AlertCircle /> {{ error.message }}
         </template>
       </Alert>
       <Alert
@@ -30,7 +37,7 @@
         type="success"
         class="c-alert--small"
       >
-        <CheckCircle></CheckCircle>
+        <CheckCircle />
       </Alert>
 
       <form
@@ -44,10 +51,13 @@
           <label
             class="c-label c-form__label"
             for="user-email"
-          >{{ __(props.lang.locale, 'comment_form.email.label') }} <Info :size="18" v-tooltip="{
-                                                                          content: __(props.lang.locale, 'comment_form.email.tooltip'),
-                                                                          html: true
-                                                                          }"/>
+          >{{ __(props.lang.locale, 'comment_form.email.label') }} <Info
+            v-tooltip="{
+              content: __(props.lang.locale, 'comment_form.email.tooltip'),
+              html: true
+            }"
+            :size="18"
+          />
           </label>
           <div class="c-floating-label">
             <input

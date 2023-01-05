@@ -1,47 +1,47 @@
 ---
-import '../styles/app.scss';
-import '../styles/components/_blog.scss';
-import '../styles/components/_blog-sidebar.scss';
-import '@fontsource/source-sans-pro/400.css';
-import '@fontsource/source-sans-pro/700.css';
+import "../styles/app.scss";
+import "../styles/components/_blog.scss";
+import "../styles/components/_blog-sidebar.scss";
+import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/700.css";
 
 import BaseHead from "@components/BaseHead.astro";
-import MainHeader from '@components/hero/MainHeader.vue';
-import DateModified from '@components/post/DateModified.vue';
-import ReadingTime from '@components/ReadingTime.vue';
-import Comments from '@components/comments/Comments.vue';
-import CommentsClient from '@components/comments/CommentsClient.vue';
-import CommentCount from '@components/comments/CommentCount.vue';
-import Share from '@components/Share.vue';
+import MainHeader from "@components/hero/MainHeader.vue";
+import DateModified from "@components/post/DateModified.vue";
+import ReadingTime from "@components/ReadingTime.vue";
+import Comments from "@components/comments/Comments.vue";
+import CommentsClient from "@components/comments/CommentsClient.vue";
+import CommentCount from "@components/comments/CommentCount.vue";
+import Share from "@components/Share.vue";
 // import TableOfContents from '@components/TableOfContents.vue';
-import TableOfContentsClientSide from '@components/TableOfContentsClientSide.vue';
-import Helpful from '@components/Helpful.vue';
-import Categories from '@components/Categories.vue';
-import Author from '@components/Author.vue';
-import MainFooter from '@components/MainFooter.astro';
-import Prism from '@components/Prism.vue';
-import Webmentions from '@components/webmentions/Webmentions.vue';
-import WebmentionsCount from '@components/webmentions/WebmentionsCount.vue';
-import LoadWebmentions from '@components/webmentions/LoadWebmentions.vue';
-import Matomo from '@components/Matomo.vue';
-import PostOlderThan from '@components/PostOlderThan.vue';
-import { Breadcrumbs } from 'astro-breadcrumbs';
+import TableOfContentsClientSide from "@components/TableOfContentsClientSide.vue";
+import Helpful from "@components/Helpful.vue";
+import Categories from "@components/Categories.vue";
+import Author from "@components/Author.vue";
+import MainFooter from "@components/MainFooter.astro";
+import Prism from "@components/Prism.vue";
+import Webmentions from "@components/webmentions/Webmentions.vue";
+import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
+import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
+import Matomo from "@components/Matomo.vue";
+import PostOlderThan from "@components/PostOlderThan.vue";
+import { Breadcrumbs } from "astro-breadcrumbs";
 // import Breadcrumbs from '@components/Breadcrumbs.astro';
-import { __ } from '@i18n/i18n'
+import { __ } from "@i18n/i18n";
 
-import type { AuthorData } from '@components/Author.vue';
-import type { Seo, Title } from '@components/BaseHead.astro';
+import type { AuthorData } from "@components/Author.vue";
+import type { Seo, Title } from "@components/BaseHead.astro";
 
-import { getMenuById } from '@lib/api';
+import { getMenuById } from "@lib/api";
 export interface BlogPost {
-	content: {
+  content: {
     title: Title;
     slug: string;
     seo: Seo;
     author: AuthorData;
-		dateGmt: string;
+    dateGmt: string;
     modifiedGmt: string;
-		featuredImage: {
+    featuredImage: {
       node: {
         mediaItemUrl: string;
         altText: string;
@@ -50,42 +50,42 @@ export interface BlogPost {
         mediaDetails: {
           width: number;
           height: number;
-        },
-      }
-		};
-		language: {
-			code: string;
-			locale: string;
-			name: string;
+        };
+      };
+    };
+    language: {
+      code: string;
+      locale: string;
+      name: string;
       slug: string;
-		},
-		comments: object;
-		commentCount: number;
-		postId: number;
-		content: string;
-		categories: object;
-	};
+    };
+    comments: object;
+    commentCount: number;
+    postId: number;
+    content: string;
+    categories: object;
+  };
 }
 
 const {
-	content: {
-		title,
+  content: {
+    title,
     slug,
-		dateGmt,
+    dateGmt,
     modifiedGmt,
-		featuredImage,
-		seo,
-		language,
-		comments,
-		commentCount,
-		postId,
-		content,
-		categories,
-		author
-	},
+    featuredImage,
+    seo,
+    language,
+    comments,
+    commentCount,
+    postId,
+    content,
+    categories,
+    author,
+  },
 } = Astro.props as BlogPost;
 
-const langAttr = language.locale.replace('_', '-');
+const langAttr = language.locale.replace("_", "-");
 
 const { menuItems }: any = await getMenuById(2); // DE
 // const { menuItemsEn }: any = await getMenuById(125); // EN
@@ -94,17 +94,18 @@ const { menuItems }: any = await getMenuById(2); // DE
 //
 //
 
-const homeIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>';
+const homeIcon =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>';
 
 const breadcrumbItems = [
   {
-    name: 'Home',
-    url: '/',
+    name: "Home",
+    url: "/",
     icon: homeIcon,
   },
   {
-    name: 'Blog',
-    url: '/blog',
+    name: "Blog",
+    url: "/blog",
   },
   {
     name: title,
@@ -114,15 +115,16 @@ const breadcrumbItems = [
 ---
 
 <html lang={langAttr}>
-	<head>
-		<BaseHead title={title} seo={seo} />
+  <head>
+    <BaseHead title={title} seo={seo} />
     <!-- LastFM API -->
-    <link rel="preconnect" href="//last-fm.kasimir.dev">
+    <link rel="preconnect" href="//last-fm.kasimir.dev" />
     <script src="../lib/smooth-scroll-anchor.ts"></script>
-	</head>
+  </head>
 
-	<body class="o-body">
-		<MainHeader menuItems={menuItems} lang={language} client:load />
+  <body class="o-body">
+    <MainHeader menuItems={menuItems} lang={language} client:load />
+    <Prism client:load />
 
     <main class="o-content c-blog">
       <header class="c-blog__header">
@@ -133,13 +135,34 @@ const breadcrumbItems = [
           <span slot="separator" class="c-breadcrumbs__separator">/</span>
         </Breadcrumbs> -->
         <h1 class="c-blog__title">{title}</h1>
-        <DateModified date={modifiedGmt} lang={language}/>
-        <ReadingTime time={seo.readingTime} lang={language}/>
-        <WebmentionsCount elementIs={'a'} href={'#webmentions'} lang={language} client:load></WebmentionsCount>
-        <Categories categories={categories}></Categories>
+        <DateModified date={modifiedGmt} lang={language} />
+        <ReadingTime time={seo.readingTime} lang={language} />
+        <WebmentionsCount
+          elementIs={"a"}
+          href={"#webmentions"}
+          lang={language}
+          client:load
+        />
+        <Categories categories={categories} />
+
+        {
+          featuredImage && (
+            <img
+              width={featuredImage.node.mediaDetails.width}
+              height={featuredImage.node.mediaDetails.height}
+              alt={featuredImage.node.altText}
+              src={featuredImage.node.mediaItemUrl}
+              srcset={featuredImage.node.srcSet}
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              class="c-blog__hero-image"
+            />
+          )
+        }
       </header>
-      <article id="swup" class="c-blog__post">
-        <header class="c-blog__post__hero-header">
+      <article class="c-blog__post">
+        <!-- <header class="c-blog__post__hero-header">
           {featuredImage && (
             <img
               width={featuredImage.node.mediaDetails.width}
@@ -152,52 +175,54 @@ const breadcrumbItems = [
               fetchpriority="high"
               class="c-blog__hero-image"
             />
-          )}
+          )} -->
 
-          <!-- <Helpful client:load></Helpful> -->
+        <!-- <Helpful client:load></Helpful> -->
 
-          <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
-          <Prism client:load></Prism>
-        </header>
-          <PostOlderThan date={modifiedGmt} showAfterYears={4} lang={language}></PostOlderThan>
+        <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
+        <!-- </header> -->
+        <PostOlderThan date={modifiedGmt} showAfterYears={4} lang={language} />
 
-
-        <slot></slot>
+        <slot />
 
         <footer>
-          <Author author={author} lang={language} client:visible></Author>
+          <Author author={author} lang={language} client:visible />
 
           <!-- <LoadWebmentions client:only></LoadWebmentions> -->
 
-
           <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
-          <CommentsClient currentPostId={postId} id="comments" lang={language} authorId={author.node.id} client:visible></CommentsClient>
+          <CommentsClient
+            currentPostId={postId}
+            id="comments"
+            lang={language}
+            authorId={author.node.id}
+            client:visible
+          />
         </footer>
-
       </article>
 
       <aside class="c-blog-sidebar">
-        <h2 class="c-blog-sidebar__headline">{ __(language.locale, 'blog.table_of_contents') }</h2>
-        <TableOfContentsClientSide target=".c-blog__content" client:only></TableOfContentsClientSide>
+        <h2 class="c-blog-sidebar__headline">
+          {__(language.locale, "blog.table_of_contents")}
+        </h2>
+        <TableOfContentsClientSide target=".c-blog__content" client:only />
 
-        <Share title={seo.title} text={seo.opengraphDescription} lang={language} client:only></Share>
-
+        <Share
+          title={seo.title}
+          text={seo.opengraphDescription}
+          lang={language}
+          client:only
+        />
       </aside>
-
-
     </main>
 
-    <!-- <script>
-      import '../lib/swup.js';
-    </script> -->
-    <Matomo client:only
-            site-id={"3"}
-            cookie-domain={"*.webshaped.de"}
-            host={"analytics.webshaped.de"}
-            debug-mode={true}></Matomo>
-    <MainFooter lang={language}></MainFooter>
-	</body>
+    <Matomo
+      client:only
+      site-id={"3"}
+      cookie-domain={"*.webshaped.de"}
+      host={"analytics.webshaped.de"}
+      debug-mode={true}
+    />
+    <MainFooter lang={language} />
+  </body><style></style>
 </html>
-
-<style>
-</style>
