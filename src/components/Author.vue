@@ -5,15 +5,24 @@
       :src="author.node.avatar.url"
       class="c-author__image"
       :alt="'Foto des Author:' + author.node.firstName + ' ' + author.node.lastName"
+      :width="author.node.avatar.width"
+      :height="author.node.avatar.height"
+      loading="lazy"
     >
-    <ScrobbleDisplay :idle-after-count="1" :lang="lang" />
+    <ScrobbleDisplay
+      :idle-after-count="1"
+      :lang="lang"
+    />
     <p class="c-author__name">
       {{ author.node.firstName + ' ' + author.node.lastName }}
     </p>
     <p class="c-author__description">
       {{ author.node.description }}
     </p>
-    <SocialList :social-items="socials" :lang="lang" />
+    <SocialList
+      :social-items="socials"
+      :lang="lang"
+    />
   </div>
 </template>
 
