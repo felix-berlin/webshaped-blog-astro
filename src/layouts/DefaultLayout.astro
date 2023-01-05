@@ -46,13 +46,18 @@ const mainMenuItems = await getMenuById(2);
       <slot />
     </main>
 
-    <Matomo
-      client:only
-      site-id={"3"}
-      cookie-domain={"*.webshaped.de"}
-      host={"analytics.webshaped.de"}
-      debug-mode={true}
-    />
+    {
+      import.meta.env.ENABLE_ANALYTICS === "true" && (
+        <Matomo
+          client:only
+          site-id={"3"}
+          cookie-domain={"*.webshaped.de"}
+          host={"analytics.webshaped.de"}
+          debug-mode={true}
+        />
+      )
+    }
     <MainFooter lang={language} />
-  </body><style></style>
+    <style></style>
+  </body>
 </html>

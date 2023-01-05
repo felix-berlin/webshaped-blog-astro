@@ -246,14 +246,18 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
         />
       </aside>
     </main>
+    {
+      import.meta.env.ENABLE_ANALYTICS === "true" && (
+        <Matomo
+          client:only
+          site-id={"3"}
+          cookie-domain={"*.webshaped.de"}
+          host={"analytics.webshaped.de"}
+          debug-mode={true}
+        />
+      )
+    }
 
-    <Matomo
-      client:only
-      site-id={"3"}
-      cookie-domain={"*.webshaped.de"}
-      host={"analytics.webshaped.de"}
-      debug-mode={true}
-    />
     <MainFooter lang={language} />
     <style></style>
   </body>

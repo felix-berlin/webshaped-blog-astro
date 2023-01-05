@@ -9,6 +9,7 @@ export default defineConfig({
     Vue(),
   ],
   test: {
+    include: ['tests/unit/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     globals: true,
     environment: 'jsdom',
   },
