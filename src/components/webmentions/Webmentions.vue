@@ -1,40 +1,49 @@
 <template>
   <div
-      v-for="(mention, index) in state.mentions"
-      :key="index"
-      class="c-webmentions"
-      id="webmentions"
+    v-for="(mention, index) in state.mentions"
+    id="webmentions"
+    :key="index"
+    class="c-webmentions"
+  >
+    <div
+      class="c-webmentions__item"
     >
-      <div
-        class="c-webmentions__item"
+      <a
+        :href="mention.author.url"
+        target="_blank"
+        class="c-webmentions__author-image-link"
       >
-        <a
-          :href="mention.author.url"
-          target="_blank"
-          class="c-webmentions__author-image-link"
+        <img
+          :src="mention.author.photo"
+          :alt="mention.author.name"
+          width="75"
+          height="75"
+          loading="lazy"
+          decoding="async"
+          class="c-webmentions__author-image"
         >
-          <img
-            :src="mention.author.photo"
-            :alt="mention.author.name"
-            width="75"
-            height="75"
-            loading="lazy"
-            decoding="async"
-            class="c-webmentions__author-image"
-          >
-        </a>
-        <a
-          :href="mention.url"
-          target="_blank">
-            <Twitter v-if="domainName(mention.url) === 'twitter'"></Twitter>
-            <Github v-if="domainName(mention.url) === 'github'"></Github>
-            <ExternalLink v-if="domainName(mention.url) !== 'github' && domainName(mention.url) !== 'twitter'"></ExternalLink>
-        </a>
-        <h2 class="c-webmentions__author-name">{{ mention.author.name }}</h2>
-        <Date class="c-webmentions__date" :date="mention.published"></Date>
-        <div class="c-webmentions__text" v-text="mention.content.text" />
-      </div>
+      </a>
+      <a
+        :href="mention.url"
+        target="_blank"
+      >
+        <Twitter v-if="domainName(mention.url) === 'twitter'" />
+        <Github v-if="domainName(mention.url) === 'github'" />
+        <ExternalLink v-if="domainName(mention.url) !== 'github' && domainName(mention.url) !== 'twitter'" />
+      </a>
+      <h2 class="c-webmentions__author-name">
+        {{ mention.author.name }}
+      </h2>
+      <Date
+        class="c-webmentions__date"
+        :date="mention.published"
+      />
+      <div
+        class="c-webmentions__text"
+        v-text="mention.content.text"
+      />
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
