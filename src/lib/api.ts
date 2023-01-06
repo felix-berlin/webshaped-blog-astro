@@ -525,12 +525,13 @@ export async function getPostsPreview(
  */
 export async function getAllCategories(
   first: number = 10000,
+  exclude: number[] = [1], // 1 = allgemein
   orderby: string = 'NAME',
   hideEmpty: boolean = true
 ):Promise<object> {
   const data = await fetchAPI(`
   {
-    categories(first: ${first}, where: {orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
+    categories(first: ${first}, where: {exclude: ${exclude}, orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
       nodes {
         count
         name

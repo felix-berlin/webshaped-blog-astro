@@ -9,6 +9,7 @@
 .o-footer {
 	grid-area: footer;
 	margin: 0 -1 * layout.$spacing-edge;
+	overflow: hidden;
 
 	&__social-list {
 		margin: 45px 0 25px;
@@ -17,26 +18,26 @@
 	&__end {
 		position: relative;
 
-		&::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: -1;
-			filter: drop-shadow(0 -2px 10px butler-fn.hex-to-rgb(colors.$red-light, 35%));
-			background: {
-				image: var(--image-background-footer-end, #{base.$wave-haikei-2-light});
-				size: cover;
-				repeat: no-repeat;
-				position: bottom;
-			}
+		// &::after {
+		// 	content: '';
+		// 	position: absolute;
+		// 	bottom: 0;
+		// 	left: 0;
+		// 	width: 100%;
+		// 	height: 100%;
+		// 	z-index: -1;
+		// 	filter: drop-shadow(0 -2px 10px butler-fn.hex-to-rgb(colors.$red-light, 35%));
+		// 	background: {
+		// 		image: var(--image-background-footer-end, #{base.$wave-haikei-2-light});
+		// 		size: cover;
+		// 		repeat: no-repeat;
+		// 		position: bottom;
+		// 	}
 
-			@include butler-mx.dark-mode-class {
-				--image-background-footer-end: #{base.$wave-haikei-2-dark};
-			}
-		}
+		// 	@include butler-mx.dark-mode-class {
+		// 		--image-background-footer-end: #{base.$wave-haikei-2-dark};
+		// 	}
+		// }
 
 		&-wrapper {
 			max-width: layout.$layout-width;
@@ -47,13 +48,38 @@
 			padding: 2rem layout.$spacing-edge layout.$spacing-edge;
 			align-items: flex-end;
 
+			// new
+			background-color: butler-fn.hex-to-rgb(colors.$blue-light, 15%);
+			border-top-left-radius: 3px;
+			border-top-right-radius: 3px;
+			position: relative;
+
+			// filter: drop-shadow(0 -2px 10px butler-fn.hex-to-rgb(colors.$red-light, 35%));
+			// backdrop-filter: blur(3px) hue-rotate(21deg);
+
+			&::after {
+				content: '';
+				background-color: butler-fn.hex-to-rgb(colors.$blue-light, 10%);
+				border-radius: base.$border-radius;
+				position: absolute;
+				height: 115%;
+				width: 100%;
+				inset: 0;
+				transform: rotate(var(--rotate-background, 1deg)) translate(var(--translate-background, 8px, -7px));
+				z-index: -1;
+				backdrop-filter: blur(3px) hue-rotate(21deg);
+				transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+			}
+
 			@include mx.breakpoint('xs') {
 				--columns-grid: max-content 1fr;
 				--areas-grid: 'credits menu' 'version menu' 'green-hosted menu';
 			}
 			@include mx.breakpoint('sm') {
-				--columns-grid: max-content max-content 1fr;
-				--areas-grid: 'credits version green-hosted menu';
+				--columns-grid: 2fr 1fr 1fr;
+				--areas-grid:
+					' blockquote categories other '
+					' credits version green-hosted ';
 
 				gap: 2rem;
 			}
@@ -76,6 +102,18 @@
 
 	.c-green-hosted {
 		grid-area: green-hosted;
+	}
+
+	&__categories {
+		grid-area: categories;
+	}
+
+	&__other {
+		grid-area: other;
+	}
+
+	&__blockquote {
+		grid-area: blockquote;
 	}
 
 	&__menu.c-menu {
