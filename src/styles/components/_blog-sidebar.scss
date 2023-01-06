@@ -1,8 +1,10 @@
 @use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+@use '@styles/variables/variables' as vars;
 
 @layer blog-sidebar {
 	.c-blog-sidebar {
 		grid-area: sidebar;
+		margin-right: vars.$content-spacing-outer;
 
 		@include mx.breakpoint('md') {
 			position: sticky;

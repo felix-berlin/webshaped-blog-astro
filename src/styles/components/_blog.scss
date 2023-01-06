@@ -3,6 +3,7 @@
 @use '@sass-butler/mixins' as butler-mx;
 @use '@styles/components/breadcrumbs';
 @use '@styles/variables/base';
+@use '@styles/variables/variables' as vars;
 
 .c-blog {
 	display: grid;
@@ -28,8 +29,8 @@
 		display: flex;
 		flex-wrap: wrap;
 		column-gap: 25px;
-		row-gap: 10px;
-		margin-top: 70px;
+		row-gap: 40px;
+		margin: 100px 0;
 
 		.c-date,
 		.c-reading-time,
@@ -79,12 +80,17 @@
 		margin: 0;
 	}
 
+	&__hero-image {
+		border: 1px solid vars.$blue-dark;
+		border-radius: base.$border-radius;
+	}
+
 	&__post {
 		grid-area: article;
 	}
 
 	&__content {
-		padding: 0 50px;
+		padding-left: vars.$content-spacing-outer;
 
 		p {
 			font-size: var(--font-size-lg);
@@ -100,7 +106,7 @@
 	.code-toolbar {
 		// overflow-y: scroll;
 		display: grid;
-		margin: 0 -50px;
+		margin-left: -#{vars.$content-spacing-outer};
 
 		pre {
 			max-width: 100%;

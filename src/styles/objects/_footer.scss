@@ -39,7 +39,7 @@
 		}
 
 		&-wrapper {
-			max-width: layout.$content-width;
+			max-width: layout.$layout-width;
 			margin: 0 auto;
 			display: grid;
 			grid-template-columns: var(--columns-grid, 1fr);
