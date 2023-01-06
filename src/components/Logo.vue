@@ -5,7 +5,7 @@
   >
     <!-- <span class="c-logo__start">Web</span><span class="c-logo__end">Shaped</span> -->
     <img
-      src="/public/assets/logo/web_shaped_logo_2023_r.svg"
+      :src="`/assets/logo/web_shaped_logo_2023_${isDark ? 'light' : 'dark'}.svg`"
       alt="Web Shaped Logo"
       width="225"
       height="31"
@@ -16,7 +16,21 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref, watch } from 'vue';
+import { useStore } from '@nanostores/vue';
+import { isDarkMode } from '@stores/store';
 
+const isDarkStore = useStore(isDarkMode);
+const isDark = ref(false)
+
+watch(isDarkStore, (value) => {
+  isDark.value = value;
+});
+
+
+onMounted(() => {
+  isDark.value = localStorage.getItem('darkMode') === 'true' ? true : false;
+})
 </script>
 
 <style lang="scss">

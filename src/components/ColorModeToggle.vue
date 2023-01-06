@@ -32,15 +32,17 @@
 <script setup lang="ts">
 import { Moon, Sun } from 'lucide-vue-next'
 import { ref, onMounted, reactive, watch } from 'vue';
+import { isDarkMode } from '@stores/store';
 import { __ } from '@i18n/i18n'
 
 const state = reactive({ isDark: false, });
 
 const toggleMode = () => {
-  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  const isDarkScheme = localStorage.getItem('darkMode') === 'true';
 
-  localStorage.setItem('darkMode', isDarkMode ? 'false' : 'true');
-  state.isDark = isDarkMode ? false : true;
+  localStorage.setItem('darkMode', isDarkScheme ? 'false' : 'true');
+  state.isDark = isDarkScheme ? false : true;
+  isDarkMode.set(state.isDark);
   state.isDark ? document.querySelector('html')?.classList.add('dark') : document.querySelector('html')?.classList.remove('dark');
 }
 
