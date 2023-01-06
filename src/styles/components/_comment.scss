@@ -168,7 +168,7 @@ $spacing: 121;
 		}
 
 		&.is-level-1 > .c-comment__item {
-			--spacing-outer: 0 0 0 #{1 * $spacing + px};
+			--spacing-outer-depth: 0 0 0 #{1 * $spacing + px};
 		}
 
 		@include mx.breakpoint('md') {
