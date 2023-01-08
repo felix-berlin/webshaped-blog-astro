@@ -1,43 +1,6 @@
 @use '@sass-butler/mixins' as butler-mx;
 
 .c-logo {
-	text-transform: uppercase;
-	white-space: nowrap;
 	display: flex;
 	align-items: center;
-	gap: 5px;
-	min-width: 137px;
-	pointer-events: none;
-
-	&:hover {
-		& > span:not(:hover) {
-			--align-vertical: super;
-			--size-font: 0.8em;
-		}
-	}
-
-	&__start,
-	&__end {
-		line-height: 24px;
-		font-size: var(--size-font, 24px);
-		vertical-align: var(--align-vertical, normal);
-		color: var(--color-logo-partial);
-		transition: color 0.3s ease-in-out, font-size 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-		pointer-events: auto;
-		flex: 0 1;
-
-		@include butler-mx.feature('motion') {
-			@include butler-mx.hover {
-				--color-logo-partial: var(--blue-light);
-			}
-		}
-	}
-
-	&__start {
-		font-weight: 300;
-	}
-
-	&__end {
-		font-weight: 700;
-	}
 }

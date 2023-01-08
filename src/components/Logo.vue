@@ -3,7 +3,6 @@
     href="/"
     class="c-logo"
   >
-    <!-- <span class="c-logo__start">Web</span><span class="c-logo__end">Shaped</span> -->
     <img
       :src="`/assets/logo/web_shaped_logo_2023_${isDark ? 'light' : 'dark'}.svg`"
       alt="Web Shaped Logo"
