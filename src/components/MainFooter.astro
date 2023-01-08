@@ -4,7 +4,8 @@ import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@lib/api";
 import { version } from "./../../package.json";
-import _footer from "../styles/objects/_footer.scss";
+import "../styles/objects/_footer.scss";
+import { __ } from "@i18n/i18n";
 
 const categories = await getAllCategories();
 const footerMenuItems: object = await getMenuById(38);
@@ -77,46 +78,55 @@ const { lang } = Astro.props as MainFooterProps;
   />
 
   <div class="o-footer__end">
-    <div class="o-footer__end-wrapper">
-      <div class="o-footer__blockquote">
-        <img
-          src="/assets/logo/web_shaped_logo_2023_whail_trans.svg"
-          alt="Web Shaped Logo - Wal"
-          width="200"
-          height="200"
-          loading="lazy"
-        />
-        <figure>
-          <blockquote>
-            „If debugging is the process of removing software bugs, then
-            programming must be the process of putting them in.“
-          </blockquote>
-          <figcaption>
-            —Edsger W. Dijkstra, <cite>(1930 – 2002)</cite>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="o-footer__categories">
-        <h3>Kategorien</h3>
-        <menu>
-          {
-            categories.nodes.map((category) => (
-              <a href={`/category/${category.slug}`}>
-                <li>{category.name}</li>
+    <div class="o-footer__logo">
+      <img
+        src="/assets/logo/web_shaped_logo_2023_whail_trans_white_outline_no-spacing.svg"
+        alt="Web Shaped Logo - Wal"
+        width="150"
+        height="103"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="o-footer__categories">
+      <h3 class="o-footer__headline">
+        {__(lang.locale, "footer.headline.categories")}
+      </h3>
+      <menu class="c-menu c-menu--footer-two-columns u-list-reset">
+        {
+          categories.nodes.map((category) => (
+            <li class="c-menu__item">
+              <a class="c-menu__link" href={`/category/${category.slug}`}>
+                {category.name}
               </a>
-            ))
-          }
-        </menu>
-      </div>
-      <div class="o-footer__other">
-        <h3>Other</h3>
-        <Menu
-          class:list={"o-footer__menu c-menu--footer"}
-          menu-items={footerMenuItems.menuItems}
-        />
-      </div>
+            </li>
+          ))
+        }
+      </menu>
+    </div>
+    <div class="o-footer__other">
+      <h3 class="o-footer__headline">
+        {__(lang.locale, "footer.headline.other")}
+      </h3>
+      <Menu
+        class:list={"o-footer__menu c-menu--footer"}
+        menu-items={footerMenuItems.menuItems}
+      />
+    </div>
+    <div class="o-footer__quote">
+      <figure>
+        <blockquote>
+          „If debugging is the process of removing software bugs, then
+          programming must be the process of putting them in.“
+        </blockquote>
+        <figcaption>
+          —Edsger W. Dijkstra, <cite>(1930 – 2002)</cite>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="o-footer__infos">
       <div class="o-footer__credits">
-        © 2015 - {new Date().getFullYear()} Felix Scholze
+        © 2015 - {__(lang.locale, "footer.copyright.now")} Felix Scholze
       </div>
       <a
         href="https://github.com/felix-berlin/webshaped-blog-astro/releases"

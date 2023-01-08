@@ -13,14 +13,28 @@
 	}
 
 	&__link {
-		text-transform: uppercase;
 		cursor: pointer;
+	}
+
+	&--header {
+		.c-menu__link {
+			text-transform: uppercase;
+		}
+	}
+
+	&--footer,
+	&--footer-two-columns {
+		column-gap: 1rem;
+		row-gap: 0.75rem;
 	}
 
 	&--footer {
 		display: flex;
-		flex-wrap: wrap;
-		column-gap: 1rem;
-		row-gap: 0.5rem;
+		flex-flow: column wrap;
+	}
+
+	&--footer-two-columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 	}
 }

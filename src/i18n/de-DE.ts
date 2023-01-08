@@ -40,5 +40,8 @@ export default {
   'comment_form.email.tooltip': 'Deine E-Mail Adresse wird nicht veröffentlicht.<br>Wenn du deine E-Mail Adresse angibst und diese bei Gravatar hinterlegt hast, wird dein Profilbild angezeigt.',
   'comment_form.your_name': 'Dein Name',
   'comment_form.gravatar_hint': 'Dein Gravatar Profilbild',
-  'green_hosted': '100% CO2 neutral gehosted',
+  'green_hosted': 'CO<sub>2</sub> neutral gehosted',
+  'footer.copyright.now': 'Heute',
+  'footer.headline.categories': 'Kategorien',
+  'footer.headline.other': 'Andere',
 }

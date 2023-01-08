@@ -1,6 +1,9 @@
 <template>
-  <nav class="c-main-nav" ref="mainNav">
-    <Logo/>
+  <nav
+    ref="mainNav"
+    class="c-main-nav"
+  >
+    <Logo />
 
     <!-- <LanguageSelect /> -->
 
@@ -26,7 +29,7 @@
       >
         <Menu
           :menu-items="props.menuItems"
-          class="c-main-nav__menu"
+          class="c-main-nav__menu c-menu--header"
           :class="{'is-open': isOpen}"
         />
         <ColorModeToggle />

@@ -41,5 +41,8 @@ export default {
   'comment_form.email.tooltip': 'Your email address will not be published.<br> If you enter your email address and have deposited it with Gravatar, your profile picture will be displayed.',
   'comment_form.your_name': 'Your name',
   'comment_form.gravatar_hint': 'Your Gravatar profile picture.',
-  'green_hosted': '100% CO2 neutral hosted'
+  'green_hosted': 'CO<sub>2</sub> neutral hosted',
+  'footer.copyright.now': 'today',
+  'footer.headline.categories': 'Categories',
+  'footer.headline.other': 'Other',
 }

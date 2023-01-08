@@ -1,6 +1,9 @@
 <template>
   <header class="o-header">
-    <MainNav :menu-items="props.menuItems" :lang="lang" />
+    <MainNav
+      :menu-items="props.menuItems"
+      :lang="lang"
+    />
     <!-- <LanguageSelect class="is-desktop" /> -->
   </header>
 </template>
