@@ -6,8 +6,8 @@
     <img
       :src="`/assets/logo/web_shaped_logo_2023_${isDark ? 'light' : 'dark'}.svg`"
       alt="Web Shaped Logo"
-      width="225"
-      height="31"
+      width="250"
+      height="34"
       loading="eager"
       fetchpriority="high"
     >
