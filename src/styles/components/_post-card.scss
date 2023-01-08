@@ -7,9 +7,6 @@
 	padding: 2rem 1rem 2rem 12%;
 	background-color: butler-fn.hex-to-rgb(colors.$blue-light, 8%);
 	border-radius: base.$border-radius;
-	display: flex;
-	flex-direction: column;
-	gap: 1.2rem;
 	position: relative;
 
 	@include butler-mx.feature('motion') {
@@ -17,6 +14,7 @@
 			--opacity-arrow: 1;
 			--rotate-background: 0deg;
 			--translate-background: 0, 0;
+			--color-title-post-card: var(--red-light);
 		}
 	}
 	@include butler-mx.breakpoint('xs') {
@@ -40,6 +38,17 @@
 	p,
 	h2 {
 		margin: 0;
+	}
+
+	&__link {
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+	}
+
+	&__title {
+		color: var(--color-title-post-card, inherit);
+		transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
 	}
 
 	&__excerpt {

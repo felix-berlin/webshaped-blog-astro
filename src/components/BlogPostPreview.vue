@@ -5,41 +5,41 @@
     class="c-post-card"
   >
     <a
-      class="c-post-card__title-link"
+      class="c-post-card__link"
       :href="'/' + post.language.slug + '/' + post.slug"
     >
       <h2 class="c-post-card__title">{{ post.title }}</h2>
-    </a>
-    <!-- <Date
+
+      <!-- <Date
       :date="post.dateGmt"
     /> -->
 
-    <!-- <CommentCount
+      <!-- <CommentCount
       :comment-total="post.commentCount"
       is-element="div"
     /> -->
 
-    <!-- <ReadingTime :time="post.seo.readingTime" /> -->
+      <!-- <ReadingTime :time="post.seo.readingTime" /> -->
 
-    <!-- <HasTranslations
+      <!-- <HasTranslations
       v-if="post.translations && post.translations.length"
       :translations="post.translations"
     /> -->
 
-    <div
-      class="c-post-card__excerpt"
-      v-html="post.excerpt"
-    />
-
-    <a
-      class="c-post-card__read-more"
-      :href="'/' + post.language.slug + '/' + post.slug"
-    >
-      <span>{{ __(post.language.locale, 'blog.read_more') }}</span>
-      <ArrowRight
-        :size="22"
-        class="c-post-card__read-more-arrow"
+      <div
+        class="c-post-card__excerpt"
+        v-html="post.excerpt"
       />
+
+      <div
+        class="c-post-card__read-more"
+      >
+        <span>{{ __(post.language.locale, 'blog.read_more') }}</span>
+        <ArrowRight
+          :size="22"
+          class="c-post-card__read-more-arrow"
+        />
+      </div>
     </a>
   </article>
 </template>
