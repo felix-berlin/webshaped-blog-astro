@@ -2,10 +2,11 @@
 import "@styles/components/_blog-posts.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
+import Pagination from "@components/Pagination.vue";
 
 import { getAllPostPreviewsByCategory } from "@lib/api";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: { paginate: any }) {
   const postPreviews = await getAllPostPreviewsByCategory();
 
   /**
@@ -30,7 +31,8 @@ export async function getStaticPaths({ paginate }) {
 const { page, content } = Astro.props;
 const params = Astro.params;
 
-console.log(page);
+const path = `/category/${params.slug}`;
+
 const posts = {
   nodes: page.data,
 };
@@ -42,5 +44,6 @@ const posts = {
   </section>
   <section class="c-blog-posts" aria-label="Blog post list">
     <BlogPostPreview posts={posts} client:visible />
+    <Pagination page={page} path={path} lang={content.language} client:load />
   </section>
 </DefaultLayout>

@@ -44,4 +44,8 @@ export default {
   'footer.copyright.now': 'Heute',
   'footer.headline.categories': 'Kategorien',
   'footer.headline.other': 'Andere',
+  'pagination.previous': 'Vorherige Seite',
+  'pagination.next': 'Nächste Seite',
+  'pagination.last': 'Letzte Seite',
+  'pagination.first': 'Erste Seite',
 }
