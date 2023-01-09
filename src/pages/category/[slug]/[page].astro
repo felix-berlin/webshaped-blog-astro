@@ -1,0 +1,46 @@
+---
+import "@styles/components/_blog-posts.scss";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+
+import { getAllPostPreviewsByCategory } from "@lib/api";
+
+export async function getStaticPaths({ paginate }) {
+  const postPreviews = await getAllPostPreviewsByCategory();
+
+  /**
+   * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
+   */
+  return postPreviews.nodes.map((category: { slug: any }) => {
+    return paginate(category.posts.nodes, {
+      props: {
+        content: {
+          title: category.name,
+          language: category.language,
+        },
+      },
+      params: {
+        slug: category.slug,
+      },
+      pageSize: 1,
+    });
+  });
+}
+
+const { page, content } = Astro.props;
+const params = Astro.params;
+
+console.log(page);
+const posts = {
+  nodes: page.data,
+};
+---
+
+<DefaultLayout content={content}>
+  <section class="intro">
+    <h1>{content.name}</h1>
+  </section>
+  <section class="c-blog-posts" aria-label="Blog post list">
+    <BlogPostPreview posts={posts} client:visible />
+  </section>
+</DefaultLayout>

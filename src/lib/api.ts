@@ -614,6 +614,61 @@ export async function getPostsPreviewByCategory(
   return data?.posts;
 }
 
+export async function getAllPostPreviewsByCategory(
+  field: string = 'DATE',
+  order: string = 'ASC',
+  status: string = 'PUBLISH',
+  exclude: number[] = [1], // 1 = allgemein
+):Promise<object> {
+  const data = await fetchAPI(`
+  {
+    categories(where: {exclude: ${exclude}}) {
+      nodes {
+        count
+        name
+        slug
+        language {
+          code
+          locale
+          name
+          slug
+        }
+        children(where: {}) {
+          nodes {
+            count
+            name
+            slug
+            children {
+              nodes {
+                count
+                name
+                slug
+                id
+              }
+            }
+          }
+        }
+        posts(where: {orderby: {order: ${order}, field: ${field}}, status: ${status}}) {
+          nodes {
+            title
+            excerpt
+            language {
+              code
+              locale
+              name
+              slug
+            }
+            slug
+          }
+        }
+      }
+    }
+  }
+  `).then(res => res.data);
+
+  return data?.categories;
+}
+
 /**
  * receives all available tags from API
  *
