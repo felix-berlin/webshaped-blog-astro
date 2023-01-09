@@ -43,7 +43,7 @@
         class="c-pagination__item"
       >
         <a
-          :href="`${path}/${page.total}`"
+          :href="`${path}/${page.lastPage}`"
           :aria-label="__(lang.locale, 'pagination.last')"
         ><ChevronLast /></a>
       </li>
@@ -53,17 +53,10 @@
 
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight, ChevronFirst, ChevronLast } from 'lucide-vue-next';
-import { __ } from '@i18n/i18n'
+import { __ } from '@i18n/i18n';
+import type { Page } from 'astro/dist/@types/astro';
 const props = defineProps<{
-  page: {
-    currentPage: number;
-    total: number;
-    start: number;
-    url: {
-      prev: string;
-      next: string;
-    };
-  };
+  page: Page;
   path: string;
   lang: {
     locale: string;
