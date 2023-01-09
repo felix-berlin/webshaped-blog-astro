@@ -7,7 +7,7 @@
     >
       <a
         v-if="item.childItems.nodes.length <= 0"
-        :href="item.path"
+        :href="item.path + (!!item.path.match(/\/category\//gm) ? '1' : '')"
         class="c-menu__link"
       >
         {{ item.label }}
@@ -30,7 +30,7 @@
               class="c-submenu__item"
             >
               <a
-                :href="child.path"
+                :href="child.path + (child.path.match(/\/category\//gm)?.length ? '1' : '')"
                 class="c-submenu__link"
               >{{ child.label }}</a>
             </li>
