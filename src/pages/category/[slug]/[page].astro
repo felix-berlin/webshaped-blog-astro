@@ -42,8 +42,8 @@ const posts = {
   <section class="intro">
     <h1>{content.title}</h1>
   </section>
-  <section class="c-blog-posts" aria-label="Blog post list">
+  <section class="c-blog-posts">
     <BlogPostPreview posts={posts} client:visible />
-    <Pagination page={page} path={path} lang={content.language} client:load />
   </section>
+  <Pagination page={page} path={path} lang={content.language} client:load />
 </DefaultLayout>
