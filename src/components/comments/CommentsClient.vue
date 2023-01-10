@@ -3,15 +3,24 @@
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
     <div class="c-comment is-create-comment is-level-0 is-even">
-      <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="reloadComments" />
+      <CreateComment
+        :current-post-id="currentPostId"
+        :lang="lang"
+        @comment-created="reloadComments"
+      />
     </div>
 
-    <p v-if="!data.hasComments">{{ __(lang.locale, 'comments.no_comments') }}</p>
+    <p v-if="!data.hasComments">
+      {{ __(lang.locale, 'comments.no_comments') }}
+    </p>
 
     <!-- <TransitionGroup name="list"> -->
-      <template v-for="item in 5" :key="item">
-        <CommentItemSkeleton v-if="!data.hasLoaded"/>
-      </template>
+    <template
+      v-for="item in 5"
+      :key="item"
+    >
+      <CommentItemSkeleton v-if="!data.hasLoaded" />
+    </template>
     <!-- </TransitionGroup> -->
 
     <TransitionGroup name="list">
@@ -19,18 +28,29 @@
         v-for="comment in data.comments"
         :key="comment"
       >
-        <CommentItem v-show="data.hasComments" :comment="comment.node" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+        <CommentItem
+          v-show="data.hasComments"
+          :comment="comment.node"
+          :depth="0"
+          :author-id="authorId"
+          :lang="lang"
+          :current-post-id="currentPostId"
+        />
       </template>
     </TransitionGroup>
-    <button v-if="data?.pageInfo?.hasNextPage"
-            @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor); data.partLoading = true;"
-            class="c-comments__load-more-button c-button c-button--outline">
-            <RefreshCw :size="20"
-                       :class="[
-                          'c-comments__loading-icon',
-                          { 'is-loading': data.partLoading }
-                       ]"/>
-            <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
+    <button
+      v-if="data?.pageInfo?.hasNextPage"
+      class="c-comments__load-more-button c-button c-button--outline"
+      @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor); data.partLoading = true;"
+    >
+      <RefreshCw
+        :size="20"
+        :class="[
+          'c-comments__loading-icon',
+          { 'is-loading': data.partLoading }
+        ]"
+      />
+      <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
     </button>
   </section>
 </template>
