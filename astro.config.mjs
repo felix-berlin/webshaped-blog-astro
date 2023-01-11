@@ -19,20 +19,28 @@ export default defineConfig({
   experimental: {
     integrations: true
   },
-  integrations: [vue({
-    appEntrypoint: '/src/pages/_app'
-  }), sitemap({
-    lastmod: new Date(),
-    i18n: {
-      defaultLocale: 'de',
-      // All urls that don't contain `de` or `en` after `https://webshaped.de/` will be treated as default locale, i.e. `de`
-      locales: {
-        de: 'de-DE',
-        // The `defaultLocale` value must present in `locales` keys
-        en: 'en-US'
+  markdown: {
+    // Can be 'shiki' (default), 'prism' or false to disable highlighting
+    syntaxHighlight: 'prism',
+  },
+  integrations: [
+    vue({
+      appEntrypoint: '/src/pages/_app'
+    }), sitemap({
+      lastmod: new Date(),
+      i18n: {
+        defaultLocale: 'de',
+        // All urls that don't contain `de` or `en` after `https://webshaped.de/` will be treated as default locale, i.e. `de`
+        locales: {
+          de: 'de-DE',
+          // The `defaultLocale` value must present in `locales` keys
+          en: 'en-US'
+        }
       }
-    }
-  }), prefetch(), critters()],
+    }),
+    prefetch(),
+    critters()
+  ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
   vite: {
