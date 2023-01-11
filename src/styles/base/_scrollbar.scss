@@ -1,0 +1,103 @@
+@use '@styles/variables/variables' as vars;
+@use '@sass-butler/functions' as butler-fn;
+
+:root {
+	--scrollbar-width: 8px;
+
+	/* ----------  Mozilla Firefox  ---------- */
+
+	/**
+	 * Firefox Supports only:
+	 * the default width or thin,
+	 * the background color and the thumb color
+	 * */
+
+	scrollbar-width: thin;
+	scrollbar-color: var(--red-light) var(--blue-dark-400);
+}
+
+/* ----------  Webkit-Browsers: Chrome, Opera, Safari  ---------- */
+
+/**
+	 * Pseudo-Classes:
+	 *
+	 * :horizontal
+	 * :vertical
+	 * :decrement
+	 * :increment
+	 * :start
+	 * :end
+	 * :double-button
+	 * :single-button
+	 * :no-button
+	 * :corner-present
+	 * :window-inactive
+	 * */
+// The whole scrollbar
+::-webkit-scrollbar {
+	width: var(--scrollbar-width);
+}
+
+/**
+	 * Scrollbar Button
+	 *
+	 * The down and up buttons on top and bottom of the scrollbar
+	 * */
+// &::-webkit-scrollbar-button {}
+
+/**
+	 * Scrollbar Track
+	 *
+	 * Section between the down and up buttons
+	 * On the track moves to the thumb
+	 * */
+::-webkit-scrollbar-track {
+	--scrollbar-track-bgc: var(--blue-dark-400);
+	--scrollbar-track-border-width: var(--scrollbar-width);
+
+	background-color: var(--scrollbar-track-bgc);
+	border: var(--scrollbar-track-border-width) solid var(--scrollbar-track-bgc);
+
+	&:hover {
+		--scrollbar-track-bgc: #{butler-fn.hex-to-rgb(vars.$red-light, 10%)};
+	}
+}
+
+/**
+	 * Scrollbar Track Piece
+	 *
+	 * The free area between thumb and track
+	 * */
+// &::-webkit-scrollbar-track-piece {}
+
+/**
+	 *  Scrollbar Thumb
+	 *
+	 * The thumb moves on the track and shows the actual position on the page
+	 * */
+::-webkit-scrollbar-thumb {
+	background-color: var(--red-light);
+	border-radius: vars.$border-radius;
+
+	// &:window-inactive {
+	//   /* Select the thumb when the browser window isn't in focus */
+	//   background-color: $scrollbar-thumb-element-inactive;
+	// }
+}
+
+/**
+	 * Scrollbar Corner
+	 *
+	 * Corner on the bottom
+	 * */
+// &::-webkit-scrollbar-corner {
+// 	background: transparent;
+// }
+
+/**
+	 * Scrollbar Resizer
+	 *
+	 * The resizer is located in the corner
+	 * */
+// &::-webkit-resizer {
+// }
