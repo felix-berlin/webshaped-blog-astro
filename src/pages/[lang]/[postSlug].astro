@@ -1,20 +1,26 @@
 ---
 // import BlogPostVue from '@layouts/BlogPost.vue'
-import BlogPost from '@layouts/BlogPost.astro';
-
-import { getAllPostsWithSlugs, getPostBySlug } from '@lib/api';
+import BlogPost from "@layouts/BlogPost.astro";
+import PostBlocks from "@components/PostBlocks.vue";
+import { Prism } from "@astrojs/prism";
+import { getAllPostsWithSlugs, getPostBySlug } from "@lib/api";
+import "prismjs/themes/prism-tomorrow.css";
+import { decodeEntity } from "html-entities";
 
 export async function getStaticPaths() {
   const postWithSlugsDe: any = await getAllPostsWithSlugs();
-  const postWithSlugsEn: any = await getAllPostsWithSlugs('EN');
+  const postWithSlugsEn: any = await getAllPostsWithSlugs("EN");
 
-  const postWithSlugsAllLang = [...postWithSlugsDe.edges, ...postWithSlugsEn.edges];
+  const postWithSlugsAllLang = [
+    ...postWithSlugsDe.edges,
+    ...postWithSlugsEn.edges,
+  ];
 
   return postWithSlugsAllLang.map(({ node }: any) => {
     return {
       params: {
         postSlug: node.slug,
-        lang: node.language.slug
+        lang: node.language.slug,
       },
     };
   });
@@ -23,10 +29,64 @@ export async function getStaticPaths() {
 const { postSlug, lang }: any = Astro.params;
 const post: any = await getPostBySlug(postSlug);
 
+const decode = (str) => {
+  return str.replace(/&#(\d+);/g, function (match, dec) {
+    return String.fromCharCode(dec);
+  });
+};
+
+const exstractCode = (content: string) => {
+  content = decode(content);
+  const regex = /<pre .*><code>([\s\S]*?)<\/code><\/pre>/g;
+  const matches = content.matchAll(regex);
+  let codeBlocks = "";
+  for (const match of matches) {
+    codeBlocks += match[1];
+  }
+  return codeBlocks;
+};
+
+const findLanguage = (content: string) => {
+  const regex = /lang-[a-z]+/gm;
+  let match = content.match(regex);
+  match = match.toString().replace("lang-", "");
+  return match;
+};
+
+const headings = post.blocks.filter(
+  (block: any) =>
+    block.name === "core/heading" &&
+    (JSON.parse(block.attributesJSON).level === 2 ||
+      JSON.parse(block.attributesJSON).level === 3)
+);
 ---
 
-<BlogPost content={post}>
-  <div set:html={post.content} class="c-blog__content" id="postContent"></div>
+<BlogPost content={post} headings={headings}>
+  <!-- <div set:html={post.content} class="c-blog__content" id="postContent" /> -->
+  <PostBlocks blocks={post.blocks} />
+  <!-- <div class="c-blog__content" id="postContent">
+    <Prism lang="php" code={`<?php`} />
+    {
+      post.blocks.map((block: any) => (
+        <>
+          {block.name === "core/heading" && (
+            <Headline set:html={block.originalContent} />
+          )}
+          {block.name === "core/paragraph" && (
+            <p set:html={block.originalContent} />
+          )}
+          {block.name === "core/code" && (
+            // <Prism
+            //   lang={findLanguage(JSON.parse(block.attributesJSON).className)}
+            //   code={decodeEntity(JSON.parse(block.attributesJSON).content)}
+            // />
+            // <Prism lang="php" code={String(block.originalContent)} />
+            <div set:html={block.originalContent} />
+          )}
+        </>
+      ))
+    }
+  </div> -->
 </BlogPost>
 
 <!-- <BlogPostVue  client:visible
