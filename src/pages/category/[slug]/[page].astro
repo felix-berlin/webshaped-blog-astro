@@ -39,11 +39,11 @@ const posts = {
 ---
 
 <DefaultLayout content={content}>
-  <section class="intro">
+  <section class="o-content__headline">
     <h1>{content.title}</h1>
   </section>
   <section class="c-blog-posts">
     <BlogPostPreview posts={posts} client:visible />
   </section>
-  <Pagination page={page} path={path} lang={content.language} client:load />
+  <Pagination page={page} path={path} lang={content.language} />
 </DefaultLayout>

@@ -223,6 +223,18 @@ export async function getPostBySlug(slug:string):Promise<object> {
         modifiedGmt
         content
         postId
+        blocks {
+          attributesJSON
+          name
+          order
+          originalContent
+          innerBlocks {
+            attributesJSON
+            name
+            order
+            originalContent
+          }
+        }
         author {
           node {
             avatar {

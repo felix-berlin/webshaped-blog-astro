@@ -1,46 +1,62 @@
 <template>
-  <div
-    id="tableOfContents"
+  <nav
+    :id="tocId"
     class="c-toc"
   >
-    <h2>Table of Contents</h2>
     <template
-      v-for="(headline, index) in getHeadlines(props.content)"
+      v-for="(headline, index) in headings"
       :key="index"
     >
       <a
-        :href="`#${headline.id}`"
-        :class="`c-toc-link__depth-${headline.level}`"
-        style="display: block"
-      >{{ headline.title }}</a>
+        :href="`#${slugify(JSON.parse(headline.attributesJSON).content, { lower: true })}`"
+        :class="[`c-toc__link c-toc__link--depth-${JSON.parse(headline.attributesJSON).level}`, { 'is-active': activeHeadline === slugify(JSON.parse(headline.attributesJSON).content, { lower: true }) }]"
+      >{{ JSON.parse(headline.attributesJSON).content }}</a>
     </template>
-  </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from 'vue';
+import slugify from 'slugify';
 
 export interface TableOfContentsProps {
-  content: string,
+  headings: [
+    {
+      attributesJSON: string;
+    },
+  ]
 }
 
 const props = defineProps<TableOfContentsProps>()
 
-const getHeadlines = (content: string):object => {
-  const headlines = []
-  const regex = /<h([2-3])[^>]* id="(.*?)"[^>]*>(.*?)<\/h\1>/g
-  let match
-  while ((match = regex.exec(content)) !== null) {
-    headlines.push({
-      level: match[1],
-      title: match[3],
-      id: match[2],
-    })
-  }
+const tocId = 'tableOfContents';
 
-  return headlines
-}
+const activeHeadline = ref('');
+
+let observer = ref<IntersectionObserver>();
+
+observer.value = new IntersectionObserver((entries) => {
+
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const headline = entry.target as HTMLElement;
+      activeHeadline.value = headline.id;
+    }
+  });
+}, {
+  threshold: 0.75,
+  rootMargin: '-10% 0px',
+});
+
+onMounted(() => {
+  if (observer.value) document.querySelectorAll('.c-blocks h2[id], .c-blocks h3[id]').forEach(section => observer.value.observe(section));
+})
+
+onUnmounted(() => {
+  if (observer.value) observer.value.disconnect();
+})
 </script>
 
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/table-of-contents.scss';
 </style>

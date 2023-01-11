@@ -21,7 +21,7 @@
 
 	@include mx.breakpoint('md') {
 		--template-grid: 'header header' ' article sidebar ';
-		--columns-grid: 3fr minmax(310px, 1fr);
+		--columns-grid: 3fr 1fr;
 	}
 
 	&__header {
