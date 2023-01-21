@@ -6,15 +6,19 @@ $blue-light-600: #1fa0cf;
 $blue-light: #24b4e9;
 $blue-light-400: #25bdf5;
 $blue-dark: #303956;
+$blue-dark-400: #384263;
 $blue-shallow-dark: #b0bada;
 $red-light: #ed3c63;
 $orange-light: #e88923;
+$yellow-light: #e8a023;
 
 /// Colors map
 $colors: (
 	'white': $white,
+	'blue-light-800': $blue-light-800,
 	'blue-light': $blue-light,
 	'blue-dark': $blue-dark,
+	'blue-dark-400': $blue-dark-400,
 	'blue-shallow-dark': $blue-shallow-dark,
 	'red-light': $red-light,
 	'orange-light': $orange-light
