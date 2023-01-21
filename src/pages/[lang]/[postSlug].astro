@@ -2,10 +2,9 @@
 // import BlogPostVue from '@layouts/BlogPost.vue'
 import BlogPost from "@layouts/BlogPost.astro";
 import PostBlocks from "@components/PostBlocks.vue";
-import { Prism } from "@astrojs/prism";
+// import { Prism } from "@astrojs/prism";
 import { getAllPostsWithSlugs, getPostBySlug } from "@lib/api";
-import "prismjs/themes/prism-tomorrow.css";
-import { decodeEntity } from "html-entities";
+// import "prismjs/themes/prism-tomorrow.css";
 
 export async function getStaticPaths() {
   const postWithSlugsDe: any = await getAllPostsWithSlugs();
@@ -28,6 +27,7 @@ export async function getStaticPaths() {
 
 const { postSlug, lang }: any = Astro.params;
 const post: any = await getPostBySlug(postSlug);
+console.log(Astro.params);
 
 const decode = (str) => {
   return str.replace(/&#(\d+);/g, function (match, dec) {
@@ -64,37 +64,4 @@ const headings = post.blocks.filter(
 <BlogPost content={post} headings={headings}>
   <!-- <div set:html={post.content} class="c-blog__content" id="postContent" /> -->
   <PostBlocks blocks={post.blocks} />
-  <!-- <div class="c-blog__content" id="postContent">
-    <Prism lang="php" code={`<?php`} />
-    {
-      post.blocks.map((block: any) => (
-        <>
-          {block.name === "core/heading" && (
-            <Headline set:html={block.originalContent} />
-          )}
-          {block.name === "core/paragraph" && (
-            <p set:html={block.originalContent} />
-          )}
-          {block.name === "core/code" && (
-            // <Prism
-            //   lang={findLanguage(JSON.parse(block.attributesJSON).className)}
-            //   code={decodeEntity(JSON.parse(block.attributesJSON).content)}
-            // />
-            // <Prism lang="php" code={String(block.originalContent)} />
-            <div set:html={block.originalContent} />
-          )}
-        </>
-      ))
-    }
-  </div> -->
 </BlogPost>
-
-<!-- <BlogPostVue  client:visible
-              title={post.title}
-              description={post.excerpt}
-              publishDate={post.dateGmt}
-              heroImage={passProps.heroImage}>
-  <div class="wrapper">
-    <article set:html={post.content}></article>
-  </div>
-</BlogPostVue> -->
