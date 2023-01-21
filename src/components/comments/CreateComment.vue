@@ -42,8 +42,36 @@
 
       <form
         novalidate="true"
+        class="c-form"
         @submit.prevent="checkForm"
       >
+        <div
+          class="c-form__item is-vertical"
+          :class="{'c-textarea--error': formErrors.comment.length}"
+        >
+          <label
+            class="c-label c-form__label"
+            for="comment"
+          >{{ __(props.lang.locale, 'comment_form.comment.label') }}</label>
+          <div class="c-floating-label">
+            <textarea
+              id="comment"
+              v-model="commentForm.comment"
+              class="c-textarea c-floating-label__input"
+              name="comment"
+              rows="4"
+              placeholder=" "
+            />
+            <Alert
+              v-if="formErrors.comment.length"
+              type="danger"
+              class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
+            >
+              {{ formErrors.comment }}
+            </Alert>
+          </div>
+        </div>
+
         <div
           class="c-form__item is-vertical"
           :class="{'has-error': formErrors.email && formErrors.email.length}"
@@ -105,33 +133,11 @@
           </div>
         </div>
 
-        <div
-          class="c-form__item is-vertical"
-          :class="{'c-textarea--error': formErrors.comment.length}"
+
+        <button
+          type="submit"
+          class="c-button"
         >
-          <label
-            class="c-label c-form__label"
-            for="comment"
-          >{{ __(props.lang.locale, 'comment_form.comment.label') }}</label>
-          <div class="c-floating-label">
-            <textarea
-              id="comment"
-              v-model="commentForm.comment"
-              class="c-textarea c-floating-label__input"
-              name="comment"
-              rows="4"
-              placeholder=" "
-            />
-            <Alert
-              v-if="formErrors.comment.length"
-              type="danger"
-              class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
-            >
-              {{ formErrors.comment }}
-            </Alert>
-          </div>
-        </div>
-        <button type="submit">
           {{ __(props.lang.locale, 'comment_form.submit.button') }}
         </button>
       </form>
@@ -276,6 +282,6 @@ onMounted(() => {
 
 })
 </script>
-<style scoped>
-
+<style lang="scss">
+@use '@styles/components/form.scss';
 </style>
