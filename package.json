@@ -18,7 +18,7 @@
     "test:e2e": "npx playwright test"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^6.1.1",
+    "@astrojs/cloudflare": "^6.1.2",
     "@playwright/test": "^1.30.0",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/exec": "^6.0.3",
@@ -57,9 +57,9 @@
     "@nanostores/persistent": "^0.7.0",
     "@nanostores/vue": "^0.7.0",
     "@vueuse/core": "^9.12.0",
-    "astro": "^2.0.6",
+    "astro": "^2.0.10",
     "astro-breadcrumbs": "^1.1.0",
-    "astro-critters": "^1.1.28",
+    "astro-critters": "^1.1.29",
     "floating-vue": "2.0.0-beta.20",
     "html-entities": "^2.3.3",
     "lucide-vue-next": "^0.112.0",
