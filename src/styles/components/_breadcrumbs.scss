@@ -1,8 +1,6 @@
 @use '@styles/utilities/utilities';
 
 .c-breadcrumbs {
-	text-transform: lowercase;
-
 	&__crumbs {
 		@extend .u-list-reset;
 

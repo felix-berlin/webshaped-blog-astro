@@ -27,7 +27,7 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
-// import Breadcrumbs from '@components/Breadcrumbs.astro';
+
 import { __ } from "@i18n/i18n";
 
 import type { AuthorData } from "@components/Author.vue";
@@ -101,22 +101,18 @@ const langAttr = language.locale.replace("_", "-");
 const { menuItems }: any = await getMenuById(2); // DE
 // const { menuItemsEn }: any = await getMenuById(125); // EN
 
-const homeIcon =
-  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>';
-
 const breadcrumbItems = [
   {
-    name: "Home",
-    url: "/",
-    icon: homeIcon,
+    text: "Home",
+    href: "/",
   },
   {
-    name: "Blog",
-    url: "/blog",
+    text: language.slug,
+    href: `/${language.slug}`,
   },
   {
-    name: title,
-    url: `/blog/${slug}`,
+    text: title,
+    href: `/blog/${slug}`,
   },
 ];
 
@@ -158,41 +154,53 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
 
     <main class="o-content c-blog">
       <header class="c-blog__header">
-        <Breadcrumbs indexText={"Start"}>
-          <!-- <span slot="index">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <Breadcrumbs crumbs={breadcrumbItems}>
+          <span slot="index">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+              ></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg
+            >
           </span>
           <span slot="separator" class="c-breadcrumbs__separator">/</span>
-        </Breadcrumbs> -->
-          <h1 class="c-blog__title">{title}</h1>
-          <DateModified date={modifiedGmt} lang={language} />
-          <ReadingTime time={seo.readingTime} lang={language} />
-          <WebmentionsCount
-            elementIs={"a"}
-            href={"#webmentions"}
-            lang={language}
-            client:load
-          />
-          <Categories categories={categories} />
-
-          {
-            featuredImage && (
-              <img
-                width={featuredImage.node.mediaDetails.width}
-                height={featuredImage.node.mediaDetails.height}
-                alt={featuredImage.node.altText}
-                src={featuredImage.node.mediaItemUrl}
-                srcset={featuredImage.node.srcSet}
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-                class="c-blog__hero-image"
-              />
-            )
-          }
         </Breadcrumbs>
-        <article class="c-blog__post">
-          <!-- <header class="c-blog__post__hero-header">
+        <h1 class="c-blog__title">{title}</h1>
+        <DateModified date={modifiedGmt} lang={language} />
+        <ReadingTime time={seo.readingTime} lang={language} />
+        <WebmentionsCount
+          elementIs={"a"}
+          href={"#webmentions"}
+          lang={language}
+          client:load
+        />
+        <Categories categories={categories} />
+
+        {
+          featuredImage && (
+            <img
+              width={featuredImage.node.mediaDetails.width}
+              height={featuredImage.node.mediaDetails.height}
+              alt={featuredImage.node.altText}
+              src={featuredImage.node.mediaItemUrl}
+              srcset={featuredImage.node.srcSet}
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+              class="c-blog__hero-image"
+            />
+          )
+        }
+      </header>
+      <article class="c-blog__post">
+        <!-- <header class="c-blog__post__hero-header">
           {featuredImage && (
             <img
               width={featuredImage.node.mediaDetails.width}
@@ -207,63 +215,58 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
             />
           )} -->
 
-          <!-- <Helpful client:load></Helpful> -->
+        <!-- <Helpful client:load></Helpful> -->
 
-          <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
-          <!-- </header> -->
-          <PostOlderThan
-            date={modifiedGmt}
-            showAfterYears={4}
+        <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
+        <!-- </header> -->
+        <PostOlderThan date={modifiedGmt} showAfterYears={4} lang={language} />
+
+        <slot />
+
+        <footer>
+          <Author author={author} lang={language} client:visible />
+
+          <!-- <LoadWebmentions client:only></LoadWebmentions> -->
+
+          <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
+          <CommentsClient
+            currentPostId={postId}
+            id="comments"
             lang={language}
+            authorId={author.node.id}
+            client:visible
           />
+        </footer>
+      </article>
 
-          <slot />
+      <aside class="c-blog-sidebar">
+        <h2 class="c-blog-sidebar__headline">
+          {__(language.locale, "blog.table_of_contents")}
+        </h2>
+        <!-- <TableOfContentsClientSide target=".c-blog__content" client:only /> -->
+        <TableOfContents headings={headings} client:load />
 
-          <footer>
-            <Author author={author} lang={language} client:visible />
-
-            <!-- <LoadWebmentions client:only></LoadWebmentions> -->
-
-            <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
-            <CommentsClient
-              currentPostId={postId}
-              id="comments"
-              lang={language}
-              authorId={author.node.id}
-              client:visible
-            />
-          </footer>
-        </article>
-
-        <aside class="c-blog-sidebar">
-          <h2 class="c-blog-sidebar__headline">
-            {__(language.locale, "blog.table_of_contents")}
-          </h2>
-          <!-- <TableOfContentsClientSide target=".c-blog__content" client:only /> -->
-          <TableOfContents headings={headings} client:load />
-
-          <Share
-            title={seo.title}
-            text={seo.opengraphDescription}
-            lang={language}
-            client:only
-          />
-        </aside>
-      </header>
-      {
-        import.meta.env.ENABLE_ANALYTICS === "true" && (
-          <Matomo
-            client:only
-            site-id={"3"}
-            cookie-domain={"*.webshaped.de"}
-            host={"analytics.webshaped.de"}
-            debug-mode={true}
-          />
-        )
-      }
-
-      <MainFooter lang={language} />
-      <style></style>
+        <Share
+          title={seo.title}
+          text={seo.opengraphDescription}
+          lang={language}
+          client:only
+        />
+      </aside>
     </main>
+    {
+      import.meta.env.ENABLE_ANALYTICS === "true" && (
+        <Matomo
+          client:only
+          site-id={"3"}
+          cookie-domain={"*.webshaped.de"}
+          host={"analytics.webshaped.de"}
+          debug-mode={true}
+        />
+      )
+    }
+
+    <MainFooter lang={language} />
+    <style></style>
   </body>
 </html>
