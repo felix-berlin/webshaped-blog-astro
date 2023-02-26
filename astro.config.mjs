@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 import prefetch from '@astrojs/prefetch';
 import critters from "astro-critters";
+import matomo from 'astro-matomo';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -39,7 +40,15 @@ export default defineConfig({
       }
     }),
     prefetch(),
-    critters()
+    critters(),
+    matomo({
+      enabled: import.meta.env.PROD,
+      host: "https://analytics.webshaped.de/",
+      siteId: 3,
+      debug: true,
+      heartBeatTimer: 5,
+      disableCookies: true
+    }),
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })

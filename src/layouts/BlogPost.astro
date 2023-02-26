@@ -24,7 +24,7 @@ import Prism from "@components/Prism.vue";
 import Webmentions from "@components/webmentions/Webmentions.vue";
 import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
 import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
-import Matomo from "@components/Matomo.vue";
+// import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
 
@@ -254,7 +254,7 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
         />
       </aside>
     </main>
-    {
+    <!-- {
       import.meta.env.ENABLE_ANALYTICS === "true" && (
         <Matomo
           client:only
@@ -264,7 +264,7 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
           debug-mode={true}
         />
       )
-    }
+    } -->
 
     <MainFooter lang={language} />
     <style></style>
