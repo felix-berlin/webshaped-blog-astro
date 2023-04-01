@@ -1,5 +1,8 @@
 <template>
-  <div class="c-reading-time" :title="__(lang.locale, 'reading_time.title')">
+  <div
+    class="c-reading-time"
+    :title="__(lang.locale, 'reading_time.title')"
+  >
     <BookOpen
       aria-hidden="true"
       focusable="false"

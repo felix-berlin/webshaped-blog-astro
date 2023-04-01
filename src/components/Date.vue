@@ -1,13 +1,13 @@
 <template>
   <div class="c-date">
-    <slot name="before"></slot>
+    <slot name="before" />
 
     <time
       class="c-date"
       v-text="formattedDate(date, props.lang?.locale ?? '')"
     />
 
-    <slot name="after"></slot>
+    <slot name="after" />
   </div>
 </template>
 

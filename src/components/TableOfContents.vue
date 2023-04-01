@@ -33,7 +33,7 @@ const tocId = 'tableOfContents';
 
 const activeHeadline = ref('');
 
-let observer = ref<IntersectionObserver>();
+const observer = ref<IntersectionObserver>();
 
 observer.value = new IntersectionObserver((entries) => {
 
