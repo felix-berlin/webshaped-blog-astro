@@ -51,7 +51,7 @@
     "@astrojs/rss": "^2.3.2",
     "@astrojs/sitemap": "^1.2.1",
     "@astrojs/vue": "^2.1.0",
-    "@felix_berlin/sass-butler": "^2.0.0",
+    "@felix_berlin/sass-butler": "^2.2.0",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@nanostores/i18n": "^0.8.0",
     "@nanostores/persistent": "^0.7.0",

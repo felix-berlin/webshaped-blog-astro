@@ -6,9 +6,10 @@
 
 .c-main-nav {
 	display: grid;
-	grid-template-columns: max-content 1fr;
-	grid-template-rows: 40px auto;
-	grid-template-areas: var(--grid-areas, 'logo toggle' 'flyout flyout');
+	grid-template:
+		[header-left] var(--grid-areas-header, 'logo toggle') 40px [header-right]
+		[flyout-left] var(--grid-areas-flyout, 'flyout flyout') auto [flyout-right]
+		/ max-content 1fr;
 	position: relative;
 	padding: layout.$spacing-edge 0;
 	column-gap: 3rem;
@@ -23,11 +24,13 @@
 	}
 
 	@include mx.breakpoint('sm') {
-		--grid-areas: 'logo flyout';
+		grid-template:
+			[header-left] var(--grid-areas-header, 'logo flyout') [header-right]
+			/ max-content 1fr;
 	}
 
 	*:not(.c-main-nav__flyout) {
-		@include mx.breakpoint('sm', 'max', $max-overlap: 0.01) {
+		@include mx.breakpoint('sm', 'max') {
 			position: relative;
 			z-index: 2;
 		}
@@ -40,7 +43,7 @@
 	&__flyout {
 		grid-area: flyout;
 
-		@include mx.breakpoint('sm', 'max', $max-overlap: 0.01) {
+		@include mx.breakpoint('sm', 'max') {
 			--height-header: 70px;
 
 			position: fixed;
