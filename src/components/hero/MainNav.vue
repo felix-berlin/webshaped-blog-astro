@@ -97,7 +97,7 @@ const mainNav = ref(null);
 const mouse = reactive(useMouseInElement(mainNav));
 
 const gradientPrimaryPostion = computed(() => {
-  return !mouse.isOutside ? mouse.elementX * 100 / mouse.elementWidth + '%' : '55%';
+  return mouse.isOutside ? '55%' : `${mouse.elementX * 100 / mouse.elementWidth}%`;
 })
 const gradientSecondaryPostion = computed(() => {
   return mouse.isOutside ? '14%' : '0%';
