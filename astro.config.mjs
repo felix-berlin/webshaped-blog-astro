@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
-  site: import.meta.env.PROD ? 'https://webshaped.de' : 'https://develop.webshaped-blog-astro.pages.dev',
+  site: 'https://develop.webshaped-blog-astro.pages.dev', //TODO:  https://webshaped.de
   experimental: {
     integrations: true
   },
