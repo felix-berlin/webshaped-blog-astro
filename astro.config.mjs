@@ -7,6 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 import prefetch from '@astrojs/prefetch';
 import critters from "astro-critters";
 import matomo from 'astro-matomo';
+import serviceWorker from "astrojs-service-worker";
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -49,6 +50,7 @@ export default defineConfig({
       heartBeatTimer: 5,
       disableCookies: true
     }),
+    serviceWorker()
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
