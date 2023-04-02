@@ -1,7 +1,10 @@
 <template>
-  <Date :date="date" :lang="lang">
+  <Date
+    :date="date"
+    :lang="lang"
+  >
     <template #before>
-      <Calendar :size="18"></Calendar>
+      <Calendar :size="18" />
     </template>
   </Date>
 </template>

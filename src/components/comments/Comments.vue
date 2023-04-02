@@ -2,15 +2,26 @@
   <section class="c-comments">
     <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
 
-    <CreateComment :current-post-id="currentPostId" :lang="lang" />
+    <CreateComment
+      :current-post-id="currentPostId"
+      :lang="lang"
+    />
 
-    <p v-if="!comments.nodes?.length">{{ __(lang.locale, 'comments.no_comments') }}</p>
+    <p v-if="!comments.nodes?.length">
+      {{ __(lang.locale, 'comments.no_comments') }}
+    </p>
 
     <template
       v-for="comment in comments.nodes"
       :key="comment.id"
     >
-      <CommentItem :comment="comment" :depth="0" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+      <CommentItem
+        :comment="comment"
+        :depth="0"
+        :author-id="authorId"
+        :lang="lang"
+        :current-post-id="currentPostId"
+      />
     </template>
   </section>
 </template>

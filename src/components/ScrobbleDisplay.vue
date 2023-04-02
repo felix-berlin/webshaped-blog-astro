@@ -15,7 +15,10 @@
         #popper
       >
         <header class="c-scrobble-display__header">
-          <h2 class="c-scrobble-display__headline" v-text="__(lang.locale, 'scrobble_display.headline', {count: numberOfDisplayedTracks})"/>
+          <h2
+            class="c-scrobble-display__headline"
+            v-text="__(lang.locale, 'scrobble_display.headline', {count: numberOfDisplayedTracks})"
+          />
 
           <button
             v-close-popper
@@ -27,7 +30,7 @@
             />
           </button>
         </header>
-        <p v-html="__(lang.locale, 'scrobble_display.text')"/>
+        <p v-html="__(lang.locale, 'scrobble_display.text')" />
 
         <TransitionGroup
           name="list"
@@ -76,7 +79,7 @@
             height="32"
           >
           <span>{{ __(lang.locale, 'scrobble_display.total_text', {total: state.tracks.recenttracks['@attr'].total}) }}</span><br>
-          <span v-html="__(lang.locale, 'scrobble_display.follow_me', {link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`})"></span>
+          <span v-html="__(lang.locale, 'scrobble_display.follow_me', {link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`})" />
         </footer>
       </template>
     </vDropdown>
@@ -111,7 +114,7 @@ interface State {
 
 const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
   numberOfDisplayedTracks: 5,
-  updateRate: 180000, // check every 180 seconds (3 min)
+  updateRate: 180_000, // check every 180 seconds (3 min)
   dropdownPlacement: 'auto',
   idleIfInactive: false,
   idleAfterCount: undefined, // if idleAfterCount is equal to the current update count, the background update task will stop

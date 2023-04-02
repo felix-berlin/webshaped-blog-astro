@@ -2,15 +2,14 @@
   <div class="c-comment is-even is-loading">
     <article class="c-comment__item">
       <header class="c-comment__header">
-        <div class="c-comment__author-image"/>
+        <div class="c-comment__author-image" />
 
         <div class="c-comment__author-name-wrap">
           <h2 class="c-comment__author-name" />
         </div>
       </header>
       <main class="c-comment__content">
-
-        <p class="c-comment__text"/>
+        <p class="c-comment__text" />
 
         <!-- <footer class="c-comment__footer">
           <button type="button"
@@ -30,7 +29,6 @@
       </main>
     </article>
   </div>
-
 </template>
 
 <script setup lang="ts">

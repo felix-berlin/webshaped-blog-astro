@@ -47,7 +47,7 @@ const toggleMode = () => {
 }
 
 onMounted(() => {
-  state.isDark = localStorage.getItem('darkMode') === 'true' ? true : false;
+  state.isDark = localStorage.getItem('darkMode') === 'true';
 })
 </script>
 

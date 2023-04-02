@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {
   setIndexIdToHeadlines: false,
 })
 
-let observer = ref<IntersectionObserver>();
+const observer = ref<IntersectionObserver>();
 
 const createTocClientSide = () => {
   const toc = document.getElementById(props.id) as HTMLDivElement

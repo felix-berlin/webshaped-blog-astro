@@ -1,6 +1,11 @@
 <template>
-  <div v-if="getYearDiff(date, Date.now()) >= showAfterYears" class="c-post-older-than">
-    <p class="c-post-older-than__text">{{ __(lang.locale, 'post_older_than.text', {years: getYearDiff(date, Date.now())}) }}</p>
+  <div
+    v-if="getYearDiff(date, Date.now()) >= showAfterYears"
+    class="c-post-older-than"
+  >
+    <p class="c-post-older-than__text">
+      {{ __(lang.locale, 'post_older_than.text', {years: getYearDiff(date, Date.now())}) }}
+    </p>
   </div>
 </template>
 

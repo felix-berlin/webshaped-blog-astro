@@ -4,7 +4,7 @@
     :class="[
       `is-level-${depth} ${isOdd(depth) ? 'is-odd': 'is-even'}`,
       {
-      'is-reply': !comment?.replies?.nodes?.length,
+        'is-reply': !comment?.replies?.nodes?.length,
       }]"
     role="comment"
   >
@@ -21,57 +21,97 @@
           :height="comment.author.node.avatar.height"
           class="c-comment__author-image"
         >
-        <div v-else class="c-comment__author-icon">
-          <User :size="86"/>
+        <div
+          v-else
+          class="c-comment__author-icon"
+        >
+          <User :size="86" />
         </div>
 
         <div class="c-comment__author-name-wrap">
-          <h2 class="c-comment__author-name">{{ comment.author.node.name }}</h2>
-          <Verified v-if="isAuthor" :size="18"></Verified>
+          <h2 class="c-comment__author-name">
+            {{ comment.author.node.name }}
+          </h2>
+          <Verified
+            v-if="isAuthor"
+            :size="18"
+          />
         </div>
       </header>
       <main class="c-comment__content">
-        <a v-if="comment.parentId" :href="`#comment-${comment.parentId}`" class="c-comment__reply-to">Reply to</a>
+        <a
+          v-if="comment.parentId"
+          :href="`#comment-${comment.parentId}`"
+          class="c-comment__reply-to"
+        >Reply to</a>
 
-        <p class="c-comment__text" v-html="comment.content"></p>
+        <p
+          class="c-comment__text"
+          v-html="comment.content"
+        />
 
         <footer class="c-comment__footer">
-          <button type="button"
-                  class="c-comment__reply-button c-button c-button--icon"
-                  v-if="depth < 5"
-                  @click="toggleReplyCommentForm()">
-            <Reply :size="18"/> {{ __(lang.locale, 'comment.reply_button') }}
+          <button
+            v-if="depth < 5"
+            type="button"
+            class="c-comment__reply-button c-button c-button--icon"
+            @click="toggleReplyCommentForm()"
+          >
+            <Reply :size="18" /> {{ __(lang.locale, 'comment.reply_button') }}
           </button>
 
-          <Date :date="comment.dateGmt" class="c-comment__date">
+          <Date
+            :date="comment.dateGmt"
+            class="c-comment__date"
+          >
             <template #before>
               {{ __(lang.locale, 'comment.date') }}
             </template>
           </Date>
-
         </footer>
       </main>
     </article>
 
-    <Transition name="fade" mode="in-out">
-      <div class="c-comment is-create-comment" :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even': 'is-odd'}`" v-if="replyToCommentForm">
-        <CreateComment  :current-post-id="currentPostId" :lang="lang" :reply-to-comment-id="comment.commentId" >
+    <Transition
+      name="fade"
+      mode="in-out"
+    >
+      <div
+        v-if="replyToCommentForm"
+        class="c-comment is-create-comment"
+        :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even': 'is-odd'}`"
+      >
+        <CreateComment
+          :current-post-id="currentPostId"
+          :lang="lang"
+          :reply-to-comment-id="comment.commentId"
+        >
           <template #beforeContent>
-            <button type="button" @click="toggleReplyCommentForm()"><X/></button>
+            <button
+              type="button"
+              @click="toggleReplyCommentForm()"
+            >
+              <X />
+            </button>
           </template>
         </CreateComment>
       </div>
     </Transition>
 
-
-    <template
-      v-if="comment.replies"
-      v-for="(reply, index) in comment.replies.nodes"
-      :key="index"
-    >
-      <CommentItem :comment="reply" :depth="depth + 1" :author-id="authorId" :lang="lang" :current-post-id="currentPostId" />
+    <template v-if="comment.replies">
+      <template
+        v-for="(reply, index) in comment.replies.nodes"
+        :key="index"
+      >
+        <CommentItem
+          :comment="reply"
+          :depth="depth + 1"
+          :author-id="authorId"
+          :lang="lang"
+          :current-post-id="currentPostId"
+        />
+      </template>
     </template>
-
   </div>
 </template>
 

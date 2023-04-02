@@ -9,7 +9,12 @@
     >
       <a
         :href="`#${slugify(JSON.parse(headline.attributesJSON).content, { lower: true })}`"
-        :class="[`c-toc__link c-toc__link--depth-${JSON.parse(headline.attributesJSON).level}`, { 'is-active': activeHeadline === slugify(JSON.parse(headline.attributesJSON).content, { lower: true }) }]"
+        :class="[
+          `c-toc__link c-toc__link--depth-${JSON.parse(headline.attributesJSON).level}`,
+          {
+            'is-active': activeHeadline === slugify(JSON.parse(headline.attributesJSON).content, { lower: true })
+          }
+        ]"
       >{{ JSON.parse(headline.attributesJSON).content }}</a>
     </template>
   </nav>
@@ -49,7 +54,7 @@ observer.value = new IntersectionObserver((entries) => {
 });
 
 onMounted(() => {
-  if (observer.value) document.querySelectorAll('.c-blocks h2[id], .c-blocks h3[id]').forEach(section => observer.value.observe(section));
+  if (observer.value) document.querySelectorAll('.c-blocks h2[id], .c-blocks h3[id]').forEach(section => observer?.value?.observe(section));
 })
 
 onUnmounted(() => {

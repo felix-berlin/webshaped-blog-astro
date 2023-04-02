@@ -5,12 +5,15 @@
   >
     <Suspense>
       <Webmentions
-        target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
         id="webmentions"
+        target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
       />
 
       <template #fallback>
-        <div class="card is-loading" id="webmentions">
+        <div
+          id="webmentions"
+          class="card is-loading"
+        >
           <div class="image" />
           <div class="content">
             <h2 />

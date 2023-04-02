@@ -64,6 +64,7 @@ export interface BlogPostPreviewProps {
         title: string;
         language: {
           slug: string;
+          locale: string;
         };
         featuredImage: object;
         translations: [];

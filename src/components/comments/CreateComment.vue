@@ -184,7 +184,7 @@ const formErrors: CommentForm = reactive({
   email: '',
 })
 
-let formResponses: {
+const formResponses: {
   success: boolean;
   errors: Array<Object>;
 } = reactive({
