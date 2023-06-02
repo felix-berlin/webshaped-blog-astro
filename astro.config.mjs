@@ -18,9 +18,6 @@ const __dirname = dirname(__filename);
 // https://astro.build/config
 export default defineConfig({
   site: 'https://develop.webshaped-blog-astro.pages.dev', //TODO:  https://webshaped.de
-  experimental: {
-    integrations: true
-  },
   markdown: {
     // Can be 'shiki' (default), 'prism' or false to disable highlighting
     syntaxHighlight: 'prism',
@@ -28,7 +25,8 @@ export default defineConfig({
   integrations: [
     vue({
       appEntrypoint: '/src/pages/_app'
-    }), sitemap({
+    }),
+    sitemap({
       lastmod: new Date(),
       i18n: {
         defaultLocale: 'de',
@@ -61,7 +59,8 @@ export default defineConfig({
         '@sass-butler/': `${path.resolve(__dirname, 'node_modules/@felix_berlin/sass-butler/')}/`,
         '@styles/': `${path.resolve(__dirname, 'src/styles/')}/`
       }
-    } // build: {
+    }
+    // build: {
     //   rollupOptions: {
     //     output: {
     //       entryFileNames: '[name].[hash].js',
