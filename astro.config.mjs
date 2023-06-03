@@ -8,9 +8,9 @@ import prefetch from '@astrojs/prefetch';
 import critters from "astro-critters";
 import matomo from 'astro-matomo';
 import serviceWorker from "astrojs-service-worker";
+import pagefind from "astro-pagefind";
 
 const __filename = fileURLToPath(import.meta.url);
-
 const __dirname = dirname(__filename);
 
 
@@ -18,6 +18,9 @@ const __dirname = dirname(__filename);
 // https://astro.build/config
 export default defineConfig({
   site: 'https://develop.webshaped-blog-astro.pages.dev', //TODO:  https://webshaped.de
+  build: {
+    format: "file",
+  },
   markdown: {
     // Can be 'shiki' (default), 'prism' or false to disable highlighting
     syntaxHighlight: 'prism',
@@ -48,7 +51,8 @@ export default defineConfig({
       heartBeatTimer: 5,
       disableCookies: true
     }),
-    serviceWorker()
+    serviceWorker(),
+    pagefind(),
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
