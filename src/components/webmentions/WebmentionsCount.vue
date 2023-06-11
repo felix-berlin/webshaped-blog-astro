@@ -31,9 +31,12 @@ interface WebmentionsCountProps {
   };
 }
 
-const props = withDefaults(defineProps<WebmentionsCountProps>(), {
-  elementIs: "div",
-});
+const props = withDefaults(
+  defineProps<WebmentionsCountProps & Record<string, any>>(),
+  {
+    elementIs: "div",
+  }
+);
 
 const count = useStore(currentWebmentionsCount);
 </script>

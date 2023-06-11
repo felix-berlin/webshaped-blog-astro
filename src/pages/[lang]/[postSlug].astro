@@ -46,10 +46,11 @@ const exstractCode = (content: string) => {
   return codeBlocks;
 };
 
-const findLanguage = (content: string) => {
-  const regex = /lang-[a-z]+/gm;
-  let match = content.match(regex);
-  match = match.toString().replace("lang-", "");
+const findLanguage = (content: string, prefix = "lang-"): string | null => {
+  const regex = new RegExp(prefix + "[a-z]+", "gm");
+  const match = content.match(regex)?.toString().replace(prefix, "") as
+    | string
+    | null;
   return match;
 };
 
