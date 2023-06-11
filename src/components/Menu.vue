@@ -3,7 +3,10 @@
     <li
       v-for="(item, index) in props.menuItems.nodes"
       :key="index"
-      :class="['c-menu__item', {'has-child': item.childItems.nodes.length > 0}]"
+      :class="[
+        'c-menu__item',
+        { 'has-child': item.childItems.nodes.length > 0 },
+      ]"
     >
       <a
         v-if="item.childItems.nodes.length <= 0"
@@ -13,10 +16,7 @@
         {{ item.label }}
       </a>
 
-      <VMenu
-        v-else
-        theme="submenu"
-      >
+      <VMenu v-else theme="submenu">
         <span class="c-menu__link is-menu-title">
           <span>{{ item.label }}</span>
           <ChevronDown :size="18" />
@@ -30,9 +30,13 @@
               class="c-submenu__item"
             >
               <a
-                :href="child.path + (child.path.match(/\/category\//gm)?.length ? '1' : '')"
+                :href="
+                  child.path +
+                  (child.path.match(/\/category\//gm)?.length ? '1' : '')
+                "
                 class="c-submenu__link"
-              >{{ child.label }}</a>
+                >{{ child.label }}</a
+              >
             </li>
           </menu>
         </template>
@@ -42,13 +46,13 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronDown } from 'lucide-vue-next';
+import { ChevronDown } from "lucide-vue-next";
 
 export interface MenuProps {
   menuItems: {
     nodes: [
       {
-        label: string,
+        label: string;
         order: number;
         path: string;
         childItems: {
@@ -58,18 +62,17 @@ export interface MenuProps {
               order: number;
               path: string;
             }
-          ]
-        }
+          ];
+        };
       }
-    ]
+    ];
   };
 }
 
-const props = defineProps<MenuProps>()
-
+const props = defineProps<MenuProps>();
 </script>
 
 <style lang="scss">
-@use '@styles/components/menu';
-@use '@styles/components/submenu';
+@use "@styles/components/menu";
+@use "@styles/components/submenu";
 </style>

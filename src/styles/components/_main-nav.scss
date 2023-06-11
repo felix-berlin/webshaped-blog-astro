@@ -1,118 +1,119 @@
-@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
-@use '@styles/variables/layout';
-@use '@styles/variables/shadows';
-@use '@styles/variables/colors';
-@use '@sass-butler/functions' as butler-fn;
+@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/layout";
+@use "@styles/variables/shadows";
+@use "@styles/variables/colors";
+@use "@sass-butler/functions" as butler-fn;
 
 .c-main-nav {
-	display: grid;
-	grid-template:
-		[header-left] var(--grid-areas-header, 'logo toggle') 40px [header-right]
-		[flyout-left] var(--grid-areas-flyout, 'flyout flyout') auto [flyout-right]
-		/ max-content 1fr;
-	position: relative;
-	padding: layout.$spacing-edge 0;
-	column-gap: 3rem;
-	border: {
-		bottom-width: 2px;
-		bottom-style: solid;
-		image: linear-gradient(
-			to right,
-			#{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
-			#{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
-		) 1;
-	}
+  display: grid;
+  grid-template:
+    [header-left] var(--grid-areas-header, "logo toggle") 40px [header-right]
+    [flyout-left] var(--grid-areas-flyout, "flyout flyout") auto [flyout-right]
+    / max-content 1fr;
+  position: relative;
+  padding: layout.$spacing-edge 0;
+  column-gap: 3rem;
+  border: {
+    bottom-width: 2px;
+    bottom-style: solid;
+    image: linear-gradient(
+        to right,
+        #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
+        #{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
+      )
+      1;
+  }
 
-	@include mx.breakpoint('sm') {
-		grid-template:
-			[header-left] var(--grid-areas-header, 'logo flyout') [header-right]
-			/ max-content 1fr;
-	}
+  @include mx.breakpoint("sm") {
+    grid-template:
+      [header-left] var(--grid-areas-header, "logo flyout") [header-right]
+      / max-content 1fr;
+  }
 
-	*:not(.c-main-nav__flyout) {
-		@include mx.breakpoint('sm', 'max') {
-			position: relative;
-			z-index: 2;
-		}
-	}
+  *:not(.c-main-nav__flyout) {
+    @include mx.breakpoint("sm", "max") {
+      position: relative;
+      z-index: 2;
+    }
+  }
 
-	&__logo-link {
-		grid-area: logo;
-	}
+  &__logo-link {
+    grid-area: logo;
+  }
 
-	&__flyout {
-		grid-area: flyout;
+  &__flyout {
+    grid-area: flyout;
 
-		@include mx.breakpoint('sm', 'max') {
-			--height-header: 70px;
+    @include mx.breakpoint("sm", "max") {
+      --height-header: 70px;
 
-			position: fixed;
-			z-index: 1;
-			background-color: var(--blue-dark);
-			inset: 0;
-			padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			overflow-y: scroll;
+      position: fixed;
+      z-index: 1;
+      background-color: var(--blue-dark);
+      inset: 0;
+      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge
+        layout.$spacing-edge;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: scroll;
 
-			&::before {
-				content: '';
-				position: fixed;
-				z-index: 3;
-				top: 0;
-				left: 0;
-				right: 0;
-				height: var(--height-header);
-				background-color: var(--blue-dark);
-			}
+      &::before {
+        content: "";
+        position: fixed;
+        z-index: 3;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--height-header);
+        background-color: var(--blue-dark);
+      }
 
-			&::after {
-				content: '';
-				position: fixed;
-				z-index: -1;
-				inset: 0;
-				background:
-					linear-gradient(
-						0deg,
-						butler-fn.hex-to-rgb(colors.$red-light, 25%) 0%,
-						butler-fn.hex-to-rgb(colors.$blue-light, 8%) 25%,
-						butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
-					);
-			}
-		}
-		@include mx.breakpoint('sm') {
-			display: flex !important;
-			justify-content: space-between;
-		}
-	}
+      &::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          butler-fn.hex-to-rgb(colors.$red-light, 25%) 0%,
+          butler-fn.hex-to-rgb(colors.$blue-light, 8%) 25%,
+          butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
+        );
+      }
+    }
+    @include mx.breakpoint("sm") {
+      display: flex !important;
+      justify-content: space-between;
+    }
+  }
 
-	&__menu {
-		grid-area: menu;
-		flex-direction: var(--direction-flex, column);
+  &__menu {
+    grid-area: menu;
+    flex-direction: var(--direction-flex, column);
 
-		@include mx.breakpoint('sm') {
-			--direction-flex: row;
+    @include mx.breakpoint("sm") {
+      --direction-flex: row;
 
-			align-items: center;
-			column-gap: 2rem;
-		}
+      align-items: center;
+      column-gap: 2rem;
+    }
 
-		.c-menu__link {
-			font-size: var(--size-font, 24px);
+    .c-menu__link {
+      font-size: var(--size-font, 24px);
 
-			@include mx.breakpoint('sm') {
-				--size-font: 18px;
-			}
-		}
-	}
+      @include mx.breakpoint("sm") {
+        --size-font: 18px;
+      }
+    }
+  }
 
-	&__toggle {
-		grid-area: toggle;
-		justify-self: flex-end;
+  &__toggle {
+    grid-area: toggle;
+    justify-self: flex-end;
 
-		@include mx.breakpoint('sm') {
-			--display-button: none;
-		}
-	}
+    @include mx.breakpoint("sm") {
+      --display-button: none;
+    }
+  }
 }

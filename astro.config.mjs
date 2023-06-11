@@ -1,45 +1,43 @@
-import { defineConfig } from 'astro/config';
-import path, { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'url';
-import vue from '@astrojs/vue';
-import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
-import prefetch from '@astrojs/prefetch';
+import { defineConfig } from "astro/config";
+import path, { resolve, dirname } from "node:path";
+import { fileURLToPath } from "url";
+import vue from "@astrojs/vue";
+import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
+import prefetch from "@astrojs/prefetch";
 import critters from "astro-critters";
-import matomo from 'astro-matomo';
+import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import pagefind from "astro-pagefind";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
-
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://develop.webshaped-blog-astro.pages.dev', //TODO:  https://webshaped.de
+  site: "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
   build: {
     format: "file",
   },
   markdown: {
     // Can be 'shiki' (default), 'prism' or false to disable highlighting
-    syntaxHighlight: 'prism',
+    syntaxHighlight: "prism",
   },
   integrations: [
     vue({
-      appEntrypoint: '/src/pages/_app'
+      appEntrypoint: "/src/pages/_app",
     }),
     sitemap({
       lastmod: new Date(),
       i18n: {
-        defaultLocale: 'de',
+        defaultLocale: "de",
         // All urls that don't contain `de` or `en` after `https://webshaped.de/` will be treated as default locale, i.e. `de`
         locales: {
-          de: 'de-DE',
+          de: "de-DE",
           // The `defaultLocale` value must present in `locales` keys
-          en: 'en-US'
-        }
-      }
+          en: "en-US",
+        },
+      },
     }),
     prefetch(),
     critters(),
@@ -49,7 +47,7 @@ export default defineConfig({
       siteId: 3,
       debug: true,
       heartBeatTimer: 5,
-      disableCookies: true
+      disableCookies: true,
     }),
     serviceWorker(),
     pagefind(),
@@ -60,10 +58,13 @@ export default defineConfig({
     plugins: [],
     resolve: {
       alias: {
-        '@sass-butler/': `${path.resolve(__dirname, 'node_modules/@felix_berlin/sass-butler/')}/`,
-        '@styles/': `${path.resolve(__dirname, 'src/styles/')}/`
-      }
-    }
+        "@sass-butler/": `${path.resolve(
+          __dirname,
+          "node_modules/@felix_berlin/sass-butler/"
+        )}/`,
+        "@styles/": `${path.resolve(__dirname, "src/styles/")}/`,
+      },
+    },
     // build: {
     //   rollupOptions: {
     //     output: {
@@ -73,6 +74,5 @@ export default defineConfig({
     //     },
     //   },
     // },
-
-  }
+  },
 });

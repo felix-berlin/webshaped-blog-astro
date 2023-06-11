@@ -1,239 +1,257 @@
-@use 'sass:math';
-@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
-@use '@styles/variables/colors';
-@use '@styles/variables/base';
-@use '@sass-butler/mixins' as butler-mx;
-@use '@sass-butler/functions' as butler-fn;
+@use "sass:math";
+@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
 
 $spacing: 121;
 
 @mixin scaling-spacing-in-depth($startingDepth, $depth, $parity) {
-	@for $i from $startingDepth through $depth {
-		&.is-level-#{$i} {
-			> .c-comment__item {
-				@if $parity == 'even' {
-					--spacing-outer-depth: 0 #{math.div($i, 2) * $spacing + px};
-				}
-				@if $parity == 'odd' {
-					--spacing-outer-depth: 0 #{$spacing + px} 0 #{math.div($i, 1.5) * $spacing + px};
-				}
-			}
-		}
-	}
+  @for $i from $startingDepth through $depth {
+    &.is-level-#{$i} {
+      > .c-comment__item {
+        @if $parity == "even" {
+          --spacing-outer-depth: 0 #{math.div($i, 2) * $spacing + px};
+        }
+        @if $parity == "odd" {
+          --spacing-outer-depth: 0
+            #{$spacing +
+            px}
+            0
+            #{math.div($i, 1.5) *
+            $spacing +
+            px};
+        }
+      }
+    }
+  }
 }
 
 .c-comment {
-	@include butler-mx.hover {
-		&:not(.is-create-comment) {
-			.c-comment__content:not(.is-comment-item) {
-				--float-distance: -20px;
+  @include butler-mx.hover {
+    &:not(.is-create-comment) {
+      .c-comment__content:not(.is-comment-item) {
+        --float-distance: -20px;
 
-				&::before,
-				&::after,
-				& {
-					transform: translateY(0);
-					animation: var(--animation-comment, float 5s ease-in-out infinite);
-				}
+        &::before,
+        &::after,
+        & {
+          transform: translateY(0);
+          animation: var(--animation-comment, float 5s ease-in-out infinite);
+        }
 
-				&::before {
-					--float-distance: -15px;
-				}
+        &::before {
+          --float-distance: -15px;
+        }
 
-				&::after {
-					--float-distance: -8px;
-				}
-			}
-		}
-	}
+        &::after {
+          --float-distance: -8px;
+        }
+      }
+    }
+  }
 
-	&__item {
-		display: grid;
-		grid-template-columns: var(--columns-grid-comment);
-		grid-template-areas:
-			'content'
-			'header';
-		gap: 15px;
-	}
+  &__item {
+    display: grid;
+    grid-template-columns: var(--columns-grid-comment);
+    grid-template-areas:
+      "content"
+      "header";
+    gap: 15px;
+  }
 
-	@include mx.breakpoint('md') {
-		grid-template-areas:
-			' . content'
-			'header . ';
-	}
+  @include mx.breakpoint("md") {
+    grid-template-areas:
+      " . content"
+      "header . ";
+  }
 
-	&__header {
-		padding: 10px;
-		border-radius: base.$border-radius;
-		background-color: var(--color-background-author-image, #{butler-fn.hex-to-rgb(colors.$white, 10%)});
-		grid-area: header;
-		align-self: center;
-	}
+  &__header {
+    padding: 10px;
+    border-radius: base.$border-radius;
+    background-color: var(
+      --color-background-author-image,
+      #{butler-fn.hex-to-rgb(colors.$white, 10%)}
+    );
+    grid-area: header;
+    align-self: center;
+  }
 
-	&__author-image {
-		border-radius: base.$border-radius;
-	}
+  &__author-image {
+    border-radius: base.$border-radius;
+  }
 
-	&__author-name-wrap {
-		display: flex;
-	}
+  &__author-name-wrap {
+    display: flex;
+  }
 
-	&__author-name {
-		margin: 0;
-		font-size: var(--font-size-xs);
-	}
+  &__author-name {
+    margin: 0;
+    font-size: var(--font-size-xs);
+  }
 
-	&__date {
-		font-size: var(--font-size-xs);
-	}
+  &__date {
+    font-size: var(--font-size-xs);
+  }
 
-	&__author-icon {
-		display: flex;
-		border: 1px solid var(--color-border-author-icon, var(--blue-dark));
-		border-radius: base.$border-radius;
+  &__author-icon {
+    display: flex;
+    border: 1px solid var(--color-border-author-icon, var(--blue-dark));
+    border-radius: base.$border-radius;
 
-		@include butler-mx.dark-mode-class {
-			--color-border-author-icon: var(--white);
-		}
-	}
+    @include butler-mx.dark-mode-class {
+      --color-border-author-icon: var(--white);
+    }
+  }
 
-	&__content {
-		--color-background-comment-content: #{butler-fn.hex-to-rgb(colors.$blue-dark, 90%)};
+  &__content {
+    --color-background-comment-content: #{butler-fn.hex-to-rgb(
+        colors.$blue-dark,
+        90%
+      )};
 
-		grid-area: content;
-		padding: 10px;
-		border-radius: base.$border-radius;
-		background-color: var(--color-background-comment-content);
-		position: relative;
-		color: var(--color-comment-content, var(--white));
-		margin: var(--spacing-outer-content, 0 0 35px 0);
+    grid-area: content;
+    padding: 10px;
+    border-radius: base.$border-radius;
+    background-color: var(--color-background-comment-content);
+    position: relative;
+    color: var(--color-comment-content, var(--white));
+    margin: var(--spacing-outer-content, 0 0 35px 0);
 
-		@include butler-mx.dark-mode-class {
-			--color-background-comment-content: #{butler-fn.hex-to-rgb(colors.$white, 90%)};
-			--color-comment-content: var(--blue-dark);
-		}
-		@include mx.breakpoint('md') {
-			--spacing-outer-content: 0 0 -35px 0;
-		}
+    @include butler-mx.dark-mode-class {
+      --color-background-comment-content: #{butler-fn.hex-to-rgb(
+          colors.$white,
+          90%
+        )};
+      --color-comment-content: var(--blue-dark);
+    }
+    @include mx.breakpoint("md") {
+      --spacing-outer-content: 0 0 -35px 0;
+    }
 
-		&::after,
-		&::before {
-			content: '';
-			position: absolute;
-			background-color: var(--color-background-comment-content);
-			border-radius: base.$border-radius;
-			z-index: -1;
-			height: 8px;
-		}
+    &::after,
+    &::before {
+      content: "";
+      position: absolute;
+      background-color: var(--color-background-comment-content);
+      border-radius: base.$border-radius;
+      z-index: -1;
+      height: 8px;
+    }
 
-		&::after {
-			bottom: -18px;
-			width: 80px;
-		}
+    &::after {
+      bottom: -18px;
+      width: 80px;
+    }
 
-		&::before {
-			bottom: -36px;
-			width: 8px;
-		}
-	}
+    &::before {
+      bottom: -36px;
+      width: 8px;
+    }
+  }
 
-	&.is-odd,
-	&.is-even {
-		> .c-comment__item {
-			margin: var(--spacing-outer-depth);
-		}
-	}
+  &.is-odd,
+  &.is-even {
+    > .c-comment__item {
+      margin: var(--spacing-outer-depth);
+    }
+  }
 
-	&.is-odd {
-		> .c-comment__item {
-			--columns-grid-comment: 1fr max-content;
+  &.is-odd {
+    > .c-comment__item {
+      --columns-grid-comment: 1fr max-content;
 
-			grid-template-areas:
-				'content content'
-				'. header';
+      grid-template-areas:
+        "content content"
+        ". header";
 
-			@include mx.breakpoint('md') {
-				--columns-grid-comment: 1fr 106px;
+      @include mx.breakpoint("md") {
+        --columns-grid-comment: 1fr 106px;
 
-				grid-template-areas:
-					'content .'
-					' . header';
-			}
+        grid-template-areas:
+          "content ."
+          " . header";
+      }
 
-			.c-comment__content {
-				&::after,
-				&::before {
-					right: 0;
-				}
-			}
-		}
+      .c-comment__content {
+        &::after,
+        &::before {
+          right: 0;
+        }
+      }
+    }
 
-		&.is-level-1 > .c-comment__item {
-			--spacing-outer-depth: 0 0 0 #{1 * $spacing + px};
-		}
+    &.is-level-1 > .c-comment__item {
+      --spacing-outer-depth: 0 0 0 #{1 * $spacing + px};
+    }
 
-		@include mx.breakpoint('md') {
-			@include scaling-spacing-in-depth(2, 5, 'odd');
-		}
-	}
+    @include mx.breakpoint("md") {
+      @include scaling-spacing-in-depth(2, 5, "odd");
+    }
+  }
 
-	&.is-even {
-		> .c-comment__item {
-			--columns-grid-comment: max-content 1fr;
+  &.is-even {
+    > .c-comment__item {
+      --columns-grid-comment: max-content 1fr;
 
-			grid-template-areas:
-				'content content'
-				'header . ';
-			gap: 15px;
+      grid-template-areas:
+        "content content"
+        "header . ";
+      gap: 15px;
 
-			@include mx.breakpoint('md') {
-				--columns-grid-comment: 106px 1fr;
+      @include mx.breakpoint("md") {
+        --columns-grid-comment: 106px 1fr;
 
-				grid-template-areas:
-					' . content'
-					'header .';
-			}
+        grid-template-areas:
+          " . content"
+          "header .";
+      }
 
-			.c-comment__content {
-				&::after,
-				&::before {
-					left: 0;
-				}
-			}
-		}
+      .c-comment__content {
+        &::after,
+        &::before {
+          left: 0;
+        }
+      }
+    }
 
-		@include mx.breakpoint('md') {
-			@include scaling-spacing-in-depth(1, 5, 'even');
-		}
-	}
+    @include mx.breakpoint("md") {
+      @include scaling-spacing-in-depth(1, 5, "even");
+    }
+  }
 
-	&.is-reply {
-		margin-top: 15px;
-	}
+  &.is-reply {
+    margin-top: 15px;
+  }
 
-	&.is-author {
-		.c-comment__header {
-			--color-background-author-image: #{butler-fn.hex-to-rgb(colors.$red-light, 40%)};
-		}
-	}
+  &.is-author {
+    .c-comment__header {
+      --color-background-author-image: #{butler-fn.hex-to-rgb(
+          colors.$red-light,
+          40%
+        )};
+    }
+  }
 
-	&__footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-top: 15px;
-	}
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
 }
 
 @keyframes float {
-	0% {
-		transform: translateY(0);
-	}
+  0% {
+    transform: translateY(0);
+  }
 
-	50% {
-		transform: translateY(var(--float-distance, -20px));
-	}
+  50% {
+    transform: translateY(var(--float-distance, -20px));
+  }
 
-	100% {
-		transform: translateY(0);
-	}
+  100% {
+    transform: translateY(0);
+  }
 }

@@ -29,7 +29,7 @@ const { postSlug, lang }: any = Astro.params;
 const post: any = await getPostBySlug(postSlug);
 console.log(Astro.params);
 
-const decode = (str) => {
+const decode = (str: string) => {
   return str.replace(/&#(\d+);/g, function (match, dec) {
     return String.fromCharCode(dec);
   });

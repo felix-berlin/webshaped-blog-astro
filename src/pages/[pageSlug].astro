@@ -1,7 +1,7 @@
 ---
-import DefaultLayout from '@layouts/DefaultLayout.astro';
+import DefaultLayout from "@layouts/DefaultLayout.astro";
 
-import { getPageBySlug } from '../lib/api';
+import { getPageBySlug } from "../lib/api";
 
 // Get all pages
 // export async function getStaticPaths() {
@@ -14,14 +14,12 @@ import { getPageBySlug } from '../lib/api';
 // }
 
 export async function getStaticPaths() {
-
-  const privacy: any = await getPageBySlug('datenschutz');
-  const imprint: any = await getPageBySlug('impressum');
+  const privacy: any = await getPageBySlug("datenschutz");
+  const imprint: any = await getPageBySlug("impressum");
 
   const pages = [privacy, imprint];
 
-  return pages.map( (page) => {
-
+  return pages.map((page) => {
     return {
       params: {
         pageSlug: page.slug,
@@ -33,9 +31,10 @@ export async function getStaticPaths() {
 const { pageSlug }: any = Astro.params;
 const page: any = await getPageBySlug(pageSlug);
 ---
+
 <DefaultLayout content={page}>
   <div>
     <h1>{page?.title}</h1>
-    <article set:html={page.content}></article>
+    <article set:html={page.content} />
   </div>
 </DefaultLayout>

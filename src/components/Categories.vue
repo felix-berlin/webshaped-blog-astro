@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="categories.edges[0].node.name !== 'Uncategorized'"
+    v-if="categories ?? categories.edges[0].node.name !== 'Uncategorized'"
     class="c-categories"
   >
     <div
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { Hash } from 'lucide-vue-next'
+import { Hash } from "lucide-vue-next";
 
 interface Props {
   categories: {
@@ -31,16 +31,14 @@ interface Props {
           parent: object | null;
           children?: {
             edges: [];
-          }
-        }
+          };
+        };
       }
-    ]
+    ];
   };
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

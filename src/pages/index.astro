@@ -1,11 +1,11 @@
 ---
-import '@styles/components/_blog-posts.scss';
-import DefaultLayout from '@layouts/DefaultLayout.astro'
+import "@styles/components/_blog-posts.scss";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
 
-import BlogPostPreview from '@components/BlogPostPreview.vue';
-import { getPostsPreview, getPageBySlug } from '@lib/api';
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+import { getPostsPreview, getPageBySlug } from "@lib/api";
 
-const indexDe: any = await getPageBySlug('blog-index-de');
+const indexDe: any = await getPageBySlug("blog-index-de");
 // const indexEn: any = await getPageBySlug('blog-index-en');
 
 const posts: any = await getPostsPreview();
@@ -18,7 +18,6 @@ const posts: any = await getPostsPreview();
 //   if (post.translations.length) {
 //     console.log('MIT POST', post.slug, post.translations[0].slug);
 
-
 //     posts = {...post.translations[0], ...post};
 //   }
 //   // delete post.translations;
@@ -26,16 +25,15 @@ const posts: any = await getPostsPreview();
 
 //   console.log('nacher', posts.slug);
 
-
 //   return posts;
 // });
-
 ---
+
 <DefaultLayout content={indexDe}>
   <section class="intro">
     <h1>{indexDe.title}</h1>
   </section>
   <section class="c-blog-posts" aria-label="Blog post list">
-    <BlogPostPreview posts={posts} client:visible></BlogPostPreview>
+    <BlogPostPreview posts={posts} client:visible />
   </section>
 </DefaultLayout>

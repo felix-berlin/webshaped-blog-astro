@@ -3,7 +3,8 @@ module.exports = {
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
     "plugin:vue/vue3-recommended",
-    "plugin:vuejs-accessibility/recommended"
+    "plugin:vuejs-accessibility/recommended",
+    "prettier",
   ],
   overrides: [
     {
@@ -36,16 +37,16 @@ module.exports = {
     },
   ],
   rules: {
-    'vuejs-accessibility/label-has-for': [
-      'error',
+    "vuejs-accessibility/label-has-for": [
+      "error",
       {
         components: ["VLabel"],
         controlComponents: ["VInput"],
         required: {
-          every: ["id"]
+          every: ["id"],
         },
-        allowChildren: false
-      }
-    ]
-  }
-}
+        allowChildren: false,
+      },
+    ],
+  },
+};

@@ -72,7 +72,7 @@ const { lang } = Astro.props as MainFooterProps;
 <footer class="o-footer">
   <SocialList
     class:list={"o-footer__social-list"}
-    social-items={socialItems}
+    socialItems={socialItems}
     lang={lang}
     client:visible
   />
@@ -110,7 +110,7 @@ const { lang } = Astro.props as MainFooterProps;
       </h3>
       <Menu
         class:list={"o-footer__menu c-menu--footer"}
-        menu-items={footerMenuItems.menuItems}
+        menuItems={footerMenuItems.menuItems}
       />
     </div>
     <div class="o-footer__quote">

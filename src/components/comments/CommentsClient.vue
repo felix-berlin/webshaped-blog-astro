@@ -1,6 +1,6 @@
 <template>
   <section class="c-comments">
-    <h2>{{ __(lang.locale, 'comments.headline') }}</h2>
+    <h2>{{ __(lang.locale, "comments.headline") }}</h2>
 
     <div class="c-comment is-create-comment is-level-0 is-even">
       <CreateComment
@@ -11,23 +11,17 @@
     </div>
 
     <p v-if="!data.hasComments">
-      {{ __(lang.locale, 'comments.no_comments') }}
+      {{ __(lang.locale, "comments.no_comments") }}
     </p>
 
     <!-- <TransitionGroup name="list"> -->
-    <template
-      v-for="item in 5"
-      :key="item"
-    >
+    <template v-for="item in 5" :key="item">
       <CommentItemSkeleton v-if="!data.hasLoaded" />
     </template>
     <!-- </TransitionGroup> -->
 
     <TransitionGroup name="list">
-      <template
-        v-for="comment in data.comments"
-        :key="comment"
-      >
+      <template v-for="comment in data.comments" :key="comment">
         <CommentItem
           v-show="data.hasComments"
           :comment="comment.node"
@@ -41,29 +35,32 @@
     <button
       v-if="data?.pageInfo?.hasNextPage"
       class="c-comments__load-more-button c-button c-button--outline"
-      @click="getComments(props.currentPostId, 5, data.pageInfo.endCursor); data.partLoading = true;"
+      @click="
+        getComments(props.currentPostId, 5, data.pageInfo.endCursor);
+        data.partLoading = true;
+      "
     >
       <RefreshCw
         :size="20"
         :class="[
           'c-comments__loading-icon',
-          { 'is-loading': data.partLoading }
+          { 'is-loading': data.partLoading },
         ]"
       />
-      <span>{{ __(lang.locale, 'comments.load_more.button') }}</span>
+      <span>{{ __(lang.locale, "comments.load_more.button") }}</span>
     </button>
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
-import CommentItem from '@components/comments/CommentItem.vue';
-import CommentItemSkeleton from '@components/comments/CommentItemSkeleton.vue';
-import type { CommentData } from '@components/comments/CommentItem.vue';
-import CreateComment from '@components/comments/CreateComment.vue';
-import { __ } from '@i18n/i18n';
-import { getCommentsById } from '@lib/api';
-import { RefreshCw } from 'lucide-vue-next';
+import { onMounted, reactive } from "vue";
+import CommentItem from "@components/comments/CommentItem.vue";
+import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
+import type { CommentData } from "@components/comments/CommentItem.vue";
+import CreateComment from "@components/comments/CreateComment.vue";
+import { __ } from "@i18n/i18n";
+import { getCommentsById } from "@lib/api";
+import { RefreshCw } from "lucide-vue-next";
 
 export interface CommentsProps {
   currentPostId: number;
@@ -71,22 +68,22 @@ export interface CommentsProps {
   authorId: string;
   lang: {
     locale: string;
-  }
+  };
 }
 
 interface CommentsData {
-  comments: Object[],
+  comments: Object[];
   pageInfo: {
-    hasNextPage?: boolean,
-    endCursor?: string
-  },
-  loading: boolean,
-  hasLoaded: boolean,
-  partLoading: boolean,
-  hasComments: boolean,
+    hasNextPage?: boolean;
+    endCursor?: string;
+  };
+  loading: boolean;
+  hasLoaded: boolean;
+  partLoading: boolean;
+  hasComments: boolean;
 }
 
-const props = defineProps<CommentsProps>()
+const props = defineProps<CommentsProps>();
 
 const data = reactive<CommentsData>({
   comments: [],
@@ -95,45 +92,42 @@ const data = reactive<CommentsData>({
   hasLoaded: false,
   partLoading: false,
   hasComments: true,
-})
+});
 
 const getComments = async (
-    currentPostId = props.currentPostId,
-    first = 5,
-    after?:string,
-  ):Promise<object | any> => {
- data.loading = true;
+  currentPostId = props.currentPostId,
+  first = 5,
+  after?: string
+): Promise<object | any> => {
+  data.loading = true;
 
-  await getCommentsById(currentPostId, first, after)
-    .then(
-      response => {
-        data.comments = [...data.comments, ...response.data.comments.edges];
-        data.pageInfo = response.data.comments.pageInfo;
-        data.loading = false;
-        data.hasLoaded = true;
-        data.hasComments = !!data.comments?.length;
+  await getCommentsById(currentPostId, first, after).then((response) => {
+    data.comments = [...data.comments, ...response.data.comments.edges];
+    data.pageInfo = response.data.comments.pageInfo;
+    data.loading = false;
+    data.hasLoaded = true;
+    data.hasComments = !!data.comments?.length;
 
-        if (after) {
-          data.partLoading = false;
-        }
-      }
-    );
-}
+    if (after) {
+      data.partLoading = false;
+    }
+  });
+};
 
 const reloadComments = () => {
   data.comments = [];
   data.pageInfo = {};
   data.loading = false;
   getComments();
-}
+};
 
-onMounted(async() => {
+onMounted(async () => {
   await getComments();
 });
 </script>
 
 <style lang="scss">
-@use '@styles/components/comments';
+@use "@styles/components/comments";
 
 .list-move, /* apply transition to moving elements */
 .list-enter-active,

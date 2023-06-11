@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="props.isElement"
-    class="c-comment-count"
-  >
+  <component :is="props.isElement" class="c-comment-count">
     <span class="c-comment-count__icon">
       <MessageSquare />
     </span>
@@ -11,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { MessageSquare } from 'lucide-vue-next'
+import { MessageSquare } from "lucide-vue-next";
 
 interface CommentCountProps {
   commentTotal: number | null;
@@ -21,11 +18,9 @@ interface CommentCountProps {
 
 const props = withDefaults(defineProps<CommentCountProps>(), {
   commentTotal: 0,
-  isElement: 'div',
-  href: ''
-})
+  isElement: "div",
+  href: "",
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

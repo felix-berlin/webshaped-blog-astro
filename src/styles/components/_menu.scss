@@ -1,40 +1,40 @@
 .c-menu {
-	display: flex;
-	row-gap: 2rem;
+  display: flex;
+  row-gap: 2rem;
 
-	&__item {
-		&.has-child {
-			.is-menu-title {
-				display: flex;
-				align-items: center;
-				gap: 0.25rem;
-			}
-		}
-	}
+  &__item {
+    &.has-child {
+      .is-menu-title {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+    }
+  }
 
-	&__link {
-		cursor: pointer;
-	}
+  &__link {
+    cursor: pointer;
+  }
 
-	&--header {
-		.c-menu__link {
-			text-transform: uppercase;
-		}
-	}
+  &--header {
+    .c-menu__link {
+      text-transform: uppercase;
+    }
+  }
 
-	&--footer,
-	&--footer-two-columns {
-		column-gap: 1rem;
-		row-gap: 0.75rem;
-	}
+  &--footer,
+  &--footer-two-columns {
+    column-gap: 1rem;
+    row-gap: 0.75rem;
+  }
 
-	&--footer {
-		display: flex;
-		flex-flow: column wrap;
-	}
+  &--footer {
+    display: flex;
+    flex-flow: column wrap;
+  }
 
-	&--footer-two-columns {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-	}
+  &--footer-two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }

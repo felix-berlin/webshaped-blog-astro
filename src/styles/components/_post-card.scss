@@ -1,89 +1,90 @@
-@use '@styles/variables/colors';
-@use '@styles/variables/base';
-@use '@sass-butler/functions' as butler-fn;
-@use '@sass-butler/mixins' as butler-mx;
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
 
 .c-post-card {
-	padding: 2rem 1rem 2rem 12%;
-	background-color: butler-fn.hex-to-rgb(colors.$blue-light, 8%);
-	border-radius: base.$border-radius;
-	position: relative;
+  padding: 2rem 1rem 2rem 12%;
+  background-color: butler-fn.hex-to-rgb(colors.$blue-light, 8%);
+  border-radius: base.$border-radius;
+  position: relative;
 
-	@include butler-mx.feature('motion') {
-		@include butler-mx.hover {
-			--opacity-arrow: 1;
-			--rotate-background: 0deg;
-			--translate-background: 0, 0;
-			--color-title-post-card: var(--red-light);
-		}
-	}
-	@include butler-mx.breakpoint('xs') {
-		--translate-background: 10px, -7px;
-	}
+  @include butler-mx.feature("motion") {
+    @include butler-mx.hover {
+      --opacity-arrow: 1;
+      --rotate-background: 0deg;
+      --translate-background: 0, 0;
+      --color-title-post-card: var(--red-light);
+    }
+  }
+  @include butler-mx.breakpoint("xs") {
+    --translate-background: 10px, -7px;
+  }
 
-	&::after {
-		content: '';
-		background-color: butler-fn.hex-to-rgb(colors.$blue-light, 5%);
-		border-radius: base.$border-radius;
-		position: absolute;
-		height: 100%;
-		width: 100%;
-		inset: 0;
-		transform: rotate(var(--rotate-background, 1deg)) translate(var(--translate-background, 8px, -7px));
-		z-index: -1;
-		backdrop-filter: blur(3px) hue-rotate(21deg);
-		transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-	}
+  &::after {
+    content: "";
+    background-color: butler-fn.hex-to-rgb(colors.$blue-light, 5%);
+    border-radius: base.$border-radius;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    transform: rotate(var(--rotate-background, 1deg))
+      translate(var(--translate-background, 8px, -7px));
+    z-index: -1;
+    backdrop-filter: blur(3px) hue-rotate(21deg);
+    transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
 
-	p,
-	h2 {
-		margin: 0;
-	}
+  p,
+  h2 {
+    margin: 0;
+  }
 
-	&__link {
-		display: flex;
-		flex-direction: column;
-		gap: 1.2rem;
-	}
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
 
-	&__title {
-		color: var(--color-title-post-card, inherit);
-		transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
-	}
+  &__title {
+    color: var(--color-title-post-card, inherit);
+    transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
 
-	&__excerpt {
-		font-size: 1.1rem;
-		line-height: 1.6;
-	}
+  &__excerpt {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
 
-	&__read-more {
-		font-size: 1.2rem;
-		font-weight: 700;
-		display: flex;
-		align-items: center;
-		gap: 0.25rem;
-		margin-top: auto;
+  &__read-more {
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: auto;
 
-		@include butler-mx.feature('motion') {
-			@include butler-mx.hover {
-				--transform-arrow: translateX(0.15rem);
-				--color-arrow: var(--accent-color);
-			}
-		}
+    @include butler-mx.feature("motion") {
+      @include butler-mx.hover {
+        --transform-arrow: translateX(0.15rem);
+        --color-arrow: var(--accent-color);
+      }
+    }
 
-		&-arrow {
-			opacity: var(--opacity-arrow, 0);
-			transition: all 0.2s ease-in-out;
-			transform: var(--transform-arrow, translateX(0));
-			color: var(--color-arrow, currentColor);
+    &-arrow {
+      opacity: var(--opacity-arrow, 0);
+      transition: all 0.2s ease-in-out;
+      transform: var(--transform-arrow, translateX(0));
+      color: var(--color-arrow, currentColor);
 
-			@include butler-mx.feature('no-motion') {
-				--opacity-arrow: 1;
-			}
+      @include butler-mx.feature("no-motion") {
+        --opacity-arrow: 1;
+      }
 
-			@media (hover: none) {
-				--opacity-arrow: 1;
-			}
-		}
-	}
+      @media (hover: none) {
+        --opacity-arrow: 1;
+      }
+    }
+  }
 }

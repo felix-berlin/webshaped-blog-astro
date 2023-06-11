@@ -14,11 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { Share2 } from 'lucide-vue-next';
-import { ref, onMounted, reactive } from 'vue';
-import { useShare } from '@vueuse/core'
-import { __ } from '@i18n/i18n'
-
+import { Share2 } from "lucide-vue-next";
+import { ref, onMounted, reactive } from "vue";
+import { useShare } from "@vueuse/core";
+import { __ } from "@i18n/i18n";
 
 export interface ShareProps {
   title?: string;
@@ -29,9 +28,9 @@ export interface ShareProps {
   };
 }
 
-const { share, isSupported } = useShare()
+const { share, isSupported } = useShare();
 
-const props = defineProps<ShareProps>()
+const props = defineProps<ShareProps>();
 
 interface Data {
   currentUrl: string | undefined;
@@ -39,29 +38,19 @@ interface Data {
 
 const data: Data = reactive({
   currentUrl: props.url,
-})
+});
 
-const startShare = (title:string, text:string, url:string) => {
-  share({title, text, url})
-}
-
-// const share = (title:string, text:string, url:string) => {
-//   try {
-//     navigator.share({title, text, url})
-//   } catch (err) {
-//     console.log(err)
-//   } finally {
-//     data.shared = true
-//   }
-// }
+const startShare = (
+  title: string | undefined,
+  text: string | undefined,
+  url: string | undefined
+) => {
+  share({ title, text, url });
+};
 
 onMounted(() => {
   if (!props.url) {
-    data.currentUrl = window.location.href
+    data.currentUrl = window.location.href;
   }
-})
+});
 </script>
-
-<style scoped>
-
-</style>

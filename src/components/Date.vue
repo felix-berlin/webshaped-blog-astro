@@ -19,17 +19,21 @@ export interface DateProps {
   };
 }
 
-const props = defineProps<DateProps>()
+const props = defineProps<DateProps>();
 
 const formattedDate = (date: string, locale: string): string => {
-  const dumpSafariDateFormat = date.replace(/-/g, '/').replace(/T/g, ' ');
+  const dumpSafariDateFormat = date.replace(/-/g, "/").replace(/T/g, " ");
 
-  if (!locale) locale = 'de-DE';
+  if (!locale) locale = "de-DE";
 
-  const formattedLocale = locale.replace(/_/g, '-')
+  const formattedLocale = locale.replace(/_/g, "-");
 
   const dateToFormat = new Date(dumpSafariDateFormat);
 
-  return dateToFormat.toLocaleString(formattedLocale, { year: 'numeric', month: 'long', day: 'numeric' });
-}
+  return dateToFormat.toLocaleString(formattedLocale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
 </script>

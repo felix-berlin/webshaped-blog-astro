@@ -26,31 +26,23 @@
       :translations="post.translations"
     /> -->
 
-      <div
-        class="c-post-card__excerpt"
-        v-html="post.excerpt"
-      />
+      <div class="c-post-card__excerpt" v-html="post.excerpt" />
 
-      <div
-        class="c-post-card__read-more"
-      >
-        <span>{{ __(post.language.locale, 'blog.read_more') }}</span>
-        <ArrowRight
-          :size="22"
-          class="c-post-card__read-more-arrow"
-        />
+      <div class="c-post-card__read-more">
+        <span>{{ __(post.language.locale, "blog.read_more") }}</span>
+        <ArrowRight :size="22" class="c-post-card__read-more-arrow" />
       </div>
     </a>
   </article>
 </template>
 
 <script setup lang="ts">
-import { ArrowRight } from 'lucide-vue-next';
-import Date from '@components/Date.vue'
-import ReadingTime from '@components/ReadingTime.vue'
-import CommentCount from '@components/comments/CommentCount.vue'
-import HasTranslations from './HasTranslations.vue'
-import { __ } from '@i18n/i18n'
+import { ArrowRight } from "lucide-vue-next";
+import Date from "@components/Date.vue";
+import ReadingTime from "@components/ReadingTime.vue";
+import CommentCount from "@components/comments/CommentCount.vue";
+import HasTranslations from "./HasTranslations.vue";
+import { __ } from "@i18n/i18n";
 
 export interface BlogPostPreviewProps {
   posts: {
@@ -72,14 +64,13 @@ export interface BlogPostPreviewProps {
           readingTime: number;
         };
       }
-    ]
+    ];
   };
 }
 
-const props = defineProps<BlogPostPreviewProps>()
-
+const props = defineProps<BlogPostPreviewProps>();
 </script>
 
 <style lang="scss">
-@use '@styles/components/post-card';
+@use "@styles/components/post-card";
 </style>

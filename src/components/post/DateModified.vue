@@ -1,8 +1,5 @@
 <template>
-  <Date
-    :date="date"
-    :lang="lang"
-  >
+  <Date :date="date" :lang="lang">
     <template #before>
       <Calendar :size="18" />
     </template>
@@ -10,8 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import Date from '@components/Date.vue';
-import { Calendar } from 'lucide-vue-next'
+import Date from "@components/Date.vue";
+import { Calendar } from "lucide-vue-next";
 
 export interface DateModifiedProps {
   date: string;
@@ -20,10 +17,7 @@ export interface DateModifiedProps {
   };
 }
 
-const props = defineProps<DateModifiedProps>()
-
+const props = defineProps<DateModifiedProps>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

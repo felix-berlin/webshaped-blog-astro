@@ -5,9 +5,7 @@
     :key="index"
     class="c-webmentions"
   >
-    <div
-      class="c-webmentions__item"
-    >
+    <div class="c-webmentions__item">
       <a
         :href="mention.author.url"
         target="_blank"
@@ -21,37 +19,33 @@
           loading="lazy"
           decoding="async"
           class="c-webmentions__author-image"
-        >
+        />
       </a>
-      <a
-        :href="mention.url"
-        target="_blank"
-      >
+      <a :href="mention.url" target="_blank">
         <Twitter v-if="domainName(mention.url) === 'twitter'" />
         <Github v-if="domainName(mention.url) === 'github'" />
-        <ExternalLink v-if="domainName(mention.url) !== 'github' && domainName(mention.url) !== 'twitter'" />
+        <ExternalLink
+          v-if="
+            domainName(mention.url) !== 'github' &&
+            domainName(mention.url) !== 'twitter'
+          "
+        />
       </a>
       <h2 class="c-webmentions__author-name">
         {{ mention.author.name }}
       </h2>
-      <Date
-        class="c-webmentions__date"
-        :date="mention.published"
-      />
-      <div
-        class="c-webmentions__text"
-        v-text="mention.content.text"
-      />
+      <Date class="c-webmentions__date" :date="mention.published" />
+      <div class="c-webmentions__text" v-text="mention.content.text" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from 'vue';
-import { useStore } from '@nanostores/vue';
-import { currentWebmentionsCount } from '@stores/store';
-import Date from '@components/Date.vue';
-import { Twitter, Github, ExternalLink } from 'lucide-vue-next';
+import { onMounted, reactive } from "vue";
+import { useStore } from "@nanostores/vue";
+import { currentWebmentionsCount } from "@stores/store";
+import Date from "@components/Date.vue";
+import { Twitter, Github, ExternalLink } from "lucide-vue-next";
 
 export interface WebmentionsProps {
   target?: string;
@@ -66,47 +60,49 @@ interface State {
         photo: string;
         url: string;
         type: string;
-      },
+      };
       content: {
         html: string;
         text: string;
-      },
-      'mention-of': string;
+      };
+      "mention-of": string;
       published: string;
       type: string;
       url: string;
-      'wm-id': number;
-      'wm-private': boolean;
-      'wm-property': string;
-      'wm-received': string;
-      'wm-source': string;
-      'wm-target': string;
+      "wm-id": number;
+      "wm-private": boolean;
+      "wm-property": string;
+      "wm-received": string;
+      "wm-source": string;
+      "wm-target": string;
     }
   ];
 }
 
 const props = withDefaults(defineProps<WebmentionsProps>(), {
-  target: '',
+  target: "",
   currentUrl: false,
 });
 
 const state: State = reactive({
   mentions: [],
-})
+});
 
 /**
  * Fetch all webmentions for the current page
  *
  * @var {[type]}
  */
-const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
-                .then((res) => res.json())
-                .then(async (data) => {
-                  // TODO: Remove or comment out. This is just for testing.
-                  await new Promise(resolve => setTimeout(resolve, 5000));
-                  currentWebmentionsCount.set(data.children.length);
-                  state.mentions = data.children;
-                });
+const response = await fetch(
+  `https://webmention.io/api/mentions.jf2?target=${props.target}`
+)
+  .then((res) => res.json())
+  .then(async (data) => {
+    // TODO: Remove or comment out. This is just for testing.
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    currentWebmentionsCount.set(data.children.length);
+    state.mentions = data.children;
+  });
 
 // const getWebmentions = async (target = props.target) => {
 //   if (props.currentUrl) {
@@ -126,10 +122,8 @@ const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${pr
 // });
 //
 const domainName = (url: string) => {
-  return url.replace(/.+\/\/|www.|\..+/g, '');
-}
+  return url.replace(/.+\/\/|www.|\..+/g, "");
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

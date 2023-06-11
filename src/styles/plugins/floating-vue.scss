@@ -1,41 +1,41 @@
-@use './../../../node_modules/floating-vue/dist/style.css';
-@use '@sass-butler/mixins' as butler-mx;
-@use '@sass-butler/functions' as butler-fn;
+@use "./../../../node_modules/floating-vue/dist/style.css";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
 
 div {
-	&.v-popper__popper {
-		--color-background: var(--blue-dark);
+  &.v-popper__popper {
+    --color-background: var(--blue-dark);
 
-		@include butler-mx.dark-mode-class {
-			--color-background: var(--white);
-		}
+    @include butler-mx.dark-mode-class {
+      --color-background: var(--white);
+    }
 
-		&:focus {
-			outline: none;
-		}
+    &:focus {
+      outline: none;
+    }
 
-		.v-popper__inner {
-			background-color: var(--color-background);
-			padding: var(--padding, #{1.5rem 1.5rem});
-			border: none;
-			border-radius: 3px;
-			max-width: 100%;
-			min-width: var(--width-min, fit-content);
-			box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+    .v-popper__inner {
+      background-color: var(--color-background);
+      padding: var(--padding, #{1.5rem 1.5rem});
+      border: none;
+      border-radius: 3px;
+      max-width: 100%;
+      min-width: var(--width-min, fit-content);
+      box-shadow: 0 0 15px rgb(0 0 0 / 30%);
 
-			a,
-			& {
-				color: var(--color, var(--white));
+      a,
+      & {
+        color: var(--color, var(--white));
 
-				@include butler-mx.dark-mode-class {
-					--color: var(--blue-dark);
-				}
-			}
-		}
+        @include butler-mx.dark-mode-class {
+          --color: var(--blue-dark);
+        }
+      }
+    }
 
-		.v-popper__arrow-inner,
-		.v-popper__arrow-outer {
-			border-color: var(--color-background);
-		}
-	}
+    .v-popper__arrow-inner,
+    .v-popper__arrow-outer {
+      border-color: var(--color-background);
+    }
+  }
 }

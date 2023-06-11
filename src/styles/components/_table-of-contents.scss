@@ -1,19 +1,19 @@
-@use '@styles/variables/colors';
+@use "@styles/variables/colors";
 
 .c-toc {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
-	&__link {
-		transition: color 0.2s ease-in-out;
+  &__link {
+    transition: color 0.2s ease-in-out;
 
-		&--depth-3 {
-			margin-left: 1.5rem;
-		}
+    &--depth-3 {
+      margin-left: 1.5rem;
+    }
 
-		&.is-active {
-			color: var(--accent-color);
-		}
-	}
+    &.is-active {
+      color: var(--accent-color);
+    }
+  }
 }

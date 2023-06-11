@@ -1,15 +1,16 @@
 <template>
   <div class="c-social-list">
-    <template
-      v-for="(social, index) in socialItems"
-      :key="index"
-    >
+    <template v-for="(social, index) in socialItems" :key="index">
       <a
         v-if="social?.url && social !== null"
         v-tooltip="{ content: index, placement: 'top' }"
         :href="social.url"
         :target="social.target ? social.target : '_blank'"
-        :aria-label="social.label ? social.label : __( lang.locale, 'social_list.link.label', { platform: index } )"
+        :aria-label="
+          social.label
+            ? social.label
+            : __(lang.locale, 'social_list.link.label', { platform: index })
+        "
         :class="`c-social-list__link ${social.class ? social.class : ''}`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
       >
@@ -56,10 +57,17 @@
 </template>
 
 <script setup lang="ts">
-import { Github, Facebook, Twitter, Instagram, Youtube, Linkedin } from 'lucide-vue-next'
-import { __ } from '@i18n/i18n'
+import {
+  Github,
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Linkedin,
+} from "lucide-vue-next";
+import { __ } from "@i18n/i18n";
 
-export interface SocialListItem {
+export interface SocialItems {
   url: string;
   target?: string;
   label?: string;
@@ -72,25 +80,25 @@ export interface SocialListItem {
 
 export interface SocialListProps {
   socialItems: {
-    facebook?: SocialListItem;
-    instagram?: SocialListItem;
-    linkedIn?: SocialListItem;
-    mySpace?: SocialListItem;
-    pinterest?: SocialListItem;
-    soundCloud?: SocialListItem;
-    twitter?: SocialListItem;
-    wikipedia?: SocialListItem;
-    youTube?: SocialListItem;
-    github?: SocialListItem;
-  },
+    facebook?: SocialItems;
+    instagram?: SocialItems;
+    linkedIn?: SocialItems;
+    mySpace?: SocialItems;
+    pinterest?: SocialItems;
+    soundCloud?: SocialItems;
+    twitter?: SocialItems;
+    wikipedia?: SocialItems;
+    youTube?: SocialItems;
+    github?: SocialItems;
+  };
   lang: {
     locale: string;
-  }
+  };
 }
 
-const props = defineProps<SocialListProps>()
+const props = defineProps<SocialListProps>();
 </script>
 
 <style lang="scss">
-  @use '../styles/components/social-list';
+@use "../styles/components/social-list";
 </style>

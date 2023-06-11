@@ -20,27 +20,28 @@
 </template>
 
 <script setup lang="ts">
-import { availableLanguages } from '@i18n/i18n';
-import { onMounted, reactive } from 'vue';
-import { useStore } from '@nanostores/vue';
-import { currentLanguage } from '@stores/i18n';
+import { availableLanguages } from "@i18n/i18n";
+import { onMounted, reactive } from "vue";
+import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/i18n";
 
 const obj = reactive({
-  userLanguage: '',
+  userLanguage: "",
 });
 
-const userLanguage = ():string => {
+const userLanguage = (): string => {
   const language = navigator.language;
-  return language.split('-')[0];
+  return language.split("-")[0];
 };
 
 const changeLanguage = (event: Event) => {
   const newLang = (event.target as HTMLSelectElement).value;
   console.log(newLang);
-  const [_leadingSlash, _oldLang, ...rest] = window.location.pathname.split('/');
-  const slug = rest.join('/');
+  const [_leadingSlash, _oldLang, ...rest] =
+    window.location.pathname.split("/");
+  const slug = rest.join("/");
   // window.location.pathname = `/${newLang}/${slug}`;
-  currentLanguage.set(newLang)
+  currentLanguage.set(newLang);
 };
 
 onMounted(() => {
@@ -49,11 +50,10 @@ onMounted(() => {
   console.log(userLanguage());
   // console.log(Astro.params);
 
-// console.log(useStore(currentLanguage));
-
+  // console.log(useStore(currentLanguage));
 });
 </script>
 
 <style lang="scss">
-@use '@styles/components/language-select';
+@use "@styles/components/language-select";
 </style>

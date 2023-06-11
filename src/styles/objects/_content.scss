@@ -1,8 +1,8 @@
-@use '@styles/variables/variables' as vars;
+@use "@styles/variables/variables" as vars;
 
 .o-content {
-	grid-area: content;
-	max-width: vars.$content-width;
-	margin: 0 auto;
-	min-height: 100vh;
+  grid-area: content;
+  max-width: vars.$content-width;
+  margin: 0 auto;
+  min-height: 100vh;
 }

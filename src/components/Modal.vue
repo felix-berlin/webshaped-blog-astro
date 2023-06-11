@@ -1,13 +1,7 @@
 <template>
   <Transition :name="transition">
-    <div
-      v-if="open"
-      class="c-modal"
-    >
-      <div
-        ref="modalContentWrap"
-        class="c-modal__content-wrap"
-      >
+    <div v-if="open" class="c-modal">
+      <div ref="modalContentWrap" class="c-modal__content-wrap">
         <button
           v-if="showCloseButton"
           type="button"
@@ -24,16 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import { watch, onMounted, onUnmounted, ref } from 'vue';
-import { X } from 'lucide-vue-next';
-import { onClickOutside } from '@vueuse/core'
+import { watch, onMounted, onUnmounted, ref } from "vue";
+import { X } from "lucide-vue-next";
+import { onClickOutside } from "@vueuse/core";
 
 export interface ModalProps {
   open: boolean;
   showCloseButton?: boolean;
   disableScroll?: boolean;
   closeOnClickOutside?: boolean;
-  transition?: string | 'slide-fade-right' | 'fade';
+  transition?: string | "slide-fade-right" | "fade";
 }
 
 const props = withDefaults(defineProps<ModalProps>(), {
@@ -41,15 +35,15 @@ const props = withDefaults(defineProps<ModalProps>(), {
   showCloseButton: true,
   disableScroll: false,
   closeOnClickOutside: true,
-  transition: 'fade',
+  transition: "fade",
 });
 
-const emit = defineEmits(['close', 'open']);
+const emit = defineEmits(["close", "open"]);
 
 const modalContentWrap = ref<HTMLElement | null>(null);
 
-onClickOutside(modalContentWrap, () =>{
-  if (props.closeOnClickOutside) close()
+onClickOutside(modalContentWrap, () => {
+  if (props.closeOnClickOutside) close();
 });
 
 /**
@@ -58,7 +52,7 @@ onClickOutside(modalContentWrap, () =>{
  * @return  {void}
  */
 const close = (): void => {
-  emit('close');
+  emit("close");
 };
 
 /**
@@ -69,7 +63,7 @@ const close = (): void => {
  * @return  {void}                [return description]
  */
 const closeOnEscape = (event: KeyboardEvent): void => {
-  if (event.key === 'Escape') {
+  if (event.key === "Escape") {
     close();
   }
 };
@@ -82,32 +76,35 @@ const closeOnEscape = (event: KeyboardEvent): void => {
  * @return  {void}
  */
 const disableScroll = (status: boolean): void => {
-  if (props.disableScroll && status) document.body.style.overflow = 'hidden';
-  if (props.disableScroll && !status) document.body.removeAttribute('style');
+  if (props.disableScroll && status) document.body.style.overflow = "hidden";
+  if (props.disableScroll && !status) document.body.removeAttribute("style");
 };
 
 onMounted(() => {
-  window.addEventListener('keyup', closeOnEscape);
+  window.addEventListener("keyup", closeOnEscape);
 
-  if (props.transition === 'slide-right') {
-    document.querySelector('.c-main-nav')?.classList.add('u-slide-parent');
+  if (props.transition === "slide-right") {
+    document.querySelector(".c-main-nav")?.classList.add("u-slide-parent");
   }
 });
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', closeOnEscape);
+  window.removeEventListener("keydown", closeOnEscape);
 
-  if (props.transition === 'slide-right') {
-    document.querySelector('.c-main-nav')?.classList.remove('u-slide-parent');
+  if (props.transition === "slide-right") {
+    document.querySelector(".c-main-nav")?.classList.remove("u-slide-parent");
   }
 });
 
-watch(() => props.open, (value) => {
-  if (value) emit('open');
-  disableScroll(value);
-})
+watch(
+  () => props.open,
+  (value) => {
+    if (value) emit("open");
+    disableScroll(value);
+  }
+);
 </script>
 
 <style lang="scss">
-@use '@styles/components/modal';
+@use "@styles/components/modal";
 </style>

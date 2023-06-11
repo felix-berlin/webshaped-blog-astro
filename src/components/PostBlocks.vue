@@ -1,12 +1,6 @@
 <template>
-  <div
-    id="postContent"
-    class="c-blocks"
-  >
-    <template
-      v-for="block in blocks"
-      :key="block.order"
-    >
+  <div id="postContent" class="c-blocks">
+    <template v-for="block in blocks" :key="block.order">
       <p
         v-if="block.name === 'core/paragraph'"
         class="c-blocks__paragraph"
@@ -14,10 +8,12 @@
       />
 
       <component
-        :is="`h${parse(block.attributesJSON).level }`"
+        :is="`h${parse(block.attributesJSON).level}`"
         v-if="block.name === 'core/heading'"
         :id="slugify(parse(block.attributesJSON).content, { lower: true })"
-        :class="`c-blocks__heading c-blocks__heading--${parse(block.attributesJSON).level }`"
+        :class="`c-blocks__heading c-blocks__heading--${
+          parse(block.attributesJSON).level
+        }`"
       >
         {{ parse(block.attributesJSON).content }}
       </component>
@@ -28,15 +24,12 @@
         v-html="block.originalContent"
       />
 
-      <figure
-        v-if="block.name === 'core/image'"
-        class="c-blocks__image"
-      >
+      <figure v-if="block.name === 'core/image'" class="c-blocks__image">
         <img
           :id="parse(block.attributesJSON).id"
           :src="parse(block.attributesJSON).url"
           :alt="parse(block.attributesJSON).alt"
-        >
+        />
         <figcaption
           v-if="parse(block.attributesJSON).caption"
           v-html="parse(block.attributesJSON).caption"
@@ -50,19 +43,17 @@
         :title="parse(block.attributesJSON).title"
         :target="parse(block.attributesJSON).target"
         :rel="parse(block.attributesJSON).rel"
-        :class="`c-blocks__button ${parse(block.attributesJSON).className }`"
-      >{{ parse(block.attributesJSON).text }}</a>
+        :class="`c-blocks__button ${parse(block.attributesJSON).className}`"
+        >{{ parse(block.attributesJSON).text }}</a
+      >
 
-      <div
-        v-if="block.name === 'core/html'"
-        v-html="block.originalContent"
-      />
+      <div v-if="block.name === 'core/html'" v-html="block.originalContent" />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import slugify from 'slugify';
+import slugify from "slugify";
 interface PostBlocksProps {
   blocks: [
     {
@@ -77,19 +68,16 @@ interface PostBlocksProps {
           order: number;
           originalContent: string;
         }
-      ]
+      ];
     }
-  ]
+  ];
 }
 
-
-const props = defineProps<PostBlocksProps>()
+const props = defineProps<PostBlocksProps>();
 
 const parse = (str: string) => {
   return JSON.parse(str);
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

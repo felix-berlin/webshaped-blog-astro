@@ -1,57 +1,57 @@
-@use '@styles/variables/shadows';
-@use '@styles/variables/colors';
-@use '@styles/variables/base';
-@use '@sass-butler/functions' as butler-fn;
-@use '@sass-butler/mixins' as butler-mx;
+@use "@styles/variables/shadows";
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
 
 .c-button {
-	cursor: pointer;
-	border-radius: base.$border-radius;
+  cursor: pointer;
+  border-radius: base.$border-radius;
 
-	// padding: var(--padding, #{vars.$spacer * 0.25});
-	// background-color: var(--color-background, var(--white-100));
-	// border: var(--width-border, 1px) var(--style-border, solid) var(--color-border, var(--grey-100));
-	// color: var(--color, var(--grey-100));
-	// transition: all 0.3s ease-in-out;
-	//
-	&--outline {
-		border: 1px solid var(--color-border, var(--accent-color));
-		color: var(--color, var(--white));
-		background-color: transparent;
-		padding: 0.5rem 1rem;
-	}
+  // padding: var(--padding, #{vars.$spacer * 0.25});
+  // background-color: var(--color-background, var(--white-100));
+  // border: var(--width-border, 1px) var(--style-border, solid) var(--color-border, var(--grey-100));
+  // color: var(--color, var(--grey-100));
+  // transition: all 0.3s ease-in-out;
+  //
+  &--outline {
+    border: 1px solid var(--color-border, var(--accent-color));
+    color: var(--color, var(--white));
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+  }
 
-	&--icon {
-		@extend .u-button-reset;
+  &--icon {
+    @extend .u-button-reset;
 
-		display: var(--display-button, flex);
-		align-items: center;
-		justify-content: center;
-		color: var(--blue-light);
-		transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
+    display: var(--display-button, flex);
+    align-items: center;
+    justify-content: center;
+    color: var(--blue-light);
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
-		&:active {
-			@include butler-mx.feature('motion') {
-				background-color: var(--accent-color);
-				color: colors.$white;
-			}
-		}
+    &:active {
+      @include butler-mx.feature("motion") {
+        background-color: var(--accent-color);
+        color: colors.$white;
+      }
+    }
 
-		@include butler-mx.feature('motion') {
-			@include butler-mx.hover {
-				svg {
-					--shadow: var(--accent-color);
-				}
-			}
-		}
+    @include butler-mx.feature("motion") {
+      @include butler-mx.hover {
+        svg {
+          --shadow: var(--accent-color);
+        }
+      }
+    }
 
-		svg {
-			filter: drop-shadow(shadows.$white-light-shadow);
-		}
-	}
+    svg {
+      filter: drop-shadow(shadows.$white-light-shadow);
+    }
+  }
 }
 
 .u-button-reset {
-	background-color: transparent;
-	border: none;
+  background-color: transparent;
+  border: none;
 }

@@ -11,19 +11,18 @@
         class="c-scrobble-display__music-bar"
       />
 
-      <template
-        #popper
-      >
+      <template #popper>
         <header class="c-scrobble-display__header">
           <h2
             class="c-scrobble-display__headline"
-            v-text="__(lang.locale, 'scrobble_display.headline', {count: numberOfDisplayedTracks})"
+            v-text="
+              __(lang.locale, 'scrobble_display.headline', {
+                count: numberOfDisplayedTracks,
+              })
+            "
           />
 
-          <button
-            v-close-popper
-            class="c-scrobble-display__close"
-          >
+          <button v-close-popper class="c-scrobble-display__close">
             <X
               :size="14"
               :aria-label="__(lang.locale, 'scrobble_display.close')"
@@ -42,22 +41,26 @@
             v-for="(track, index) in state.tracks.recenttracks.track"
             :key="index"
             class="c-scrobble-display__track-item"
-            :class="{ 'is-playing': track['@attr']?.nowplaying}"
+            :class="{ 'is-playing': track['@attr']?.nowplaying }"
           >
             <img
               :src="track.image[1]['#text']"
-              :alt="__(lang.locale, 'scrobble_display.album_cover.alt', {album: track.album['#text'], artist: track.artist['#text']})"
+              :alt="
+                __(lang.locale, 'scrobble_display.album_cover.alt', {
+                  album: track.album['#text'],
+                  artist: track.artist['#text'],
+                })
+              "
               class="c-scrobble-display__image"
               decoding="async"
               loading="eager"
               width="64"
               height="64"
-            >
+            />
             <div class="c-scrobble-display__track">
-              <a
-                :href="track.url"
-                class="c-scrobble-display__track-link"
-              >{{ track.name }}</a>
+              <a :href="track.url" class="c-scrobble-display__track-link">{{
+                track.name
+              }}</a>
               <MusicBars
                 v-if="track['@attr']?.nowplaying"
                 :animate="true"
@@ -66,7 +69,7 @@
             </div>
 
             <p class="c-scrobble-display__artist">
-              {{ track.artist['#text'] }}
+              {{ track.artist["#text"] }}
             </p>
           </div>
         </TransitionGroup>
@@ -77,20 +80,31 @@
             class="c-scrobble-display__scrobble"
             width="32"
             height="32"
-          >
-          <span>{{ __(lang.locale, 'scrobble_display.total_text', {total: state.tracks.recenttracks['@attr'].total}) }}</span><br>
-          <span v-html="__(lang.locale, 'scrobble_display.follow_me', {link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`})" />
+          />
+          <span>{{
+            __(lang.locale, "scrobble_display.total_text", {
+              total: state.tracks.recenttracks["@attr"].total,
+            })
+          }}</span
+          ><br />
+          <span
+            v-html="
+              __(lang.locale, 'scrobble_display.follow_me', {
+                link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`,
+              })
+            "
+          />
         </footer>
       </template>
-    </vDropdown>
+    </VDropdown>
   </div>
 </template>
 
 <script setup lang="ts">
-import { watchEffect, onBeforeUnmount, onMounted, reactive, watch  } from "vue";
+import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
-import { X } from 'lucide-vue-next';
-import { __ } from '@i18n/i18n'
+import { X } from "lucide-vue-next";
+import { __ } from "@i18n/i18n";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
@@ -100,7 +114,7 @@ export interface ScrobbleDisplayProps {
   idleAfterCount?: number;
   lang: {
     locale: string;
-  }
+  };
 }
 
 interface State {
@@ -115,12 +129,12 @@ interface State {
 const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
   numberOfDisplayedTracks: 5,
   updateRate: 180_000, // check every 180 seconds (3 min)
-  dropdownPlacement: 'auto',
+  dropdownPlacement: "auto",
   idleIfInactive: false,
   idleAfterCount: undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
   lang: {
-    locale: 'de'
-  }
+    locale: "de",
+  },
 });
 
 const state: State = reactive({
@@ -130,7 +144,7 @@ const state: State = reactive({
   updateIntervalId: undefined,
   isDropdownShown: false,
   idleAfterCount: props.idleAfterCount ? props.idleAfterCount + 1 : undefined,
-})
+});
 
 const stop = watchEffect(() => {
   /**
@@ -139,9 +153,9 @@ const stop = watchEffect(() => {
   if (state.idleAfterCount === state.updateCount && !state.isDropdownShown) {
     stopScrobbleUpdates();
   }
-})
+});
 
-watch (
+watch(
   () => state.isDropdownShown,
   () => {
     if (state.isDropdownShown) {
@@ -150,7 +164,7 @@ watch (
       return startScrobbleUpdates(true);
     }
   }
-)
+);
 
 /**
  * Fetch the last tracks from the last.fm api
@@ -158,7 +172,11 @@ watch (
  * @return  {object}  api response
  */
 const getScrobbles = async (): Promise<object> => {
-  const response = await fetch(`${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${ props.numberOfDisplayedTracks }`);
+  const response = await fetch(
+    `${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${
+      props.numberOfDisplayedTracks
+    }`
+  );
   const data = await response.json();
 
   return data;
@@ -170,16 +188,18 @@ const getScrobbles = async (): Promise<object> => {
  * @return  {void}  [return description]
  */
 const checkIfPlaying = async (): Promise<void> => {
-
   await getScrobbles().then((data) => {
     state.tracks = data;
     state.updateCount++;
 
     state.scrobbling = !!data.recenttracks.track.find(
-      (track: { [x: string]: { nowplaying: boolean; }; hasOwnProperty: (arg0: string) => any; }) =>
-      track.hasOwnProperty('@attr') && track['@attr'].nowplaying);
+      (track: {
+        [x: string]: { nowplaying: boolean };
+        hasOwnProperty: (arg0: string) => any;
+      }) => track.hasOwnProperty("@attr") && track["@attr"].nowplaying
+    );
   });
-}
+};
 
 /**
  * Start looking for new scrobbles
@@ -194,7 +214,7 @@ const startScrobbleUpdates = (immediately: boolean): void => {
 
   // Start update interval
   state.updateIntervalId = setInterval(checkIfPlaying, props.updateRate);
-}
+};
 
 /**
  * stop looking for new scrobbles
@@ -202,12 +222,12 @@ const startScrobbleUpdates = (immediately: boolean): void => {
  * @return  {void}
  */
 const stopScrobbleUpdates = (): void => {
-  if (typeof state.updateIntervalId !== 'undefined') clearInterval(state.updateIntervalId);
-}
+  if (typeof state.updateIntervalId !== "undefined")
+    clearInterval(state.updateIntervalId);
+};
 
-onMounted( async () => {
+onMounted(async () => {
   startScrobbleUpdates(true);
-
 });
 
 onBeforeUnmount(() => {
@@ -218,5 +238,5 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@use '@styles/components/scrobble-display';
+@use "@styles/components/scrobble-display";
 </style>

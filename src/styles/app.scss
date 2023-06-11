@@ -1,12 +1,12 @@
-@use './base/base';
-@use './utilities/utilities';
-@use './plugins/floating-vue';
+@use "./base/base";
+@use "./utilities/utilities";
+@use "./plugins/floating-vue";
 
 // Import global objects
-@use '@styles/objects/body';
-@use '@styles/objects/header';
-@use '@styles/objects/footer';
-@use '@styles/objects/content';
+@use "@styles/objects/body";
+@use "@styles/objects/header";
+@use "@styles/objects/footer";
+@use "@styles/objects/content";
 
 // Import global components
-@use '@styles/components/components';
+@use "@styles/components/components";

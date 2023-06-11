@@ -1,31 +1,36 @@
 ---
-import { getPrimaryMenu } from '../lib/api';
+import { getPrimaryMenu } from "../lib/api";
 const { menuItems }: any = await getPrimaryMenu();
 
 interface MenuItem {
   node: {
     path: any;
     connectedNode: {
-      node: { slug: string; };
+      node: { slug: string };
     };
-    label: string; };
+    label: string;
+  };
 }
 ---
 
 <header class="wrapper">
-	<nav>
-		<a href="/">Home</a>
-		<ul>
-			{menuItems.edges.map((item: MenuItem) =>
-					<li key={item.node.path}>
-							<a href={ '/' + item.node.connectedNode.node.slug} class={`cursor-pointer p-4 ml-2 text-white`}>
-									{item.node.label}
-							</a>
-					</li>
-			)}
-		</ul>
-	</nav>
+  <nav>
+    <a href="/">Home</a>
+    <ul>
+      {
+        menuItems.edges.map((item: MenuItem) => (
+          <li key={item.node.path}>
+            <a
+              href={"/" + item.node.connectedNode.node.slug}
+              class={`cursor-pointer p-4 ml-2 text-white`}
+            >
+              {item.node.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
 
-<style>
-</style>
+<style></style>

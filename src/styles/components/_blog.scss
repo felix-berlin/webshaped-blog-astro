@@ -1,117 +1,111 @@
-@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
-@use '@sass-butler/functions' as butler-fn;
-@use '@sass-butler/mixins' as butler-mx;
-@use '@styles/components/breadcrumbs';
-@use '@styles/variables/base';
-@use '@styles/variables/variables' as vars;
+@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+@use "@styles/components/breadcrumbs";
+@use "@styles/variables/base";
+@use "@styles/variables/variables" as vars;
 
 .c-blog {
-	display: grid;
-	grid-template:
-		var(
-			--template-grid,
-			' header '
-			' sidebar '
-			' article '
-		);
-	grid-template-columns: var(--columns-grid, 1fr);
-	column-gap: 25px;
-	row-gap: 25px;
-	word-break: break-word;
+  display: grid;
+  grid-template: var(--template-grid, " header " " sidebar " " article ");
+  grid-template-columns: var(--columns-grid, 1fr);
+  column-gap: 25px;
+  row-gap: 25px;
+  word-break: break-word;
 
-	@include mx.breakpoint('md') {
-		--template-grid: 'header header' ' article sidebar ';
-		--columns-grid: 3fr 1fr;
-	}
+  @include mx.breakpoint("md") {
+    --template-grid: "header header" " article sidebar ";
+    --columns-grid: 3fr 1fr;
+  }
 
-	&__header {
-		grid-area: header;
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: 25px;
-		row-gap: 40px;
-		margin: 100px 0;
+  &__header {
+    grid-area: header;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 25px;
+    row-gap: 40px;
+    margin: 100px 0;
 
-		.c-date,
-		.c-reading-time,
-		.c-webmentions-count,
-		.c-categories {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: var(--color-text, var(--blue-shallow-dark));
-			gap: 5px;
-		}
+    .c-date,
+    .c-reading-time,
+    .c-webmentions-count,
+    .c-categories {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text, var(--blue-shallow-dark));
+      gap: 5px;
+    }
 
-		.c-categories {
-			gap: 10px;
+    .c-categories {
+      gap: 10px;
 
-			&__item {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: var(--color-text, var(--blue-shallow-dark));
-				gap: 5px;
-				position: relative;
+      &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text, var(--blue-shallow-dark));
+        gap: 5px;
+        position: relative;
 
-				@include butler-mx.hover {
-					--opacity: 1;
-				}
+        @include butler-mx.hover {
+          --opacity: 1;
+        }
 
-				&::before {
-					content: '';
-					position: absolute;
-					z-index: -1;
-					width: 110%;
-					height: 120%;
-					opacity: var(--opacity, 0);
-					display: block;
-					border-radius: base.$border-radius;
-					border: 1px solid var(--accent-color);
-					transition: all 0.3s ease-in-out;
-				}
-			}
-		}
-	}
+        &::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          width: 110%;
+          height: 120%;
+          opacity: var(--opacity, 0);
+          display: block;
+          border-radius: base.$border-radius;
+          border: 1px solid var(--accent-color);
+          transition: all 0.3s ease-in-out;
+        }
+      }
+    }
+  }
 
-	&__title {
-		flex: 1 0 100%;
-		font-size: var(--font-size-3xl);
-		margin: 0;
-	}
+  &__title {
+    flex: 1 0 100%;
+    font-size: var(--font-size-3xl);
+    margin: 0;
+  }
 
-	&__hero-image {
-		border: 1px solid vars.$blue-dark;
-		border-radius: base.$border-radius;
-	}
+  &__hero-image {
+    border: 1px solid vars.$blue-dark;
+    border-radius: base.$border-radius;
+  }
 
-	&__post {
-		grid-area: article;
-	}
+  &__post {
+    grid-area: article;
+  }
 
-	&__content {
-		padding-left: vars.$content-spacing-outer;
+  &__content {
+    padding-left: vars.$content-spacing-outer;
 
-		p {
-			font-size: var(--font-size-lg);
-			line-height: butler-fn.px-to-rem(34);
-		}
-	}
+    p {
+      font-size: var(--font-size-lg);
+      line-height: butler-fn.px-to-rem(34);
+    }
+  }
 
-	img {
-		max-width: 100%;
-		height: auto;
-	}
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 
-	.code-toolbar {
-		// overflow-y: scroll;
-		display: grid;
-		margin-left: -#{vars.$content-spacing-outer};
+  .code-toolbar {
+    // overflow-y: scroll;
+    display: grid;
+    margin-left: -#{vars.$content-spacing-outer};
 
-		pre {
-			max-width: 100%;
+    pre {
+      max-width: 100%;
 
-			// overflow: scroll;
-		}
-	}
+      // overflow: scroll;
+    }
+  }
 }

@@ -1,8 +1,5 @@
 <template>
-  <Transition
-    name="fade"
-    mode="in-out"
-  >
+  <Transition name="fade" mode="in-out">
     <Suspense>
       <Webmentions
         id="webmentions"
@@ -10,12 +7,10 @@
       />
 
       <template #fallback>
-        <div
-          id="webmentions"
-          class="card is-loading"
-        >
+        <div id="webmentions" class="card is-loading">
           <div class="image" />
           <div class="content">
+            <!-- eslint-disable-next-line vuejs-accessibility/heading-has-content -->
             <h2 />
             <p />
           </div>
@@ -26,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import Webmentions from './Webmentions.vue';
+import Webmentions from "./Webmentions.vue";
 </script>
 
 <style scoped lang="scss">
@@ -49,7 +44,6 @@ import Webmentions from './Webmentions.vue';
     padding: 20px 30px;
   }
 }
-
 
 .card.is-loading {
   .image,
@@ -77,11 +71,9 @@ import Webmentions from './Webmentions.vue';
   }
 }
 
-
 @keyframes shine {
   to {
     background-position-x: -200%;
   }
 }
-
 </style>

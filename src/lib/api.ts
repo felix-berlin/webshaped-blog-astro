@@ -1,23 +1,28 @@
 const { PUBLIC_WP_API } = import.meta.env;
 
-async function fetchAPI(query: string, { variables } = {}):Promise<object | any> {
-  const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json', };
+async function fetchAPI(
+  query: string,
+  { variables } = {}
+): Promise<object | any> {
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  };
 
   return await fetch(PUBLIC_WP_API, {
-    method: 'POST',
+    method: "POST",
     headers: headers,
     body: JSON.stringify({ query, variables }),
-  })
-  .then(async response => {
-      if (response.ok) {
-        // console.log('response', response);
+  }).then(async (response) => {
+    if (response.ok) {
+      // console.log('response', response);
 
-        return await response.json()
-      } else {
-        const errorMessage = await response.text()
-        return Promise.reject(new Error(errorMessage))
-      }
-    })
+      return await response.json();
+    } else {
+      const errorMessage = await response.text();
+      return Promise.reject(new Error(errorMessage));
+    }
+  });
   // .then((res) => {
   //   if (res.errors && res.errors.length > 0) {
   //     // console.error(res.errors);
@@ -33,7 +38,7 @@ async function fetchAPI(query: string, { variables } = {}):Promise<object | any>
   //  });
 }
 
-export async function getAllPagesWithSlugs():Promise<object> {
+export async function getAllPagesWithSlugs(): Promise<object> {
   const data = await fetchAPI(`
   {
     pages(first: 10000) {
@@ -48,7 +53,7 @@ export async function getAllPagesWithSlugs():Promise<object> {
   return data?.pages;
 }
 
-export async function getCategoryBySlug(slug:string):Promise<object> {
+export async function getCategoryBySlug(slug: string): Promise<object> {
   const data = await fetchAPI(`
   {
     categories(first: 10000, where: {slug: "${slug}"}) {
@@ -86,11 +91,11 @@ export async function getCategoryBySlug(slug:string):Promise<object> {
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
   return data?.categories?.nodes;
 }
 
-export async function getPageBySlug(slug:string):Promise<object> {
+export async function getPageBySlug(slug: string): Promise<object> {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
@@ -126,14 +131,14 @@ export async function getPageBySlug(slug:string):Promise<object> {
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
   return data?.page;
 }
 
-export async function getPrimaryMenu(lang='de'):Promise<object> {
+export async function getPrimaryMenu(lang = "de"): Promise<object> {
   const data = await fetchAPI(`
   {
-    menus(where: {location: PRIMARY_MENU${lang === "en" ? '____EN' : ''} }) {
+    menus(where: {location: PRIMARY_MENU${lang === "en" ? "____EN" : ""} }) {
       nodes {
         menuItems {
           edges {
@@ -154,11 +159,11 @@ export async function getPrimaryMenu(lang='de'):Promise<object> {
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
   return data?.menus?.nodes[0];
 }
 
-export async function getMenuById(id: number):Promise<object> {
+export async function getMenuById(id: number): Promise<object> {
   const data = await fetchAPI(`
   {
     menu(id: ${id}, idType: DATABASE_ID) {
@@ -178,16 +183,14 @@ export async function getMenuById(id: number):Promise<object> {
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.menu;
 }
 
-
 export async function getAllPostsWithSlugs(
-  language: string = 'DE',
-):Promise<object> {
-
+  language: string = "DE"
+): Promise<object> {
   const data = await fetchAPI(`
   {
     posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
@@ -207,12 +210,12 @@ export async function getAllPostsWithSlugs(
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.posts;
 }
 
-export async function getPostBySlug(slug:string):Promise<object> {
+export async function getPostBySlug(slug: string): Promise<object> {
   const data = await fetchAPI(`
     {
       post(id: "${slug}", idType: URI) {
@@ -470,18 +473,18 @@ export async function getPostBySlug(slug:string):Promise<object> {
         }
       }
     }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.post;
 }
 
 export async function getPostsPreview(
   first: number = 10000,
-  status: string = 'PUBLISH',
-  orderby: string = 'DATE',
-  order: string = 'ASC',
-  language: string = 'DE',
-):Promise<object> {
+  status: string = "PUBLISH",
+  orderby: string = "DATE",
+  order: string = "ASC",
+  language: string = "DE"
+): Promise<object> {
   const data = await fetchAPI(`
     {
       posts(first: ${first}, where: {language: ${language}, status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
@@ -525,7 +528,7 @@ export async function getPostsPreview(
         }
       }
     }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.posts;
 }
@@ -538,9 +541,9 @@ export async function getPostsPreview(
 export async function getAllCategories(
   first: number = 10000,
   exclude: number[] = [1], // 1 = allgemein
-  orderby: string = 'NAME',
+  orderby: string = "NAME",
   hideEmpty: boolean = true
-):Promise<object> {
+): Promise<object> {
   const data = await fetchAPI(`
   {
     categories(first: ${first}, where: {exclude: ${exclude}, orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
@@ -565,17 +568,17 @@ export async function getAllCategories(
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.categories;
 }
 
 export async function getPostsPreviewByCategory(
-  category:string,
+  category: string,
   first: number = 10000,
-  field:string = 'DATE',
-  order:string = 'ASC'
-):Promise<object> {
+  field: string = "DATE",
+  order: string = "ASC"
+): Promise<object> {
   const data = await fetchAPI(`
   {
     posts(
@@ -621,17 +624,17 @@ export async function getPostsPreviewByCategory(
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.posts;
 }
 
 export async function getAllPostPreviewsByCategory(
-  field: string = 'DATE',
-  order: string = 'ASC',
-  status: string = 'PUBLISH',
-  exclude: number[] = [1], // 1 = allgemein
-):Promise<object> {
+  field: string = "DATE",
+  order: string = "ASC",
+  status: string = "PUBLISH",
+  exclude: number[] = [1] // 1 = allgemein
+): Promise<object> {
   const data = await fetchAPI(`
   {
     categories(where: {exclude: ${exclude}}) {
@@ -676,7 +679,7 @@ export async function getAllPostPreviewsByCategory(
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.categories;
 }
@@ -686,7 +689,7 @@ export async function getAllPostPreviewsByCategory(
  *
  * @return  {object}
  */
-export async function getAllTags():Promise<object> {
+export async function getAllTags(): Promise<object> {
   const data = await fetchAPI(`
   {
     tags {
@@ -697,14 +700,14 @@ export async function getAllTags():Promise<object> {
       }
     }
   }
-  `).then(res => res.data);
+  `).then((res) => res.data);
 
   return data?.tags;
 }
 
 export async function getAuthor(
-  id:string = '1',
-  idType:string = 'DATABASE_ID',
+  id: string = "1",
+  idType: string = "DATABASE_ID"
 ) {
   return await fetchAPI(`
     {
@@ -726,14 +729,13 @@ export async function getAuthor(
           github
         }
       }
-    }`
-  ).then(res => res.data);
+    }`).then((res) => res.data);
 }
 
 export async function getCommentsById(
-  contentId:number,
-  first:number,
-  after?:string
+  contentId: number,
+  first: number,
+  after?: string
 ) {
   return await fetchAPI(`
     {
@@ -744,7 +746,7 @@ export async function getCommentsById(
           orderby: COMMENT_DATE_GMT
         },
         first: ${first},
-        ${after ? `after: "${after}"` : ''}
+        ${after ? `after: "${after}"` : ""}
       ) {
         pageInfo {
           hasNextPage
@@ -884,8 +886,7 @@ export async function getCommentsById(
           }
         }
       }
-    }`
-  );
+    }`);
 }
 
 export async function createComment(
@@ -918,6 +919,5 @@ export async function createComment(
         }
         success
       }
-    }`
-  );
+    }`);
 }

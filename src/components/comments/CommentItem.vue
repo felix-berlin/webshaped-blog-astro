@@ -2,29 +2,28 @@
   <div
     class="c-comment"
     :class="[
-      `is-level-${depth} ${isOdd(depth) ? 'is-odd': 'is-even'}`,
+      `is-level-${depth} ${isOdd(depth) ? 'is-odd' : 'is-even'}`,
       {
         'is-reply': !comment?.replies?.nodes?.length,
-      }]"
+      },
+    ]"
     role="comment"
   >
-    <article
-      :id="'comment-' + comment.id"
-      class="c-comment__item"
-    >
+    <article :id="'comment-' + comment.id" class="c-comment__item">
       <header class="c-comment__header">
         <img
           v-if="comment.author?.node?.avatar"
           :src="comment.author.node.avatar.url"
-          :alt="__(lang.locale, 'comment.author.image.alt', { author: comment.author.node.name })"
+          :alt="
+            __(lang.locale, 'comment.author.image.alt', {
+              author: comment.author.node.name,
+            })
+          "
           :width="comment.author.node.avatar.width"
           :height="comment.author.node.avatar.height"
           class="c-comment__author-image"
-        >
-        <div
-          v-else
-          class="c-comment__author-icon"
-        >
+        />
+        <div v-else class="c-comment__author-icon">
           <User :size="86" />
         </div>
 
@@ -32,10 +31,7 @@
           <h2 class="c-comment__author-name">
             {{ comment.author.node.name }}
           </h2>
-          <Verified
-            v-if="isAuthor"
-            :size="18"
-          />
+          <Verified v-if="isAuthor" :size="18" />
         </div>
       </header>
       <main class="c-comment__content">
@@ -43,12 +39,10 @@
           v-if="comment.parentId"
           :href="`#comment-${comment.parentId}`"
           class="c-comment__reply-to"
-        >Reply to</a>
+          >Reply to</a
+        >
 
-        <p
-          class="c-comment__text"
-          v-html="comment.content"
-        />
+        <p class="c-comment__text" v-html="comment.content" />
 
         <footer class="c-comment__footer">
           <button
@@ -57,29 +51,23 @@
             class="c-comment__reply-button c-button c-button--icon"
             @click="toggleReplyCommentForm()"
           >
-            <Reply :size="18" /> {{ __(lang.locale, 'comment.reply_button') }}
+            <Reply :size="18" /> {{ __(lang.locale, "comment.reply_button") }}
           </button>
 
-          <Date
-            :date="comment.dateGmt"
-            class="c-comment__date"
-          >
+          <Date :date="comment.dateGmt" class="c-comment__date">
             <template #before>
-              {{ __(lang.locale, 'comment.date') }}
+              {{ __(lang.locale, "comment.date") }}
             </template>
           </Date>
         </footer>
       </main>
     </article>
 
-    <Transition
-      name="fade"
-      mode="in-out"
-    >
+    <Transition name="fade" mode="in-out">
       <div
         v-if="replyToCommentForm"
         class="c-comment is-create-comment"
-        :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even': 'is-odd'}`"
+        :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
       >
         <CreateComment
           :current-post-id="currentPostId"
@@ -87,10 +75,7 @@
           :reply-to-comment-id="comment.commentId"
         >
           <template #beforeContent>
-            <button
-              type="button"
-              @click="toggleReplyCommentForm()"
-            >
+            <button type="button" @click="toggleReplyCommentForm()">
               <X />
             </button>
           </template>
@@ -99,10 +84,7 @@
     </Transition>
 
     <template v-if="comment.replies">
-      <template
-        v-for="(reply, index) in comment.replies.nodes"
-        :key="index"
-      >
+      <template v-for="(reply, index) in comment.replies.nodes" :key="index">
         <CommentItem
           :comment="reply"
           :depth="depth + 1"
@@ -116,11 +98,11 @@
 </template>
 
 <script setup lang="ts">
-import Date from '@components/Date.vue';
-import CreateComment from '@components/comments/CreateComment.vue';
-import { computed, ref } from 'vue';
-import { __ } from '@i18n/i18n';
-import { User, Reply, X, Verified } from 'lucide-vue-next';
+import Date from "@components/Date.vue";
+import CreateComment from "@components/comments/CreateComment.vue";
+import { computed, ref } from "vue";
+import { __ } from "@i18n/i18n";
+import { User, Reply, X, Verified } from "lucide-vue-next";
 
 export interface CommentData {
   content: string;
@@ -136,12 +118,12 @@ export interface CommentData {
         url?: string;
         width?: number;
         height?: number;
-      }
-    }
-  }
+      };
+    };
+  };
   replies?: {
     nodes: [];
-  }
+  };
 }
 
 interface CommentItemProps {
@@ -150,15 +132,17 @@ interface CommentItemProps {
   authorId?: string;
   lang: {
     locale: string;
-  },
-  currentPostId: number
+  };
+  currentPostId: number;
 }
 
-const props = defineProps<CommentItemProps>()
+const props = defineProps<CommentItemProps>();
 
 const replyToCommentForm = ref(false);
 
-const isAuthor = computed(() => props.comment.author.node.id === props.authorId);
+const isAuthor = computed(
+  () => props.comment.author.node.id === props.authorId
+);
 
 /**
  * Methods
@@ -166,9 +150,10 @@ const isAuthor = computed(() => props.comment.author.node.id === props.authorId)
 
 const isOdd = (num: number) => num % 2;
 
-const toggleReplyCommentForm = () => replyToCommentForm.value = !replyToCommentForm.value;
+const toggleReplyCommentForm = () =>
+  (replyToCommentForm.value = !replyToCommentForm.value);
 </script>
 
 <style lang="scss">
-@use '@styles/components/comment';
+@use "@styles/components/comment";
 </style>

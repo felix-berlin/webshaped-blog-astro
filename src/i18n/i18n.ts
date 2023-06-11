@@ -1,9 +1,9 @@
-import de_DE from './de-DE';
-import en_US from './en-US';
+import de_DE from "./de-DE";
+import en_US from "./en-US";
 
 const availableLanguages = {
-	en: 'English',
-	de: 'Deutsch',
+  en: "English",
+  de: "Deutsch",
 };
 
 /**
@@ -15,11 +15,15 @@ const availableLanguages = {
  *
  * @return  {string}                     return the plural string
  */
-const pluralFormFor = (translationString: string, count: number, locale: string):string => {
+const pluralFormFor = (
+  translationString: string,
+  count: number,
+  locale: string
+): string => {
   const matchingForm = new Intl.PluralRules(locale).select(count);
 
   return translationString[matchingForm];
-}
+};
 
 /**
  * Looks up the translation string using the language key.
@@ -33,12 +37,18 @@ const pluralFormFor = (translationString: string, count: number, locale: string)
  *
  * @return  {string}                     return the translated string
  */
-const __ = (locale: string, translationString: string, varsToReplace?: object, plural?: number):string => {
-  const lang:string = locale.replace('_', '-');
-  const translations:object = {de_DE, en_US};
+const __ = (
+  locale: string,
+  translationString: string,
+  varsToReplace?: object,
+  plural?: number
+): string => {
+  const lang: string = locale.replace("_", "-");
+  const translations: object = { de_DE, en_US };
 
   // If the translation string is not available, return the translation string itself.
-  let translationStr:string = translations[locale as keyof typeof translations][translationString];
+  let translationStr: string =
+    translations[locale as keyof typeof translations][translationString];
 
   // If the translation string end with "--plural", execute the plural form function and store the result in the translation string.
   if (translationString.endsWith("--plural") && plural !== undefined) {
@@ -47,20 +57,24 @@ const __ = (locale: string, translationString: string, varsToReplace?: object, p
 
   // If there is a filled object with variables to replace, replace them.
   if (varsToReplace !== undefined && Object.keys(varsToReplace).length !== 0) {
-
     /**
      * Create a regular expression for each key in the object.
      * For example: { 'count': 'value', name: 'Jim' } will find {count} and { name } in the translation string.
      */
-    const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, 'gi');
+    const regex = new RegExp(
+      `\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`,
+      "gi"
+    );
 
-    return translationStr.replace(regex, (matched:string, offset:number, string:string) => {
-
+    return translationStr.replace(
+      regex,
+      (matched: string, offset: number, string: string) => {
         return varsToReplace[offset as keyof typeof varsToReplace];
-    });
+      }
+    );
   }
 
   return translationStr || translationString;
-}
+};
 
 export { __, availableLanguages };

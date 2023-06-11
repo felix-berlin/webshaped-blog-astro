@@ -1,16 +1,13 @@
 <template>
   <header class="o-header">
-    <MainNav
-      :menu-items="props.menuItems"
-      :lang="lang"
-    />
+    <MainNav :menu-items="props.menuItems" :lang="lang" />
     <!-- <LanguageSelect class="is-desktop" /> -->
   </header>
 </template>
 
 <script setup lang="ts">
-import LanguageSelect from '@components/LanguageSelect.vue';
-import MainNav from '@components/hero/MainNav.vue';
+import LanguageSelect from "@components/LanguageSelect.vue";
+import MainNav from "@components/hero/MainNav.vue";
 
 export interface HeaderProps {
   menuItems: {
@@ -26,20 +23,17 @@ export interface HeaderProps {
               order: number;
               path: string;
             }
-          ]
-        }
+          ];
+        };
       }
-    ]
+    ];
   };
   lang: {
     locale: string;
   };
 }
 
-const props = defineProps<HeaderProps>()
-
-
+const props = defineProps<HeaderProps>();
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

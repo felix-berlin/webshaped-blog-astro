@@ -1,13 +1,13 @@
-@use '@styles/utilities/utilities';
+@use "@styles/utilities/utilities";
 
 .c-breadcrumbs {
-	&__crumbs {
-		@extend .u-list-reset;
+  &__crumbs {
+    @extend .u-list-reset;
 
-		display: flex;
-	}
+    display: flex;
+  }
 
-	&__separator {
-		margin: 0 0.25rem;
-	}
+  &__separator {
+    margin: 0 0.25rem;
+  }
 }

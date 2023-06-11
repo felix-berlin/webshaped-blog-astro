@@ -4,26 +4,14 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@lib/*": [
-        "src/lib/*"
-      ],
-      "@stores/*": [
-        "store/*"
-      ],
-      "@i18n/*": [
-        "src/i18n/*"
-      ],
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@stores/*": ["store/*"],
+      "@i18n/*": ["src/i18n/*"]
     },
-    "types": [
-      "vitest/globals"
-    ],
+    "types": ["vitest/globals"],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }

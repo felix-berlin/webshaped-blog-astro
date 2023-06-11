@@ -1,41 +1,41 @@
-@use '@sass-butler/mixins' as butler-mx;
-@use '@sass-butler/functions' as butler-fn;
-@use '@styles/variables/fonts';
-@use '@styles/variables/colors';
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+@use "@styles/variables/fonts";
+@use "@styles/variables/colors";
 
 // @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
 // @include fontsource-mx.fontFace($weight: 700);
 
 :root {
-	@each $name, $size in fonts.$font-sizes {
-		--font-size-#{$name}: #{$size};
-	}
+  @each $name, $size in fonts.$font-sizes {
+    --font-size-#{$name}: #{$size};
+  }
 }
 
 @layer typo {
-	@for $h from 1 to 6 {
-		h#{$h} {
-			font-family: fonts.$source-sans-pro;
-			font-weight: 700;
-		}
-	}
+  @for $h from 1 to 6 {
+    h#{$h} {
+      font-family: fonts.$source-sans-pro;
+      font-weight: 700;
+    }
+  }
 
-	html {
-		font-family: fonts.$source-sans-pro;
-		color: var(--color-base, #{colors.$blue-dark});
-	}
+  html {
+    font-family: fonts.$source-sans-pro;
+    color: var(--color-base, #{colors.$blue-dark});
+  }
 
-	@include butler-mx.dark-mode-class('html', false) {
-		--color-base: #{colors.$white};
-	}
+  @include butler-mx.dark-mode-class("html", false) {
+    --color-base: #{colors.$white};
+  }
 
-	a {
-		color: var(--color-link-base);
-		cursor: pointer;
-		text-decoration: none;
+  a {
+    color: var(--color-link-base);
+    cursor: pointer;
+    text-decoration: none;
 
-		@include butler-mx.dark-mode-class {
-			--color-link-base: #{colors.$white};
-		}
-	}
+    @include butler-mx.dark-mode-class {
+      --color-link-base: #{colors.$white};
+    }
+  }
 }

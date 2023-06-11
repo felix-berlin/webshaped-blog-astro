@@ -1,11 +1,11 @@
-@use '@styles/mixins/mixins' as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
 
 .c-blog-posts {
-	display: grid;
-	grid-template-columns: var(--columns-grid, 1fr);
-	gap: 2.5rem;
+  display: grid;
+  grid-template-columns: var(--columns-grid, 1fr);
+  gap: 2.5rem;
 
-	@include mx.breakpoint('sm') {
-		--columns-grid: 1fr 1fr;
-	}
+  @include mx.breakpoint("sm") {
+    --columns-grid: 1fr 1fr;
+  }
 }

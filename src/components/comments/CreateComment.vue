@@ -2,16 +2,19 @@
   <article class="c-comment__item">
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User
-          v-if="!validEmail(commentForm.email)"
-          :size="86"
-        />
-        <span v-else>{{ __(props.lang.locale, 'comment_form.gravatar_hint') }}</span>
+        <User v-if="!validEmail(commentForm.email)" :size="86" />
+        <span v-else>{{
+          __(props.lang.locale, "comment_form.gravatar_hint")
+        }}</span>
       </div>
 
       <div class="c-comment__author-name-wrap">
         <h2 class="c-comment__author-name">
-          {{ commentForm.author ? commentForm.author : __(props.lang.locale, 'comment_form.your_name') }}
+          {{
+            commentForm.author
+              ? commentForm.author
+              : __(props.lang.locale, "comment_form.your_name")
+          }}
         </h2>
       </div>
     </header>
@@ -19,40 +22,28 @@
     <main class="c-comment__content is-comment-item">
       <slot name="beforeContent" />
 
-      <h2>{{ __(props.lang.locale, 'comment_form.headline') }}</h2>
+      <h2>{{ __(props.lang.locale, "comment_form.headline") }}</h2>
       <Alert
         v-if="formResponses.errors.length > 0"
         type="danger"
         class="c-alert--small"
       >
-        <template
-          v-for="(error, index) in formResponses.errors"
-          :key="index"
-        >
+        <template v-for="(error, index) in formResponses.errors" :key="index">
           <AlertCircle /> {{ error.message }}
         </template>
       </Alert>
-      <Alert
-        v-if="formResponses.success"
-        type="success"
-        class="c-alert--small"
-      >
+      <Alert v-if="formResponses.success" type="success" class="c-alert--small">
         <CheckCircle />
       </Alert>
 
-      <form
-        novalidate="true"
-        class="c-form"
-        @submit.prevent="checkForm"
-      >
+      <form novalidate="true" class="c-form" @submit.prevent="checkForm">
         <div
           class="c-form__item is-vertical"
-          :class="{'c-textarea--error': formErrors.comment.length}"
+          :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
-          <label
-            class="c-label c-form__label"
-            for="comment"
-          >{{ __(props.lang.locale, 'comment_form.comment.label') }}</label>
+          <label class="c-label c-form__label" for="comment">{{
+            __(props.lang.locale, "comment_form.comment.label")
+          }}</label>
           <div class="c-floating-label">
             <textarea
               id="comment"
@@ -74,18 +65,17 @@
 
         <div
           class="c-form__item is-vertical"
-          :class="{'has-error': formErrors.email && formErrors.email.length}"
+          :class="{ 'has-error': formErrors.email && formErrors.email.length }"
         >
-          <label
-            class="c-label c-form__label"
-            for="user-email"
-          >{{ __(props.lang.locale, 'comment_form.email.label') }} <Info
-            v-tooltip="{
-              content: __(props.lang.locale, 'comment_form.email.tooltip'),
-              html: true
-            }"
-            :size="18"
-          />
+          <label class="c-label c-form__label" for="user-email"
+            >{{ __(props.lang.locale, "comment_form.email.label") }}
+            <Info
+              v-tooltip="{
+                content: __(props.lang.locale, 'comment_form.email.tooltip'),
+                html: true,
+              }"
+              :size="18"
+            />
           </label>
           <div class="c-floating-label">
             <input
@@ -95,7 +85,7 @@
               type="email"
               name="user-email"
               placeholder=" "
-            >
+            />
             <Alert
               v-if="formErrors.email && formErrors.email.length"
               type="danger"
@@ -108,12 +98,11 @@
 
         <div
           class="c-form__item is-vertical"
-          :class="{'has-error': formErrors.author.length}"
+          :class="{ 'has-error': formErrors.author.length }"
         >
-          <label
-            class="c-form__label c-label is-required"
-            for="author"
-          >{{ __(props.lang.locale, 'comment_form.name.label') }}</label>
+          <label class="c-form__label c-label is-required" for="author">{{
+            __(props.lang.locale, "comment_form.name.label")
+          }}</label>
           <div class="c-floating-label">
             <input
               id="author"
@@ -122,7 +111,7 @@
               type="text"
               name="author"
               placeholder=" "
-            >
+            />
             <Alert
               v-if="formErrors.author.length"
               type="danger"
@@ -133,12 +122,8 @@
           </div>
         </div>
 
-
-        <button
-          type="submit"
-          class="c-button"
-        >
-          {{ __(props.lang.locale, 'comment_form.submit.button') }}
+        <button type="submit" class="c-button">
+          {{ __(props.lang.locale, "comment_form.submit.button") }}
         </button>
       </form>
     </main>
@@ -146,13 +131,13 @@
 </template>
 
 <script setup lang="ts">
-import { createComment } from '@lib/api'
-import { ref, onMounted, reactive } from 'vue';
-import { useStore } from '@nanostores/vue';
-import { loadingState } from '@stores/store'
-import Alert from '@components/Alert.vue';
-import { __ } from '@i18n/i18n';
-import { CheckCircle, AlertCircle, User, Info } from 'lucide-vue-next';
+import { createComment } from "@lib/api";
+import { ref, onMounted, reactive } from "vue";
+import { useStore } from "@nanostores/vue";
+import { loadingState } from "@stores/store";
+import Alert from "@components/Alert.vue";
+import { __ } from "@i18n/i18n";
+import { CheckCircle, AlertCircle, User, Info } from "lucide-vue-next";
 
 interface Props {
   currentPostId: number;
@@ -162,9 +147,9 @@ interface Props {
   replyToCommentId?: number;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
-const user = useStore(loadingState)
+const user = useStore(loadingState);
 
 interface CommentForm {
   comment: string;
@@ -173,16 +158,16 @@ interface CommentForm {
 }
 
 const commentForm: CommentForm = reactive({
-  comment: '',
-  author: '',
-  email: '',
-})
+  comment: "",
+  author: "",
+  email: "",
+});
 
 const formErrors: CommentForm = reactive({
-  comment: '',
-  author: '',
-  email: '',
-})
+  comment: "",
+  author: "",
+  email: "",
+});
 
 const formResponses: {
   success: boolean;
@@ -190,98 +175,112 @@ const formResponses: {
 } = reactive({
   success: false,
   errors: [],
-})
+});
 
-const emit = defineEmits(['commentCreated'])
+const emit = defineEmits(["commentCreated"]);
 
 // reset commentForm function
 const resetCommentForm = () => {
-  Object.keys(commentForm).forEach(value => commentForm[value as keyof CommentForm] = '');
-}
+  Object.keys(commentForm).forEach(
+    (value) => (commentForm[value as keyof CommentForm] = "")
+  );
+};
 
 // reset formErrors function
 const resetFormErrors = () => {
-  Object.keys(formErrors).forEach(value => formErrors[value as keyof CommentForm] = '');
-}
+  Object.keys(formErrors).forEach(
+    (value) => (formErrors[value as keyof CommentForm] = "")
+  );
+};
 
 /**
  * checks if the given form data is valid
  *
  * @return  {void}
  */
-const checkForm = ():void => {
+const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
-    formErrors.comment = __(props.lang.locale, 'comment_form.error.comment_to_short');
+    formErrors.comment = __(
+      props.lang.locale,
+      "comment_form.error.comment_to_short"
+    );
   }
 
   if (commentForm.author.length <= 1) {
-    formErrors.author = __(props.lang.locale, 'comment_form.error.author_to_short');
+    formErrors.author = __(
+      props.lang.locale,
+      "comment_form.error.author_to_short"
+    );
   }
 
   // If an e-mail address is given, validate it
-  if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
-    formErrors.email = __(props.lang.locale, 'comment_form.error.email_invalid');
+  if (
+    commentForm.email &&
+    commentForm.email.length > 0 &&
+    !validEmail(commentForm.email)
+  ) {
+    formErrors.email = __(
+      props.lang.locale,
+      "comment_form.error.email_invalid"
+    );
   }
 
-  if (Object.values(formErrors).every(v => v.length === 0)) {
-    create()
+  if (Object.values(formErrors).every((v) => v.length === 0)) {
+    create();
   }
-}
+};
 
 /**
-  * Checks if its a real email address
-  *
-  * @param   {String}  email  E-Mail address
-  *
-  * @return  {Boolean}        If check passes return true
-  */
+ * Checks if its a real email address
+ *
+ * @param   {String}  email  E-Mail address
+ *
+ * @return  {Boolean}        If check passes return true
+ */
 const validEmail = (email: string | undefined): boolean | undefined => {
-  if (!email && typeof email === 'undefined') return;
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if (!email && typeof email === "undefined") return;
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  return re.test(email)
-}
+  return re.test(email);
+};
 
 /**
  * Send a GraphQL request to create a comment
  *
  * @return  {Promise}
  */
-async function create():Promise<object | any> {
+async function create(): Promise<object | any> {
   await createComment(
     props.currentPostId,
     commentForm.comment,
     commentForm.author,
     commentForm.email,
-    props.replyToCommentId,
+    props.replyToCommentId
   ).then(
-    data => {
-      console.log('success', data);
+    (data) => {
+      console.log("success", data);
 
-      if (typeof data.data?.createComment?.success !== 'undefined') {
+      if (typeof data.data?.createComment?.success !== "undefined") {
         formResponses.success = data.data.createComment.success;
 
-        emit('commentCreated');
+        emit("commentCreated");
 
         resetCommentForm();
       }
 
-      if (typeof data.errors !== 'undefined') {
+      if (typeof data.errors !== "undefined") {
         formResponses.errors = data.errors;
       }
     },
-    error => {
-      console.error('oh no, login failed', error)
-    },
+    (error) => {
+      console.error("oh no, login failed", error);
+    }
   );
-};
+}
 
-
-onMounted(() => {
-
-
-})
+onMounted(() => {});
 </script>
 <style lang="scss">
-@use '@styles/components/form.scss';
+@use "@styles/components/form.scss";
 </style>

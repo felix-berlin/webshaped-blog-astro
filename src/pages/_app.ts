@@ -1,5 +1,5 @@
-import type { App } from 'vue';
-import FloatingVue from 'floating-vue';
+import type { App } from "vue";
+import FloatingVue from "floating-vue";
 // import { devtools, attachStores } from '@nanostores/vue/devtools';
 
 // import { currentWebmentionsCount, isDarkMode } from '@stores/store';
@@ -8,11 +8,11 @@ export default (app: App) => {
   app.use(FloatingVue, {
     themes: {
       ...FloatingVue.options.themes,
-      'submenu': {
-        $extend: 'menu',
+      submenu: {
+        $extend: "menu",
         distance: 8,
-        placement: 'bottom-start',
-        popperClass: 'c-menu__dropdown',
+        placement: "bottom-start",
+        popperClass: "c-menu__dropdown",
       },
     },
   });
@@ -24,4 +24,4 @@ export default (app: App) => {
   //     'isDarkMode': isDarkMode
   //   }
   // )
-}
+};

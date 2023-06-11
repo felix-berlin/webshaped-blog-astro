@@ -1,8 +1,6 @@
 <template>
   <div class="c-has-translation">
-    <p class="c-has-translation__prefix-text">
-      Diesen Post gibt es auch in:
-    </p>
+    <p class="c-has-translation__prefix-text">Diesen Post gibt es auch in:</p>
     <div
       v-for="(translation, index) in translations"
       :key="index"
@@ -43,10 +41,7 @@ interface HasTranslationsProps {
   ];
 }
 
-const props = defineProps<HasTranslationsProps>()
-
+const props = defineProps<HasTranslationsProps>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
