@@ -63,6 +63,7 @@ export default defineConfig({
           "node_modules/@felix_berlin/sass-butler/"
         )}/`,
         "@styles/": `${path.resolve(__dirname, "src/styles/")}/`,
+        "@types/": `${path.resolve(__dirname, "src/types/")}/`,
       },
     },
     // build: {
