@@ -105,6 +105,7 @@ import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { X } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
+import type { Language } from "../types/generated/graphql";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
@@ -112,9 +113,7 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleIfInactive?: boolean;
   idleAfterCount?: number;
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }
 
 interface State {

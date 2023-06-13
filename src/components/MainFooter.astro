@@ -7,14 +7,14 @@ import { version } from "./../../package.json";
 import "../styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 
-const categories = await getAllCategories();
-const footerMenuItems: object = await getMenuById(38);
+import type { RootQuery, Language } from "../types/generated/graphql";
+
+const categories = (await getAllCategories()) as RootQuery["categories"];
+const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];
 const author = await getAuthor();
 
 interface MainFooterProps {
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }
 
 const iconStyles = {
@@ -24,43 +24,43 @@ const iconStyles = {
 
 const socialItems = {
   facebook: {
-    url: author.user.seo.social.facebook,
+    url: author?.seo?.social?.facebook,
     ...iconStyles,
   },
   instagram: {
-    url: author.user.seo.social.instagram,
+    url: author?.seo?.social?.instagram,
     ...iconStyles,
   },
   linkedIn: {
-    url: author.user.seo.social.linkedIn,
+    url: author?.seo?.social?.linkedIn,
     ...iconStyles,
   },
   mySpace: {
-    url: author.user.seo.social.mySpace,
+    url: author?.seo?.social?.mySpace,
     ...iconStyles,
   },
   pinterest: {
-    url: author.user.seo.social.pinterest,
+    url: author?.seo?.social?.pinterest,
     ...iconStyles,
   },
   soundCloud: {
-    url: author.user.seo.social.soundCloud,
+    url: author?.seo?.social?.soundCloud,
     ...iconStyles,
   },
   twitter: {
-    url: author.user.seo.social.twitter,
+    url: author?.seo?.social?.twitter,
     ...iconStyles,
   },
   wikipedia: {
-    url: author.user.seo.social.wikipedia,
+    url: author?.seo?.social?.wikipedia,
     ...iconStyles,
   },
   youTube: {
-    url: author.user.seo.social.youTube,
+    url: author?.seo?.social?.youTube,
     ...iconStyles,
   },
   github: {
-    url: author.user.socialAdvanced.github,
+    url: author?.socialAdvanced?.github,
     rel: "me",
     ...iconStyles,
   },
@@ -94,13 +94,14 @@ const { lang } = Astro.props as MainFooterProps;
       </h3>
       <menu class="c-menu c-menu--footer-two-columns u-list-reset">
         {
-          categories.nodes.map((category) => (
-            <li class="c-menu__item">
-              <a class="c-menu__link" href={`/category/${category.slug}`}>
-                {category.name}
-              </a>
-            </li>
-          ))
+          categories &&
+            categories.nodes.map((category) => (
+              <li class="c-menu__item">
+                <a class="c-menu__link" href={`/category/${category.slug}`}>
+                  {category.name}
+                </a>
+              </li>
+            ))
         }
       </menu>
     </div>
@@ -110,7 +111,7 @@ const { lang } = Astro.props as MainFooterProps;
       </h3>
       <Menu
         class:list={"o-footer__menu c-menu--footer"}
-        menuItems={footerMenuItems.menuItems}
+        menuItems={footerMenuItems?.menuItems || undefined}
       />
     </div>
     <div class="o-footer__quote">

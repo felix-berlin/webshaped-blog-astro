@@ -15,13 +15,12 @@
 
 <script setup lang="ts">
 import { __ } from "@i18n/i18n";
+import type { Language, Maybe } from "../types/generated/graphql";
 
 export interface PostOlderThanProps {
-  date: string;
+  date: Maybe<string>;
   showAfterYears: number;
-  lang: {
-    locale: string;
-  };
+  lang: Maybe<Language> | undefined;
 }
 
 const props = defineProps<PostOlderThanProps>();

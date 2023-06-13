@@ -10,7 +10,7 @@
     >
       <Hash :size="18" />
       <a
-        :href="`/category/${category.node.name.toLowerCase()}/1`"
+        :href="`/category/${category?.node?.name?.toLowerCase()}/1`"
         class="c-categories__link"
       >
         {{ category.node.name }}
@@ -21,20 +21,11 @@
 
 <script setup lang="ts">
 import { Hash } from "lucide-vue-next";
+import type { RootQueryToCategoryConnection } from "../types/generated/graphql";
 
 interface Props {
   categories: {
-    edges?: [
-      {
-        node: {
-          name: string;
-          parent: object | null;
-          children?: {
-            edges: [];
-          };
-        };
-      }
-    ];
+    edges?: RootQueryToCategoryConnection["edges"];
   };
 }
 

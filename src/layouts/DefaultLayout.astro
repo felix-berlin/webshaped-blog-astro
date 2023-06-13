@@ -39,8 +39,8 @@ const mainMenuItems = await getMenuById(2);
 
   <body class="o-body">
     <MainHeader
-      menuItems={mainMenuItems.menuItems}
-      lang={language}
+      menuItems={mainMenuItems?.menuItems!}
+      lang={language!}
       client:load
     />
     <main class="o-content">

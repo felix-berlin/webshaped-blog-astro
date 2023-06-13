@@ -28,11 +28,9 @@ import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
 
 export interface TableOfContentsProps {
-  headings: [
-    {
-      attributesJSON: string;
-    }
-  ];
+  headings: {
+    attributesJSON: string;
+  }[];
 }
 
 const props = defineProps<TableOfContentsProps>();

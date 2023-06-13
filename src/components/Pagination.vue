@@ -75,12 +75,12 @@ import {
 } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
 import type { Page } from "astro/dist/@types/astro";
+import type { Language } from "../types/generated/graphql";
+
 const props = defineProps<{
   page: Page;
   path: string;
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }>();
 </script>
 

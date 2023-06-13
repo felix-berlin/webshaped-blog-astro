@@ -47,25 +47,11 @@
 
 <script setup lang="ts">
 import { ChevronDown } from "lucide-vue-next";
+import type { Language, Maybe, MenuItem } from "../types/generated/graphql";
 
 export interface MenuProps {
   menuItems: {
-    nodes: [
-      {
-        label: string;
-        order: number;
-        path: string;
-        childItems: {
-          nodes: [
-            {
-              label: string;
-              order: number;
-              path: string;
-            }
-          ];
-        };
-      }
-    ];
+    nodes: MenuItem[] | undefined;
   };
 }
 

@@ -3,8 +3,9 @@ import "@styles/components/_blog-posts.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import Pagination from "@components/Pagination.vue";
-
 import { getAllPostPreviewsByCategory } from "@lib/api";
+
+import type { RootQuery } from "../../../types/generated/graphql";
 
 export async function getStaticPaths({ paginate }: { paginate: any }) {
   const postPreviews = await getAllPostPreviewsByCategory();
@@ -12,20 +13,23 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
   /**
    * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
    */
-  return postPreviews.nodes.map((category: { slug: any }) => {
-    return paginate(category.posts.nodes, {
-      props: {
-        content: {
-          title: category.name,
-          language: category.language,
+  return (
+    postPreviews &&
+    postPreviews.nodes.map((category: { slug? }) => {
+      return paginate((category as RootQuery["category"])?.posts?.nodes, {
+        props: {
+          content: {
+            title: category.name,
+            language: category.language,
+          },
         },
-      },
-      params: {
-        slug: category.slug,
-      },
-      pageSize: 1,
-    });
-  });
+        params: {
+          slug: category.slug,
+        },
+        pageSize: 1,
+      });
+    })
+  );
 }
 
 const { page, content } = Astro.props;

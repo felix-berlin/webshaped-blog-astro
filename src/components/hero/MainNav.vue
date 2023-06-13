@@ -7,7 +7,7 @@
     <button
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
-      :aria-label="__(lang.locale, 'main_nav.toggle_button.label')"
+      :aria-label="__(lang.locale!, 'main_nav.toggle_button.label')"
       :aria-expanded="isOpen"
       @click="toggleFlyout"
     >
@@ -53,6 +53,7 @@ import Logo from "@components/Logo.vue";
 import { Menu as MenuIcon, X } from "lucide-vue-next";
 import { useMouseInElement } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
+import type { Language } from "../../types/generated/graphql";
 
 export interface MainNavProps {
   menuItems: {
@@ -73,9 +74,7 @@ export interface MainNavProps {
       }
     ];
   };
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }
 
 const props = defineProps<MainNavProps>();

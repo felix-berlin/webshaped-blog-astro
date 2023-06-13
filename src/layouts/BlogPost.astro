@@ -30,50 +30,19 @@ import { Breadcrumbs } from "astro-breadcrumbs";
 
 import { __ } from "@i18n/i18n";
 
-import type { AuthorData } from "@components/Author.vue";
 import type { Seo, Title } from "@components/BaseHead.astro";
+import type {
+  RootQuery,
+  Post,
+  MediaDetails,
+  MediaSize,
+  Language,
+} from "../types/generated/graphql";
 
 import { getMenuById } from "@lib/api";
 
-interface FeaturedImageSizes {
-  width: string;
-  sourceUrl: string;
-  mimeType: string;
-}
 export interface BlogPost {
-  content: {
-    title: Title;
-    slug: string;
-    seo: Seo;
-    author: AuthorData;
-    dateGmt: string;
-    modifiedGmt: string;
-    featuredImage: {
-      node: {
-        mediaItemUrl: string;
-        altText: string;
-        srcSet: string;
-        sizes: string;
-        mimeType: string;
-        mediaDetails: {
-          width: number;
-          height: number;
-          sizes: [FeaturedImageSizes];
-        };
-      };
-    };
-    language: {
-      code: string;
-      locale: string;
-      name: string;
-      slug: string;
-    };
-    comments: object;
-    commentCount: number;
-    postId: number;
-    content: string;
-    categories: object;
-  };
+  content: Post;
   headings?: Array<object>;
 }
 
@@ -96,7 +65,7 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const langAttr = language.locale.replace("_", "-");
+const langAttr = language?.locale?.replace("_", "-");
 
 const { menuItems }: any = await getMenuById(2); // DE
 // const { menuItemsEn }: any = await getMenuById(125); // EN
@@ -107,8 +76,8 @@ const breadcrumbItems = [
     href: "/",
   },
   {
-    text: language.slug,
-    href: `/${language.slug}`,
+    text: language?.slug,
+    href: `/${language?.slug}`,
   },
   {
     text: title,
@@ -116,7 +85,8 @@ const breadcrumbItems = [
   },
 ];
 
-const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
+const featuredImageSizes = featuredImage?.node?.mediaDetails
+  ?.sizes as MediaSize[];
 ---
 
 <html lang={langAttr}>
@@ -128,22 +98,23 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
     <link rel="preconnect" href="//secure.gravatar.com" />
     <!-- Preload featured image -->
     {
-      featuredImageSizes.map((size: FeaturedImageSizes) => (
-        <link
-          rel="preload"
-          href={size.sourceUrl}
-          as="image"
-          type={size.mimeType}
-          media={`(max-width: ${size.width}px)`}
-        />
-      ))
+      featuredImageSizes &&
+        featuredImageSizes.map((size: MediaSize) => (
+          <link
+            rel="preload"
+            href={size.sourceUrl}
+            as="image"
+            type={size.mimeType}
+            media={`(max-width: ${size.width}px)`}
+          />
+        ))
     }
     <link
       rel="preload"
-      href={featuredImage.node.mediaItemUrl}
+      href={featuredImage?.node.mediaItemUrl}
       as="image"
-      type={featuredImage.node.mimeType}
-      media={`(max-width: ${featuredImage.node.mediaDetails.width}px)`}
+      type={featuredImage?.node.mimeType}
+      media={`(max-width: ${featuredImage?.node?.mediaDetails?.width}px)`}
     />
     <script src="../lib/smooth-scroll-anchor.ts"></script>
   </head>
@@ -173,21 +144,21 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
           <span slot="separator" class="c-breadcrumbs__separator">/</span>
         </Breadcrumbs>
         <h1 class="c-blog__title">{title}</h1>
-        <DateModified date={modifiedGmt} lang={language} />
-        <ReadingTime time={seo.readingTime} lang={language} />
+        <DateModified date={modifiedGmt || undefined} lang={language} />
+        <ReadingTime time={seo?.readingTime || undefined} lang={language} />
         <WebmentionsCount
           elementIs={"a"}
           href={"#webmentions"}
-          lang={language}
+          lang={language!}
           client:load
         />
-        <Categories categories={categories} />
+        <Categories categories={categories!} />
 
         {
           featuredImage && (
             <img
-              width={featuredImage.node.mediaDetails.width}
-              height={featuredImage.node.mediaDetails.height}
+              width={featuredImage?.node?.mediaDetails?.width}
+              height={featuredImage?.node?.mediaDetails?.height}
               alt={featuredImage.node.altText}
               src={featuredImage.node.mediaItemUrl}
               srcset={featuredImage.node.srcSet}
@@ -219,12 +190,20 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
 
         <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
         <!-- </header> -->
-        <PostOlderThan date={modifiedGmt} showAfterYears={4} lang={language} />
+        <PostOlderThan
+          date={modifiedGmt || ""}
+          showAfterYears={4}
+          lang={language!}
+        />
 
         <slot />
 
         <footer>
-          <Author author={author} lang={language} client:visible />
+          <Author
+            author={author || undefined}
+            lang={language!}
+            client:visible
+          />
 
           <!-- <LoadWebmentions client:only></LoadWebmentions> -->
 
@@ -232,8 +211,8 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
           <CommentsClient
             currentPostId={postId}
             id="comments"
-            lang={language}
-            authorId={author.node.id}
+            lang={language!}
+            authorId={author?.node.id}
             client:visible
           />
         </footer>
@@ -241,15 +220,15 @@ const featuredImageSizes = featuredImage.node.mediaDetails.sizes;
 
       <aside class="c-blog-sidebar">
         <h2 class="c-blog-sidebar__headline">
-          {__(language.locale, "blog.table_of_contents")}
+          {__(language?.locale!, "blog.table_of_contents")}
         </h2>
         <!-- <TableOfContentsClientSide target=".c-blog__content" client:only /> -->
         <TableOfContents headings={headings} client:load />
 
         <Share
-          title={seo.title}
-          text={seo.opengraphDescription}
-          lang={language}
+          title={seo?.title!}
+          text={seo?.opengraphDescription!}
+          lang={language!}
           client:only
         />
       </aside>

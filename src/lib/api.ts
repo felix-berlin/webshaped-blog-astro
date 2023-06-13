@@ -1,3 +1,10 @@
+import type {
+  RootMutation,
+  RootQuery,
+  MenuItem,
+  SeoUser,
+  Post,
+} from "../types/generated/graphql";
 const { PUBLIC_WP_API } = import.meta.env;
 
 async function fetchAPI(
@@ -38,7 +45,7 @@ async function fetchAPI(
   //  });
 }
 
-export async function getAllPagesWithSlugs(): Promise<object> {
+export async function getAllPagesWithSlugs(): Promise<RootQuery["pages"]> {
   const data = await fetchAPI(`
   {
     pages(first: 10000) {
@@ -53,7 +60,9 @@ export async function getAllPagesWithSlugs(): Promise<object> {
   return data?.pages;
 }
 
-export async function getCategoryBySlug(slug: string): Promise<object> {
+export async function getCategoryBySlug(
+  slug: string
+): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
     categories(first: 10000, where: {slug: "${slug}"}) {
@@ -95,7 +104,7 @@ export async function getCategoryBySlug(slug: string): Promise<object> {
   return data?.categories?.nodes;
 }
 
-export async function getPageBySlug(slug: string): Promise<object> {
+export async function getPageBySlug(slug: string): Promise<RootQuery["page"]> {
   const data = await fetchAPI(`
   {
     page(id: "${slug}", idType: URI) {
@@ -135,7 +144,7 @@ export async function getPageBySlug(slug: string): Promise<object> {
   return data?.page;
 }
 
-export async function getPrimaryMenu(lang = "de"): Promise<object> {
+export async function getPrimaryMenu(lang = "de"): Promise<MenuItem> {
   const data = await fetchAPI(`
   {
     menus(where: {location: PRIMARY_MENU${lang === "en" ? "____EN" : ""} }) {
@@ -163,7 +172,7 @@ export async function getPrimaryMenu(lang = "de"): Promise<object> {
   return data?.menus?.nodes[0];
 }
 
-export async function getMenuById(id: number): Promise<object> {
+export async function getMenuById(id: number): Promise<RootQuery["menu"]> {
   const data = await fetchAPI(`
   {
     menu(id: ${id}, idType: DATABASE_ID) {
@@ -190,7 +199,7 @@ export async function getMenuById(id: number): Promise<object> {
 
 export async function getAllPostsWithSlugs(
   language: string = "DE"
-): Promise<object> {
+): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
   {
     posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
@@ -215,7 +224,7 @@ export async function getAllPostsWithSlugs(
   return data?.posts;
 }
 
-export async function getPostBySlug(slug: string): Promise<object> {
+export async function getPostBySlug(slug: string): Promise<Post> {
   const data = await fetchAPI(`
     {
       post(id: "${slug}", idType: URI) {
@@ -479,12 +488,12 @@ export async function getPostBySlug(slug: string): Promise<object> {
 }
 
 export async function getPostsPreview(
-  first: number = 10000,
+  first: number = 10_000,
   status: string = "PUBLISH",
   orderby: string = "DATE",
   order: string = "ASC",
   language: string = "DE"
-): Promise<object> {
+): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
     {
       posts(first: ${first}, where: {language: ${language}, status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
@@ -539,11 +548,11 @@ export async function getPostsPreview(
  * @return  {object}
  */
 export async function getAllCategories(
-  first: number = 10000,
+  first: number = 10_000,
   exclude: number[] = [1], // 1 = allgemein
   orderby: string = "NAME",
   hideEmpty: boolean = true
-): Promise<object> {
+): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
     categories(first: ${first}, where: {exclude: ${exclude}, orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
@@ -575,10 +584,10 @@ export async function getAllCategories(
 
 export async function getPostsPreviewByCategory(
   category: string,
-  first: number = 10000,
+  first: number = 10_000,
   field: string = "DATE",
   order: string = "ASC"
-): Promise<object> {
+): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
   {
     posts(
@@ -634,7 +643,7 @@ export async function getAllPostPreviewsByCategory(
   order: string = "ASC",
   status: string = "PUBLISH",
   exclude: number[] = [1] // 1 = allgemein
-): Promise<object> {
+): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
     categories(where: {exclude: ${exclude}}) {
@@ -689,7 +698,7 @@ export async function getAllPostPreviewsByCategory(
  *
  * @return  {object}
  */
-export async function getAllTags(): Promise<object> {
+export async function getAllTags(): Promise<RootQuery["tags"]> {
   const data = await fetchAPI(`
   {
     tags {
@@ -708,8 +717,8 @@ export async function getAllTags(): Promise<object> {
 export async function getAuthor(
   id: string = "1",
   idType: string = "DATABASE_ID"
-) {
-  return await fetchAPI(`
+): Promise<RootQuery["user"]> {
+  const data = await fetchAPI(`
     {
       user(id: "${id}", idType: DATABASE_ID) {
         seo {
@@ -730,13 +739,15 @@ export async function getAuthor(
         }
       }
     }`).then((res) => res.data);
+
+  return data?.user;
 }
 
 export async function getCommentsById(
   contentId: number,
   first: number,
   after?: string
-) {
+): Promise<RootQuery["comments"]> {
   return await fetchAPI(`
     {
       comments(
@@ -895,7 +906,7 @@ export async function createComment(
   author: string,
   authorEmail?: string,
   parent?: number
-) {
+): Promise<RootMutation["createComment"]> {
   return await fetchAPI(`
     mutation {
       createComment(input: {

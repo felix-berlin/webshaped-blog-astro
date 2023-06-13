@@ -1,6 +1,6 @@
 <template>
   <section class="c-comments">
-    <h2>{{ __(lang.locale, "comments.headline") }}</h2>
+    <h2>{{ __(lang.locale!, "comments.headline") }}</h2>
 
     <div class="c-comment is-create-comment is-level-0 is-even">
       <CreateComment
@@ -11,7 +11,7 @@
     </div>
 
     <p v-if="!data.hasComments">
-      {{ __(lang.locale, "comments.no_comments") }}
+      {{ __(lang.locale!, "comments.no_comments") }}
     </p>
 
     <!-- <TransitionGroup name="list"> -->
@@ -47,7 +47,7 @@
           { 'is-loading': data.partLoading },
         ]"
       />
-      <span>{{ __(lang.locale, "comments.load_more.button") }}</span>
+      <span>{{ __(lang.locale!, "comments.load_more.button") }}</span>
     </button>
   </section>
 </template>
@@ -57,18 +57,18 @@ import { onMounted, reactive } from "vue";
 import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { CommentData } from "@components/comments/CommentItem.vue";
+import type { NodeWithAuthor, Post } from "../../types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@lib/api";
 import { RefreshCw } from "lucide-vue-next";
+import type { Language } from "../../types/generated/graphql";
 
 export interface CommentsProps {
-  currentPostId: number;
-  id?: string;
-  authorId: string;
-  lang: {
-    locale: string;
-  };
+  currentPostId: Post["id"];
+  id: NodeWithAuthor["id"];
+  authorId: NodeWithAuthor["authorId"];
+  lang: Language;
 }
 
 interface CommentsData {

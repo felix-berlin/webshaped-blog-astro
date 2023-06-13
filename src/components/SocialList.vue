@@ -9,7 +9,7 @@
         :aria-label="
           social.label
             ? social.label
-            : __(lang.locale, 'social_list.link.label', { platform: index })
+            : __(lang.locale!, 'social_list.link.label', { platform: index })
         "
         :class="`c-social-list__link ${social.class ? social.class : ''}`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
@@ -66,9 +66,10 @@ import {
   Linkedin,
 } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
+import type { Language, Maybe } from "../types/generated/graphql";
 
 export interface SocialItems {
-  url: string;
+  url?: Maybe<string>;
   target?: string;
   label?: string;
   class?: string;
@@ -91,9 +92,7 @@ export interface SocialListProps {
     youTube?: SocialItems;
     github?: SocialItems;
   };
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }
 
 const props = defineProps<SocialListProps>();

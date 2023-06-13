@@ -18,14 +18,13 @@ import { Share2 } from "lucide-vue-next";
 import { ref, onMounted, reactive } from "vue";
 import { useShare } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
+import type { Language } from "../types/generated/graphql";
 
 export interface ShareProps {
   title?: string;
   text?: string;
   url?: string | undefined;
-  lang: {
-    locale: string;
-  };
+  lang: Language;
 }
 
 const { share, isSupported } = useShare();
