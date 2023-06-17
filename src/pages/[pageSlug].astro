@@ -1,7 +1,11 @@
 ---
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-
 import { getPageBySlug } from "../lib/api";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
 
 // Get all pages
 // export async function getStaticPaths() {
@@ -13,7 +17,7 @@ import { getPageBySlug } from "../lib/api";
 //   });
 // }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const privacy: any = await getPageBySlug("datenschutz");
   const imprint: any = await getPageBySlug("impressum");
 
@@ -26,9 +30,12 @@ export async function getStaticPaths() {
       },
     };
   });
-}
+};
 
-const { pageSlug }: any = Astro.params;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { pageSlug }: any = Astro.params as Params;
 const page: any = await getPageBySlug(pageSlug);
 ---
 

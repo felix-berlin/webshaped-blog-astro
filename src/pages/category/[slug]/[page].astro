@@ -4,10 +4,15 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import Pagination from "@components/Pagination.vue";
 import { getAllPostPreviewsByCategory } from "@lib/api";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+} from "astro";
 
-import type { RootQuery } from "../../../types/generated/graphql";
+import type { Category } from "../../../types/generated/graphql";
 
-export async function getStaticPaths({ paginate }: { paginate: any }) {
+export const getStaticPaths = async ({ paginate }: { paginate: any }) => {
   const postPreviews = await getAllPostPreviewsByCategory();
 
   /**
@@ -16,7 +21,7 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
   return (
     postPreviews &&
     postPreviews.nodes.map((category: { slug? }) => {
-      return paginate((category as RootQuery["category"])?.posts?.nodes, {
+      return paginate((category as Category)?.posts?.nodes, {
         props: {
           content: {
             title: category.name,
@@ -30,10 +35,13 @@ export async function getStaticPaths({ paginate }: { paginate: any }) {
       });
     })
   );
-}
+};
 
-const { page, content } = Astro.props;
-const params = Astro.params;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page, content } = Astro.props as Props;
+const params = Astro.params as Params;
 
 const path = `/category/${params.slug}`;
 
