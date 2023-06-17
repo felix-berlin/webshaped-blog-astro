@@ -8,11 +8,16 @@ import type {
   InferGetStaticParamsType,
   InferGetStaticPropsType,
   GetStaticPaths,
+  PaginateFunction,
 } from "astro";
 
-import type { Category } from "../../../types/generated/graphql";
+import type { Category, Post } from "../../../types/generated/graphql";
 
-export const getStaticPaths = async ({ paginate }: { paginate: any }) => {
+interface Paginate {
+  paginate: PaginateFunction;
+}
+
+export const getStaticPaths = async ({ paginate }: Paginate) => {
   const postPreviews = await getAllPostPreviewsByCategory();
 
   /**
@@ -20,8 +25,10 @@ export const getStaticPaths = async ({ paginate }: { paginate: any }) => {
    */
   return (
     postPreviews &&
-    postPreviews.nodes.map((category: { slug? }) => {
-      return paginate((category as Category)?.posts?.nodes, {
+    postPreviews.nodes.map((category) => {
+      if (!Array.isArray(category?.posts?.nodes)) return null;
+
+      return paginate(category?.posts?.nodes as Node[] & Post[], {
         props: {
           content: {
             title: category.name,
@@ -29,7 +36,7 @@ export const getStaticPaths = async ({ paginate }: { paginate: any }) => {
           },
         },
         params: {
-          slug: category.slug,
+          slug: category.slug as string,
         },
         pageSize: 1,
       });
@@ -43,19 +50,19 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page, content } = Astro.props as Props;
 const params = Astro.params as Params;
 
-const path = `/category/${params.slug}`;
+const path = `/category/${params["slug"]}`;
 
 const posts = {
-  nodes: page.data,
+  nodes: page["data"],
 };
 ---
 
 <DefaultLayout content={content}>
   <section class="o-content__headline">
-    <h1>{content.title}</h1>
+    <h1>{content["title"]}</h1>
   </section>
   <section class="c-blog-posts">
     <BlogPostPreview posts={posts} client:visible />
   </section>
-  <Pagination page={page} path={path} lang={content.language} />
+  <Pagination page={page} path={path} lang={content["language"]} />
 </DefaultLayout>

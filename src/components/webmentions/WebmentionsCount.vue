@@ -28,6 +28,7 @@ import type { Language } from "../../types/generated/graphql";
 interface WebmentionsCountProps {
   elementIs?: string;
   lang: Language;
+  href?: string;
 }
 
 const props = withDefaults(defineProps<WebmentionsCountProps>(), {
