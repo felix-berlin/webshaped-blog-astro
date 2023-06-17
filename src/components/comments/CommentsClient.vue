@@ -65,7 +65,7 @@ import { RefreshCw } from "lucide-vue-next";
 import type { Language } from "../../types/generated/graphql";
 
 export interface CommentsProps {
-  currentPostId: Post["id"];
+  currentPostId: Post["postId"];
   id: NodeWithAuthor["id"];
   authorId: NodeWithAuthor["authorId"];
   lang: Language;

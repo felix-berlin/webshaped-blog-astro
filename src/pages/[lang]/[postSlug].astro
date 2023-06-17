@@ -5,23 +5,26 @@ import PostBlocks from "@components/PostBlocks.vue";
 // import { Prism } from "@astrojs/prism";
 import { getAllPostsWithSlugs, getPostBySlug } from "@lib/api";
 // import "prismjs/themes/prism-tomorrow.css";
-import type { CoreHeadingBlock } from "../../types/generated/graphql";
+import type {
+  CoreHeadingBlock,
+  RootQueryToPostConnection,
+} from "../../types/generated/graphql";
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = async () => {
-  const postWithSlugsDe: any = await getAllPostsWithSlugs();
-  const postWithSlugsEn: any = await getAllPostsWithSlugs("EN");
+  const postWithSlugsDe = await getAllPostsWithSlugs();
+  const postWithSlugsEn = await getAllPostsWithSlugs("EN");
 
   const postWithSlugsAllLang = [
     ...postWithSlugsDe.edges,
     ...postWithSlugsEn.edges,
   ];
 
-  return postWithSlugsAllLang.map(({ node }: any) => {
+  return postWithSlugsAllLang.map(({ node }) => {
     return {
       params: {
         postSlug: node.slug,
-        lang: node.language.slug,
+        lang: node?.language?.slug,
       },
     };
   });
@@ -30,8 +33,8 @@ export const getStaticPaths = async () => {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { postSlug, lang }: any = Astro.params as Params;
-const post: any = await getPostBySlug(postSlug);
+const { postSlug, lang } = Astro.params as Params;
+const post = await getPostBySlug(postSlug!);
 
 const decode = (str: string) => {
   return str.replace(/&#(\d+);/g, function (match, dec) {
@@ -58,7 +61,7 @@ const findLanguage = (content: string, prefix = "lang-"): string | null => {
   return match;
 };
 
-const headings = post.blocks.filter(
+const headings = post?.blocks?.filter(
   (block: CoreHeadingBlock) =>
     block.name === "core/heading" &&
     (JSON.parse(block.attributesJSON as string).level === 2 ||
@@ -68,5 +71,5 @@ const headings = post.blocks.filter(
 
 <BlogPost content={post} headings={headings}>
   <!-- <div set:html={post.content} class="c-blog__content" id="postContent" /> -->
-  <PostBlocks blocks={post.blocks} />
+  <PostBlocks blocks={post.blocks!} />
 </BlogPost>

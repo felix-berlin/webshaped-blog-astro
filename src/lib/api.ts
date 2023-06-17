@@ -4,12 +4,15 @@ import type {
   MenuItem,
   SeoUser,
   Post,
+  RootQueryToCategoryConnection,
+  RootQueryToCommentConnection,
+  RootQueryToPostConnection,
 } from "../types/generated/graphql";
 const { PUBLIC_WP_API } = import.meta.env;
 
 async function fetchAPI(
   query: string,
-  { variables } = {}
+  { variables } = { variables: {} }
 ): Promise<object | any> {
   const headers = {
     "Content-Type": "application/json",
@@ -18,7 +21,7 @@ async function fetchAPI(
 
   return await fetch(PUBLIC_WP_API, {
     method: "POST",
-    headers: headers,
+    headers,
     body: JSON.stringify({ query, variables }),
   }).then(async (response) => {
     if (response.ok) {
@@ -30,19 +33,6 @@ async function fetchAPI(
       return Promise.reject(new Error(errorMessage));
     }
   });
-  // .then((res) => {
-  //   if (res.errors && res.errors.length > 0) {
-  //     // console.error(res.errors);
-  //     return Promise.reject(new Error(res.errors))
-  //   }
-  //   // console.log('res', res);
-  //   return res.data;
-
-  // });
-  // .catch((err) => {
-  //   console.error(err);
-  //   throw new Error('Failed to fetch API');
-  //  });
 }
 
 export async function getAllPagesWithSlugs(): Promise<RootQuery["pages"]> {
@@ -199,7 +189,7 @@ export async function getMenuById(id: number): Promise<RootQuery["menu"]> {
 
 export async function getAllPostsWithSlugs(
   language: string = "DE"
-): Promise<RootQuery["posts"]> {
+): Promise<RootQueryToPostConnection> {
   const data = await fetchAPI(`
   {
     posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
@@ -224,7 +214,7 @@ export async function getAllPostsWithSlugs(
   return data?.posts;
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
+export async function getPostBySlug(slug: number | string): Promise<Post> {
   const data = await fetchAPI(`
     {
       post(id: "${slug}", idType: URI) {
@@ -643,7 +633,7 @@ export async function getAllPostPreviewsByCategory(
   order: string = "ASC",
   status: string = "PUBLISH",
   exclude: number[] = [1] // 1 = allgemein
-): Promise<RootQuery["categories"]> {
+): Promise<RootQueryToCategoryConnection> {
   const data = await fetchAPI(`
   {
     categories(where: {exclude: ${exclude}}) {
@@ -747,7 +737,7 @@ export async function getCommentsById(
   contentId: number,
   first: number,
   after?: string
-): Promise<RootQuery["comments"]> {
+): Promise<RootQueryToCommentConnection> {
   return await fetchAPI(`
     {
       comments(
