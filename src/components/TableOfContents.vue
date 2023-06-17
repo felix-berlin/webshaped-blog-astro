@@ -2,22 +2,22 @@
   <nav :id="tocId" class="c-toc">
     <template v-for="(headline, index) in headings" :key="index">
       <a
-        :href="`#${slugify(JSON.parse(headline.attributesJSON).content, {
+        :href="`#${slugify(JSON.parse(headline.attributesJSON as string).content, {
           lower: true,
         })}`"
         :class="[
           `c-toc__link c-toc__link--depth-${
-            JSON.parse(headline.attributesJSON).level
+            JSON.parse(headline.attributesJSON as string).level
           }`,
           {
             'is-active':
               activeHeadline ===
-              slugify(JSON.parse(headline.attributesJSON).content, {
+              slugify(JSON.parse(headline.attributesJSON as string).content, {
                 lower: true,
               }),
           },
         ]"
-        >{{ JSON.parse(headline.attributesJSON).content }}</a
+        >{{ JSON.parse(headline.attributesJSON as string).content }}</a
       >
     </template>
   </nav>
@@ -26,11 +26,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
+import type { CoreHeadingBlock } from "../types/generated/graphql";
 
 export interface TableOfContentsProps {
-  headings: {
-    attributesJSON: string;
-  }[];
+  headings: CoreHeadingBlock[] | undefined;
 }
 
 const props = defineProps<TableOfContentsProps>();

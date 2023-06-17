@@ -5,6 +5,7 @@ import PostBlocks from "@components/PostBlocks.vue";
 // import { Prism } from "@astrojs/prism";
 import { getAllPostsWithSlugs, getPostBySlug } from "@lib/api";
 // import "prismjs/themes/prism-tomorrow.css";
+import type { CoreHeadingBlock } from "../../types/generated/graphql";
 
 export async function getStaticPaths() {
   const postWithSlugsDe: any = await getAllPostsWithSlugs();
@@ -55,11 +56,11 @@ const findLanguage = (content: string, prefix = "lang-"): string | null => {
 };
 
 const headings = post.blocks.filter(
-  (block: any) =>
+  (block: CoreHeadingBlock) =>
     block.name === "core/heading" &&
-    (JSON.parse(block.attributesJSON).level === 2 ||
-      JSON.parse(block.attributesJSON).level === 3)
-);
+    (JSON.parse(block.attributesJSON as string).level === 2 ||
+      JSON.parse(block.attributesJSON as string).level === 3)
+) as CoreHeadingBlock[];
 ---
 
 <BlogPost content={post} headings={headings}>

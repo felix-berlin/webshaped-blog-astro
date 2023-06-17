@@ -4,18 +4,18 @@
       <p
         v-if="block.name === 'core/paragraph'"
         class="c-blocks__paragraph"
-        v-html="parse(block.attributesJSON).content"
+        v-html="parse(block.attributesJSON as string | undefined).content"
       />
 
       <component
-        :is="`h${parse(block.attributesJSON).level}`"
+        :is="`h${parse(block.attributesJSON as string | undefined).level}`"
         v-if="block.name === 'core/heading'"
-        :id="slugify(parse(block.attributesJSON).content, { lower: true })"
+        :id="slugify(parse(block.attributesJSON as string | undefined).content, { lower: true })"
         :class="`c-blocks__heading c-blocks__heading--${
-          parse(block.attributesJSON).level
+          parse(block.attributesJSON as string | undefined).level
         }`"
       >
-        {{ parse(block.attributesJSON).content }}
+        {{ parse(block.attributesJSON as string | undefined).content }}
       </component>
 
       <div
@@ -26,25 +26,25 @@
 
       <figure v-if="block.name === 'core/image'" class="c-blocks__image">
         <img
-          :id="parse(block.attributesJSON).id"
-          :src="parse(block.attributesJSON).url"
-          :alt="parse(block.attributesJSON).alt"
+          :id="parse(block.attributesJSON as string | undefined).id"
+          :src="parse(block.attributesJSON as string | undefined).url"
+          :alt="parse(block.attributesJSON as string | undefined).alt"
         />
         <figcaption
-          v-if="parse(block.attributesJSON).caption"
-          v-html="parse(block.attributesJSON).caption"
+          v-if="parse(block.attributesJSON as string | undefined).caption"
+          v-html="parse(block.attributesJSON as string | undefined).caption"
         />
       </figure>
 
       <a
         v-if="block.name === 'core/button'"
-        :id="parse(block.attributesJSON).anchor"
-        :href="parse(block.attributesJSON).url"
-        :title="parse(block.attributesJSON).title"
-        :target="parse(block.attributesJSON).target"
-        :rel="parse(block.attributesJSON).rel"
-        :class="`c-blocks__button ${parse(block.attributesJSON).className}`"
-        >{{ parse(block.attributesJSON).text }}</a
+        :id="parse(block.attributesJSON as string | undefined).anchor"
+        :href="parse(block.attributesJSON as string | undefined).url"
+        :title="parse(block.attributesJSON as string | undefined).title"
+        :target="parse(block.attributesJSON as string | undefined).target"
+        :rel="parse(block.attributesJSON as string | undefined).rel"
+        :class="`c-blocks__button ${parse(block.attributesJSON as string | undefined).className}`"
+        >{{ parse(block.attributesJSON as string | undefined).text }}</a
       >
 
       <div v-if="block.name === 'core/html'" v-html="block.originalContent" />
@@ -54,28 +54,17 @@
 
 <script setup lang="ts">
 import slugify from "slugify";
+import type { Block } from "../types/generated/graphql";
+
 interface PostBlocksProps {
-  blocks: [
-    {
-      attributesJSON: string;
-      name: string;
-      order: number;
-      originalContent: string;
-      innerBlocks: [
-        {
-          attributesJSON: string;
-          name: string;
-          order: number;
-          originalContent: string;
-        }
-      ];
-    }
-  ];
+  blocks: Block[];
 }
 
 const props = defineProps<PostBlocksProps>();
 
-const parse = (str: string) => {
+const parse = (str: string | undefined) => {
+  if (!str) return;
+
   return JSON.parse(str);
 };
 </script>

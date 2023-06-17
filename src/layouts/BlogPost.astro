@@ -27,6 +27,7 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
+import type { CoreHeadingBlock } from "../types/generated/graphql";
 
 import { __ } from "@i18n/i18n";
 
@@ -43,7 +44,7 @@ import { getMenuById } from "@lib/api";
 
 export interface BlogPost {
   content: Post;
-  headings?: Array<object>;
+  headings?: CoreHeadingBlock[];
 }
 
 const {
