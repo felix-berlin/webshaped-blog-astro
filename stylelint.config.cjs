@@ -1,19 +1,15 @@
 module.exports = {
   customSyntax: "postcss-scss",
-  extends: ["stylelint-config-standard", "stylelint-config-standard-scss"],
+  extends: [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss",
+  ],
   // plugins: ['stylelint-declaration-block-no-ignored-properties'],
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
   rules: {
-    indentation: "tab",
-    "string-quotes": "single",
     "max-line-length": null,
-    "max-empty-lines": [
-      1,
-      {
-        ignore: ["comments"],
-      },
-    ],
     "selector-class-pattern": null,
     "at-rule-empty-line-before": [
       "always",
@@ -35,5 +31,6 @@ module.exports = {
     ],
     "no-descending-specificity": null,
     "function-no-unknown": null,
+    "scss/at-extend-no-missing-placeholder": null,
   },
 };

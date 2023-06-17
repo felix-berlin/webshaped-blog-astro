@@ -216,10 +216,8 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
         transform: rotate(var(--rotate, 20deg));
 
         border: {
-          top: 0;
-          right: 2px solid var(--color-inner-active);
-          bottom: 2px solid var(--color-inner-active);
-          left: 0;
+          inset: 0 2px solid var(--color-inner-active) 2px solid
+            var(--color-inner-active) 0;
         }
       }
 
@@ -259,6 +257,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     margin-top: calc(
       -1 * var(--height-track) - 0.05rem
     ); // -1 * to negate the value
+
     border-radius: 50%;
   }
 
