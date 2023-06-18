@@ -1,5 +1,6 @@
 import de_DE from "./de-DE";
 import en_US from "./en-US";
+import type { Maybe } from "../types/generated/graphql";
 
 const availableLanguages = {
   en: "English",
@@ -38,12 +39,12 @@ const pluralFormFor = (
  * @return  {string}                     return the translated string
  */
 const __ = (
-  locale: string,
+  locale: Maybe<string>,
   translationString: string,
   varsToReplace?: object,
   plural?: number
 ): string => {
-  const lang: string = locale.replace("_", "-");
+  const lang = locale?.replace("_", "-");
   const translations: object = { de_DE, en_US };
 
   // If the translation string is not available, return the translation string itself.

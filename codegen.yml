@@ -6,6 +6,8 @@ generates:
     plugins:
       - typescript
       - typescript-operations
-  # ./graphql.schema.json:
-  #   plugins:
-  #     - "introspection"
+    config:
+      maybeValue: "T | null | undefined"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

@@ -7,6 +7,9 @@ import type {
   RootQueryToCategoryConnection,
   RootQueryToCommentConnection,
   RootQueryToPostConnection,
+  CreateCommentInput,
+  CreateCommentPayload,
+  Maybe,
 } from "../types/generated/graphql";
 const { PUBLIC_WP_API } = import.meta.env;
 
@@ -736,7 +739,7 @@ export async function getAuthor(
 export async function getCommentsById(
   contentId: number,
   first: number,
-  after?: string
+  after?: Maybe<string>
 ): Promise<RootQueryToCommentConnection> {
   return await fetchAPI(`
     {
@@ -891,12 +894,12 @@ export async function getCommentsById(
 }
 
 export async function createComment(
-  commentOn: number,
-  content: string,
-  author: string,
-  authorEmail?: string,
-  parent?: number
-): Promise<RootMutation["createComment"]> {
+  commentOn: CreateCommentInput["commentOn"],
+  content: CreateCommentInput["content"],
+  author: CreateCommentInput["author"],
+  authorEmail?: CreateCommentInput["authorEmail"],
+  parent?: CreateCommentInput["parent"]
+): Promise {
   return await fetchAPI(`
     mutation {
       createComment(input: {
