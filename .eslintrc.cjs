@@ -1,11 +1,17 @@
+/* eslint-env node */
 module.exports = {
   extends: [
+    "eslint:recommended",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
     "plugin:vue/vue3-recommended",
     "plugin:vuejs-accessibility/recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier",
   ],
+  parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
+  root: true,
   overrides: [
     {
       // Define the configuration for `.astro` file.
@@ -31,22 +37,19 @@ module.exports = {
         extraFileExtensions: [".vue"],
       },
       rules: {
-        // override/add rules settings here, such as:
-        // "astro/no-set-html-directive": "error"
+        "vuejs-accessibility/label-has-for": [
+          "error",
+          {
+            components: ["VLabel"],
+            controlComponents: ["VInput"],
+            required: {
+              every: ["id"],
+            },
+            allowChildren: false,
+          },
+        ],
       },
     },
   ],
-  rules: {
-    "vuejs-accessibility/label-has-for": [
-      "error",
-      {
-        components: ["VLabel"],
-        controlComponents: ["VInput"],
-        required: {
-          every: ["id"],
-        },
-        allowChildren: false,
-      },
-    ],
-  },
+  rules: {},
 };
