@@ -22,14 +22,13 @@
 
 <script setup lang="ts">
 import CommentItem from "@components/comments/CommentItem.vue";
-import type { CommentData } from "@components/comments/CommentItem.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
-import type { Language } from "../../types/generated/graphql";
+import type { Language, Comment } from "../../types/generated/graphql";
 
 export interface CommentsProps {
   comments: {
-    nodes?: [CommentData];
+    nodes?: [Comment];
   };
   currentPostId: number;
   id?: string;

@@ -228,6 +228,7 @@ export async function getPostBySlug(slug: number | string): Promise<Post> {
         modifiedGmt
         content
         postId
+        id
         blocks {
           attributesJSON
           name
@@ -747,7 +748,7 @@ export async function getCommentsById(
         where: {
           contentId: "${contentId}",
           contentStatus: PUBLISH,
-          orderby: COMMENT_DATE_GMT
+          orderby: COMMENT_DATE_GMT,
         },
         first: ${first},
         ${after ? `after: "${after}"` : ""}
@@ -893,6 +894,17 @@ export async function getCommentsById(
     }`);
 }
 
+/**
+ * creates a new comment
+ *
+ * @export
+ * @param {CreateCommentInput["commentOn"]} commentOn - id of the post
+ * @param {CreateCommentInput["content"]} content - content of the comment
+ * @param {CreateCommentInput["author"]} author - name of the author
+ * @param {CreateCommentInput["authorEmail"]} [authorEmail] - email of the author
+ * @param {CreateCommentInput["parent"]} [parent] - id of the parent comment
+ * @return {*}  {Promise}
+ */
 export async function createComment(
   commentOn: CreateCommentInput["commentOn"],
   content: CreateCommentInput["content"],

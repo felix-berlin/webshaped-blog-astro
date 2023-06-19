@@ -21,16 +21,18 @@
     <!-- </TransitionGroup> -->
 
     <TransitionGroup name="list">
-      <template v-for="comment in data.comments" :key="comment">
-        <CommentItem
-          v-show="data.hasComments"
-          :comment="comment.node"
-          :depth="0"
-          :author-id="authorId"
-          :lang="lang"
-          :current-post-id="currentPostId"
-        />
-      </template>
+      <!-- <template v-for="comment in data.comments" :key="comment.id"> -->
+      <CommentItem
+        v-for="comment in data.comments"
+        v-show="data.hasComments"
+        :key="comment.node.id"
+        :comment="comment.node"
+        :depth="0"
+        :author-id="authorId"
+        :lang="lang"
+        :current-post-id="currentPostId"
+      />
+      <!-- </template> -->
     </TransitionGroup>
     <button
       v-if="data?.pageInfo?.hasNextPage"
@@ -56,13 +58,15 @@
 import { onMounted, reactive } from "vue";
 import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
-import type { CommentData } from "@components/comments/CommentItem.vue";
 import type { NodeWithAuthor, Post } from "../../types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@lib/api";
 import { RefreshCw } from "lucide-vue-next";
-import type { Language } from "../../types/generated/graphql";
+import type {
+  Language,
+  RootQueryToCommentConnectionEdge,
+} from "../../types/generated/graphql";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
@@ -72,7 +76,7 @@ export interface CommentsProps {
 }
 
 interface CommentsData {
-  comments: Object[];
+  comments: RootQueryToCommentConnectionEdge[];
   pageInfo: {
     hasNextPage?: boolean;
     endCursor?: string;
@@ -94,6 +98,12 @@ const data = reactive<CommentsData>({
   hasComments: true,
 });
 
+/**
+ *
+ * @param currentPostId
+ * @param first
+ * @param after
+ */
 const getComments = async (
   currentPostId = props.currentPostId,
   first = 5,
@@ -102,7 +112,14 @@ const getComments = async (
   data.loading = true;
 
   await getCommentsById(currentPostId, first, after).then((response) => {
-    data.comments = [...data.comments, ...response.data.comments.edges];
+    // Because the API returns all comments, we need to filter out all child comments
+    data.comments = [
+      ...data.comments,
+      ...response.data.comments.edges.filter(
+        (comment: RootQueryToCommentConnectionEdge) =>
+          comment.node.parentId === null
+      ),
+    ];
     data.pageInfo = response.data.comments.pageInfo;
     data.loading = false;
     data.hasLoaded = true;
@@ -123,6 +140,10 @@ const reloadComments = () => {
 
 onMounted(async () => {
   await getComments();
+
+  // const test = data.comments.find((comment) => comment.node.parentId === null);
+
+  // console.log(test);
 });
 </script>
 

@@ -59,6 +59,7 @@ const {
     comments,
     commentCount,
     postId,
+    id,
     content,
     categories,
     author,
@@ -214,7 +215,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
             id="comments"
             lang={language!}
             authorId={author?.node.id}
-            client:visible
+            client:only
           />
         </footer>
       </article>

@@ -28,7 +28,7 @@
         type="danger"
         class="c-alert--small"
       >
-        <template v-for="(error, index) in formResponses.errors" :key="index">
+        <template v-for="error in formResponses.errors" :key="error">
           <AlertCircle /> {{ error.message }}
         </template>
       </Alert>
@@ -138,12 +138,12 @@ import { loadingState } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
 import { CheckCircle, AlertCircle, User, Info } from "lucide-vue-next";
-import type { Language } from "../../types/generated/graphql";
+import type { Language, Maybe } from "../../types/generated/graphql";
 
 interface Props {
   currentPostId: number;
   lang: Language;
-  replyToCommentId?: number;
+  replyToCommentId?: Maybe<number>;
 }
 
 const props = defineProps<Props>();

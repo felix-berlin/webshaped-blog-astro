@@ -7,20 +7,19 @@
         'is-reply': !comment?.replies?.nodes?.length,
       },
     ]"
-    role="comment"
   >
     <article :id="'comment-' + comment.id" class="c-comment__item">
       <header class="c-comment__header">
         <img
           v-if="comment.author?.node?.avatar"
-          :src="comment.author.node.avatar.url"
+          :src="comment.author.node.avatar.url!"
           :alt="
             __(lang.locale!, 'comment.author.image.alt', {
               author: comment.author.node.name,
             })
           "
-          :width="comment.author.node.avatar.width"
-          :height="comment.author.node.avatar.height"
+          :width="comment.author.node.avatar.width!"
+          :height="comment.author.node.avatar.height!"
           class="c-comment__author-image"
         />
         <div v-else class="c-comment__author-icon">
@@ -29,7 +28,7 @@
 
         <div class="c-comment__author-name-wrap">
           <h2 class="c-comment__author-name">
-            {{ comment.author.node.name }}
+            {{ comment?.author?.node.name }}
           </h2>
           <Verified v-if="isAuthor" :size="18" />
         </div>
@@ -83,16 +82,18 @@
       </div>
     </Transition>
 
-    <template v-if="comment.replies">
-      <template v-for="(reply, index) in comment.replies.nodes" :key="index">
-        <CommentItem
-          :comment="reply"
-          :depth="depth + 1"
-          :author-id="authorId"
-          :lang="lang"
-          :current-post-id="currentPostId"
-        />
-      </template>
+    <template
+      v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0"
+    >
+      <CommentItem
+        v-for="reply in comment.replies.nodes"
+        :key="reply.id"
+        :comment="reply"
+        :depth="depth + 1"
+        :author-id="authorId"
+        :lang="lang"
+        :current-post-id="currentPostId"
+      />
     </template>
   </div>
 </template>
@@ -103,32 +104,10 @@ import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";
 import { User, Reply, X, Verified } from "lucide-vue-next";
-import type { Language } from "../../types/generated/graphql";
-
-export interface CommentData {
-  content: string;
-  dateGmt: string;
-  id: string;
-  parentId?: string | null;
-  commentId: number;
-  author: {
-    node: {
-      name: string;
-      id: string;
-      avatar?: {
-        url?: string;
-        width?: number;
-        height?: number;
-      };
-    };
-  };
-  replies?: {
-    nodes: [];
-  };
-}
+import type { Language, Comment } from "../../types/generated/graphql";
 
 interface CommentItemProps {
-  comment: CommentData;
+  comment: Comment;
   depth: number;
   authorId?: string;
   lang: Language;
@@ -140,7 +119,7 @@ const props = defineProps<CommentItemProps>();
 const replyToCommentForm = ref(false);
 
 const isAuthor = computed(
-  () => props.comment.author.node.id === props.authorId
+  () => props?.comment?.author?.node.id === props.authorId
 );
 
 /**
