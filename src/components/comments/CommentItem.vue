@@ -34,12 +34,12 @@
         </div>
       </header>
       <main class="c-comment__content">
-        <a
+        <!-- <a
           v-if="comment.parentId"
           :href="`#comment-${comment.parentId}`"
           class="c-comment__reply-to"
           >Reply to</a
-        >
+        > -->
 
         <p class="c-comment__text" v-html="comment.content" />
 
@@ -50,7 +50,12 @@
             class="c-comment__reply-button c-button c-button--icon"
             @click="toggleReplyCommentForm()"
           >
-            <Reply :size="18" /> {{ __(lang.locale!, "comment.reply_button") }}
+            <span class="c-comment__reply-button-icon"
+              ><Reply :size="16"
+            /></span>
+            <span class="c-comment__reply-button-text">{{
+              __(lang.locale!, "comment.reply_button")
+            }}</span>
           </button>
 
           <Date :date="comment.dateGmt" class="c-comment__date">
@@ -62,25 +67,30 @@
       </main>
     </article>
 
-    <Transition name="fade" mode="in-out">
-      <div
-        v-if="replyToCommentForm"
-        class="c-comment is-create-comment"
-        :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
+    <!-- <Transition name="fade" mode="in-out"> -->
+    <div
+      v-if="replyToCommentForm"
+      v-auto-animate
+      class="c-comment is-create-comment"
+      :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
+    >
+      <CreateComment
+        :current-post-id="currentPostId"
+        :lang="lang"
+        :reply-to-comment-id="comment.commentId"
       >
-        <CreateComment
-          :current-post-id="currentPostId"
-          :lang="lang"
-          :reply-to-comment-id="comment.commentId"
-        >
-          <template #beforeContent>
-            <button type="button" @click="toggleReplyCommentForm()">
-              <X />
-            </button>
-          </template>
-        </CreateComment>
-      </div>
-    </Transition>
+        <template #beforeContent>
+          <button
+            type="button"
+            class="c-button c-button--icon c-button--close"
+            @click="toggleReplyCommentForm()"
+          >
+            <X />
+          </button>
+        </template>
+      </CreateComment>
+    </div>
+    <!-- </Transition> -->
 
     <template
       v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0"
@@ -88,6 +98,7 @@
       <CommentItem
         v-for="reply in comment.replies.nodes"
         :key="reply.id"
+        v-auto-animate
         :comment="reply"
         :depth="depth + 1"
         :author-id="authorId"

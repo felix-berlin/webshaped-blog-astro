@@ -20,8 +20,9 @@
     </template>
     <!-- </TransitionGroup> -->
 
-    <TransitionGroup name="list">
-      <!-- <template v-for="comment in data.comments" :key="comment.id"> -->
+    <!-- <TransitionGroup name="list"> -->
+    <!-- <template v-for="comment in data.comments" :key="comment.id"> -->
+    <div v-auto-animate>
       <CommentItem
         v-for="comment in data.comments"
         v-show="data.hasComments"
@@ -32,8 +33,9 @@
         :lang="lang"
         :current-post-id="currentPostId"
       />
-      <!-- </template> -->
-    </TransitionGroup>
+    </div>
+    <!-- </template> -->
+    <!-- </TransitionGroup> -->
     <button
       v-if="data?.pageInfo?.hasNextPage"
       class="c-comments__load-more-button c-button c-button--outline"
