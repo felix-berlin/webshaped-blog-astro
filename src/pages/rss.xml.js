@@ -1,19 +1,20 @@
-import rss from "@astrojs/rss";
+import rss, { pagesGlobToRssItems } from "@astrojs/rss";
 
-// console.log(import.meta.glob());
-export const get = () =>
+export const get = async (context) =>
   rss({
     // `<title>`-Feld in der XML-Ausgabe
-    title: "Buzz’s Blog",
+    title: "Web Shaped Blog",
     // `<description>`-Feld in der XML-Ausgabe
     description: "Ein bescheidener Astronaut und sein Weg zu den Sternen",
     // Basis-URL für RSS-<item>-Links
     // SITE verwendet "site" aus der astro.config deines Projekts.
-    site: import.meta.env.SITE,
+    site: context.site,
     // Liste von `<item>`-Elementen in der XML-Ausgabe
     // Einfaches Beispiel: Items für jede md-Datei in /src/pages erzeugen
     // Siehe Abschnitt "Generieren von `items`" für erforderliche Frontmatter und erweiterte Anwendungsfälle
-    items: import.meta.glob(["./dist/de/**/*.html", "./dist/en/**/*.html"]),
+    items: await pagesGlobToRssItems(
+      import.meta.glob(["./dist/de/**/*.html", "./dist/en/**/*.html"])
+    ),
     // (optional) Benutzerdefinierten XML-Code einfügen
     customData: `<language>de-de</language>`,
   });

@@ -20,7 +20,7 @@ export default (app: App) => {
   app.use(autoAnimatePlugin);
   app.use(devtools);
   attachStores(app, {
-    currentWebmentionsCount: currentWebmentionsCount,
-    isDarkMode: isDarkMode,
+    currentWebmentionsCount,
+    isDarkMode,
   });
 };
