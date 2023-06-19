@@ -67,12 +67,11 @@ const __ = (
       "gi"
     );
 
-    return translationStr.replace(
-      regex,
-      (matched: string, offset: number, string: string) => {
+    return translationStr
+      .toString()
+      .replace(regex, (matched: string, offset: number, string: string) => {
         return varsToReplace[offset as keyof typeof varsToReplace];
-      }
-    );
+      });
   }
 
   return translationStr || translationString;
