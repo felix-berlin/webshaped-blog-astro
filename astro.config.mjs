@@ -15,7 +15,9 @@ const __dirname = dirname(__filename);
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
+  site: import.meta.env.DEV
+    ? "http://localhost:3000"
+    : "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
   build: {
     format: "file",
   },
@@ -40,7 +42,9 @@ export default defineConfig({
       },
     }),
     prefetch(),
-    critters(),
+    critters({
+      critters: import.meta.env.PROD,
+    }),
     matomo({
       enabled: import.meta.env.PROD,
       host: "https://analytics.webshaped.de/",
