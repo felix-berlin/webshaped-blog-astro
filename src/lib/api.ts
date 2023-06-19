@@ -191,7 +191,7 @@ export async function getMenuById(id: number): Promise<RootQuery["menu"]> {
 }
 
 export async function getAllPostsWithSlugs(
-  language: string = "DE"
+  language = "DE"
 ): Promise<RootQueryToPostConnection> {
   const data = await fetchAPI(`
   {
@@ -482,11 +482,11 @@ export async function getPostBySlug(slug: number | string): Promise<Post> {
 }
 
 export async function getPostsPreview(
-  first: number = 10_000,
-  status: string = "PUBLISH",
-  orderby: string = "DATE",
-  order: string = "ASC",
-  language: string = "DE"
+  first = 10_000,
+  status = "PUBLISH",
+  orderby = "DATE",
+  order = "ASC",
+  language = "DE"
 ): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
     {
@@ -542,10 +542,10 @@ export async function getPostsPreview(
  * @return  {object}
  */
 export async function getAllCategories(
-  first: number = 10_000,
+  first = 10_000,
   exclude: number[] = [1], // 1 = allgemein
-  orderby: string = "NAME",
-  hideEmpty: boolean = true
+  orderby = "NAME",
+  hideEmpty = true
 ): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
@@ -578,9 +578,9 @@ export async function getAllCategories(
 
 export async function getPostsPreviewByCategory(
   category: string,
-  first: number = 10_000,
-  field: string = "DATE",
-  order: string = "ASC"
+  first = 10_000,
+  field = "DATE",
+  order = "ASC"
 ): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
   {
@@ -633,9 +633,9 @@ export async function getPostsPreviewByCategory(
 }
 
 export async function getAllPostPreviewsByCategory(
-  field: string = "DATE",
-  order: string = "ASC",
-  status: string = "PUBLISH",
+  field = "DATE",
+  order = "ASC",
+  status = "PUBLISH",
   exclude: number[] = [1] // 1 = allgemein
 ): Promise<RootQueryToCategoryConnection> {
   const data = await fetchAPI(`
@@ -709,8 +709,8 @@ export async function getAllTags(): Promise<RootQuery["tags"]> {
 }
 
 export async function getAuthor(
-  id: string = "1",
-  idType: string = "DATABASE_ID"
+  id = "1",
+  idType = "DATABASE_ID"
 ): Promise<RootQuery["user"]> {
   const data = await fetchAPI(`
     {
