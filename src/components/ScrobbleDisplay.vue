@@ -31,15 +31,16 @@
         </header>
         <p v-html="__(lang.locale, 'scrobble_display.text')" />
 
-        <TransitionGroup
+        <!-- <TransitionGroup
           name="list"
           tag="div"
           mode="out-in"
           class="c-scrobble-display__list"
-        >
+        > -->
+        <div v-auto-animate class="c-scrobble-display__list">
           <div
-            v-for="(track, index) in state.tracks.recenttracks.track"
-            :key="index"
+            v-for="track in state.tracks.recenttracks.track"
+            :key="track"
             class="c-scrobble-display__track-item"
             :class="{ 'is-playing': track['@attr']?.nowplaying }"
           >
@@ -72,7 +73,8 @@
               {{ track.artist["#text"] }}
             </p>
           </div>
-        </TransitionGroup>
+        </div>
+        <!-- </TransitionGroup> -->
         <footer>
           <img
             src="/assets/lastfm_scrobble.svg"
@@ -125,16 +127,17 @@ interface State {
   idleAfterCount: number | undefined;
 }
 
-const props = withDefaults(defineProps<ScrobbleDisplayProps>(), {
-  numberOfDisplayedTracks: 5,
-  updateRate: 180_000, // check every 180 seconds (3 min)
-  dropdownPlacement: "auto",
-  idleIfInactive: false,
-  idleAfterCount: undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
-  lang: {
+// eslint-disable-next-line vue/no-setup-props-destructure
+const {
+  numberOfDisplayedTracks = 5,
+  updateRate = 180_000, // check every 180 seconds (3 min)
+  dropdownPlacement = "auto",
+  idleIfInactive = false,
+  idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
+  lang = {
     locale: "de",
   },
-});
+} = defineProps<ScrobbleDisplayProps>();
 
 const state: State = reactive({
   tracks: {},
@@ -142,7 +145,7 @@ const state: State = reactive({
   updateCount: 0,
   updateIntervalId: undefined,
   isDropdownShown: false,
-  idleAfterCount: props.idleAfterCount ? props.idleAfterCount + 1 : undefined,
+  idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
 });
 
 const stop = watchEffect(() => {
@@ -172,9 +175,9 @@ watch(
  */
 const getScrobbles = async (): Promise<object> => {
   const response = await fetch(
-    `${import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API}?limit=${
-      props.numberOfDisplayedTracks
-    }`
+    `${
+      import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API
+    }?limit=${numberOfDisplayedTracks}`
   );
   const data = await response.json();
 
@@ -212,7 +215,7 @@ const startScrobbleUpdates = (immediately: boolean): void => {
   if (immediately) checkIfPlaying();
 
   // Start update interval
-  state.updateIntervalId = setInterval(checkIfPlaying, props.updateRate);
+  state.updateIntervalId = setInterval(checkIfPlaying, updateRate);
 };
 
 /**

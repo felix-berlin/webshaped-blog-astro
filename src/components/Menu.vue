@@ -1,16 +1,19 @@
 <template>
   <menu class="c-menu u-list-reset">
     <li
-      v-for="(item, index) in props.menuItems.nodes"
-      :key="index"
+      v-for="item in props.menuItems.nodes"
+      :key="item"
       :class="[
         'c-menu__item',
-        { 'has-child': item.childItems.nodes.length > 0 },
+        {
+          'has-child':
+            item?.childItems?.nodes && item.childItems.nodes.length > 0,
+        },
       ]"
     >
       <a
-        v-if="item.childItems.nodes.length <= 0"
-        :href="item.path + (!!item.path.match(/\/category\//gm) ? '1' : '')"
+        v-if="item?.childItems?.nodes && item.childItems.nodes.length <= 0"
+        :href="item.path + (!!item?.path?.match(/\/category\//gm) ? '1' : '')"
         class="c-menu__link"
       >
         {{ item.label }}
@@ -25,14 +28,14 @@
         <template #popper>
           <menu class="c-submenu u-list-reset">
             <li
-              v-for="(child, childIndex) in item.childItems.nodes"
-              :key="childIndex"
+              v-for="child in item?.childItems?.nodes"
+              :key="child"
               class="c-submenu__item"
             >
               <a
                 :href="
                   child.path +
-                  (child.path.match(/\/category\//gm)?.length ? '1' : '')
+                  (child?.path?.match(/\/category\//gm)?.length ? '1' : '')
                 "
                 class="c-submenu__link"
                 >{{ child.label }}</a

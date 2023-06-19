@@ -2,8 +2,8 @@
   <div class="c-has-translation">
     <p class="c-has-translation__prefix-text">Diesen Post gibt es auch in:</p>
     <div
-      v-for="(translation, index) in translations"
-      :key="index"
+      v-for="translation in translations"
+      :key="translation.language.slug"
       class="c-has-translation__translations"
     >
       <a

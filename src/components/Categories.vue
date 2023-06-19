@@ -4,8 +4,8 @@
     class="c-categories"
   >
     <div
-      v-for="(category, index) in categories.edges"
-      :key="index"
+      v-for="category in categories.edges"
+      :key="category"
       class="c-categories__item"
     >
       <Hash :size="18" />
