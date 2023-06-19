@@ -10,7 +10,6 @@ export type darkMode = boolean;
 export const isDarkMode = atom<darkMode>(false);
 
 onMount(isDarkMode, () => {
-  const checkColorMode =
-    localStorage.getItem("darkMode") === "true" ? true : false;
+  const checkColorMode = localStorage.getItem("darkMode") === "true";
   isDarkMode.set(checkColorMode);
 });
