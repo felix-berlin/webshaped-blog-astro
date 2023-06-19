@@ -68,11 +68,11 @@ import slugify from "slugify";
 import type { Block, Maybe } from "../types/generated/graphql";
 import { isHtml, parse, getHtmlContent } from "../lib/helpers";
 
-interface PostBlocksProps {
+interface ContentBlocksProps {
   blocks: Block[];
 }
 
-const props = defineProps<PostBlocksProps>();
+const props = defineProps<ContentBlocksProps>();
 </script>
 
 <style scoped></style>

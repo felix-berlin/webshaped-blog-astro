@@ -44,7 +44,7 @@
 import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
-import Date from "@components/Date.vue";
+import Date from "@components/post/Date.vue";
 import { Twitter, Github, ExternalLink } from "lucide-vue-next";
 
 export interface WebmentionsProps {

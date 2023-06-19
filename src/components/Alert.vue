@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
 </script>
 
 <style lang="scss">
-@use "../styles/variables/colors";
+@use "@styles/variables/colors";
 
 .c-alert {
   --size-font: inherit;

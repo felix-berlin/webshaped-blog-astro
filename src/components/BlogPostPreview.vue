@@ -38,8 +38,8 @@
 
 <script setup lang="ts">
 import { ArrowRight } from "lucide-vue-next";
-import Date from "@components/Date.vue";
-import ReadingTime from "@components/ReadingTime.vue";
+import Date from "@components/post/Date.vue";
+import ReadingTime from "@components/post/ReadingTime.vue";
 import CommentCount from "@components/comments/CommentCount.vue";
 import HasTranslations from "./HasTranslations.vue";
 import { __ } from "@i18n/i18n";

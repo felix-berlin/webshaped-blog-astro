@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import Date from "@components/Date.vue";
+import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";

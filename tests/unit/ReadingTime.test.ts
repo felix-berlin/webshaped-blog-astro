@@ -1,9 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { test, expect } from "vitest";
-import ReadingTime from "@components/ReadingTime.vue";
+import ReadingTime from "@components/post/ReadingTime.vue";
 
 test("Viewing the reading time text", () => {
-  let wrapper = mount(ReadingTime, {
+  const wrapper = mount(ReadingTime, {
     props: {
       time: 12,
     },

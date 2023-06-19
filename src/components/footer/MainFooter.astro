@@ -1,13 +1,13 @@
 ---
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
-import GreenHosted from "@components/GreenHosted.vue";
+import GreenHosted from "@components/footer/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@lib/api";
-import { version } from "./../../package.json";
-import "../styles/objects/_footer.scss";
+import { version } from "../../../package.json";
+import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 
-import type { RootQuery, Language } from "../types/generated/graphql";
+import type { RootQuery, Language } from "@types/generated/graphql";
 
 const categories = (await getAllCategories()) as RootQuery["categories"];
 const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];

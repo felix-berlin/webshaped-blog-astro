@@ -99,5 +99,5 @@ const props = defineProps<SocialListProps>();
 </script>
 
 <style lang="scss">
-@use "../styles/components/social-list";
+@use "@styles/components/social-list";
 </style>

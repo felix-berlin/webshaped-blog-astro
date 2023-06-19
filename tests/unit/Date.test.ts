@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { test, expect } from "vitest";
-import Date from "@components/Date.vue";
+import Date from "@components/post/Date.vue";
 
 describe("Date.vue", () => {
   const wrapper = mount(Date, {
