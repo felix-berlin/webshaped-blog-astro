@@ -1,24 +1,34 @@
 <template>
   <nav :id="tocId" class="c-toc">
-    <template v-for="(headline, index) in headings" :key="index">
+    <template v-for="headline in headings" :key="headline">
       <a
-        :href="`#${slugify(JSON.parse(headline.attributesJSON as string).content, {
-          lower: true,
-        })}`"
+        :href="`#${
+          isHtml(parse(headline.attributesJSON).content)
+            ? getHtmlContent(parse(headline.attributesJSON).content)
+            : slugify(parse(headline.attributesJSON).content, {
+                lower: true,
+              })
+        }`"
         :class="[
           `c-toc__link c-toc__link--depth-${
-            JSON.parse(headline.attributesJSON as string).level
+            parse(headline.attributesJSON).level
           }`,
           {
             'is-active':
               activeHeadline ===
-              slugify(JSON.parse(headline.attributesJSON as string).content, {
+              slugify(parse(headline.attributesJSON).content, {
                 lower: true,
               }),
           },
         ]"
-        >{{ JSON.parse(headline.attributesJSON as string).content }}</a
       >
+        <template v-if="isHtml(parse(headline.attributesJSON).content)">
+          {{ getHtmlContent(parse(headline.attributesJSON).content) }}
+        </template>
+        <template v-else>
+          {{ parse(headline.attributesJSON).content }}
+        </template>
+      </a>
     </template>
   </nav>
 </template>
@@ -26,6 +36,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
+import { isHtml, parse, getHtmlContent } from "@lib/helpers";
 import type { CoreHeadingBlock } from "../types/generated/graphql";
 
 export interface TableOfContentsProps {
