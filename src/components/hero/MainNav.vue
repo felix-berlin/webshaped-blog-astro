@@ -27,6 +27,8 @@
         <ColorModeToggle />
       </div>
     </Transition>
+
+    <MenuNav :menu-items="props.menuItems.nodes" />
     <!-- <Modal
       :open="isOpen"
       transition="slide-fade-right"
@@ -53,36 +55,18 @@ import Logo from "@components/Logo.vue";
 import { Menu as MenuIcon, X } from "lucide-vue-next";
 import { useMouseInElement } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
-import type { Language } from "../../types/generated/graphql";
+import MenuNav from "@components/menu-nav/MenuNav.vue";
+import type { Language, MenuToMenuItemConnection } from "../../types/generated/graphql";
 
 export interface MainNavProps {
-  menuItems: {
-    nodes: [
-      {
-        label: string;
-        order: number;
-        path: string;
-        childItems: {
-          nodes: [
-            {
-              label: string;
-              order: number;
-              path: string;
-            }
-          ];
-        };
-      }
-    ];
-  };
+  menuItems: MenuToMenuItemConnection;
   lang: Language;
 }
 
 const props = defineProps<MainNavProps>();
 
 const isOpen = ref(false);
-
 const mainHeaderWidth = ref(0);
-
 const mainNav = ref(null);
 
 const mouse = reactive(useMouseInElement(mainNav));
@@ -142,7 +126,15 @@ watch(
   }
 );
 
-onMounted(() => bodyWidth.observe(document.body));
+/**
+ * Observes the width of the body element using the ResizeObserver API.
+ * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
+ */
+onMounted(() => {
+  bodyWidth.observe(document.body)
+  console.log(props.menuItems);
+
+});
 
 onUnmounted(() => bodyWidth.disconnect());
 </script>
