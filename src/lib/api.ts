@@ -15,7 +15,7 @@ const { PUBLIC_WP_API } = import.meta.env;
 
 async function fetchAPI(
   query: string,
-  { variables } = { variables: {} }
+  { variables } = { variables: {} },
 ): Promise<object | any> {
   const headers = {
     "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export async function getAllPagesWithSlugs(): Promise<RootQuery["pages"]> {
 }
 
 export async function getCategoryBySlug(
-  slug: string
+  slug: string,
 ): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
@@ -191,7 +191,7 @@ export async function getMenuById(id: number): Promise<RootQuery["menu"]> {
 }
 
 export async function getAllPostsWithSlugs(
-  language = "DE"
+  language = "DE",
 ): Promise<RootQueryToPostConnection> {
   const data = await fetchAPI(`
   {
@@ -486,7 +486,7 @@ export async function getPostsPreview(
   status = "PUBLISH",
   orderby = "DATE",
   order = "ASC",
-  language = "DE"
+  language = "DE",
 ): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
     {
@@ -545,7 +545,7 @@ export async function getAllCategories(
   first = 10_000,
   exclude: number[] = [1], // 1 = allgemein
   orderby = "NAME",
-  hideEmpty = true
+  hideEmpty = true,
 ): Promise<RootQuery["categories"]> {
   const data = await fetchAPI(`
   {
@@ -580,7 +580,7 @@ export async function getPostsPreviewByCategory(
   category: string,
   first = 10_000,
   field = "DATE",
-  order = "ASC"
+  order = "ASC",
 ): Promise<RootQuery["posts"]> {
   const data = await fetchAPI(`
   {
@@ -636,7 +636,7 @@ export async function getAllPostPreviewsByCategory(
   field = "DATE",
   order = "ASC",
   status = "PUBLISH",
-  exclude: number[] = [1] // 1 = allgemein
+  exclude: number[] = [1], // 1 = allgemein
 ): Promise<RootQueryToCategoryConnection> {
   const data = await fetchAPI(`
   {
@@ -710,7 +710,7 @@ export async function getAllTags(): Promise<RootQuery["tags"]> {
 
 export async function getAuthor(
   id = "1",
-  idType = "DATABASE_ID"
+  idType = "DATABASE_ID",
 ): Promise<RootQuery["user"]> {
   const data = await fetchAPI(`
     {
@@ -740,7 +740,7 @@ export async function getAuthor(
 export async function getCommentsById(
   contentId: number,
   first: number,
-  after?: Maybe<string>
+  after?: Maybe<string>,
 ): Promise<RootQueryToCommentConnection> {
   return await fetchAPI(`
     {
@@ -910,8 +910,8 @@ export async function createComment(
   content: CreateCommentInput["content"],
   author: CreateCommentInput["author"],
   authorEmail?: CreateCommentInput["authorEmail"],
-  parent?: CreateCommentInput["parent"]
-) {
+  parent?: CreateCommentInput["parent"],
+): Promise<object> {
   return await fetchAPI(`
     mutation {
       createComment(input: {

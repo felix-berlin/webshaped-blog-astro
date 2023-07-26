@@ -6,16 +6,18 @@
 </template>
 
 <script setup lang="ts">
-import LanguageSelect from "@components/LanguageSelect.vue";
+// import LanguageSelect from "@components/LanguageSelect.vue";
 import MainNav from "@components/hero/MainNav.vue";
-import type { Language, Maybe, MenuToMenuItemConnection } from "../../types/generated/graphql";
+import type {
+  Language,
+  Maybe,
+  MenuToMenuItemConnection,
+} from "../../types/generated/graphql";
 
 export interface HeaderProps {
   menuItems: MenuToMenuItemConnection;
-  lang: Maybe<Language> | undefined;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<HeaderProps>();
 </script>
-
-<style lang="scss"></style>

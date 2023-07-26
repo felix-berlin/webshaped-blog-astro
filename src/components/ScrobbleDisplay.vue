@@ -118,8 +118,18 @@ export interface ScrobbleDisplayProps {
   lang: Language;
 }
 
+interface LastFmData {
+  recenttracks: {
+    track: {
+      [x: string]: { nowplaying: boolean };
+    }[];
+  };
+}
+
 interface State {
-  tracks: object;
+  tracks: {
+    [key: string]: any;
+  };
   scrobbling: boolean;
   updateCount: number;
   updateIntervalId: NodeJS.Timer | undefined;
@@ -165,7 +175,7 @@ watch(
 
       return startScrobbleUpdates(true);
     }
-  }
+  },
 );
 
 /**
@@ -173,15 +183,13 @@ watch(
  *
  * @return  {object}  api response
  */
-const getScrobbles = async (): Promise<object> => {
+const getScrobbles = async (): Promise<LastFmData> => {
   const response = await fetch(
     `${
       import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API
-    }?limit=${numberOfDisplayedTracks}`
+    }?limit=${numberOfDisplayedTracks}`,
   );
-  const data = await response.json();
-
-  return data;
+  return await response.json();
 };
 
 /**
@@ -195,10 +203,8 @@ const checkIfPlaying = async (): Promise<void> => {
     state.updateCount++;
 
     state.scrobbling = !!data.recenttracks.track.find(
-      (track: {
-        [x: string]: { nowplaying: boolean };
-        hasOwnProperty: (arg0: string) => any;
-      }) => track.hasOwnProperty("@attr") && track["@attr"].nowplaying
+      (track: { [x: string]: { nowplaying: boolean } }) =>
+        "@attr" in track && track["@attr"].nowplaying,
     );
   });
 };

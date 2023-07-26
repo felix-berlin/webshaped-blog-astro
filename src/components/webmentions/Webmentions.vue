@@ -75,7 +75,7 @@ interface State {
       "wm-received": string;
       "wm-source": string;
       "wm-target": string;
-    }
+    },
   ];
 }
 
@@ -94,7 +94,7 @@ const state: State = reactive({
  * @var {[type]}
  */
 const response = await fetch(
-  `https://webmention.io/api/mentions.jf2?target=${props.target}`
+  `https://webmention.io/api/mentions.jf2?target=${props.target}`,
 )
   .then((res) => res.json())
   .then(async (data) => {
@@ -125,5 +125,3 @@ const domainName = (url: string) => {
   return url.replace(/.+\/\/|www.|\..+/g, "");
 };
 </script>
-
-<style scoped></style>

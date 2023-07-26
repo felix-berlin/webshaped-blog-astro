@@ -29,7 +29,7 @@
         :key="comment.node.id"
         :comment="comment.node"
         :depth="0"
-        :author-id="authorId"
+        :author-id="authorId!"
         :lang="lang"
         :current-post-id="currentPostId"
       />
@@ -109,20 +109,22 @@ const data = reactive<CommentsData>({
 const getComments = async (
   currentPostId = props.currentPostId,
   first = 5,
-  after?: string
-): Promise<object | any> => {
+  after?: string,
+) => {
   data.loading = true;
 
   await getCommentsById(currentPostId, first, after).then((response) => {
     // Because the API returns all comments, we need to filter out all child comments
+
     data.comments = [
       ...data.comments,
       ...response.data.comments.edges.filter(
         (comment: RootQueryToCommentConnectionEdge) =>
-          comment.node.parentId === null
+          comment.node.parentId === null,
       ),
     ];
     data.pageInfo = response.data.comments.pageInfo;
+
     data.loading = false;
     data.hasLoaded = true;
     data.hasComments = !!data.comments?.length;

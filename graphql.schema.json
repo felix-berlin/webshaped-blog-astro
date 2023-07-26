@@ -87520,541 +87520,541 @@
         "enumValues": [
           {
             "name": "APPLICATION_JAVA",
-            "description": "MimeType application/java",
+            "description": "application/java mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_MSWORD",
-            "description": "MimeType application/msword",
+            "description": "application/msword mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_OCTET_STREAM",
-            "description": "MimeType application/octet-stream",
+            "description": "application/octet-stream mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_ONENOTE",
-            "description": "MimeType application/onenote",
+            "description": "application/onenote mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_OXPS",
-            "description": "MimeType application/oxps",
+            "description": "application/oxps mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_PDF",
-            "description": "MimeType application/pdf",
+            "description": "application/pdf mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_RAR",
-            "description": "MimeType application/rar",
+            "description": "application/rar mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_RTF",
-            "description": "MimeType application/rtf",
+            "description": "application/rtf mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_TTAF_XML",
-            "description": "MimeType application/ttaf+xml",
+            "description": "application/ttaf+xml mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_APPLE_KEYNOTE",
-            "description": "MimeType application/vnd.apple.keynote",
+            "description": "application/vnd.apple.keynote mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_APPLE_NUMBERS",
-            "description": "MimeType application/vnd.apple.numbers",
+            "description": "application/vnd.apple.numbers mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_APPLE_PAGES",
-            "description": "MimeType application/vnd.apple.pages",
+            "description": "application/vnd.apple.pages mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_ACCESS",
-            "description": "MimeType application/vnd.ms-access",
+            "description": "application/vnd.ms-access mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_EXCEL",
-            "description": "MimeType application/vnd.ms-excel",
+            "description": "application/vnd.ms-excel mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_EXCEL_ADDIN_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-excel.addin.macroEnabled.12",
+            "description": "application/vnd.ms-excel.addin.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_EXCEL_SHEET_BINARY_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-excel.sheet.binary.macroEnabled.12",
+            "description": "application/vnd.ms-excel.sheet.binary.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_EXCEL_SHEET_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-excel.sheet.macroEnabled.12",
+            "description": "application/vnd.ms-excel.sheet.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_EXCEL_TEMPLATE_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-excel.template.macroEnabled.12",
+            "description": "application/vnd.ms-excel.template.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT",
-            "description": "MimeType application/vnd.ms-powerpoint",
+            "description": "application/vnd.ms-powerpoint mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT_ADDIN_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-powerpoint.addin.macroEnabled.12",
+            "description": "application/vnd.ms-powerpoint.addin.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT_PRESENTATION_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+            "description": "application/vnd.ms-powerpoint.presentation.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT_SLIDESHOW_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-powerpoint.slideshow.macroEnabled.12",
+            "description": "application/vnd.ms-powerpoint.slideshow.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT_SLIDE_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-powerpoint.slide.macroEnabled.12",
+            "description": "application/vnd.ms-powerpoint.slide.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_POWERPOINT_TEMPLATE_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-powerpoint.template.macroEnabled.12",
+            "description": "application/vnd.ms-powerpoint.template.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_PROJECT",
-            "description": "MimeType application/vnd.ms-project",
+            "description": "application/vnd.ms-project mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_WORD_DOCUMENT_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-word.document.macroEnabled.12",
+            "description": "application/vnd.ms-word.document.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_WORD_TEMPLATE_MACROENABLED_12",
-            "description": "MimeType application/vnd.ms-word.template.macroEnabled.12",
+            "description": "application/vnd.ms-word.template.macroEnabled.12 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_WRITE",
-            "description": "MimeType application/vnd.ms-write",
+            "description": "application/vnd.ms-write mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_MS_XPSDOCUMENT",
-            "description": "MimeType application/vnd.ms-xpsdocument",
+            "description": "application/vnd.ms-xpsdocument mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_CHART",
-            "description": "MimeType application/vnd.oasis.opendocument.chart",
+            "description": "application/vnd.oasis.opendocument.chart mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_DATABASE",
-            "description": "MimeType application/vnd.oasis.opendocument.database",
+            "description": "application/vnd.oasis.opendocument.database mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA",
-            "description": "MimeType application/vnd.oasis.opendocument.formula",
+            "description": "application/vnd.oasis.opendocument.formula mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS",
-            "description": "MimeType application/vnd.oasis.opendocument.graphics",
+            "description": "application/vnd.oasis.opendocument.graphics mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION",
-            "description": "MimeType application/vnd.oasis.opendocument.presentation",
+            "description": "application/vnd.oasis.opendocument.presentation mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET",
-            "description": "MimeType application/vnd.oasis.opendocument.spreadsheet",
+            "description": "application/vnd.oasis.opendocument.spreadsheet mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT",
-            "description": "MimeType application/vnd.oasis.opendocument.text",
+            "description": "application/vnd.oasis.opendocument.text mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "description": "application/vnd.openxmlformats-officedocument.presentationml.presentation mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.presentationml.slide",
+            "description": "application/vnd.openxmlformats-officedocument.presentationml.slide mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+            "description": "application/vnd.openxmlformats-officedocument.presentationml.slideshow mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.presentationml.template",
+            "description": "application/vnd.openxmlformats-officedocument.presentationml.template mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "description": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+            "description": "application/vnd.openxmlformats-officedocument.spreadsheetml.template mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "description": "application/vnd.openxmlformats-officedocument.wordprocessingml.document mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE",
-            "description": "MimeType application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+            "description": "application/vnd.openxmlformats-officedocument.wordprocessingml.template mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_WORDPERFECT",
-            "description": "MimeType application/wordperfect",
+            "description": "application/wordperfect mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_X_7Z_COMPRESSED",
-            "description": "MimeType application/x-7z-compressed",
+            "description": "application/x-7z-compressed mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_X_GZIP",
-            "description": "MimeType application/x-gzip",
+            "description": "application/x-gzip mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_X_TAR",
-            "description": "MimeType application/x-tar",
+            "description": "application/x-tar mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "APPLICATION_ZIP",
-            "description": "MimeType application/zip",
+            "description": "application/zip mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_AAC",
-            "description": "MimeType audio/aac",
+            "description": "audio/aac mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_FLAC",
-            "description": "MimeType audio/flac",
+            "description": "audio/flac mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_MIDI",
-            "description": "MimeType audio/midi",
+            "description": "audio/midi mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_MPEG",
-            "description": "MimeType audio/mpeg",
+            "description": "audio/mpeg mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_OGG",
-            "description": "MimeType audio/ogg",
+            "description": "audio/ogg mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_WAV",
-            "description": "MimeType audio/wav",
+            "description": "audio/wav mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_X_MATROSKA",
-            "description": "MimeType audio/x-matroska",
+            "description": "audio/x-matroska mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_X_MS_WAX",
-            "description": "MimeType audio/x-ms-wax",
+            "description": "audio/x-ms-wax mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_X_MS_WMA",
-            "description": "MimeType audio/x-ms-wma",
+            "description": "audio/x-ms-wma mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "AUDIO_X_REALAUDIO",
-            "description": "MimeType audio/x-realaudio",
+            "description": "audio/x-realaudio mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_BMP",
-            "description": "MimeType image/bmp",
+            "description": "image/bmp mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_GIF",
-            "description": "MimeType image/gif",
+            "description": "image/gif mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_HEIC",
-            "description": "MimeType image/heic",
+            "description": "image/heic mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_JPEG",
-            "description": "MimeType image/jpeg",
+            "description": "image/jpeg mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_PNG",
-            "description": "MimeType image/png",
+            "description": "image/png mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_SVG_XML",
-            "description": "MimeType image/svg+xml",
+            "description": "image/svg+xml mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_TIFF",
-            "description": "MimeType image/tiff",
+            "description": "image/tiff mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_WEBP",
-            "description": "MimeType image/webp",
+            "description": "image/webp mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IMAGE_X_ICON",
-            "description": "MimeType image/x-icon",
+            "description": "image/x-icon mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_CALENDAR",
-            "description": "MimeType text/calendar",
+            "description": "text/calendar mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_CSS",
-            "description": "MimeType text/css",
+            "description": "text/css mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_CSV",
-            "description": "MimeType text/csv",
+            "description": "text/csv mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_PLAIN",
-            "description": "MimeType text/plain",
+            "description": "text/plain mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_RICHTEXT",
-            "description": "MimeType text/richtext",
+            "description": "text/richtext mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_TAB_SEPARATED_VALUES",
-            "description": "MimeType text/tab-separated-values",
+            "description": "text/tab-separated-values mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TEXT_VTT",
-            "description": "MimeType text/vtt",
+            "description": "text/vtt mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_3GPP",
-            "description": "MimeType video/3gpp",
+            "description": "video/3gpp mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_3GPP2",
-            "description": "MimeType video/3gpp2",
+            "description": "video/3gpp2 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_AVI",
-            "description": "MimeType video/avi",
+            "description": "video/avi mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_DIVX",
-            "description": "MimeType video/divx",
+            "description": "video/divx mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_MP4",
-            "description": "MimeType video/mp4",
+            "description": "video/mp4 mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_MPEG",
-            "description": "MimeType video/mpeg",
+            "description": "video/mpeg mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_OGG",
-            "description": "MimeType video/ogg",
+            "description": "video/ogg mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_QUICKTIME",
-            "description": "MimeType video/quicktime",
+            "description": "video/quicktime mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_WEBM",
-            "description": "MimeType video/webm",
+            "description": "video/webm mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_FLV",
-            "description": "MimeType video/x-flv",
+            "description": "video/x-flv mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_MATROSKA",
-            "description": "MimeType video/x-matroska",
+            "description": "video/x-matroska mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_MS_ASF",
-            "description": "MimeType video/x-ms-asf",
+            "description": "video/x-ms-asf mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_MS_WM",
-            "description": "MimeType video/x-ms-wm",
+            "description": "video/x-ms-wm mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_MS_WMV",
-            "description": "MimeType video/x-ms-wmv",
+            "description": "video/x-ms-wmv mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "VIDEO_X_MS_WMX",
-            "description": "MimeType video/x-ms-wmx",
+            "description": "video/x-ms-wmx mime type.",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -104972,7 +104972,7 @@
               },
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the berlinerWord object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",
@@ -105334,7 +105334,7 @@
               },
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the BlockEditorPreview object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",
@@ -106029,7 +106029,7 @@
             "args": [
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the mediaItem object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",
@@ -106498,7 +106498,7 @@
             "args": [
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the page object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",
@@ -106775,7 +106775,7 @@
             "args": [
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the post object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",
@@ -107210,7 +107210,7 @@
             "args": [
               {
                 "name": "id",
-                "description": "Get the object by its global ID",
+                "description": "Get the ReusableBlock object by its global ID",
                 "type": {
                   "kind": "SCALAR",
                   "name": "ID",

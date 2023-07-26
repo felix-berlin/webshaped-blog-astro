@@ -138,7 +138,11 @@ import { loadingState } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
 import { CheckCircle, AlertCircle, User, Info } from "lucide-vue-next";
-import type { Language, Maybe } from "../../types/generated/graphql";
+import type {
+  Language,
+  Maybe,
+  CreateCommentPayload,
+} from "../../types/generated/graphql";
 
 interface Props {
   currentPostId: number;
@@ -170,7 +174,7 @@ const formErrors: CommentForm = reactive({
 
 const formResponses: {
   success: boolean;
-  errors: Array<Object>;
+  errors: Array<object>;
 } = reactive({
   success: false,
   errors: [],
@@ -181,14 +185,14 @@ const emit = defineEmits(["commentCreated"]);
 // reset commentForm function
 const resetCommentForm = () => {
   Object.keys(commentForm).forEach(
-    (value) => (commentForm[value as keyof CommentForm] = "")
+    (value) => (commentForm[value as keyof CommentForm] = ""),
   );
 };
 
 // reset formErrors function
 const resetFormErrors = () => {
   Object.keys(formErrors).forEach(
-    (value) => (formErrors[value as keyof CommentForm] = "")
+    (value) => (formErrors[value as keyof CommentForm] = ""),
   );
 };
 
@@ -201,14 +205,14 @@ const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = __(
       props.lang.locale,
-      "comment_form.error.comment_to_short"
+      "comment_form.error.comment_to_short",
     );
   }
 
   if (commentForm.author.length <= 1) {
     formErrors.author = __(
       props.lang.locale,
-      "comment_form.error.author_to_short"
+      "comment_form.error.author_to_short",
     );
   }
 
@@ -220,7 +224,7 @@ const checkForm = (): void => {
   ) {
     formErrors.email = __(
       props.lang.locale,
-      "comment_form.error.email_invalid"
+      "comment_form.error.email_invalid",
     );
   }
 
@@ -249,13 +253,13 @@ const validEmail = (email: string | undefined): boolean | undefined => {
  *
  * @return  {Promise}
  */
-async function create(): Promise<object | any> {
+async function create(): Promise<void> {
   await createComment(
     props.currentPostId,
     commentForm.comment,
     commentForm.author,
     commentForm.email,
-    props.replyToCommentId
+    props.replyToCommentId,
   ).then(
     (data) => {
       console.log("success", data);
@@ -274,7 +278,7 @@ async function create(): Promise<object | any> {
     },
     (error) => {
       console.error("oh no, login failed", error);
-    }
+    },
   );
 }
 

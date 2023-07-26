@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { __ } from "@i18n/i18n";
-import type { Language, Maybe } from "../types/generated/graphql";
+import type { Language, Maybe } from "../../types/generated/graphql";
 
 export interface PostOlderThanProps {
   date: Maybe<string>;
@@ -27,7 +27,7 @@ const props = defineProps<PostOlderThanProps>();
 
 const getYearDiff = (date1: string | number, date2: string | number) => {
   return Math.abs(
-    new Date(date2).getFullYear() - new Date(date1).getFullYear()
+    new Date(date2).getFullYear() - new Date(date1).getFullYear(),
   );
 };
 </script>

@@ -27,7 +27,7 @@ import type {
   Language,
   NodeWithAuthorToUserConnectionEdge,
   Maybe,
-} from "../types/generated/graphql";
+} from "../../types/generated/graphql";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;

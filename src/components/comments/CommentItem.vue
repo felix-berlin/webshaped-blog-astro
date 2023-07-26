@@ -58,7 +58,7 @@
             }}</span>
           </button>
 
-          <Date :date="comment.dateGmt" class="c-comment__date">
+          <Date :date="comment.dateGmt!" class="c-comment__date">
             <template #before>
               {{ __(lang.locale!, "comment.date") }}
             </template>
@@ -130,7 +130,7 @@ const props = defineProps<CommentItemProps>();
 const replyToCommentForm = ref(false);
 
 const isAuthor = computed(
-  () => props?.comment?.author?.node.id === props.authorId
+  () => props?.comment?.author?.node.id === props.authorId,
 );
 
 /**

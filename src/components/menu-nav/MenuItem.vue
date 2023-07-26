@@ -4,7 +4,7 @@
       'c-menu__item',
       {
         'has-child':
-          props.menuItem.childItems && props.menuItem.childItems.length > 0,
+          menuItem?.childItems?.nodes && menuItem?.childItems.nodes?.length > 0,
         'is-active': isCurrentPath,
         'has-visible-child': isOpen,
       },
@@ -35,7 +35,11 @@
         {{ props.menuItem.label }}
       </a>
 
-      <span v-if="$slots.menuTitleIcon" class="c-menu__link-icon" :class="{'has-submenu-open': isOpen}">
+      <span
+        v-if="$slots.menuTitleIcon"
+        class="c-menu__link-icon"
+        :class="{ 'has-submenu-open': isOpen }"
+      >
         <slot name="menuTitleIcon" />
       </span>
 
@@ -77,7 +81,7 @@ export interface MenuItemProps {
   menuItem: MenuItem;
   depth: number;
   index: number;
-  menuTrigger: 'click' | 'hover' | 'both';
+  menuTrigger: "click" | "hover" | "both";
 }
 
 const props = defineProps<MenuItemProps>();
@@ -111,11 +115,19 @@ onClickOutside(submenu, (event): void => {
 });
 
 const handleClick = () => {
-  if (String(props.menuTrigger) === 'click' || String(props.menuTrigger) === 'both') toggleMenuItem();
+  if (
+    String(props.menuTrigger) === "click" ||
+    String(props.menuTrigger) === "both"
+  )
+    toggleMenuItem();
 };
 
 const handleMouseOver = () => {
-  if (String(props.menuTrigger) === 'hover' || String(props.menuTrigger) === 'both') toggleMenuItem();
+  if (
+    String(props.menuTrigger) === "hover" ||
+    String(props.menuTrigger) === "both"
+  )
+    toggleMenuItem();
 };
 
 /**

@@ -2,7 +2,7 @@
   <menu class="c-menu u-list-reset">
     <li
       v-for="item in props.menuItems.nodes"
-      :key="item"
+      :key="item.label!"
       :class="[
         'c-menu__item',
         {
@@ -27,7 +27,7 @@
       <menu class="c-submenu u-list-reset">
         <li
           v-for="child in item?.childItems?.nodes"
-          :key="child"
+          :key="child.label!"
           class="c-submenu__item"
         >
           <a
@@ -40,14 +40,13 @@
           >
         </li>
       </menu>
-
     </li>
   </menu>
 </template>
 
 <script setup lang="ts">
 import { ChevronDown } from "lucide-vue-next";
-import type { Language, Maybe, MenuToMenuItemConnection } from "../types/generated/graphql";
+import type { MenuToMenuItemConnection } from "../types/generated/graphql";
 
 export interface MenuProps {
   menuItems: MenuToMenuItemConnection;

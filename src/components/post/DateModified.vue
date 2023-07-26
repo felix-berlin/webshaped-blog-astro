@@ -1,5 +1,5 @@
 <template>
-  <Date :date="date" :lang="lang">
+  <Date :date="date!" :lang="lang">
     <template #before>
       <Calendar :size="18" />
     </template>
@@ -13,10 +13,8 @@ import type { Language, Maybe } from "../../types/generated/graphql";
 
 export interface DateModifiedProps {
   date: string | undefined;
-  lang?: Maybe<Language> | undefined;
+  lang?: Maybe<Language>;
 }
 
 const props = defineProps<DateModifiedProps>();
 </script>
-
-<style scoped></style>

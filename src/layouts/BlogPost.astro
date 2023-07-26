@@ -38,6 +38,7 @@ import type {
   MediaDetails,
   MediaSize,
   Language,
+  RootQueryToCategoryConnection,
 } from "../types/generated/graphql";
 
 import { getMenuById } from "@lib/api";
@@ -66,6 +67,7 @@ const {
   },
   headings,
 } = Astro.props as BlogPost;
+console.log(categories);
 
 const langAttr = language?.locale?.replace("_", "-");
 
@@ -154,7 +156,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
           lang={language!}
           client:load
         />
-        <Categories categories={categories!} />
+        <Categories categories={categories as RootQueryToCategoryConnection} />
 
         {
           featuredImage && (

@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { Leaf } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
-import type { Language } from "../types/generated/graphql";
+import type { Language } from "../../types/generated/graphql";
 
 interface GreenHostedProps {
   lang: Language;
