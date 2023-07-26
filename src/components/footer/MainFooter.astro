@@ -7,7 +7,7 @@ import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 
-import type { RootQuery, Language } from "@types/generated/graphql";
+import type { RootQuery, Language } from "../../types/generated/graphql";
 
 const categories = (await getAllCategories()) as RootQuery["categories"];
 const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];
@@ -111,7 +111,7 @@ const { lang } = Astro.props as MainFooterProps;
       </h3>
       <Menu
         class:list={"o-footer__menu c-menu--footer"}
-        menuItems={footerMenuItems?.menuItems || undefined}
+        menuItems={footerMenuItems?.menuItems!}
       />
     </div>
     <div class="o-footer__quote">

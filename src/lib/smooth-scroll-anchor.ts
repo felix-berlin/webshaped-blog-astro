@@ -5,11 +5,11 @@ export default (() => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
 
-      const id = event.target.getAttribute("href");
+      const id = (event.target as HTMLElement)?.getAttribute("href");
 
       if (id === "#") return;
 
-      document.querySelector(id)?.scrollIntoView({
+      document.querySelector(String(id))?.scrollIntoView({
         block: "start",
         behavior: "smooth",
         inline: "start",

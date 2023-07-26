@@ -11,15 +11,13 @@ import MainFooter from "@components/footer/MainFooter.astro";
 import { getMenuById, getAuthor } from "@lib/api";
 
 import type { SeoProps } from "@components/BaseHead.astro";
+import type { Language } from "../types/generated/graphql";
+
 export interface DefaultLayoutProps {
   content: {
     title: string;
     seo: SeoProps;
-    language: {
-      code: string;
-      locale: string;
-      name: string;
-    };
+    language: Language;
   };
 }
 
@@ -27,7 +25,7 @@ const {
   content: { title, seo, language },
 } = Astro.props as DefaultLayoutProps;
 
-const langAttr = language.locale.replace("_", "-");
+const langAttr = language.locale?.replace("_", "-");
 
 const mainMenuItems = await getMenuById(2);
 ---

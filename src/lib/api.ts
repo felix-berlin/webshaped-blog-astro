@@ -911,7 +911,7 @@ export async function createComment(
   author: CreateCommentInput["author"],
   authorEmail?: CreateCommentInput["authorEmail"],
   parent?: CreateCommentInput["parent"]
-): Promise {
+) {
   return await fetchAPI(`
     mutation {
       createComment(input: {

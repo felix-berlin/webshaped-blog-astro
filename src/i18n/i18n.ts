@@ -23,7 +23,7 @@ const pluralFormFor = (
 ): string => {
   const matchingForm = new Intl.PluralRules(locale).select(count);
 
-  return translationString[matchingForm];
+  return translationString[+matchingForm];
 };
 
 /**
@@ -52,7 +52,7 @@ const __ = (
     translations[locale as keyof typeof translations][translationString];
 
   // If the translation string end with "--plural", execute the plural form function and store the result in the translation string.
-  if (translationString.endsWith("--plural") && plural !== undefined) {
+  if (translationString.endsWith("--plural") && plural !== undefined && lang) {
     translationStr = pluralFormFor(translationStr, plural, lang);
   }
 
@@ -66,6 +66,10 @@ const __ = (
       `\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`,
       "gi"
     );
+
+    if (typeof translationStr === "undefined") {
+      return "";
+    }
 
     return translationStr
       .toString()

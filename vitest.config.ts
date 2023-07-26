@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import path from "path";
+import path, { resolve, dirname } from "node:path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 
@@ -13,9 +13,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@components": path.resolve(__dirname, "./src/components/"),
-      "@layouts": path.resolve(__dirname, "./src/layouts/"),
-      "@lib": path.resolve(__dirname, "./src/lib/"),
+      "@components": `${path.resolve(__dirname, "./src/components/")}/`,
+      "@i18n": `${path.resolve(__dirname, "./src/i18n/")}/`,
+      "@layouts": path.resolve(__dirname, "src/layouts/"),
+      "@lib": path.resolve(__dirname, "src/lib/"),
     },
   },
 });

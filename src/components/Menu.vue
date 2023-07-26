@@ -19,43 +19,38 @@
         {{ item.label }}
       </a>
 
-      <VMenu v-else theme="submenu">
-        <span class="c-menu__link is-menu-title">
-          <span>{{ item.label }}</span>
-          <ChevronDown :size="18" />
-        </span>
+      <span class="c-menu__link is-menu-title">
+        <span>{{ item.label }}</span>
+        <ChevronDown :size="18" />
+      </span>
 
-        <template #popper>
-          <menu class="c-submenu u-list-reset">
-            <li
-              v-for="child in item?.childItems?.nodes"
-              :key="child"
-              class="c-submenu__item"
-            >
-              <a
-                :href="
-                  child.path +
-                  (child?.path?.match(/\/category\//gm)?.length ? '1' : '')
-                "
-                class="c-submenu__link"
-                >{{ child.label }}</a
-              >
-            </li>
-          </menu>
-        </template>
-      </VMenu>
+      <menu class="c-submenu u-list-reset">
+        <li
+          v-for="child in item?.childItems?.nodes"
+          :key="child"
+          class="c-submenu__item"
+        >
+          <a
+            :href="
+              child.path +
+              (child?.path?.match(/\/category\//gm)?.length ? '1' : '')
+            "
+            class="c-submenu__link"
+            >{{ child.label }}</a
+          >
+        </li>
+      </menu>
+
     </li>
   </menu>
 </template>
 
 <script setup lang="ts">
 import { ChevronDown } from "lucide-vue-next";
-import type { Language, Maybe, MenuItem } from "../types/generated/graphql";
+import type { Language, Maybe, MenuToMenuItemConnection } from "../types/generated/graphql";
 
 export interface MenuProps {
-  menuItems: {
-    nodes: MenuItem[] | undefined;
-  };
+  menuItems: MenuToMenuItemConnection;
 }
 
 const props = defineProps<MenuProps>();

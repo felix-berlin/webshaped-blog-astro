@@ -6,7 +6,7 @@ export const localeSettings = persistentAtom<string>("locale");
 
 export const locale = localeFrom(
   localeSettings,
-  browser({ available: ["en", "de"] })
+  browser({ available: ["en", "de"], fallback: "en" })
 );
 
 export const i18n = createI18n(locale, {
