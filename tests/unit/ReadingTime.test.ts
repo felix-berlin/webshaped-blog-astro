@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
-import { test, expect, vi } from "vitest";
+import { test, expect } from "vitest";
+// @ts-ignore: Unresolved import
 import ReadingTime from "@components/post/ReadingTime.vue";
 
 test("Viewing the reading time text", () => {
@@ -9,7 +10,7 @@ test("Viewing the reading time text", () => {
       lang: {
         locale: "en_US",
         id: "en",
-      }
+      },
     },
   });
 

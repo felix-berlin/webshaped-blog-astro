@@ -1,9 +1,10 @@
 import { mount } from "@vue/test-utils";
 import { test, expect } from "vitest";
+// @ts-ignore: Unresolved import
 import Categories from "@components/Categories.vue";
 
 describe("Categories.vue", () => {
-  let wrapper = mount(Categories, {
+  const wrapper = mount(Categories, {
     props: {
       categories: {
         edges: [
@@ -21,7 +22,7 @@ describe("Categories.vue", () => {
     },
   });
 
-  let emptyWrapper = mount(Categories, {
+  const emptyWrapper = mount(Categories, {
     props: {
       categories: {
         edges: [
