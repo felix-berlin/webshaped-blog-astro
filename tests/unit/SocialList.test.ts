@@ -22,6 +22,10 @@ describe("SocialList.vue", () => {
           url: "https://gh.lol",
         },
       },
+      lang: {
+        locale: "en-US",
+        id: "en",
+      },
     },
   });
 
