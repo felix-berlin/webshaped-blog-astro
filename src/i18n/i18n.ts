@@ -19,7 +19,7 @@ const availableLanguages = {
 const pluralFormFor = (
   translationString: string,
   count: number,
-  locale: string
+  locale: string,
 ): string => {
   const matchingForm = new Intl.PluralRules(locale).select(count);
 
@@ -42,7 +42,7 @@ const __ = (
   locale: Maybe<string>,
   translationString: string,
   varsToReplace?: object,
-  plural?: number
+  plural?: number,
 ): string => {
   const lang = locale?.replace("_", "-");
   const translations: object = { de_DE, en_US };
@@ -64,7 +64,7 @@ const __ = (
      */
     const regex = new RegExp(
       `\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`,
-      "gi"
+      "gi",
     );
 
     if (typeof translationStr === "undefined") {

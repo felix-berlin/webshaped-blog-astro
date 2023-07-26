@@ -1,5 +1,6 @@
 import { mount, shallowMount } from "@vue/test-utils";
 import { test, expect } from "vitest";
+
 // @ts-ignore: Unresolved import
 import SocialList from "@components/SocialList.vue";
 import {
@@ -15,15 +16,19 @@ describe("SocialList.vue", () => {
   const wrapper = mount(SocialList, {
     props: {
       socialItems: {
-        facebook: {
-          url: "https://fb.test",
+        twitter: {
+          url: "https://twitter.com",
+          label: "Twitter",
+          class: "twitter-link",
         },
         github: {
-          url: "https://gh.lol",
+          url: "https://github.com",
+          label: "GitHub",
+          class: "github-link",
         },
       },
       lang: {
-        locale: "en-US",
+        locale: "en_US",
         id: "en",
       },
     },
@@ -35,7 +40,7 @@ describe("SocialList.vue", () => {
   });
 
   test("Test if all components are mounted", () => {
-    expect(wrapper.findComponent(Facebook).exists()).toBe(true);
+    expect(wrapper.findComponent(Twitter).exists()).toBe(true);
     expect(wrapper.findComponent(Github).exists()).toBe(true);
   });
 
@@ -43,6 +48,6 @@ describe("SocialList.vue", () => {
     expect(wrapper.findComponent(Linkedin).exists()).toBe(false);
     expect(wrapper.findComponent(Youtube).exists()).toBe(false);
     expect(wrapper.findComponent(Instagram).exists()).toBe(false);
-    expect(wrapper.findComponent(Twitter).exists()).toBe(false);
+    expect(wrapper.findComponent(Facebook).exists()).toBe(false);
   });
 });
