@@ -21,7 +21,8 @@ const pluralFormFor = (
   count: number,
   locale: string,
 ): string => {
-  const matchingForm = new Intl.PluralRules(locale).select(count);
+  const pluralRules = new Intl.PluralRules(locale);
+  const matchingForm = pluralRules.select(count);
 
   return translationString[
     matchingForm as keyof typeof translationString
