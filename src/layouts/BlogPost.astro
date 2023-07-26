@@ -207,7 +207,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
             client:visible
           />
 
-          <!-- <LoadWebmentions client:only></LoadWebmentions> -->
+          <!-- <LoadWebmentions client:only="vue"></LoadWebmentions> -->
 
           <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
           <CommentsClient
@@ -215,7 +215,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
             id="comments"
             lang={language!}
             authorId={author?.node.id}
-            client:only
+            client:only="vue"
           />
         </footer>
       </article>
@@ -224,14 +224,14 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
         <h2 class="c-blog-sidebar__headline">
           {__(language?.locale!, "blog.table_of_contents")}
         </h2>
-        <!-- <TableOfContentsClientSide target=".c-blog__content" client:only /> -->
+        <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
         <TableOfContents headings={headings} client:load />
 
         <Share
           title={seo?.title!}
           text={seo?.opengraphDescription!}
           lang={language!}
-          client:only
+          client:only="vue"
         />
       </aside>
     </main>

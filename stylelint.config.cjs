@@ -3,7 +3,8 @@ module.exports = {
   customSyntax: "postcss-scss",
   extends: [
     "stylelint-config-standard",
-    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-scss",
+    "stylelint-config-recommended-vue/scss",
     "stylelint-config-prettier-scss",
   ],
   // plugins: ['stylelint-declaration-block-no-ignored-properties'],
