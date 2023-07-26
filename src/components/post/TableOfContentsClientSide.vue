@@ -26,7 +26,7 @@ const observer = ref<IntersectionObserver>();
 const createTocClientSide = () => {
   const toc = document.getElementById(props.id) as HTMLDivElement;
   const matches = document.querySelectorAll(
-    `${props.target} h2, ${props.target} h3`
+    `${props.target} h2, ${props.target} h3`,
   ) as NodeListOf<HTMLElement>;
 
   matches.forEach((value, index) => {
@@ -43,7 +43,7 @@ const createTocClientSide = () => {
     a.className = "c-toc__link";
     // a.classList.add('c-toc__link');
     if (value.tagName === "H2") {
-      a.innerText = value.textContent;
+      a.innerText = value.textContent ?? "";
       a.href = `#${value.id}`;
       li.appendChild(a);
       li.classList.add(props.h2Class);
@@ -52,13 +52,13 @@ const createTocClientSide = () => {
     }
     if (value.tagName === "H3") {
       const lastUl = toc.lastElementChild;
-      const lastLi = lastUl.lastElementChild;
-      a.innerText = value.textContent;
+      const lastLi = lastUl?.lastElementChild;
+      a.innerText = value.textContent ?? "";
       a.href = `#${value.id}`;
       li.appendChild(a);
       li.classList.add(props.h3Class);
       ul.appendChild(li);
-      lastLi.appendChild(ul);
+      lastLi?.appendChild(ul);
     }
   });
 };
@@ -70,14 +70,14 @@ observer.value = new IntersectionObserver(
         const headline = entry.target as HTMLElement;
         const toc = document.getElementById(props.id) as HTMLDivElement;
         const tocLinks = toc.querySelectorAll(
-          "a"
+          "a",
         ) as NodeListOf<HTMLAnchorElement>;
 
         tocLinks.forEach((link) => {
           link.classList.remove("c-toc__link--active");
         });
         const tocLink = toc.querySelector(
-          `a[href="#${headline.id}"]`
+          `a[href="#${headline.id}"]`,
         ) as HTMLAnchorElement;
         tocLink.classList.add("c-toc__link--active");
       }
@@ -86,7 +86,7 @@ observer.value = new IntersectionObserver(
   {
     threshold: 0.75,
     rootMargin: "-10% 0px",
-  }
+  },
 );
 
 onMounted(() => {
@@ -94,7 +94,7 @@ onMounted(() => {
   if (observer.value)
     document
       .querySelectorAll(".c-blog__content h2[id], .c-blog__content h3[id]")
-      .forEach((section) => observer.value.observe(section));
+      .forEach((section) => observer?.value?.observe(section));
 
   // document.addEventListener('click', (event) => {
   //   const target = event.target as HTMLElement;

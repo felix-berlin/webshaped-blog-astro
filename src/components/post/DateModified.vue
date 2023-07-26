@@ -13,7 +13,7 @@ import type { Language, Maybe } from "../../types/generated/graphql";
 
 export interface DateModifiedProps {
   date: string | undefined;
-  lang?: Maybe<Language>;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<DateModifiedProps>();

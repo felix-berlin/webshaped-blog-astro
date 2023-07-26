@@ -1,12 +1,12 @@
 <template>
   <div
-    v-if="getYearDiff(date, Date.now()) >= showAfterYears"
+    v-if="getYearDiff(date!, Date.now()) >= showAfterYears"
     class="c-post-older-than"
   >
     <p class="c-post-older-than__text">
       {{
-        __(lang.locale, "post_older_than.text", {
-          years: getYearDiff(date, Date.now()),
+        __(lang?.locale, "post_older_than.text", {
+          years: getYearDiff(date!, Date.now()),
         })
       }}
     </p>
@@ -20,7 +20,7 @@ import type { Language, Maybe } from "../../types/generated/graphql";
 export interface PostOlderThanProps {
   date: Maybe<string>;
   showAfterYears: number;
-  lang: Maybe<Language> | undefined;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<PostOlderThanProps>();

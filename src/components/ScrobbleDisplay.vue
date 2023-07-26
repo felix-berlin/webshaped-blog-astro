@@ -16,7 +16,7 @@
           <h2
             class="c-scrobble-display__headline"
             v-text="
-              __(lang.locale, 'scrobble_display.headline', {
+              __(lang?.locale, 'scrobble_display.headline', {
                 count: numberOfDisplayedTracks,
               })
             "
@@ -25,11 +25,11 @@
           <button v-close-popper class="c-scrobble-display__close">
             <X
               :size="14"
-              :aria-label="__(lang.locale, 'scrobble_display.close')"
+              :aria-label="__(lang?.locale, 'scrobble_display.close')"
             />
           </button>
         </header>
-        <p v-html="__(lang.locale, 'scrobble_display.text')" />
+        <p v-html="__(lang?.locale, 'scrobble_display.text')" />
 
         <!-- <TransitionGroup
           name="list"
@@ -47,7 +47,7 @@
             <img
               :src="track.image[1]['#text']"
               :alt="
-                __(lang.locale, 'scrobble_display.album_cover.alt', {
+                __(lang?.locale, 'scrobble_display.album_cover.alt', {
                   album: track.album['#text'],
                   artist: track.artist['#text'],
                 })
@@ -84,14 +84,14 @@
             height="32"
           />
           <span>{{
-            __(lang.locale, "scrobble_display.total_text", {
+            __(lang?.locale, "scrobble_display.total_text", {
               total: state.tracks.recenttracks["@attr"].total,
             })
           }}</span
           ><br />
           <span
             v-html="
-              __(lang.locale, 'scrobble_display.follow_me', {
+              __(lang?.locale, 'scrobble_display.follow_me', {
                 link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`,
               })
             "
@@ -107,7 +107,7 @@ import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { X } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
-import type { Language } from "../types/generated/graphql";
+import type { Language, Maybe } from "../types/generated/graphql";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
@@ -115,7 +115,7 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleIfInactive?: boolean;
   idleAfterCount?: number;
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 interface LastFmData {

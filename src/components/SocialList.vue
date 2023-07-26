@@ -9,7 +9,7 @@
         :aria-label="
           social.label
             ? social.label
-            : __(lang.locale!, 'social_list.link.label', { platform: index })
+            : __(lang?.locale!, 'social_list.link.label', { platform: index })
         "
         :class="`c-social-list__link ${social.class ? social.class : ''}`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
@@ -92,7 +92,7 @@ export interface SocialListProps {
     youTube?: SocialItems;
     github?: SocialItems;
   };
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<SocialListProps>();

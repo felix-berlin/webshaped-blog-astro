@@ -1,3 +1,4 @@
+/* stylelint-disable value-keyword-case */
 <template>
   <nav ref="mainNav" class="c-main-nav">
     <Logo />
@@ -8,13 +9,11 @@
       v-if="isMobile"
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
-      :aria-label="__(lang.locale!, 'main_nav.toggle_button.label')"
+      :aria-label="__(lang?.locale!, 'main_nav.toggle_button.label')"
       :aria-expanded="flyoutIsOpen"
       @click="toggleFlyout"
     >
-      <MenuIcon
-        class="c-main-nav__menu-icon is-mobile"
-      />
+      <MenuIcon class="c-main-nav__menu-icon is-mobile" />
     </button>
 
     <Teleport v-if="isMobile" to="#mainHeader">
@@ -32,7 +31,7 @@
             @menu-item-target-clicked="toggleFlyout"
           />
 
-          <ColorModeToggle/>
+          <ColorModeToggle />
         </div>
       </Transition>
     </Teleport>
@@ -40,14 +39,14 @@
     <Transition v-else name="fade">
       <div v-show="flyoutIsOpen" class="c-main-nav__flyout">
         <MenuNav
-            :menu-items="props.menuItems.nodes"
-            class="c-main-nav__menu"
-            :class="{ 'is-open': flyoutIsOpen }" />
+          :menu-items="props.menuItems.nodes"
+          class="c-main-nav__menu"
+          :class="{ 'is-open': flyoutIsOpen }"
+        />
       </div>
     </Transition>
 
-    <ColorModeToggle v-if="!isMobile"/>
-
+    <ColorModeToggle v-if="!isMobile" />
   </nav>
 </template>
 
@@ -60,11 +59,15 @@ import { Menu as MenuIcon, X } from "lucide-vue-next";
 import { useMouseInElement } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
-import type { Language, MenuToMenuItemConnection } from "../../types/generated/graphql";
+import type {
+  Language,
+  MenuToMenuItemConnection,
+  Maybe,
+} from "../../types/generated/graphql";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<MainNavProps>();
@@ -131,7 +134,7 @@ const controlScroll = (status: boolean): void => {
  * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
  */
 onMounted(() => {
-  bodyWidth.observe(document.body)
+  bodyWidth.observe(document.body);
 });
 
 onUnmounted(() => bodyWidth.disconnect());
@@ -143,6 +146,7 @@ onUnmounted(() => bodyWidth.disconnect());
 
 .c-main-nav {
   @include butler-mx.feature("motion") {
+    /* stylelint-disable value-keyword-case */
     --gradient-primary-postion: v-bind(gradientPrimaryPostion);
     --gradient-secondary-postion: v-bind(gradientSecondaryPostion);
   }

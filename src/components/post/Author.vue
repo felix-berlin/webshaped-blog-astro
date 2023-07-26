@@ -31,7 +31,7 @@ import type {
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<AuthorProps>();

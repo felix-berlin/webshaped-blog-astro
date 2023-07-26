@@ -10,7 +10,7 @@
         <component
           :is="1 === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.start}`"
-          :aria-label="__(lang.locale, 'pagination.first')"
+          :aria-label="__(lang?.locale, 'pagination.first')"
           class="c-pagination__link"
         >
           <ChevronFirst />
@@ -20,7 +20,7 @@
         <component
           :is="page.url.prev ? 'a' : 'span'"
           :href="page.url.prev"
-          :aria-label="__(lang.locale, 'pagination.previous')"
+          :aria-label="__(lang?.locale, 'pagination.previous')"
           class="c-pagination__link"
         >
           <ChevronLeft />
@@ -41,7 +41,7 @@
         <component
           :is="page.url.next ? 'a' : 'span'"
           :href="page.url.next"
-          :aria-label="__(lang.locale, 'pagination.next')"
+          :aria-label="__(lang?.locale, 'pagination.next')"
           class="c-pagination__link"
         >
           <ChevronRight />
@@ -56,7 +56,7 @@
         <component
           :is="page.lastPage === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.lastPage}`"
-          :aria-label="__(lang.locale, 'pagination.last')"
+          :aria-label="__(lang?.locale, 'pagination.last')"
           class="c-pagination__link"
         >
           <ChevronLast />
@@ -75,12 +75,12 @@ import {
 } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
 import type { Page } from "astro/dist/@types/astro";
-import type { Language } from "../types/generated/graphql";
+import type { Language, Maybe } from "../types/generated/graphql";
 
 const props = defineProps<{
   page: Page;
   path: string;
-  lang: Language;
+  lang: Maybe<Language>;
 }>();
 </script>
 

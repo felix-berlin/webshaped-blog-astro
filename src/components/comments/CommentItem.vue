@@ -14,7 +14,7 @@
           v-if="comment.author?.node?.avatar"
           :src="comment.author.node.avatar.url!"
           :alt="
-            __(lang.locale!, 'comment.author.image.alt', {
+            __(lang?.locale!, 'comment.author.image.alt', {
               author: comment.author.node.name,
             })
           "
@@ -54,13 +54,17 @@
               ><Reply :size="16"
             /></span>
             <span class="c-comment__reply-button-text">{{
-              __(lang.locale!, "comment.reply_button")
+              __(lang?.locale!, "comment.reply_button")
             }}</span>
           </button>
 
-          <Date :date="comment.dateGmt!" class="c-comment__date">
+          <Date
+            :date="comment.dateGmt!"
+            :lang="lang?.locale"
+            class="c-comment__date"
+          >
             <template #before>
-              {{ __(lang.locale!, "comment.date") }}
+              {{ __(lang?.locale!, "comment.date") }}
             </template>
           </Date>
         </footer>
@@ -115,13 +119,13 @@ import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";
 import { User, Reply, X, Verified } from "lucide-vue-next";
-import type { Language, Comment } from "../../types/generated/graphql";
+import type { Language, Comment, Maybe } from "../../types/generated/graphql";
 
 interface CommentItemProps {
   comment: Comment;
   depth: number;
   authorId?: string;
-  lang: Language;
+  lang: Maybe<Language>;
   currentPostId: number;
 }
 

@@ -7,14 +7,14 @@ import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 
-import type { RootQuery, Language } from "../../types/generated/graphql";
+import type { RootQuery, Language, Maybe } from "../../types/generated/graphql";
 
 const categories = (await getAllCategories()) as RootQuery["categories"];
 const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];
 const author = await getAuthor();
 
 interface MainFooterProps {
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 const iconStyles = {
@@ -90,7 +90,7 @@ const { lang } = Astro.props as MainFooterProps;
 
     <div class="o-footer__categories">
       <h3 class="o-footer__headline">
-        {__(lang.locale, "footer.headline.categories")}
+        {__(lang?.locale, "footer.headline.categories")}
       </h3>
       <menu class="c-menu c-menu--footer-two-columns u-list-reset">
         {
@@ -107,7 +107,7 @@ const { lang } = Astro.props as MainFooterProps;
     </div>
     <div class="o-footer__other">
       <h3 class="o-footer__headline">
-        {__(lang.locale, "footer.headline.other")}
+        {__(lang?.locale, "footer.headline.other")}
       </h3>
       <Menu
         class:list={"o-footer__menu c-menu--footer"}
@@ -127,7 +127,7 @@ const { lang } = Astro.props as MainFooterProps;
     </div>
     <div class="o-footer__infos">
       <div class="o-footer__credits">
-        © 2015 - {__(lang.locale, "footer.copyright.now")} Felix Scholze
+        © 2015 - {__(lang?.locale, "footer.copyright.now")} Felix Scholze
       </div>
       <a
         href="https://github.com/felix-berlin/webshaped-blog-astro/releases"

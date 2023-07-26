@@ -4,7 +4,7 @@
       <div class="c-comment__author-icon">
         <User v-if="!validEmail(commentForm.email)" :size="86" />
         <span v-else>{{
-          __(props.lang.locale!, "comment_form.gravatar_hint")
+          __(props.lang?.locale!, "comment_form.gravatar_hint")
         }}</span>
       </div>
 
@@ -13,7 +13,7 @@
           {{
             commentForm.author
               ? commentForm.author
-              : __(props.lang.locale!, "comment_form.your_name")
+              : __(props.lang?.locale!, "comment_form.your_name")
           }}
         </h2>
       </div>
@@ -22,7 +22,7 @@
     <main class="c-comment__content is-comment-item">
       <slot name="beforeContent" />
 
-      <h2>{{ __(props.lang.locale!, "comment_form.headline") }}</h2>
+      <h2>{{ __(props.lang?.locale!, "comment_form.headline") }}</h2>
       <Alert
         v-if="formResponses.errors.length > 0"
         type="danger"
@@ -42,7 +42,7 @@
           :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
           <label class="c-label c-form__label" for="comment">{{
-            __(props.lang.locale!, "comment_form.comment.label")
+            __(props.lang?.locale!, "comment_form.comment.label")
           }}</label>
           <div class="c-floating-label">
             <textarea
@@ -68,10 +68,10 @@
           :class="{ 'has-error': formErrors.email && formErrors.email.length }"
         >
           <label class="c-label c-form__label" for="user-email"
-            >{{ __(props.lang.locale!, "comment_form.email.label") }}
+            >{{ __(props.lang?.locale!, "comment_form.email.label") }}
             <Info
               v-tooltip="{
-                content: __(props.lang.locale!, 'comment_form.email.tooltip'),
+                content: __(props.lang?.locale!, 'comment_form.email.tooltip'),
                 html: true,
               }"
               :size="18"
@@ -101,7 +101,7 @@
           :class="{ 'has-error': formErrors.author.length }"
         >
           <label class="c-form__label c-label is-required" for="author">{{
-            __(props.lang.locale!, "comment_form.name.label")
+            __(props.lang?.locale!, "comment_form.name.label")
           }}</label>
           <div class="c-floating-label">
             <input
@@ -123,7 +123,7 @@
         </div>
 
         <button type="submit" class="c-button">
-          {{ __(props.lang.locale!, "comment_form.submit.button") }}
+          {{ __(props.lang?.locale!, "comment_form.submit.button") }}
         </button>
       </form>
     </main>
@@ -146,7 +146,7 @@ import type {
 
 interface Props {
   currentPostId: number;
-  lang: Language;
+  lang: Maybe<Language>;
   replyToCommentId?: Maybe<number>;
 }
 
@@ -204,14 +204,14 @@ const resetFormErrors = () => {
 const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = __(
-      props.lang.locale,
+      props.lang?.locale,
       "comment_form.error.comment_to_short",
     );
   }
 
   if (commentForm.author.length <= 1) {
     formErrors.author = __(
-      props.lang.locale,
+      props.lang?.locale,
       "comment_form.error.author_to_short",
     );
   }
@@ -223,7 +223,7 @@ const checkForm = (): void => {
     !validEmail(commentForm.email)
   ) {
     formErrors.email = __(
-      props.lang.locale,
+      props.lang?.locale,
       "comment_form.error.email_invalid",
     );
   }

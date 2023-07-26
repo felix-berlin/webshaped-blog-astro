@@ -1,6 +1,6 @@
 <template>
   <section class="c-comments">
-    <h2>{{ __(lang.locale!, "comments.headline") }}</h2>
+    <h2>{{ __(lang?.locale!, "comments.headline") }}</h2>
 
     <div class="c-comment is-create-comment is-level-0 is-even">
       <CreateComment
@@ -11,7 +11,7 @@
     </div>
 
     <p v-if="!data.hasComments">
-      {{ __(lang.locale!, "comments.no_comments") }}
+      {{ __(lang?.locale!, "comments.no_comments") }}
     </p>
 
     <!-- <TransitionGroup name="list"> -->
@@ -51,7 +51,7 @@
           { 'is-loading': data.partLoading },
         ]"
       />
-      <span>{{ __(lang.locale!, "comments.load_more.button") }}</span>
+      <span>{{ __(lang?.locale!, "comments.load_more.button") }}</span>
     </button>
   </section>
 </template>
@@ -68,13 +68,14 @@ import { RefreshCw } from "lucide-vue-next";
 import type {
   Language,
   RootQueryToCommentConnectionEdge,
+  Maybe,
 } from "../../types/generated/graphql";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
   id: NodeWithAuthor["id"];
   authorId: NodeWithAuthor["authorId"];
-  lang: Language;
+  lang: Maybe<Language>;
 }
 
 interface CommentsData {

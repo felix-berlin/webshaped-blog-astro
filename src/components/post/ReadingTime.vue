@@ -19,10 +19,8 @@ import type { Language, Maybe } from "../../types/generated/graphql";
 
 export interface ReadingTimeProps {
   time: number | undefined;
-  lang: Maybe<Language> | undefined;
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<ReadingTimeProps>();
 </script>
-
-<style scoped></style>

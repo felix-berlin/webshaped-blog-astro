@@ -16,12 +16,12 @@
                   class="c-comment__reply-button c-button c-button--icon"
                   v-if="depth < 5"
                   @click="toggleReplyCommentForm()">
-            <Reply :size="18"/> {{ __(lang.locale, 'comment.reply_button') }}
+            <Reply :size="18"/> {{ __(lang?.locale, 'comment.reply_button') }}
           </button>
 
           <Date :date="comment.dateGmt" class="c-comment__date">
             <template #before>
-              {{ __(lang.locale, 'comment.date') }}
+              {{ __(lang?.locale, 'comment.date') }}
             </template>
           </Date>
 

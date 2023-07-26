@@ -12,11 +12,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Language, Maybe } from "../../types/generated/graphql";
+
 export interface DateProps {
   date: string;
-  lang?: {
-    locale: string;
-  };
+  lang: Maybe<Language>;
 }
 
 const props = defineProps<DateProps>();

@@ -10,8 +10,8 @@
 import MainNav from "@components/hero/MainNav.vue";
 import type {
   Language,
-  Maybe,
   MenuToMenuItemConnection,
+  Maybe,
 } from "../../types/generated/graphql";
 
 export interface HeaderProps {
