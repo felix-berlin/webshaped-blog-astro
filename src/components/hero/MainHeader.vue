@@ -1,5 +1,5 @@
 <template>
-  <header class="o-header">
+  <header id="mainHeader" class="o-header">
     <MainNav :menu-items="props.menuItems" :lang="lang" />
     <!-- <LanguageSelect class="is-desktop" /> -->
   </header>
@@ -8,13 +8,10 @@
 <script setup lang="ts">
 import LanguageSelect from "@components/LanguageSelect.vue";
 import MainNav from "@components/hero/MainNav.vue";
-import type { MenuItem } from "../../types/generated/graphql";
-import type { Language, Maybe } from "../../types/generated/graphql";
+import type { Language, Maybe, MenuToMenuItemConnection } from "../../types/generated/graphql";
 
 export interface HeaderProps {
-  menuItems: {
-    nodes: MenuItem[];
-  };
+  menuItems: MenuToMenuItemConnection;
   lang: Maybe<Language> | undefined;
 }
 

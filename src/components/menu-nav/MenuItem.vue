@@ -36,9 +36,7 @@
       </a>
 
       <span v-if="$slots.menuTitleIcon" class="c-menu__link-icon" :class="{'has-submenu-open': isOpen}">
-        <slot name="menuTitleIcon">
-
-        </slot>
+        <slot name="menuTitleIcon" />
       </span>
 
       <MenuSubmenu

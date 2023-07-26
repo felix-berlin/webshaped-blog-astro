@@ -10,7 +10,7 @@
         @menu-item-target-clicked="$emit('menuItemTargetClicked', $event)"
       >
       <template #menuTitleIcon>
-        <ChevronDown />
+        <ChevronDown class="c-main-nav__menu-icon is-mobile" />
       </template>
 
       </MenuItem>
@@ -24,7 +24,7 @@ import type { Language, MenuItem as MenuItemData } from "../../types/generated/g
 import { ChevronDown } from "lucide-vue-next";
 
 export interface MenuProps {
-  menuItems: MenuItemData[];
+  menuItems: MenuItemData;
 }
 
 const props = defineProps<MenuProps>();
