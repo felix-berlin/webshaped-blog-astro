@@ -8,6 +8,13 @@ module.exports = {
     "stylelint-config-recommended-vue/scss",
     "stylelint-config-prettier-scss",
   ],
+  overrides: [
+    {
+      customSyntax: "postcss-html",
+      files: ["*.vue", "**/*.vue"],
+      rules: {},
+    },
+  ],
   // plugins: ['stylelint-declaration-block-no-ignored-properties'],
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
