@@ -1,11 +1,11 @@
 <template>
   <div
-    v-if="categories ?? categories.edges[0].node.name !== 'Uncategorized'"
+    v-if="categories && categories.edges[0].node.name !== 'Uncategorized'"
     class="c-categories"
   >
     <div
       v-for="category in categories.edges"
-      :key="category"
+      :key="category.node.id"
       class="c-categories__item"
     >
       <Hash :size="18" />
@@ -24,12 +24,8 @@ import { Hash } from "lucide-vue-next";
 import type { RootQueryToCategoryConnection } from "../types/generated/graphql";
 
 interface Props {
-  categories: {
-    edges?: RootQueryToCategoryConnection["edges"];
-  };
+  categories: RootQueryToCategoryConnection;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 </script>
-
-<style scoped></style>
