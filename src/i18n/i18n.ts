@@ -23,7 +23,9 @@ const pluralFormFor = (
 ): string => {
   const matchingForm = new Intl.PluralRules(locale).select(count);
 
-  return translationString[+matchingForm];
+  return translationString[
+    matchingForm as keyof typeof translationString
+  ] as string;
 };
 
 /**
@@ -67,13 +69,9 @@ const __ = (
       "gi",
     );
 
-    if (typeof translationStr === "undefined") {
-      return "";
-    }
-
     return translationStr
       .toString()
-      .replace(regex, (matched: string, offset: number, string: string) => {
+      .replace(regex, (matched: string, offset: number) => {
         return varsToReplace[offset as keyof typeof varsToReplace];
       });
   }
