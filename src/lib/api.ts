@@ -13,6 +13,38 @@ import type {
 } from "../types/generated/graphql";
 const { PUBLIC_WP_API } = import.meta.env;
 
+interface Error {
+  message?: string;
+  extensions?: {
+    category: string;
+  };
+  locations?: {
+    line: number;
+    column: number;
+  }[];
+  path?: string[];
+}
+
+interface QueryResult {
+  errors?: Error[];
+  extensions?: {
+    debug: Array<any>;
+    queryAnalyzer: {
+      keys: string;
+      keysLength: number;
+      keysCount: number;
+      skippedKeys: string;
+      skippedKeysSize: number;
+      skippedKeysCount: number;
+      skippedTypes: Array<any>;
+    };
+  };
+}
+
+export interface CreateCommentPayloadExtended
+  extends CreateCommentPayload,
+    QueryResult {}
+
 async function fetchAPI(
   query: string,
   { variables } = { variables: {} },
@@ -742,7 +774,7 @@ export async function getCommentsById(
   first: number,
   after?: Maybe<string>,
 ): Promise<RootQueryToCommentConnection> {
-  return await fetchAPI(`
+  const data = await fetchAPI(`
     {
       comments(
         where: {
@@ -892,6 +924,8 @@ export async function getCommentsById(
         }
       }
     }`);
+
+  return data?.data?.comments;
 }
 
 /**
@@ -911,8 +945,8 @@ export async function createComment(
   author: CreateCommentInput["author"],
   authorEmail?: CreateCommentInput["authorEmail"],
   parent?: CreateCommentInput["parent"],
-): Promise<object> {
-  return await fetchAPI(`
+): Promise<CreateCommentPayloadExtended> {
+  const data = await fetchAPI(`
     mutation {
       createComment(input: {
         commentOn: ${commentOn},
@@ -936,4 +970,6 @@ export async function createComment(
         success
       }
     }`);
+
+  return data?.data?.createComment;
 }

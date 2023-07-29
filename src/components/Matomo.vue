@@ -4,6 +4,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
+declare global {
+  interface Window {
+    _paq: any[];
+    _mtm: any[];
+  }
+}
+
 export interface MatomoProps {
   siteId?: string | null;
   host?: string | null;
@@ -32,7 +39,7 @@ const initMatomo = () => {
     window._mtm.push(["enableDebugMode"]);
   }
 
-  (function () {
+  (() => {
     const u = `https://${props.host}/`;
     _paq.push(["setTrackerUrl", u + "matomo.php"]);
     _paq.push(["setSiteId", props.siteId]);
@@ -45,8 +52,8 @@ const initMatomo = () => {
     g.type = "text/javascript";
     g.async = true;
     g.defer = true;
-    g.src = u + "matomo.js";
-    s.parentNode.insertBefore(g, s);
+    g.src = `${u}matomo.js`;
+    s?.parentNode?.insertBefore(g, s);
   })();
 };
 

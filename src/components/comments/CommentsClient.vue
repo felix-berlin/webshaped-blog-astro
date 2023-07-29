@@ -69,6 +69,8 @@ import type {
   Language,
   RootQueryToCommentConnectionEdge,
   Maybe,
+  RootQueryToCommentConnection,
+  Comment,
 } from "../../types/generated/graphql";
 
 export interface CommentsProps {
@@ -119,12 +121,15 @@ const getComments = async (
 
     data.comments = [
       ...data.comments,
-      ...response.data.comments.edges.filter(
+      ...response.edges.filter(
         (comment: RootQueryToCommentConnectionEdge) =>
           comment.node.parentId === null,
       ),
     ];
-    data.pageInfo = response.data.comments.pageInfo;
+    data.pageInfo = response.pageInfo as {
+      hasNextPage?: boolean;
+      endCursor?: string;
+    };
 
     data.loading = false;
     data.hasLoaded = true;

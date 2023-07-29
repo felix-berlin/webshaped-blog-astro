@@ -24,7 +24,7 @@
 
       <h2>{{ __(props.lang?.locale!, "comment_form.headline") }}</h2>
       <Alert
-        v-if="formResponses.errors.length > 0"
+        v-if="formResponses?.errors && formResponses.errors.length > 0"
         type="danger"
         class="c-alert--small"
       >
@@ -131,8 +131,8 @@
 </template>
 
 <script setup lang="ts">
-import { createComment } from "@lib/api";
-import { ref, onMounted, reactive } from "vue";
+import { createComment, CreateCommentPayloadExtended } from "@lib/api";
+import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { loadingState } from "@stores/store";
 import Alert from "@components/Alert.vue";
@@ -141,13 +141,13 @@ import { CheckCircle, AlertCircle, User, Info } from "lucide-vue-next";
 import type {
   Language,
   Maybe,
-  CreateCommentPayload,
+  CreateCommentInput,
 } from "../../types/generated/graphql";
 
 interface Props {
   currentPostId: number;
   lang: Maybe<Language>;
-  replyToCommentId?: Maybe<number>;
+  replyToCommentId?: CreateCommentInput["parent"];
 }
 
 const props = defineProps<Props>();
@@ -173,8 +173,8 @@ const formErrors: CommentForm = reactive({
 });
 
 const formResponses: {
-  success: boolean;
-  errors: Array<object>;
+  success: CreateCommentPayloadExtended["success"];
+  errors: CreateCommentPayloadExtended["errors"];
 } = reactive({
   success: false,
   errors: [],
@@ -261,19 +261,19 @@ async function create(): Promise<void> {
     commentForm.email,
     props.replyToCommentId,
   ).then(
-    (data) => {
-      console.log("success", data);
+    (response) => {
+      console.log("success", response);
 
-      if (typeof data.data?.createComment?.success !== "undefined") {
-        formResponses.success = data.data.createComment.success;
+      if (typeof response.success !== "undefined") {
+        formResponses.success = response.success;
 
         emit("commentCreated");
 
         resetCommentForm();
       }
 
-      if (typeof data.errors !== "undefined") {
-        formResponses.errors = data.errors;
+      if (typeof response.errors !== "undefined") {
+        formResponses.errors = response.errors;
       }
     },
     (error) => {
