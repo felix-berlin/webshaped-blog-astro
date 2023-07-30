@@ -8,8 +8,9 @@ import type { Maybe } from "../types/generated/graphql";
  * @return  {boolean}
  */
 export const isHtml = (str: string): boolean => {
-  const htmlTagRegex = /<[^>]*>/g;
-  return htmlTagRegex.test(str);
+  if (!str) return false;
+  const htmlTagRegex = /<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
+  return htmlTagRegex.test(str.trim());
 };
 
 /**
@@ -17,15 +18,32 @@ export const isHtml = (str: string): boolean => {
  *
  * @param   {Maybe<string>}  str
  *
- * @return  {<string>}
+ * @return  {string}
  */
 export const parse = (str: Maybe<string>) => {
   if (!str) return;
 
-  return JSON.parse(str);
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    throw new Error(`Failed to parse JSON string: ${error}`);
+  }
 };
 
+/**
+ * Get the text content of a HTML string
+ *
+ * @param   {string}  str
+ *
+ * @return  {string}
+ */
 export const getHtmlContent = (str: string): string => {
+  const isValidHtml = /<[a-z][\s\S]*>/i.test(str);
+  if (!isValidHtml) {
+    console.error("The given string is not valid HTML");
+
+    return "";
+  }
   const htmlTagRegex = /<[^>]*>/g;
   return str.replace(htmlTagRegex, "");
 };
