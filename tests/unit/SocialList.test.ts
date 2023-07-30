@@ -1,5 +1,5 @@
 import { mount, shallowMount } from "@vue/test-utils";
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 
 // @ts-ignore: Unresolved import
 import SocialList from "@components/SocialList.vue";

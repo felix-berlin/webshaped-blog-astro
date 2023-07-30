@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 import { __ } from "@i18n/i18n";
 
 describe("__ i18n", () => {

@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import Date from "@components/post/Date.vue";
 
