@@ -45,7 +45,7 @@
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-astro": "^0.28.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-vue": "^9.15.1",
+    "eslint-plugin-vue": "^9.16.0",
     "eslint-plugin-vuejs-accessibility": "^2.1.0",
     "graphql-codegen-typescript-common": "0.18.2",
     "jsdom": "^22.1.0",
