@@ -14,20 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
 import { useStore } from "@nanostores/vue";
 import { isDarkMode } from "@stores/store";
 
-const isDarkStore = useStore(isDarkMode);
-const isDark = ref(false);
-
-watch(isDarkStore, (value) => {
-  isDark.value = value;
-});
-
-onMounted(() => {
-  isDark.value = localStorage.getItem("darkMode") === "true" ? true : false;
-});
+const isDark = useStore(isDarkMode);
 </script>
 
 <style lang="scss">
