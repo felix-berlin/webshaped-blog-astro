@@ -10,7 +10,6 @@
       },
     ]"
     role="menuitem"
-    tabindex="-1"
   >
     <a
       v-if="!props.menuItem.childItems"
@@ -21,29 +20,28 @@
       {{ props.menuItem.label }}
     </a>
 
+    <!-- If menu item has child -->
     <template v-else>
-      <a
+      <button
         :ref="`menu-title-${depth}${index}`"
+        type="button"
         class="c-menu__link is-menu-title"
-        role="button"
-        tabindex="0"
-        @click="handleClick()"
-        @keydown="handleClick()"
-        @mouseover="handleMouseOver()"
-        @focus="handleMouseOver()"
+        :aria-expanded="isOpen"
+        :aria-controls="`submenu${depth}${index}`"
+        @click="toggleMenuItem()"
       >
-        {{ props.menuItem.label }}
-      </a>
-
-      <span
-        v-if="$slots.menuTitleIcon"
-        class="c-menu__link-icon"
-        :class="{ 'has-submenu-open': isOpen }"
-      >
-        <slot name="menuTitleIcon" />
-      </span>
+        <span class="c-menu__link-title">{{ props.menuItem.label }}</span>
+        <span
+          v-show="$slots.menuTitleIcon"
+          class="c-menu__link-icon"
+          :class="{ 'has-submenu-open': isOpen }"
+        >
+          <slot name="menuTitleIcon" />
+        </span>
+      </button>
 
       <MenuSubmenu
+        :id="`submenu${depth}${index}`"
         ref="submenu"
         :is-open="isOpen"
         :class="[
@@ -72,16 +70,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, watch, computed } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
-import type { Language, MenuItem } from "../../types/generated/graphql";
+import type { MenuItem } from "../../types/generated/graphql";
 
 export interface MenuItemProps {
   menuItem: MenuItem;
   depth: number;
   index: number;
-  menuTrigger: "click" | "hover" | "both";
 }
 
 const props = defineProps<MenuItemProps>();
@@ -89,7 +86,6 @@ const props = defineProps<MenuItemProps>();
 const isOpen = ref(false);
 const isCurrentPath = ref(false);
 const submenu = ref(null);
-const submenuDirection = ref("right");
 
 const emit = defineEmits<{
   submenuState: [isOpen: boolean];
@@ -97,38 +93,6 @@ const emit = defineEmits<{
   menuItemTargetClicked: [value: boolean];
   "menu-item-target-clicked": [value: boolean];
 }>();
-
-/**
- * If the user clicks outside the submenu, close the submenu
- *
- * @param   {[type]}  submenu
- * @param   {[type]}  event
- *
- * @return  {void}             [return description]
- */
-onClickOutside(submenu, (event): void => {
-  if ((event.target as Element).classList.contains("is-menu-title")) return;
-
-  isOpen.value = false;
-
-  emit("submenuState", isOpen.value);
-});
-
-const handleClick = () => {
-  if (
-    String(props.menuTrigger) === "click" ||
-    String(props.menuTrigger) === "both"
-  )
-    toggleMenuItem();
-};
-
-const handleMouseOver = () => {
-  if (
-    String(props.menuTrigger) === "hover" ||
-    String(props.menuTrigger) === "both"
-  )
-    toggleMenuItem();
-};
 
 /**
  * Toggle the submenu
@@ -139,17 +103,39 @@ const toggleMenuItem = (): void => {
   isOpen.value = !isOpen.value;
 
   emit("submenuState", isOpen.value);
-  setTimeout(() => {
-    const submenuEl = document.querySelector(".c-submenu");
-    const submenuRect = submenuEl?.getBoundingClientRect();
-    const left = submenuRect?.left;
-    const width = submenuRect?.width;
-    const windowWidth = window.innerWidth;
-
-    submenuDirection.value =
-      left !== undefined && width !== undefined && left + width > windowWidth
-        ? "left"
-        : "right";
-  }, 100);
 };
+
+/**
+ * If the user clicks outside the submenu, close the submenu
+ *
+ * @param   {[type]}  submenu
+ * @param   {[type]}  event
+ *
+ * @return  {void}             [return description]
+ */
+onClickOutside(submenu, (event): void => {
+  if ((event.target as HTMLElement).classList.contains("is-menu-title")) return;
+
+  isOpen.value = false;
+
+  emit("submenuState", isOpen.value);
+});
+
+/**
+ * Set the submenu direction
+ *
+ * @return  {void}
+ */
+const submenuDirection = computed(() => {
+  if (!submenu.value) return "right";
+  const submenuEl = document.querySelector(".c-submenu");
+  const submenuRect = submenuEl?.getBoundingClientRect();
+  const left = submenuRect?.left;
+  const width = submenuRect?.width;
+  const windowWidth = window.innerWidth;
+
+  return left !== undefined && width !== undefined && left + width > windowWidth
+    ? "left"
+    : "right";
+});
 </script>

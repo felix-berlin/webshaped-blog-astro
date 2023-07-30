@@ -82,10 +82,6 @@
         );
       }
     }
-    @include mx.breakpoint("sm") {
-      display: flex !important;
-      justify-content: space-between;
-    }
   }
 
   &__menu {

@@ -36,15 +36,17 @@
       </Transition>
     </Teleport>
 
-    <Transition v-else name="fade">
+    <MenuNav
+      v-else
+      :menu-items="props.menuItems.nodes"
+      class="c-main-nav__menu"
+      :class="{ 'is-open': submenuIsOpen }"
+      @submenu-state="submenuIsOpen = $event"
+    />
+    <!-- <Transition v-else name="fade">
       <div v-show="flyoutIsOpen" class="c-main-nav__flyout">
-        <MenuNav
-          :menu-items="props.menuItems.nodes"
-          class="c-main-nav__menu"
-          :class="{ 'is-open': flyoutIsOpen }"
-        />
       </div>
-    </Transition>
+    </Transition> -->
 
     <ColorModeToggle v-if="!isMobile" />
   </nav>

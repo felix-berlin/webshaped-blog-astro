@@ -5,7 +5,6 @@
         :menu-item="item"
         :depth="0"
         :index="index"
-        menu-trigger="click"
         @submenu-state="$emit('submenuState', $event)"
         @menu-item-target-clicked="$emit('menuItemTargetClicked', $event)"
       >
@@ -19,10 +18,7 @@
 
 <script setup lang="ts">
 import MenuItem from "@components/menu-nav/MenuItem.vue";
-import type {
-  Language,
-  MenuItem as MenuItemData,
-} from "../../types/generated/graphql";
+import type { MenuItem as MenuItemData } from "../../types/generated/graphql";
 import { ChevronDown } from "lucide-vue-next";
 
 export interface MenuProps {
