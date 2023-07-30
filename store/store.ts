@@ -1,4 +1,5 @@
 import { atom, onMount } from "nanostores";
+import { persistentAtom } from "@nanostores/persistent";
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");
@@ -6,10 +7,17 @@ export const loadingState = atom<LoadingStateValue>("empty");
 export type WebmentionsCount = number;
 export const currentWebmentionsCount = atom<WebmentionsCount>(0);
 
-export type darkMode = boolean;
-export const isDarkMode = atom<darkMode>(false);
+export type DarkMode = boolean;
 
-onMount(isDarkMode, () => {
-  const checkColorMode = localStorage.getItem("darkMode") === "true";
-  isDarkMode.set(checkColorMode);
+export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, {
+  encode(value) {
+    return JSON.stringify(value);
+  },
+  decode(value) {
+    try {
+      return JSON.parse(value);
+    } catch {
+      return value;
+    }
+  },
 });
