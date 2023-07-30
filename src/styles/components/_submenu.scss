@@ -11,6 +11,7 @@
   border-radius: base.$border-radius;
   padding: 1rem;
   top: 110%;
+  z-index: 1;
 
   &__item {
     font-size: 1.2rem;
