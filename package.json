@@ -78,7 +78,7 @@
     "@nanostores/i18n": "^0.10.0",
     "@nanostores/persistent": "^0.9.1",
     "@nanostores/vue": "^0.10.0",
-    "@vueuse/core": "^10.2.1",
+    "@vueuse/core": "^10.3.0",
     "astro": "^2.9.6",
     "astro-breadcrumbs": "^1.6.1",
     "astro-critters": "^1.1.40",
