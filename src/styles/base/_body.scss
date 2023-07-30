@@ -10,6 +10,7 @@
   }
 
   --accent-color: var(--orange-light);
+  --element-background: var(--blue-dark);
 }
 
 html {
@@ -25,6 +26,7 @@ html {
 @include butler-mx.dark-mode-class("html", false) {
   --color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
   --accent-color: var(--red-light);
+  --element-background: var(--white);
 
   background-image: base.$background-image-dark;
 

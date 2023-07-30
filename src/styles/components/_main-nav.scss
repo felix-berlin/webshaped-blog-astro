@@ -26,7 +26,10 @@
 
   @include mx.breakpoint("sm") {
     grid-template:
-      [header-left] var(--grid-areas-header, "logo flyout") [header-right]
+      [header-left] var(
+        --grid-areas-header,
+        "logo menu color-toggle"
+      ) [header-right]
       / max-content 1fr;
   }
 
@@ -87,6 +90,7 @@
   &__menu {
     grid-area: menu;
     flex-direction: var(--direction-flex, column);
+    position: relative;
 
     @include mx.breakpoint("sm") {
       --direction-flex: row;
@@ -111,5 +115,9 @@
     @include mx.breakpoint("sm") {
       --display-button: none;
     }
+  }
+
+  &__color-toggle {
+    grid-area: color-toggle;
   }
 }

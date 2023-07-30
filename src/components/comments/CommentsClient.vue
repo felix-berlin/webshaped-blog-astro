@@ -69,8 +69,6 @@ import type {
   Language,
   RootQueryToCommentConnectionEdge,
   Maybe,
-  RootQueryToCommentConnection,
-  Comment,
 } from "../../types/generated/graphql";
 
 export interface CommentsProps {
@@ -104,6 +102,7 @@ const data = reactive<CommentsData>({
 });
 
 /**
+ * Get comments by post id
  *
  * @param currentPostId
  * @param first

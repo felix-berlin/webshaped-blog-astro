@@ -70,7 +70,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
+import { ref, watch, nextTick } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
 import type { MenuItem } from "../../types/generated/graphql";
@@ -86,6 +86,7 @@ const props = defineProps<MenuItemProps>();
 const isOpen = ref(false);
 const isCurrentPath = ref(false);
 const submenu = ref(null);
+const submenuDirection = ref("right");
 
 const emit = defineEmits<{
   submenuState: [isOpen: boolean];
@@ -96,13 +97,14 @@ const emit = defineEmits<{
 
 /**
  * Toggle the submenu
- *
- * @return  {void}
  */
-const toggleMenuItem = (): void => {
+const toggleMenuItem = async () => {
   isOpen.value = !isOpen.value;
 
   emit("submenuState", isOpen.value);
+
+  await nextTick();
+  calSubmenuDirection();
 };
 
 /**
@@ -126,16 +128,14 @@ onClickOutside(submenu, (event): void => {
  *
  * @return  {void}
  */
-const submenuDirection = computed(() => {
-  if (!submenu.value) return "right";
+const calSubmenuDirection = (): void => {
   const submenuEl = document.querySelector(".c-submenu");
-  const submenuRect = submenuEl?.getBoundingClientRect();
-  const left = submenuRect?.left;
-  const width = submenuRect?.width;
+
+  if (!submenuEl) return;
+
+  const { left, width } = submenuEl.getBoundingClientRect();
   const windowWidth = window.innerWidth;
 
-  return left !== undefined && width !== undefined && left + width > windowWidth
-    ? "left"
-    : "right";
-});
+  submenuDirection.value = left + width > windowWidth ? "left" : "right";
+};
 </script>

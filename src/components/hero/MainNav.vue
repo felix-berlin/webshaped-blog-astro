@@ -48,7 +48,7 @@
       </div>
     </Transition> -->
 
-    <ColorModeToggle v-if="!isMobile" />
+    <ColorModeToggle v-if="!isMobile" class="c-main-nav__color-toggle" />
   </nav>
 </template>
 

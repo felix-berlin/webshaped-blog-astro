@@ -124,7 +124,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
   </head>
 
   <body class="o-body">
-    <MainHeader menuItems={menuItems} lang={language} client:load />
+    <MainHeader menuItems={menuItems} lang={language} client:only="vue" />
     <Prism client:load />
 
     <main class="o-content c-blog">

@@ -5,7 +5,7 @@
   position: relative;
 }
 
-.u-list-reset {
+:where(.u-list-reset) {
   list-style-type: none;
   margin: 0;
   padding: 0;

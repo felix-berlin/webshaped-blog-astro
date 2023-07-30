@@ -39,7 +39,7 @@ const mainMenuItems = await getMenuById(2);
     <MainHeader
       menuItems={mainMenuItems?.menuItems!}
       lang={language!}
-      client:load
+      client:only="vue"
     />
     <main class="o-content">
       <slot />
