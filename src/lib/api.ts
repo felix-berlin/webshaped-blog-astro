@@ -1,8 +1,6 @@
 import type {
-  RootMutation,
   RootQuery,
   MenuItem,
-  SeoUser,
   Post,
   RootQueryToCategoryConnection,
   RootQueryToCommentConnection,
@@ -28,7 +26,7 @@ interface Error {
 interface QueryResult {
   errors?: Error[];
   extensions?: {
-    debug: Array<any>;
+    debug: Array<string | object | boolean>;
     queryAnalyzer: {
       keys: string;
       keysLength: number;
@@ -36,7 +34,7 @@ interface QueryResult {
       skippedKeys: string;
       skippedKeysSize: number;
       skippedKeysCount: number;
-      skippedTypes: Array<any>;
+      skippedTypes: Array<string | object | boolean>;
     };
   };
 }
@@ -45,10 +43,7 @@ export interface CreateCommentPayloadExtended
   extends CreateCommentPayload,
     QueryResult {}
 
-async function fetchAPI(
-  query: string,
-  { variables } = { variables: {} },
-): Promise<object | any> {
+async function fetchAPI(query: string, { variables } = { variables: {} }) {
   const headers = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -746,7 +741,7 @@ export async function getAuthor(
 ): Promise<RootQuery["user"]> {
   const data = await fetchAPI(`
     {
-      user(id: "${id}", idType: DATABASE_ID) {
+      user(id: "${id}", idType: ${idType}) {
         seo {
           social {
             facebook
