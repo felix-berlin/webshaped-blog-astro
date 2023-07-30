@@ -27,6 +27,6 @@ describe("Date.vue", () => {
   test("Check for valid Date", () => {
     const date = wrapper.find(".c-date");
 
-    expect(date.text()).toBe("23. September 2018");
+    expect(date.text()).toBe("September 23, 2018");
   });
 });
