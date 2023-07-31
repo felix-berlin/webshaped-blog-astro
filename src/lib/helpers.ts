@@ -47,3 +47,14 @@ export const getHtmlContent = (str: string): string => {
   const htmlTagRegex = /<[^>]*>/g;
   return str.replace(htmlTagRegex, "");
 };
+
+/**
+ * Create URL to the first page of a category
+ *
+ * @param   {string}  categoryPath
+ *
+ * @return  {string}
+ */
+export const firstCategoryPage = (categoryPath: string):string => {
+  return `${categoryPath}/1`;
+}
