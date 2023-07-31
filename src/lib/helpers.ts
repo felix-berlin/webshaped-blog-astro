@@ -55,6 +55,26 @@ export const getHtmlContent = (str: string): string => {
  *
  * @return  {string}
  */
-export const firstCategoryPage = (categoryPath: string):string => {
-  return `${categoryPath}/1`;
+export const firstCategoryPage = (categoryPath: string, firstPage = '1'):string => {
+  if (firstPage.startsWith('/')) {
+    firstPage = firstPage.slice(1);
+  }
+
+  if (categoryPath.endsWith('/')) {
+    categoryPath = categoryPath.slice(0, -1);
+  }
+
+  return `${categoryPath}/${firstPage}`;
+}
+
+/**
+ * Check if the given path is a category path
+ *
+ * @param   {string}  path
+ *
+ * @return  {boolean}
+ */
+export const isCategoryPath = (path: string, categoryPath = 'category'): boolean => {
+  // if path contains 'category' is within the path string return true
+  return path.includes(categoryPath);
 }
