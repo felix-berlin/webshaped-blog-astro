@@ -6,7 +6,7 @@
     <!-- <LanguageSelect /> -->
 
     <button
-      v-if="isMobile"
+      v-show="isMobile"
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
       :aria-label="__(lang?.locale!, 'main_nav.toggle_button.label')"
@@ -24,7 +24,7 @@
           :class="{ 'is-open': flyoutIsOpen }"
         >
           <MenuNav
-            :menu-items="props.menuItems.nodes"
+            :menu-items="menuItems.nodes"
             class="c-main-nav__menu"
             :class="{ 'is-open': flyoutIsOpen }"
             @submenu-state="submenuIsOpen = $event"
@@ -38,7 +38,7 @@
 
     <MenuNav
       v-else
-      :menu-items="props.menuItems.nodes"
+      :menu-items="menuItems.nodes"
       class="c-main-nav__menu"
       :class="{ 'is-open': submenuIsOpen }"
       @submenu-state="submenuIsOpen = $event"
@@ -72,7 +72,7 @@ export interface MainNavProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<MainNavProps>();
+defineProps<MainNavProps>();
 
 const mainHeaderWidth = ref(0);
 const mainNav = ref(null);

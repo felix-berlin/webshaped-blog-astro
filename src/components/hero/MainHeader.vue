@@ -1,6 +1,6 @@
 <template>
   <header id="mainHeader" class="o-header">
-    <MainNav :menu-items="props.menuItems" :lang="lang" />
+    <MainNav :menu-items="menuItems" :lang="lang" />
     <!-- <LanguageSelect class="is-desktop" /> -->
   </header>
 </template>
@@ -19,5 +19,5 @@ export interface HeaderProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<HeaderProps>();
+defineProps<HeaderProps>();
 </script>
