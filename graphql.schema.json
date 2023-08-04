@@ -104907,7 +104907,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -105269,7 +105269,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -105684,7 +105684,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -105976,7 +105976,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -106445,7 +106445,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -106722,7 +106722,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -107157,7 +107157,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the node as a preview instance",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
