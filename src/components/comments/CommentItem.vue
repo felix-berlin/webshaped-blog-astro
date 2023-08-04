@@ -60,7 +60,7 @@
 
           <Date
             :date="comment.dateGmt!"
-            :lang="lang?.locale"
+            :lang="lang?.locale as Maybe<Language>"
             class="c-comment__date"
           >
             <template #before>
@@ -81,7 +81,7 @@
       <CreateComment
         :current-post-id="currentPostId"
         :lang="lang"
-        :reply-to-comment-id="comment.commentId"
+        :reply-to-comment-id="comment?.commentId?.toString()"
       >
         <template #beforeContent>
           <button

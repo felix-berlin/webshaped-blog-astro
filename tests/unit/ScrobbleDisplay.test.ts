@@ -10,9 +10,8 @@ import {
 } from "vitest";
 // @ts-ignore: Unresolved import
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
-import { graphql, rest } from "msw";
+import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { JSDOM } from "jsdom";
 
 const server = setupServer();
 
@@ -51,10 +50,6 @@ server.use(
 
 describe("ScrobbleDisplay", () => {
   it("renders the the dropdown", async () => {
-    // const { window } = new JSDOM("<!DOCTYPE html>");
-    // global.window = window;
-    // global.document = window.document;
-
     const wrapper = mount(ScrobbleDisplay, {
       props: {
         numberOfDisplayedTracks: 2,
