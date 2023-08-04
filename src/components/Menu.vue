@@ -13,15 +13,21 @@
     >
       <a
         v-if="item?.childItems?.nodes && item.childItems.nodes.length <= 0"
-        :href="item.path + (!!item?.path?.match(/\/category\//gm) ? '1' : '')"
+        :href="item.path!"
         class="c-menu__link"
       >
         {{ item.label }}
       </a>
 
-      <span class="c-menu__link is-menu-title">
-        <span>{{ item.label }}</span>
-        <ChevronDown :size="18" />
+      <span v-else class="c-menu__link is-menu-title">
+        <span class="c-menu__link-title">{{ item.label }}</span>
+
+        <span
+          v-show="$slots.menuTitleIcon"
+          class="c-menu__link-icon"
+        >
+          <slot name="menuTitleIcon" />
+        </span>
       </span>
 
       <menu class="c-submenu u-list-reset">
@@ -31,10 +37,7 @@
           class="c-submenu__item"
         >
           <a
-            :href="
-              child.path +
-              (child?.path?.match(/\/category\//gm)?.length ? '1' : '')
-            "
+            :href="child.path!"
             class="c-submenu__link"
             >{{ child.label }}</a
           >
@@ -45,7 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronDown } from "lucide-vue-next";
 import type { MenuToMenuItemConnection } from "../types/generated/graphql";
 
 export interface MenuProps {
