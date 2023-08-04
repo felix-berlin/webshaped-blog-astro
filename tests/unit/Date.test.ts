@@ -8,7 +8,7 @@ describe("Date.vue", () => {
     props: {
       date: "2018-09-23 15:36:00",
       lang: {
-        locale: "en-US",
+        locale: "en_US",
         id: "en",
       },
     },

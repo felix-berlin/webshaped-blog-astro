@@ -22,5 +22,5 @@ export interface ReadingTimeProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<ReadingTimeProps>();
+defineProps<ReadingTimeProps>();
 </script>

@@ -22,5 +22,3 @@ const props = withDefaults(defineProps<CommentCountProps>(), {
   href: "",
 });
 </script>
-
-<style scoped></style>

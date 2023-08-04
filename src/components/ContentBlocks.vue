@@ -4,28 +4,51 @@
       <p
         v-if="block.name === 'core/paragraph'"
         class="c-blocks__paragraph"
-        v-html="parse(block.attributesJSON).content"
+        v-html="
+          (parse(block.attributesJSON) as typeof block.attributesJSON).content
+        "
       />
 
       <component
-        :is="`h${parse(block.attributesJSON).level}`"
+        :is="`h${
+          (parse(block.attributesJSON) as typeof block.attributesJSON).level
+        }`"
         v-if="block.name === 'core/heading'"
         :id="
-          isHtml(parse(block.attributesJSON).content)
-            ? getHtmlContent(parse(block.attributesJSON).content)
-            : slugify(parse(block.attributesJSON).content, { lower: true })
+          isHtml(
+            (parse(block.attributesJSON) as typeof block.attributesJSON)
+              .content,
+          )
+            ? getHtmlContent(
+                (parse(block.attributesJSON) as typeof block.attributesJSON)
+                  .content,
+              )
+            : slugify(
+                (parse(block.attributesJSON) as typeof block.attributesJSON)
+                  .content,
+                { lower: true },
+              )
         "
         :class="`c-blocks__heading c-blocks__heading--${
-          parse(block.attributesJSON).level
+          (parse(block.attributesJSON) as typeof block.attributesJSON).level
         }`"
       >
         <span
-          v-if="isHtml(parse(block.attributesJSON).content)"
-          v-html="parse(block.attributesJSON).content"
+          v-if="
+            isHtml(
+              (parse(block.attributesJSON) as typeof block.attributesJSON)
+                .content,
+            )
+          "
+          v-html="
+            (parse(block.attributesJSON) as typeof block.attributesJSON).content
+          "
         />
 
         <template v-else>
-          {{ parse(block.attributesJSON).content }}
+          {{
+            (parse(block.attributesJSON) as typeof block.attributesJSON).content
+          }}
         </template>
       </component>
 
@@ -37,25 +60,43 @@
 
       <figure v-if="block.name === 'core/image'" class="c-blocks__image">
         <img
-          :id="parse(block.attributesJSON).id"
-          :src="parse(block.attributesJSON).url"
-          :alt="parse(block.attributesJSON).alt"
+          :id="(parse(block.attributesJSON) as typeof block.attributesJSON).id"
+          :src="
+            (parse(block.attributesJSON) as typeof block.attributesJSON).url
+          "
+          :alt="
+            (parse(block.attributesJSON) as typeof block.attributesJSON).alt
+          "
         />
         <figcaption
-          v-if="parse(block.attributesJSON).caption"
-          v-html="parse(block.attributesJSON).caption"
+          v-if="
+            (parse(block.attributesJSON) as typeof block.attributesJSON).caption
+          "
+          v-html="
+            (parse(block.attributesJSON) as typeof block.attributesJSON).caption
+          "
         />
       </figure>
 
       <a
         v-if="block.name === 'core/button'"
-        :id="parse(block.attributesJSON).anchor"
-        :href="parse(block.attributesJSON).url"
-        :title="parse(block.attributesJSON).title"
-        :target="parse(block.attributesJSON).target"
-        :rel="parse(block.attributesJSON).rel"
-        :class="`c-blocks__button ${parse(block.attributesJSON).className}`"
-        >{{ parse(block.attributesJSON).text }}</a
+        :id="
+          (parse(block.attributesJSON) as typeof block.attributesJSON).anchor
+        "
+        :href="(parse(block.attributesJSON) as typeof block.attributesJSON).url"
+        :title="
+          (parse(block.attributesJSON) as typeof block.attributesJSON).title
+        "
+        :target="
+          (parse(block.attributesJSON) as typeof block.attributesJSON).target
+        "
+        :rel="(parse(block.attributesJSON) as typeof block.attributesJSON).rel"
+        :class="`c-blocks__button ${
+          (parse(block.attributesJSON) as typeof block.attributesJSON).className
+        }`"
+        >{{
+          (parse(block.attributesJSON) as typeof block.attributesJSON).text
+        }}</a
       >
 
       <div v-if="block.name === 'core/html'" v-html="block.originalContent" />
@@ -65,14 +106,12 @@
 
 <script setup lang="ts">
 import slugify from "slugify";
-import type { Block, Maybe } from "../types/generated/graphql";
+import type { Block } from "../types/generated/graphql";
 import { isHtml, parse, getHtmlContent } from "../lib/helpers";
 
 interface ContentBlocksProps {
   blocks: Block[];
 }
 
-const props = defineProps<ContentBlocksProps>();
+defineProps<ContentBlocksProps>();
 </script>
-
-<style scoped></style>

@@ -102,23 +102,29 @@ const toggleFlyout = (): void => {
 };
 
 /**
- * Observe the body with
+ * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'mainHeaderWidth' and 'isMobile' variables accordingly.
+ * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.
  *
  * @param   {object}  entries
  *
  * @return  {void}
  */
 const bodyWidth = new ResizeObserver((entries) => {
+  // Update the value of 'mainHeaderWidth' with the width of the observed element
   mainHeaderWidth.value = entries[0].contentRect.width;
+
+  // Update the value of 'isMobile' based on the current screen width
   isMobile.value = window.innerWidth < 769;
 
+  // If the screen width is not mobile
   if (!isMobile.value) {
+    // Close the flyout menu
     flyoutIsOpen.value = false;
 
+    // Enable scroll on the body element
     controlScroll(false);
   }
 });
-
 /**
  * Toggle disable scroll on body
  *

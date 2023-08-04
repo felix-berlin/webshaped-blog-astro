@@ -20,7 +20,7 @@ export const isHtml = (str: string): boolean => {
  *
  * @return  {string}
  */
-export const parse = (str: Maybe<string>) => {
+export const parse = (str: Maybe<string>): undefined | object | Error => {
   if (!str) return;
 
   try {
@@ -55,17 +55,20 @@ export const getHtmlContent = (str: string): string => {
  *
  * @return  {string}
  */
-export const firstCategoryPage = (categoryPath: string, firstPage = '1'):string => {
-  if (firstPage.startsWith('/')) {
+export const firstCategoryPage = (
+  categoryPath: string,
+  firstPage = "1",
+): string => {
+  if (firstPage.startsWith("/")) {
     firstPage = firstPage.slice(1);
   }
 
-  if (categoryPath.endsWith('/')) {
+  if (categoryPath.endsWith("/")) {
     categoryPath = categoryPath.slice(0, -1);
   }
 
   return `${categoryPath}/${firstPage}`;
-}
+};
 
 /**
  * Check if the given path is a category path
@@ -74,7 +77,10 @@ export const firstCategoryPage = (categoryPath: string, firstPage = '1'):string 
  *
  * @return  {boolean}
  */
-export const isCategoryPath = (path: string, categoryPath = 'category'): boolean => {
+export const isCategoryPath = (
+  path: string,
+  categoryPath = "category",
+): boolean => {
   // if path contains 'category' is within the path string return true
   return path.includes(categoryPath);
-}
+};

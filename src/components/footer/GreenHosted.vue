@@ -19,7 +19,7 @@ interface GreenHostedProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<GreenHostedProps>();
+defineProps<GreenHostedProps>();
 </script>
 
 <style lang="scss">
