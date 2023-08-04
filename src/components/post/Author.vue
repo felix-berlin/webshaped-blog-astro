@@ -9,7 +9,11 @@
       :height="author.node.avatar.height || undefined"
       loading="lazy"
     />
-    <ScrobbleDisplay :idle-after-count="1" :lang="lang" />
+    <ScrobbleDisplay
+      :scrobble-api="scrobbleApi"
+      :idle-after-count="1"
+      :lang="lang"
+    />
     <p class="c-author__name">
       {{ `${author?.node.firstName} ${author?.node.lastName}` }}
     </p>
@@ -35,6 +39,8 @@ export interface AuthorProps {
 }
 
 const props = defineProps<AuthorProps>();
+
+const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
 
 const socials = {
   facebook: {

@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 
-import path, { resolve, dirname } from "node:path";
+import path from "node:path";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 
@@ -10,6 +10,7 @@ export default defineConfig({
     include: ["tests/unit/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     globals: true,
     environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
   },
   resolve: {
     alias: {

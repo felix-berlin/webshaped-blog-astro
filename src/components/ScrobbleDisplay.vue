@@ -116,6 +116,7 @@ export interface ScrobbleDisplayProps {
   idleIfInactive?: boolean;
   idleAfterCount?: number;
   lang: Maybe<Language>;
+  scrobbleApi: string;
 }
 
 interface LastFmData {
@@ -144,9 +145,8 @@ const {
   dropdownPlacement = "auto",
   idleIfInactive = false,
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
-  lang = {
-    locale: "de",
-  },
+  lang,
+  scrobbleApi,
 } = defineProps<ScrobbleDisplayProps>();
 
 const state: State = reactive({
@@ -185,9 +185,7 @@ watch(
  */
 const getScrobbles = async (): Promise<LastFmData> => {
   const response = await fetch(
-    `${
-      import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API
-    }?limit=${numberOfDisplayedTracks}`,
+    `${scrobbleApi}?limit=${numberOfDisplayedTracks}`,
   );
   return await response.json();
 };
