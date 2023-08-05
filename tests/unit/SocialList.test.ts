@@ -1,5 +1,5 @@
-import { mount, shallowMount } from "@vue/test-utils";
-import { test, expect, describe } from "vitest";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 // @ts-ignore: Unresolved import
 import SocialList from "@components/SocialList.vue";
@@ -34,20 +34,92 @@ describe("SocialList.vue", () => {
     },
   });
 
-  test("Test if all list elements are there", () => {
-    const list = wrapper.findAll(".c-social-list__link");
-    expect(list).toHaveLength(2);
+  it("renders all social links", () => {
+    const socialItems = {
+      facebook: { url: "https://facebook.com" },
+      twitter: { url: "https://twitter.com" },
+      instagram: { url: "https://instagram.com" },
+      linkedIn: { url: "https://linkedin.com" },
+      youTube: { url: "https://youtube.com" },
+      github: { url: "https://github.com" },
+    };
+    const wrapper = mount(SocialList, {
+      props: {
+        socialItems,
+        lang: {
+          locale: "en_US",
+          id: "en",
+        },
+      },
+    });
+    expect(wrapper.findAll(".c-social-list__link")).toHaveLength(6);
   });
 
-  test("Test if all components are mounted", () => {
-    expect(wrapper.findComponent(Twitter).exists()).toBe(true);
-    expect(wrapper.findComponent(Github).exists()).toBe(true);
+  it("renders only social links with URLs", () => {
+    const socialItems = {
+      facebook: { url: "https://facebook.com" },
+      twitter: { url: "https://twitter.com" },
+      instagram: { url: null },
+      linkedIn: { url: "https://linkedin.com" },
+      youTube: { url: null },
+      github: { url: "https://github.com" },
+    };
+    const wrapper = mount(SocialList, {
+      props: {
+        socialItems,
+        lang: {
+          locale: "en_US",
+          id: "en",
+        },
+      },
+    });
+    // console.log(wrapper.html());
+
+    expect(wrapper.findAll(".c-social-list__link")).toHaveLength(4);
   });
 
-  test("Test for invisible components", () => {
-    expect(wrapper.findComponent(Linkedin).exists()).toBe(false);
-    expect(wrapper.findComponent(Youtube).exists()).toBe(false);
-    expect(wrapper.findComponent(Instagram).exists()).toBe(false);
-    expect(wrapper.findComponent(Facebook).exists()).toBe(false);
+  it("renders social links with correct href and target attributes", () => {
+    const socialItems = {
+      facebook: { url: "https://facebook.com", target: "_self" },
+      twitter: { url: "https://twitter.com", target: "_blank" },
+      instagram: { url: "https://instagram.com" },
+      linkedIn: { url: "https://linkedin.com" },
+      youTube: { url: "https://youtube.com" },
+      github: { url: "https://github.com" },
+    };
+    const wrapper = mount(SocialList, {
+      props: {
+        socialItems,
+        lang: {
+          locale: "en_US",
+          id: "en",
+        },
+      },
+    });
+    const links = wrapper.findAll(".c-social-list__link");
+    expect(links[0].attributes("href")).toBe("https://facebook.com");
+    expect(links[0].attributes("target")).toBe("_self");
+    expect(links[1].attributes("href")).toBe("https://twitter.com");
+    expect(links[1].attributes("target")).toBe("_blank");
+  });
+
+  it("renders social links with correct labels", () => {
+    const socialItems = {
+      facebook: { url: "https://facebook.com", label: "Facebook" },
+      twitter: { url: "https://twitter.com" },
+    };
+
+    const wrapper = mount(SocialList, {
+      props: {
+        socialItems,
+        lang: {
+          locale: "en_US",
+          id: "en",
+        },
+      },
+    });
+    const links = wrapper.findAll(".c-social-list__link");
+    expect(links[0].attributes("aria-label")).toBe("Facebook");
+    expect(links[1].attributes("aria-label")).toBe("Visit me on twitter");
   });
 });

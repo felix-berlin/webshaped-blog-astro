@@ -95,7 +95,7 @@ export interface SocialListProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<SocialListProps>();
+defineProps<SocialListProps>();
 </script>
 
 <style lang="scss">
