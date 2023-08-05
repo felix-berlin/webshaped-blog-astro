@@ -1,4 +1,4 @@
-import type { Maybe } from "../types/generated/graphql";
+import type { Maybe, Menu, MenuItem } from "../types/generated/graphql";
 
 /**
  * Checks if the given string is HTML
@@ -56,14 +56,14 @@ export const getHtmlContent = (str: string): string => {
  * @return  {string}
  */
 export const firstCategoryPage = (
-  categoryPath: string,
+  categoryPath: Maybe<string>,
   firstPage = "1",
 ): string => {
   if (firstPage.startsWith("/")) {
     firstPage = firstPage.slice(1);
   }
 
-  if (categoryPath.endsWith("/")) {
+  if (categoryPath?.endsWith("/")) {
     categoryPath = categoryPath.slice(0, -1);
   }
 
@@ -78,9 +78,30 @@ export const firstCategoryPage = (
  * @return  {boolean}
  */
 export const isCategoryPath = (
-  path: string,
+  path: Maybe<string>,
   categoryPath = "category",
 ): boolean => {
+  if (!path) return false;
   // if path contains 'category' is within the path string return true
-  return path.includes(categoryPath);
+  return path?.includes(categoryPath);
+};
+
+/**
+ * Update category paths in the main menu
+ *
+ * @return  {[type]}
+ */
+export const updateCategoryPaths = (
+  mainMenuItems: Maybe<Menu>,
+): Maybe<Menu> => {
+  mainMenuItems?.menuItems?.nodes.forEach((item: MenuItem) => {
+    if (item?.childItems) {
+      item.childItems.nodes.forEach((childItem: MenuItem) => {
+        if ("path" in childItem && isCategoryPath(childItem.path)) {
+          childItem.path = firstCategoryPage(childItem.path);
+        }
+      });
+    }
+  });
+  return mainMenuItems;
 };
