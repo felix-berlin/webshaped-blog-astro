@@ -43,6 +43,13 @@ describe("CommentItem", () => {
     await replyButton.trigger("click");
 
     expect(wrapper.vm.replyToCommentForm).toBe(true);
+    expect(wrapper.findComponent({ name: "CreateComment" }).exists()).toBe(
+      true,
+    );
+  });
+
+  it("reply button text is there", () => {
+    expect(wrapper.find(".c-comment__reply-button").text()).toBe("Reply");
   });
 
   it("returns false for another user's comment", () => {
