@@ -18679,6 +18679,7 @@ export type User_Socialadvanced = AcfFieldGroup & {
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
   github?: Maybe<Scalars['String']['output']>;
+  mastodon?: Maybe<Scalars['String']['output']>;
 };
 
 /** Field to order the connection by */
