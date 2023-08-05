@@ -36,7 +36,7 @@ export interface CommentsProps {
   lang: Maybe<Language>;
 }
 
-const props = defineProps<CommentsProps>();
+defineProps<CommentsProps>();
 </script>
 
 <style lang="scss">

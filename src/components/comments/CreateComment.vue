@@ -147,7 +147,7 @@ import type {
 interface Props {
   currentPostId: number;
   lang: Maybe<Language>;
-  replyToCommentId?: CreateCommentInput["parent"];
+  replyToCommentId?: CreateCommentInput["parent"] | number;
 }
 
 const props = defineProps<Props>();

@@ -10,18 +10,16 @@
       />
     </div>
 
-    <p v-if="!data.hasComments">
+    <p v-if="!data.hasComments" class="c-comments__no-comments">
       {{ __(lang?.locale!, "comments.no_comments") }}
     </p>
 
-    <!-- <TransitionGroup name="list"> -->
-    <template v-for="item in 5" :key="item">
-      <CommentItemSkeleton v-if="!data.hasLoaded" />
+    <template v-if="!data.hasLoaded">
+      <template v-for="item in 5" :key="item">
+        <CommentItemSkeleton />
+      </template>
     </template>
-    <!-- </TransitionGroup> -->
 
-    <!-- <TransitionGroup name="list"> -->
-    <!-- <template v-for="comment in data.comments" :key="comment.id"> -->
     <div v-auto-animate>
       <CommentItem
         v-for="comment in data.comments"
@@ -34,8 +32,7 @@
         :current-post-id="currentPostId"
       />
     </div>
-    <!-- </template> -->
-    <!-- </TransitionGroup> -->
+
     <button
       v-if="data?.pageInfo?.hasNextPage"
       class="c-comments__load-more-button c-button c-button--outline"

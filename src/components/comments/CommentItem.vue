@@ -81,7 +81,7 @@
       <CreateComment
         :current-post-id="currentPostId"
         :lang="lang"
-        :reply-to-comment-id="comment?.commentId?.toString()"
+        :reply-to-comment-id="comment?.commentId"
       >
         <template #beforeContent>
           <button
