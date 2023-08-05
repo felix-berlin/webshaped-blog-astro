@@ -9,7 +9,6 @@ import type {
   CreateCommentPayload,
   Maybe,
 } from "../types/generated/graphql";
-const { PUBLIC_WP_API } = import.meta.env;
 
 interface Error {
   message?: string;
@@ -49,7 +48,7 @@ async function fetchAPI(query: string, { variables } = { variables: {} }) {
     Accept: "application/json",
   };
 
-  return await fetch(PUBLIC_WP_API, {
+  return await fetch(import.meta.env.PUBLIC_WP_API, {
     method: "POST",
     headers,
     body: JSON.stringify({ query, variables }),
