@@ -9,6 +9,7 @@ import MainHeader from "@components/hero/MainHeader.vue";
 import MainFooter from "@components/footer/MainFooter.astro";
 // import Matomo from "@components/Matomo.vue";
 import { getMenuById, getAuthor } from "@lib/api";
+import { updateCategoryPaths } from "@lib/helpers";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "../types/generated/graphql";
@@ -28,9 +29,6 @@ const {
 const langAttr = language.locale?.replace("_", "-");
 
 const mainMenuItems = await getMenuById(2);
-
-// TODO: filter if category, if than update the path with firstCategoryPage()
-
 ---
 
 <html lang={langAttr}>
@@ -40,7 +38,7 @@ const mainMenuItems = await getMenuById(2);
 
   <body class="o-body">
     <MainHeader
-      menuItems={mainMenuItems?.menuItems!}
+      menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
       lang={language!}
       client:only="vue"
     />
