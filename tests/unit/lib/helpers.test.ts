@@ -1,6 +1,13 @@
 import { it, expect, describe, vi } from "vitest";
 // @ts-ignore: Unresolved import
-import { isHtml, parse, getHtmlContent, isCategoryPath, firstCategoryPage } from "@lib/helpers";
+import {
+  isHtml,
+  parse,
+  getHtmlContent,
+  isCategoryPath,
+  firstCategoryPage,
+  updateCategoryPaths,
+} from "@lib/helpers";
 
 describe("isHtml()", () => {
   it("test_html_tag_present", () => {
@@ -108,67 +115,137 @@ describe("getHtmlContent()", () => {
 });
 
 describe("isCategoryPath()", () => {
-  it('returns true when path contains category', () => {
-    expect(isCategoryPath('/category/123')).toBe(true);
+  it("returns true when path contains category", () => {
+    expect(isCategoryPath("/category/123")).toBe(true);
   });
 
-  it('returns false when path does not contain category', () => {
-    expect(isCategoryPath('/product/123')).toBe(false);
+  it("returns false when path does not contain category", () => {
+    expect(isCategoryPath("/product/123")).toBe(false);
   });
 
-  it('returns false when empty string is passed', () => {
-    expect(isCategoryPath('')).toBe(false);
+  it("returns false when empty string is passed", () => {
+    expect(isCategoryPath("")).toBe(false);
   });
 
-  it('returns false when path contains Category (case sensitive)', () => {
-    expect(isCategoryPath('/Category/123')).toBe(false);
+  it("returns false when path contains Category (case sensitive)", () => {
+    expect(isCategoryPath("/Category/123")).toBe(false);
   });
 
-  it('returns true when path contains category as a substring', () => {
-    expect(isCategoryPath('/sub-category/123')).toBe(true);
+  it("returns true when path contains category as a substring", () => {
+    expect(isCategoryPath("/sub-category/123")).toBe(true);
   });
 
-  it('returns true when path contains category as a prefix or suffix', () => {
-    expect(isCategoryPath('/category-sub/123')).toBe(true);
-    expect(isCategoryPath('/sub-category/123/category')).toBe(true);
+  it("returns true when path contains category as a prefix or suffix", () => {
+    expect(isCategoryPath("/category-sub/123")).toBe(true);
+    expect(isCategoryPath("/sub-category/123/category")).toBe(true);
   });
 });
 
 describe("firstCategoryPage()", () => {
-  it('returns the correct URL when given a valid category path and first page number', () => {
-    const categoryPath = '/electronics';
-    const firstPage = '3';
-    const expectedUrl = '/electronics/3';
+  it("returns the correct URL when given a valid category path and first page number", () => {
+    const categoryPath = "/electronics";
+    const firstPage = "3";
+    const expectedUrl = "/electronics/3";
     expect(firstCategoryPage(categoryPath, firstPage)).toBe(expectedUrl);
   });
 
-  it('returns the correct URL when first page number is not provided', () => {
-    const categoryPath = '/electronics';
-    const expectedUrl = '/electronics/1';
+  it("returns the correct URL when first page number is not provided", () => {
+    const categoryPath = "/electronics";
+    const expectedUrl = "/electronics/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
   });
 
-  it('returns the correct URL when given an empty category path', () => {
-    const categoryPath = '';
-    const expectedUrl = '/1';
+  it("returns the correct URL when given an empty category path", () => {
+    const categoryPath = "";
+    const expectedUrl = "/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
   });
 
-  it('returns the correct URL when given a category path with trailing slash', () => {
-    const categoryPath = '/electronics/';
-    const expectedUrl = '/electronics/1';
+  it("returns the correct URL when given a category path with trailing slash", () => {
+    const categoryPath = "/electronics/";
+    const expectedUrl = "/electronics/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
   });
 
-  it('returns the correct URL when given a category path with leading slash', () => {
-    const categoryPath = '/electronics';
-    const expectedUrl = '/electronics/1';
+  it("returns the correct URL when given a category path with leading slash", () => {
+    const categoryPath = "/electronics";
+    const expectedUrl = "/electronics/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
   });
 
-  it('returns the correct URL when given a category path with leading slash', () => {
-    const categoryPath = '/electronics';
-    const expectedUrl = '/electronics/1';
+  it("returns the correct URL when given a category path with leading slash", () => {
+    const categoryPath = "/electronics";
+    const expectedUrl = "/electronics/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
+  });
+});
+
+describe("updateCategoryPaths", () => {
+  it("updates category paths in the main menu", () => {
+    const mainMenuItems = {
+      menuItems: {
+        nodes: [
+          {
+            childItems: {
+              nodes: [
+                {
+                  path: "/category1",
+                },
+                {
+                  path: "/category2",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe(
+      "/category1/1",
+    );
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe(
+      "/category2/1",
+    );
+  });
+
+  it("does not update paths that are not category paths", () => {
+    const mainMenuItems = {
+      menuItems: {
+        nodes: [
+          {
+            childItems: {
+              nodes: [
+                {
+                  path: "/category1",
+                },
+                {
+                  path: "/product1",
+                },
+              ],
+            },
+          },
+        ],
+      },
+    };
+
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe(
+      "/category1/1",
+    );
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe(
+      "/product1",
+    );
+  });
+
+  it("returns null if mainMenuItems is null", () => {
+    const mainMenuItems = null;
+
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+
+    expect(updatedMenuItems).toBeNull();
   });
 });
