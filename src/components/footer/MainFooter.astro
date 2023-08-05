@@ -3,6 +3,7 @@ import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@lib/api";
+import { firstCategoryPage } from "@lib/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
@@ -97,7 +98,10 @@ const { lang } = Astro.props as MainFooterProps;
           categories &&
             categories.nodes.map((category) => (
               <li class="c-menu__item">
-                <a class="c-menu__link" href={`/category/${category.slug}`}>
+                <a
+                  class="c-menu__link"
+                  href={`/category/${firstCategoryPage(category.slug)}`}
+                >
                   {category.name}
                 </a>
               </li>
