@@ -260,11 +260,51 @@ export async function getPostBySlug(slug: number | string): Promise<Post> {
           name
           order
           originalContent
+          ...on CoreImageBlock {
+            mediaItem {
+              node {
+                altText
+                mediaItemUrl
+                srcSet
+                sizes
+                mimeType
+                mediaDetails {
+                  height
+                  width
+                  sizes {
+                    width
+                    sourceUrl
+                    mimeType
+                  }
+                }
+              }
+            }
+          }
           innerBlocks {
             attributesJSON
             name
             order
             originalContent
+            ...on CoreImageBlock {
+              mediaItem {
+                node {
+                  altText
+                  mediaItemUrl
+                  srcSet
+                  sizes
+                  mimeType
+                  mediaDetails {
+                    height
+                    width
+                    sizes {
+                      width
+                      sourceUrl
+                      mimeType
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         author {

@@ -58,15 +58,17 @@
         v-html="block.originalContent"
       />
 
+      <!-- <pre v-if="block.name === 'core/image'">{{ block.mediaItem }}</pre> -->
       <figure v-if="block.name === 'core/image'" class="c-blocks__image">
-        <img
+        <ImageResponsive
+          v-if="block.name === 'core/image'"
           :id="(parse(block.attributesJSON) as typeof block.attributesJSON).id"
-          :src="
-            (parse(block.attributesJSON) as typeof block.attributesJSON).url
-          "
-          :alt="
-            (parse(block.attributesJSON) as typeof block.attributesJSON).alt
-          "
+          :src="block.mediaItem.node.mediaItemUrl"
+          :src-set="block.mediaItem.node?.srcSet"
+          :width="block.mediaItem.node?.mediaDetails?.width"
+          :height="block.mediaItem.node?.mediaDetails?.height"
+          :alt="block.mediaItem.alt"
+          class="c-blog__hero-image"
         />
         <figcaption
           v-if="
@@ -108,6 +110,7 @@
 import slugify from "slugify";
 import type { Block } from "../types/generated/graphql";
 import { isHtml, parse, getHtmlContent } from "../lib/helpers";
+import ImageResponsive from "@components/ImageResponsive.vue";
 
 interface ContentBlocksProps {
   blocks: Block[];

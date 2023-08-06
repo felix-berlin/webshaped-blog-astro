@@ -27,10 +27,10 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
-import type { CoreHeadingBlock } from "../types/generated/graphql";
-
+import { getMenuById } from "@lib/api";
 import { __ } from "@i18n/i18n";
-
+import ImageResponsive from "@components/ImageResponsive.vue";
+import type { CoreHeadingBlock } from "../types/generated/graphql";
 import type { Seo, Title } from "@components/BaseHead.astro";
 import type {
   RootQuery,
@@ -41,8 +41,6 @@ import type {
   RootQueryToCategoryConnection,
   Maybe,
 } from "../types/generated/graphql";
-
-import { getMenuById } from "@lib/api";
 
 export interface BlogPost {
   content: Post;
@@ -101,7 +99,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     <!-- Gravatar -->
     <link rel="preconnect" href="//secure.gravatar.com" />
     <!-- Preload featured image -->
-    {
+    <!-- {
       featuredImageSizes &&
         featuredImageSizes.map((size: MediaSize) => (
           <link
@@ -113,13 +111,14 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
           />
         ))
     }
+
     <link
       rel="preload"
       href={featuredImage?.node.mediaItemUrl}
       as="image"
       type={featuredImage?.node.mimeType}
       media={`(max-width: ${featuredImage?.node?.mediaDetails?.width}px)`}
-    />
+    /> -->
     <script src="../lib/smooth-scroll-anchor.ts"></script>
   </head>
 
@@ -158,21 +157,15 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
         />
         <Categories categories={categories as RootQueryToCategoryConnection} />
 
-        {
-          featuredImage && (
-            <img
-              width={featuredImage?.node?.mediaDetails?.width}
-              height={featuredImage?.node?.mediaDetails?.height}
-              alt={featuredImage.node.altText}
-              src={featuredImage.node.mediaItemUrl}
-              srcset={featuredImage.node.srcSet}
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              class="c-blog__hero-image"
-            />
-          )
-        }
+        <ImageResponsive
+          src={featuredImage?.node.mediaItemUrl}
+          srcSet={featuredImage?.node.srcSet}
+          width={featuredImage?.node.mediaDetails?.width}
+          height={featuredImage?.node.mediaDetails?.height}
+          alt={featuredImage?.node.altText}
+          aboveTheFold={true}
+          class="c-blog__hero-image"
+        />
       </header>
       <article class="c-blog__post">
         <!-- <header class="c-blog__post__hero-header">

@@ -65,7 +65,7 @@ const headings = post?.blocks?.filter(
   (block: CoreHeadingBlock) =>
     block.name === "core/heading" &&
     (JSON.parse(block.attributesJSON as string).level === 2 ||
-      JSON.parse(block.attributesJSON as string).level === 3)
+      JSON.parse(block.attributesJSON as string).level === 3),
 ) as CoreHeadingBlock[];
 ---
 
