@@ -5,7 +5,6 @@ import vue from "@astrojs/vue";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import prefetch from "@astrojs/prefetch";
-import critters from "astro-critters";
 import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import pagefind from "astro-pagefind";
@@ -18,8 +17,9 @@ export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:3000"
     : "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
+  compressHTML: true,
   build: {
-    format: "file",
+    inlineStylesheets: "auto",
   },
   markdown: {
     // Can be 'shiki' (default), 'prism' or false to disable highlighting
@@ -42,9 +42,6 @@ export default defineConfig({
       },
     }),
     prefetch(),
-    critters({
-      critters: import.meta.env.PROD,
-    }),
     matomo({
       enabled: import.meta.env.PROD,
       host: "https://analytics.webshaped.de/",
@@ -64,7 +61,7 @@ export default defineConfig({
       alias: {
         "@sass-butler/": `${path.resolve(
           __dirname,
-          "node_modules/@felix_berlin/sass-butler/"
+          "node_modules/@felix_berlin/sass-butler/",
         )}/`,
         "@styles/": `${path.resolve(__dirname, "src/styles/")}/`,
         "@types/": `${path.resolve(__dirname, "src/types/")}/`,
