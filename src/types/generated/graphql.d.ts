@@ -2135,6 +2135,7 @@ export type ContactForm7ContactFormSelectorBlock = Block & {
 export type ContactForm7ContactFormSelectorBlockAttributes = {
   __typename?: 'ContactForm7ContactFormSelectorBlockAttributes';
   className?: Maybe<Scalars['String']['output']>;
+  hash?: Maybe<Scalars['String']['output']>;
   htmlClass?: Maybe<Scalars['String']['output']>;
   htmlId?: Maybe<Scalars['String']['output']>;
   htmlName?: Maybe<Scalars['String']['output']>;
