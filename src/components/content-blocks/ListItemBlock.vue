@@ -7,10 +7,10 @@
 
 <script setup lang="ts">
 import { parse } from "@lib/helpers";
+import type { CoreListItemBlock } from "../../types/generated/graphql";
 
 export interface ListItemBlockProps {
-  block: object;
+  block: CoreListItemBlock;
 }
-
-const props = defineProps<ListItemBlockProps>();
+defineProps<ListItemBlockProps>();
 </script>

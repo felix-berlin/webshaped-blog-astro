@@ -3,11 +3,11 @@
     <ImageResponsive
       v-if="block.name === 'core/image'"
       :id="parse(block.attributesJSON).id"
-      :src="block.mediaItem.node.mediaItemUrl"
-      :src-set="block.mediaItem.node?.srcSet"
-      :width="block.mediaItem.node?.mediaDetails?.width"
-      :height="block.mediaItem.node?.mediaDetails?.height"
-      :alt="block.mediaItem.alt"
+      :src="block.mediaItem?.node.mediaItemUrl"
+      :src-set="block.mediaItem?.node?.srcSet"
+      :width="block.mediaItem?.node?.mediaDetails?.width"
+      :height="block.mediaItem?.node?.mediaDetails?.height"
+      :alt="block.mediaItem?.node.altText"
       class="c-blog__hero-image"
     />
     <figcaption
@@ -20,9 +20,10 @@
 <script setup lang="ts">
 import { isHtml, parse, getHtmlContent } from "@lib/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
+import type { CoreImageBlock } from "../../types/generated/graphql";
 
 export interface FigureBlockProps {
-  block: object;
+  block: CoreImageBlock;
 }
 
 defineProps<FigureBlockProps>();

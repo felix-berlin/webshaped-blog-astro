@@ -1,4 +1,4 @@
-import type { Maybe, Menu, MenuItem } from "../types/generated/graphql";
+import type { Maybe, Menu, MenuItem, Block } from "../types/generated/graphql";
 
 /**
  * Checks if the given string is HTML
@@ -20,7 +20,7 @@ export const isHtml = (str: string): boolean => {
  *
  * @return  {string}
  */
-export const parse = (str: Maybe<string>): undefined | object | Error => {
+export const parse = (str: Maybe<string>) => {
   if (!str) return;
 
   try {

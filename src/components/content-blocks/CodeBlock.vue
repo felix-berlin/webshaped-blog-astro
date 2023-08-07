@@ -5,13 +5,15 @@
       :class="`${
         block.attributes?.className ? block.attributes.className : 'lang-txt'
       } line-numbers`"
-    ><code>{{ block.attributes.content }}</code></pre>
+    ><code>{{ block.attributes?.content }}</code></pre>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { CoreCodeBlock } from "../../types/generated/graphql";
+
 export interface CodeBlockProps {
-  block: object;
+  block: CoreCodeBlock;
 }
 
 defineProps<CodeBlockProps>();

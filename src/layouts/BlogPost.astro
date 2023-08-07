@@ -128,7 +128,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     <Prism client:load />
 
     <main class="o-content c-blog">
-      <header class="c-blog__header">
+      <header class={`c-blog__header ${featuredImage ?? "has-featured-image"}`}>
         <Breadcrumbs crumbs={breadcrumbItems}>
           <span slot="index">
             <svg
