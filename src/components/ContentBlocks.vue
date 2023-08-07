@@ -9,6 +9,8 @@
         "
       />
 
+      <ListBlock v-if="block.name === 'core/list'" :block="block" />
+
       <component
         :is="`h${
           (parse(block.attributesJSON) as typeof block.attributesJSON).level
@@ -52,54 +54,12 @@
         </template>
       </component>
 
-      <div
-        v-if="block.name === 'core/code'"
-        class="c-blocks__code"
-        v-html="block.originalContent"
-      />
+      <CodeBlock v-if="block.name === 'core/code'" :block="block" />
 
-      <!-- <pre v-if="block.name === 'core/image'">{{ block.mediaItem }}</pre> -->
-      <figure v-if="block.name === 'core/image'" class="c-blocks__image">
-        <ImageResponsive
-          v-if="block.name === 'core/image'"
-          :id="(parse(block.attributesJSON) as typeof block.attributesJSON).id"
-          :src="block.mediaItem.node.mediaItemUrl"
-          :src-set="block.mediaItem.node?.srcSet"
-          :width="block.mediaItem.node?.mediaDetails?.width"
-          :height="block.mediaItem.node?.mediaDetails?.height"
-          :alt="block.mediaItem.alt"
-          class="c-blog__hero-image"
-        />
-        <figcaption
-          v-if="
-            (parse(block.attributesJSON) as typeof block.attributesJSON).caption
-          "
-          v-html="
-            (parse(block.attributesJSON) as typeof block.attributesJSON).caption
-          "
-        />
-      </figure>
+      <FigureBlock v-if="block.name === 'core/image'" :block="block" />
+      <pre v-if="block.name === 'core/buttons'">{{ block }}</pre>
 
-      <a
-        v-if="block.name === 'core/button'"
-        :id="
-          (parse(block.attributesJSON) as typeof block.attributesJSON).anchor
-        "
-        :href="(parse(block.attributesJSON) as typeof block.attributesJSON).url"
-        :title="
-          (parse(block.attributesJSON) as typeof block.attributesJSON).title
-        "
-        :target="
-          (parse(block.attributesJSON) as typeof block.attributesJSON).target
-        "
-        :rel="(parse(block.attributesJSON) as typeof block.attributesJSON).rel"
-        :class="`c-blocks__button ${
-          (parse(block.attributesJSON) as typeof block.attributesJSON).className
-        }`"
-        >{{
-          (parse(block.attributesJSON) as typeof block.attributesJSON).text
-        }}</a
-      >
+      <ButtonBlock v-if="block.name === 'core/buttons'" :block="block" />
 
       <div v-if="block.name === 'core/html'" v-html="block.originalContent" />
     </template>
@@ -109,9 +69,11 @@
 <script setup lang="ts">
 import slugify from "slugify";
 import type { Block } from "../types/generated/graphql";
-import { isHtml, parse, getHtmlContent } from "../lib/helpers";
-import ImageResponsive from "@components/ImageResponsive.vue";
-
+import { isHtml, parse, getHtmlContent } from "@lib/helpers";
+import ListBlock from "@components/content-blocks/ListBlock.vue";
+import CodeBlock from "@components/content-blocks/CodeBlock.vue";
+import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
+import FigureBlock from "@components/content-blocks/FigureBlock.vue";
 interface ContentBlocksProps {
   blocks: Block[];
 }
