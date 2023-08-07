@@ -29,6 +29,7 @@ import PostOlderThan from "@components/post/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import { getMenuById } from "@services/api";
 import { __ } from "@i18n/i18n";
+import { updateCategoryPaths } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import TabToggle from "@components/TabToggle.vue";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
@@ -70,7 +71,7 @@ const {
 
 const langAttr = language?.locale?.replace("_", "-");
 
-const { menuItems }: any = await getMenuById(2); // DE
+const mainMenuItems = await getMenuById(2); // DE
 // const { menuItemsEn }: any = await getMenuById(125); // EN
 
 const breadcrumbItems = [
@@ -125,7 +126,11 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
   </head>
 
   <body class="o-body">
-    <MainHeader menuItems={menuItems} lang={language} client:only="vue" />
+    <MainHeader
+      menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
+      lang={language}
+      client:only="vue"
+    />
     <Prism client:load />
 
     <main class="o-content c-blog">
