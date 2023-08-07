@@ -30,6 +30,7 @@ import { Breadcrumbs } from "astro-breadcrumbs";
 import { getMenuById } from "@services/api";
 import { __ } from "@i18n/i18n";
 import ImageResponsive from "@components/ImageResponsive.vue";
+import TabToggle from "@components/TabToggle.vue";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type { Seo, Title } from "@components/BaseHead.astro";
 import type {
@@ -193,6 +194,16 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
           showAfterYears={4}
           lang={language!}
         />
+
+        <TabToggle
+          buttonLabels={["test1", "test2", "test3", "test4"]}
+          client:only="vue"
+        >
+          <div class="one">1</div>
+          <div class="two">2</div>
+          <div class="three">3</div>
+          <div class="foure">4</div>
+        </TabToggle>
 
         <slot />
 
