@@ -280,6 +280,16 @@ export async function getPostBySlug(slug: number | string): Promise<Post> {
               }
             }
           }
+          ... on CoreCodeBlock {
+            attributesJSON
+            originalContent
+            name
+            order
+            attributes {
+              className
+              content
+            }
+          }
           innerBlocks {
             attributesJSON
             name
@@ -302,6 +312,24 @@ export async function getPostBySlug(slug: number | string): Promise<Post> {
                       mimeType
                     }
                   }
+                }
+              }
+            }
+            innerBlocks {
+              attributesJSON
+              name
+              order
+              originalContent
+              innerBlocks {
+                attributesJSON
+                name
+                order
+                originalContent
+                innerBlocks {
+                  attributesJSON
+                  name
+                  order
+                  originalContent
                 }
               }
             }

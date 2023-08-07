@@ -34,6 +34,8 @@ const mainMenuItems = await getMenuById(2);
 <html lang={langAttr}>
   <head>
     <BaseHead title={title} seo={seo} />
+
+    <slot name="head" />
   </head>
 
   <body class="o-body">
@@ -58,6 +60,5 @@ const mainMenuItems = await getMenuById(2);
       )
     } -->
     <MainFooter lang={language} />
-    <style></style>
   </body>
 </html>

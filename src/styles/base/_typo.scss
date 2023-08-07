@@ -12,30 +12,29 @@
   }
 }
 
-@layer typo {
-  @for $h from 1 to 6 {
-    h#{$h} {
-      font-family: fonts.$source-sans-pro;
-      font-weight: 700;
-    }
-  }
-
-  html {
+@for $h from 1 to 6 {
+  h#{$h} {
     font-family: fonts.$source-sans-pro;
-    color: var(--color-base, #{colors.$blue-dark});
+    font-weight: 700;
+    text-wrap: balance;
   }
+}
 
-  @include butler-mx.dark-mode-class("html", false) {
-    --color-base: #{colors.$white};
-  }
+html {
+  font-family: fonts.$source-sans-pro;
+  color: var(--color-base, #{colors.$blue-dark});
+}
 
-  a {
-    color: var(--color-link-base);
-    cursor: pointer;
-    text-decoration: none;
+@include butler-mx.dark-mode-class("html", false) {
+  --color-base: #{colors.$white};
+}
 
-    @include butler-mx.dark-mode-class {
-      --color-link-base: #{colors.$white};
-    }
+a {
+  color: var(--color-link-base);
+  cursor: pointer;
+  text-decoration: none;
+
+  @include butler-mx.dark-mode-class {
+    --color-link-base: #{colors.$white};
   }
 }

@@ -120,6 +120,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
       media={`(max-width: ${featuredImage?.node?.mediaDetails?.width}px)`}
     /> -->
     <script src="../lib/smooth-scroll-anchor.ts"></script>
+    <slot name="head" />
   </head>
 
   <body class="o-body">
@@ -202,7 +203,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
             client:visible
           />
 
-          <!-- <LoadWebmentions client:only="vue"></LoadWebmentions> -->
+          <LoadWebmentions client:only="vue" />
 
           <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
           <CommentsClient
@@ -243,6 +244,5 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     } -->
 
     <MainFooter lang={language} />
-    <style></style>
   </body>
 </html>
