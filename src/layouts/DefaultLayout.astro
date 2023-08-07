@@ -8,8 +8,8 @@ import BaseHead from "@components/BaseHead.astro";
 import MainHeader from "@components/hero/MainHeader.vue";
 import MainFooter from "@components/footer/MainFooter.astro";
 // import Matomo from "@components/Matomo.vue";
-import { getMenuById, getAuthor } from "@lib/api";
-import { updateCategoryPaths } from "@lib/helpers";
+import { getMenuById, getAuthor } from "@services/api";
+import { updateCategoryPaths } from "@utils/helpers";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "../types/generated/graphql";

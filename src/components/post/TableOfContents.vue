@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
-import { isHtml, parse, getHtmlContent } from "@lib/helpers";
+import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 
 export interface TableOfContentsProps {

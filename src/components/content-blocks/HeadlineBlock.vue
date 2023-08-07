@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { isHtml, parse, getHtmlContent } from "@lib/helpers";
+import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import slugify from "slugify";
 import type { CoreHeadingBlock } from "../../types/generated/graphql";
 

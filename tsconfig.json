@@ -12,9 +12,12 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
-      "@stores/*": ["src/store/*"],
+      "@utils/*": ["src/utils/*"],
+      "@stores/*": ["src/stores/*"],
       "@i18n/*": ["src/i18n/*"],
-      "@ts_types/*": ["src/types/*"]
+      "@ts_types/*": ["src/types/*"],
+      "@features/*": ["src/features/*"],
+      "@services/*": ["src/services/*"]
     },
     "types": ["vitest/globals"],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop

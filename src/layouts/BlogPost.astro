@@ -27,7 +27,7 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
-import { getMenuById } from "@lib/api";
+import { getMenuById } from "@services/api";
 import { __ } from "@i18n/i18n";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
@@ -119,7 +119,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
       type={featuredImage?.node.mimeType}
       media={`(max-width: ${featuredImage?.node?.mediaDetails?.width}px)`}
     /> -->
-    <script src="../lib/smooth-scroll-anchor.ts"></script>
+    <script src="@utils/smooth-scroll-anchor.ts"></script>
     <slot name="head" />
   </head>
 

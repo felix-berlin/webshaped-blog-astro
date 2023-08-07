@@ -3,7 +3,7 @@ import "@styles/components/_blog-posts.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import Pagination from "@components/Pagination.vue";
-import { getAllPostPreviewsByCategory } from "@lib/api";
+import { getAllPostPreviewsByCategory } from "@services/api";
 import type {
   InferGetStaticParamsType,
   InferGetStaticPropsType,

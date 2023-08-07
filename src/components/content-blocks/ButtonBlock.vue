@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@lib/helpers";
+import { parse } from "@utils/helpers";
 import type { CoreButtonsBlock } from "@ts_types/generated/graphql";
 
 export interface ButtonBlockProps {

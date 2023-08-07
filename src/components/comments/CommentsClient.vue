@@ -60,7 +60,7 @@ import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
-import { getCommentsById } from "@lib/api";
+import { getCommentsById } from "@services/api";
 import { RefreshCw } from "lucide-vue-next";
 import type {
   Language,

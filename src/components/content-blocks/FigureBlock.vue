@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@lib/helpers";
+import { parse } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import type { CoreImageBlock } from "@ts_types/generated/graphql";
 

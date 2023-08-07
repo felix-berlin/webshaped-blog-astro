@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@lib/helpers";
+import { parse } from "@utils/helpers";
 import ListItemBlock from "@components/content-blocks/ListItemBlock.vue";
 import type { CoreListBlock } from "@ts_types/generated/graphql";
 

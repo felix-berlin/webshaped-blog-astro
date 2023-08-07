@@ -131,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { createComment, CreateCommentPayloadExtended } from "@lib/api";
+import { createComment, CreateCommentPayloadExtended } from "@services/api";
 import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { loadingState } from "@stores/store";

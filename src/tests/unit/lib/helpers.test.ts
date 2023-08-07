@@ -7,7 +7,7 @@ import {
   isCategoryPath,
   firstCategoryPage,
   updateCategoryPaths,
-} from "@lib/helpers";
+} from "@utils/helpers";
 
 describe("isHtml()", () => {
   it("test_html_tag_present", () => {

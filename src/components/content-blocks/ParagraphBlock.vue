@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@lib/helpers";
+import { parse } from "@utils/helpers";
 import type { CoreParagraphBlock } from "@ts_types/generated/graphql";
 
 export interface ParagraphBlockProps {
