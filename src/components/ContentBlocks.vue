@@ -1,6 +1,7 @@
 <template>
   <div id="postContent" class="c-blocks">
     <template v-for="block in blocks" :key="block.originalContent">
+      <!-- <pre>{{ block }}</pre> -->
       <ParagraphBlock v-if="block.name === 'core/paragraph'" :block="block" />
       <ListBlock v-if="block.name === 'core/list'" :block="block" />
       <HeadlineBlock v-if="block.name === 'core/heading'" :block="block" />

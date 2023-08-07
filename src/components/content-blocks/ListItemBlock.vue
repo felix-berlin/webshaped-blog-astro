@@ -1,6 +1,6 @@
 <template>
   <li>
-    {{ parse(block.attributesJSON)?.content }}
+    <span v-html="parse(block.attributesJSON).content"></span>
     <slot></slot>
   </li>
 </template>
