@@ -73,5 +73,5 @@ const headings = post?.blocks?.filter(
 
 <BlogPost content={post} headings={headings}>
   <!-- <div set:html={post.content} class="c-blog__content" id="postContent" /> -->
-  <PostBlocks blocks={post.blocks!} client:only="vue" />
+  <PostBlocks blocks={post.blocks!} />
 </BlogPost>
