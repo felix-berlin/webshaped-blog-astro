@@ -75,7 +75,7 @@ import {
 } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
 import type { Page } from "astro/dist/@types/astro";
-import type { Language, Maybe } from "../types/generated/graphql";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 defineProps<{
   page: Page;

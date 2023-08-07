@@ -119,7 +119,7 @@ import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";
 import { User, Reply, X, Verified } from "lucide-vue-next";
-import type { Language, Comment, Maybe } from "../../types/generated/graphql";
+import type { Language, Comment, Maybe } from "@ts_types/generated/graphql";
 
 interface CommentItemProps {
   comment: Comment;

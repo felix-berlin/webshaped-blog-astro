@@ -65,7 +65,7 @@ import type {
   Language,
   MenuToMenuItemConnection,
   Maybe,
-} from "../../types/generated/graphql";
+} from "@ts_types/generated/graphql";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;

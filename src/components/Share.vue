@@ -18,7 +18,7 @@ import { Share2 } from "lucide-vue-next";
 import { ref, onMounted, reactive } from "vue";
 import { useShare } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
-import type { Language, Maybe } from "../types/generated/graphql";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 export interface ShareProps {
   title?: string;

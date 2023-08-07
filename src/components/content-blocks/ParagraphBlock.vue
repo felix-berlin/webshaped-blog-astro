@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { parse } from "@lib/helpers";
-import type { CoreParagraphBlock } from "../../types/generated/graphql";
+import type { CoreParagraphBlock } from "@ts_types/generated/graphql";
 
 export interface ParagraphBlockProps {
   block: CoreParagraphBlock;

@@ -1,6 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": ["node_modules", "tests/**/*.spec.ts", "tests/**/*.test.ts"],
+  "exclude": [
+    "node_modules",
+    "src/tests/**/*.spec.ts",
+    "src/tests/**/*.test.ts"
+  ],
   "compilerOptions": {
     "jsx": "preserve",
     "baseUrl": ".",
@@ -8,9 +12,9 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
-      "@stores/*": ["store/*"],
+      "@stores/*": ["src/store/*"],
       "@i18n/*": ["src/i18n/*"],
-      "@types/*": ["src/types/*"]
+      "@ts_types/*": ["src/types/*"]
     },
     "types": ["vitest/globals"],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop

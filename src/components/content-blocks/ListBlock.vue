@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { parse } from "@lib/helpers";
 import ListItemBlock from "@components/content-blocks/ListItemBlock.vue";
-import type { CoreListBlock } from "../../types/generated/graphql";
+import type { CoreListBlock } from "@ts_types/generated/graphql";
 
 export interface ListBlockProps {
   block: CoreListBlock;

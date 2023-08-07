@@ -37,7 +37,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
 import { isHtml, parse, getHtmlContent } from "@lib/helpers";
-import type { CoreHeadingBlock } from "../../types/generated/graphql";
+import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 
 export interface TableOfContentsProps {
   headings: CoreHeadingBlock[] | undefined;

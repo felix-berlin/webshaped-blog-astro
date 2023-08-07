@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { Hash } from "lucide-vue-next";
-import type { RootQueryToCategoryConnection } from "../types/generated/graphql";
+import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 
 interface Props {
   categories: RootQueryToCategoryConnection;

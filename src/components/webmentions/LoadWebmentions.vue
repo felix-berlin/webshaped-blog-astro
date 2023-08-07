@@ -2,7 +2,6 @@
   <Transition name="fade" mode="in-out">
     <Suspense>
       <Webmentions
-        id="webmentions"
         target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
       />
 
@@ -30,7 +29,7 @@ import Webmentions from "./Webmentions.vue";
   width: 300px;
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgb(0 0 0 / 5%);
 
   .image {
     img {

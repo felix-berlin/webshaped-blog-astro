@@ -8,7 +8,7 @@ import type {
   CreateCommentInput,
   CreateCommentPayload,
   Maybe,
-} from "../types/generated/graphql";
+} from "@ts_types/generated/graphql";
 
 interface Error {
   message?: string;

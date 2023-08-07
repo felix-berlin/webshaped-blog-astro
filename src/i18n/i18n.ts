@@ -1,6 +1,6 @@
 import de_DE from "./de-DE";
 import en_US from "./en-US";
-import type { Maybe } from "../types/generated/graphql";
+import type { Maybe } from "@ts_types/generated/graphql";
 
 const availableLanguages = {
   en: "English",

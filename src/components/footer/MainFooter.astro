@@ -8,7 +8,7 @@ import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 
-import type { RootQuery, Language, Maybe } from "../../types/generated/graphql";
+import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
 
 const categories = (await getAllCategories()) as RootQuery["categories"];
 const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];

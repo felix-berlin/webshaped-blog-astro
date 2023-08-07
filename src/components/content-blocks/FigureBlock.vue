@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { parse } from "@lib/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
-import type { CoreImageBlock } from "../../types/generated/graphql";
+import type { CoreImageBlock } from "@ts_types/generated/graphql";
 
 export interface FigureBlockProps {
   block: CoreImageBlock;

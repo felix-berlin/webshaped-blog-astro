@@ -57,7 +57,7 @@
 import { onMounted, reactive } from "vue";
 import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
-import type { NodeWithAuthor, Post } from "../../types/generated/graphql";
+import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@lib/api";
@@ -66,7 +66,7 @@ import type {
   Language,
   RootQueryToCommentConnectionEdge,
   Maybe,
-} from "../../types/generated/graphql";
+} from "@ts_types/generated/graphql";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];

@@ -30,7 +30,7 @@ import { Breadcrumbs } from "astro-breadcrumbs";
 import { getMenuById } from "@lib/api";
 import { __ } from "@i18n/i18n";
 import ImageResponsive from "@components/ImageResponsive.vue";
-import type { CoreHeadingBlock } from "../types/generated/graphql";
+import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type { Seo, Title } from "@components/BaseHead.astro";
 import type {
   RootQuery,
@@ -40,7 +40,7 @@ import type {
   Language,
   RootQueryToCategoryConnection,
   Maybe,
-} from "../types/generated/graphql";
+} from "@ts_types/generated/graphql";
 
 export interface BlogPost {
   content: Post;

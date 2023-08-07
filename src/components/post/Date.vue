@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Language, Maybe } from "../../types/generated/graphql";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 export interface DateProps {
   date: string;
