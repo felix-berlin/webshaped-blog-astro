@@ -2,11 +2,11 @@
 module.exports = {
   extends: [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-recommended",
     "plugin:vue/vue3-recommended",
     "plugin:vuejs-accessibility/recommended",
-    "plugin:@typescript-eslint/recommended",
     "prettier",
   ],
   parser: "@typescript-eslint/parser",
