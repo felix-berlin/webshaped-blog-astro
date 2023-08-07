@@ -5,7 +5,6 @@
 @use "@sass-butler/functions" as butler-fn;
 @use "@sass-butler/mixins" as butler-mx;
 
-// @layer footer {
 .o-footer {
   overflow: hidden;
   max-width: layout.$layout-width;
@@ -135,5 +134,3 @@
     }
   }
 }
-
-// }
