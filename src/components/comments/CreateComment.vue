@@ -21,7 +21,8 @@
 
     <main class="c-comment__content is-comment-item">
       <slot name="beforeContent" />
-
+      <CheckCircle />
+      <XCircle />
       <h2>{{ __(props.lang?.locale!, "comment_form.headline") }}</h2>
       <Alert
         v-if="formResponses?.errors && formResponses.errors.length > 0"
@@ -29,7 +30,7 @@
         class="c-alert--small"
       >
         <template v-for="error in formResponses.errors" :key="error">
-          <AlertCircle /> {{ error.message }}
+          <XCircle /> {{ error.message }}
         </template>
       </Alert>
       <Alert v-if="formResponses.success" type="success" class="c-alert--small">
@@ -137,12 +138,14 @@ import { useStore } from "@nanostores/vue";
 import { loadingState } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
-import { CheckCircle, AlertCircle, User, Info } from "lucide-vue-next";
+import { User, Info } from "lucide-vue-next";
 import type {
   Language,
   Maybe,
   CreateCommentInput,
 } from "../../types/generated/graphql";
+import CheckCircle from "@components/icons/CheckCircle.vue";
+import XCircle from "@components/icons/XCircle.vue";
 
 interface Props {
   currentPostId: number;
