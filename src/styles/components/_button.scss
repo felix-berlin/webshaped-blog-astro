@@ -20,6 +20,13 @@
     padding: 0.5rem 1rem;
   }
 
+  &--primary {
+    background-color: var(--color-background-button, var(--accent-color));
+    color: var(--color-button, var(--white));
+    padding: 0.5rem 1rem;
+    border: none;
+  }
+
   &--icon {
     @extend .u-button-reset;
 

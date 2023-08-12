@@ -1008,7 +1008,7 @@ export async function createComment(
   authorEmail?: CreateCommentInput["authorEmail"],
   parent?: CreateCommentInput["parent"],
 ): Promise<CreateCommentPayloadExtended> {
-  const data = await fetchAPI(`
+  return await fetchAPI(`
     mutation {
       createComment(input: {
         commentOn: ${commentOn},
@@ -1032,6 +1032,4 @@ export async function createComment(
         success
       }
     }`);
-
-  return data?.data?.createComment;
 }

@@ -78,6 +78,14 @@ $spacing: 121;
     align-self: center;
   }
 
+  &__headline {
+    margin-top: 0;
+  }
+
+  &__close {
+    align-self: flex-end;
+  }
+
   &__author-image {
     border-radius: base.$border-radius;
   }
@@ -106,6 +114,14 @@ $spacing: 121;
     }
   }
 
+  &__big-alert {
+    padding: 2rem 1rem 3rem;
+
+    &-icon {
+      margin-bottom: 20px;
+    }
+  }
+
   &__content {
     --color-background-comment-content: #{butler-fn.hex-to-rgb(
         colors.$blue-dark,
@@ -119,6 +135,8 @@ $spacing: 121;
     position: relative;
     color: var(--color-comment-content, var(--white));
     margin: var(--spacing-outer-content, 0 0 35px 0);
+    display: flex;
+    flex-direction: column;
 
     @include butler-mx.dark-mode-class {
       --color-background-comment-content: #{butler-fn.hex-to-rgb(

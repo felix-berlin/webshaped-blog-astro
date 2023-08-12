@@ -26,11 +26,11 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
+      gap: vars.$spacer * 0.5;
 
       .c-form__label {
         margin: {
           right: 0;
-          bottom: vars.$spacer * 0.5;
         }
       }
     }

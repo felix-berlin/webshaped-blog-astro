@@ -86,7 +86,7 @@
         <template #beforeContent>
           <button
             type="button"
-            class="c-button c-button--icon c-button--close"
+            class="c-comment__close c-button c-button--icon c-button--close"
             @click="toggleReplyCommentForm()"
           >
             <X />

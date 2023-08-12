@@ -19,96 +19,79 @@
       </div>
     </header>
 
-    <main class="c-comment__content is-comment-item">
+    <main v-auto-animate class="c-comment__content is-comment-item">
       <slot name="beforeContent" />
-      <CheckCircle />
-      <XCircle />
-      <h2>{{ __(props.lang?.locale!, "comment_form.headline") }}</h2>
+
+      <h2 class="c-comment__headline">
+        {{ __(props.lang?.locale!, "comment_form.headline") }}
+      </h2>
+
       <Alert
-        v-if="formResponses?.errors && formResponses.errors.length > 0"
+        v-if="
+          formResponses?.errors && formResponses.errors.length > 0 && showDialog
+        "
         type="danger"
-        class="c-alert--small"
+        class="c-comment__big-alert c-alert--big-centered"
       >
         <template v-for="error in formResponses.errors" :key="error">
-          <XCircle /> {{ error.message }}
+          <XCircle class="c-comment__big-alert-icon" />
+          <p class="c-comment__big-alert-text">{{ error.message }}</p>
         </template>
       </Alert>
-      <Alert v-if="formResponses.success" type="success" class="c-alert--small">
-        <CheckCircle />
+      <Alert
+        v-if="formResponses.success && showDialog"
+        type="success"
+        class="c-comment__big-alert c-alert--big-centered"
+      >
+        <CheckCircle class="c-comment__big-alert-icon" />
       </Alert>
 
-      <form novalidate="true" class="c-form" @submit.prevent="checkForm">
+      <form
+        v-if="!showDialog"
+        novalidate="true"
+        class="c-form"
+        @submit.prevent="checkForm"
+      >
         <div
+          v-auto-animate
           class="c-form__item is-vertical"
           :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
-          <label class="c-label c-form__label" for="comment">{{
+          <label class="c-form__label" for="comment">{{
             __(props.lang?.locale!, "comment_form.comment.label")
           }}</label>
-          <div class="c-floating-label">
-            <textarea
-              id="comment"
-              v-model="commentForm.comment"
-              class="c-textarea c-floating-label__input"
-              name="comment"
-              rows="4"
-              placeholder=" "
-            />
-            <Alert
-              v-if="formErrors.comment.length"
-              type="danger"
-              class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
-            >
-              {{ formErrors.comment }}
-            </Alert>
-          </div>
+
+          <textarea
+            id="comment"
+            v-model="commentForm.comment"
+            class="c-textarea"
+            name="comment"
+            rows="4"
+            placeholder=" "
+          />
+          <Alert
+            v-if="formErrors.comment.length"
+            type="danger"
+            class="c-alert--small"
+          >
+            {{ formErrors.comment }}
+          </Alert>
         </div>
 
-        <div
-          class="c-form__item is-vertical"
-          :class="{ 'has-error': formErrors.email && formErrors.email.length }"
-        >
-          <label class="c-label c-form__label" for="user-email"
-            >{{ __(props.lang?.locale!, "comment_form.email.label") }}
-            <Info
-              v-tooltip="{
-                content: __(props.lang?.locale!, 'comment_form.email.tooltip'),
-                html: true,
-              }"
-              :size="18"
-            />
-          </label>
-          <div class="c-floating-label">
-            <input
-              id="user-email"
-              v-model="commentForm.email"
-              class="c-input c-form__input c-input--email c-floating-label__input"
-              type="email"
-              name="user-email"
-              placeholder=" "
-            />
-            <Alert
-              v-if="formErrors.email && formErrors.email.length"
-              type="danger"
-              class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
-            >
-              {{ formErrors.email }}
-            </Alert>
-          </div>
-        </div>
+        <div class="c-form__group">
+          <div
+            v-auto-animate
+            class="c-form__item is-vertical"
+            :class="{ 'has-error': formErrors.author.length }"
+          >
+            <label class="c-form__label c-label is-required" for="author">{{
+              __(props.lang?.locale!, "comment_form.name.label")
+            }}</label>
 
-        <div
-          class="c-form__item is-vertical"
-          :class="{ 'has-error': formErrors.author.length }"
-        >
-          <label class="c-form__label c-label is-required" for="author">{{
-            __(props.lang?.locale!, "comment_form.name.label")
-          }}</label>
-          <div class="c-floating-label">
             <input
               id="author"
               v-model="commentForm.author"
-              class="c-input c-form__input c-floating-label__input"
+              class="c-input"
               type="text"
               name="author"
               placeholder=" "
@@ -116,14 +99,52 @@
             <Alert
               v-if="formErrors.author.length"
               type="danger"
-              class="c-floating-label__label c-floating-label__label--bottom c-alert--small"
+              class="c-alert--small"
             >
               {{ formErrors.author }}
             </Alert>
           </div>
+
+          <div
+            v-auto-animate
+            class="c-form__item is-vertical"
+            :class="{
+              'has-error': formErrors.email && formErrors.email.length,
+            }"
+          >
+            <label class="c-form__label" for="user-email"
+              >{{ __(props.lang?.locale!, "comment_form.email.label") }}
+              <Info
+                v-tooltip="{
+                  content: __(
+                    props.lang?.locale!,
+                    'comment_form.email.tooltip',
+                  ),
+                  html: true,
+                }"
+                :size="18"
+              />
+            </label>
+
+            <input
+              id="user-email"
+              v-model="commentForm.email"
+              class="c-input c-input--email"
+              type="email"
+              name="user-email"
+              placeholder=" "
+            />
+            <Alert
+              v-if="formErrors.email && formErrors.email.length"
+              type="danger"
+              class="c-alert--small"
+            >
+              {{ formErrors.email }}
+            </Alert>
+          </div>
         </div>
 
-        <button type="submit" class="c-button">
+        <button type="submit" class="c-button c-button--primary">
           {{ __(props.lang?.locale!, "comment_form.submit.button") }}
         </button>
       </form>
@@ -133,7 +154,7 @@
 
 <script setup lang="ts">
 import { createComment, CreateCommentPayloadExtended } from "@services/api";
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useStore } from "@nanostores/vue";
 import { loadingState } from "@stores/store";
 import Alert from "@components/Alert.vue";
@@ -146,6 +167,7 @@ import type {
 } from "../../types/generated/graphql";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
+import { promiseTimeout } from "@vueuse/core";
 
 interface Props {
   currentPostId: number;
@@ -155,7 +177,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const user = useStore(loadingState);
+// const user = useStore(loadingState);
 
 interface CommentForm {
   comment: string;
@@ -183,7 +205,9 @@ const formResponses: {
   errors: [],
 });
 
-const emit = defineEmits(["commentCreated"]);
+const showDialog = ref(false);
+
+const emit = defineEmits(["commentCreated", "comment-created"]);
 
 // reset commentForm function
 const resetCommentForm = () => {
@@ -264,11 +288,18 @@ async function create(): Promise<void> {
     commentForm.email,
     props.replyToCommentId,
   ).then(
-    (response) => {
+    async (response) => {
       console.log("success", response);
+      // const success = response?.data.createComment.success;
 
-      if (typeof response.success !== "undefined") {
-        formResponses.success = response.success;
+      if (typeof response?.data?.createComment?.success !== "undefined") {
+        formResponses.success = response?.data.createComment.success;
+        showDialog.value = true;
+
+        await promiseTimeout(3000);
+
+        showDialog.value = false;
+        formResponses.success = false;
 
         emit("commentCreated");
 
@@ -277,6 +308,12 @@ async function create(): Promise<void> {
 
       if (typeof response.errors !== "undefined") {
         formResponses.errors = response.errors;
+        showDialog.value = true;
+
+        await promiseTimeout(3000);
+
+        showDialog.value = false;
+        formResponses.errors = [];
       }
     },
     (error) => {
@@ -285,8 +322,21 @@ async function create(): Promise<void> {
   );
 }
 
-onMounted(() => {});
+watch(commentForm, (newValue, oldValue) => {
+  if (newValue.comment && formErrors.comment.length > 0) {
+    formErrors.comment = "";
+  }
+
+  if (newValue.author && formErrors.author.length > 0) {
+    formErrors.author = "";
+  }
+
+  if (newValue.email && formErrors?.email?.length > 0) {
+    formErrors.email = "";
+  }
+});
 </script>
 <style lang="scss">
 @use "@styles/components/form.scss";
+@use "@styles/components/inputs.scss";
 </style>

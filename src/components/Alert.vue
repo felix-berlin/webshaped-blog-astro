@@ -23,17 +23,5 @@ const props = withDefaults(defineProps<AlertProps>(), {
 </script>
 
 <style lang="scss">
-@use "@styles/variables/colors";
-
-.c-alert {
-  --size-font: inherit;
-
-  color: var(--color, unset);
-
-  @each $name, $color in colors.$alert-colors {
-    &--#{$name} {
-      --color: #{$color};
-    }
-  }
-}
+@use "@styles/components/alert.scss";
 </style>

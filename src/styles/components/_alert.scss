@@ -1,0 +1,20 @@
+@use "@styles/variables/colors";
+
+.c-alert {
+  --size-font: inherit;
+
+  color: var(--color, unset);
+
+  @each $name, $color in colors.$alert-colors {
+    &--#{$name} {
+      --color: #{$color};
+    }
+  }
+
+  &--big-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
