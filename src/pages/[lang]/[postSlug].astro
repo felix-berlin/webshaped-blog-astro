@@ -9,6 +9,15 @@ import type {
   CoreHeadingBlock,
   RootQueryToPostConnection,
 } from "@ts_types/generated/graphql";
+import ListBlock from "@components/content-blocks/ListBlock.vue";
+import CodeBlock from "@components/content-blocks/CodeBlock.vue";
+import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
+import FigureBlock from "@components/content-blocks/FigureBlock.vue";
+import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
+import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
+import { Prism } from "@astrojs/prism";
+import { parse } from "@utils/helpers";
+
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = async () => {
@@ -67,11 +76,25 @@ const headings = post?.blocks?.filter(
     (JSON.parse(block.attributesJSON as string).level === 2 ||
       JSON.parse(block.attributesJSON as string).level === 3),
 ) as CoreHeadingBlock[];
-
-// console.log(post);
+// console.log(post.blocks[0].attributesJSON);
 ---
 
 <BlogPost content={post} headings={headings}>
-  <!-- <div set:html={post.content} class="c-blog__content" id="postContent" /> -->
-  <PostBlocks blocks={post.blocks!} />
+  {
+    post?.blocks?.map((block) => {
+      if (block.name === "core/list") {
+        return <ListBlock block={block} />;
+      }
+      if (block.name === "core/code") {
+        return (
+          <Prism
+            lang={parse(block.attributesJSON).className}
+            code={parse(block.attributesJSON).content}
+          />
+        );
+      } else {
+        return <Fragment set:html={block.originalContent} />;
+      }
+    })
+  }
 </BlogPost>
