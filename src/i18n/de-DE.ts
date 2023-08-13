@@ -46,6 +46,10 @@ export default {
     "Deine E-Mail Adresse wird nicht veröffentlicht.<br>Wenn du deine E-Mail Adresse angibst und diese bei Gravatar hinterlegt hast, wird dein Profilbild angezeigt.",
   "comment_form.your_name": "Dein Name",
   "comment_form.gravatar_hint": "Dein Gravatar Profilbild",
+  "comment_form.privacy.label":
+    'Mit der Nutzung dieses Formulars erklären Sie sich mit der Speicherung und Verarbeitung Ihrer Daten durch diese Website einverstanden. Weitere Informationen erfahren Sie in der <a href="{ link }" target="_blank">Datenschutzerklärung</a>',
+  "comment_form.error.privacy_not_accepted":
+    "Bitte akzeptiere die Datenschutzerklärung.",
   green_hosted: "CO<sub>2</sub> neutral gehosted",
   "footer.copyright.now": "Heute",
   "footer.headline.categories": "Kategorien",

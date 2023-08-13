@@ -143,6 +143,38 @@
             </Alert>
           </div>
         </div>
+        <div
+          v-auto-animate
+          class="c-form__item"
+          :class="{
+            'has-error': formErrors.privacy && formErrors.privacy.length,
+          }"
+        >
+          <input
+            id="privacy"
+            v-model="commentForm.privacy"
+            type="checkbox"
+            name="privacy"
+            class="c-input c-input--checkbox"
+          />
+          <label
+            class="c-form__label c-label is-required"
+            for="privacy"
+            v-html="
+              __(props.lang?.locale!, 'comment_form.privacy.label', {
+                link: '/impressum',
+              })
+            "
+          />
+
+          <Alert
+            v-if="formErrors.privacy && formErrors.privacy.length"
+            type="danger"
+            class="c-alert--small"
+          >
+            {{ formErrors.privacy }}
+          </Alert>
+        </div>
 
         <button type="submit" class="c-button c-button--primary">
           {{ __(props.lang?.locale!, "comment_form.submit.button") }}
@@ -183,18 +215,28 @@ interface CommentForm {
   comment: string;
   author: string;
   email?: string;
+  privacy: boolean;
+}
+
+interface FormErrors {
+  comment: string;
+  author: string;
+  email?: string;
+  privacy: string;
 }
 
 const commentForm: CommentForm = reactive({
   comment: "",
   author: "",
   email: "",
+  privacy: false,
 });
 
-const formErrors: CommentForm = reactive({
+const formErrors: FormErrors = reactive({
   comment: "",
   author: "",
   email: "",
+  privacy: "",
 });
 
 const formResponses: {
@@ -252,6 +294,13 @@ const checkForm = (): void => {
     formErrors.email = __(
       props.lang?.locale,
       "comment_form.error.email_invalid",
+    );
+  }
+
+  if (!commentForm.privacy) {
+    formErrors.privacy = __(
+      props.lang?.locale,
+      "comment_form.error.privacy_not_accepted",
     );
   }
 
@@ -333,6 +382,10 @@ watch(commentForm, (newValue, oldValue) => {
 
   if (newValue.email && formErrors?.email?.length > 0) {
     formErrors.email = "";
+  }
+
+  if (newValue.privacy && formErrors.privacy.length > 0) {
+    formErrors.privacy = "";
   }
 });
 </script>

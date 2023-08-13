@@ -107,129 +107,129 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
 //   padding: 0;
 // }
 
-// .c-input--checkbox,
-// .c-input--radio {
-//   --color-active: var(--red-200);
-//   --color-inner-active: #fff;
-//   --color-border-disabled-checked: #{color.scale(
-//       vars.$red-200,
-//       $lightness: 60%
-//     )};
-//   --color-background-disabled-checked: #{color.scale(
-//       vars.$red-200,
-//       $lightness: 80%
-//     )};
-//   --duration-transition-transform: 0.3s;
-//   --timing-transition-transform: ease;
-//   --duration-transition-opacity: 0.2s;
-//   --cursor: pointer;
-//   --spacing-inner: 0;
-//   --height: 20px;
+.c-input--checkbox,
+.c-input--radio {
+  --color-active: var(--red-200);
+  --color-inner-active: #fff;
+  --color-border-disabled-checked: #{color.scale(
+      vars.$red-light,
+      $lightness: 60%
+    )};
+  --color-background-disabled-checked: #{color.scale(
+      vars.$red-light,
+      $lightness: 80%
+    )};
+  --duration-transition-transform: 0.3s;
+  --timing-transition-transform: ease;
+  --duration-transition-opacity: 0.2s;
+  --cursor: pointer;
+  --spacing-inner: 0;
+  --height: 20px;
 
-//   height: var(--height);
-//   display: inline-block;
-//   vertical-align: top;
-//   position: relative;
-//   margin: 0;
-//   cursor: var(--cursor);
-//   border: var(--width-border) solid var(--color-border);
-//   transition:
-//     background 0.3s,
-//     border-color 0.3s,
-//     box-shadow 0.2s;
+  height: var(--height);
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin: 0;
+  cursor: var(--cursor);
+  border: var(--width-border) solid var(--color-border);
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    box-shadow 0.2s;
 
-//   &::after {
-//     content: "";
-//     display: block;
-//     left: 0;
-//     top: 0;
-//     position: absolute;
-//     transition:
-//       transform var(--duration-transition-transform)
-//         var(--timing-transition-transform),
-//       opacity var(--duration-transition-opacity);
-//   }
+  &::after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition:
+      transform var(--duration-transition-transform)
+        var(--timing-transition-transform),
+      opacity var(--duration-transition-opacity);
+  }
 
-//   &:checked {
-//     --color-background: var(--color-active);
-//     --color-border: var(--color-active);
-//     --duration-transition-opacity: 0.3s;
-//     --duration-transition-transform: 0.6s;
-//     --timing-transition-transform: cubic-bezier(0.2, 0.85, 0.32, 1.2);
-//   }
+  &:checked {
+    --color-background: var(--color-active);
+    --color-border: var(--color-active);
+    --duration-transition-opacity: 0.3s;
+    --duration-transition-transform: 0.6s;
+    --timing-transition-transform: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+  }
 
-//   &:disabled {
-//     --color-background: var(--color-background-disabled);
-//     --cursor: not-allowed;
+  &:disabled {
+    --color-background: var(--color-background-disabled);
+    --cursor: not-allowed;
 
-//     opacity: 0.9;
+    opacity: 0.9;
 
-//     &:checked {
-//       --color-background: var(--color-background-disabled-checked);
-//       --color-border: var(--color-border-disabled-checked);
-//     }
+    &:checked {
+      --color-background: var(--color-background-disabled-checked);
+      --color-border: var(--color-border-disabled-checked);
+    }
 
-//     & + label {
-//       --cursor: not-allowed;
-//     }
-//   }
+    & + label {
+      --cursor: not-allowed;
+    }
+  }
 
-//   &:hover {
-//     &:not(:checked) {
-//       &:not(:disabled) {
-//         --color-border: var(--color-border-hover);
-//       }
-//     }
-//   }
+  &:hover {
+    &:not(:checked) {
+      &:not(:disabled) {
+        --color-border: var(--color-border-hover);
+      }
+    }
+  }
 
-//   &:focus {
-//     box-shadow: 0 0 0 var(--box-shadow-focus);
-//   }
+  &:focus {
+    box-shadow: 0 0 0 var(--box-shadow-focus);
+  }
 
-//   &:not(.c-switch) {
-//     width: 21px;
+  &:not(.c-switch) {
+    width: 21px;
 
-//     &::after {
-//       opacity: var(--opacity, 0);
-//     }
+    &::after {
+      opacity: var(--opacity, 0);
+    }
 
-//     &:checked {
-//       --opacity: 1;
-//     }
-//   }
+    &:checked {
+      --opacity: 1;
+    }
+  }
 
-//   & + label {
-//     --cursor: pointer;
+  & + label {
+    --cursor: pointer;
 
-//     font-size: 14px;
-//     line-height: 21px;
-//     display: inline-block;
-//     vertical-align: top;
-//     cursor: var(--cursor);
-//     margin-left: 4px;
-//   }
-// }
+    font-size: 14px;
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: var(--cursor);
+    margin-left: 4px;
+  }
+}
 
-// .c-input--checkbox {
-//   &:not(.c-switch) {
-//     &::after {
-//       width: 5px;
-//       height: 9px;
-//       left: 7px;
-//       top: 4px;
-//       transform: rotate(var(--rotate, 20deg));
+.c-input--checkbox {
+  &:not(.c-switch) {
+    &::after {
+      width: 5px;
+      height: 9px;
+      left: 7px;
+      top: 4px;
+      transform: rotate(var(--rotate, 20deg));
 
-//       border: {
-//         inset: 0 2px solid var(--color-inner-active) 2px solid
-//           var(--color-inner-active) 0;
-//       }
-//     }
+      border: {
+        inset: 0 2px solid var(--color-inner-active) 2px solid
+          var(--color-inner-active) 0;
+      }
+    }
 
-//     &:checked {
-//       --rotate: 43deg;
-//     }
-//   }
-// }
+    &:checked {
+      --rotate: 43deg;
+    }
+  }
+}
 
 // .c-input--radio {
 //   border-radius: 50%;
