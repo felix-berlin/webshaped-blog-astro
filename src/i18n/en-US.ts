@@ -52,6 +52,7 @@ export default {
   "comment_form.error.privacy_not_accepted":
     "Please accept the privacy policy.",
   "comment_form.save_user.label": "Save my data for the next comment",
+  "comment_form.success": "Thank you for your comment!",
   green_hosted: "CO<sub>2</sub> neutral hosted",
   "footer.copyright.now": "today",
   "footer.headline.categories": "Categories",

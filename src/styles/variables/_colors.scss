@@ -1,4 +1,5 @@
-/// Colors
+@use "sass:map";
+
 $white: #eee;
 $blue-light-800: #105169;
 $blue-light-700: #1982a8;
@@ -33,3 +34,6 @@ $alert-colors: (
   "danger": $danger,
   "success": $success,
 );
+
+/// All colors
+$all-colors: map.merge($colors, $alert-colors);

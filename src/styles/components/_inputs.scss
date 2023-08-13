@@ -207,6 +207,10 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     cursor: var(--cursor);
     margin-left: 10px;
     flex: 1 1;
+
+    a {
+      color: inherit;
+    }
   }
 }
 
@@ -216,7 +220,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
       width: 5px;
       height: 9px;
       left: calc(50% - 3px);
-      top: 50%;
+      top: calc(50% - 1px);
       transform: rotate(var(--rotate, 20deg)) translate(-50%, -50%);
       border-top: 0;
       border-right: 2px solid var(--color-inner-active);

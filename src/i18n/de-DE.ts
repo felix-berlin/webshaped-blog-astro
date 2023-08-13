@@ -52,6 +52,7 @@ export default {
     "Bitte akzeptiere die Datenschutzerklärung.",
   "comment_form.save_user.label":
     "Speichere meine Daten für den nächsten Kommentar",
+  "comment_form.success": "Danke für deinen Kommentar!",
   green_hosted: "CO<sub>2</sub> neutral gehosted",
   "footer.copyright.now": "Heute",
   "footer.headline.categories": "Kategorien",

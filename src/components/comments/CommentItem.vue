@@ -41,7 +41,7 @@
           >Reply to</a
         > -->
 
-        <p class="c-comment__text" v-html="comment.content" />
+        <div class="c-comment__text" v-html="comment.content" />
 
         <footer class="c-comment__footer">
           <button

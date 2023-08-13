@@ -29,28 +29,28 @@ $spacing: 121;
 }
 
 .c-comment {
-  @include butler-mx.hover {
-    &:not(.is-create-comment) {
-      .c-comment__content:not(.is-comment-item) {
-        --float-distance: -20px;
+  // @include butler-mx.hover {
+  //   &:not(.is-create-comment) {
+  //     .c-comment__content:not(.is-comment-item) {
+  //       --float-distance: -20px;
 
-        &::before,
-        &::after,
-        & {
-          transform: translateY(0);
-          animation: var(--animation-comment, float 5s ease-in-out infinite);
-        }
+  //       &::before,
+  //       &::after,
+  //       & {
+  //         transform: translateY(0);
+  //         animation: var(--animation-comment, float 5s ease-in-out infinite);
+  //       }
 
-        &::before {
-          --float-distance: -15px;
-        }
+  //       &::before {
+  //         --float-distance: -15px;
+  //       }
 
-        &::after {
-          --float-distance: -8px;
-        }
-      }
-    }
-  }
+  //       &::after {
+  //         --float-distance: -8px;
+  //       }
+  //     }
+  //   }
+  // }
 
   &__item {
     display: grid;
@@ -268,16 +268,16 @@ $spacing: 121;
   }
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
+// @keyframes float {
+//   0% {
+//     transform: translateY(0);
+//   }
 
-  50% {
-    transform: translateY(var(--float-distance, -20px));
-  }
+//   50% {
+//     transform: translateY(var(--float-distance, -20px));
+//   }
 
-  100% {
-    transform: translateY(0);
-  }
-}
+//   100% {
+//     transform: translateY(0);
+//   }
+// }

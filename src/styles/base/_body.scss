@@ -5,7 +5,7 @@
 @use "@sass-butler/functions" as butler-fn;
 
 :root {
-  @each $name, $color in colors.$colors {
+  @each $name, $color in colors.$all-colors {
     --#{$name}: #{$color};
   }
 

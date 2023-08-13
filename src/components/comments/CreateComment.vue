@@ -44,6 +44,9 @@
         class="c-comment__big-alert c-alert--big-centered"
       >
         <CheckCircle class="c-comment__big-alert-icon" />
+        <p class="c-comment__big-alert-text">
+          {{ __(props.lang?.locale!, "comment_form.success") }}
+        </p>
       </Alert>
 
       <form
@@ -350,7 +353,7 @@ const validEmail = (email: string | undefined): boolean | undefined => {
  *
  * @return  {Promise}
  */
-async function create(): Promise<void> {
+const create = async (): Promise<void> => {
   await createComment(
     props.currentPostId,
     commentForm.comment,
@@ -379,7 +382,8 @@ async function create(): Promise<void> {
 
         emit("commentCreated");
 
-        resetCommentForm();
+        if (!commentForm.saveUser) resetCommentForm();
+        commentForm.comment = "";
       }
 
       if (typeof response.errors !== "undefined") {
@@ -396,39 +400,17 @@ async function create(): Promise<void> {
       console.error("oh no, login failed", error);
     },
   );
-}
+};
 
 watch(commentForm, (newValue, oldValue) => {
-  if (newValue.comment && formErrors.comment.length > 0) {
-    formErrors.comment = "";
-  }
-
-  if (newValue.author && formErrors.author.length > 0) {
-    formErrors.author = "";
-  }
-
-  if (newValue.email && formErrors.email && formErrors?.email?.length > 0) {
-    formErrors.email = "";
-  }
-
-  if (newValue.privacy && formErrors.privacy.length > 0) {
-    formErrors.privacy = "";
-  }
-});
-
-watch(guestUser, (newValue, oldValue) => {
-  // if (newValue.author && commentForm.author !== newValue.author) {
-  //   commentForm.author = newValue.author;
-  // }
-  // if (newValue.email && commentForm.email !== newValue.email) {
-  //   commentForm.email = newValue.email;
-  // }
-  // if (newValue.privacy && commentForm.privacy !== newValue.privacy) {
-  //   commentForm.privacy = newValue.privacy;
-  // }
-  // if (newValue.saveUser && commentForm.saveUser !== newValue.saveUser) {
-  //   commentForm.saveUser = newValue.saveUser;
-  // }
+  Object.keys(newValue).forEach((key) => {
+    if (
+      newValue[key as keyof CommentForm] &&
+      (formErrors[key as keyof FormErrors]?.length ?? 0) > 0
+    ) {
+      formErrors[key as keyof FormErrors] = "";
+    }
+  });
 });
 
 onMounted(() => {
