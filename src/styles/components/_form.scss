@@ -46,12 +46,6 @@
       width: 100%;
     }
 
-    input:not([type="range"]),
-    textarea,
-    select {
-      --spacing-inner: #{vars.$spacer * 0.75};
-    }
-
     select {
       padding-right: vars.$spacer * 4;
     }
