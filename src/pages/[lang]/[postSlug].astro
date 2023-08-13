@@ -2,7 +2,6 @@
 // import BlogPostVue from '@layouts/BlogPost.vue'
 import BlogPost from "@layouts/BlogPost.astro";
 import PostBlocks from "@components/ContentBlocks.vue";
-// import { Prism } from "@astrojs/prism";
 import { getAllPostsWithSlugs, getPostBySlug } from "@services/api";
 // import "prismjs/themes/prism-tomorrow.css";
 import type {
@@ -76,12 +75,23 @@ const headings = post?.blocks?.filter(
     (JSON.parse(block.attributesJSON as string).level === 2 ||
       JSON.parse(block.attributesJSON as string).level === 3),
 ) as CoreHeadingBlock[];
-// console.log(post.blocks[0].attributesJSON);
 ---
 
 <BlogPost content={post} headings={headings}>
   {
     post?.blocks?.map((block) => {
+      if (block.name === "core/paragraph") {
+        return <ParagraphBlock block={block} />;
+      }
+      if (block.name === "core/heading") {
+        return <HeadlineBlock block={block} />;
+      }
+      if (block.name === "core/image") {
+        return <FigureBlock block={block} />;
+      }
+      if (block.name === "core/buttons") {
+        return <ButtonBlock block={block} />;
+      }
       if (block.name === "core/list") {
         return <ListBlock block={block} />;
       }
