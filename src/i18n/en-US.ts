@@ -47,6 +47,10 @@ export default {
     "Your email address will not be published.<br> If you enter your email address and have deposited it with Gravatar, your profile picture will be displayed.",
   "comment_form.your_name": "Your name",
   "comment_form.gravatar_hint": "Your Gravatar profile picture.",
+  "comment_form.privacy.label":
+    'By using this form, you consent to the storage and processing of your data by this website. For more information, please see the <a href="{ link }" target="_blank">privacy policy</a>',
+  "comment_form.error.privacy_not_accepted":
+    "Please accept the privacy policy.",
   green_hosted: "CO<sub>2</sub> neutral hosted",
   "footer.copyright.now": "today",
   "footer.headline.categories": "Categories",

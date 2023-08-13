@@ -16,10 +16,17 @@
       margin-bottom: vars.$spacer * 1.5;
     }
 
+    &:not(.is-vertical) {
+      flex-wrap: wrap;
+    }
+
     .c-form__label {
-      order: -1;
-      margin-right: vars.$spacer;
       font-weight: 700;
+
+      &.is-vertical {
+        order: -1;
+        margin-right: vars.$spacer;
+      }
     }
 
     &.is-vertical {

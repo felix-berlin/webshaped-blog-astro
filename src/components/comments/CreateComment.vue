@@ -225,7 +225,7 @@ interface FormErrors {
   privacy: string;
 }
 
-const commentForm: CommentForm = reactive({
+let commentForm: CommentForm = reactive({
   comment: "",
   author: "",
   email: "",
@@ -253,9 +253,7 @@ const emit = defineEmits(["commentCreated", "comment-created"]);
 
 // reset commentForm function
 const resetCommentForm = () => {
-  Object.keys(commentForm).forEach(
-    (value) => (commentForm[value as keyof CommentForm] = ""),
-  );
+  Object.keys(commentForm).forEach((value) => (commentForm = ""));
 };
 
 // reset formErrors function
@@ -380,7 +378,7 @@ watch(commentForm, (newValue, oldValue) => {
     formErrors.author = "";
   }
 
-  if (newValue.email && formErrors?.email?.length > 0) {
+  if (newValue.email && formErrors.email && formErrors?.email?.length > 0) {
     formErrors.email = "";
   }
 

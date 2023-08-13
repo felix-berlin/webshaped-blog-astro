@@ -25,7 +25,6 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   background-color: var(--color-background);
   border: var(--width-border) solid var(--color-border);
   border-radius: vars.$border-radius;
-  width: 100%;
   transition: {
     property: border-color, color, background-color, box-shadow;
     duration: 200ms;
@@ -49,15 +48,11 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   }
 }
 
-// textarea,
 .c-textarea {
   resize: vertical;
   line-height: 1.35;
 }
 
-// input[type='number'],
-// input[type='email'],
-// input[type='tel'],
 .c-input--number,
 .c-input--email,
 .c-input--tel {
@@ -109,7 +104,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
 
 .c-input--checkbox,
 .c-input--radio {
-  --color-active: var(--red-200);
+  --color-active: var(--red-light);
   --color-inner-active: #fff;
   --color-border-disabled-checked: #{color.scale(
       vars.$red-light,
@@ -124,15 +119,17 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   --duration-transition-opacity: 0.2s;
   --cursor: pointer;
   --spacing-inner: 0;
-  --height: 20px;
+  --size: 20px;
 
-  height: var(--height);
   display: inline-block;
   vertical-align: top;
   position: relative;
   margin: 0;
   cursor: var(--cursor);
   border: var(--width-border) solid var(--color-border);
+  appearance: none;
+  width: var(--size);
+  height: var(--size);
   transition:
     background 0.3s,
     border-color 0.3s,
@@ -187,8 +184,6 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   }
 
   &:not(.c-switch) {
-    width: 21px;
-
     &::after {
       opacity: var(--opacity, 0);
     }
@@ -203,10 +198,10 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
 
     font-size: 14px;
     line-height: 21px;
-    display: inline-block;
     vertical-align: top;
     cursor: var(--cursor);
-    margin-left: 4px;
+    margin-left: 10px;
+    flex: 1 1;
   }
 }
 
@@ -215,14 +210,13 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     &::after {
       width: 5px;
       height: 9px;
-      left: 7px;
-      top: 4px;
-      transform: rotate(var(--rotate, 20deg));
-
-      border: {
-        inset: 0 2px solid var(--color-inner-active) 2px solid
-          var(--color-inner-active) 0;
-      }
+      left: calc(50% - 5px);
+      top: 50%;
+      transform: rotate(var(--rotate, 20deg)) translate(-50%, -50%);
+      border-top: 0;
+      border-right: 2px solid var(--color-inner-active);
+      border-bottom: 2px solid var(--color-inner-active);
+      border-left: 0;
     }
 
     &:checked {
