@@ -21,3 +21,30 @@ export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, {
     }
   },
 });
+
+export interface Guest {
+  author?: string;
+  email?: string;
+  url?: string;
+  privacy?: boolean;
+  saveUser?: boolean;
+}
+
+export const guest = persistentAtom<Guest>(
+  "guest",
+  {
+    saveUser: false,
+  },
+  {
+    encode(value) {
+      return JSON.stringify(value);
+    },
+    decode(value) {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    },
+  },
+);

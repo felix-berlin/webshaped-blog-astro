@@ -29,6 +29,7 @@ import { isDarkMode } from "@stores/store";
 import { __ } from "@i18n/i18n";
 
 const isDark = useStore(isDarkMode);
+
 const toggleMode = () => {
   isDarkMode.set(!isDark.value);
 

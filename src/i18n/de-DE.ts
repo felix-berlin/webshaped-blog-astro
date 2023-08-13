@@ -50,6 +50,8 @@ export default {
     'Mit der Nutzung dieses Formulars erklären Sie sich mit der Speicherung und Verarbeitung Ihrer Daten durch diese Website einverstanden. Weitere Informationen erfahren Sie in der <a href="{ link }" target="_blank">Datenschutzerklärung</a>',
   "comment_form.error.privacy_not_accepted":
     "Bitte akzeptiere die Datenschutzerklärung.",
+  "comment_form.save_user.label":
+    "Speichere meine Daten für den nächsten Kommentar",
   green_hosted: "CO<sub>2</sub> neutral gehosted",
   "footer.copyright.now": "Heute",
   "footer.headline.categories": "Kategorien",

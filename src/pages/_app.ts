@@ -3,7 +3,7 @@ import FloatingVue from "floating-vue";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import { devtools } from "@nanostores/vue/devtools";
 
-import { currentWebmentionsCount, isDarkMode } from "@stores/store";
+import { currentWebmentionsCount, isDarkMode, guest } from "@stores/store";
 
 export default (app: App) => {
   app.use(FloatingVue, {
@@ -18,5 +18,5 @@ export default (app: App) => {
     },
   });
   app.use(autoAnimatePlugin);
-  app.use(devtools, { currentWebmentionsCount, isDarkMode });
+  app.use(devtools, { currentWebmentionsCount, isDarkMode, guest });
 };

@@ -51,6 +51,7 @@ export default {
     'By using this form, you consent to the storage and processing of your data by this website. For more information, please see the <a href="{ link }" target="_blank">privacy policy</a>',
   "comment_form.error.privacy_not_accepted":
     "Please accept the privacy policy.",
+  "comment_form.save_user.label": "Save my data for the next comment",
   green_hosted: "CO<sub>2</sub> neutral hosted",
   "footer.copyright.now": "today",
   "footer.headline.categories": "Categories",

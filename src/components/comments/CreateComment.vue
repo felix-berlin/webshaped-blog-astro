@@ -176,6 +176,20 @@
           </Alert>
         </div>
 
+        <div class="c-form__item">
+          <input
+            id="saveUser"
+            v-model="commentForm.saveUser"
+            type="checkbox"
+            name="saveUser"
+            class="c-input c-input--checkbox c-switch"
+          />
+          <label
+            class="c-form__label c-label"
+            for="saveUser"
+            v-text="__(props.lang?.locale!, 'comment_form.save_user.label')"
+          />
+        </div>
         <button type="submit" class="c-button c-button--primary">
           {{ __(props.lang?.locale!, "comment_form.submit.button") }}
         </button>
@@ -188,7 +202,7 @@
 import { createComment, CreateCommentPayloadExtended } from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
 import { useStore } from "@nanostores/vue";
-import { loadingState } from "@stores/store";
+import { guest } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
 import { User, Info } from "lucide-vue-next";
@@ -200,6 +214,7 @@ import type {
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";
+import { excludeObjectKeys } from "@utils/objectHelpers";
 
 interface Props {
   currentPostId: number;
@@ -209,13 +224,14 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// const user = useStore(loadingState);
+const guestUser = useStore(guest);
 
 interface CommentForm {
   comment: string;
   author: string;
   email?: string;
   privacy: boolean;
+  saveUser?: boolean;
 }
 
 interface FormErrors {
@@ -225,11 +241,12 @@ interface FormErrors {
   privacy: string;
 }
 
-let commentForm: CommentForm = reactive({
+const commentForm: CommentForm = reactive({
   comment: "",
   author: "",
   email: "",
   privacy: false,
+  saveUser: false,
 });
 
 const formErrors: FormErrors = reactive({
@@ -253,7 +270,13 @@ const emit = defineEmits(["commentCreated", "comment-created"]);
 
 // reset commentForm function
 const resetCommentForm = () => {
-  Object.keys(commentForm).forEach((value) => (commentForm = ""));
+  Object.keys(commentForm).forEach((value) => {
+    if (typeof commentForm[value as keyof CommentForm] === "string") {
+      commentForm[value as keyof CommentForm] = "";
+    } else if (typeof commentForm[value as keyof CommentForm] === "boolean") {
+      commentForm[value as keyof CommentForm] = false;
+    }
+  });
 };
 
 // reset formErrors function
@@ -336,8 +359,14 @@ async function create(): Promise<void> {
     props.replyToCommentId,
   ).then(
     async (response) => {
-      console.log("success", response);
-      // const success = response?.data.createComment.success;
+      if (commentForm.saveUser) {
+        console.log("save user", excludeObjectKeys(commentForm, ["comment"]));
+        guest.set(excludeObjectKeys(commentForm, ["comment"]));
+      }
+
+      if (!commentForm.saveUser) {
+        guest.set({ saveUser: false });
+      }
 
       if (typeof response?.data?.createComment?.success !== "undefined") {
         formResponses.success = response?.data.createComment.success;
@@ -385,6 +414,28 @@ watch(commentForm, (newValue, oldValue) => {
   if (newValue.privacy && formErrors.privacy.length > 0) {
     formErrors.privacy = "";
   }
+});
+
+watch(guestUser, (newValue, oldValue) => {
+  // if (newValue.author && commentForm.author !== newValue.author) {
+  //   commentForm.author = newValue.author;
+  // }
+  // if (newValue.email && commentForm.email !== newValue.email) {
+  //   commentForm.email = newValue.email;
+  // }
+  // if (newValue.privacy && commentForm.privacy !== newValue.privacy) {
+  //   commentForm.privacy = newValue.privacy;
+  // }
+  // if (newValue.saveUser && commentForm.saveUser !== newValue.saveUser) {
+  //   commentForm.saveUser = newValue.saveUser;
+  // }
+});
+
+onMounted(() => {
+  if (guestUser.value.author) commentForm.author = guestUser.value.author;
+  if (guestUser.value.email) commentForm.email = guestUser.value.email;
+  if (guestUser.value.privacy) commentForm.privacy = guestUser.value.privacy;
+  if (guestUser.value.saveUser) commentForm.saveUser = guestUser.value.saveUser;
 });
 </script>
 <style lang="scss">
