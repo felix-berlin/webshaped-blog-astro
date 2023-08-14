@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup pnpm 🛠️
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Checkout ✅
         uses: actions/checkout@v3
 
@@ -19,16 +24,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies 🛠️
-        run: npm i
+        run: pnpm i
 
       - name: Run Vitest 🧪
-        run: npm run test:unit
+        run: pnpm run test:unit
 
       - name: Create coverage report 📝
-        run: npm run test:unit:coverage
+        run: pnpm run test:unit:coverage
 
       - name: Codecov
         uses: codecov/codecov-action@v3.1.1
