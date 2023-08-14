@@ -60,8 +60,6 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const langAttr = language?.locale?.replace("_", "-");
-
 const breadcrumbItems = [
   {
     text: "Home",
@@ -86,7 +84,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
   <link rel="preconnect" href="//last-fm.kasimir.dev" slot="head" />
   <!-- Gravatar -->
   <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
-  <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script>
+  <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
 
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
     <Breadcrumbs crumbs={breadcrumbItems}>
@@ -169,7 +167,7 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     <footer>
       <Author author={author || undefined} lang={language!} client:visible />
 
-      <TabDisplay postId={postId} lang={language} client:only="vue" />
+      <TabDisplay postId={postId} client:only="vue" />
     </footer>
   </article>
 

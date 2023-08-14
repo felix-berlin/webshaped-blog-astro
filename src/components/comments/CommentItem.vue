@@ -80,7 +80,6 @@
     >
       <CreateComment
         :current-post-id="currentPostId"
-        :lang="lang"
         :reply-to-comment-id="comment?.commentId"
       >
         <template #beforeContent>
@@ -106,7 +105,6 @@
         :comment="reply"
         :depth="depth + 1"
         :author-id="authorId"
-        :lang="lang"
         :current-post-id="currentPostId"
       />
     </template>
@@ -120,16 +118,19 @@ import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";
 import { User, Reply, X, Verified } from "lucide-vue-next";
 import type { Language, Comment, Maybe } from "@ts_types/generated/graphql";
+import { currentLanguage } from "@stores/store";
+import { useStore } from "@nanostores/vue";
 
 interface CommentItemProps {
   comment: Comment;
   depth: number;
   authorId?: string;
-  lang: Maybe<Language>;
   currentPostId: number;
 }
 
 const props = defineProps<CommentItemProps>();
+
+const lang = useStore(currentLanguage);
 
 const replyToCommentForm = ref(false);
 

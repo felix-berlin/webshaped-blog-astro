@@ -34,7 +34,11 @@
       <h2 class="c-webmentions__author-name">
         {{ mention.author.name }}
       </h2>
-      <Date class="c-webmentions__date" :date="mention.published" />
+      <Date
+        class="c-webmentions__date"
+        :date="mention.published"
+        :lang="currentLang.locale"
+      />
       <div class="c-webmentions__text" v-text="mention.content.text" />
     </div>
   </div>
@@ -43,7 +47,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
-import { currentWebmentionsCount } from "@stores/store";
+import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
 import { Twitter, Github, ExternalLink } from "lucide-vue-next";
 
@@ -85,6 +89,8 @@ const props = withDefaults(defineProps<WebmentionsProps>(), {
 const state: State = reactive({
   mentions: [],
 });
+
+const currentLang = useStore(currentLanguage);
 
 onMounted(async () => {
   /**

@@ -1,5 +1,28 @@
 import { atom, onMount } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
+
+export const currentLanguage = persistentAtom<Maybe<Language>>(
+  "language",
+  {
+    code: "EN",
+    name: "English",
+    locale: "en_US",
+    slug: "en",
+  },
+  {
+    encode(value: string) {
+      return JSON.stringify(value);
+    },
+    decode(value: string): object | string {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value;
+      }
+    },
+  },
+);
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");

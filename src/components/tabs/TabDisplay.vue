@@ -4,11 +4,10 @@
       <CommentsClient
         id="comments"
         :current-post-id="postId"
-        :lang="lang!"
         author-id="{author?.node.id}"
       />
     </TabItem>
-    <TabItem header="Webmentions">
+    <TabItem header="Webmentions" :badge="WebmentionCount">
       <LoadWebmentions />
     </TabItem>
   </TabsView>
@@ -20,12 +19,15 @@ import TabItem from "@components/tabs/TabItem.vue";
 import CommentsClient from "@components/comments/CommentsClient.vue";
 import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 import { __ } from "@i18n/i18n";
-import type { Maybe, Language } from "@ts_types/generated/graphql";
+import { useStore } from "@nanostores/vue";
+import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 
 export interface TabDisplayProps {
   postId: number;
-  lang: Maybe<Language>;
 }
 
 defineProps<TabDisplayProps>();
+
+const lang = useStore(currentLanguage);
+const WebmentionCount = useStore(currentWebmentionsCount);
 </script>

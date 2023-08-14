@@ -3,7 +3,6 @@
     <div class="c-comment is-create-comment is-level-0 is-even">
       <CreateComment
         :current-post-id="currentPostId"
-        :lang="lang"
         @comment-created="reloadComments"
       />
     </div>
@@ -60,17 +59,14 @@ import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@services/api";
 import { RefreshCw } from "lucide-vue-next";
-import type {
-  Language,
-  RootQueryToCommentConnectionEdge,
-  Maybe,
-} from "@ts_types/generated/graphql";
+import { currentLanguage } from "@stores/store";
+import { useStore } from "@nanostores/vue";
+import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
   id: NodeWithAuthor["id"];
   authorId: NodeWithAuthor["authorId"];
-  lang: Maybe<Language>;
 }
 
 interface CommentsData {
@@ -83,9 +79,12 @@ interface CommentsData {
   hasLoaded: boolean;
   partLoading: boolean;
   hasComments: boolean;
+  commentsCount: number;
 }
 
 const props = defineProps<CommentsProps>();
+
+const emit = defineEmits(["comments-count"]);
 
 const data = reactive<CommentsData>({
   comments: [],
@@ -94,7 +93,10 @@ const data = reactive<CommentsData>({
   hasLoaded: false,
   partLoading: false,
   hasComments: true,
+  commentsCount: 0,
 });
+
+const lang = useStore(currentLanguage);
 
 /**
  * Get comments by post id
@@ -128,6 +130,9 @@ const getComments = async (
     data.loading = false;
     data.hasLoaded = true;
     data.hasComments = !!data.comments?.length;
+    data.commentsCount = data.comments.length;
+
+    emit("comments-count", data.commentsCount);
 
     if (after) {
       data.partLoading = false;

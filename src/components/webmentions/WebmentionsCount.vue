@@ -31,7 +31,7 @@ interface WebmentionsCountProps {
   href?: string;
 }
 
-const props = withDefaults(defineProps<WebmentionsCountProps>(), {
+withDefaults(defineProps<WebmentionsCountProps>(), {
   elementIs: "div",
 });
 

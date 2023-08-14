@@ -4,7 +4,7 @@
       <div class="c-comment__author-icon">
         <User v-if="!validEmail(commentForm.email)" :size="86" />
         <span v-else>{{
-          __(props.lang?.locale!, "comment_form.gravatar_hint")
+          __(lang?.locale!, "comment_form.gravatar_hint")
         }}</span>
       </div>
 
@@ -13,7 +13,7 @@
           {{
             commentForm.author
               ? commentForm.author
-              : __(props.lang?.locale!, "comment_form.your_name")
+              : __(lang?.locale!, "comment_form.your_name")
           }}
         </h2>
       </div>
@@ -23,7 +23,7 @@
       <slot name="beforeContent" />
 
       <h2 class="c-comment__headline">
-        {{ __(props.lang?.locale!, "comment_form.headline") }}
+        {{ __(lang?.locale!, "comment_form.headline") }}
       </h2>
 
       <Alert
@@ -45,7 +45,7 @@
       >
         <CheckCircle class="c-comment__big-alert-icon" />
         <p class="c-comment__big-alert-text">
-          {{ __(props.lang?.locale!, "comment_form.success") }}
+          {{ __(lang?.locale!, "comment_form.success") }}
         </p>
       </Alert>
 
@@ -61,7 +61,7 @@
           :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
           <label class="c-form__label" for="comment">{{
-            __(props.lang?.locale!, "comment_form.comment.label")
+            __(lang?.locale!, "comment_form.comment.label")
           }}</label>
 
           <textarea
@@ -88,7 +88,7 @@
             :class="{ 'has-error': formErrors.author.length }"
           >
             <label class="c-form__label c-label is-required" for="author">{{
-              __(props.lang?.locale!, "comment_form.name.label")
+              __(lang?.locale!, "comment_form.name.label")
             }}</label>
 
             <input
@@ -116,13 +116,10 @@
             }"
           >
             <label class="c-form__label" for="user-email"
-              >{{ __(props.lang?.locale!, "comment_form.email.label") }}
+              >{{ __(lang?.locale!, "comment_form.email.label") }}
               <Info
                 v-tooltip="{
-                  content: __(
-                    props.lang?.locale!,
-                    'comment_form.email.tooltip',
-                  ),
+                  content: __(lang?.locale!, 'comment_form.email.tooltip'),
                   html: true,
                 }"
                 :size="18"
@@ -164,7 +161,7 @@
             class="c-form__label c-label is-required"
             for="privacy"
             v-html="
-              __(props.lang?.locale!, 'comment_form.privacy.label', {
+              __(lang?.locale!, 'comment_form.privacy.label', {
                 link: '/impressum',
               })
             "
@@ -190,11 +187,11 @@
           <label
             class="c-form__label c-label"
             for="saveUser"
-            v-text="__(props.lang?.locale!, 'comment_form.save_user.label')"
+            v-text="__(lang?.locale!, 'comment_form.save_user.label')"
           />
         </div>
         <button type="submit" class="c-button c-button--primary">
-          {{ __(props.lang?.locale!, "comment_form.submit.button") }}
+          {{ __(lang?.locale!, "comment_form.submit.button") }}
         </button>
       </form>
     </main>
@@ -205,15 +202,11 @@
 import { createComment, CreateCommentPayloadExtended } from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
 import { useStore } from "@nanostores/vue";
-import { guest } from "@stores/store";
+import { guest, currentLanguage } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
 import { User, Info } from "lucide-vue-next";
-import type {
-  Language,
-  Maybe,
-  CreateCommentInput,
-} from "@ts_types/generated/graphql";
+import type { CreateCommentInput } from "@ts_types/generated/graphql";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";
@@ -221,13 +214,13 @@ import { excludeObjectKeys } from "@utils/objectHelpers";
 
 interface Props {
   currentPostId: number;
-  lang: Maybe<Language>;
   replyToCommentId?: CreateCommentInput["parent"] | number;
 }
 
 const props = defineProps<Props>();
 
 const guestUser = useStore(guest);
+const lang = useStore(currentLanguage);
 
 interface CommentForm {
   comment: string;
