@@ -29,6 +29,10 @@ export const excludeObjectKeys = (
   );
 };
 
+type FilteredObject<T> = {
+  [K in keyof T]: T[K];
+};
+
 /**
  * Returns only the given properties of the given object at the top level.
  *
@@ -40,29 +44,24 @@ export const excludeObjectKeys = (
  * @param {Array<string>} filter - Properties to filter
  * @returns {object}
  */
-export const filterObjectByKeys = (
-  object: object,
-  filter: Array<string>,
-): object => {
+export const filterObjectByKeys = <T extends Record<string, any>>(
+  object: T,
+  filter: Array<keyof T>,
+): FilteredObject<T> => {
   if (typeof object !== "object" || object === null)
     throw new Error(
       "Invalid input: object must be an object and cannot be null",
     );
 
-  if (!Array.isArray(filter)) return {};
+  if (!Array.isArray(filter)) return {} as FilteredObject<T>;
 
-  if (filter.length === 0) return {};
+  if (filter.length === 0) return {} as FilteredObject<T>;
 
-  const filteredObject = {};
+  const filteredObject = {} as FilteredObject<T>;
 
   filter.forEach((key) => {
     if (key in object) {
-      if (typeof object[key] === "object" && object[key] !== null) {
-        // nested objects are not filtered
-        filteredObject[key] = object[key];
-      } else {
-        filteredObject[key] = object[key];
-      }
+      filteredObject[key] = object[key];
     }
   });
 
