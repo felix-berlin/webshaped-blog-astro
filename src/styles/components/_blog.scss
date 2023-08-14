@@ -97,15 +97,8 @@
     height: auto;
   }
 
-  .code-toolbar {
-    // overflow-y: scroll;
+  .c-blocks__code {
     display: grid;
     margin-left: -#{vars.$content-spacing-outer};
-
-    pre {
-      max-width: 100%;
-
-      // overflow: scroll;
-    }
   }
 }

@@ -81,10 +81,12 @@ const headings = post?.blocks?.filter(
       }
       if (block.name === "core/code") {
         return (
-          <Prism
-            lang={parse(block.attributesJSON).className}
-            code={parse(block.attributesJSON).content}
-          />
+          <div class="c-blocks__code">
+            <Prism
+              lang={parse(block.attributesJSON).className}
+              code={parse(block.attributesJSON).content}
+            />
+          </div>
         );
       } else {
         return <Fragment set:html={block.originalContent} />;
