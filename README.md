@@ -62,6 +62,8 @@ Used folder structure: <https://fadamakis.com/a-front-end-application-folder-str
 
 All commands are run from the root of the project, from a terminal:
 
+Before you start, run `pnpm config set enable-pre-post-scripts true` to enable pre and post scripts.
+
 | Command                | Action                                           |
 | :--------------------- | :----------------------------------------------- |
 | `npm install`          | Installs dependencies                            |
