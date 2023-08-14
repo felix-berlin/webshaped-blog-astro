@@ -8,6 +8,7 @@
 <script setup lang="ts">
 // import LanguageSelect from "@components/LanguageSelect.vue";
 import MainNav from "@components/hero/MainNav.vue";
+import { currentLanguage } from "@stores/store";
 import type {
   Language,
   MenuToMenuItemConnection,
@@ -19,5 +20,7 @@ export interface HeaderProps {
   lang: Maybe<Language>;
 }
 
-defineProps<HeaderProps>();
+const props = defineProps<HeaderProps>();
+
+currentLanguage.set(props.lang!);
 </script>
