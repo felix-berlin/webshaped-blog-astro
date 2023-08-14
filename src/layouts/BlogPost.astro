@@ -9,7 +9,6 @@ import "@fontsource/source-sans-pro/700.css";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import DateModified from "@components/post/DateModified.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
-import CommentsClient from "@components/comments/CommentsClient.vue";
 import CommentCount from "@components/comments/CommentCount.vue";
 import Share from "@components/Share.vue";
 import TableOfContents from "@components/post/TableOfContents.vue";
@@ -19,7 +18,6 @@ import Categories from "@components/Categories.vue";
 import Author from "@components/post/Author.vue";
 import Webmentions from "@components/webmentions/Webmentions.vue";
 import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
-import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
@@ -27,8 +25,7 @@ import { __ } from "@i18n/i18n";
 import { updateCategoryPaths } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import TabToggle from "@components/TabToggle.vue";
-import Tabs from "@components/tabs/Tabs.vue";
-import Tab from "@components/tabs/Tab.vue";
+import TabDisplay from "@components/tabs/TabDisplay.vue";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type {
   Post,
@@ -167,32 +164,12 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
           <div class="foure">4</div>
         </TabToggle> -->
 
-    <!-- <Tabs client:only="vue">
-          <Tab header="Tab1">
-            <div class="one">Tab 1 Content</div>
-            <div #header>Tab 1 Header</div>
-          </Tab>
-          <Tab header="Tab2">
-            <div class="two">Tab 2 Content</div>
-            <div #header>Tab 2 Header</div>
-          </Tab>
-        </Tabs> -->
-
     <slot />
 
     <footer>
       <Author author={author || undefined} lang={language!} client:visible />
 
-      <LoadWebmentions client:only="vue" />
-
-      <!-- <Comments comments={comments} currentPostId={postId} id="comments" lang={language} authorId={author.node.id}></Comments> -->
-      <CommentsClient
-        currentPostId={postId}
-        id="comments"
-        lang={language!}
-        authorId={author?.node.id}
-        client:only="vue"
-      />
+      <TabDisplay postId={postId} lang={language} client:only="vue" />
     </footer>
   </article>
 

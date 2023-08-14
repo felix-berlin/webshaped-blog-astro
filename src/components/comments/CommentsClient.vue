@@ -1,7 +1,5 @@
 <template>
   <section class="c-comments">
-    <h2>{{ __(lang?.locale!, "comments.headline") }}</h2>
-
     <div class="c-comment is-create-comment is-level-0 is-even">
       <CreateComment
         :current-post-id="currentPostId"

@@ -28,7 +28,7 @@ export default {
     other: "{ minutes } minutes",
   },
   "main_nav.toggle_button.label": "Open menu",
-  "comments.headline": "Comments",
+  comments: "Comments",
   "comments.no_comments": "No comments available.",
   "comments.load_more.button": "Load more comments",
   "comment.date": "commented on: ",
