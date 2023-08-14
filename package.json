@@ -91,6 +91,7 @@
     "floating-vue": "2.0.0-beta.24",
     "lucide-vue-next": "^0.268.0",
     "nanostores": "^0.9.3",
+    "prismjs-tomorrow-theme": "^0.0.1",
     "slugify": "^1.6.6",
     "vue3-simple-icons": "^8.13.0"
   }
