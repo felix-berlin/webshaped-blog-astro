@@ -76,22 +76,55 @@ const { title, seo } = Astro.props as SeoProps & Title;
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
-<meta name="title" content={seo?.title} />
-<meta name="description" content={seo?.opengraphDescription} />
+
+{seo?.title && <meta name="title" content={seo?.title} />}
+{
+  seo?.opengraphDescription && (
+    <meta name="description" content={seo?.opengraphDescription} />
+  )
+}
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content={seo?.opengraphType} />
-<meta property="og:url" content={seo?.opengraphUrl} />
-<meta property="og:title" content={seo?.opengraphTitle} />
-<meta property="og:description" content={seo?.opengraphDescription} />
-<meta property="og:image" content={seo?.opengraphImage?.sourceUrl} />
+{seo?.opengraphType && <meta property="og:type" content={seo?.opengraphType} />}
+{seo?.opengraphUrl && <meta property="og:url" content={seo?.opengraphUrl} />}
+{
+  seo?.opengraphTitle && (
+    <meta property="og:title" content={seo?.opengraphTitle} />
+  )
+}
+{
+  seo?.opengraphDescription && (
+    <meta property="og:description" content={seo?.opengraphDescription} />
+  )
+}
+{
+  seo?.opengraphImage?.sourceUrl && (
+    <meta property="og:image" content={seo?.opengraphImage?.sourceUrl} />
+  )
+}
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={seo?.opengraphUrl} />
-<meta property="twitter:title" content={seo?.twitterTitle} />
-<meta property="twitter:description" content={seo?.twitterDescription} />
-<meta property="twitter:image" content={seo?.opengraphImage?.sourceUrl} />
+{
+  seo?.opengraphUrl && (
+    <meta property="twitter:url" content={seo?.opengraphUrl} />
+  )
+}
+{
+  seo?.twitterTitle && (
+    <meta property="twitter:title" content={seo?.twitterTitle} />
+  )
+}
+{
+  seo?.twitterDescription && (
+    <meta property="twitter:description" content={seo?.twitterDescription} />
+  )
+}
+{
+  seo?.opengraphImage?.sourceUrl && (
+    <meta property="twitter:image" content={seo?.opengraphImage?.sourceUrl} />
+  )
+}
 
 <!-- Webmention -->
 <link rel="webmention" href={`${import.meta.env.WEBMENTION_URL}/webmention`} />
