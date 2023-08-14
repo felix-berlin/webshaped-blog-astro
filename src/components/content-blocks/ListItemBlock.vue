@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { parse } from "@utils/helpers";
-import type { CoreListItemBlock } from "../../types/generated/graphql";
+import type { CoreListItemBlock } from "@ts_types/generated/graphql";
 
 export interface ListItemBlockProps {
   block: CoreListItemBlock;

@@ -73,7 +73,7 @@
 import { ref, watch, nextTick } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
-import type { MenuItem } from "../../types/generated/graphql";
+import type { MenuItem } from "@ts_types/generated/graphql";
 
 export interface MenuItemProps {
   menuItem: MenuItem;

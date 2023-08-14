@@ -213,7 +213,7 @@ import type {
   Language,
   Maybe,
   CreateCommentInput,
-} from "../../types/generated/graphql";
+} from "@ts_types/generated/graphql";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";

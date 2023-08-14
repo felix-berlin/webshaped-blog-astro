@@ -66,7 +66,7 @@ import {
   Linkedin,
 } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
-import type { Language, Maybe } from "../types/generated/graphql";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 export interface SocialItems {
   url?: Maybe<string>;

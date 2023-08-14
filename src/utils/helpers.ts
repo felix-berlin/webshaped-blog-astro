@@ -1,4 +1,4 @@
-import type { Maybe, Menu, MenuItem, Block } from "../types/generated/graphql";
+import type { Maybe, Menu, MenuItem, Block } from "@ts_types/generated/graphql";
 
 /**
  * Checks if the given string is HTML

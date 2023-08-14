@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Block } from "../types/generated/graphql";
+import type { Block } from "@ts_types/generated/graphql";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
 import CodeBlock from "@components/content-blocks/CodeBlock.vue";
 import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";

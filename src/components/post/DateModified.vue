@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
 import { Calendar } from "lucide-vue-next";
-import type { Language, Maybe } from "../../types/generated/graphql";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 export interface DateModifiedProps {
   date: string | undefined;
