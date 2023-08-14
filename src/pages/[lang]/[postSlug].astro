@@ -45,23 +45,6 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { postSlug, lang } = Astro.params as Params;
 const post = await getPostBySlug(postSlug!);
 
-const decode = (str: string) => {
-  return str.replace(/&#(\d+);/g, function (match, dec) {
-    return String.fromCharCode(dec);
-  });
-};
-
-const exstractCode = (content: string) => {
-  content = decode(content);
-  const regex = /<pre .*><code>([\s\S]*?)<\/code><\/pre>/g;
-  const matches = content.matchAll(regex);
-  let codeBlocks = "";
-  for (const match of matches) {
-    codeBlocks += match[1];
-  }
-  return codeBlocks;
-};
-
 const findLanguage = (content: string, prefix = "lang-"): string | null => {
   const regex = new RegExp(prefix + "[a-z]+", "gm");
   const match = content.match(regex)?.toString().replace(prefix, "") as

@@ -20,15 +20,20 @@ export interface DefaultLayoutProps {
     seo: SeoProps;
     language: Language;
   };
+  contentClasses?: object;
+  bodyClasses?: string;
 }
 
 const {
   content: { title, seo, language },
+  contentClasses,
+  bodyClasses,
 } = Astro.props as DefaultLayoutProps;
 
 const langAttr = language.locale?.replace("_", "-");
 
 const mainMenuItems = await getMenuById(2);
+// const { menuItemsEn }: any = await getMenuById(125); // EN
 ---
 
 <html lang={langAttr}>
@@ -38,13 +43,13 @@ const mainMenuItems = await getMenuById(2);
     <slot name="head" />
   </head>
 
-  <body class="o-body">
+  <body class="o-body" class:list={bodyClasses}>
     <MainHeader
       menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
       lang={language!}
       client:only="vue"
     />
-    <main class="o-content">
+    <main class="o-content" class:list={contentClasses}>
       <slot />
     </main>
 
