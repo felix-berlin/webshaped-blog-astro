@@ -51,7 +51,7 @@ const __ = (
   const langDelimiter = getDelimiter(locale!);
 
   const lang =
-    langDelimiter === "-" ? locale : locale?.replace(langDelimiter, "-");
+    langDelimiter === "-" ? locale : locale?.replace(langDelimiter!, "-");
 
   const translations: object = { de_DE, en_US };
 

@@ -21,13 +21,25 @@
           class="c-webmentions__author-image"
         />
       </a>
-      <a :href="mention.url" target="_blank">
-        <Twitter v-if="domainName(mention.url) === 'twitter'" />
-        <Github v-if="domainName(mention.url) === 'github'" />
+      <a
+        :href="mention.url"
+        target="_blank"
+        :aria-label="
+          __(currentLang?.locale, 'brand_logo.icon_label', {
+            plattform: domainName(mention.url),
+          })
+        "
+      >
+        <IconBrandTwitter v-if="domainName(mention.url) === 'twitter'" />
+        <IconBrandGithub v-if="domainName(mention.url) === 'github'" />
+        <IconBrandReddit v-if="domainName(mention.url) === 'reddit'" />
+        <IconBrandFacebook v-if="domainName(mention.url) === 'facebook'" />
         <ExternalLink
           v-if="
             domainName(mention.url) !== 'github' &&
-            domainName(mention.url) !== 'twitter'
+            domainName(mention.url) !== 'twitter' &&
+            domainName(mention.url) !== 'reddit' &&
+            domainName(mention.url) !== 'facebook'
           "
         />
       </a>
@@ -37,10 +49,21 @@
       <Date
         class="c-webmentions__date"
         :date="mention.published"
-        :lang="currentLang.locale"
+        :lang="currentLang?.locale"
       />
       <div class="c-webmentions__text" v-text="mention.content.text" />
     </div>
+  </div>
+  <div v-if="webmentionsCount === 0">
+    <p v-text="__(currentLang?.locale, 'webmentions.no_webmentions')" />
+    <p v-text="__(currentLang?.locale, 'webmentions.your_chance')" />
+    <IconBrandMastodon />
+    <IconBrandFacebook />
+    <IconBrandGithub />
+    <IconBrandReddit />
+    <Share>
+      {{ __(currentLang?.locale, "share_this_post") }}
+    </Share>
   </div>
 </template>
 
@@ -49,7 +72,23 @@ import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
-import { Twitter, Github, ExternalLink } from "lucide-vue-next";
+import { ExternalLink } from "lucide-vue-next";
+import {
+  IconBrandMastodon,
+  IconBrandFacebook,
+  IconBrandGithub,
+  IconBrandReddit,
+  IconBrandTwitter,
+} from "@tabler/icons-vue";
+import { __ } from "@i18n/i18n";
+import Share from "@components/Share.vue";
+/**
+ * Everything about Webmentions
+ *
+ * @see https://webmention.io/
+ * Good read: @see https://daily-dev-tips.com/posts/goodbye-comments-welcome-webmentions/
+ * Social mentions provider: @see https://brid.gy/
+ */
 
 export interface WebmentionsProps {
   target?: string;
@@ -90,41 +129,44 @@ const state: State = reactive({
   mentions: [],
 });
 
+const webmentionsCount = useStore(currentWebmentionsCount);
+
 const currentLang = useStore(currentLanguage);
 
+// onMounted(async () => {
+//   /**
+//    * Fetch all webmentions for the current page
+//    *
+//    * @var {[type]}
+//    */
+//   await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
+//     .then((res) => res.json())
+//     .then(async (data) => {
+//       // TODO: Remove or comment out. This is just for testing.
+//       await new Promise((resolve) => setTimeout(resolve, 5000));
+//       currentWebmentionsCount.set(data.children.length);
+//       state.mentions = data.children;
+//     });
+// });
+
+const getWebmentions = async (target = props.target) => {
+  if (props.currentUrl) {
+    target = window.location.href;
+  }
+
+  const response = await fetch(
+    `https://webmention.io/api/mentions.jf2?target=${target}`,
+  );
+  const data = await response.json();
+  console.log("Webmentions", data);
+  currentWebmentionsCount.set(data.children.length);
+  state.mentions = data.children;
+};
+
 onMounted(async () => {
-  /**
-   * Fetch all webmentions for the current page
-   *
-   * @var {[type]}
-   */
-  await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
-    .then((res) => res.json())
-    .then(async (data) => {
-      // TODO: Remove or comment out. This is just for testing.
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      currentWebmentionsCount.set(data.children.length);
-      state.mentions = data.children;
-    });
+  await getWebmentions();
 });
 
-// const getWebmentions = async (target = props.target) => {
-//   if (props.currentUrl) {
-//     target = window.location.href;
-//   }
-
-//   const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${target}`)
-//   const data = await response.json()
-//   console.log('Webmentions', data);
-//   currentWebmentionsCount.set(data.children.length);
-//   state.mentions = data.children;
-// }
-
-// onMounted( async () => {
-//   await getWebmentions();
-//   console.log(useStore(currentWebmentionsCount));
-// });
-//
 const domainName = (url: string) => {
   return url.replace(/.+\/\/|www.|\..+/g, "");
 };

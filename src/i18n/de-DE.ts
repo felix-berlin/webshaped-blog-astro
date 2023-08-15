@@ -9,6 +9,7 @@ export default {
   "post_older_than.text":
     "Dieser Post wurde seid { years } Jahren nicht mehr aktualisiert. Möglicherweise ist der Inhalt nicht mehr ganz aktuell.",
   "social_list.link.label": "Besuche mich auf { platform }",
+  "brand_logo.icon_label": "Firmenlogo von { platform }",
   "scrobble_display.headline": " Meine zuletzt gehörten { count } Tracks",
   "scrobble_display.text":
     "Ohne Musik geht bei mir gar nichts,<br>deshalb habe 2017 damit angefangen meinem Musikkonsum zu tracken.",
@@ -22,6 +23,11 @@ export default {
     one: "{ count } Erwähnung",
     other: "{ count } Erwähnungen",
   },
+  "webmentions.explanation":
+    "Beiträge auf Social Media die diesen Post erwähnen, erscheinen hier.",
+  "webmentions.no_webmentions": "Bisher spricht keiner über diesen Beitrag.",
+  "webmentions.your_chance": "Sei der Erste und teile diesen Beitrag!",
+  share_this_post: "Diesen Beitrag teilen",
   "reading_time.text--plural": {
     one: "{ minutes } Minute",
     other: "{ minutes } Minuten",
@@ -30,7 +36,7 @@ export default {
   comments: "Kommentare",
   "comment.nothing_is_happening": "Hier ist noch nichts los...",
   "comments.no_comments":
-    'Deine Chance auf <br/> das <a href="{ link }">erste Kommentar</a> !',
+    'Deine Chance auf <br/> den <a href="{ link }">ersten Kommentar</a> !',
   "comments.load_more.button": "Mehr Kommentare laden",
   "comment.date": "kommentiert am: ",
   "comment.author.image.alt": "Profilbild von { author }",
