@@ -1,19 +1,31 @@
 <template>
-  <img
-    v-if="src"
-    :srcset="webpJpgSrcSet"
-    :src="src"
-    :alt="alt ?? ''"
-    :width="width ?? ''"
-    :height="height ?? ''"
-    decoding="async"
-    :loading="loading"
-    :fetchpriority="fetchPriority"
-  />
+  <picture>
+    <source
+      :srcset="createSrcSet(props.srcSet, props.src, 'webp')"
+      type="image/webp"
+      :sizes="sizes ?? ''"
+    />
+    <source
+      :srcset="createSrcSet(props.srcSet, props.src, 'jpeg')"
+      type="image/jpeg"
+      :sizes="sizes ?? ''"
+    />
+    <img
+      v-if="src"
+      :src="src"
+      :alt="alt ?? ''"
+      :width="width ?? ''"
+      :height="height ?? ''"
+      decoding="async"
+      :loading="loading"
+      :fetchpriority="fetchPriority"
+      :sizes="sizes ?? ''"
+    />
+  </picture>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import type { Maybe } from "@ts_types/generated/graphql";
 
 export interface ImageResponsiveProps {
@@ -28,26 +40,21 @@ export interface ImageResponsiveProps {
 
 const props = defineProps<ImageResponsiveProps>();
 
-/**
- * Generate a srcset with webp and jpg
- *
- * @return  {string}
- */
-const webpJpgSrcSet = computed((): Maybe<string> => {
-  // if src contains gif or svg return without webp
-  if (props?.src?.match(/\.gif|\.svg$/)) {
-    return props?.srcSet;
+const createSrcSet = (srcSet: string, src: string, format: string) => {
+  // if src contains gif or svg return without jpg
+  if (src?.match(/\.gif|\.svg$/)) {
+    return srcSet;
   }
 
-  return props?.srcSet
+  return srcSet
     ?.split(",")
     .map((src) => {
       const [url, size] = src.trim().split(" ");
-      const webpUrl = `${url}.webp`;
-      return `${webpUrl} ${size}, ${src}`;
+      const jpgUrl = `${url}.${format}`;
+      return `${jpgUrl} ${size}`;
     })
     .join(", ");
-});
+};
 
 const loading = ref("lazy");
 const fetchPriority = ref("auto");
