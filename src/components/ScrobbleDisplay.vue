@@ -107,7 +107,8 @@ import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import { X } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
-import type { Language, Maybe } from "../types/generated/graphql";
+import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
@@ -115,7 +116,6 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleIfInactive?: boolean;
   idleAfterCount?: number;
-  lang: Maybe<Language>;
   scrobbleApi: string;
 }
 
@@ -145,7 +145,6 @@ const {
   dropdownPlacement = "auto",
   idleIfInactive = false,
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
-  lang,
   scrobbleApi,
 } = defineProps<ScrobbleDisplayProps>();
 
@@ -157,6 +156,8 @@ const state: State = reactive({
   isDropdownShown: false,
   idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
 });
+
+const lang = useStore(currentLanguage);
 
 const stop = watchEffect(() => {
   /**

@@ -9,17 +9,17 @@
       :height="author.node.avatar.height || undefined"
       loading="lazy"
     />
-    <ScrobbleDisplay
-      :scrobble-api="scrobbleApi"
-      :idle-after-count="1"
-      :lang="lang"
-    />
+
+    <ScrobbleDisplay :scrobble-api="scrobbleApi" :idle-after-count="1" />
+
     <p class="c-author__name">
       {{ `${author?.node.firstName} ${author?.node.lastName}` }}
     </p>
+
     <p class="c-author__description">
       {{ author?.node.description }}
     </p>
+
     <SocialList :social-items="socials" :lang="lang" />
   </div>
 </template>
