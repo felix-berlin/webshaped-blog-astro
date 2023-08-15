@@ -36,11 +36,13 @@
       />
     </div>
 
-    <template v-if="!data.hasLoaded">
-      <template v-for="item in 5" :key="item">
-        <CommentItemSkeleton />
+    <div>
+      <template v-if="!data.hasLoaded">
+        <template v-for="item in 5" :key="item">
+          <CommentItemSkeleton />
+        </template>
       </template>
-    </template>
+    </div>
 
     <div v-auto-animate>
       <CommentItem
