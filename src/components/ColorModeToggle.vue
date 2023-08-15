@@ -8,14 +8,14 @@
       <template v-if="isDark">
         <Moon
           focusable="false"
-          :aria-label="__('de_DE', 'color_mode_toggle.dark_label')"
+          :aria-label="__(lang?.locale, 'color_mode_toggle.dark_label')"
         />
       </template>
 
       <template v-else-if="!isDark">
         <Sun
           focusable="false"
-          :aria-label="__('de_DE', 'color_mode_toggle.light_label')"
+          :aria-label="__(lang?.locale, 'color_mode_toggle.light_label')"
         />
       </template>
     </Transition>
@@ -25,10 +25,11 @@
 <script setup lang="ts">
 import { Moon, Sun } from "lucide-vue-next";
 import { useStore } from "@nanostores/vue";
-import { isDarkMode } from "@stores/store";
+import { isDarkMode, currentLanguage } from "@stores/store";
 import { __ } from "@i18n/i18n";
 
 const isDark = useStore(isDarkMode);
+const lang = useStore(currentLanguage);
 
 const toggleMode = () => {
   isDarkMode.set(!isDark.value);
