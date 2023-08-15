@@ -43,21 +43,27 @@
       :class="{ 'is-open': submenuIsOpen }"
       @submenu-state="submenuIsOpen = $event"
     />
-    <!-- <Transition v-else name="fade">
-      <div v-show="flyoutIsOpen" class="c-main-nav__flyout">
-      </div>
-    </Transition> -->
 
-    <ColorModeToggle v-if="!isMobile" class="c-main-nav__color-toggle" />
+    <div class="c-main-nav__button-bar">
+      <a
+        class="c-main-nav__rss-link c-button c-button--icon"
+        href="/rss.xml"
+        :aria-label="__(lang?.locale, 'rss_feed.link_title')"
+      >
+        <Rss class="c-main-nav__rss-icon" />
+      </a>
+
+      <ColorModeToggle v-if="!isMobile" class="c-main-nav__color-toggle" />
+    </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
-import { Menu as MenuIcon, X } from "lucide-vue-next";
+import { Menu as MenuIcon, Rss } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import type {

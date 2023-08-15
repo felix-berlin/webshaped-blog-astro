@@ -26,10 +26,8 @@
 
   @include mx.breakpoint("sm") {
     grid-template:
-      [header-left] var(
-        --grid-areas-header,
-        "logo menu color-toggle"
-      ) [header-right]
+      [header-left] var(--grid-areas-header, "logo menu button-bar")
+      [header-right]
       / max-content 1fr;
   }
 
@@ -117,7 +115,9 @@
     }
   }
 
-  &__color-toggle {
-    grid-area: color-toggle;
+  &__button-bar {
+    grid-area: button-bar;
+    display: flex;
+    column-gap: 1rem;
   }
 }

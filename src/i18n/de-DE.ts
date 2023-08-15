@@ -63,4 +63,5 @@ export default {
   "pagination.next": "Nächste Seite",
   "pagination.last": "Letzte Seite",
   "pagination.first": "Erste Seite",
+  "rss_feed.link_title": "zum RSS Feed",
 };
