@@ -58,7 +58,6 @@ import ColorModeToggle from "@components/ColorModeToggle.vue";
 import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
 import { Menu as MenuIcon, X } from "lucide-vue-next";
-import { useMouseInElement } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import type {
@@ -79,17 +78,6 @@ const mainNav = ref(null);
 const isMobile = ref(false);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
-
-const mouse = reactive(useMouseInElement(mainNav));
-
-const gradientPrimaryPostion = computed(() => {
-  return mouse.isOutside
-    ? "55%"
-    : `${(mouse.elementX * 100) / mouse.elementWidth}%`;
-});
-const gradientSecondaryPostion = computed(() => {
-  return mouse.isOutside ? "14%" : "0%";
-});
 
 /**
  * Toggle the flyout menu
@@ -150,13 +138,4 @@ onUnmounted(() => bodyWidth.disconnect());
 
 <style lang="scss">
 @use "@styles/components/main-nav";
-@use "@sass-butler/mixins" as butler-mx;
-
-.c-main-nav {
-  @include butler-mx.feature("motion") {
-    /* stylelint-disable value-keyword-case */
-    --gradient-primary-postion: v-bind(gradientPrimaryPostion);
-    --gradient-secondary-postion: v-bind(gradientSecondaryPostion);
-  }
-}
 </style>
