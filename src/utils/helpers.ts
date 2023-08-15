@@ -105,3 +105,25 @@ export const updateCategoryPaths = (
   });
   return mainMenuItems;
 };
+
+/**
+ * Get special characters from a string
+ *
+ * @param   {string}       str
+ * @param   {string[]}  specialChars
+ *
+ * @return  {string | null}
+ */
+export const getDelimiter = (
+  str: string,
+  specialChars: string[] = ["_", "-", "*"],
+): string | null => {
+  if (!str) return null;
+
+  for (const specialChar of specialChars) {
+    if (str.includes(specialChar)) {
+      return specialChar;
+    }
+  }
+  return null;
+};

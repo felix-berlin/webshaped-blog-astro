@@ -1,6 +1,7 @@
 import de_DE from "./de-DE";
 import en_US from "./en-US";
 import type { Maybe } from "@ts_types/generated/graphql";
+import { getDelimiter } from "@utils/helpers";
 
 const availableLanguages = {
   en: "English",
@@ -47,7 +48,11 @@ const __ = (
   varsToReplace?: object,
   plural?: number,
 ): string => {
-  const lang = locale?.replace("_", "-");
+  const langDelimiter = getDelimiter(locale!);
+
+  const lang =
+    langDelimiter === "-" ? locale : locale?.replace(langDelimiter, "-");
+
   const translations: object = { de_DE, en_US };
 
   // If the translation string is not available, return the translation string itself.
