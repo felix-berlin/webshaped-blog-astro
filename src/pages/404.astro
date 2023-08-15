@@ -2,34 +2,15 @@
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 
 const notFoundContent = {
-  content: {
-    title: "Not Found",
-    seo: "",
-    language: {
-      code: "",
-      locale: "",
-      name: "",
-    },
+  title: "Not Found",
+  seo: "",
+  language: {
+    code: "DE",
+    locale: "de_DE",
   },
 };
 ---
 
-<html lang="de-DE">
-  <head>
-    <!-- Global Metadata -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-
-    <!-- Primary Meta Tags -->
-    <title>404</title>
-  </head>
-
-  <body>
-    <main class="main">
-      <h1>404</h1>
-    </main>
-  </body>
-  <footer>My Footer</footer>
-</html>
+<DefaultLayout content={notFoundContent}>
+  <h1>404</h1>
+</DefaultLayout>
