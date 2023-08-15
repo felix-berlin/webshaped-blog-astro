@@ -17,6 +17,7 @@ import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
 import { Prism } from "@astrojs/prism";
 import { parse } from "@utils/helpers";
 import "prismjs-tomorrow-theme/prism-tomorrow.css";
+import he from "he";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
@@ -84,7 +85,7 @@ const headings = post?.blocks?.filter(
           <div class="c-blocks__code">
             <Prism
               lang={parse(block.attributesJSON).className}
-              code={parse(block.attributesJSON).content}
+              code={he.decode(parse(block.attributesJSON).content)}
             />
           </div>
         );
