@@ -1,15 +1,40 @@
 <template>
   <section class="c-comments">
-    <div class="c-comment is-create-comment is-level-0 is-even">
+    <div
+      id="createComment"
+      class="c-comment is-create-comment is-level-0 is-even"
+    >
       <CreateComment
         :current-post-id="currentPostId"
         @comment-created="reloadComments"
       />
     </div>
 
-    <p v-if="!data.hasComments" class="c-comments__no-comments">
-      {{ __(lang?.locale!, "comments.no_comments") }}
-    </p>
+    <div v-if="!data.hasComments" class="c-comments__no-comments">
+      <MessageSquareDashed
+        :size="250"
+        class="c-comments__no-comments-message-one"
+        stroke-width="1"
+      />
+      <div class="c-comments__no-comments-text">
+        <p class="c-comments__no-comments-text-one">
+          {{ __(lang?.locale!, "comment.nothing_is_happening") }}
+        </p>
+        <p
+          class="c-comments__no-comments-text-two"
+          v-html="
+            __(lang?.locale!, 'comments.no_comments', {
+              link: '#createComment',
+            })
+          "
+        />
+      </div>
+      <MessageSquareDashed
+        :size="200"
+        class="c-comments__no-comments-message-two"
+        stroke-width="1"
+      />
+    </div>
 
     <template v-if="!data.hasLoaded">
       <template v-for="item in 5" :key="item">
@@ -58,7 +83,7 @@ import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@services/api";
-import { RefreshCw } from "lucide-vue-next";
+import { RefreshCw, MessageSquareDashed } from "lucide-vue-next";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";

@@ -20,4 +20,46 @@
       animation: rotate-center 0.6s ease-in-out infinite both;
     }
   }
+
+  &__no-comments {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      width: 70%;
+
+      a {
+        font-weight: bold;
+        font-size: 2.5rem;
+        border-bottom: 2px solid var(--accent-color);
+      }
+
+      &-one {
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      &-two {
+        margin: 13% 0 0 13%;
+        font-size: 2rem;
+      }
+    }
+
+    &-message-one,
+    &-message-two {
+      stroke: var(--blue-shallow-dark);
+      opacity: 0.2;
+    }
+
+    &-message-two {
+      align-self: flex-end;
+      transform: rotateY(180deg);
+    }
+  }
 }

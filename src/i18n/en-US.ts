@@ -29,7 +29,9 @@ export default {
   },
   "main_nav.toggle_button.label": "Open menu",
   comments: "Comments",
-  "comments.no_comments": "No comments available.",
+  "comment.nothing_is_happening": "Nothing is happening here yet...",
+  "comments.no_comments":
+    'Your chance for <br/> the <a href="{ link }">first comment</a> !',
   "comments.load_more.button": "Load more comments",
   "comment.date": "commented on: ",
   "comment.author.image.alt": "Profile picture of { author }",
