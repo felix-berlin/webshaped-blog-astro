@@ -6,35 +6,44 @@
     @click.prevent="startShare(title, text, data.currentUrl)"
   >
     <Share2
+      v-if="showButton"
       focusable="false"
       :aria-label="__(lang?.locale, 'share.label')"
       class="c-share__icon"
     />
+    <slot />
   </button>
 </template>
 
 <script setup lang="ts">
 import { Share2 } from "lucide-vue-next";
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useShare } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
 
 export interface ShareProps {
   title?: string;
   text?: string;
   url?: string | undefined;
-  lang: Maybe<Language>;
+  showButton?: boolean;
 }
 
 const { share, isSupported } = useShare();
 
-const props = defineProps<ShareProps>();
+const props = withDefaults(defineProps<ShareProps>(), {
+  title: undefined,
+  text: undefined,
+  url: undefined,
+  showButton: true,
+});
 
 interface Data {
   currentUrl: string | undefined;
 }
 
+const lang = useStore(currentLanguage);
 const data: Data = reactive({
   currentUrl: props.url,
 });
