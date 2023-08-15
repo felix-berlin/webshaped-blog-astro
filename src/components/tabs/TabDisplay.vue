@@ -4,7 +4,7 @@
       <CommentsClient
         id="comments"
         :current-post-id="postId"
-        author-id="{author?.node.id}"
+        :author-id="authorId"
       />
     </TabItem>
     <TabItem header="Webmentions" :badge="WebmentionCount">
@@ -21,9 +21,11 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
+import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 
 export interface TabDisplayProps {
   postId: number;
+  authorId: NodeWithAuthor["authorId"];
 }
 
 defineProps<TabDisplayProps>();
