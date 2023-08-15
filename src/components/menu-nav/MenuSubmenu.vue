@@ -10,5 +10,5 @@
 export interface MenuSubmenuProps {
   isOpen: boolean;
 }
-const props = defineProps<MenuSubmenuProps>();
+defineProps<MenuSubmenuProps>();
 </script>

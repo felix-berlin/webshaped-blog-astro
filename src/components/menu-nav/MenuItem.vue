@@ -15,7 +15,9 @@
       v-if="!props.menuItem.childItems"
       :href="props.menuItem.path!"
       class="c-menu__link"
-      @click="$emit('menuItemTargetClicked', true)"
+      @click="$emit('menu-item-target-clicked', true)"
+      @mouseenter="$emit('menu-item-target-clicked', true)"
+      @focus="$emit('menu-item-target-clicked', true)"
     >
       {{ props.menuItem.label }}
     </a>
@@ -29,6 +31,8 @@
         :aria-expanded="isOpen"
         :aria-controls="`submenu${depth}${index}`"
         @click="toggleMenuItem()"
+        @mouseenter="openMenuItem()"
+        @focus="openMenuItem()"
       >
         <span class="c-menu__link-title">{{ props.menuItem.label }}</span>
         <span
@@ -58,9 +62,17 @@
             :depth="depth + 1"
             :index="childItemIndex"
             menu-trigger="click"
+            @mouseenter="
+              openMenuItem();
+              $emit('menu-item-target-clicked', true);
+            "
             @click="
               toggleMenuItem();
-              $emit('menuItemTargetClicked', true);
+              $emit('menu-item-target-clicked', true);
+            "
+            @focus="
+              toggleMenuItem();
+              $emit('menu-item-target-clicked', true);
             "
           />
         </template>
@@ -70,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, nextTick } from "vue";
+import { ref, nextTick } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
 import type { MenuItem } from "@ts_types/generated/graphql";
@@ -89,9 +101,7 @@ const submenu = ref(null);
 const submenuDirection = ref("right");
 
 const emit = defineEmits<{
-  submenuState: [isOpen: boolean];
   "submenu-state": [isOpen: boolean];
-  menuItemTargetClicked: [value: boolean];
   "menu-item-target-clicked": [value: boolean];
 }>();
 
@@ -101,7 +111,17 @@ const emit = defineEmits<{
 const toggleMenuItem = async () => {
   isOpen.value = !isOpen.value;
 
-  emit("submenuState", isOpen.value);
+  openSubmenu();
+};
+
+const openMenuItem = async () => {
+  isOpen.value = true;
+
+  openSubmenu();
+};
+
+const openSubmenu = async () => {
+  emit("submenu-state", isOpen.value);
 
   await nextTick();
   calSubmenuDirection();
@@ -120,7 +140,7 @@ onClickOutside(submenu, (event): void => {
 
   isOpen.value = false;
 
-  emit("submenuState", isOpen.value);
+  emit("submenu-state", isOpen.value);
 });
 
 /**

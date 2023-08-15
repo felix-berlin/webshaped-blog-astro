@@ -5,8 +5,8 @@
         :menu-item="item"
         :depth="0"
         :index="index"
-        @submenu-state="$emit('submenuState', $event)"
-        @menu-item-target-clicked="$emit('menuItemTargetClicked', $event)"
+        @submenu-state="$emit('submenu-state', $event)"
+        @menu-item-target-clicked="$emit('menu-item-target-clicked', $event)"
       >
         <template #menuTitleIcon>
           <ChevronDown class="c-main-nav__menu-icon is-mobile" />
@@ -28,9 +28,8 @@ export interface MenuProps {
 const props = defineProps<MenuProps>();
 
 defineEmits<{
-  submenuState: [isOpen: boolean];
   "submenu-state": [isOpen: boolean];
-  menuItemTargetClicked: [value: boolean];
+  "menu-item-target-clicked": [value: boolean];
 }>();
 </script>
 
