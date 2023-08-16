@@ -7,7 +7,7 @@
         :author-id="authorId"
       />
     </TabItem>
-    <TabItem header="Webmentions" :badge="WebmentionCount">
+    <TabItem header="Webmentions">
       <LoadWebmentions />
     </TabItem>
   </TabsView>
