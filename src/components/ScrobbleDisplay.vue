@@ -76,13 +76,7 @@
         </div>
         <!-- </TransitionGroup> -->
         <footer>
-          <img
-            src="/assets/lastfm_scrobble.svg"
-            alt="Last.fm Logo"
-            class="c-scrobble-display__scrobble"
-            width="32"
-            height="32"
-          />
+          <IconBrandLastfm class="c-scrobble-display__scrobble" :size="25" />
           <span>{{
             __(lang?.locale, "scrobble_display.total_text", {
               total: state.tracks.recenttracks["@attr"].total,
@@ -109,6 +103,7 @@ import { X } from "lucide-vue-next";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
+import { IconBrandLastfm } from "@tabler/icons-vue";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;
