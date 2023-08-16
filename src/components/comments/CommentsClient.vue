@@ -10,31 +10,7 @@
       />
     </div>
 
-    <div v-if="!data.hasComments" class="c-comments__no-comments">
-      <MessageSquareDashed
-        :size="250"
-        class="c-comments__no-comments-message-one"
-        stroke-width="1"
-      />
-      <div class="c-comments__no-comments-text">
-        <p class="c-comments__no-comments-text-one">
-          {{ __(lang?.locale!, "comment.nothing_is_happening") }}
-        </p>
-        <p
-          class="c-comments__no-comments-text-two"
-          v-html="
-            __(lang?.locale!, 'comments.no_comments', {
-              link: '#createComment',
-            })
-          "
-        />
-      </div>
-      <MessageSquareDashed
-        :size="200"
-        class="c-comments__no-comments-message-two"
-        stroke-width="1"
-      />
-    </div>
+    <NoComments v-if="!data.hasComments" />
 
     <div>
       <template v-if="!data.hasLoaded">
@@ -85,10 +61,11 @@ import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@services/api";
-import { RefreshCw, MessageSquareDashed } from "lucide-vue-next";
+import { RefreshCw } from "lucide-vue-next";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";
+import NoComments from "@components/comments/NoComments.vue";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
@@ -184,7 +161,7 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
-@use "@styles/components/comments";
+@use "@styles/components/comments/comments";
 
 .list-move, /* apply transition to moving elements */
 .list-enter-active,

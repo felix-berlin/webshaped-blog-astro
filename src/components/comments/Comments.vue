@@ -40,5 +40,5 @@ defineProps<CommentsProps>();
 </script>
 
 <style lang="scss">
-@use "@styles/components/comments";
+@use "@styles/components/comments/comments";
 </style>

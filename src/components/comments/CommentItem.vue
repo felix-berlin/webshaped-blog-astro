@@ -149,5 +149,5 @@ const toggleReplyCommentForm = () =>
 </script>
 
 <style lang="scss">
-@use "@styles/components/comment";
+@use "@styles/components/comments/comment";
 </style>
