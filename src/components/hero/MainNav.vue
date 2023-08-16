@@ -44,7 +44,7 @@
       @submenu-state="submenuIsOpen = $event"
     />
 
-    <div class="c-main-nav__button-bar">
+    <div v-if="!isMobile" class="c-main-nav__button-bar">
       <a
         class="c-main-nav__rss-link c-button c-button--icon"
         href="/rss.xml"
@@ -53,7 +53,7 @@
         <Rss class="c-main-nav__rss-icon" />
       </a>
 
-      <ColorModeToggle v-if="!isMobile" class="c-main-nav__color-toggle" />
+      <ColorModeToggle class="c-main-nav__color-toggle" />
     </div>
   </nav>
 </template>
