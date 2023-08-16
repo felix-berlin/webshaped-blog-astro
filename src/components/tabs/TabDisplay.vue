@@ -21,7 +21,7 @@ import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
-import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
+import type { NodeWithAuthor } from "@ts_types/generated/graphql";
 
 export interface TabDisplayProps {
   postId: number;

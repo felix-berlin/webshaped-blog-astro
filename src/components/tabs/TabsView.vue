@@ -10,13 +10,20 @@
           class="c-tabs__header-button c-button c-button--outline"
           :class="{
             'is-active': selectedTabHeader === tab.header,
+            'is-inactive': selectedTabHeader !== tab.header,
           }"
           @click="selectedTabHeader = tab.header"
         >
           {{ tab.header }}
+          <span
+            v-if="typeof tab?.badge !== 'undefined'"
+            class="c-tabs__header-badge"
+            >{{ tab.badge }}</span
+          >
         </button>
       </li>
     </ol>
+
     <slot />
   </div>
 </template>

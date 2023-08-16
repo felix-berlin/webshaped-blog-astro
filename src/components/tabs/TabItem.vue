@@ -9,6 +9,7 @@ import { inject } from "vue";
 
 export interface TabProps {
   header: string;
+  badge?: string | number;
 }
 
 defineProps<TabProps>();
