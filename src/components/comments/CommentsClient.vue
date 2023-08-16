@@ -12,18 +12,15 @@
 
     <NoComments v-if="!data.hasComments" />
 
-    <div>
-      <template v-if="!data.hasLoaded">
-        <template v-for="item in 5" :key="item">
-          <CommentItemSkeleton />
-        </template>
+    <div v-if="!data.hasLoaded">
+      <template v-for="item in 5" :key="item">
+        <CommentItemSkeleton />
       </template>
     </div>
 
-    <div v-auto-animate>
+    <div v-if="data.hasComments" v-auto-animate>
       <CommentItem
         v-for="comment in data.comments"
-        v-show="data.hasComments"
         :key="comment.node.id"
         :comment="comment.node"
         :depth="0"
