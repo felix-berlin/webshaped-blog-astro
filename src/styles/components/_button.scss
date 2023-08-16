@@ -16,8 +16,22 @@
   &--outline {
     border: 1px solid var(--color-border, var(--accent-color));
     color: var(--color, var(--white));
-    background-color: transparent;
     padding: 0.5rem 1rem;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      box-shadow: 0 0 15px 1px butler-fn.hex-to-rgb(colors.$red-light, 50%);
+      backdrop-filter: blur(3px) hue-rotate(21deg);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent-color);
+    }
+
+    &.is-inactive {
+      --color-border: #{butler-fn.hex-to-rgb(colors.$red-light, 50%)};
+    }
   }
 
   &--primary {
