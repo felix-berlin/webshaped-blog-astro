@@ -25,8 +25,10 @@ export default {
   },
   "webmentions.explanation":
     "Beiträge auf Social Media die diesen Post erwähnen, erscheinen hier.",
-  "webmentions.no_webmentions": "Bisher spricht keiner über diesen Beitrag.",
-  "webmentions.your_chance": "Sei der Erste und teile diesen Beitrag!",
+  "webmentions.no_webmentions":
+    "Bisher spricht noch<br/> keiner über diesen Beitrag.",
+  "webmentions.your_chance":
+    "Sei der Erste<br/> und <strong>teile</strong> diesen Beitrag!",
   share_this_post: "Diesen Beitrag teilen",
   "reading_time.text--plural": {
     one: "{ minutes } Minute",

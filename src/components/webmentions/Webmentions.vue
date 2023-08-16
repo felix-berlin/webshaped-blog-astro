@@ -34,6 +34,7 @@
         <IconBrandGithub v-if="domainName(mention.url) === 'github'" />
         <IconBrandReddit v-if="domainName(mention.url) === 'reddit'" />
         <IconBrandFacebook v-if="domainName(mention.url) === 'facebook'" />
+        <IconBrandMastodon v-if="domainName(mention.url) === 'mastodon'" />
         <ExternalLink
           v-if="
             domainName(mention.url) !== 'github' &&
@@ -54,17 +55,7 @@
       <div class="c-webmentions__text" v-text="mention.content.text" />
     </div>
   </div>
-  <div v-if="webmentionsCount === 0">
-    <p v-text="__(currentLang?.locale, 'webmentions.no_webmentions')" />
-    <p v-text="__(currentLang?.locale, 'webmentions.your_chance')" />
-    <IconBrandMastodon />
-    <IconBrandFacebook />
-    <IconBrandGithub />
-    <IconBrandReddit />
-    <Share>
-      {{ __(currentLang?.locale, "share_this_post") }}
-    </Share>
-  </div>
+  <NoMentions v-if="webmentionsCount === 0" />
 </template>
 
 <script setup lang="ts">
@@ -81,7 +72,7 @@ import {
   IconBrandTwitter,
 } from "@tabler/icons-vue";
 import { __ } from "@i18n/i18n";
-import Share from "@components/Share.vue";
+import NoMentions from "@components/webmentions/NoMentions.vue";
 /**
  * Everything about Webmentions
  *
