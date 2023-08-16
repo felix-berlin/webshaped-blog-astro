@@ -15,7 +15,8 @@ import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import Helpful from "@components/Helpful.vue";
 import Categories from "@components/Categories.vue";
-import Author from "@components/post/Author.vue";
+// import Author from "@components/post/Author.vue";
+import Author from "@components/post/Author.astro";
 import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
@@ -163,8 +164,6 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     <slot />
 
     <footer class="c-post-footer">
-      <Author author={author || undefined} lang={language!} client:visible />
-
       <TabDisplay
         postId={postId}
         authorId={author?.node.id}
@@ -174,6 +173,8 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
   </article>
 
   <aside class="c-blog-sidebar">
+    <Author author={author || undefined} lang={language!} />
+
     <h2 class="c-blog-sidebar__headline">
       {__(language?.locale!, "blog.table_of_contents")}
     </h2>
