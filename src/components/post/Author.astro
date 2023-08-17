@@ -33,9 +33,8 @@ const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
     }
 
     <ScrobbleDisplay
-      scrobble-api={scrobbleApi}
+      scrobbleApi={scrobbleApi}
       idle-after-count={1}
-      class="c-author__scrobble"
       client:only="vue"
     />
   </div>
