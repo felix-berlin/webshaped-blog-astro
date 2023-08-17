@@ -127,3 +127,16 @@ export const getDelimiter = (
   }
   return null;
 };
+
+/**
+ * Capitalize the first letter of a string
+ *
+ * @param   {string}  str
+ *
+ * @return  {string}
+ */
+export const capitalize = (str: string): string => {
+  if (!str) return "";
+
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
