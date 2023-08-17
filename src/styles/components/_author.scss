@@ -9,10 +9,10 @@
     border: 2px solid var(--accent-color);
   }
 
-  &__scrobble {
+  .c-scrobble-display {
     position: absolute;
     bottom: 2px;
-    right: 2px;
+    left: 2px;
     border-radius: 50%;
     background-color: var(--color-background-doc);
     padding: 8px;
