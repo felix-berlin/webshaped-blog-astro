@@ -14,43 +14,15 @@
         :class="`c-social-list__link ${social.class ? social.class : ''}`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
       >
-        <Github
-          v-if="index === 'github'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-          :color="social.color ? social.color : 'currentColor'"
-        />
-        <Facebook
-          v-if="index === 'facebook'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-        />
-        <Twitter
-          v-if="index === 'twitter'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-        />
-        <Instagram
-          v-if="index === 'instagram'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-        />
-        <Youtube
-          v-if="index === 'youTube'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-        />
-        <Linkedin
-          v-if="index === 'linkedIn'"
-          :class="`c-social-list__icon is-${index}`"
-          :size="social.size ? social.size : 24"
-          :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
-        />
+        <KeepAlive>
+          <component
+            :is="returnComponent(index)"
+            :class="`c-social-list__icon is-${index}`"
+            :size="social.size ? social.size : 24"
+            :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
+            :color="social.color ? social.color : 'currentColor'"
+          />
+        </KeepAlive>
       </a>
     </template>
   </div>
@@ -58,13 +30,14 @@
 
 <script setup lang="ts">
 import {
-  Github,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-vue-next";
+  IconBrandGithub,
+  IconBrandFacebook,
+  IconBrandTwitter,
+  IconBrandInstagram,
+  IconBrandYoutube,
+  IconBrandLinkedin,
+  IconBrandMastodon,
+} from "@tabler/icons-vue";
 import { __ } from "@i18n/i18n";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
@@ -91,11 +64,38 @@ export interface SocialListProps {
     wikipedia?: SocialItems;
     youTube?: SocialItems;
     github?: SocialItems;
+    mastodon?: SocialItems;
   };
   lang: Maybe<Language>;
 }
 
 defineProps<SocialListProps>();
+
+const returnComponent = (component: string) => {
+  if (component === "github") {
+    return IconBrandGithub;
+  }
+  if (component === "facebook") {
+    return IconBrandFacebook;
+  }
+  if (component === "twitter") {
+    return IconBrandTwitter;
+  }
+  if (component === "instagram") {
+    return IconBrandInstagram;
+  }
+  if (component === "youtube") {
+    return IconBrandYoutube;
+  }
+  if (component === "linkedIn") {
+    return IconBrandLinkedin;
+  }
+  if (component === "mastodon") {
+    return IconBrandMastodon;
+  }
+
+  return;
+};
 </script>
 
 <style lang="scss">
