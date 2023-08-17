@@ -824,6 +824,7 @@ export async function getAuthor(
         }
         socialAdvanced {
           github
+          mastodon
         }
       }
     }`).then((res) => res.data);
