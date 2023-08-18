@@ -20,8 +20,8 @@ export interface DefaultLayoutProps {
     seo: SeoProps;
     language: Language;
   };
-  contentClasses?: object;
-  bodyClasses?: string;
+  contentClasses?: Array<string> | string;
+  bodyClasses?: Array<string> | string;
 }
 
 const {

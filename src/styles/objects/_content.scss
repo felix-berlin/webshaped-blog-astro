@@ -3,6 +3,6 @@
 .o-content {
   grid-area: content;
   max-width: vars.$content-width;
-  margin: 0 auto;
+  margin: var(--margin-x-content, 0) auto;
   min-height: 100vh;
 }

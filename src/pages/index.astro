@@ -1,5 +1,6 @@
 ---
 import "@styles/components/_blog-posts.scss";
+import "@styles/objects/_index.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 
 import BlogPostPreview from "@components/BlogPostPreview.vue";
@@ -29,11 +30,11 @@ const posts: any = await getPostsPreview();
 // });
 ---
 
-<DefaultLayout content={indexDe}>
-  <section class="intro">
-    <h1>{indexDe.title}</h1>
-  </section>
-  <section class="c-blog-posts" aria-label="Blog post list">
+<DefaultLayout content={indexDe} contentClasses="o-index">
+  <header class="o-index__header">
+    <h1 class="o-index__headline">{indexDe.title}</h1>
+  </header>
+  <section class="c-blog-posts">
     <BlogPostPreview posts={posts} client:visible />
   </section>
 </DefaultLayout>
