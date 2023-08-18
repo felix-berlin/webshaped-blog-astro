@@ -8,6 +8,7 @@ import prefetch from "@astrojs/prefetch";
 import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import pagefind from "astro-pagefind";
+import Icons from "unplugin-icons/vite";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -56,7 +57,17 @@ export default defineConfig({
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
   vite: {
-    plugins: [],
+    plugins: [
+      Icons({
+        iconCustomizer(collection, icon, props) {
+          // customize all icons in this collection
+          if (collection === "tabler" || collection === "lucide") {
+            props.width = "24";
+            props.height = "24";
+          }
+        },
+      }), // chooses the compiler automatically
+    ],
     resolve: {
       alias: {
         "@sass-butler/": `${path.resolve(

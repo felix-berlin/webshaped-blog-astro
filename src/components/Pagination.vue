@@ -67,12 +67,10 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronFirst,
-  ChevronLast,
-} from "lucide-vue-next";
+import ChevronLeft from "virtual:icons/lucide/chevron-left";
+import ChevronRight from "virtual:icons/lucide/chevron-right";
+import ChevronFirst from "virtual:icons/lucide/chevron-first";
+import ChevronLast from "virtual:icons/lucide/chevron-last";
 import { __ } from "@i18n/i18n";
 import type { Page } from "astro/dist/@types/astro";
 import type { Language, Maybe } from "@ts_types/generated/graphql";

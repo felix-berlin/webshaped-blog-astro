@@ -23,7 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { Moon, Sun } from "lucide-vue-next";
+import Moon from "virtual:icons/lucide/moon";
+import Sun from "virtual:icons/lucide/sun";
 import { useStore } from "@nanostores/vue";
 import { isDarkMode, currentLanguage } from "@stores/store";
 import { __ } from "@i18n/i18n";

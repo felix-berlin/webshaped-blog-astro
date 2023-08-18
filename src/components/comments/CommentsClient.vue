@@ -39,7 +39,8 @@
       "
     >
       <RefreshCw
-        :size="20"
+        width="20"
+        height="20"
         :class="[
           'c-comments__loading-icon',
           { 'is-loading': data.partLoading },
@@ -58,7 +59,7 @@ import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { __ } from "@i18n/i18n";
 import { getCommentsById } from "@services/api";
-import { RefreshCw } from "lucide-vue-next";
+import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";

@@ -15,8 +15,18 @@
         }}</span>
       </Share>
     </div>
-    <Heart :size="250" stroke-width="1" class="c-no-mentions__icon is-one" />
-    <ThumbsUp :size="250" stroke-width="1" class="c-no-mentions__icon is-two" />
+    <Heart
+      width="250"
+      height="250"
+      stroke-width="1"
+      class="c-no-mentions__icon is-one"
+    />
+    <ThumbsUp
+      width="250"
+      height="250"
+      stroke-width="1"
+      class="c-no-mentions__icon is-two"
+    />
   </div>
 </template>
 
@@ -25,7 +35,8 @@ import { __ } from "@i18n/i18n";
 import Share from "@components/Share.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
-import { Heart, ThumbsUp } from "lucide-vue-next";
+import Heart from "virtual:icons/lucide/heart";
+import ThumbsUp from "virtual:icons/lucide/thumbs-up";
 const currentLang = useStore(currentLanguage);
 </script>
 

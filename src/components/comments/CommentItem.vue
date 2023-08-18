@@ -23,14 +23,14 @@
           class="c-comment__author-image"
         />
         <div v-else class="c-comment__author-icon">
-          <User :size="86" />
+          <User width="86" height="86" />
         </div>
 
         <div class="c-comment__author-name-wrap">
           <h2 class="c-comment__author-name">
             {{ comment?.author?.node.name }}
           </h2>
-          <Verified v-if="isAuthor" :size="18" />
+          <Verified v-if="isAuthor" width="18" height="18" />
         </div>
       </header>
       <main class="c-comment__content">
@@ -51,8 +51,8 @@
             @click="toggleReplyCommentForm()"
           >
             <span class="c-comment__reply-button-icon"
-              ><Reply :size="16"
-            /></span>
+              ><Reply width="16" height="16" />
+            </span>
             <span class="c-comment__reply-button-text">{{
               __(lang?.locale!, "comment.reply_button")
             }}</span>
@@ -116,10 +116,13 @@ import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { __ } from "@i18n/i18n";
-import { User, Reply, X, Verified } from "lucide-vue-next";
 import type { Language, Comment, Maybe } from "@ts_types/generated/graphql";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
+import User from "virtual:icons/lucide/user";
+import Reply from "virtual:icons/lucide/reply";
+import X from "virtual:icons/lucide/x";
+import Verified from "virtual:icons/lucide/verified";
 
 interface CommentItemProps {
   comment: Comment;

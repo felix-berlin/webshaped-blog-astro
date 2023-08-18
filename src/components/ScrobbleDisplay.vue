@@ -24,7 +24,8 @@
 
           <button v-close-popper class="c-scrobble-display__close">
             <X
-              :size="14"
+              width="14"
+              height="14"
               :aria-label="__(lang?.locale, 'scrobble_display.close')"
             />
           </button>
@@ -76,7 +77,11 @@
         </div>
         <!-- </TransitionGroup> -->
         <footer>
-          <IconBrandLastfm class="c-scrobble-display__scrobble" :size="25" />
+          <IconBrandLastfm
+            class="c-scrobble-display__scrobble"
+            width="25"
+            height="25"
+          />
           <span>{{
             __(lang?.locale, "scrobble_display.total_text", {
               total: state.tracks.recenttracks["@attr"].total,
@@ -99,11 +104,11 @@
 <script setup lang="ts">
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
-import { X } from "lucide-vue-next";
+import X from "virtual:icons/lucide/x";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
-import { IconBrandLastfm } from "@tabler/icons-vue";
+import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
 
 export interface ScrobbleDisplayProps {
   numberOfDisplayedTracks?: number;

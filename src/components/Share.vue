@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { Share2 } from "lucide-vue-next";
+import Share2 from "virtual:icons/lucide/share-2";
 import { onMounted, reactive } from "vue";
 import { useShare } from "@vueuse/core";
 import { __ } from "@i18n/i18n";

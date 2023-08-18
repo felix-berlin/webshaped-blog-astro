@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import MenuItem from "@components/menu-nav/MenuItem.vue";
 import type { MenuItem as MenuItemData } from "@ts_types/generated/graphql";
-import { ChevronDown } from "lucide-vue-next";
+import ChevronDown from "virtual:icons/lucide/chevron-down";
 
 export interface MenuProps {
   menuItems: MenuItemData[];

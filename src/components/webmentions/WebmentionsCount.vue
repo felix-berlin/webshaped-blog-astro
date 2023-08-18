@@ -3,7 +3,8 @@
     <AtSign
       aria-label="Webmentions Anzahl"
       class="c-webmentions-count__icon"
-      :size="18"
+      width="18"
+      height="18"
     />
     <span class="c-webmentions-count__count">
       {{
@@ -21,7 +22,7 @@
 <script setup lang="ts">
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
-import { AtSign } from "lucide-vue-next";
+import AtSign from "virtual:icons/lucide/at-sign";
 import { __ } from "@i18n/i18n";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 

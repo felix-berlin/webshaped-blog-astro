@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { watch, onMounted, onUnmounted, ref } from "vue";
-import { X } from "lucide-vue-next";
+import X from "virtual:icons/lucide/x";
 import { onClickOutside } from "@vueuse/core";
 
 export interface ModalProps {
@@ -101,7 +101,7 @@ watch(
   (value) => {
     if (value) emit("open");
     disableScroll(value);
-  }
+  },
 );
 </script>
 

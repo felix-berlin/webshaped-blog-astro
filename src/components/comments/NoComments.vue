@@ -1,7 +1,8 @@
 <template>
   <div class="c-no-comments">
     <MessageSquareDashed
-      :size="150"
+      width="150"
+      height="150"
       class="c-no-comments__icon is-one"
       stroke-width="1"
     />
@@ -19,7 +20,8 @@
       />
     </div>
     <MessageSquareDashed
-      :size="100"
+      width="100"
+      height="100"
       class="c-no-comments__icon is-two"
       stroke-width="1"
     />
@@ -30,7 +32,7 @@
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import { __ } from "@i18n/i18n";
-import { MessageSquareDashed } from "lucide-vue-next";
+import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
 const lang = useStore(currentLanguage);
 </script>

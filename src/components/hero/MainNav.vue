@@ -63,7 +63,8 @@ import { ref, onMounted, onUnmounted } from "vue";
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
-import { Menu as MenuIcon, Rss } from "lucide-vue-next";
+import MenuIcon from "virtual:icons/lucide/menu";
+import Rss from "virtual:icons/lucide/rss";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import type {

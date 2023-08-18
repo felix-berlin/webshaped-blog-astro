@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { MessageSquare } from "lucide-vue-next";
+import MessageSquare from "virtual:icons/lucide/message-square";
 
 interface CommentCountProps {
   commentTotal: number | null;

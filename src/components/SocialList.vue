@@ -18,7 +18,6 @@
           <component
             :is="returnComponent(index)"
             :class="`c-social-list__icon is-${index}`"
-            :size="social.size ? social.size : 24"
             :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
             :color="social.color ? social.color : 'currentColor'"
           />
@@ -29,15 +28,14 @@
 </template>
 
 <script setup lang="ts">
-import {
-  IconBrandGithub,
-  IconBrandFacebook,
-  IconBrandTwitter,
-  IconBrandInstagram,
-  IconBrandYoutube,
-  IconBrandLinkedin,
-  IconBrandMastodon,
-} from "@tabler/icons-vue";
+import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
+import IconBrandMastodon from "virtual:icons/tabler/brand-mastodon";
+import IconBrandGithub from "virtual:icons/tabler/brand-github";
+import IconBrandTwitter from "virtual:icons/tabler/brand-twitter";
+import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
+import IconBrandInstagram from "virtual:icons/tabler/brand-instagram";
+import IconBrandYoutube from "virtual:icons/tabler/brand-youtube";
+import IconBrandLinkedin from "virtual:icons/tabler/brand-linkedin";
 import { __ } from "@i18n/i18n";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
@@ -92,6 +90,9 @@ const returnComponent = (component: string) => {
   }
   if (component === "mastodon") {
     return IconBrandMastodon;
+  }
+  if (component === "reddit") {
+    return IconBrandReddit;
   }
 
   return;

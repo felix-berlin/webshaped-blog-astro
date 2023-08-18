@@ -1,16 +1,13 @@
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
-
+import Github from "virtual:icons/tabler/brand-github";
+import Facebook from "virtual:icons/lucide/brand-facebook";
+import Twitter from "virtual:icons/lucide/brand-twitter";
+import Instagram from "virtual:icons/lucide/brand-instagram";
+import Youtube from "virtual:icons/lucide/brand-youtube";
+import Linkedin from "virtual:icons/lucide/brand-linkedin";
 // @ts-ignore: Unresolved import
 import SocialList from "@components/SocialList.vue";
-import {
-  Github,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-vue-next";
 
 describe("SocialList.vue", () => {
   const wrapper = mount(SocialList, {

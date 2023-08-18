@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { Cookie } from "lucide-vue-next";
+import Cookie from "virtual:icons/lucide/cookie";
 import {
   reactive,
   watchEffect,

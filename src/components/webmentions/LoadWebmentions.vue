@@ -1,26 +1,27 @@
 <template>
-  <Transition name="fade" mode="in-out">
-    <Suspense>
-      <Webmentions
-        target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
-      />
+  <!-- <Transition name="fade" mode="in-out"> -->
+  <Suspense>
+    <Webmentions
+      :current-url="true"
+      target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
+    />
 
-      <template #fallback>
-        <div id="webmentions" class="card is-loading">
-          <div class="image" />
-          <div class="content">
-            <!-- eslint-disable-next-line vuejs-accessibility/heading-has-content -->
-            <h2 />
-            <p />
-          </div>
+    <template #fallback>
+      <div id="webmentions" class="card is-loading">
+        <div class="image" />
+        <div class="content">
+          <!-- eslint-disable-next-line vuejs-accessibility/heading-has-content -->
+          <h2 />
+          <p />
         </div>
-      </template>
-    </Suspense>
-  </Transition>
+      </div>
+    </template>
+  </Suspense>
+  <!-- </Transition> -->
 </template>
 
 <script setup lang="ts">
-import Webmentions from "./Webmentions.vue";
+import Webmentions from "@components/webmentions/Webmentions.vue";
 </script>
 
 <style scoped lang="scss">

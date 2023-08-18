@@ -8,7 +8,7 @@
       :key="category.node.id"
       class="c-categories__item"
     >
-      <Hash :size="18" />
+      <Hash width="18" height="18" />
       <a
         :href="`/category/${category?.node?.name?.toLowerCase()}/1`"
         class="c-categories__link"
@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { Hash } from "lucide-vue-next";
+import Hash from "virtual:icons/lucide/hash";
 import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 
 interface Props {

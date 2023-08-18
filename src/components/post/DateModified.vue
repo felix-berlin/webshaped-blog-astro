@@ -1,15 +1,15 @@
 <template>
   <Date :date="date!" :lang="lang">
     <template #before>
-      <Calendar :size="18" />
+      <Calendar width="18" height="18" />
     </template>
   </Date>
 </template>
 
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
-import { Calendar } from "lucide-vue-next";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
+import Calendar from "virtual:icons/lucide/calendar";
 
 export interface DateModifiedProps {
   date: string | undefined;

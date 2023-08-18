@@ -26,23 +26,13 @@
         target="_blank"
         :aria-label="
           __(currentLang?.locale, 'brand_logo.icon_label', {
-            plattform: domainName(mention.url),
+            plattform: getDomainName(mention.url),
           })
         "
       >
-        <IconBrandTwitter v-if="domainName(mention.url) === 'twitter'" />
-        <IconBrandGithub v-if="domainName(mention.url) === 'github'" />
-        <IconBrandReddit v-if="domainName(mention.url) === 'reddit'" />
-        <IconBrandFacebook v-if="domainName(mention.url) === 'facebook'" />
-        <IconBrandMastodon v-if="domainName(mention.url) === 'mastodon'" />
-        <ExternalLink
-          v-if="
-            domainName(mention.url) !== 'github' &&
-            domainName(mention.url) !== 'twitter' &&
-            domainName(mention.url) !== 'reddit' &&
-            domainName(mention.url) !== 'facebook'
-          "
-        />
+        <KeepAlive>
+          <Component :is="loadIcons(mention.url)" />
+        </KeepAlive>
       </a>
       <h2 class="c-webmentions__author-name">
         {{ mention.author.name }}
@@ -63,16 +53,16 @@ import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
-import { ExternalLink } from "lucide-vue-next";
-import {
-  IconBrandMastodon,
-  IconBrandFacebook,
-  IconBrandGithub,
-  IconBrandReddit,
-  IconBrandTwitter,
-} from "@tabler/icons-vue";
+import ExternalLink from "virtual:icons/lucide/external-link";
 import { __ } from "@i18n/i18n";
 import NoMentions from "@components/webmentions/NoMentions.vue";
+import { getDomainName } from "@utils/helpers";
+import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
+import IconBrandMastodon from "virtual:icons/tabler/brand-mastodon";
+import IconBrandGithub from "virtual:icons/tabler/brand-github";
+import IconBrandTwitter from "virtual:icons/tabler/brand-twitter";
+import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
+
 /**
  * Everything about Webmentions
  *
@@ -124,41 +114,56 @@ const webmentionsCount = useStore(currentWebmentionsCount);
 
 const currentLang = useStore(currentLanguage);
 
-// onMounted(async () => {
-//   /**
-//    * Fetch all webmentions for the current page
-//    *
-//    * @var {[type]}
-//    */
-//   await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
-//     .then((res) => res.json())
-//     .then(async (data) => {
-//       // TODO: Remove or comment out. This is just for testing.
-//       await new Promise((resolve) => setTimeout(resolve, 5000));
-//       currentWebmentionsCount.set(data.children.length);
-//       state.mentions = data.children;
-//     });
-// });
-
-const getWebmentions = async (target = props.target) => {
-  if (props.currentUrl) {
-    target = window.location.href;
-  }
-
-  const response = await fetch(
-    `https://webmention.io/api/mentions.jf2?target=${target}`,
-  );
-  const data = await response.json();
-  console.log("Webmentions", data);
-  currentWebmentionsCount.set(data.children.length);
-  state.mentions = data.children;
-};
-
 onMounted(async () => {
-  await getWebmentions();
+  /**
+   * Fetch all webmentions for the current page
+   *
+   * @var {[type]}
+   */
+  await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
+    .then((res) => res.json())
+    .then(async (data) => {
+      // TODO: Remove or comment out. This is just for testing.
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      currentWebmentionsCount.set(data.children.length);
+      state.mentions = data.children;
+    });
 });
 
-const domainName = (url: string) => {
-  return url.replace(/.+\/\/|www.|\..+/g, "");
+// const getWebmentions = async (target = props.target) => {
+//   if (props.currentUrl) {
+//     target = window.location.href;
+//   }
+
+//   const response = await fetch(
+//     `https://webmention.io/api/mentions.jf2?target=${target}`,
+//   );
+//   const data = await response.json();
+//   console.log("Webmentions", data);
+//   currentWebmentionsCount.set(data.children.length);
+//   state.mentions = data.children;
+// };
+
+// onMounted(async () => {
+//   await getWebmentions();
+// });
+
+const loadIcons = (url: string) => {
+  if (getDomainName(url) === "twitter") {
+    return IconBrandTwitter;
+  }
+  if (getDomainName(url) === "github") {
+    return IconBrandGithub;
+  }
+  if (getDomainName(url) === "reddit") {
+    return IconBrandReddit;
+  }
+  if (getDomainName(url) === "facebook") {
+    return IconBrandFacebook;
+  }
+  if (getDomainName(url) === "mastodon") {
+    return IconBrandMastodon;
+  }
+  return ExternalLink;
 };
 </script>

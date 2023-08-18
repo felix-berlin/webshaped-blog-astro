@@ -2,7 +2,7 @@
   <article class="c-comment__item">
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User v-if="!validEmail(commentForm.email)" :size="86" />
+        <User v-if="!validEmail(commentForm.email)" width="86" height="86" />
         <span v-else>{{
           __(lang?.locale!, "comment_form.gravatar_hint")
         }}</span>
@@ -122,7 +122,8 @@
                   content: __(lang?.locale!, 'comment_form.email.tooltip'),
                   html: true,
                 }"
-                :size="18"
+                width="18"
+                height="18"
               />
             </label>
 
@@ -205,7 +206,8 @@ import { useStore } from "@nanostores/vue";
 import { guest, currentLanguage } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
-import { User, Info } from "lucide-vue-next";
+import User from "virtual:icons/lucide/user";
+import Info from "virtual:icons/lucide/info";
 import type { CreateCommentInput } from "@ts_types/generated/graphql";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";

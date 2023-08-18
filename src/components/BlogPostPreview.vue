@@ -30,14 +30,18 @@
 
       <div class="c-post-card__read-more">
         <span>{{ __(post.language.locale, "blog.read_more") }}</span>
-        <ArrowRight :size="22" class="c-post-card__read-more-arrow" />
+        <ArrowRight
+          width="22"
+          height="22"
+          class="c-post-card__read-more-arrow"
+        />
       </div>
     </a>
   </article>
 </template>
 
 <script setup lang="ts">
-import { ArrowRight } from "lucide-vue-next";
+import ArrowRight from "virtual:icons/lucide/arrow-right";
 import Date from "@components/post/Date.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
 import CommentCount from "@components/comments/CommentCount.vue";
@@ -63,7 +67,7 @@ export interface BlogPostPreviewProps {
         seo: {
           readingTime: number;
         };
-      }
+      },
     ];
   };
 }
