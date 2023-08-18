@@ -75,7 +75,7 @@ describe("MenuItem", () => {
     await button.trigger("click");
 
     expect(wrapper.vm.isOpen).toBe(true);
-    expect(wrapper.emitted()).toHaveProperty("submenuState");
+    expect(wrapper.emitted()).toHaveProperty("submenu-state");
 
     await button.trigger("click");
 
