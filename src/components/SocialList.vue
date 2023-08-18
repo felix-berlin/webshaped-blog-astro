@@ -18,8 +18,9 @@
           <component
             :is="returnComponent(index)"
             :class="`c-social-list__icon is-${index}`"
-            :stroke-width="social.strokeWidth ? social.strokeWidth : 2"
             :color="social.color ? social.color : 'currentColor'"
+            :width="social.size ? social.size : 24"
+            :height="social.size ? social.size : 24"
           />
         </KeepAlive>
       </a>
@@ -46,7 +47,6 @@ export interface SocialItems {
   class?: string;
   rel?: string;
   size?: number;
-  strokeWidth?: number;
   color?: string;
 }
 

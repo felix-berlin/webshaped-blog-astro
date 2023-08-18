@@ -16,9 +16,15 @@
     color: colors.$red-light;
     display: flex;
 
-    @include butler-mx.hover {
-      .c-social-list__icon {
-        fill: colors.$red-light;
+    .c-social-list__icon {
+      @include butler-mx.hover {
+        path {
+          fill: colors.$red-light;
+        }
+      }
+
+      path {
+        stroke-width: 1;
       }
     }
   }
