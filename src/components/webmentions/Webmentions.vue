@@ -16,7 +16,7 @@
           :alt="mention.author.name"
           width="75"
           height="75"
-          loading="lazy"
+          :loading="index < 3 ? 'edge' : 'lazy'"
           decoding="async"
           class="c-webmentions__author-image"
         />
@@ -114,22 +114,20 @@ const webmentionsCount = useStore(currentWebmentionsCount);
 
 const currentLang = useStore(currentLanguage);
 
-onMounted(async () => {
-  /**
-   * Fetch all webmentions for the current page
-   *
-   * @var {[type]}
-   */
-  await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
-    .then((res) => res.json())
-    .then(async (data) => {
-      // TODO: Remove or comment out. This is just for testing.
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      currentWebmentionsCount.set(data.children.length);
-      state.mentions = data.children;
-    });
-});
-
+// onMounted(async () => {});
+/**
+ * Fetch all webmentions for the current page
+ *
+ * @var {[type]}
+ */
+await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
+  .then((res) => res.json())
+  .then(async (data) => {
+    // TODO: Remove or comment out. This is just for testing.
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    currentWebmentionsCount.set(data.children.length);
+    state.mentions = data.children;
+  });
 // const getWebmentions = async (target = props.target) => {
 //   if (props.currentUrl) {
 //     target = window.location.href;

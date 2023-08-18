@@ -1,23 +1,25 @@
 <template>
-  <!-- <Transition name="fade" mode="in-out"> -->
-  <Suspense>
-    <Webmentions
-      :current-url="true"
-      target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
-    />
+  <Transition name="fade" mode="in-out">
+    <div>
+      <Suspense>
+        <Webmentions
+          :current-url="false"
+          target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
+        />
 
-    <template #fallback>
-      <div id="webmentions" class="card is-loading">
-        <div class="image" />
-        <div class="content">
-          <!-- eslint-disable-next-line vuejs-accessibility/heading-has-content -->
-          <h2 />
-          <p />
-        </div>
-      </div>
-    </template>
-  </Suspense>
-  <!-- </Transition> -->
+        <template #fallback>
+          <div id="webmentions" class="card is-loading">
+            <div class="image" />
+            <div class="content">
+              <!-- eslint-disable-next-line vuejs-accessibility/heading-has-content -->
+              <h2 />
+              <p />
+            </div>
+          </div>
+        </template>
+      </Suspense>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
