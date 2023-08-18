@@ -11,7 +11,9 @@
             ? social.label
             : __(lang?.locale!, 'social_list.link.label', { platform: index })
         "
-        :class="`c-social-list__link ${social.class ? social.class : ''}`"
+        :class="`c-social-list__link c-button c-button--outline ${
+          social.class ? social.class : ''
+        }`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
       >
         <KeepAlive>

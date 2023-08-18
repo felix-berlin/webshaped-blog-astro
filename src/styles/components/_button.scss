@@ -14,9 +14,10 @@
   }
 
   &--outline {
-    border: 1px solid var(--color-border, var(--accent-color));
-    color: var(--color, var(--white));
-    padding: 0.5rem 1rem;
+    border: var(--width-border-button-outline, 1px) solid
+      var(--color-border-button-outline, var(--accent-color));
+    color: var(--color-button-outline, var(--white));
+    padding: var(--padding-button-outline, 0.5rem 1rem);
     background-color: transparent;
 
     @include butler-mx.feature("motion") {
