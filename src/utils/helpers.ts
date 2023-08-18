@@ -140,3 +140,15 @@ export const capitalize = (str: string): string => {
 
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+/**
+ * Get the TLD from a URL
+ *
+ * @param   {string}  url
+ *
+ * @return  {string}
+ */
+export const getDomainName = (url: string): string => {
+  if (!url) return "";
+  return url.replace(/.+\/\/|www.|\..+/g, "");
+};
