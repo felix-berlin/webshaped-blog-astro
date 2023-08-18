@@ -19,7 +19,7 @@ dependencies:
     version: 2.0.2
   '@astrojs/vue':
     specifier: ^2.2.1
-    version: 2.2.1(@babel/core@7.22.5)(astro@2.10.9)(vite@4.4.7)(vue@3.3.4)
+    version: 2.2.1(@babel/core@7.22.5)(astro@2.10.10)(vite@4.4.7)(vue@3.3.4)
   '@felix_berlin/sass-butler':
     specifier: ^2.3.0
     version: 2.3.0
@@ -30,8 +30,8 @@ dependencies:
     specifier: ^0.7.0
     version: 0.7.0
   '@iconify-json/lucide':
-    specifier: ^1.1.118
-    version: 1.1.118
+    specifier: ^1.1.119
+    version: 1.1.119
   '@iconify-json/tabler':
     specifier: ^1.1.87
     version: 1.1.87
@@ -48,20 +48,20 @@ dependencies:
     specifier: ^10.3.0
     version: 10.3.0(vue@3.3.4)
   astro:
-    specifier: ^2.10.9
-    version: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+    specifier: ^2.10.10
+    version: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
   astro-breadcrumbs:
     specifier: ^1.6.1
-    version: 1.6.1(astro@2.10.9)
+    version: 1.6.1(astro@2.10.10)
   astro-matomo:
     specifier: ^1.3.0
-    version: 1.3.0(astro@2.10.9)
+    version: 1.3.0(astro@2.10.10)
   astro-pagefind:
     specifier: ^1.2.3
-    version: 1.2.3(astro@2.10.9)
+    version: 1.2.3(astro@2.10.10)
   astrojs-service-worker:
     specifier: ^1.0.0
-    version: 1.0.0(astro@2.10.9)
+    version: 1.0.0(astro@2.10.10)
   floating-vue:
     specifier: 2.0.0-beta.24
     version: 2.0.0-beta.24(vue@3.3.4)
@@ -81,7 +81,7 @@ dependencies:
 devDependencies:
   '@astrojs/cloudflare':
     specifier: ^6.8.0
-    version: 6.8.0(astro@2.10.9)
+    version: 6.8.0(astro@2.10.10)
   '@faker-js/faker':
     specifier: ^8.0.2
     version: 8.0.2
@@ -197,20 +197,20 @@ devDependencies:
     specifier: ^21.0.7
     version: 21.0.7
   stylelint:
-    specifier: ^15.10.2
-    version: 15.10.2
+    specifier: ^15.10.3
+    version: 15.10.3
   stylelint-config-prettier-scss:
     specifier: ^1.0.0
-    version: 1.0.0(stylelint@15.10.2)
+    version: 1.0.0(stylelint@15.10.3)
   stylelint-config-recommended-scss:
     specifier: ^12.0.0
-    version: 12.0.0(postcss@8.4.27)(stylelint@15.10.2)
+    version: 12.0.0(postcss@8.4.27)(stylelint@15.10.3)
   stylelint-config-recommended-vue:
     specifier: ^1.5.0
-    version: 1.5.0(postcss-html@1.5.0)(stylelint@15.10.2)
+    version: 1.5.0(postcss-html@1.5.0)(stylelint@15.10.3)
   stylelint-config-standard:
     specifier: ^34.0.0
-    version: 34.0.0(stylelint@15.10.2)
+    version: 34.0.0(stylelint@15.10.3)
   ts-node:
     specifier: ^10.9.1
     version: 10.9.1(@types/node@17.0.45)(typescript@5.1.6)
@@ -302,14 +302,14 @@ packages:
       - encoding
     dev: true
 
-  /@astrojs/cloudflare@6.8.0(astro@2.10.9):
+  /@astrojs/cloudflare@6.8.0(astro@2.10.10):
     resolution: {integrity: sha512-muYZihP0cDFMVNw2vuRU2WCAr6DUOdmP43hcrmXN3TbL7Y7R9fRBrBTIPo+r0TGbHVU8Yi0CXSZ+SvpUAzLa+A==}
     peerDependencies:
       astro: ^2.10.6
     dependencies:
       '@astrojs/underscore-redirects': 0.2.0
       '@cloudflare/workers-types': 4.20230518.0
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
       esbuild: 0.17.19
       tiny-glob: 0.2.9
     dev: true
@@ -338,13 +338,13 @@ packages:
       vscode-languageserver-types: 3.17.3
       vscode-uri: 3.0.7
 
-  /@astrojs/markdown-remark@2.2.1(astro@2.10.9):
+  /@astrojs/markdown-remark@2.2.1(astro@2.10.10):
     resolution: {integrity: sha512-VF0HRv4GpC1XEMLnsKf6jth7JSmlt9qpqP0josQgA2eSpCIAC/Et+y94mgdBIZVBYH/yFnMoIxgKVe93xfO2GA==}
     peerDependencies:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -405,7 +405,7 @@ packages:
     resolution: {integrity: sha512-TP+uEdqMGNC7Lyci6WmbHvvMElBDSyHlTsvGH9E9/2duvD/n4KJVyr59klycEroaZJiAi5tzlXL8Jsl9/R32gQ==}
     dev: true
 
-  /@astrojs/vue@2.2.1(@babel/core@7.22.5)(astro@2.10.9)(vite@4.4.7)(vue@3.3.4):
+  /@astrojs/vue@2.2.1(@babel/core@7.22.5)(astro@2.10.10)(vite@4.4.7)(vue@3.3.4):
     resolution: {integrity: sha512-fq+RKFAKpIRcobF/803kMJWv/lobf9IIk6K5As5fWE/eYTpykkgHtxd+zDnf7d4I2V7K9XLKV06Oi6Q+oTJmDw==}
     engines: {node: '>=16.12.0'}
     peerDependencies:
@@ -416,7 +416,7 @@ packages:
       '@vitejs/plugin-vue-jsx': 3.0.0(vite@4.4.7)(vue@3.3.4)
       '@vue/babel-plugin-jsx': 1.1.1(@babel/core@7.22.5)
       '@vue/compiler-sfc': 3.3.4
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
       vue: 3.3.4
     transitivePeerDependencies:
       - '@babel/core'
@@ -3035,8 +3035,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/lucide@1.1.118:
-    resolution: {integrity: sha512-3YTwomufPawPdFwRTQoJUCmhPk8049L4XfUWEJqDKvZfIX7z8nYDNy5UU0/rZ0B6XcZtTwRQZP1A+Nc+kS6d/Q==}
+  /@iconify-json/lucide@1.1.119:
+    resolution: {integrity: sha512-yWur/mdkiq1lKPAQHKhvlnc5XELR2bVl5lSTeSZizAEfooKlk1oTAksxcjvZ2LhMTkDT5BSXAoj+hwaxRZQc4g==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
@@ -4528,12 +4528,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /astro-breadcrumbs@1.6.1(astro@2.10.9):
+  /astro-breadcrumbs@1.6.1(astro@2.10.10):
     resolution: {integrity: sha512-Jtr/ikwntzm+IwQRZB2//Exf1qscoHVn+45kJ6fl2x8bGbXigmJ/rZdywDFSilOvDDDhzRbCgG6MI6iJRVVhzg==}
     peerDependencies:
       astro: ^2.0.0-beta.0
     dependencies:
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
     dev: false
 
   /astro-eslint-parser@0.14.0:
@@ -4552,29 +4552,29 @@ packages:
       - supports-color
     dev: true
 
-  /astro-matomo@1.3.0(astro@2.10.9):
+  /astro-matomo@1.3.0(astro@2.10.10):
     resolution: {integrity: sha512-1ccLKX1HvMYLBFWCg7N6hr+qYOCZZRpG/H/mSBWwb2dvTWILs21NwI2eub/2+H3qWCRUHp4RvOfDJImO97S5Gw==}
     peerDependencies:
       astro: ^2.0.0-beta.0
     dependencies:
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
     dev: false
 
-  /astro-pagefind@1.2.3(astro@2.10.9):
+  /astro-pagefind@1.2.3(astro@2.10.10):
     resolution: {integrity: sha512-Wmml60XoJ8vDo2C6eNYrD6sLOL2CmxysHVZiETE6QnWEjM/GHTsEXifxOqVDYjzQ4GkAwB2jw815ulul1A6qJw==}
     peerDependencies:
       astro: ^2.0.4
     dependencies:
       '@pagefind/default-ui': 0.12.0
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
       pagefind: 0.12.0
       sirv: 2.0.3
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /astro@2.10.9(@types/node@17.0.45)(sass@1.66.0):
-    resolution: {integrity: sha512-rtm/RHeJdAIAsziQaAGvbv2ALylNNOF1SUQ0zJaugu/ABUU62tNGNSxIR0LO5l4+dHhLbzRNo5uEnIPkmSRw+w==}
+  /astro@2.10.10(@types/node@17.0.45)(sass@1.66.0):
+    resolution: {integrity: sha512-HwsRam0CXlO6WXOsWX7VT5hNlCd/JPiXI32Vhm7siyRspKjFfJH+1jqf9hNkROdjQIZz3MPLaIvm9UQCPEXxxA==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
     peerDependencies:
@@ -4586,7 +4586,7 @@ packages:
       '@astrojs/compiler': 1.8.1
       '@astrojs/internal-helpers': 0.1.2
       '@astrojs/language-server': 1.0.8
-      '@astrojs/markdown-remark': 2.2.1(astro@2.10.9)
+      '@astrojs/markdown-remark': 2.2.1(astro@2.10.10)
       '@astrojs/telemetry': 2.1.1
       '@astrojs/webapi': 2.2.0
       '@babel/core': 7.22.5
@@ -4615,6 +4615,7 @@ packages:
       github-slugger: 2.0.0
       gray-matter: 4.0.3
       html-escaper: 3.0.3
+      http-cache-semantics: 4.1.1
       js-yaml: 4.1.0
       kleur: 4.1.5
       magic-string: 0.30.2
@@ -4660,12 +4661,12 @@ packages:
       synckit: 0.8.5
     dev: true
 
-  /astrojs-service-worker@1.0.0(astro@2.10.9):
+  /astrojs-service-worker@1.0.0(astro@2.10.10):
     resolution: {integrity: sha512-+lP8O7dNJ7NTjC4j0MbCOdpM5Dhxi0tfm+ewgKr0YP48GdASWj5AzDzOoKos1JJbkxdpQqewtLFOTFdNfyakpQ==}
     peerDependencies:
       astro: '>=1.0.0'
     dependencies:
-      astro: 2.10.9(@types/node@17.0.45)(sass@1.66.0)
+      astro: 2.10.10(@types/node@17.0.45)(sass@1.66.0)
       workbox-build: 6.5.4
     transitivePeerDependencies:
       - '@types/babel__core'
@@ -6979,6 +6980,9 @@ packages:
       entities: 4.5.0
     dev: true
 
+  /http-cache-semantics@4.1.1:
+    resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
+
   /http-proxy-agent@5.0.0:
     resolution: {integrity: sha512-n2hY8YdoRE1i7r6M0w9DIw5GgZN0G25P8zLCRQ8rjXtTU3vsNFBI/vWK/UIeE6g5MUUz6avwAPXmL6Fy9D/90w==}
     engines: {node: '>= 6'}
@@ -7730,8 +7734,8 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  /known-css-properties@0.27.0:
-    resolution: {integrity: sha512-uMCj6+hZYDoffuvAJjFAPz56E9uoowFHmTkqRtRq5WyC5Q6Cu/fTZKNQpX/RbzChBYLLl3lo8CjFZBAZXq9qFg==}
+  /known-css-properties@0.28.0:
+    resolution: {integrity: sha512-9pSL5XB4J+ifHP0e0jmmC98OGC1nL8/JjS+fi6mnTlIf//yt/MfVLtKg7S6nCtj/8KTcWX7nRlY0XywoYY1ISQ==}
     dev: true
 
   /kolorist@1.8.0:
@@ -11024,7 +11028,7 @@ packages:
       postcss-selector-parser: 6.0.13
     dev: true
 
-  /stylelint-config-html@1.1.0(postcss-html@1.5.0)(stylelint@15.10.2):
+  /stylelint-config-html@1.1.0(postcss-html@1.5.0)(stylelint@15.10.3):
     resolution: {integrity: sha512-IZv4IVESjKLumUGi+HWeb7skgO6/g4VMuAYrJdlqQFndgbj6WJAXPhaysvBiXefX79upBdQVumgYcdd17gCpjQ==}
     engines: {node: ^12 || >=14}
     peerDependencies:
@@ -11032,20 +11036,20 @@ packages:
       stylelint: '>=14.0.0'
     dependencies:
       postcss-html: 1.5.0
-      stylelint: 15.10.2
+      stylelint: 15.10.3
     dev: true
 
-  /stylelint-config-prettier-scss@1.0.0(stylelint@15.10.2):
+  /stylelint-config-prettier-scss@1.0.0(stylelint@15.10.3):
     resolution: {integrity: sha512-Gr2qLiyvJGKeDk0E/+awNTrZB/UtNVPLqCDOr07na/sLekZwm26Br6yYIeBYz3ulsEcQgs5j+2IIMXCC+wsaQA==}
     engines: {node: 14.* || 16.* || >= 18}
     hasBin: true
     peerDependencies:
       stylelint: '>=15.0.0'
     dependencies:
-      stylelint: 15.10.2
+      stylelint: 15.10.3
     dev: true
 
-  /stylelint-config-recommended-scss@12.0.0(postcss@8.4.27)(stylelint@15.10.2):
+  /stylelint-config-recommended-scss@12.0.0(postcss@8.4.27)(stylelint@15.10.3):
     resolution: {integrity: sha512-5Bb2mlGy6WLa30oNeKpZvavv2lowJUsUJO25+OA68GFTemlwd1zbFsL7q0bReKipOSU3sG47hKneZ6Nd+ctrFA==}
     peerDependencies:
       postcss: ^8.3.3
@@ -11056,12 +11060,12 @@ packages:
     dependencies:
       postcss: 8.4.27
       postcss-scss: 4.0.7(postcss@8.4.27)
-      stylelint: 15.10.2
-      stylelint-config-recommended: 12.0.0(stylelint@15.10.2)
-      stylelint-scss: 5.0.0(stylelint@15.10.2)
+      stylelint: 15.10.3
+      stylelint-config-recommended: 12.0.0(stylelint@15.10.3)
+      stylelint-scss: 5.0.0(stylelint@15.10.3)
     dev: true
 
-  /stylelint-config-recommended-vue@1.5.0(postcss-html@1.5.0)(stylelint@15.10.2):
+  /stylelint-config-recommended-vue@1.5.0(postcss-html@1.5.0)(stylelint@15.10.3):
     resolution: {integrity: sha512-65TAK/clUqkNtkZLcuytoxU0URQYlml+30Nhop7sRkCZ/mtWdXt7T+spPSB3KMKlb+82aEVJ4OrcstyDBdbosg==}
     engines: {node: ^12 || >=14}
     peerDependencies:
@@ -11070,39 +11074,39 @@ packages:
     dependencies:
       postcss-html: 1.5.0
       semver: 7.5.4
-      stylelint: 15.10.2
-      stylelint-config-html: 1.1.0(postcss-html@1.5.0)(stylelint@15.10.2)
-      stylelint-config-recommended: 13.0.0(stylelint@15.10.2)
+      stylelint: 15.10.3
+      stylelint-config-html: 1.1.0(postcss-html@1.5.0)(stylelint@15.10.3)
+      stylelint-config-recommended: 13.0.0(stylelint@15.10.3)
     dev: true
 
-  /stylelint-config-recommended@12.0.0(stylelint@15.10.2):
+  /stylelint-config-recommended@12.0.0(stylelint@15.10.3):
     resolution: {integrity: sha512-x6x8QNARrGO2sG6iURkzqL+Dp+4bJorPMMRNPScdvaUK8PsynriOcMW7AFDKqkWAS5wbue/u8fUT/4ynzcmqdQ==}
     peerDependencies:
       stylelint: ^15.5.0
     dependencies:
-      stylelint: 15.10.2
+      stylelint: 15.10.3
     dev: true
 
-  /stylelint-config-recommended@13.0.0(stylelint@15.10.2):
+  /stylelint-config-recommended@13.0.0(stylelint@15.10.3):
     resolution: {integrity: sha512-EH+yRj6h3GAe/fRiyaoO2F9l9Tgg50AOFhaszyfov9v6ayXJ1IkSHwTxd7lB48FmOeSGDPLjatjO11fJpmarkQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
     peerDependencies:
       stylelint: ^15.10.0
     dependencies:
-      stylelint: 15.10.2
+      stylelint: 15.10.3
     dev: true
 
-  /stylelint-config-standard@34.0.0(stylelint@15.10.2):
+  /stylelint-config-standard@34.0.0(stylelint@15.10.3):
     resolution: {integrity: sha512-u0VSZnVyW9VSryBG2LSO+OQTjN7zF9XJaAJRX/4EwkmU0R2jYwmBSN10acqZisDitS0CLiEiGjX7+Hrq8TAhfQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
     peerDependencies:
       stylelint: ^15.10.0
     dependencies:
-      stylelint: 15.10.2
-      stylelint-config-recommended: 13.0.0(stylelint@15.10.2)
+      stylelint: 15.10.3
+      stylelint-config-recommended: 13.0.0(stylelint@15.10.3)
     dev: true
 
-  /stylelint-scss@5.0.0(stylelint@15.10.2):
+  /stylelint-scss@5.0.0(stylelint@15.10.3):
     resolution: {integrity: sha512-5Ee5kG3JIcP2jk2PMoFMiNmW/815V+wK5o37X5ke90ihWMpPXI9iyqeA6zEWipWSRXeQc0kqbd7hKqiR+wPKNA==}
     peerDependencies:
       stylelint: ^14.5.1 || ^15.0.0
@@ -11111,11 +11115,11 @@ packages:
       postcss-resolve-nested-selector: 0.1.1
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
-      stylelint: 15.10.2
+      stylelint: 15.10.3
     dev: true
 
-  /stylelint@15.10.2:
-    resolution: {integrity: sha512-UxqSb3hB74g4DTO45QhUHkJMjKKU//lNUAOWyvPBVPZbCknJ5HjOWWZo+UDuhHa9FLeVdHBZXxu43eXkjyIPWg==}
+  /stylelint@15.10.3:
+    resolution: {integrity: sha512-aBQMMxYvFzJJwkmg+BUUg3YfPyeuCuKo2f+LOw7yYbU8AZMblibwzp9OV4srHVeQldxvSFdz0/Xu8blq2AesiA==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -11140,7 +11144,7 @@ packages:
       import-lazy: 4.0.0
       imurmurhash: 0.1.4
       is-plain-object: 5.0.0
-      known-css-properties: 0.27.0
+      known-css-properties: 0.28.0
       mathml-tag-names: 2.1.3
       meow: 10.1.5
       micromatch: 4.0.5
