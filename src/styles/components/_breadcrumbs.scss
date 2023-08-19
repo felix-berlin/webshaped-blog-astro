@@ -1,13 +1,5 @@
 @use "@styles/utilities/utilities";
-
-.c-breadcrumbs {
-  &__crumbs {
-    @extend .u-list-reset;
-
-    display: flex;
-  }
-
-  &__separator {
-    margin: 0 0.25rem;
-  }
-}
+@use "@styles/variables/colors";
+@use "astro-breadcrumbs/breadcrumbs.scss" with (
+  $color-link: colors.$blue-shallow-dark
+);

@@ -138,14 +138,13 @@ interface State {
   idleAfterCount: number | undefined;
 }
 
-// eslint-disable-next-line vue/no-setup-props-destructure
 const {
   numberOfDisplayedTracks = 5,
   updateRate = 180_000, // check every 180 seconds (3 min)
   dropdownPlacement = "auto",
   idleIfInactive = false,
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
-  scrobbleApi,
+  scrobbleApi = null,
 } = defineProps<ScrobbleDisplayProps>();
 
 const state: State = reactive({

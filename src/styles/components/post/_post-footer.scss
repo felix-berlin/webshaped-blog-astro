@@ -5,16 +5,16 @@
 @use "@sass-butler/functions" as butler-fn;
 
 .c-post-footer {
-  padding-top: 3rem;
-  margin-top: 3rem;
-  border: {
-    top-width: 2px;
-    top-style: solid;
-    image: linear-gradient(
-        to left,
-        #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
-        #{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
-      )
-      1;
-  }
+  // padding-top: 3rem;
+  // margin-top: 3rem;
+  // border: {
+  //   top-width: 2px;
+  //   top-style: solid;
+  //   image: linear-gradient(
+  //       to left,
+  //       #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
+  //       #{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
+  //     )
+  //     1;
+  // }
 }

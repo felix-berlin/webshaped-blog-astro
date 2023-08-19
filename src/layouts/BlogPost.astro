@@ -10,28 +10,24 @@ import "@fontsource/source-sans-pro/700.css";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import DateModified from "@components/post/DateModified.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
-import CommentCount from "@components/comments/CommentCount.vue";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
-import Helpful from "@components/Helpful.vue";
 import Categories from "@components/Categories.vue";
 // import Author from "@components/post/Author.vue";
 import Author from "@components/post/Author.astro";
-import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import { __ } from "@i18n/i18n";
-import { updateCategoryPaths } from "@utils/helpers";
+import { updateCategoryPaths, firstCategoryPage } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
+import ChevronRight from "~icons/lucide/chevron-right";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type {
   Post,
   MediaSize,
-  Language,
   RootQueryToCategoryConnection,
-  Maybe,
 } from "@ts_types/generated/graphql";
 
 export interface BlogPost {
@@ -59,23 +55,40 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const breadcrumbItems = [
-  {
-    text: "Home",
-    href: "/",
-  },
-  {
-    text: language?.slug,
-    href: `/${language?.slug}`,
-  },
-  {
-    text: title,
-    href: `/blog/${slug}`,
-  },
-];
-
 const featuredImageSizes = featuredImage?.node?.mediaDetails
   ?.sizes as MediaSize[];
+
+const createBreadcrumbItems = () => {
+  const items = [
+    {
+      text: "Home",
+      href: "/",
+    },
+  ];
+
+  if (categories?.edges?.length) {
+    const parentCategory = categories?.edges?.find(
+      (edge) => edge.node.parent === null,
+    )?.node;
+    const childCategory = parentCategory?.children?.edges;
+
+    items.push({
+      text: parentCategory?.name!,
+      href: `/${firstCategoryPage(parentCategory?.name?.toLowerCase())}`,
+    });
+
+    if (childCategory?.length) {
+      items.push({
+        text: childCategory[0].node.name!,
+        href: `/${firstCategoryPage(
+          childCategory[0].node.name?.toLowerCase(),
+        )}`,
+      });
+    }
+  }
+
+  return items;
+};
 ---
 
 <DefaultLayout content={{ title, seo, language }} contentClasses={["c-blog"]}>
@@ -84,36 +97,12 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
   <!-- Gravatar -->
   <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
+  <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
+    <ChevronRight slot="separator" width="20" height="20" />
+  </Breadcrumbs>
 
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
-    <Breadcrumbs crumbs={breadcrumbItems}>
-      <span slot="index">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-          ></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg
-        >
-      </span>
-      <span slot="separator" class="c-breadcrumbs__separator">/</span>
-    </Breadcrumbs>
     <h1 class="c-blog__title">{title}</h1>
-    <DateModified date={modifiedGmt || undefined} lang={language} />
-    <ReadingTime time={seo?.readingTime || undefined} lang={language} />
-    <WebmentionsCount
-      elementIs={"a"}
-      href={"#webmentions"}
-      lang={language!}
-      client:load
-    />
-    <Categories categories={categories as RootQueryToCategoryConnection} />
 
     <ImageResponsive
       src={featuredImage?.node.mediaItemUrl}
@@ -126,55 +115,29 @@ const featuredImageSizes = featuredImage?.node?.mediaDetails
     />
   </header>
   <article class="c-blog__post">
-    <!-- <header class="c-blog__post__hero-header">
-          {featuredImage && (
-            <img
-              width={featuredImage.node.mediaDetails.width}
-              height={featuredImage.node.mediaDetails.height}
-              alt={featuredImage.node.altText}
-              src={featuredImage.node.mediaItemUrl}
-              srcset={featuredImage.node.srcSet}
-              loading="eager"
-              decoding="async"
-              fetchpriority="high"
-              class="c-blog__hero-image"
-            />
-          )} -->
-
-    <!-- <Helpful client:load></Helpful> -->
-
-    <!-- <CommentCount commentTotal={commentCount} isElement="a" href="#comments"></CommentCount> -->
-    <!-- </header> -->
     <PostOlderThan
       date={modifiedGmt || ""}
       showAfterYears={4}
       lang={language!}
     />
 
-    <!-- <TabToggle
-          buttonLabels={["test1", "test2", "test3", "test4"]}
-          client:only="vue"
-        >
-          <div class="one">1</div>
-          <div class="two">2</div>
-          <div class="three">3</div>
-          <div class="foure">4</div>
-        </TabToggle> -->
-
     <slot />
-
-    <footer class="c-post-footer">
-      <TabDisplay
-        postId={postId}
-        authorId={author?.node.id}
-        client:only="vue"
-      />
-    </footer>
   </article>
+
+  <footer class="c-post-footer">
+    <section class="c-blog__info-bar u-glas-background">
+      <DateModified date={modifiedGmt || undefined} lang={language} />
+      <ReadingTime time={seo?.readingTime || undefined} lang={language} />
+      <Categories
+        categories={categories as RootQueryToCategoryConnection}
+        lang={language}
+      />
+    </section>
+    <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
+  </footer>
 
   <aside class="c-blog-sidebar">
     <Author author={author || undefined} lang={language!} />
-
     <h2 class="c-blog-sidebar__headline">
       {__(language?.locale!, "blog.table_of_contents")}
     </h2>

@@ -3,28 +3,32 @@
     v-if="categories && categories.edges[0].node.name !== 'Uncategorized'"
     class="c-categories"
   >
-    <div
-      v-for="category in categories.edges"
-      :key="category.node.id"
-      class="c-categories__item"
-    >
-      <Hash width="18" height="18" />
-      <a
-        :href="`/category/${category?.node?.name?.toLowerCase()}/1`"
-        class="c-categories__link"
+    <p class="c-categories__headline">{{ __(lang?.locale, "categories") }}</p>
+    <div class="c-categories__item-wrap">
+      <template
+        v-for="(category, index) in categories.edges"
+        :key="category.node.id"
       >
-        {{ category.node.name }}
-      </a>
+        <a
+          :href="`/category/${category?.node?.name?.toLowerCase()}/1`"
+          class="c-categories__link"
+        >
+          {{ category.node.name }}
+          <span v-if="index !== categories.edges.length - 1">,</span>
+        </a>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import Hash from "virtual:icons/lucide/hash";
 import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
+import { __ } from "@i18n/i18n";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 interface Props {
   categories: RootQueryToCategoryConnection;
+  lang: Maybe<Language>;
 }
 
 defineProps<Props>();

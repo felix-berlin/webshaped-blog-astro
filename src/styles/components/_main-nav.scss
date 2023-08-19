@@ -15,7 +15,6 @@
   padding: 20px layout.$spacing-edge;
   column-gap: 3rem;
   border-radius: base.$border-radius;
-  background-color: butler-fn.hex-to-rgb(colors.$blue-light, 15%);
   // border: {
   //   bottom-width: 2px;
   //   bottom-style: solid;
@@ -32,20 +31,6 @@
       [header-left] var(--grid-areas-header, "logo menu button-bar")
       [header-right]
       / max-content 1fr;
-  }
-
-  &::after {
-    content: "";
-    background-color: butler-fn.hex-to-rgb(colors.$blue-light, 10%);
-    border-radius: base.$border-radius;
-    position: absolute;
-    width: 100%;
-    inset: 0;
-    z-index: -1;
-    backdrop-filter: blur(3px) hue-rotate(21deg);
-    // transform: rotate(var(--rotate-background, 1deg))
-    // translate(var(--translate-background, 8px, -7px));
-    // height: 115%;
   }
 
   *:not(.c-main-nav__flyout) {

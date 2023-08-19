@@ -1,6 +1,6 @@
 export default {
   comment_label: "Schreibe einen Kommentar:",
-  "reading_time.title": "Lesezeit",
+  reading_time: "Lesezeit",
   "color_mode_toggle.dark_label": "Dunklen Modus aktivieren",
   "color_mode_toggle.light_label": "Hellen Modus aktivieren",
   "blog.read_more": "Weiterlesen",
@@ -65,11 +65,12 @@ export default {
   "comment_form.success": "Danke für deinen Kommentar!",
   green_hosted: "CO<sub>2</sub> neutral gehosted",
   "footer.copyright.now": "Heute",
-  "footer.headline.categories": "Kategorien",
+  categories: "Kategorien",
   "footer.headline.other": "Andere",
   "pagination.previous": "Vorherige Seite",
   "pagination.next": "Nächste Seite",
   "pagination.last": "Letzte Seite",
   "pagination.first": "Erste Seite",
   "rss_feed.link_title": "zum RSS Feed",
+  last_updated: "Zuletzt aktualisiert",
 };
