@@ -15,6 +15,7 @@
           social.class ? social.class : ''
         }`"
         :rel="social.rel ? social.rel : 'noopener noreferrer'"
+        itemprop="sameAs"
       >
         <KeepAlive>
           <component
