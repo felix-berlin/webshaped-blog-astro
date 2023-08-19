@@ -6,11 +6,13 @@
     grid-area: sidebar;
     margin-right: vars.$content-spacing-outer;
 
-    // @include mx.breakpoint("md") {
-    //   position: sticky;
-    //   top: 0;
-    //   align-self: start;
-    // }
+    &__toc-wrap {
+      @include mx.breakpoint("md") {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+      }
+    }
 
     &__headline {
       margin-top: 0;

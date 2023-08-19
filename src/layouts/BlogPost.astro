@@ -138,10 +138,12 @@ const createBreadcrumbItems = () => {
 
   <aside class="c-blog-sidebar">
     <Author author={author || undefined} lang={language!} />
-    <h2 class="c-blog-sidebar__headline">
-      {__(language?.locale!, "blog.table_of_contents")}
-    </h2>
-    <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
-    <TableOfContents headings={headings} client:load />
+    <div class="c-blog-sidebar__toc-wrap">
+      <h2 class="c-blog-sidebar__headline">
+        {__(language?.locale!, "blog.table_of_contents")}
+      </h2>
+      <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
+      <TableOfContents headings={headings} client:load />
+    </div>
   </aside>
 </DefaultLayout>
