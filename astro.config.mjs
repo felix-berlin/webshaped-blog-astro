@@ -29,6 +29,9 @@ export default defineConfig({
   integrations: [
     vue({
       appEntrypoint: "/src/pages/_app",
+      script: {
+        propsDestructure: true,
+      },
     }),
     sitemap({
       lastmod: new Date(),
