@@ -55,9 +55,12 @@ const __ = (
 
   const translations: object = { de_DE, en_US };
 
-  // If the translation string is not available, return the translation string itself.
   let translationStr: string =
     translations[locale as keyof typeof translations][translationString];
+
+  if (typeof translationStr === "undefined" && import.meta.env.DEV) {
+    console.warn(`${translationString} is not available in ${locale}`);
+  }
 
   // If the translation string end with "--plural", execute the plural form function and store the result in the translation string.
   if (translationString.endsWith("--plural") && plural !== undefined && lang) {
