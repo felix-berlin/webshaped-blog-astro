@@ -61,7 +61,7 @@
     "prettier-plugin-astro": "^0.11.1",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.66.1",
-    "semantic-release": "^21.0.8",
+    "semantic-release": "^21.0.9",
     "stylelint": "^15.10.3",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recommended-scss": "^12.0.0",
