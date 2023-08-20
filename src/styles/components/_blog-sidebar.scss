@@ -1,22 +1,20 @@
 @use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
 @use "@styles/variables/variables" as vars;
 
-@layer blog-sidebar {
-  .c-blog-sidebar {
-    grid-area: sidebar;
-    margin-right: vars.$content-spacing-outer;
+.c-blog-sidebar {
+  grid-area: sidebar;
 
-    &__toc-wrap {
-      @include mx.breakpoint("md") {
-        position: sticky;
-        top: 20px;
-        align-self: start;
-      }
+  &__toc-wrap {
+    @include mx.breakpoint("md") {
+      position: sticky;
+      top: 20px;
+      align-self: start;
     }
+  }
 
-    &__headline {
-      margin-top: 0;
-      line-height: 0.7;
-    }
+  &__headline {
+    margin-top: 0;
+    line-height: 0.7;
+    text-transform: uppercase;
   }
 }
