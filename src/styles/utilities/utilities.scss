@@ -29,3 +29,7 @@
     backdrop-filter: blur(3px) hue-rotate(21deg);
   }
 }
+
+.u-rounded {
+  border-radius: base.$border-radius;
+}
