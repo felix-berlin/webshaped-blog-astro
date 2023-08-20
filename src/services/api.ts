@@ -1,3 +1,5 @@
+import type { CreateCommentPayload } from "@ts_types/generated/graphql";
+
 export * from "@services/createComment";
 export * from "@services/getMenu";
 export * from "@services/getCategory";

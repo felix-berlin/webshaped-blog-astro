@@ -33,7 +33,7 @@ export const getAllPostsWithSlugs = async (
 
 export const getPostBySlug = async (
   slug: number | string,
-  authorAvatarSize: 96,
+  authorAvatarSize = 96,
 ): Promise<Post> => {
   const data = await fetchAPI(`
     {
@@ -128,7 +128,7 @@ export const getPostBySlug = async (
         }
         author {
           node {
-            avatar(size: 150) {
+            avatar(size: ${authorAvatarSize}) {
               foundAvatar
               height
               url
@@ -154,6 +154,7 @@ export const getPostBySlug = async (
             }
             socialAdvanced {
               github
+              mastodon
             }
           }
         }
