@@ -17,7 +17,8 @@
       "@i18n/*": ["src/i18n/*"],
       "@ts_types/*": ["src/types/*"],
       "@features/*": ["src/features/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@assets/*": ["src/assets/*"]
     },
     "types": ["vitest/globals", "unplugin-icons/types/astro"],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop

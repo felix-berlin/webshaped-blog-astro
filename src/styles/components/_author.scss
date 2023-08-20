@@ -1,13 +1,19 @@
 .c-author {
+  $image-size-author: 100px;
+
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
   margin-bottom: 2rem;
+  row-gap: 0.8rem;
+  column-gap: 1rem;
 
   &__image-wrap {
     position: relative;
     display: inline-block;
-    flex: 1 0;
+    flex: 1 0 $image-size-author;
+    background-color: var(--color-background-doc);
+    border-radius: 50% 50% 50% 3px;
   }
 
   &__image {
@@ -16,18 +22,29 @@
   }
 
   &__name {
-    flex: 1 0;
+    flex: 1 0 calc(100% - $image-size-author - 1rem);
     font-weight: bold;
     align-self: center;
   }
 
   .c-scrobble-display {
     position: absolute;
-    bottom: -2px;
-    left: -6px;
-    border-radius: 50%;
-    background-color: var(--color-background-doc);
-    padding: 8px;
-    border: 2px solid var(--accent-color);
+    bottom: 3px;
+    left: 2px;
+  }
+
+  &__description {
+    margin: 0;
+  }
+
+  &__details-toggle {
+    .c-social-list {
+      margin-top: 1rem;
+
+      &__link {
+        --color-button-outline: #fff;
+        --color-border-button-outline: rgb(255 255 255 / 50%);
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 ---
 import "@styles/components/_author.scss";
+import "@styles/components/_details.scss";
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import SocialList from "@components/SocialList.vue";
 import type {
@@ -8,6 +9,7 @@ import type {
   Maybe,
 } from "@ts_types/generated/graphql";
 import { getSocialItems } from "@utils/helpers";
+import { __ } from "@i18n/i18n";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
@@ -75,8 +77,10 @@ const allSocials = {
     {author?.node.description}
   </p>
 
-  <details class="c-author__details-toggle">
-    <summary>more</summary>
+  <details class="c-author__details-toggle c-details">
+    <summary
+      ><span class="c-details__title">{__(lang?.locale, "more")}</span></summary
+    >
     <SocialList
       socialItems={getSocialItems(allSocials, iconStyles, additionalSoicalData)}
       lang={lang}

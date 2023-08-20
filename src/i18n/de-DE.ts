@@ -73,4 +73,5 @@ export default {
   "pagination.first": "Erste Seite",
   "rss_feed.link_title": "zum RSS Feed",
   last_updated: "Zuletzt aktualisiert",
+  more: "Mehr",
 };
