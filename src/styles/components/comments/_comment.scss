@@ -33,25 +33,21 @@ $spacing: 121;
   //   &:not(.is-create-comment) {
   //     .c-comment__content:not(.is-comment-item) {
   //       --float-distance: -20px;
-
   //       &::before,
   //       &::after,
   //       & {
   //         transform: translateY(0);
   //         animation: var(--animation-comment, float 5s ease-in-out infinite);
   //       }
-
   //       &::before {
   //         --float-distance: -15px;
   //       }
-
   //       &::after {
   //         --float-distance: -8px;
   //       }
   //     }
   //   }
   // }
-
   &__item {
     display: grid;
     grid-template-columns: var(--columns-grid-comment);
@@ -137,6 +133,8 @@ $spacing: 121;
     margin: var(--spacing-outer-content, 0 0 35px 0);
     display: flex;
     flex-direction: column;
+    width: fit-content;
+    min-width: 300px;
 
     @include butler-mx.dark-mode-class {
       --color-background-comment-content: #{butler-fn.hex-to-rgb(
