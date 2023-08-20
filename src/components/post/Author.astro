@@ -17,7 +17,11 @@ const { author, lang } = Astro.props as AuthorProps;
 const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
 ---
 
-<div class="c-author" itemscope itemtype="http://schema.org/Person">
+<div
+  class="c-author u-glas-background u-rounded"
+  itemscope
+  itemtype="http://schema.org/Person"
+>
   <div class="c-author__image-wrap">
     {
       author?.node?.avatar?.url && (
@@ -25,8 +29,8 @@ const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
           src={author.node.avatar.url}
           class="c-author__image"
           alt="`Foto des Author: ${author?.node.firstName} ${author?.node.lastName}`"
-          width={author.node.avatar.width || undefined}
-          height={author.node.avatar.height || undefined}
+          width={author.node.avatar.width}
+          height={author.node.avatar.height}
           loading="eager"
           itemprop="image"
           src="path/to/author/image.jpg"

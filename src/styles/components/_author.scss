@@ -1,7 +1,13 @@
 .c-author {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin-bottom: 2rem;
+
   &__image-wrap {
     position: relative;
     display: inline-block;
+    flex: 1 0;
   }
 
   &__image {
@@ -9,10 +15,16 @@
     border: 2px solid var(--accent-color);
   }
 
+  &__name {
+    flex: 1 0;
+    font-weight: bold;
+    align-self: center;
+  }
+
   .c-scrobble-display {
     position: absolute;
-    bottom: 2px;
-    left: 2px;
+    bottom: -2px;
+    left: -6px;
     border-radius: 50%;
     background-color: var(--color-background-doc);
     padding: 8px;
