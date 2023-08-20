@@ -1,5 +1,5 @@
 <template>
-  <picture>
+  <picture v-if="src">
     <source
       :srcset="createSrcSet(props.srcSet, props.src, 'webp')"
       type="image/webp"
@@ -11,7 +11,6 @@
       :sizes="sizes ?? ''"
     />
     <img
-      v-if="src"
       :src="src"
       :alt="alt ?? ''"
       :width="width ?? ''"

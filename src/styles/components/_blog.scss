@@ -14,7 +14,6 @@
   );
   grid-template-columns: var(--columns-grid, 1fr);
   column-gap: 25px;
-  row-gap: 25px;
   word-break: break-word;
 
   @include mx.breakpoint("md") {
@@ -25,17 +24,31 @@
 
   &__header {
     grid-area: header;
+
+    &:has(.c-blog__hero-image) {
+      .c-blog__hero-image {
+        margin: 0 0 7rem;
+      }
+
+      .c-blog__title {
+        --spacing-title-blog: 0 0 3rem;
+      }
+    }
   }
 
   &__title {
     flex: 1 0 100%;
-    font-size: var(--font-size-3xl);
-    margin: 0 0 2rem;
+    font-size: butler-fn.fluid(32, 48, 320, 1024);
+    margin: var(--spacing-title-blog, 0 0 3rem);
   }
 
-  &__hero-image img {
-    border: 2px solid colors.$blue-shallow-dark;
-    border-radius: base.$border-radius;
+  &__hero-image {
+    display: block;
+
+    img {
+      border: 2px solid colors.$blue-shallow-dark;
+      border-radius: base.$border-radius;
+    }
   }
 
   &__post {
@@ -66,7 +79,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 3rem;
-    margin: 3rem 0;
+    margin: 4rem 0;
 
     .c-categories__headline,
     .c-date-modified__headline,
