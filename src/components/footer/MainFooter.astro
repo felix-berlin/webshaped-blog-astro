@@ -3,7 +3,7 @@ import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@services/api";
-import { firstCategoryPage } from "@utils/helpers";
+import { firstCategoryPage, getSocialItems } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
@@ -18,67 +18,32 @@ interface MainFooterProps {
   lang: Maybe<Language>;
 }
 
+const { lang } = Astro.props as MainFooterProps;
+
 const iconStyles = {
   size: 40,
   strokeWidth: 1,
 };
 
-const socialItems = {
-  facebook: {
-    url: author?.seo?.social?.facebook,
-    ...iconStyles,
-  },
-  instagram: {
-    url: author?.seo?.social?.instagram,
-    ...iconStyles,
-  },
-  linkedIn: {
-    url: author?.seo?.social?.linkedIn,
-    ...iconStyles,
-  },
-  mySpace: {
-    url: author?.seo?.social?.mySpace,
-    ...iconStyles,
-  },
-  pinterest: {
-    url: author?.seo?.social?.pinterest,
-    ...iconStyles,
-  },
-  soundCloud: {
-    url: author?.seo?.social?.soundCloud,
-    ...iconStyles,
-  },
-  twitter: {
-    url: author?.seo?.social?.twitter,
-    ...iconStyles,
-  },
-  wikipedia: {
-    url: author?.seo?.social?.wikipedia,
-    ...iconStyles,
-  },
-  youTube: {
-    url: author?.seo?.social?.youTube,
-    ...iconStyles,
+const additionalSoicalData = {
+  mastodon: {
+    rel: "me",
   },
   github: {
-    url: author?.socialAdvanced?.github,
     rel: "me",
-    ...iconStyles,
-  },
-  mastodon: {
-    url: author?.socialAdvanced?.mastodon,
-    rel: "me",
-    ...iconStyles,
   },
 };
 
-const { lang } = Astro.props as MainFooterProps;
+const allSocials = {
+  ...author?.seo?.social,
+  ...author?.socialAdvanced,
+};
 ---
 
 <footer class="o-footer">
   <SocialList
     class:list={"o-footer__social-list"}
-    socialItems={socialItems}
+    socialItems={getSocialItems(allSocials, iconStyles, additionalSoicalData)}
     lang={lang}
   />
 

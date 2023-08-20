@@ -1,11 +1,13 @@
 ---
 import "@styles/components/_author.scss";
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
+import SocialList from "@components/SocialList.vue";
 import type {
   Language,
   NodeWithAuthorToUserConnectionEdge,
   Maybe,
 } from "@ts_types/generated/graphql";
+import { getSocialItems } from "@utils/helpers";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
@@ -15,6 +17,25 @@ export interface AuthorProps {
 const { author, lang } = Astro.props as AuthorProps;
 
 const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
+
+const iconStyles = {
+  size: 20,
+  strokeWidth: 1,
+};
+
+const additionalSoicalData = {
+  mastodon: {
+    rel: "me",
+  },
+  github: {
+    rel: "me",
+  },
+};
+
+const allSocials = {
+  ...author?.node?.seo?.social,
+  ...author?.node?.socialAdvanced,
+};
 ---
 
 <div
@@ -53,4 +74,12 @@ const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
   <p class="c-author__description" itemprop="description">
     {author?.node.description}
   </p>
+
+  <details class="c-author__details-toggle">
+    <summary>more</summary>
+    <SocialList
+      socialItems={getSocialItems(allSocials, iconStyles, additionalSoicalData)}
+      lang={lang}
+    />
+  </details>
 </div>

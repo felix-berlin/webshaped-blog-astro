@@ -1,4 +1,11 @@
-import type { Maybe, Menu, MenuItem, Block } from "@ts_types/generated/graphql";
+import type {
+  Maybe,
+  Menu,
+  MenuItem,
+  Block,
+  SeoUserSocial,
+  User_Socialadvanced,
+} from "@ts_types/generated/graphql";
 
 /**
  * Checks if the given string is HTML
@@ -151,4 +158,32 @@ export const capitalize = (str: string): string => {
 export const getDomainName = (url: string): string => {
   if (!url) return "";
   return url.replace(/.+\/\/|www.|\..+/g, "");
+};
+
+type AdditionalData = {
+  [key: string]: object;
+};
+
+type SocialItems = {
+  [key: string]: {
+    url: string;
+    [key: string]: any;
+  };
+};
+export const getSocialItems = (
+  socials: SeoUserSocial | User_Socialadvanced,
+  iconStyles: object,
+  additionalData: AdditionalData,
+) => {
+  const socialItems: SocialItems = {};
+
+  for (const [key, value] of Object.entries(socials)) {
+    socialItems[key] = { url: value, ...iconStyles };
+
+    if (additionalData[key]) {
+      socialItems[key] = { ...socialItems[key], ...additionalData[key] };
+    }
+  }
+
+  return socialItems;
 };
