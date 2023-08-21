@@ -1,11 +1,15 @@
 import { mount } from "@vue/test-utils";
-import { test, expect, describe } from "vitest";
+import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import Categories from "@components/Categories.vue";
 
 describe("Categories.vue", () => {
   const wrapper = mount(Categories, {
     props: {
+      lang: {
+        locale: "en_US",
+        id: "en",
+      },
       categories: {
         edges: [
           {
@@ -24,6 +28,10 @@ describe("Categories.vue", () => {
 
   const emptyWrapper = mount(Categories, {
     props: {
+      lang: {
+        locale: "en_US",
+        id: "en",
+      },
       categories: {
         edges: [
           {
@@ -40,12 +48,12 @@ describe("Categories.vue", () => {
     },
   });
 
-  test("Viewing the reading time text", () => {
+  it("Viewing the reading time text", () => {
     const categoryList = wrapper.find(".c-categories");
     expect(categoryList.text()).toBeDefined();
   });
 
-  test("Is component hidden?", () => {
+  it("Is component hidden?", () => {
     const categoryList = emptyWrapper.find(".c-categories");
     expect(categoryList.exists()).toBe(false);
   });

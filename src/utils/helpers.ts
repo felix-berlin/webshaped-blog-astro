@@ -2,7 +2,6 @@ import type {
   Maybe,
   Menu,
   MenuItem,
-  Block,
   SeoUserSocial,
   User_Socialadvanced,
 } from "@ts_types/generated/graphql";
@@ -125,14 +124,14 @@ export const getDelimiter = (
   str: string,
   specialChars: string[] = ["_", "-", "*"],
 ): string | null => {
-  if (!str) return null;
+  if (
+    !str ||
+    !Array.isArray(specialChars) ||
+    specialChars.some((char) => typeof char !== "string")
+  )
+    return null;
 
-  for (const specialChar of specialChars) {
-    if (str.includes(specialChar)) {
-      return specialChar;
-    }
-  }
-  return null;
+  return specialChars.find((specialChar) => str.includes(specialChar)) || null;
 };
 
 /**
@@ -142,22 +141,68 @@ export const getDelimiter = (
  *
  * @return  {string}
  */
-export const capitalize = (str: string): string => {
-  if (!str) return "";
+export const capitalize = (str: string | null | undefined): string => {
+  if (str == null || typeof str === "undefined" || typeof str !== "string") {
+    return "";
+  }
 
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  str = str?.trim(); // Trim the input string to remove leading and trailing whitespaces
+
+  const firstChar = str.charAt(0);
+  const restOfString = str.slice(1);
+
+  if (/[a-zA-Z]/.test(firstChar)) {
+    return `${firstChar.toUpperCase()}${restOfString}`;
+  } else {
+    return `${firstChar}${restOfString}`;
+  }
 };
 
 /**
- * Get the TLD from a URL
+ * Get the domain name from a URL
  *
- * @param   {string}  url
+ * @param   {string}  url - The URL from which to extract the domain name.
  *
- * @return  {string}
+ * @return  {string} The domain name extracted from the URL.
+ * @throws  {Error} If the URL is not valid.
  */
-export const getDomainName = (url: string): string => {
-  if (!url) return "";
-  return url.replace(/.+\/\/|www.|\..+/g, "");
+export const getHostName = (url: string): string => {
+  if (
+    url === null ||
+    typeof url === "undefined" ||
+    !isValidUrl(url) ||
+    (!url.startsWith("http://") && !url.startsWith("https://"))
+  )
+    throw new Error("Invalid URL");
+
+  const parsedUrl = new URL(url);
+
+  return parsedUrl.hostname;
+};
+
+/**
+ * Check if the given string is a valid URL
+ *
+ * @param   {string}   url
+ *
+ * @return  {boolean}
+ */
+export const isValidUrl = (url: string): boolean => {
+  if (
+    url === null ||
+    typeof url === "undefined" ||
+    typeof url !== "string" ||
+    url === ""
+  ) {
+    return false;
+  }
+
+  try {
+    new URL(url);
+    return true;
+  } catch (error) {
+    return false;
+  }
 };
 
 type AdditionalData = {
@@ -167,17 +212,26 @@ type AdditionalData = {
 type SocialItems = {
   [key: string]: {
     url: string;
-    [key: string]: any;
+    [key: string]: string;
   };
 };
-export const getSocialItems = (
+
+/**
+ * Return all needed data for the social icons
+ *
+ * @return  {SocialItems}
+ */
+export const getSocialIconData = (
   socials: SeoUserSocial | User_Socialadvanced,
   iconStyles: object,
   additionalData: AdditionalData,
-) => {
+): SocialItems => {
+  if (!socials) return {};
   const socialItems: SocialItems = {};
 
   for (const [key, value] of Object.entries(socials)) {
+    if (!value) continue;
+
     socialItems[key] = { url: value, ...iconStyles };
 
     if (additionalData[key]) {

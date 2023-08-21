@@ -11,17 +11,17 @@
  * @returns {object}
  */
 export const excludeObjectKeys = (
-  object: object,
+  object: Record<string, unknown>,
   exclude: string[],
-): object => {
+): Record<string, unknown> => {
   if (typeof object !== "object" || object === null) {
     throw new Error(
       "Invalid input: object must be an object and cannot be null",
     );
   }
 
-  if (!Array.isArray(exclude)) {
-    return {};
+  if (!Array.isArray(exclude) || exclude.length === 0) {
+    return object;
   }
 
   return Object.fromEntries(
@@ -29,8 +29,8 @@ export const excludeObjectKeys = (
   );
 };
 
-type FilteredObject<T> = {
-  [K in keyof T]: T[K];
+type FilteredObject<T, K extends keyof T> = {
+  [P in K]: T[P];
 };
 
 /**
@@ -44,20 +44,20 @@ type FilteredObject<T> = {
  * @param {Array<string>} filter - Properties to filter
  * @returns {object}
  */
-export const filterObjectByKeys = <T extends Record<string, any>>(
+export const filterObjectByKeys = <T, K extends keyof T>(
   object: T,
-  filter: Array<keyof T>,
-): FilteredObject<T> => {
+  filter: K[],
+): FilteredObject<T, K> => {
   if (typeof object !== "object" || object === null)
     throw new Error(
       "Invalid input: object must be an object and cannot be null",
     );
 
-  if (!Array.isArray(filter)) return {} as FilteredObject<T>;
+  if (!Array.isArray(filter)) return {} as FilteredObject<T, K>;
 
-  if (filter.length === 0) return {} as FilteredObject<T>;
+  if (filter.length === 0) return {} as FilteredObject<T, K>;
 
-  const filteredObject = {} as FilteredObject<T>;
+  const filteredObject = {} as FilteredObject<T, K>;
 
   filter.forEach((key) => {
     if (key in object) {

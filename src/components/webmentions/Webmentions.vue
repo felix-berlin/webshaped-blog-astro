@@ -26,7 +26,7 @@
         target="_blank"
         :aria-label="
           __(currentLang?.locale, 'brand_logo.icon_label', {
-            plattform: getDomainName(mention.url),
+            plattform: getHostName(mention.url),
           })
         "
       >
@@ -56,7 +56,7 @@ import Date from "@components/post/Date.vue";
 import ExternalLink from "virtual:icons/lucide/external-link";
 import { __ } from "@i18n/i18n";
 import NoMentions from "@components/webmentions/NoMentions.vue";
-import { getDomainName } from "@utils/helpers";
+import { getHostName } from "@utils/helpers";
 import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
 import IconBrandMastodon from "virtual:icons/tabler/brand-mastodon";
 import IconBrandGithub from "virtual:icons/tabler/brand-github";
@@ -147,19 +147,19 @@ await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
 // });
 
 const loadIcons = (url: string) => {
-  if (getDomainName(url) === "twitter") {
+  if (getHostName(url) === "twitter") {
     return IconBrandTwitter;
   }
-  if (getDomainName(url) === "github") {
+  if (getHostName(url) === "github") {
     return IconBrandGithub;
   }
-  if (getDomainName(url) === "reddit") {
+  if (getHostName(url) === "reddit") {
     return IconBrandReddit;
   }
-  if (getDomainName(url) === "facebook") {
+  if (getHostName(url) === "facebook") {
     return IconBrandFacebook;
   }
-  if (getDomainName(url) === "mastodon") {
+  if (getHostName(url) === "mastodon") {
     return IconBrandMastodon;
   }
   return ExternalLink;

@@ -8,7 +8,7 @@ import type {
   NodeWithAuthorToUserConnectionEdge,
   Maybe,
 } from "@ts_types/generated/graphql";
-import { getSocialItems } from "@utils/helpers";
+import { getSocialIconData } from "@utils/helpers";
 import { __ } from "@i18n/i18n";
 
 export interface AuthorProps {
@@ -82,7 +82,11 @@ const allSocials = {
       ><span class="c-details__title">{__(lang?.locale, "more")}</span></summary
     >
     <SocialList
-      socialItems={getSocialItems(allSocials, iconStyles, additionalSoicalData)}
+      socialItems={getSocialIconData(
+        allSocials,
+        iconStyles,
+        additionalSoicalData,
+      )}
       lang={lang}
     />
   </details>
