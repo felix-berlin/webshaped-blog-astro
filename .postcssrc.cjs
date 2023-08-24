@@ -6,8 +6,5 @@ module.exports = {
         "cascade-layers": false,
       },
     }),
-    require("cssnano")({
-      preset: "default",
-    }),
   ],
 };

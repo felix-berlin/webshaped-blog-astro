@@ -9,6 +9,7 @@ import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import pagefind from "astro-pagefind";
 import Icons from "unplugin-icons/vite";
+import lightningcss from "vite-plugin-lightningcss";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -70,6 +71,9 @@ export default defineConfig({
           }
         },
       }), // chooses the compiler automatically
+      lightningcss({
+        minify: true,
+      }),
     ],
     resolve: {
       alias: {
