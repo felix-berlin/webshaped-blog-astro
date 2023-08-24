@@ -44,7 +44,6 @@
     "@vue/devtools-api": "^6.5.0",
     "@vue/test-utils": "^2.4.1",
     "autoprefixer": "^10.4.15",
-    "cssnano": "^6.0.1",
     "eslint": "^8.47.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-astro": "^0.29.0",
@@ -70,7 +69,6 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "unplugin-icons": "^0.16.5",
-    "vite-plugin-lightningcss": "^0.0.5",
     "vitest": "^0.34.2",
     "vue-tsc": "^1.8.8"
   },
