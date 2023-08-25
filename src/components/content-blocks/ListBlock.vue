@@ -1,9 +1,18 @@
 <template>
-  <component :is="parse(block.attributesJSON)?.ordered ? 'ol' : 'ul'">
+  <component
+    :is="parse(block.attributesJSON)?.ordered ? 'ol' : 'ul'"
+    class="c-blocks__list"
+    :class="
+      parse(block.attributesJSON)?.ordered
+        ? 'c-blocks__list--ordered'
+        : 'c-blocks__list--unordered'
+    "
+  >
     <ListItemBlock
       v-for="listItem in block.innerBlocks"
       :key="parse(listItem.attributesJSON).content"
       :block="listItem"
+      class="c-blocks__list-item"
     >
       <ListBlock
         v-if="listItem?.innerBlocks[0]"

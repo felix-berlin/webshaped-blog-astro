@@ -55,15 +55,6 @@
     grid-area: article;
   }
 
-  &__content {
-    padding-left: vars.$content-spacing-outer;
-
-    p {
-      font-size: var(--font-size-lg);
-      line-height: butler-fn.px-to-rem(34);
-    }
-  }
-
   img {
     max-width: 100%;
     height: auto;
