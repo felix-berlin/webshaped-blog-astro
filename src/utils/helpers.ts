@@ -241,3 +241,7 @@ export const getSocialIconData = (
 
   return socialItems;
 };
+
+export const isWebWorkerSupported = () => {
+  return typeof Worker !== "undefined";
+};
