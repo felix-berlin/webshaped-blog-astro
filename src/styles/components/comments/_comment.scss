@@ -192,6 +192,8 @@ $spacing: 121;
       }
 
       .c-comment__content {
+        justify-self: flex-end;
+
         &::after,
         &::before {
           right: 0;

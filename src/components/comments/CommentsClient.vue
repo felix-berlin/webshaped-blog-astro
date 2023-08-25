@@ -25,7 +25,6 @@
         :comment="comment.node"
         :depth="0"
         :author-id="authorId!"
-        :lang="lang"
         :current-post-id="currentPostId"
       />
     </div>
