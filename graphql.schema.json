@@ -90989,12 +90989,6 @@
             "deprecationReason": null
           },
           {
-            "name": "IMAGE_SVG_XML",
-            "description": "image/svg+xml mime type.",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "IMAGE_TIFF",
             "description": "image/tiff mime type.",
             "isDeprecated": false,
@@ -124363,6 +124357,18 @@
             "deprecationReason": null
           },
           {
+            "name": "backgroundColor",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "className",
             "description": "",
             "args": [],
@@ -124463,6 +124469,18 @@
             "deprecationReason": null
           },
           {
+            "name": "style",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "svgURL",
             "description": "",
             "args": [],
@@ -124474,6 +124492,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null

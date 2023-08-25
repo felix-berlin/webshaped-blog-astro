@@ -11353,8 +11353,6 @@ export enum MimeTypeEnum {
   ImageJpeg = 'IMAGE_JPEG',
   /** image/png mime type. */
   ImagePng = 'IMAGE_PNG',
-  /** image/svg+xml mime type. */
-  ImageSvgXml = 'IMAGE_SVG_XML',
   /** image/tiff mime type. */
   ImageTiff = 'IMAGE_TIFF',
   /** image/webp mime type. */
@@ -16759,6 +16757,7 @@ export type SafeSvgSvgIconBlock = Block & {
 export type SafeSvgSvgIconBlockAttributes = {
   __typename?: 'SafeSvgSvgIconBlockAttributes';
   alignment?: Maybe<Scalars['String']['output']>;
+  backgroundColor?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
   dimensionHeight?: Maybe<Scalars['Float']['output']>;
   dimensionWidth?: Maybe<Scalars['Float']['output']>;
@@ -16767,7 +16766,9 @@ export type SafeSvgSvgIconBlockAttributes = {
   imageSizes?: Maybe<Scalars['BlockAttributesObject']['output']>;
   imageWidth?: Maybe<Scalars['Float']['output']>;
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   svgURL: Scalars['String']['output'];
+  textColor?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
 };
 
