@@ -1,4 +1,4 @@
-import { atom, onMount } from "nanostores";
+import { atom, onMount, action } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
@@ -69,5 +69,48 @@ export const guest = persistentAtom<Guest>(
         return value;
       }
     },
+  },
+);
+
+interface BeforeInstallPromptEvent extends Event {
+  readonly platforms: Array<string>;
+  readonly userChoice: Promise<{
+    outcome: "accepted" | "dismissed";
+    platform: string;
+  }>;
+  prompt(): Promise<void>;
+}
+
+export const installPrompt = atom<BeforeInstallPromptEvent | null>(null);
+export const showInstallButton = atom<boolean>(false);
+
+onMount(installPrompt, () => {
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+
+    installPrompt.set(event as BeforeInstallPromptEvent);
+    showInstallButton.set(true);
+  });
+});
+
+export const triggerPwaInstall = action(
+  installPrompt,
+  "triggerPwaInstall",
+  async () => {
+    if (!installPrompt.get()) return;
+
+    const result = await installPrompt?.get().prompt();
+    console.log(`Install prompt was: ${result.outcome}`);
+
+    disableInAppInstallPrompt();
+  },
+);
+
+export const disableInAppInstallPrompt = action(
+  installPrompt,
+  "disableInAppInstallPrompt",
+  () => {
+    installPrompt.set(null);
+    showInstallButton.set(false);
   },
 );

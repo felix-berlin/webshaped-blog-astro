@@ -1,42 +1,34 @@
 <template>
   <button
-    v-if="isWebWorkerSupported()"
+    v-if="showButton"
     class="c-button c-button--outline"
-    @click="triggerPWAInstall()"
+    @click="triggerPwaInstall()"
   >
-    Install App
+    <Download v-if="showIcon" width="16" height="16" />
+    {{ __(lang?.locale, "install_app.button") }}
   </button>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { isWebWorkerSupported } from "@utils/helpers";
+import {
+  installPrompt,
+  showInstallButton,
+  triggerPwaInstall,
+  currentLanguage,
+} from "@stores/store";
+import { useStore } from "@nanostores/vue";
+import { __ } from "@i18n/i18n";
+import Download from "virtual:icons/lucide/download";
 
-const installPrompt = ref(null);
-const showInstallButton = ref(false);
+export interface InstallAppProps {
+  showIcon?: boolean;
+}
 
-const triggerPWAInstall = async () => {
-  if (!installPrompt.value) {
-    return;
-  }
+const { showIcon = false } = defineProps<InstallAppProps>();
 
-  const result = await installPrompt.value.prompt();
-  console.log(`Install prompt was: ${result.outcome}`);
-  disableInAppInstallPrompt();
-};
-
-const disableInAppInstallPrompt = () => {
-  installPrompt.value = null;
-  showInstallButton.value = false;
-};
-
-onMounted(() => {
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    installPrompt.value = event;
-    showInstallButton.value = true;
-  });
-});
+useStore(installPrompt);
+const showButton = useStore(showInstallButton);
+const lang = useStore(currentLanguage);
 </script>
 
 <style scoped></style>

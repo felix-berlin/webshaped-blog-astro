@@ -74,4 +74,5 @@ export default {
   "rss_feed.link_title": "zum RSS Feed",
   last_updated: "Zuletzt aktualisiert",
   more: "Mehr",
+  "install_app.button": "App installieren",
 };

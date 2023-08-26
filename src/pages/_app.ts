@@ -8,6 +8,7 @@ import {
   isDarkMode,
   guest,
   currentLanguage,
+  installPrompt,
 } from "@stores/store";
 
 export default (app: App) => {
@@ -28,5 +29,6 @@ export default (app: App) => {
     isDarkMode,
     guest,
     currentLanguage,
+    installPrompt,
   });
 };
