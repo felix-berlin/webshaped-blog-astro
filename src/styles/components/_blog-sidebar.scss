@@ -1,5 +1,5 @@
-@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
-@use "@styles/variables/variables" as vars;
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables" as vars;
 
 .c-blog-sidebar {
   grid-area: sidebar;

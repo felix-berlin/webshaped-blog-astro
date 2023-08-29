@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
 @use "@styles/variables/colors";
 @use "@styles/variables/base";
 @use "@sass-butler/mixins" as butler-mx;

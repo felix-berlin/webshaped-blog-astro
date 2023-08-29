@@ -1,0 +1,11 @@
+@forward "breakpoint";
+
+@mixin icon-center {
+  &:has(svg) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @content;
+  }
+}

@@ -1,4 +1,4 @@
-@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
 @use "@styles/variables/colors";
 @use "@styles/variables/layout";
 @use "@styles/variables/base";
@@ -62,6 +62,7 @@
     column-gap: 30px;
     row-gap: 0.7rem;
     flex-wrap: wrap;
+    color: var(--white);
   }
 
   &__headline {
@@ -77,6 +78,10 @@
 
   &__credits {
     grid-area: credits;
+
+    @include mx.icon-center() {
+      gap: 5px;
+    }
   }
 
   &__version {

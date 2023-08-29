@@ -1,10 +1,10 @@
-@use "@styles/mixins/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
 @use "@sass-butler/functions" as butler-fn;
 @use "@sass-butler/mixins" as butler-mx;
 @use "@styles/components/breadcrumbs";
 @use "@styles/variables/base";
 @use "@styles/variables/colors";
-@use "@styles/variables/variables" as vars;
+@use "@styles/variables" as vars;
 
 .c-blog {
   display: grid;
