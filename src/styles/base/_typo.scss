@@ -2,6 +2,7 @@
 @use "@sass-butler/functions" as butler-fn;
 @use "@styles/variables/fonts";
 @use "@styles/variables/colors";
+@use "@styles/mixins" as mx;
 
 // @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
 // @include fontsource-mx.fontFace($weight: 700);
@@ -26,7 +27,7 @@ html {
 }
 
 @include butler-mx.dark-mode-class("html", false) {
-  --color-base: #{colors.$white};
+  --color-base: #ffb433;
 }
 
 a {
@@ -36,5 +37,8 @@ a {
 
   @include butler-mx.dark-mode-class {
     --color-link-base: #{colors.$white};
+  }
+  @include mx.icon-center() {
+    gap: 5px;
   }
 }

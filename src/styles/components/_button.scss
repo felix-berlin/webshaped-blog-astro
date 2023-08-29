@@ -4,21 +4,24 @@
 @use "@styles/variables/base";
 @use "@sass-butler/functions" as butler-fn;
 @use "@sass-butler/mixins" as butler-mx;
+@use "@styles/mixins" as mx;
 
 .c-button {
   cursor: pointer;
   border-radius: base.$border-radius;
+  color: var(--color-button, inherit);
+  background-color: var(--color-background-button, transparent);
 
   @include butler-mx.feature("motion") {
     transition: all 0.2s ease-in-out;
   }
 
   &--outline {
+    --color-button: var(--white);
+
     border: var(--width-border-button-outline, 1px) solid
       var(--color-border-button-outline, var(--accent-color));
-    color: var(--color-button-outline, var(--white));
     padding: var(--padding-button-outline, 0.5rem 1rem);
-    background-color: transparent;
 
     @include butler-mx.feature("motion") {
       &:hover {
@@ -37,8 +40,9 @@
   }
 
   &--primary {
-    background-color: var(--color-background-button, var(--accent-color));
-    color: var(--color-button, var(--white));
+    --color-button: var(--white);
+    --color-background-button: var(--accent-color);
+
     padding: 0.5rem 1rem;
     border: none;
 
@@ -49,27 +53,23 @@
         )};
     }
 
-    &:has(svg) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+    @include mx.icon-center() {
+      gap: 10px;
     }
   }
 
   &--icon {
-    @extend .u-button-reset;
+    --color-button: var(--blue-light);
 
-    display: var(--display-button, flex);
-    align-items: center;
-    justify-content: center;
-    color: var(--blue-light);
+    @extend .u-button-reset;
+    @include mx.icon-center();
+
     transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
     &:active {
       @include butler-mx.feature("motion") {
-        background-color: var(--accent-color);
-        color: colors.$white;
+        --color-button: var(--white);
+        --color-background-button: var(--accent-color);
       }
     }
 
@@ -83,6 +83,16 @@
 
     svg {
       filter: drop-shadow(shadows.$white-light-shadow);
+    }
+  }
+
+  &--like-link {
+    @extend .u-button-reset;
+
+    padding: 0;
+
+    @include mx.icon-center() {
+      gap: 5px;
     }
   }
 }
