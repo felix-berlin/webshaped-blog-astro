@@ -9,6 +9,8 @@ import "@styles/objects/_footer.scss";
 import { __ } from "@i18n/i18n";
 import InstallApp from "@components/InstallApp.vue";
 import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
+import Copyright from "~icons/lucide/copyright";
+import GitCommit from "~icons/lucide/git-commit";
 
 const categories = (await getAllCategories()) as RootQuery["categories"];
 const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];
@@ -104,17 +106,23 @@ const allSocials = {
     </div>
     <div class="o-footer__infos">
       <div class="o-footer__credits">
-        © 2015 - {__(lang?.locale, "footer.copyright.now")} Felix Scholze
+        <Copyright width="16" height="16" />
+        <span>
+          2015 - {__(lang?.locale, "footer.copyright.now")} Felix Scholze
+        </span>
       </div>
       <a
         href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
         class="o-footer__version"
         target="_blank"
-        title="Github Releases Seite">Website Version: {version}</a
+        title="Github Releases Seite"
       >
+        <GitCommit width="16" height="16" />
+        <span>Website Version: {version}</span>
+      </a>
 
       <GreenHosted lang={lang} />
-      <InstallApp showIcon={true} client:only />
+      <InstallApp showIcon={true} client:only cssClass="c-button--like-link" />
     </div>
   </div>
 </footer>

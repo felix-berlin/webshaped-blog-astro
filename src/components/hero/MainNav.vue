@@ -45,6 +45,13 @@
     />
 
     <div v-if="!isMobile" class="c-main-nav__button-bar">
+      <InstallApp
+        :show-icon="true"
+        :show-text="false"
+        :icon-size="24"
+        class="c-button--icon"
+      />
+
       <a
         class="c-main-nav__rss-link c-button c-button--icon"
         href="/rss.xml"
@@ -67,6 +74,7 @@ import MenuIcon from "virtual:icons/lucide/menu";
 import Rss from "virtual:icons/lucide/rss";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
+import InstallApp from "@components/InstallApp.vue";
 import type {
   Language,
   MenuToMenuItemConnection,
