@@ -1,6 +1,6 @@
 import rss, { pagesGlobToRssItems } from "@astrojs/rss";
 
-export const get = async () =>
+export const GET = async () =>
   rss({
     // `<title>`-Feld in der XML-Ausgabe
     title: "Web Shaped Blog",

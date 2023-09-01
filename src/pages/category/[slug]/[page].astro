@@ -25,7 +25,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
    */
   return (
     postPreviews &&
-    postPreviews.nodes.map((category) => {
+    postPreviews.nodes.flatMap((category) => {
       if (!Array.isArray(category?.posts?.nodes)) return null;
 
       return paginate(category?.posts?.nodes as Node[] & Post[], {
