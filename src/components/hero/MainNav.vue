@@ -1,4 +1,3 @@
-/* stylelint-disable value-keyword-case */
 <template>
   <nav ref="mainNav" class="c-main-nav u-glas-background">
     <Logo />

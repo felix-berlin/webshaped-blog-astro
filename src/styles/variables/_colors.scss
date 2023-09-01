@@ -1,4 +1,6 @@
 @use "sass:map";
+@use "@styles/functions/functions" as fn;
+// @debug fn.generate-color-shades(#e88923, 10, 0.9, 0.9);
 
 $white: #eee;
 $blue-light-800: #105169;
@@ -9,10 +11,14 @@ $blue-light-400: #25bdf5;
 $blue-dark: #303956;
 $blue-dark-400: #384263;
 $blue-shallow-dark: #b0bada;
-$red-light: #ed3c63;
+$red-light: #ffb433;
 $orange-light: #e88923;
 $yellow-light: #e8a023;
 
+$new01: #ffc745;
+$new02: #ffac19;
+$new03: #e0a458;
+$red-orig: #ed3c63;
 /// Colors map
 $colors: (
   "white": $white,
@@ -35,5 +41,96 @@ $alert-colors: (
   "success": $success,
 );
 
+$blue: fn.generate-color-shades($blue-dark, 5, 0.5, 0.5);
+
 /// All colors
 $all-colors: map.merge($colors, $alert-colors);
+
+:root {
+  --primary-100: #ed3c63;
+  --primary-200: #ff7390;
+  --primary-300: #ffddf3;
+  --accent-100: #303956;
+  --accent-200: #b9c1e4;
+  --text-100: #fff;
+  --text-200: #e0e0e0;
+  --bg-100: #303956;
+  --bg-200: #414968;
+  --bg-300: #5b6383;
+}
+
+:root {
+  /// Light 01
+  --primary-100: #303956;
+  --primary-200: #5b6383;
+  --primary-300: #b9c1e4;
+  --accent-100: #e8a023;
+  --accent-200: #7c4600;
+  --text-100: #303956;
+  --text-200: #5b6383;
+  --bg-100: #e8a023;
+  --bg-200: #dd9615;
+  --bg-300: #b17200;
+}
+$dark: (
+  "base": #272e46,
+  "lighten": #394466,
+  "darken": #1e2335,
+  "shade-1": #1e2335,
+  "shade-2": #0b0e15,
+  "shade-3": black,
+  "shade-4": black,
+  "shade-5": black,
+);
+$light: (
+  "base": #303956,
+  "lighten": #394466,
+  "darken": #272e46,
+  "shade-1": #424f77,
+  "shade-2": #556497,
+  "shade-3": #707faf,
+  "shade-4": #919cc1,
+  "shade-5": #b1b9d4,
+);
+$merged: (
+  "light-500": #424f77,
+  "light-400": #556497,
+  "light-300": #707faf,
+  "light-200": #919cc1,
+  "light-100": #b1b9d4,
+  "base": #303956,
+  "dark-100": #1e2335,
+  "dark-200": #0b0e15,
+  "dark-300": black,
+  "dark-400": black,
+  "dark-500": black,
+);
+
+@function remove-duplicate-values($map) {
+  $result: ();
+
+  @each $key, $value in $map {
+    $is-duplicate: false;
+
+    @each $inner-key, $inner-value in $result {
+      @if $value == $inner-value {
+        $is-duplicate: true;
+      }
+    }
+
+    @if not $is-duplicate {
+      $result: map.merge(
+        $result,
+        (
+          $key: $value,
+        )
+      );
+    }
+  }
+
+  @return $result;
+}
+
+$merged2: remove-duplicate-values($merged);
+
+// @debug $merged2;
