@@ -18,10 +18,6 @@ export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:3000"
     : "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
-  compressHTML: true,
-  build: {
-    inlineStylesheets: "auto",
-  },
   markdown: {
     // Can be 'shiki' (default), 'prism' or false to disable highlighting
     syntaxHighlight: "prism",
