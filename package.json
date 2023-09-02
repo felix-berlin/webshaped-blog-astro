@@ -126,6 +126,7 @@
     "astro-breadcrumbs": "^1.7.0",
     "astro-matomo": "^1.4.0",
     "astro-pagefind": "^1.2.3",
+    "astrojs-service-worker": "^1.1.0",
     "floating-vue": "2.0.0-beta.24",
     "he": "^1.2.0",
     "nanostores": "^0.9.3",
