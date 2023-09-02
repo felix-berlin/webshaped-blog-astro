@@ -1,6 +1,7 @@
 ---
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
+import { pwaInfo } from "virtual:pwa-info";
 
 export interface Title {
   title: string;
@@ -67,7 +68,7 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="manifest" href="/site.webmanifest" />
+<!-- <link rel="manifest" href="/site.webmanifest" /> -->
 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#303956" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <meta name="msapplication-TileColor" content="#ffffff" />
@@ -149,3 +150,6 @@ const { title, seo } = Astro.props as SeoProps & Title;
   type="font/woff2"
   crossorigin
 />
+
+{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+<script src="/src/services/pwa.ts"></script>

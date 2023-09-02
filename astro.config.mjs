@@ -6,9 +6,9 @@ import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import prefetch from "@astrojs/prefetch";
 import matomo from "astro-matomo";
-import serviceWorker from "astrojs-service-worker";
 import pagefind from "astro-pagefind";
 import Icons from "unplugin-icons/vite";
+import AstroPWA from "@vite-pwa/astro";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,8 +50,50 @@ export default defineConfig({
       heartBeatTimer: 5,
       disableCookies: true,
     }),
-    serviceWorker(),
     pagefind(),
+    AstroPWA({
+      mode: "development",
+      base: "/",
+      scope: "/",
+      // includeAssets: ["favicon.svg"],
+      registerType: "autoUpdate",
+      manifest: {
+        name: "Web Shaped",
+        short_name: "Web Shaped",
+        theme_color: "#ffffff",
+        display: "standalone",
+        start_url: "/",
+        id: "/",
+        icons: [
+          {
+            src: "android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: "/404",
+        globPatterns: [
+          "**/*.{css,js,html,svg,png,avif,webp,ico,txt,woff,woff2}",
+        ],
+      },
+      devOptions: {
+        enabled: true,
+        navigateFallbackAllowlist: [/^\/404$/],
+      },
+    }),
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })

@@ -200,7 +200,10 @@
 </template>
 
 <script setup lang="ts">
-import { createComment, CreateCommentPayloadExtended } from "@services/api";
+import {
+  createComment,
+  type CreateCommentPayloadExtended,
+} from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
 import { useStore } from "@nanostores/vue";
 import { guest, currentLanguage } from "@stores/store";
