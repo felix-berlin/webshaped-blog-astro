@@ -1,7 +1,17 @@
-import de_DE from "./de-DE";
-import en_US from "./en-US";
 import type { Maybe } from "@ts_types/generated/graphql";
 import { getDelimiter } from "@utils/helpers";
+import { type CollectionEntry, getCollection } from "astro:content";
+
+let translationsData: Record<string, CollectionEntry<"i18n">["data"]> = {};
+
+translationsData = Object.fromEntries(
+  (await getCollection("i18n")).map(({ id, data }) => [id, data] as const),
+);
+
+const allTranslationsData = {
+  de_DE: translationsData["de-DE"],
+  en_US: translationsData["en-US"],
+};
 
 const availableLanguages = {
   en: "English",
@@ -53,10 +63,10 @@ const __ = (
   const lang =
     langDelimiter === "-" ? locale : locale?.replace(langDelimiter!, "-");
 
-  const translations: object = { de_DE, en_US };
-
   let translationStr: string =
-    translations[locale as keyof typeof translations][translationString];
+    allTranslationsData[locale as keyof typeof allTranslationsData][
+      translationString
+    ];
 
   if (typeof translationStr === "undefined" && import.meta.env.DEV) {
     console.warn(`${translationString} is not available in ${locale}`);

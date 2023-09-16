@@ -1,6 +1,7 @@
 # build output
 dist/
 dev-dist/
+.astro
 
 # test output
 coverage
