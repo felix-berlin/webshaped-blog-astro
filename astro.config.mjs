@@ -3,13 +3,12 @@ import path, { resolve, dirname } from "node:path";
 import { fileURLToPath } from "url";
 import vue from "@astrojs/vue";
 import sitemap from "@astrojs/sitemap";
-import cloudflare from "@astrojs/cloudflare";
+// import cloudflare from "@astrojs/cloudflare";
 import prefetch from "@astrojs/prefetch";
 import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
-import pagefind from "astro-pagefind";
 import Icons from "unplugin-icons/vite";
-import AstroPWA from "@vite-pwa/astro";
+// import AstroPWA from "@vite-pwa/astro";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -52,7 +51,6 @@ export default defineConfig({
       disableCookies: true,
     }),
     serviceWorker(),
-    pagefind(),
     // TODO: replace service worker with AstroPWA
     // AstroPWA({
     //   mode: "development",

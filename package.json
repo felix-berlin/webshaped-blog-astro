@@ -130,6 +130,7 @@
     "nanostores": "^0.9.3",
     "prismjs-tomorrow-theme": "^0.0.1",
     "slugify": "^1.6.6",
+    "vue": "^3.3.4",
     "workbox-window": "^7.0.0"
   }
 }
