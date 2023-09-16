@@ -14,7 +14,7 @@
       "@lib/*": ["src/lib/*"],
       "@utils/*": ["src/utils/*"],
       "@stores/*": ["src/stores/*"],
-      "@i18n/*": ["src/i18n/*"],
+      "@i18n/*": ["src/utils/i18n/*"],
       "@ts_types/*": ["src/types/*"],
       "@features/*": ["src/features/*"],
       "@services/*": ["src/services/*"],
@@ -24,7 +24,8 @@
       "vitest/globals",
       "unplugin-icons/types/astro",
       "vite-plugin-pwa/info",
-      "vite-plugin-pwa/vanillajs"
+      "vite-plugin-pwa/vanillajs",
+      "bun-types"
     ],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
     "esModuleInterop": true

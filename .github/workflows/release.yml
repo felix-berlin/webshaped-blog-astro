@@ -12,26 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Setup pnpm 🛠️
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
       - name: Checkout ✅
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Setup Node.js 🛠️
-        uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-          cache: "pnpm"
+      - name: Setup Bun 🛠️
+        uses: oven-sh/setup-bun@v1
 
       - name: Install dependencies
-        run: pnpm install --ignore-scripts
+        run: bun install --ignore-scripts
 
       - name: Release 🚀
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx semantic-release
+        run: bunx semantic-release
