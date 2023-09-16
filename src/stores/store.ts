@@ -99,8 +99,8 @@ export const triggerPwaInstall = action(
   async () => {
     if (!installPrompt.get()) return;
 
-    const result = await installPrompt?.get().prompt();
-    console.log(`Install prompt was: ${result.outcome}`);
+    const result = await installPrompt?.get()?.prompt();
+    console.log(`Install prompt was: ${result?.outcome}`);
 
     disableInAppInstallPrompt();
   },
