@@ -119,16 +119,8 @@ export default defineConfig({
         "@styles/": `${path.resolve(__dirname, "src/styles/")}/`,
         "@types/": `${path.resolve(__dirname, "src/types/")}/`,
         "@assets/": `${path.resolve(__dirname, "src/assets/")}/`,
+        "@i18n": `${path.resolve(__dirname, "./src/utils/i18n/")}/`,
       },
     },
-    // build: {
-    //   rollupOptions: {
-    //     output: {
-    //       entryFileNames: '[name].[hash].js',
-    //       chunkFileNames: '[name].[hash].js',
-    //       assetFileNames: '[name].[hash][extname]',
-    //     },
-    //   },
-    // },
   },
 });
