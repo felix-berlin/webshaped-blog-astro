@@ -1,5 +1,6 @@
 ---
 import DefaultLayout from "@layouts/DefaultLayout.astro";
+import Search from "@components/Search.astro";
 
 const notFoundContent = {
   title: "Not Found",
@@ -13,4 +14,6 @@ const notFoundContent = {
 
 <DefaultLayout content={notFoundContent}>
   <h1>404</h1>
+
+  <Search />
 </DefaultLayout>
