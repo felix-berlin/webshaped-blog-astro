@@ -24,7 +24,7 @@
     padding: var(--padding-button-outline, 0.5rem 1rem);
 
     @include butler-mx.feature("motion") {
-      &:hover {
+      @include butler-mx.hover {
         box-shadow: 0 0 15px 1px butler-fn.hex-to-rgb(colors.$red-light, 50%);
         backdrop-filter: blur(3px) hue-rotate(21deg);
       }
@@ -46,13 +46,12 @@
     padding: 0.5rem 1rem;
     border: none;
 
-    &:hover {
+    @include butler-mx.hover {
       --color-background-button: #{color.adjust(
           colors.$red-light,
           $blackness: 8%
         )};
     }
-
     @include mx.icon-center() {
       gap: 10px;
     }
