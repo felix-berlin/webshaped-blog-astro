@@ -13,18 +13,9 @@
     / max-content 1fr;
   position: relative;
   padding: 20px layout.$spacing-edge;
-  column-gap: 3rem;
   border-radius: base.$border-radius;
-  // border: {
-  //   bottom-width: 2px;
-  //   bottom-style: solid;
-  //   image: linear-gradient(
-  //       to right,
-  //       #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} var(--gradient-secondary-postion, 14%),
-  //       #{butler-fn.hex-to-rgb(colors.$red-light, 50%)} var(--gradient-primary-postion, 55%)
-  //     )
-  //     1;
-  // }
+  z-index: 2;
+  container-type: inline-size;
 
   @include mx.breakpoint("sm") {
     grid-template:
@@ -40,15 +31,19 @@
     }
   }
 
-  &__logo-link {
+  .c-logo {
     grid-area: logo;
+
+    img {
+      max-width: 80cqi;
+    }
   }
 
   &__flyout {
     grid-area: flyout;
 
     @include mx.breakpoint("sm", "max") {
-      --height-header: 70px;
+      --height-header: 120px;
 
       position: fixed;
       z-index: 1;
@@ -60,17 +55,6 @@
       flex-direction: column;
       justify-content: space-between;
       overflow-y: scroll;
-
-      &::before {
-        content: "";
-        position: fixed;
-        z-index: 3;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: var(--height-header);
-        background-color: var(--blue-dark);
-      }
 
       &::after {
         content: "";
@@ -97,6 +81,7 @@
 
       align-items: center;
       column-gap: 2rem;
+      margin-left: 30px;
     }
 
     .c-menu__link {
@@ -121,5 +106,13 @@
     grid-area: button-bar;
     display: flex;
     column-gap: 1rem;
+  }
+
+  .c-searchbar {
+    width: clamp(135px, 150px, 200px);
+
+    @container (inline-size > 800px) {
+      margin-right: 50px;
+    }
   }
 }
