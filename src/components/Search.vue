@@ -21,7 +21,12 @@ if (import.meta.env.DEV) {
   );
 }
 
-const initPagefind = () => {
+/**
+ * Initialize Pagefind
+ *
+ * @return  {void}
+ */
+const initPagefind = (): void => {
   new PagefindUI({
     element: `#${props.id}`,
     resetStyles: false,
@@ -30,7 +35,14 @@ const initPagefind = () => {
   });
 };
 
-const triggerSearchViaKeyboard = (event: KeyboardEvent) => {
+/**
+ * Trigger search via keyboard
+ *
+ * @param   {KeyboardEvent}  event
+ *
+ * @return  {void}
+ */
+const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
   if (event.key === "/" || event.key === ".") {
     event.preventDefault();
     const inputElement = document?.querySelector(

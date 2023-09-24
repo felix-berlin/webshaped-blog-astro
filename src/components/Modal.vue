@@ -113,11 +113,15 @@ const onClickOutside = (event: MouseEvent): void => {
 onMounted(() => {
   if (closeOnClickOutside)
     modal.value?.addEventListener("click", onClickOutside);
+
+  modal.value?.addEventListener("close", () => closeModal());
 });
 
 onUnmounted(() => {
   if (closeOnClickOutside)
     modal.value?.removeEventListener("click", onClickOutside);
+
+  modal.value?.removeEventListener("close", () => closeModal());
 });
 
 watch(

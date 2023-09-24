@@ -1,0 +1,27 @@
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+
+.c-searchbar {
+  display: flex;
+  align-items: center;
+  width: min(300px, 200px);
+  margin-right: 50px;
+  border: 1px solid
+    var(
+      --color-border-searchbar,
+      #{butler-fn.hex-to-rgb(colors.$red-light, 30%)}
+    );
+
+  &__slash-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+  }
+
+  &__search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+}
