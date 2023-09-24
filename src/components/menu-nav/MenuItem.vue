@@ -31,8 +31,8 @@
         :aria-expanded="isOpen"
         :aria-controls="`submenu${depth}${index}`"
         @click="toggleMenuItem()"
-        @mouseenter="openMenuItem()"
-        @focus="openMenuItem()"
+        @mouseenter="toggleMenuItem()"
+        @focus="toggleMenuItem()"
       >
         <span class="c-menu__link-title">{{ props.menuItem.label }}</span>
         <span
@@ -61,19 +61,9 @@
             :menu-item="child"
             :depth="depth + 1"
             :index="childItemIndex"
-            menu-trigger="click"
-            @mouseenter="
-              openMenuItem();
-              $emit('menu-item-target-clicked', true);
-            "
-            @click="
-              toggleMenuItem();
-              $emit('menu-item-target-clicked', true);
-            "
-            @focus="
-              toggleMenuItem();
-              $emit('menu-item-target-clicked', true);
-            "
+            @mouseenter="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
+            @click="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
+            @focus="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
           />
         </template>
       </MenuSubmenu>
@@ -91,6 +81,7 @@ export interface MenuItemProps {
   menuItem: MenuItem;
   depth: number;
   index: number;
+  hasChild?: boolean;
 }
 
 const props = defineProps<MenuItemProps>();
@@ -106,21 +97,26 @@ const emit = defineEmits<{
 }>();
 
 /**
- * Toggle the submenu
+ * Toggle the menu item
+ *
+ * @return  {Promise<void>}
  */
-const toggleMenuItem = async () => {
+const toggleMenuItem = async (sendEmit?: boolean): Promise<void> => {
   isOpen.value = !isOpen.value;
 
-  openSubmenu();
+  if (sendEmit) {
+    emit("menu-item-target-clicked", true);
+  }
+
+  await openSubmenu();
 };
 
-const openMenuItem = async () => {
-  isOpen.value = true;
-
-  openSubmenu();
-};
-
-const openSubmenu = async () => {
+/**
+ * Open the submenu
+ *
+ * @return  {<Promise><void>}
+ */
+const openSubmenu = async (): Promise<void> => {
   emit("submenu-state", isOpen.value);
 
   await nextTick();
@@ -131,15 +127,16 @@ const openSubmenu = async () => {
  * If the user clicks outside the submenu, close the submenu
  *
  * @param   {[type]}  submenu
- * @param   {[type]}  event
+ * @param   {PointerEvent}  event
  *
  * @return  {void}             [return description]
  */
-onClickOutside(submenu, (event): void => {
-  if ((event.target as HTMLElement).classList.contains("is-menu-title")) return;
+onClickOutside(submenu, (event: PointerEvent): void => {
+  const target = event.target as HTMLElement;
+
+  if (target.classList.contains("is-menu-title")) return;
 
   isOpen.value = false;
-
   emit("submenu-state", isOpen.value);
 });
 
