@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { PagefindUI } from "@pagefind/default-ui";
 
 export interface SearchProps {
@@ -30,15 +30,28 @@ const initPagefind = () => {
   });
 };
 
+const triggerSearchViaKeyboard = (event: KeyboardEvent) => {
+  if (event.key === "/" || event.key === ".") {
+    event.preventDefault();
+    const inputElement = document?.querySelector(
+      `#${props.id} input`,
+    ) as HTMLElement;
+    inputElement?.focus();
+  }
+};
+
 onMounted(() => {
   initPagefind();
 
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "/" || event.key === ".") {
-      event.preventDefault();
-      document?.querySelector("div#search input")?.focus();
-    }
-  });
+  window.addEventListener("keydown", (event) =>
+    triggerSearchViaKeyboard(event),
+  );
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", (event) =>
+    triggerSearchViaKeyboard(event),
+  );
 });
 </script>
 <style lang="scss">
