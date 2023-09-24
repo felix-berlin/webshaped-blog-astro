@@ -4,6 +4,7 @@
   border-radius: base.$border-radius;
   border: none;
   inset: 0;
+  background-color: var(--color-background-modal, var(--white));
 
   &::backdrop {
     background-color: var(--color-background-modal, rgb(0 0 0 / 30%));
@@ -20,6 +21,7 @@
 
       .c-modal__close {
         align-self: flex-end;
+        margin-bottom: 15px;
       }
     }
   }
