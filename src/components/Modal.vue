@@ -1,71 +1,84 @@
 <template>
-  <Transition :name="transition">
-    <div v-if="open" class="c-modal">
-      <div ref="modalContentWrap" class="c-modal__content-wrap">
-        <button
-          v-if="showCloseButton"
-          type="button"
-          class="c-modal__close c-button"
-          @click="$emit('close')"
-        >
-          <X />
-        </button>
+  <dialog
+    :id="uidHelper('modal')"
+    ref="modal"
+    class="c-modal"
+    :class="[`c-modal--${position}`]"
+  >
+    <button
+      v-if="showCloseButton"
+      class="c-modal__close c-button"
+      type="submit"
+      aria-label="close"
+      @click="closeModal"
+    >
+      <X />
+    </button>
 
-        <slot />
-      </div>
-    </div>
-  </Transition>
+    <slot />
+  </dialog>
 </template>
 
 <script setup lang="ts">
-import { watch, onMounted, onUnmounted, ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import X from "virtual:icons/lucide/x";
-import { onClickOutside } from "@vueuse/core";
 
 export interface ModalProps {
-  open: boolean;
+  uid: string;
+  open?: boolean;
   showCloseButton?: boolean;
   disableScroll?: boolean;
   closeOnClickOutside?: boolean;
   transition?: string | "slide-fade-right" | "fade";
+  position?: "center" | "top" | "bottom";
 }
 
-const props = withDefaults(defineProps<ModalProps>(), {
-  open: false,
-  showCloseButton: true,
-  disableScroll: false,
-  closeOnClickOutside: true,
-  transition: "fade",
-});
+const {
+  uid,
+  open = false,
+  showCloseButton = true,
+  disableScroll = false,
+  closeOnClickOutside = true,
+  position = "center",
+} = defineProps<ModalProps>();
 
+const modal = ref<HTMLDialogElement | null>(null);
 const emit = defineEmits(["close", "open"]);
-
-const modalContentWrap = ref<HTMLElement | null>(null);
-
-onClickOutside(modalContentWrap, () => {
-  if (props.closeOnClickOutside) close();
-});
+const isVisible = ref(open);
 
 /**
- * Trigger close event when user clicks outside of modal
+ * Open the modal
  *
  * @return  {void}
  */
-const close = (): void => {
-  emit("close");
+const openModal = (): void => {
+  modal?.value?.showModal();
+  isVisible.value = true;
+  emit("open");
+  preventScroll(true);
 };
 
 /**
- * Close modal on escape key press
+ * Close the modal
  *
- * @param   {KeyboardEvent}  event  [event description]
- *
- * @return  {void}                [return description]
+ * @return  {void}
  */
-const closeOnEscape = (event: KeyboardEvent): void => {
-  if (event.key === "Escape") {
-    close();
-  }
+const closeModal = (): void => {
+  modal?.value?.close();
+  isVisible.value = false;
+  emit("close");
+  preventScroll(false);
+};
+
+/**
+ * Generate a unique id for the modal
+ *
+ * @param   {string}  id  Name of the HTML ID
+ *
+ * @return  {string}      Unique ID
+ */
+const uidHelper = (id: string): string => {
+  return `${id}-${uid}`;
 };
 
 /**
@@ -75,32 +88,33 @@ const closeOnEscape = (event: KeyboardEvent): void => {
  *
  * @return  {void}
  */
-const disableScroll = (status: boolean): void => {
-  if (props.disableScroll && status) document.body.style.overflow = "hidden";
-  if (props.disableScroll && !status) document.body.removeAttribute("style");
+const preventScroll = (status: boolean): void => {
+  if (disableScroll && status) document.body.classList.add("u-disable-scroll");
+  if (disableScroll && !status)
+    document.body.classList.remove("u-disable-scroll");
+};
+
+/**
+ * Close the modal when clicking outside of it
+ *
+ * @param   {MouseEvent}  event  Click event
+ *
+ * @return  {void}
+ */
+const onClickOutside = (event: MouseEvent): void => {
+  if (event.target === modal.value) closeModal();
 };
 
 onMounted(() => {
-  window.addEventListener("keyup", closeOnEscape);
-
-  if (props.transition === "slide-right") {
-    document.querySelector(".c-main-nav")?.classList.add("u-slide-parent");
-  }
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keydown", closeOnEscape);
-
-  if (props.transition === "slide-right") {
-    document.querySelector(".c-main-nav")?.classList.remove("u-slide-parent");
-  }
+  const dialog = document.getElementById(uidHelper("modal"));
+  if (closeOnClickOutside) dialog?.addEventListener("click", onClickOutside);
 });
 
 watch(
-  () => props.open,
+  () => open,
   (value) => {
-    if (value) emit("open");
-    disableScroll(value);
+    if (value) openModal();
+    if (!value) closeModal();
   },
 );
 </script>
