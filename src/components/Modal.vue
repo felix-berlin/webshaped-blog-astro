@@ -7,7 +7,7 @@
   >
     <button
       v-if="showCloseButton"
-      class="c-modal__close c-button"
+      class="c-modal__close c-button c-button--icon"
       type="submit"
       :aria-label="__(lang?.locale, 'close')"
       @click="closeModal"
