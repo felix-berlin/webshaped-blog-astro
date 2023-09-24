@@ -44,6 +44,8 @@
     />
 
     <div v-if="!isMobile" class="c-main-nav__button-bar">
+      <SearchModal />
+
       <InstallApp
         :show-icon="true"
         :show-text="false"
@@ -74,6 +76,7 @@ import Rss from "virtual:icons/lucide/rss";
 import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import InstallApp from "@components/InstallApp.vue";
+import SearchModal from "@components/main-nav/SearchModal.vue";
 import type {
   Language,
   MenuToMenuItemConnection,
