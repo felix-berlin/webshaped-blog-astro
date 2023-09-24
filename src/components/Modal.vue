@@ -9,7 +9,7 @@
       v-if="showCloseButton"
       class="c-modal__close c-button"
       type="submit"
-      aria-label="close"
+      :aria-label="__(lang?.locale, 'close')"
       @click="closeModal"
     >
       <X />
@@ -20,8 +20,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import X from "virtual:icons/lucide/x";
+import { currentLanguage } from "@stores/store";
+import { useStore } from "@nanostores/vue";
+import { __ } from "@i18n/i18n";
+
+const lang = useStore(currentLanguage);
 
 export interface ModalProps {
   uid: string;
@@ -106,8 +111,13 @@ const onClickOutside = (event: MouseEvent): void => {
 };
 
 onMounted(() => {
-  const dialog = document.getElementById(uidHelper("modal"));
-  if (closeOnClickOutside) dialog?.addEventListener("click", onClickOutside);
+  if (closeOnClickOutside)
+    modal.value?.addEventListener("click", onClickOutside);
+});
+
+onUnmounted(() => {
+  if (closeOnClickOutside)
+    modal.value?.removeEventListener("click", onClickOutside);
 });
 
 watch(
