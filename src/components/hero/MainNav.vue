@@ -30,7 +30,7 @@
             @menu-item-target-clicked="toggleFlyout"
           />
 
-          <ColorModeToggle />
+          <ButtonBar />
         </div>
       </Transition>
     </Teleport>
@@ -43,40 +43,18 @@
       @submenu-state="submenuIsOpen = $event"
     />
 
-    <div v-if="!isMobile" class="c-main-nav__button-bar">
-      <SearchModal />
-
-      <InstallApp
-        :show-icon="true"
-        :show-text="false"
-        :icon-size="24"
-        class="c-button--icon"
-      />
-
-      <a
-        class="c-main-nav__rss-link c-button c-button--icon"
-        href="/rss.xml"
-        :aria-label="__(lang?.locale, 'rss_feed.link_title')"
-      >
-        <Rss class="c-main-nav__rss-icon" />
-      </a>
-
-      <ColorModeToggle class="c-main-nav__color-toggle" />
-    </div>
+    <ButtonBar v-if="!isMobile" />
   </nav>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import ColorModeToggle from "@components/ColorModeToggle.vue";
 import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
-import Rss from "virtual:icons/lucide/rss";
-import { __ } from "@i18n/i18n";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
-import InstallApp from "@components/InstallApp.vue";
-import SearchModal from "@components/main-nav/SearchModal.vue";
+import ButtonBar from "@components/main-nav/ButtonBar.vue";
+import { __ } from "@i18n/i18n";
 import type {
   Language,
   MenuToMenuItemConnection,

@@ -68,6 +68,16 @@
           butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
         );
       }
+
+      .c-main-nav__button-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 1.5rem;
+
+        .c-searchbar {
+          flex: 1 0 100%;
+        }
+      }
     }
   }
 
