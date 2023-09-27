@@ -73,9 +73,10 @@
         flex-wrap: wrap;
         justify-content: center;
         row-gap: 1.5rem;
+        column-gap: 2rem;
 
         .c-searchbar {
-          flex: 1 0 100%;
+          flex: 1 0 min(100%, 300px);
         }
       }
     }
