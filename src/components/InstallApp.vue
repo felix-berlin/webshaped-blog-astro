@@ -1,7 +1,7 @@
 <template>
   <button
     v-if="showButton"
-    class="c-button"
+    class="c-install-button c-button"
     :class="cssClass"
     @click="triggerPwaInstall()"
   >

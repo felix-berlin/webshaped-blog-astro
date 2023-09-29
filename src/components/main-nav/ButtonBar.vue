@@ -2,22 +2,24 @@
   <div class="c-main-nav__button-bar">
     <SearchModal />
 
-    <InstallApp
-      :show-icon="true"
-      :show-text="false"
-      :icon-size="24"
-      class="c-button--icon"
-    />
+    <div class="c-main-nav__buttons">
+      <InstallApp
+        :show-icon="true"
+        :show-text="false"
+        :icon-size="24"
+        class="c-button--icon"
+      />
 
-    <a
-      class="c-main-nav__rss-link c-button c-button--icon"
-      href="/rss.xml"
-      :aria-label="__(lang?.locale, 'rss_feed.link_title')"
-    >
-      <Rss class="c-main-nav__rss-icon" />
-    </a>
+      <a
+        class="c-main-nav__rss-link c-button c-button--icon"
+        href="/rss.xml"
+        :aria-label="__(lang?.locale, 'rss_feed.link_title')"
+      >
+        <Rss class="c-main-nav__rss-icon" />
+      </a>
 
-    <ColorModeToggle class="c-main-nav__color-toggle" />
+      <ColorModeToggle class="c-main-nav__color-toggle" />
+    </div>
   </div>
 </template>
 
