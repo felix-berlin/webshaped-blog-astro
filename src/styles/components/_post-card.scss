@@ -4,7 +4,7 @@
 @use "@sass-butler/mixins" as butler-mx;
 
 .c-post-card {
-  padding: 2rem 1rem 2rem 12%;
+  padding: 2rem;
   background-color: butler-fn.hex-to-rgb(colors.$blue-light, 8%);
   border-radius: base.$border-radius;
   position: relative;
@@ -41,6 +41,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    height: 100%;
   }
 
   &__title {

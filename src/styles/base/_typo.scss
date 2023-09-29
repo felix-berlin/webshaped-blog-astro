@@ -38,7 +38,10 @@ a {
   @include butler-mx.dark-mode-class {
     --color-link-base: #{colors.$white};
   }
-  @include mx.icon-center() {
-    gap: 5px;
+
+  &:not(.c-post-card__link) {
+    @include mx.icon-center() {
+      gap: 5px;
+    }
   }
 }
