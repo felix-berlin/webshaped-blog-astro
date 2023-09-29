@@ -2,6 +2,7 @@
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 // import { pwaInfo } from "virtual:pwa-info";
+import { ViewTransitions } from "astro:transitions";
 
 export interface Title {
   title: string;
@@ -40,8 +41,11 @@ const { title, seo } = Astro.props as SeoProps & Title;
 ---
 
 <!-- Block until theme class is set -->
-<script is:inline>
-  const isDarkTheme = (() => {
+<script>
+  /**
+   * Check if dark theme is preferred or set by user
+   */
+  const isDarkTheme = (): string | boolean | null => {
     if (
       typeof localStorage !== "undefined" &&
       localStorage.getItem("darkMode")
@@ -52,12 +56,24 @@ const { title, seo } = Astro.props as SeoProps & Title;
       return "true";
     }
     return "false";
-  })();
-  if (isDarkTheme === "false") {
-    document.documentElement.classList.remove("dark");
-  } else {
-    document.documentElement.classList.add("dark");
-  }
+  };
+
+  /**
+   * Set dark theme class
+   */
+  const setDarkClass = () => {
+    const htmlClasses = document.documentElement.classList;
+
+    if (isDarkTheme() === "false") {
+      htmlClasses.remove("dark");
+    } else {
+      htmlClasses.add("dark");
+    }
+  };
+
+  setDarkClass();
+
+  document.addEventListener("astro:after-swap", setDarkClass);
 </script>
 
 <!-- Global Metadata -->
@@ -153,3 +169,5 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <link rel="manifest" href="/site.webmanifest" />
 <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <script src="/src/services/pwa.ts"></script> -->
+
+<ViewTransitions />
