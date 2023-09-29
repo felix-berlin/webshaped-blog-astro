@@ -1,4 +1,6 @@
 ---
+import "@styles/objects/_category.scss";
+import "@styles/objects/_blog-listing.scss";
 import "@styles/components/_blog-posts.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
@@ -57,10 +59,10 @@ const posts = {
 };
 ---
 
-<DefaultLayout content={content}>
-  <section class="o-content__headline">
-    <h1>{content["title"]}</h1>
-  </section>
+<DefaultLayout content={content} contentClasses="o-category">
+  <header class="o-category__header">
+    <h1 class="o-category__headline">{content["title"]}</h1>
+  </header>
   <section class="c-blog-posts">
     <BlogPostPreview posts={posts} client:visible />
   </section>

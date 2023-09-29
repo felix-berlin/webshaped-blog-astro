@@ -1,0 +1,9 @@
+.o-category {
+  display: flex;
+  flex-direction: column;
+
+  .c-pagination {
+    margin-top: auto;
+    padding-top: 4rem;
+  }
+}
