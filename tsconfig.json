@@ -14,7 +14,7 @@
       "@lib/*": ["src/lib/*"],
       "@utils/*": ["src/utils/*"],
       "@stores/*": ["src/stores/*"],
-      "@i18n/*": ["src/i18n/*"],
+      "@i18n/*": ["src/utils/i18n/*"],
       "@ts_types/*": ["src/types/*"],
       "@features/*": ["src/features/*"],
       "@services/*": ["src/services/*"],

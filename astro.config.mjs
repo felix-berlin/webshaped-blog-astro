@@ -1,6 +1,4 @@
 import { defineConfig } from "astro/config";
-import path, { resolve, dirname } from "node:path";
-import { fileURLToPath } from "url";
 import vue from "@astrojs/vue";
 import sitemap from "@astrojs/sitemap";
 // import cloudflare from "@astrojs/cloudflare";
@@ -9,9 +7,7 @@ import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import allAlias from "./alias.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -111,16 +107,7 @@ export default defineConfig({
       }), // chooses the compiler automatically
     ],
     resolve: {
-      alias: {
-        "@sass-butler/": `${path.resolve(
-          __dirname,
-          "node_modules/@felix_berlin/sass-butler/",
-        )}/`,
-        "@styles/": `${path.resolve(__dirname, "src/styles/")}/`,
-        "@types/": `${path.resolve(__dirname, "src/types/")}/`,
-        "@assets/": `${path.resolve(__dirname, "src/assets/")}/`,
-        "@i18n": `${path.resolve(__dirname, "./src/utils/i18n/")}/`,
-      },
+      alias: allAlias,
     },
   },
 });
