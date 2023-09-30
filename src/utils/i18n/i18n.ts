@@ -1,16 +1,19 @@
 import type { Maybe } from "@ts_types/generated/graphql";
 import { getDelimiter } from "@utils/helpers";
-import { type CollectionEntry, getCollection } from "astro:content";
+// import { getCollection, type CollectionEntry } from "astro:content";
+import de from "../../content/i18n/de-DE.json";
+import en from "../../content/i18n/en-US.json";
 
-let translationsData: Record<string, CollectionEntry<"i18n">["data"]> = {};
+// TODO: Vite doesn't support astro:content yet, so we need to use a workaround.
+// let translationsData: Record<string, CollectionEntry<"i18n">["data"]> = {};
 
-translationsData = Object.fromEntries(
-  (await getCollection("i18n")).map(({ id, data }) => [id, data] as const),
-);
+// translationsData = Object.fromEntries(
+//   (await getCollection("i18n")).map(({ id, data }) => [id, data] as const),
+// );
 
 const allTranslationsData = {
-  de_DE: translationsData["de-DE"],
-  en_US: translationsData["en-US"],
+  de_DE: de,
+  en_US: en,
 };
 
 const availableLanguages = {
