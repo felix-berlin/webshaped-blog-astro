@@ -18,7 +18,7 @@
       </template>
     </div>
 
-    <div v-if="data.hasComments" v-auto-animate>
+    <div v-if="data.hasComments" v-auto-animate class="c-comments__list">
       <CommentItem
         v-for="comment in data.comments"
         :key="comment.node.id"

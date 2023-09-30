@@ -4,7 +4,9 @@
     :class="[
       `is-level-${depth} ${isOdd(depth) ? 'is-odd' : 'is-even'}`,
       {
-        'is-reply': !comment?.replies?.nodes?.length,
+        'has-replies':
+          comment?.replies?.nodes?.length != null &&
+          comment.replies.nodes.length > 0,
       },
     ]"
   >

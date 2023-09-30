@@ -202,7 +202,9 @@ $spacing: 121;
     }
 
     &.is-level-1 > .c-comment__item {
-      --spacing-outer-depth: 0 0 0 #{1 * $spacing + px};
+      @include mx.breakpoint("xs") {
+        --spacing-outer-depth: 0 0 0 #{1 * $spacing + px};
+      }
     }
 
     @include mx.breakpoint("md") {
@@ -240,10 +242,6 @@ $spacing: 121;
     }
   }
 
-  &.is-reply {
-    margin-top: 15px;
-  }
-
   &.is-author {
     .c-comment__header {
       --color-background-author-image: #{butler-fn.hex-to-rgb(
@@ -265,6 +263,12 @@ $spacing: 121;
     justify-content: center;
     padding: 0;
     font-size: var(--font-size-xs);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
   }
 }
 
