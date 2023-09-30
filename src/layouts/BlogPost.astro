@@ -8,6 +8,7 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import DateModified from "@components/post/DateModified.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
 import TableOfContents from "@components/post/TableOfContents.vue";
+import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import Categories from "@components/Categories.vue";
 // import Author from "@components/post/Author.vue";
@@ -94,6 +95,8 @@ const createBreadcrumbItems = () => {
   <!-- Gravatar -->
   <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
+  <MobileTableOfContents headings={headings} client:load />
+
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
     <ChevronRight slot="separator" width="20" height="20" />
   </Breadcrumbs>
@@ -136,11 +139,15 @@ const createBreadcrumbItems = () => {
   <aside class="c-blog-sidebar">
     <Author author={author || undefined} lang={language!} />
     <div class="c-blog-sidebar__toc-wrap">
-      <h2 class="c-blog-sidebar__headline">
+      <h2 class="c-blog-sidebar__headline is-toc">
         {__(language?.locale!, "blog.table_of_contents")}
       </h2>
       <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
-      <TableOfContents headings={headings} client:load />
+      <TableOfContents
+        headings={headings}
+        tocId="tableOfContents"
+        client:load
+      />
     </div>
   </aside>
 </DefaultLayout>

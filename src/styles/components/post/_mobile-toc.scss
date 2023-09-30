@@ -1,0 +1,44 @@
+@use "@sass-butler/mixins" as butler-mx;
+
+.c-mobile-toc {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--primary-100);
+  z-index: 3;
+  cursor: pointer;
+  padding: 10px 15px;
+  width: 100%;
+
+  @include butler-mx.breakpoint("md") {
+    display: none;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+  }
+
+  &__fake-button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    &-icon {
+      width: var(--font-size-sm);
+      height: var(--font-size-sm);
+    }
+  }
+
+  &__active-headline {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1 0;
+  }
+
+  &__dropdown {
+    padding: 10px 0;
+  }
+}

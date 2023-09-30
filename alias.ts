@@ -6,6 +6,7 @@ const __dirname = dirname(__filename);
 
 export default {
   "@components": `${path.resolve(__dirname, "./src/components/")}/`,
+  "@composables": `${path.resolve(__dirname, "./src/composables/")}/`,
   "@stores": `${path.resolve(__dirname, "./src/stores/")}/`,
   "@i18n": path.resolve(__dirname, "./src/utils/i18n/"),
   "@layouts": path.resolve(__dirname, "./src/layouts/"),

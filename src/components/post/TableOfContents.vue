@@ -1,5 +1,5 @@
 <template>
-  <nav :id="tocId" class="c-toc">
+  <component :is="htmlElement" :id="tocId" class="c-toc">
     <template v-for="headline in headings" :key="headline">
       <a
         :href="createHref(headline)"
@@ -20,7 +20,7 @@
         </template>
       </a>
     </template>
-  </nav>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -28,17 +28,23 @@ import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
 import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
+// import useTrackActiveHeadline from "@composables/trackActiveHeadline.ts";
 
 export interface TableOfContentsProps {
   headings: CoreHeadingBlock[] | undefined;
+  htmlElement?: string;
+  tocId: string;
 }
 
-defineProps<TableOfContentsProps>();
+const {
+  headings,
+  tocId,
+  htmlElement = "nav",
+} = defineProps<TableOfContentsProps>();
 
-const tocId = "tableOfContents";
+const emit = defineEmits(["currentHeadline"]);
 
-const activeHeadline = ref("");
-
+const activeHeadlineId = ref("");
 const observer = ref<IntersectionObserver | null>(null);
 
 /**
@@ -50,7 +56,7 @@ const observer = ref<IntersectionObserver | null>(null);
  */
 const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
   return (
-    activeHeadline.value ===
+    activeHeadlineId.value ===
     slugify(parse(headline.attributesJSON).content, {
       lower: true,
     })
@@ -85,10 +91,11 @@ const createHref = (headline: CoreHeadingBlock): string => {
  */
 const handleIntersect = (entries: IntersectionObserverEntry[]): void => {
   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const headline = entry.target as HTMLElement;
-      activeHeadline.value = headline.id;
-    }
+    if (!entry.isIntersecting) return;
+    const headline = entry.target as HTMLElement;
+    activeHeadlineId.value = headline.id;
+
+    emit("currentHeadline", headline.textContent);
   });
 };
 
