@@ -51,7 +51,7 @@ const observer = ref<IntersectionObserver | null>(null);
 const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
   return (
     activeHeadline.value ===
-    slugify(parse(headline.attributesJSON as string)?.content, {
+    slugify(parse(headline.attributesJSON).content, {
       lower: true,
     })
   );
@@ -65,13 +65,15 @@ const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
  * @return  {string}
  */
 const createHref = (headline: CoreHeadingBlock): string => {
-  return `#${
-    isHtml(parse(headline.attributesJSON).content)
-      ? getHtmlContent(parse(headline.attributesJSON).content)
-      : slugify(parse(headline.attributesJSON).content, {
-          lower: true,
-        })
-  }`;
+  const headlineContent = parse(headline.attributesJSON).content;
+
+  const href = isHtml(headlineContent)
+    ? getHtmlContent(headlineContent)
+    : slugify(headlineContent, {
+        lower: true,
+      });
+
+  return `#${href}`;
 };
 
 /**
