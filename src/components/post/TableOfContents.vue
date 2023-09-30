@@ -2,23 +2,13 @@
   <nav :id="tocId" class="c-toc">
     <template v-for="headline in headings" :key="headline">
       <a
-        :href="`#${
-          isHtml(parse(headline.attributesJSON).content)
-            ? getHtmlContent(parse(headline.attributesJSON).content)
-            : slugify(parse(headline.attributesJSON).content, {
-                lower: true,
-              })
-        }`"
+        :href="createHref(headline)"
         :class="[
           `c-toc__link c-toc__link--depth-${
             parse(headline.attributesJSON).level
           }`,
           {
-            'is-active':
-              activeHeadline ===
-              slugify(parse(headline.attributesJSON).content, {
-                lower: true,
-              }),
+            'is-active': isActiveHeadline(headline),
           },
         ]"
       >
@@ -43,7 +33,7 @@ export interface TableOfContentsProps {
   headings: CoreHeadingBlock[] | undefined;
 }
 
-const props = defineProps<TableOfContentsProps>();
+defineProps<TableOfContentsProps>();
 
 const tocId = "tableOfContents";
 
@@ -51,7 +41,47 @@ const activeHeadline = ref("");
 
 const observer = ref<IntersectionObserver | null>(null);
 
-const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+/**
+ * Checks if the headline is active.
+ *
+ * @param   {CoreHeadingBlock}  headline
+ *
+ * @return  {boolean}
+ */
+const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
+  return (
+    activeHeadline.value ===
+    slugify(parse(headline.attributesJSON as string)?.content, {
+      lower: true,
+    })
+  );
+};
+
+/**
+ * Creates the href for the headline.
+ *
+ * @param   {CoreHeadingBlock}  headline
+ *
+ * @return  {string}
+ */
+const createHref = (headline: CoreHeadingBlock): string => {
+  return `#${
+    isHtml(parse(headline.attributesJSON).content)
+      ? getHtmlContent(parse(headline.attributesJSON).content)
+      : slugify(parse(headline.attributesJSON).content, {
+          lower: true,
+        })
+  }`;
+};
+
+/**
+ * Handles the intersection of the observer.
+ *
+ * @param   {IntersectionObserverEntry[]}  entries
+ *
+ * @return  {void}
+ */
+const handleIntersect = (entries: IntersectionObserverEntry[]): void => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
       const headline = entry.target as HTMLElement;
@@ -67,7 +97,7 @@ onMounted(() => {
   });
   if (observer.value)
     document
-      .querySelectorAll(".c-blocks h2[id], .c-blocks h3[id]")
+      .querySelectorAll(".c-blog__post h2[id], .c-blog__post h3[id]")
       .forEach((section) => observer.value?.observe(section));
 });
 
