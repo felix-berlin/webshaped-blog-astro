@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { parse } from "@utils/helpers";
@@ -40,16 +40,20 @@ const lang = useStore(currentLanguage);
 
 const props = defineProps<MobileTableOfContentsProps>();
 const toggleButton = ref<HTMLDetailsElement | null>(null);
-const activeHeadlineText = ref(
-  parse(props?.headings[0].attributesJSON).content,
-);
+const activeHeadlineText = ref("");
 
-const currentHeadline = (event: Event) => (activeHeadlineText.value = event);
+const currentHeadline = (event: string) => (activeHeadlineText.value = event);
 
 const closeDropdown = () => {
   if (!toggleButton.value) return;
   toggleButton.value.open = false;
 };
+
+onBeforeMount(() => {
+  if (props?.headings) {
+    activeHeadlineText.value = parse(props.headings[0].attributesJSON).content;
+  }
+});
 
 onMounted(() => {
   document
