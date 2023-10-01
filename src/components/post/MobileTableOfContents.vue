@@ -7,6 +7,7 @@
           <ChevronRight class="c-mobile-toc__fake-button-icon" />
         </div>
         <span
+          v-auto-animate
           class="c-mobile-toc__active-headline"
           v-text="activeHeadlineText"
         />
@@ -23,10 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted } from "vue";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
-import { parse } from "@utils/helpers";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import { __ } from "@i18n/i18n";
@@ -49,13 +49,9 @@ const closeDropdown = () => {
   toggleButton.value.open = false;
 };
 
-onBeforeMount(() => {
-  if (props?.headings) {
-    activeHeadlineText.value = parse(props.headings[0].attributesJSON).content;
-  }
-});
-
 onMounted(() => {
+  activeHeadlineText.value = props.headings[0].content;
+
   document
     .querySelectorAll("#mobileTableOfContents .c-toc__link")
     .forEach((link) => {

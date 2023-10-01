@@ -4,19 +4,17 @@
       <a
         :href="createHref(headline)"
         :class="[
-          `c-toc__link c-toc__link--depth-${
-            parse(headline.attributesJSON).level
-          }`,
+          `c-toc__link c-toc__link--depth-${headline.level}`,
           {
             'is-active': isActiveHeadline(headline),
           },
         ]"
       >
-        <template v-if="isHtml(parse(headline.attributesJSON).content)">
-          {{ getHtmlContent(parse(headline.attributesJSON).content) }}
+        <template v-if="isHtml(headline.content)">
+          {{ getHtmlContent(headline.content) }}
         </template>
         <template v-else>
-          {{ parse(headline.attributesJSON).content }}
+          {{ headline.content }}
         </template>
       </a>
     </template>
@@ -26,12 +24,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
-import { isHtml, parse, getHtmlContent } from "@utils/helpers";
-import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
-// import useTrackActiveHeadline from "@composables/trackActiveHeadline.ts";
+import { isHtml, getHtmlContent } from "@utils/helpers";
 
 export interface TableOfContentsProps {
-  headings: CoreHeadingBlock[] | undefined;
+  headings: {
+    content: string;
+    level: number;
+  }[];
   htmlElement?: string;
   tocId: string;
 }
@@ -50,14 +49,16 @@ const observer = ref<IntersectionObserver | null>(null);
 /**
  * Checks if the headline is active.
  *
- * @param   {CoreHeadingBlock}  headline
+ * @param   {}  headline
  *
  * @return  {boolean}
  */
-const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
+const isActiveHeadline = (
+  headline: TableOfContentsProps["headings"][0],
+): boolean => {
   return (
     activeHeadlineId.value ===
-    slugify(parse(headline.attributesJSON).content, {
+    slugify(headline.content, {
       lower: true,
     })
   );
@@ -66,12 +67,12 @@ const isActiveHeadline = (headline: CoreHeadingBlock): boolean => {
 /**
  * Creates the href for the headline.
  *
- * @param   {CoreHeadingBlock}  headline
+ * @param   {}  headline
  *
  * @return  {string}
  */
-const createHref = (headline: CoreHeadingBlock): string => {
-  const headlineContent = parse(headline.attributesJSON).content;
+const createHref = (headline: TableOfContentsProps["headings"][0]): string => {
+  const headlineContent = headline.content;
 
   const href = isHtml(headlineContent)
     ? getHtmlContent(headlineContent)

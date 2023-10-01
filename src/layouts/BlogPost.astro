@@ -21,6 +21,7 @@ import { updateCategoryPaths, firstCategoryPage } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import ChevronRight from "~icons/lucide/chevron-right";
+import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type {
   Post,
@@ -87,6 +88,16 @@ const createBreadcrumbItems = () => {
 
   return items;
 };
+
+// create new array with allready parsed JSON and only the headline.
+const parsedHeadings = headings?.map((heading) => {
+  const headlineContent = parse(heading?.attributesJSON);
+
+  return {
+    content: headlineContent.content,
+    level: headlineContent.level,
+  };
+});
 ---
 
 <DefaultLayout content={{ title, seo, language }} contentClasses={["c-blog"]}>
@@ -95,7 +106,7 @@ const createBreadcrumbItems = () => {
   <!-- Gravatar -->
   <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
-  <MobileTableOfContents headings={headings} client:load />
+  <MobileTableOfContents headings={parsedHeadings} client:load />
 
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
     <ChevronRight slot="separator" width="20" height="20" />
@@ -144,7 +155,7 @@ const createBreadcrumbItems = () => {
       </h2>
       <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
       <TableOfContents
-        headings={headings}
+        headings={parsedHeadings}
         tocId="tableOfContents"
         client:load
       />
