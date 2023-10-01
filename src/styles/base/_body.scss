@@ -83,6 +83,7 @@ body {
     height: 100vh;
     z-index: -2;
     background: var(--gradient-background, none);
+    will-change: transform;
   }
 
   &::after {
