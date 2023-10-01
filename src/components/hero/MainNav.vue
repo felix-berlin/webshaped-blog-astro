@@ -55,6 +55,8 @@ import MenuIcon from "virtual:icons/lucide/menu";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { __ } from "@i18n/i18n";
+import { useStore } from "@nanostores/vue";
+import { isMobileBreakpoint, windowWidth } from "@stores/store";
 import type {
   Language,
   MenuToMenuItemConnection,
@@ -68,9 +70,8 @@ export interface MainNavProps {
 
 defineProps<MainNavProps>();
 
-const mainHeaderWidth = ref(0);
+const isMobile = useStore(isMobileBreakpoint);
 const mainNav = ref(null);
-const isMobile = ref(false);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
 
@@ -85,19 +86,17 @@ const toggleFlyout = (): void => {
 };
 
 /**
- * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'mainHeaderWidth' and 'isMobile' variables accordingly.
+ * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'isMobile' variables accordingly.
  * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.
  *
  * @param   {object}  entries
  *
  * @return  {void}
  */
-const bodyWidth = new ResizeObserver((entries) => {
-  // Update the value of 'mainHeaderWidth' with the width of the observed element
-  mainHeaderWidth.value = entries[0].contentRect.width;
-
+const bodyWidth = new ResizeObserver(() => {
   // Update the value of 'isMobile' based on the current screen width
-  isMobile.value = window.innerWidth < 769;
+  isMobileBreakpoint.set(window.innerWidth < 769);
+  windowWidth.set(window.innerWidth);
 
   // If the screen width is not mobile
   if (!isMobile.value) {

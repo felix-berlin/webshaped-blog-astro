@@ -89,15 +89,21 @@ const createBreadcrumbItems = () => {
   return items;
 };
 
-// create new array with allready parsed JSON and only the headline.
-const parsedHeadings = headings?.map((heading) => {
-  const headlineContent = parse(heading?.attributesJSON);
+interface ParsedHeading {
+  content: string;
+  level: number;
+}
 
-  return {
-    content: headlineContent.content,
-    level: headlineContent.level,
-  };
-});
+// create new array with allready parsed JSON and only the headline.
+const parsedHeadings: ParsedHeading[] =
+  headings?.map((heading) => {
+    const headlineContent = parse(heading?.attributesJSON);
+
+    return {
+      content: headlineContent.content,
+      level: headlineContent.level,
+    };
+  }) || [];
 ---
 
 <DefaultLayout content={{ title, seo, language }} contentClasses={["c-blog"]}>
@@ -157,6 +163,7 @@ const parsedHeadings = headings?.map((heading) => {
       <TableOfContents
         headings={parsedHeadings}
         tocId="tableOfContents"
+        hideOnMobile={true}
         client:load
       />
     </div>

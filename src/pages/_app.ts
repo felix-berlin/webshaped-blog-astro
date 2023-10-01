@@ -9,6 +9,8 @@ import {
   guest,
   currentLanguage,
   installPrompt,
+  isMobileBreakpoint,
+  windowWidth,
 } from "@stores/store";
 
 export default (app: App) => {
@@ -30,5 +32,7 @@ export default (app: App) => {
     guest,
     currentLanguage,
     installPrompt,
+    isMobileBreakpoint,
+    windowWidth,
   });
 };

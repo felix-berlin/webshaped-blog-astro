@@ -11,6 +11,11 @@ import en from "../../content/i18n/en-US.json";
 //   (await getCollection("i18n")).map(({ id, data }) => [id, data] as const),
 // );
 
+// const allTranslationsData = {
+//   de_DE: translationsData["de-DE"],
+//   en_US: translationsData["en-US"],
+// };
+
 const allTranslationsData = {
   de_DE: de,
   en_US: en,

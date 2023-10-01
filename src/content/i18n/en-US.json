@@ -54,5 +54,6 @@
   "pagination.next": "Next page",
   "pagination.last": "Last page",
   "pagination.first": "First page",
-  "rss_feed.link_title": "to the RSS feed"
+  "rss_feed.link_title": "to the RSS feed",
+  "mobile_toc.button": "On this page"
 }

@@ -114,3 +114,6 @@ export const disableInAppInstallPrompt = action(
     showInstallButton.set(false);
   },
 );
+
+export const isMobileBreakpoint = atom<boolean>(false);
+export const windowWidth = atom<number>(0);

@@ -11,18 +11,14 @@
       top: 20px;
       align-self: start;
     }
+    @include mx.breakpoint("md", "max") {
+      display: none;
+    }
   }
 
   &__headline {
     margin-top: 0;
     line-height: 0.7;
     text-transform: uppercase;
-  }
-
-  .c-toc,
-  &__headline.is-toc {
-    @include mx.breakpoint("md", "max") {
-      display: none;
-    }
   }
 }

@@ -1,9 +1,9 @@
 <template>
-  <nav ref="mobileToc" class="c-mobile-toc">
+  <nav v-if="pageWidth < 1024" ref="mobileToc" class="c-mobile-toc">
     <details ref="toggleButton" class="c-mobile-toc__button-wrap">
       <summary class="c-mobile-toc__button">
         <div class="c-mobile-toc__fake-button c-button">
-          <span>{{ __(lang?.locale, "mobile_toc.button") }}</span>
+          <span v-text="__(lang?.locale, 'mobile_toc.button')" />
           <ChevronRight class="c-mobile-toc__fake-button-icon" />
         </div>
 
@@ -28,7 +28,7 @@ import { ref, onMounted } from "vue";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
+import { currentLanguage, windowWidth } from "@stores/store";
 import { __ } from "@i18n/i18n";
 import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
 import { onClickOutside } from "@vueuse/core";
@@ -38,7 +38,7 @@ interface MobileTableOfContentsProps {
 }
 
 const lang = useStore(currentLanguage);
-
+const pageWidth = useStore(windowWidth);
 const props = defineProps<MobileTableOfContentsProps>();
 const toggleButton = ref<HTMLDetailsElement | null>(null);
 const activeHeadlineText = ref("");

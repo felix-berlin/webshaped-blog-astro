@@ -1,14 +1,17 @@
 @use "@sass-butler/mixins" as butler-mx;
+@use "@styles/variables/base";
 
 .c-mobile-toc {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: var(--primary-100);
+  background-color: var(--blue-light-800);
   z-index: 3;
   cursor: pointer;
   padding: 10px 15px;
   width: 100%;
+  border-top-right-radius: base.$border-radius;
+  border-top-left-radius: base.$border-radius;
 
   @include butler-mx.breakpoint("md") {
     display: none;
