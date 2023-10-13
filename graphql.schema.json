@@ -4620,7 +4620,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -5660,7 +5660,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -7040,7 +7040,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -10476,7 +10476,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -11129,7 +11129,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -14175,6 +14175,11 @@
           {
             "kind": "OBJECT",
             "name": "TaxonomyToContentTypeConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnection",
             "ofType": null
           },
           {
@@ -17389,7 +17394,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -80923,7 +80928,7 @@
         "fields": [
           {
             "name": "berlinerischWordType",
-            "description": "The deteted term object",
+            "description": "The deleted term object",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -81119,7 +81124,7 @@
         "fields": [
           {
             "name": "category",
-            "description": "The deteted term object",
+            "description": "The deleted term object",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -81535,7 +81540,7 @@
           },
           {
             "name": "postFormat",
-            "description": "The deteted term object",
+            "description": "The deleted term object",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -81841,7 +81846,7 @@
           },
           {
             "name": "tag",
-            "description": "The deteted term object",
+            "description": "The deleted term object",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -82436,6 +82441,11 @@
           {
             "kind": "OBJECT",
             "name": "TaxonomyToContentTypeConnectionEdge",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnectionEdge",
             "ofType": null
           },
           {
@@ -84600,7 +84610,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -85102,7 +85112,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -94317,6 +94327,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnectionPageInfo",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "TermNodeToEnqueuedScriptConnectionPageInfo",
             "ofType": null
           },
@@ -95504,7 +95519,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -99056,7 +99071,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -99654,7 +99669,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -102704,7 +102719,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -106804,7 +106819,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -108179,7 +108194,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -108541,7 +108556,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -108956,7 +108971,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -109248,7 +109263,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -109717,7 +109732,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -109994,7 +110009,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -110429,7 +110444,7 @@
             "args": [
               {
                 "name": "asPreview",
-                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requestor doesn't have proper capabilities to preview, no node will be returned.",
+                "description": "Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned.",
                 "type": {
                   "kind": "SCALAR",
                   "name": "Boolean",
@@ -111765,7 +111780,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -112845,7 +112860,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -114635,7 +114650,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -115938,7 +115953,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -117116,7 +117131,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -118040,7 +118055,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -119184,7 +119199,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -119686,7 +119701,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -121810,7 +121825,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -126112,7 +126127,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -126710,7 +126725,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -127047,6 +127062,67 @@
             "deprecationReason": null
           },
           {
+            "name": "connectedTerms",
+            "description": "List of Term Nodes associated with the Taxonomy",
+            "args": [
+              {
+                "name": "after",
+                "description": "Cursor used along with the \"first\" argument to reference where in the dataset to get data",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Cursor used along with the \"last\" argument to reference where in the dataset to get data",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "The number of items to return after the referenced \"after\" cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "The number of items to return before the referenced \"before\" cursor",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TaxonomyToTermNodeConnection",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "description",
             "description": "Description of the taxonomy. This field is equivalent to WP_Taxonomy-&gt;description",
             "args": [],
@@ -127160,7 +127236,7 @@
           },
           {
             "name": "restBase",
-            "description": "Name of content type to diplay in REST API &quot;wp/v2&quot; namespace.",
+            "description": "Name of content type to display in REST API &quot;wp/v2&quot; namespace.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -128176,6 +128252,249 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "TaxonomyToTermNodeConnection",
+        "description": "Connection between the Taxonomy type and the TermNode type",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "Edges for the TaxonomyToTermNodeConnection connection",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TaxonomyToTermNodeConnectionEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "The nodes of the connection, without the edges",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INTERFACE",
+                    "name": "TermNode",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information about pagination in a connection.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TaxonomyToTermNodeConnectionPageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TermNodeConnection",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TaxonomyToTermNodeConnectionEdge",
+        "description": "An edge in a connection",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "TermNode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TermNodeConnectionEdge",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TaxonomyToTermNodeConnectionPageInfo",
+        "description": "Page Info on the &quot;TaxonomyToTermNodeConnection&quot;",
+        "fields": [
+          {
+            "name": "endCursor",
+            "description": "When paginating forwards, the cursor to continue.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasNextPage",
+            "description": "When paginating forwards, are there more items?",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasPreviousPage",
+            "description": "When paginating backwards, are there more items?",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "seo",
+            "description": "Raw schema for page",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOPostTypePageInfo",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "startCursor",
+            "description": "When paginating backwards, the cursor to continue.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "total",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "PageInfo",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TermNodeConnectionPageInfo",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "WPPageInfo",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "TermNode",
         "description": "Terms are nodes within a Taxonomy, used to group and relate other nodes.",
@@ -128618,6 +128937,11 @@
             "kind": "OBJECT",
             "name": "RootQueryToTermNodeConnection",
             "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnection",
+            "ofType": null
           }
         ]
       },
@@ -128678,6 +129002,11 @@
           {
             "kind": "OBJECT",
             "name": "RootQueryToTermNodeConnectionEdge",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnectionEdge",
             "ofType": null
           }
         ]
@@ -128796,6 +129125,11 @@
           {
             "kind": "OBJECT",
             "name": "RootQueryToTermNodeConnectionPageInfo",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnectionPageInfo",
             "ofType": null
           }
         ]
@@ -133148,7 +133482,7 @@
           },
           {
             "name": "name",
-            "description": "Display name of the user. This is equivalent to the WP_User-&gt;dispaly_name property.",
+            "description": "Display name of the user. This is equivalent to the WP_User-&gt;display_name property.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -134737,7 +135071,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -136427,7 +136761,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -136969,7 +137303,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -137567,7 +137901,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -138157,7 +138491,7 @@
           },
           {
             "name": "orderby",
-            "description": "What paramater to use to order the objects by.",
+            "description": "What parameter to use to order the objects by.",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -139103,6 +139437,11 @@
           {
             "kind": "OBJECT",
             "name": "TaxonomyToContentTypeConnectionPageInfo",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TaxonomyToTermNodeConnectionPageInfo",
             "ofType": null
           },
           {
