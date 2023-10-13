@@ -205,7 +205,7 @@ import {
   type CreateCommentPayloadExtended,
 } from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
-import { useStore } from "@nanostores/vue";
+import { mapStores } from "@nanostores/vue";
 import { guest, currentLanguage } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import { __ } from "@i18n/i18n";
@@ -224,8 +224,10 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const guestUser = useStore(guest);
-const lang = useStore(currentLanguage);
+const { guestUser, lang } = mapStores({
+  guestUser: guest,
+  lang: currentLanguage,
+});
 
 interface CommentForm {
   comment: string;
@@ -295,14 +297,14 @@ const resetFormErrors = () => {
 const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = __(
-      props.lang?.locale,
+      currentLanguage.value?.locale,
       "comment_form.error.comment_to_short",
     );
   }
 
   if (commentForm.author.length <= 1) {
     formErrors.author = __(
-      props.lang?.locale,
+      currentLanguage.value?.locale,
       "comment_form.error.author_to_short",
     );
   }
@@ -314,14 +316,14 @@ const checkForm = (): void => {
     !validEmail(commentForm.email)
   ) {
     formErrors.email = __(
-      props.lang?.locale,
+      currentLanguage.value?.locale,
       "comment_form.error.email_invalid",
     );
   }
 
   if (!commentForm.privacy) {
     formErrors.privacy = __(
-      props.lang?.locale,
+      currentLanguage.value?.locale,
       "comment_form.error.privacy_not_accepted",
     );
   }

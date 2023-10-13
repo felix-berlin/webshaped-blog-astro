@@ -24,12 +24,7 @@ export const currentLanguage = persistentAtom<Language>(
       try {
         return JSON.parse(value);
       } catch {
-        return {
-          code: "EN",
-          name: "English",
-          locale: "en_US",
-          slug: "en",
-        };
+        value;
       }
     },
   },
