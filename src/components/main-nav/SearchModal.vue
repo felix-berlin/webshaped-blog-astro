@@ -53,7 +53,7 @@ const focusSearch = (): void => {
   nextTick(() => {
     const inputElement = document?.querySelector(
       `#${searchId} input`,
-    ) as HTMLElement;
+    ) as HTMLInputElement;
     inputElement?.focus();
   });
 };
