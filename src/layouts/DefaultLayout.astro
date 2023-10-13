@@ -48,6 +48,7 @@ const mainMenuItems = await getMenuById(2);
       menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
       lang={language!}
       client:only="vue"
+      transition:persist
     />
     <main class="o-content" class:list={contentClasses}>
       <slot />
