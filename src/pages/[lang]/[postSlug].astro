@@ -1,7 +1,6 @@
 ---
 // Styles
 import "@styles/components/_blocks.scss";
-import "prismjs-tomorrow-theme/prism-tomorrow.css";
 
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
@@ -12,7 +11,7 @@ import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
 import FigureBlock from "@components/content-blocks/FigureBlock.vue";
 import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
 import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
-import { Prism } from "@astrojs/prism";
+import { Code } from "astro/components";
 import { parse } from "@utils/helpers";
 import he from "he";
 
@@ -80,9 +79,15 @@ const headings = post?.blocks?.filter(
       if (block.name === "core/code") {
         return (
           <div class="c-blocks__code">
-            <Prism
-              lang={parse(block.attributesJSON).className}
+            <Code
               code={he.decode(parse(block.attributesJSON).content)}
+              lang={parse(block.attributesJSON).className}
+              theme="github-dark"
+            />
+            <Code
+              code={he.decode(parse(block.attributesJSON).content)}
+              lang={parse(block.attributesJSON).className}
+              theme="github-light"
             />
           </div>
         );

@@ -20,4 +20,24 @@
     font-size: butler-fn.px-to-rem(18);
     line-height: butler-fn.px-to-rem(34);
   }
+
+  &__code {
+    .astro-code {
+      padding: 1rem;
+    }
+
+    .github-dark {
+      display: none;
+    }
+
+    @include butler-mx.dark-mode-class {
+      .github-light {
+        display: none;
+      }
+
+      .github-dark {
+        display: block;
+      }
+    }
+  }
 }

@@ -111,7 +111,6 @@
   },
   "dependencies": {
     "@astrojs/prefetch": "^0.4.1",
-    "@astrojs/prism": "^3.0.0",
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.1",
     "@astrojs/vue": "^3.0.1",
@@ -133,7 +132,6 @@
     "he": "^1.2.0",
     "nanostores": "^0.9.3",
     "pagefind": "^1.0.3",
-    "prismjs-tomorrow-theme": "^0.0.1",
     "slugify": "^1.6.6",
     "vue": "^3.3.4",
     "workbox-window": "^7.0.0"
