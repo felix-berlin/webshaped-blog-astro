@@ -13,6 +13,7 @@ import { updateCategoryPaths } from "@utils/helpers";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@ts_types/generated/graphql";
+import type { only } from "node:test";
 
 export interface DefaultLayoutProps {
   content: {
@@ -48,7 +49,6 @@ const mainMenuItems = await getMenuById(2);
       menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
       lang={language!}
       client:only="vue"
-      transition:persist
     />
     <main class="o-content" class:list={contentClasses}>
       <slot />

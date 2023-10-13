@@ -49,6 +49,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import type { Ref } from "vue";
 import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
@@ -74,6 +75,7 @@ const isMobile = useStore(isMobileBreakpoint);
 const mainNav = ref(null);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
+const bodyWidthObserver: Ref<ResizeObserver | undefined> = ref();
 
 /**
  * Toggle the flyout menu
@@ -93,10 +95,12 @@ const toggleFlyout = (): void => {
  *
  * @return  {void}
  */
-const bodyWidth = new ResizeObserver(() => {
+bodyWidthObserver.value = new ResizeObserver((entries) => {
+  const bodyWidth = entries[0].contentBoxSize[0].inlineSize;
+
   // Update the value of 'isMobile' based on the current screen width
-  isMobileBreakpoint.set(window.innerWidth < 769);
-  windowWidth.set(window.innerWidth);
+  isMobileBreakpoint.set(bodyWidth < 769);
+  windowWidth.set(bodyWidth);
 
   // If the screen width is not mobile
   if (!isMobile.value) {
@@ -107,6 +111,7 @@ const bodyWidth = new ResizeObserver(() => {
     controlScroll(false);
   }
 });
+
 /**
  * Toggle disable scroll on body
  *
@@ -124,10 +129,12 @@ const controlScroll = (status: boolean): void => {
  * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
  */
 onMounted(() => {
-  bodyWidth.observe(document.body);
+  if (bodyWidthObserver.value) bodyWidthObserver.value.observe(document.body);
 });
 
-onUnmounted(() => bodyWidth.disconnect());
+onUnmounted(() => {
+  if (bodyWidthObserver.value) bodyWidthObserver.value.disconnect();
+});
 </script>
 
 <style lang="scss">
