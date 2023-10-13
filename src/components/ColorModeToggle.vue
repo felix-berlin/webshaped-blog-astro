@@ -32,7 +32,12 @@ import { __ } from "@i18n/i18n";
 const isDark = useStore(isDarkMode);
 const lang = useStore(currentLanguage);
 
-const toggleMode = () => {
+/**
+ * Toggle the color mode.
+ *
+ * @return  {void}
+ */
+const toggleMode = (): void => {
   isDarkMode.set(!isDark.value);
 
   if (isDark.value) {
