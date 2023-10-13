@@ -56,7 +56,7 @@
     "postbuild": "pagefind --site dist/"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.2.0",
+    "@astrojs/check": "^0.2.1",
     "@astrojs/cloudflare": "^7.5.3",
     "@faker-js/faker": "^8.1.0",
     "@graphql-codegen/cli": "^5.0.0",
@@ -71,7 +71,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/he": "^1.2.1",
     "@types/jsdom": "^21.1.3",
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.8.5",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
     "@vite-pwa/astro": "^0.1.3",
@@ -138,5 +138,5 @@
     "vue": "^3.3.4",
     "workbox-window": "^7.0.0"
   },
-  "packageManager": "pnpm@8.8.0"
+  "packageManager": "pnpm@8.9.0"
 }
