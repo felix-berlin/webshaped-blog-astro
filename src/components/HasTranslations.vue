@@ -1,47 +1,35 @@
 <template>
-  <div class="c-has-translation">
-    <p class="c-has-translation__prefix-text">Diesen Post gibt es auch in:</p>
+  <div
+    v-if="translations && translations?.length > 0"
+    class="c-has-translation"
+  >
+    <p class="c-has-translation__headline">
+      {{ __(lang?.locale, "post_also_available_in") }}
+    </p>
     <div
       v-for="translation in translations"
-      :key="translation.language.slug"
+      :key="translation?.language?.slug!"
       class="c-has-translation__translations"
     >
       <a
-        :href="'/' + translation.language.slug + '/' + translation.slug"
+        :href="`/${translation?.language?.slug}/${translation?.slug}`"
         class="c-has-translation__link"
-        :aria-label="`Blog in ${translation.language.name} lesen`"
+        :aria-label="`Blog in ${translation?.language?.name} lesen`"
       >
-        {{ translation.language.slug }}
+        {{ translation?.language?.name }}
       </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { __ } from "@i18n/i18n";
+import type { Post, Language, Maybe } from "@ts_types/generated/graphql";
+
 interface HasTranslationsProps {
-  translations: [
-    {
-      commentCount: number;
-      dateGtm: string;
-      excerpt: string;
-      featuredImage: {};
-      language: {
-        code: string;
-        locale: string;
-        name: string;
-        slug: string;
-      };
-      modifiedGtm: string;
-      seo: {
-        readingTime: number;
-      };
-      slug: string;
-      title: string;
-    }
-  ];
+  translations: Post["translations"];
+  lang: Maybe<Language>;
 }
 
-const props = defineProps<HasTranslationsProps>();
+defineProps<HasTranslationsProps>();
 </script>
-
-<style scoped></style>

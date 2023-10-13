@@ -360,6 +360,13 @@ export const getPostBySlug = async (
           metaRobotsNofollow
           metaRobotsNoindex
         }
+        translations {
+          slug
+          language {
+            slug
+            name
+          }
+        }
       }
     }
   `).then((res) => res.data);

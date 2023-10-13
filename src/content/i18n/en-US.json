@@ -65,5 +65,6 @@
   "install_app.button": "Install app",
   "search": "Search",
   "close": "Close",
-  "mobile_toc.button": "On this page"
+  "mobile_toc.button": "On this page",
+  "post_also_available_in": "This post is also available in:"
 }
