@@ -54,9 +54,7 @@ const params = Astro.params as Params;
 
 const path = `/category/${params["slug"]}`;
 
-const posts = {
-  nodes: page["data"],
-};
+const posts = page["data"];
 ---
 
 <DefaultLayout content={content} contentClasses="o-category">

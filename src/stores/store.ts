@@ -1,8 +1,14 @@
 import { atom, onMount, action } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
 
-export const currentLanguage = persistentAtom<Maybe<Language>>(
+export interface Language {
+  code: string;
+  name: string;
+  locale: string;
+  slug: string;
+}
+
+export const currentLanguage = persistentAtom<Language>(
   "language",
   {
     code: "EN",
@@ -11,14 +17,19 @@ export const currentLanguage = persistentAtom<Maybe<Language>>(
     slug: "en",
   },
   {
-    encode(value: string) {
+    encode(value: Language) {
       return JSON.stringify(value);
     },
-    decode(value: string): object | string {
+    decode(value: string): Language {
       try {
         return JSON.parse(value);
       } catch {
-        return value;
+        return {
+          code: "EN",
+          name: "English",
+          locale: "en_US",
+          slug: "en",
+        };
       }
     },
   },
@@ -84,6 +95,13 @@ interface BeforeInstallPromptEvent extends Event {
 export const installPrompt = atom<BeforeInstallPromptEvent | null>(null);
 export const showInstallButton = atom<boolean>(false);
 
+/**
+ * Sets the install prompt event.
+ *
+ * @param   {[type]}  installPrompt
+ *
+ * @return  {void}
+ */
 onMount(installPrompt, () => {
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
@@ -93,19 +111,29 @@ onMount(installPrompt, () => {
   });
 });
 
-export const triggerPwaInstall = action(
+/**
+ * Triggers the PWA install prompt.
+ *
+ * @return  {Promise<void>}
+ */
+export const triggerPwaInstall: () => Promise<void> = action(
   installPrompt,
   "triggerPwaInstall",
   async () => {
     if (!installPrompt.get()) return;
 
-    const result = await installPrompt?.get()?.prompt();
-    console.log(`Install prompt was: ${result?.outcome}`);
+    await installPrompt?.get()?.prompt();
+    // console.log(`Install prompt was: ${result?.outcome}`);
 
     disableInAppInstallPrompt();
   },
 );
 
+/**
+ * Disables the PWA install prompt.
+ *
+ * @return  {void}
+ */
 export const disableInAppInstallPrompt = action(
   installPrompt,
   "disableInAppInstallPrompt",

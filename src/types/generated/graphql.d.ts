@@ -5414,7 +5414,7 @@ export type CoreImageBlockAttributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5427,10 +5427,10 @@ export type CoreImageBlockAttributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreImageBlockAttributesUnion = CoreImageBlockAttributes | CoreImageBlockDeprecatedV1Attributes | CoreImageBlockDeprecatedV2Attributes | CoreImageBlockDeprecatedV3Attributes | CoreImageBlockDeprecatedV4Attributes | CoreImageBlockDeprecatedV5Attributes | CoreImageBlockDeprecatedV6Attributes;
+export type CoreImageBlockAttributesUnion = CoreImageBlockAttributes | CoreImageBlockDeprecatedV1Attributes | CoreImageBlockDeprecatedV2Attributes | CoreImageBlockDeprecatedV3Attributes | CoreImageBlockDeprecatedV4Attributes | CoreImageBlockDeprecatedV5Attributes | CoreImageBlockDeprecatedV6Attributes | CoreImageBlockDeprecatedV7Attributes;
 
 export type CoreImageBlockDeprecatedV1Attributes = {
   __typename?: 'CoreImageBlockDeprecatedV1Attributes';
@@ -5441,7 +5441,7 @@ export type CoreImageBlockDeprecatedV1Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5454,7 +5454,7 @@ export type CoreImageBlockDeprecatedV1Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 export type CoreImageBlockDeprecatedV2Attributes = {
@@ -5466,7 +5466,7 @@ export type CoreImageBlockDeprecatedV2Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5479,7 +5479,7 @@ export type CoreImageBlockDeprecatedV2Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 export type CoreImageBlockDeprecatedV3Attributes = {
@@ -5491,7 +5491,7 @@ export type CoreImageBlockDeprecatedV3Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5504,7 +5504,7 @@ export type CoreImageBlockDeprecatedV3Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 export type CoreImageBlockDeprecatedV4Attributes = {
@@ -5516,7 +5516,7 @@ export type CoreImageBlockDeprecatedV4Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5529,7 +5529,7 @@ export type CoreImageBlockDeprecatedV4Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 export type CoreImageBlockDeprecatedV5Attributes = {
@@ -5541,7 +5541,7 @@ export type CoreImageBlockDeprecatedV5Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5554,7 +5554,7 @@ export type CoreImageBlockDeprecatedV5Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 export type CoreImageBlockDeprecatedV6Attributes = {
@@ -5566,7 +5566,7 @@ export type CoreImageBlockDeprecatedV6Attributes = {
   borderColor?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
   className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
   href?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   linkClass?: Maybe<Scalars['String']['output']>;
@@ -5579,7 +5579,32 @@ export type CoreImageBlockDeprecatedV6Attributes = {
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
+};
+
+export type CoreImageBlockDeprecatedV7Attributes = {
+  __typename?: 'CoreImageBlockDeprecatedV7Attributes';
+  align?: Maybe<Scalars['String']['output']>;
+  alt: Scalars['String']['output'];
+  anchor?: Maybe<Scalars['String']['output']>;
+  aspectRatio?: Maybe<Scalars['String']['output']>;
+  borderColor?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<Scalars['String']['output']>;
+  className?: Maybe<Scalars['String']['output']>;
+  height?: Maybe<Scalars['String']['output']>;
+  href?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  linkClass?: Maybe<Scalars['String']['output']>;
+  linkDestination?: Maybe<Scalars['String']['output']>;
+  linkTarget?: Maybe<Scalars['String']['output']>;
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  rel?: Maybe<Scalars['String']['output']>;
+  scale?: Maybe<Scalars['String']['output']>;
+  sizeSlug?: Maybe<Scalars['String']['output']>;
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
 };
 
 /** Connection between the CoreImageBlock type and the MediaItem type */

@@ -71,10 +71,7 @@ const __ = (
   const lang =
     langDelimiter === "-" ? locale : locale?.replace(langDelimiter!, "-");
 
-  let translationStr: string =
-    allTranslationsData[locale as keyof typeof allTranslationsData][
-      translationString
-    ];
+  let translationStr: string = allTranslationsData[locale][translationString];
 
   if (typeof translationStr === "undefined" && import.meta.env.DEV) {
     console.warn(`${translationString} is not available in ${locale}`);
