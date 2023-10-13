@@ -13,6 +13,8 @@
     @include butler-mx.hover {
       --opacity-arrow: 1;
       --color-title-post-card: var(--red-light);
+
+      transition: color opacity 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
     }
   }
   @include butler-mx.breakpoint("xs") {
@@ -29,7 +31,6 @@
     inset: 0;
     z-index: -1;
     backdrop-filter: blur(3px) hue-rotate(21deg);
-    transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
     will-change: transform;
   }
 
@@ -47,7 +48,6 @@
 
   &__title {
     color: var(--color-title-post-card, inherit);
-    transition: all 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
   }
 
   &__excerpt {
