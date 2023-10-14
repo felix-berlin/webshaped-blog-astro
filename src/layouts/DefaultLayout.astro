@@ -5,7 +5,7 @@ import "@fontsource/source-sans-pro/400-italic.css";
 import "@fontsource/source-sans-pro/700.css";
 
 import BaseHead from "@components/BaseHead.astro";
-import MainHeader from "@components/hero/MainHeader.vue";
+import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 // import Matomo from "@components/Matomo.vue";
 import { getMenuById, getAuthor } from "@services/api";
@@ -48,7 +48,7 @@ const mainMenuItems = await getMenuById(2);
     <MainHeader
       menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
       lang={language!}
-      client:only="vue"
+      transition:persist
     />
     <main class="o-content" class:list={contentClasses}>
       <slot />

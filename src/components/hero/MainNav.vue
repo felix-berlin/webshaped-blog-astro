@@ -15,6 +15,7 @@
       <MenuIcon class="c-main-nav__menu-icon is-mobile" />
     </button>
 
+    <!-- TODO: Move this section to MainHeader with Teleport -->
     <Teleport v-if="isMobile" to="#mainHeader">
       <Transition name="fade">
         <div
@@ -50,14 +51,18 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import type { Ref } from "vue";
-import LanguageSelect from "@components/LanguageSelect.vue";
+// import LanguageSelect from "@components/LanguageSelect.vue";
 import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
-import { isMobileBreakpoint, windowWidth } from "@stores/store";
+import {
+  isMobileBreakpoint,
+  windowWidth,
+  currentLanguage,
+} from "@stores/store";
 import type {
   Language,
   MenuToMenuItemConnection,
@@ -69,7 +74,7 @@ export interface MainNavProps {
   lang: Maybe<Language>;
 }
 
-defineProps<MainNavProps>();
+const props = defineProps<MainNavProps>();
 
 const isMobile = useStore(isMobileBreakpoint);
 const mainNav = ref(null);
@@ -129,6 +134,8 @@ const controlScroll = (status: boolean): void => {
  * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
  */
 onMounted(() => {
+  currentLanguage.set(props.lang!);
+
   if (bodyWidthObserver.value) bodyWidthObserver.value.observe(document.body);
 });
 

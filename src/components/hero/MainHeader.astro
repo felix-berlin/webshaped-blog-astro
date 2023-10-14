@@ -1,0 +1,22 @@
+---
+// import LanguageSelect from "@components/LanguageSelect.vue";
+import MainNav from "@components/hero/MainNav.vue";
+import { currentLanguage } from "@stores/store";
+import type {
+  Language,
+  MenuToMenuItemConnection,
+  Maybe,
+} from "@ts_types/generated/graphql";
+
+interface HeaderProps {
+  menuItems: MenuToMenuItemConnection;
+  lang: Maybe<Language>;
+}
+
+const { menuItems, lang } = Astro.props as HeaderProps;
+---
+
+<header id="mainHeader" class="o-header">
+  <MainNav menuItems={menuItems} lang={lang} client:only="vue" />
+  <!-- <LanguageSelect class="is-desktop" /> -->
+</header>

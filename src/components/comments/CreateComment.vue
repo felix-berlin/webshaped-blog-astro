@@ -275,9 +275,9 @@ const emit = defineEmits(["commentCreated", "comment-created"]);
 const resetCommentForm = () => {
   Object.keys(commentForm).forEach((value) => {
     if (typeof commentForm[value as keyof CommentForm] === "string") {
-      commentForm[value as keyof CommentForm] = "";
+      commentForm[value as keyof CommentForm] = "" as never;
     } else if (typeof commentForm[value as keyof CommentForm] === "boolean") {
-      commentForm[value as keyof CommentForm] = false;
+      commentForm[value as keyof CommentForm] = false as never;
     }
   });
 };

@@ -228,7 +228,10 @@ const startScrobbleUpdates = (immediately: boolean): void => {
  * @return  {void}
  */
 const stopScrobbleUpdates = (): void => {
-  if (typeof state.updateIntervalId !== "undefined")
+  if (
+    typeof state.updateIntervalId !== "undefined" &&
+    typeof state.updateIntervalId === "number"
+  )
     clearInterval(state.updateIntervalId);
 };
 
