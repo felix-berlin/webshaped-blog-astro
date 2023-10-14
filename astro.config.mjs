@@ -14,6 +14,9 @@ export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:4321"
     : "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
+  redirects: {
+    "/allgemein/[...slug]": "/",
+  },
   markdown: {
     syntaxHighlight: "shiki",
   },
