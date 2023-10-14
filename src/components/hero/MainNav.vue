@@ -101,7 +101,15 @@ const toggleFlyout = (): void => {
  * @return  {void}
  */
 bodyWidthObserver.value = new ResizeObserver((entries) => {
-  const bodyWidth = entries[0].contentBoxSize[0].inlineSize;
+  // Cache the computed style of the body element
+  const bodyStyle = window.getComputedStyle(document.body);
+
+  // Get the width of the body element and add the body padding
+  const bodyPadding = ["padding-left", "padding-right"].reduce(
+    (acc, prop) => acc + parseInt(bodyStyle.getPropertyValue(prop)),
+    0,
+  );
+  const bodyWidth = entries[0].contentBoxSize[0].inlineSize + bodyPadding;
 
   // Update the value of 'isMobile' based on the current screen width
   isMobileBreakpoint.set(bodyWidth < 769);
