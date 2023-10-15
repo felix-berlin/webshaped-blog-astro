@@ -23,6 +23,7 @@
   "webmentions.explanation": "Beiträge auf Social Media die diesen Post erwähnen, erscheinen hier.",
   "webmentions.no_webmentions": "Bisher spricht noch<br/> keiner über diesen Beitrag.",
   "webmentions.your_chance": "Sei der Erste<br/> und <strong>teile</strong> diesen Beitrag!",
+  "webmention.posted_on": "gesposted am: ",
   "share_this_post": "Diesen Beitrag teilen",
   "reading_time.text--plural": {
     "one": "{ minutes } Minute",

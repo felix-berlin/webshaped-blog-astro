@@ -15,7 +15,7 @@ import type {
  */
 export const isHtml = (str: string): boolean => {
   if (!str) return false;
-  const htmlTagRegex = /<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
+  const htmlTagRegex = /<([a-z]+)([^<]+|&[a-z]+;)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
   return htmlTagRegex.test(str.trim());
 };
 
@@ -61,10 +61,7 @@ export const getHtmlContent = (str: string): string => {
  *
  * @return  {string}
  */
-export const firstCategoryPage = (
-  categoryPath: Maybe<string>,
-  firstPage = "1",
-): string => {
+export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"): string => {
   if (firstPage.startsWith("/")) {
     firstPage = firstPage.slice(1);
   }
@@ -83,10 +80,7 @@ export const firstCategoryPage = (
  *
  * @return  {boolean}
  */
-export const isCategoryPath = (
-  path: Maybe<string>,
-  categoryPath = "category",
-): boolean => {
+export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): boolean => {
   if (!path) return false;
   // if path contains 'category' is within the path string return true
   return path?.includes(categoryPath);
@@ -97,9 +91,7 @@ export const isCategoryPath = (
  *
  * @return  {[type]}
  */
-export const updateCategoryPaths = (
-  mainMenuItems: Maybe<Menu>,
-): Maybe<Menu> => {
+export const updateCategoryPaths = (mainMenuItems: Maybe<Menu>): Maybe<Menu> => {
   mainMenuItems?.menuItems?.nodes.forEach((item: MenuItem) => {
     if (item?.childItems) {
       item.childItems.nodes.forEach((childItem: MenuItem) => {
@@ -124,11 +116,7 @@ export const getDelimiter = (
   str: string,
   specialChars: string[] = ["_", "-", "*"],
 ): string | null => {
-  if (
-    !str ||
-    !Array.isArray(specialChars) ||
-    specialChars.some((char) => typeof char !== "string")
-  )
+  if (!str || !Array.isArray(specialChars) || specialChars.some((char) => typeof char !== "string"))
     return null;
 
   return specialChars.find((specialChar) => str.includes(specialChar)) || null;
@@ -166,7 +154,7 @@ export const capitalize = (str: string | null | undefined): string => {
  * @return  {string} The domain name extracted from the URL.
  * @throws  {Error} If the URL is not valid.
  */
-export const getHostName = (url: string): string => {
+export const getHostName = (url: string, hostnameOnly = false): string => {
   if (
     url === null ||
     typeof url === "undefined" ||
@@ -176,6 +164,9 @@ export const getHostName = (url: string): string => {
     throw new Error("Invalid URL");
 
   const parsedUrl = new URL(url);
+
+  // remove tdl from hostname
+  if (hostnameOnly) return parsedUrl.hostname.split(".").slice(0, -1).join(".");
 
   return parsedUrl.hostname;
 };
@@ -188,12 +179,7 @@ export const getHostName = (url: string): string => {
  * @return  {boolean}
  */
 export const isValidUrl = (url: string): boolean => {
-  if (
-    url === null ||
-    typeof url === "undefined" ||
-    typeof url !== "string" ||
-    url === ""
-  ) {
+  if (url === null || typeof url === "undefined" || typeof url !== "string" || url === "") {
     return false;
   }
 

@@ -23,6 +23,7 @@
   "webmentions.explanation": "Posts on social media that mention this post will appear here.",
   "webmentions.no_webmentions": "So far still<br/> no one speaks about this contribution.",
   "webmentions.your_chance": "Be the first<br/> and <strong>share</strong> this post!",
+  "webmention.posted_on": "posted on: ",
   "share_this_post": "Share this post",
   "reading_time.text--plural": {
     "one": "{ minutes } minute",
