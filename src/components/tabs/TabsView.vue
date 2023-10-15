@@ -1,12 +1,9 @@
 <template>
   <div ref="tabs" v-auto-animate class="c-tabs">
     <ol class="c-tabs__header u-list-reset">
-      <li
-        v-for="(tab, index) in tabsProps"
-        :key="index"
-        class="c-tabs__header-item"
-      >
+      <li v-for="(tab, index) in tabsProps" :key="index" class="c-tabs__header-item">
         <button
+          type="button"
           class="c-tabs__header-button c-button c-button--outline"
           :class="{
             'is-active': selectedTabHeader === tab.header,
@@ -15,11 +12,9 @@
           @click="selectedTabHeader = tab.header"
         >
           {{ tab.header }}
-          <span
-            v-if="typeof tab?.badge !== 'undefined'"
-            class="c-tabs__header-badge"
-            >{{ tab.badge }}</span
-          >
+          <span v-if="typeof tab?.badge !== 'undefined'" class="c-tabs__header-badge">{{
+            tab.badge
+          }}</span>
         </button>
       </li>
     </ol>
