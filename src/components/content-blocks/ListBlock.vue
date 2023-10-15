@@ -15,8 +15,8 @@
       class="c-blocks__list-item"
     >
       <ListBlock
-        v-if="listItem?.innerBlocks?[0]"
-        :block="listItem?.innerBlocks?[0]"
+        v-if="listItem?.innerBlocks?.[0]"
+        :block="listItem?.innerBlocks?.[0]"
       ></ListBlock>
     </ListItemBlock>
   </component>
