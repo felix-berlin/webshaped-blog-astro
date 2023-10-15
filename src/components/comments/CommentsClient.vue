@@ -12,21 +12,20 @@
 
     <NoComments v-if="!data.hasComments" />
 
-    <div v-if="!data.hasLoaded">
-      <template v-for="item in 5" :key="item">
-        <CommentItemSkeleton />
+    <div v-auto-animate class="c-comments__list">
+      <template v-if="data.hasComments">
+        <CommentItem
+          v-for="comment in data.comments"
+          :key="comment.node.id"
+          :comment="comment.node"
+          :depth="0"
+          :author-id="authorId!"
+          :current-post-id="currentPostId"
+        />
       </template>
-    </div>
-
-    <div v-if="data.hasComments" v-auto-animate class="c-comments__list">
-      <CommentItem
-        v-for="comment in data.comments"
-        :key="comment.node.id"
-        :comment="comment.node"
-        :depth="0"
-        :author-id="authorId!"
-        :current-post-id="currentPostId"
-      />
+      <template v-if="!data.hasLoaded">
+        <CommentItemSkeleton v-for="item in 5" :key="item" />
+      </template>
     </div>
 
     <button
