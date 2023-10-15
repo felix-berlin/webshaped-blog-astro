@@ -38,9 +38,9 @@
     white-space: pre-line;
     margin: var(--spacing-outer-content, 0 0 35px 0);
     row-gap: 15px;
-    width: fit-content;
+    max-width: 100%;
 
-    @container webmentions (inline-size < 450px) {
+    @container webmentions (inline-size < 425px) {
       &::after,
       &::before {
         height: 8px;

@@ -1,5 +1,5 @@
 <template>
-  <div id="webmentions" class="c-webmentions">
+  <div class="c-webmentions">
     <WebmentionsItem
       v-for="(mention, index) in state.mentions"
       :key="mention['wm-id']"
