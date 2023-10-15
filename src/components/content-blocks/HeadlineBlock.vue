@@ -16,7 +16,7 @@
     />
 
     <template v-else>
-      {{ parse(block.attributesJSON).content }}
+      {{ he.decode(parse(block.attributesJSON).content) }}
     </template>
   </component>
 </template>
@@ -25,6 +25,7 @@
 import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import slugify from "slugify";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
+import he from "he";
 
 export interface HeadlineBlockProps {
   block: CoreHeadingBlock;

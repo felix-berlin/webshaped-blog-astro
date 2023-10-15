@@ -14,7 +14,7 @@
           {{ getHtmlContent(headline.content) }}
         </template>
         <template v-else>
-          {{ headline.content }}
+          {{ he.decode(headline.content) }}
         </template>
       </a>
     </template>
@@ -25,6 +25,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
 import { isHtml, getHtmlContent } from "@utils/helpers";
+import he from "he";
 
 export interface TableOfContentsProps {
   headings: {
