@@ -14,7 +14,7 @@
   position: relative;
   padding: 20px layout.$spacing-edge;
   border-radius: base.$border-radius;
-  z-index: 2;
+  z-index: 5;
   container-type: inline-size;
 
   @include mx.breakpoint("sm") {
@@ -46,7 +46,7 @@
       --height-header: 120px;
 
       position: fixed;
-      z-index: 1;
+      z-index: 4;
       background-color: var(--blue-dark);
       inset: 0;
       padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge
