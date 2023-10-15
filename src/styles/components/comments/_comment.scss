@@ -110,8 +110,11 @@ $spacing: 121;
 
   &__content {
     margin: var(--spacing-outer-content, 0 0 35px 0);
-    width: fit-content;
     min-width: 250px;
+
+    &:not(.is-comment-item) {
+      max-width: fit-content;
+    }
 
     @container (inline-size > 500px) {
       --spacing-outer-content: 0 0 -35px 0;
@@ -130,6 +133,10 @@ $spacing: 121;
     &::before {
       bottom: -36px;
       width: 8px;
+    }
+
+    &.is-comment-item {
+      width: 100%;
     }
   }
 
