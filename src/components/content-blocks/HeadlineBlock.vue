@@ -1,22 +1,13 @@
 <template>
   <component
-    :is="`h${parse(block.attributesJSON).level}`"
-    :id="
-      isHtml(parse(block.attributesJSON).content)
-        ? getHtmlContent(parse(block.attributesJSON).content)
-        : slugify(parse(block.attributesJSON).content, { lower: true })
-    "
-    :class="`c-blocks__heading c-blocks__heading--${
-      parse(block.attributesJSON).level
-    }`"
+    :is="`h${headlineLevel}`"
+    :id="generateId()"
+    :class="`c-blocks__heading c-blocks__heading--${headlineLevel}`"
   >
-    <span
-      v-if="isHtml(parse(block.attributesJSON).content)"
-      v-html="parse(block.attributesJSON).content"
-    />
+    <span v-if="isHtml(headline)" v-html="headline" />
 
     <template v-else>
-      {{ he.decode(parse(block.attributesJSON).content) }}
+      {{ he.decode(headline) }}
     </template>
   </component>
 </template>
@@ -31,5 +22,19 @@ export interface HeadlineBlockProps {
   block: CoreHeadingBlock;
 }
 
-defineProps<HeadlineBlockProps>();
+const { block } = defineProps<HeadlineBlockProps>();
+
+const headline: string = parse(block.attributesJSON).content;
+const headlineLevel: string = parse(block.attributesJSON).level;
+
+/**
+ * Generates an id for the headline.
+ *
+ * @return  {string}
+ */
+const generateId = (): string => {
+  return isHtml(headline)
+    ? getHtmlContent(headline)
+    : slugify(headline, { lower: true });
+};
 </script>
