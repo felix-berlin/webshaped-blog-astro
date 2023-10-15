@@ -43,11 +43,13 @@ const initPagefind = (): void => {
  * @return  {void}
  */
 const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
+  // If input or textarea is focused, do nothing
+  if (document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA")
+    return;
+
   if (event.key === "/" || event.key === ".") {
     event.preventDefault();
-    const inputElement = document?.querySelector(
-      `#${props.id} input`,
-    ) as HTMLElement;
+    const inputElement = document?.querySelector(`#${props.id} input`) as HTMLElement;
     inputElement?.focus();
   }
 };
@@ -55,15 +57,11 @@ const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
 onMounted(() => {
   initPagefind();
 
-  window.addEventListener("keydown", (event) =>
-    triggerSearchViaKeyboard(event),
-  );
+  window.addEventListener("keydown", (event) => triggerSearchViaKeyboard(event));
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", (event) =>
-    triggerSearchViaKeyboard(event),
-  );
+  window.removeEventListener("keydown", (event) => triggerSearchViaKeyboard(event));
 });
 </script>
 <style lang="scss">

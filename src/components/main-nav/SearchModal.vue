@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="c-searchbar c-button c-button--outline"
-    type="button"
-    @click="openSearch"
-  >
+  <button class="c-searchbar c-button c-button--outline" type="button" @click="openSearch">
     <SearchIcon class="c-searchbar__search-icon" />
     <span class="c-searchbar__label">{{ __(lang?.locale, "search") }}</span>
     <SquareSlash class="c-searchbar__slash-icon" />
@@ -51,9 +47,7 @@ const openSearch = (): void => {
  */
 const focusSearch = (): void => {
   nextTick(() => {
-    const inputElement = document?.querySelector(
-      `#${searchId} input`,
-    ) as HTMLInputElement;
+    const inputElement = document?.querySelector(`#${searchId} input`) as HTMLInputElement;
     inputElement?.focus();
   });
 };
@@ -66,6 +60,10 @@ const focusSearch = (): void => {
  * @return  {void}
  */
 const openSearchViaKeyboard = (event: KeyboardEvent): void => {
+  // If input or textarea is focused, do nothing
+  if (document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA")
+    return;
+
   if (event.key === "/" || event.key === ".") {
     event.preventDefault();
     openSearch();
@@ -78,9 +76,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", (event) =>
-    openSearchViaKeyboard(event),
-  );
+  window.removeEventListener("keydown", (event) => openSearchViaKeyboard(event));
 });
 </script>
 
