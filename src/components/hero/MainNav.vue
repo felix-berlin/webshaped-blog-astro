@@ -93,39 +93,6 @@ const toggleFlyout = (): void => {
 };
 
 /**
- * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'isMobile' variables accordingly.
- * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.
- *
- * @param   {object}  entries
- *
- * @return  {void}
- */
-bodyWidthObserver.value = new ResizeObserver((entries) => {
-  // Cache the computed style of the body element
-  const bodyStyle = window.getComputedStyle(document.body);
-
-  // Get the width of the body element and add the body padding
-  const bodyPadding = ["padding-left", "padding-right"].reduce(
-    (acc, prop) => acc + parseInt(bodyStyle.getPropertyValue(prop)),
-    0,
-  );
-  const bodyWidth = entries[0].contentBoxSize[0].inlineSize + bodyPadding;
-
-  // Update the value of 'isMobile' based on the current screen width
-  isMobileBreakpoint.set(bodyWidth < 769);
-  windowWidth.set(bodyWidth);
-
-  // If the screen width is not mobile
-  if (!isMobile.value) {
-    // Close the flyout menu
-    flyoutIsOpen.value = false;
-
-    // Enable scroll on the body element
-    controlScroll(false);
-  }
-});
-
-/**
  * Toggle disable scroll on body
  *
  * @param   {boolean}  status  yes/no
@@ -143,6 +110,39 @@ const controlScroll = (status: boolean): void => {
  */
 onMounted(() => {
   currentLanguage.set(props.lang!);
+
+  /**
+   * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'isMobile' variables accordingly.
+   * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.
+   *
+   * @param   {object}  entries
+   *
+   * @return  {void}
+   */
+  bodyWidthObserver.value = new ResizeObserver((entries) => {
+    // Cache the computed style of the body element
+    const bodyStyle = window.getComputedStyle(document.body);
+
+    // Get the width of the body element and add the body padding
+    const bodyPadding = ["padding-left", "padding-right"].reduce(
+      (acc, prop) => acc + parseInt(bodyStyle.getPropertyValue(prop)),
+      0,
+    );
+    const bodyWidth = entries[0].contentBoxSize[0].inlineSize + bodyPadding;
+
+    // Update the value of 'isMobile' based on the current screen width
+    isMobileBreakpoint.set(bodyWidth < 769);
+    windowWidth.set(bodyWidth);
+
+    // If the screen width is not mobile
+    if (!isMobile.value) {
+      // Close the flyout menu
+      flyoutIsOpen.value = false;
+
+      // Enable scroll on the body element
+      controlScroll(false);
+    }
+  });
 
   if (bodyWidthObserver.value) bodyWidthObserver.value.observe(document.body);
 });

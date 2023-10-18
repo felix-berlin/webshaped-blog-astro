@@ -43,9 +43,9 @@ const initPagefind = (): void => {
  * @return  {void}
  */
 const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
+  const activeElement = document.activeElement?.tagName;
   // If input or textarea is focused, do nothing
-  if (document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA")
-    return;
+  if (activeElement === "INPUT" || activeElement === "TEXTAREA") return;
 
   if (event.key === "/" || event.key === ".") {
     event.preventDefault();
