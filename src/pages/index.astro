@@ -35,8 +35,6 @@ const posts: any = await getPostsPreview();
   <header class="o-index__header">
     <h1 class="o-index__headline">{indexDe.title}</h1>
   </header>
-  <!-- your-page.astro -->
-  <button onclick="throw new Error('This is a test error')"> Throw test error</button>
   <section class="c-blog-posts">
     <BlogPostPreview posts={posts.nodes} client:visible />
   </section>

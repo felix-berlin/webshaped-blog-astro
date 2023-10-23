@@ -93,13 +93,16 @@ export default defineConfig({
     //     navigateFallbackAllowlist: [/^\/404$/],
     //   },
     // }),
-    sentry({
-      dsn: import.meta.env.SENTRY_DSN,
-      sourceMapsUploadOptions: {
-        project: import.meta.env.SENTRY_PROJECT_ID,
-        authToken: import.meta.env.SENTRY_AUTH_TOKEN,
-      },
-    }),
+    //
+    // TODO: on hold, cloudflare pages is not yet supported
+    // @see: https://docs.sentry.io/platforms/javascript/guides/astro/#compatibility
+    // sentry({
+    //   dsn: import.meta.env.SENTRY_DSN,
+    //   sourceMapsUploadOptions: {
+    //     project: import.meta.env.SENTRY_PROJECT_ID,
+    //     authToken: import.meta.env.SENTRY_AUTH_TOKEN,
+    //   },
+    // }),
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
