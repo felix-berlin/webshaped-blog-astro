@@ -9,11 +9,14 @@ import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import allAlias from "./alias.ts";
 
+import sentry from "@sentry/astro";
+
 // https://astro.build/config
 export default defineConfig({
   site: import.meta.env.DEV
     ? "http://localhost:4321"
-    : "https://develop.webshaped-blog-astro.pages.dev", //TODO:  https://webshaped.de
+    : "https://develop.webshaped-blog-astro.pages.dev",
+  //TODO:  https://webshaped.de
   markdown: {
     syntaxHighlight: "shiki",
   },
@@ -90,6 +93,13 @@ export default defineConfig({
     //     navigateFallbackAllowlist: [/^\/404$/],
     //   },
     // }),
+    sentry({
+      dsn: import.meta.env.SENTRY_DSN,
+      sourceMapsUploadOptions: {
+        project: import.meta.env.SENTRY_PROJECT_ID,
+        authToken: import.meta.env.SENTRY_AUTH_TOKEN,
+      },
+    }),
   ],
   // output: import.meta.env.PROD ? 'server' : false,
   // adapter: cloudflare({ mode: "directory" })
@@ -105,6 +115,7 @@ export default defineConfig({
         },
       }), // chooses the compiler automatically
     ],
+
     resolve: {
       alias: allAlias,
     },
