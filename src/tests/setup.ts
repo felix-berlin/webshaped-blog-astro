@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { config } from "@vue/test-utils";
 import { setupServer } from "msw/node";
-import { graphql, rest } from "msw";
+import { graphql, rest } from "msw/browser";
 // import { useAutoAnimate } from "@formkit/auto-animate/vue";
 
 import {
