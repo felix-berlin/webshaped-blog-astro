@@ -1,0 +1,27 @@
+---
+import type { AcfGithubRawDataBlock } from "@ts_types/generated/graphql";
+import { parse } from "@utils/helpers";
+import { Code } from "astro/components";
+
+interface GitHubRawDataProps {
+  block: AcfGithubRawDataBlock;
+}
+
+const { block } = Astro.props as GitHubRawDataProps;
+
+const blockAttrs = parse(block.attributesJSON);
+const url = blockAttrs.data.github_raw_url;
+const lang = blockAttrs.data.code_language;
+
+async function getContent() {
+  const response = await fetch(url);
+  const content = await response.text();
+  return content;
+}
+
+const content = await getContent();
+---
+
+<div class="c-blocks__code">
+  <Code code={content} lang={lang} theme="css-variables" />
+</div>
