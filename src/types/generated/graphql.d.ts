@@ -16,10 +16,82 @@ export type Scalars = {
   BlockAttributesObject: { input: any; output: any; }
 };
 
+/** acf/code-highlighting block */
+export type AcfCodeHighlightingBlock = Block & {
+  __typename?: 'AcfCodeHighlightingBlock';
+  attributes?: Maybe<AcfCodeHighlightingBlockAttributes>;
+  /** Block attributes, JSON encoded */
+  attributesJSON?: Maybe<Scalars['String']['output']>;
+  /** Server side rendered content. */
+  dynamicContent?: Maybe<Scalars['String']['output']>;
+  /** Gutenberg blocks */
+  innerBlocks?: Maybe<Array<Block>>;
+  /** Is block rendered server side. */
+  isDynamic: Scalars['Boolean']['output'];
+  /** Name of the block. */
+  name: Scalars['String']['output'];
+  order: Scalars['Int']['output'];
+  /** Original HTML content. */
+  originalContent?: Maybe<Scalars['String']['output']>;
+  /** Parent post. */
+  parentNode: Node;
+  /** Parent post id. */
+  parentNodeDatabaseId: Scalars['Int']['output'];
+  /** Original HTML content with inner blocks. */
+  saveContent?: Maybe<Scalars['String']['output']>;
+};
+
+export type AcfCodeHighlightingBlockAttributes = {
+  __typename?: 'AcfCodeHighlightingBlockAttributes';
+  align?: Maybe<Scalars['String']['output']>;
+  anchor?: Maybe<Scalars['String']['output']>;
+  className?: Maybe<Scalars['String']['output']>;
+  data?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  mode?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
 /** A Field Group registered by ACF */
 export type AcfFieldGroup = {
   /** The name of the ACF Field Group */
   fieldGroupName?: Maybe<Scalars['String']['output']>;
+};
+
+/** acf/github-raw-data block */
+export type AcfGithubRawDataBlock = Block & {
+  __typename?: 'AcfGithubRawDataBlock';
+  attributes?: Maybe<AcfGithubRawDataBlockAttributes>;
+  /** Block attributes, JSON encoded */
+  attributesJSON?: Maybe<Scalars['String']['output']>;
+  /** Server side rendered content. */
+  dynamicContent?: Maybe<Scalars['String']['output']>;
+  /** Gutenberg blocks */
+  innerBlocks?: Maybe<Array<Block>>;
+  /** Is block rendered server side. */
+  isDynamic: Scalars['Boolean']['output'];
+  /** Name of the block. */
+  name: Scalars['String']['output'];
+  order: Scalars['Int']['output'];
+  /** Original HTML content. */
+  originalContent?: Maybe<Scalars['String']['output']>;
+  /** Parent post. */
+  parentNode: Node;
+  /** Parent post id. */
+  parentNodeDatabaseId: Scalars['Int']['output'];
+  /** Original HTML content with inner blocks. */
+  saveContent?: Maybe<Scalars['String']['output']>;
+};
+
+export type AcfGithubRawDataBlockAttributes = {
+  __typename?: 'AcfGithubRawDataBlockAttributes';
+  align?: Maybe<Scalars['String']['output']>;
+  anchor?: Maybe<Scalars['String']['output']>;
+  className?: Maybe<Scalars['String']['output']>;
+  data?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  mode?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 /** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
