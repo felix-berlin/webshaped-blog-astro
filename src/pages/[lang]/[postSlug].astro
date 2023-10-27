@@ -1,16 +1,20 @@
 ---
 // Styles
 import "@styles/components/_blocks.scss";
+import "@styles/plugins/shiki.scss";
 
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
 import { getAllPostsWithSlugs, getPostBySlug } from "@services/api";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
-import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
+import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
 import FigureBlock from "@components/content-blocks/FigureBlock.vue";
 import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
 import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
+import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
+import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
+import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
 import { Code } from "astro/components";
 import { parse } from "@utils/helpers";
 import he from "he";
@@ -21,10 +25,7 @@ export const getStaticPaths = async () => {
   const postWithSlugsDe = await getAllPostsWithSlugs();
   const postWithSlugsEn = await getAllPostsWithSlugs("EN");
 
-  const postWithSlugsAllLang = [
-    ...postWithSlugsDe.edges,
-    ...postWithSlugsEn.edges,
-  ];
+  const postWithSlugsAllLang = [...postWithSlugsDe.edges, ...postWithSlugsEn.edges];
 
   return postWithSlugsAllLang.map(({ node }) => {
     return {
@@ -44,9 +45,7 @@ const post = await getPostBySlug(postSlug!, 90);
 
 const findLanguage = (content: string, prefix = "lang-"): string | null => {
   const regex = new RegExp(prefix + "[a-z]+", "gm");
-  const match = content.match(regex)?.toString().replace(prefix, "") as
-    | string
-    | null;
+  const match = content.match(regex)?.toString().replace(prefix, "") as string | null;
   return match;
 };
 
@@ -61,6 +60,7 @@ const headings = post?.blocks?.filter(
 <BlogPost content={post} headings={headings}>
   {
     post?.blocks?.map((block) => {
+      // return <pre>{block.name}</pre>;
       if (block.name === "core/paragraph") {
         return <ParagraphBlock block={block} />;
       }
@@ -71,10 +71,20 @@ const headings = post?.blocks?.filter(
         return <FigureBlock block={block} />;
       }
       if (block.name === "core/buttons") {
-        return <ButtonBlock block={block} />;
+        return <ButtonsBlock block={block} client:only="vue" />;
       }
       if (block.name === "core/list") {
         return <ListBlock block={block} />;
+      }
+      if (block.name === "core/details") {
+        return <DetailsBlock block={block} />;
+        return <pre>{block}</pre>;
+      }
+      if (block.name === "acf/github-raw-data") {
+        return <GitHubRawData block={block} />;
+      }
+      if (block.name === "acf/code-highlighting") {
+        return <CodeHighlighting block={block} />;
       }
       if (block.name === "core/code") {
         return (
@@ -82,12 +92,7 @@ const headings = post?.blocks?.filter(
             <Code
               code={he.decode(parse(block.attributesJSON).content)}
               lang={parse(block.attributesJSON).className}
-              theme="github-dark"
-            />
-            <Code
-              code={he.decode(parse(block.attributesJSON).content)}
-              lang={parse(block.attributesJSON).className}
-              theme="github-light"
+              theme="css-variables"
             />
           </div>
         );
