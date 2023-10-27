@@ -1,0 +1,20 @@
+---
+import type { AcfCodeHighlightingBlock } from "@ts_types/generated/graphql";
+import { parse } from "@utils/helpers";
+import { Code } from "astro/components";
+
+interface GitHubRawDataProps {
+  block: AcfCodeHighlightingBlock;
+}
+
+const { block } = Astro.props as GitHubRawDataProps;
+
+const blockAttrs = parse(block.attributesJSON);
+const { language, use_custom_language, custom_language, code } = blockAttrs.data;
+
+const codeLang = use_custom_language ? custom_language : language;
+---
+
+<div class="c-blocks__code">
+  <Code code={code} lang={codeLang} theme="css-variables" />
+</div>
