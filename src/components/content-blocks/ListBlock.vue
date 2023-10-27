@@ -1,12 +1,8 @@
 <template>
   <component
-    :is="parse(block.attributesJSON)?.ordered ? 'ol' : 'ul'"
+    :is="blockAttrs?.ordered ? 'ol' : 'ul'"
     class="c-blocks__list"
-    :class="
-      parse(block.attributesJSON)?.ordered
-        ? 'c-blocks__list--ordered'
-        : 'c-blocks__list--unordered'
-    "
+    :class="blockAttrs?.ordered ? 'c-blocks__list--ordered' : 'c-blocks__list--unordered'"
   >
     <ListItemBlock
       v-for="listItem in block.innerBlocks"
@@ -14,10 +10,7 @@
       :block="listItem"
       class="c-blocks__list-item"
     >
-      <ListBlock
-        v-if="listItem?.innerBlocks?.[0]"
-        :block="listItem?.innerBlocks?.[0]"
-      ></ListBlock>
+      <ListBlock v-if="listItem?.innerBlocks?.[0]" :block="listItem?.innerBlocks?.[0]"></ListBlock>
     </ListItemBlock>
   </component>
 </template>
@@ -31,5 +24,7 @@ export interface ListBlockProps {
   block: CoreListBlock;
 }
 
-defineProps<ListBlockProps>();
+const props = defineProps<ListBlockProps>();
+
+const blockAttrs = parse(props.block.attributesJSON);
 </script>

@@ -2,18 +2,15 @@
   <figure class="c-blocks__image">
     <ImageResponsive
       v-if="block.name === 'core/image'"
-      :id="parse(block.attributesJSON).id"
-      :src="block.mediaItem?.node.mediaItemUrl"
-      :src-set="block.mediaItem?.node?.srcSet"
-      :width="block.mediaItem?.node?.mediaDetails?.width"
-      :height="block.mediaItem?.node?.mediaDetails?.height"
-      :alt="block.mediaItem?.node.altText"
+      :id="blockAttrs.id"
+      :src="mediaItem?.mediaItemUrl"
+      :src-set="mediaItem?.srcSet"
+      :width="mediaItem?.mediaDetails?.width"
+      :height="mediaItem?.mediaDetails?.height"
+      :alt="mediaItem?.altText"
       class="c-blog__hero-image"
     />
-    <figcaption
-      v-if="parse(block.attributesJSON).caption"
-      v-html="parse(block.attributesJSON).caption"
-    />
+    <figcaption v-if="blockAttrs.caption" v-html="blockAttrs.caption" />
   </figure>
 </template>
 
@@ -26,5 +23,8 @@ export interface FigureBlockProps {
   block: CoreImageBlock;
 }
 
-defineProps<FigureBlockProps>();
+const props = defineProps<FigureBlockProps>();
+
+const blockAttrs = parse(props.block.attributesJSON);
+const mediaItem = props.block.mediaItem?.node;
 </script>
