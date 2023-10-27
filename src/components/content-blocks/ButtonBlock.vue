@@ -1,14 +1,12 @@
 <template>
-  <template v-for="button in block.innerBlocks" :key="button.text">
-    <a
-      :href="parse(button.attributesJSON)?.url"
-      :title="parse(button.attributesJSON)?.title"
-      :target="parse(button.attributesJSON)?.target"
-      :rel="parse(button.attributesJSON)?.rel"
-      :class="`c-buttons__button ${parse(button.attributesJSON)?.className}`"
-      >{{ parse(button.attributesJSON)?.text }}</a
-    >
-  </template>
+  <a
+    :href="blockAttrs?.url"
+    :title="blockAttrs?.title"
+    :target="blockAttrs?.target"
+    :rel="blockAttrs?.rel"
+    class="c-button c-button--primary"
+    >{{ blockAttrs?.text }}</a
+  >
 </template>
 
 <script setup lang="ts">
@@ -16,8 +14,10 @@ import { parse } from "@utils/helpers";
 import type { CoreButtonsBlock } from "@ts_types/generated/graphql";
 
 export interface ButtonBlockProps {
-  block: CoreButtonsBlock;
+  block: CoreButtonsBlock["innerBlocks"];
 }
 
-defineProps<ButtonBlockProps>();
+const props = defineProps<ButtonBlockProps>();
+
+const blockAttrs = parse(props.block?.attributesJSON);
 </script>
