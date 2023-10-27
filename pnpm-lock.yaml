@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.1.137
     version: 1.1.137
   '@iconify-json/tabler':
-    specifier: ^1.1.95
-    version: 1.1.95
+    specifier: ^1.1.96
+    version: 1.1.96
   '@nanostores/i18n':
     specifier: ^0.12.0
     version: 0.12.0(nanostores@0.9.4)
@@ -173,8 +173,8 @@ devDependencies:
     specifier: ^6.7.1
     version: 6.7.1(eslint@8.52.0)
   eslint-plugin-vue:
-    specifier: ^9.18.0
-    version: 9.18.0(eslint@8.52.0)
+    specifier: ^9.18.1
+    version: 9.18.1(eslint@8.52.0)
   eslint-plugin-vuejs-accessibility:
     specifier: ^2.2.0
     version: 2.2.0(eslint@8.52.0)
@@ -3619,8 +3619,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: false
 
-  /@iconify-json/tabler@1.1.95:
-    resolution: {integrity: sha512-Qg+VpKgSImpA9g2ger17cWIBvirlixUplTXshu/miegBCfaicYEyyX2pCilCJEuujeNVh47+ySD7CoBJS2f6pQ==}
+  /@iconify-json/tabler@1.1.96:
+    resolution: {integrity: sha512-BozRq6622JUEOBlZhF/l6UxqwHoWFiaLP6UCH9/mOvuek/tZureuQ2DSEaz5SdpKJamtBQjtJCH6zzsim6YKUQ==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
@@ -6900,8 +6900,8 @@ packages:
       semver: 6.3.1
     dev: true
 
-  /eslint-plugin-vue@9.18.0(eslint@8.52.0):
-    resolution: {integrity: sha512-yUM8a2OD/7Qs0PiugkRaxgz5KBRvzMvWShity2UvVFAN0yk8029mGpTdg/TNARPiYzp335mEwDHwcAR8tQNe4g==}
+  /eslint-plugin-vue@9.18.1(eslint@8.52.0):
+    resolution: {integrity: sha512-7hZFlrEgg9NIzuVik2I9xSnJA5RsmOfueYgsUGUokEDLJ1LHtxO0Pl4duje1BriZ/jDWb+44tcIlC3yi0tdlZg==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
