@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { config } from "@vue/test-utils";
 import { setupServer } from "msw/node";
-import { graphql, rest } from "msw/browser";
+import { graphql, http } from "msw";
 // import { useAutoAnimate } from "@formkit/auto-animate/vue";
 
 import {
@@ -47,7 +47,7 @@ vi.stubGlobal("ResizeObserver", ResizeObserverMock);
 // ];
 
 // export const restHandlers = [
-//   rest.get("https://rest-endpoint.example/path/to/posts", (req, res, ctx) => {
+//   http.get("https://rest-endpoint.example/path/to/posts", (req, res, ctx) => {
 //     return res(ctx.status(200), ctx.json(posts));
 //   }),
 // ];

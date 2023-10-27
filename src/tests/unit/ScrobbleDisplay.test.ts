@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import { it, expect, describe, vi, beforeAll, afterAll, afterEach } from "vitest";
 // @ts-ignore: Unresolved import
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
-import { rest } from "msw/browser";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
 const server = setupServer();
@@ -12,31 +12,29 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 server.use(
-  rest.get("https://last-fm.kasimir.dev", (req, res, ctx) => {
-    return res(
-      ctx.json({
-        recenttracks: {
-          track: [
-            {
-              name: "Song 1",
-              artist: { "#text": "Artist 1" },
-              album: { "#text": "Album 1" },
-              image: [{ "#text": "image1.png" }, { "#text": "image2.png" }],
-              url: "https://www.last.fm/music/Artist+1/_/Song+1",
-              "@attr": { nowplaying: true },
-            },
-            {
-              name: "Song 2",
-              artist: { "#text": "Artist 2" },
-              album: { "#text": "Album 2" },
-              image: [{ "#text": "image3.png" }, { "#text": "image4.png" }],
-              url: "https://www.last.fm/music/Artist+2/_/Song+2",
-            },
-          ],
-          "@attr": { total: 2 },
-        },
-      }),
-    );
+  http.get("https://last-fm.kasimir.dev", () => {
+    return HttpResponse.json({
+      recenttracks: {
+        track: [
+          {
+            name: "Song 1",
+            artist: { "#text": "Artist 1" },
+            album: { "#text": "Album 1" },
+            image: [{ "#text": "image1.png" }, { "#text": "image2.png" }],
+            url: "https://www.last.fm/music/Artist+1/_/Song+1",
+            "@attr": { nowplaying: true },
+          },
+          {
+            name: "Song 2",
+            artist: { "#text": "Artist 2" },
+            album: { "#text": "Album 2" },
+            image: [{ "#text": "image3.png" }, { "#text": "image4.png" }],
+            url: "https://www.last.fm/music/Artist+2/_/Song+2",
+          },
+        ],
+        "@attr": { total: 2 },
+      },
+    });
   }),
 );
 
