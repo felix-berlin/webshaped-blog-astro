@@ -60,7 +60,25 @@ describe("MainNav", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  // TODO: fix this test
+  it("renders ButtonBar when isMobile is false", () => {
+    const wrapper = mount(MainNav, {
+      props: {
+        menuItems: menuItems,
+        lang: {
+          locale: "de_DE",
+          id: "de",
+        },
+      },
+      global: {
+        mocks: {
+          isMobile: false,
+        },
+      },
+    });
+
+    expect(wrapper.findComponent({ name: "ButtonBar" }).exists()).toBe(true);
+  });
+
   test("toggles flyout menu on button click", async () => {
     const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>");
     global.window = dom.window;
@@ -71,7 +89,6 @@ describe("MainNav", () => {
 
     global.window.innerWidth = 765;
     global.window.innerHeight = 1024;
-    console.log(global.window.innerWidth, global.window.innerHeight);
 
     const wrapper = mount(MainNav, {
       props: {
@@ -86,15 +103,15 @@ describe("MainNav", () => {
     wrapper.vm.isMobile = true;
     wrapper.vm.mainHeaderWidth = 760;
 
-    console.log(wrapper.html());
     const button = wrapper.find(".c-main-nav__toggle");
 
     expect(button.exists()).toBe(true);
 
-    // await button.trigger("click");
+    await button.trigger("click");
 
-    // const MenuNavComponent = wrapper.getComponent(".c-main-nav__menu");
+    const MenuNavComponent = wrapper.getComponent(".c-main-nav__menu");
 
-    // expect(wrapper.vm.flyoutIsOpen).toBe(true);
+    expect(wrapper.vm.flyoutIsOpen).toBe(true);
+    expect(MenuNavComponent.exists()).toBe(true);
   });
 });
