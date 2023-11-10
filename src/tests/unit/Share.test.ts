@@ -1,13 +1,21 @@
-import { mount } from "@vue/test-utils";
+import { mount, flushPromises } from "@vue/test-utils";
 import { JSDOM } from "jsdom";
 import { test, expect, describe, vi, beforeAll, afterAll } from "vitest";
 // @ts-ignore: Unresolved import
 import Share from "@components/Share.vue";
+import { nextTick } from "vue";
+import Share2 from "virtual:icons/lucide/share-2";
 
-// const shareMock = vi.fn();
 const shareMock = vi.fn().mockResolvedValue({ state: "granted" });
 const permissionsMock = { query: shareMock };
 const originalPermissions = navigator.permissions;
+
+vi.mock("@vueuse/core", () => ({
+  useShare: () => ({
+    isSupported: true, // Mock isSupported to always be true
+    share: shareMock, // Use shareMock here
+  }),
+}));
 
 beforeAll(() => {
   Object.defineProperty(global.navigator, "share", {
@@ -37,8 +45,6 @@ describe("Share.vue", () => {
     global.navigator = window.navigator;
     window.navigator.share = shareMock;
 
-    // console.log(await global.navigator.share());
-
     const wrapper = mount(Share, {
       props: {
         title: "Test Title",
@@ -51,14 +57,49 @@ describe("Share.vue", () => {
       },
     });
 
-    // console.log(wrapper.html(), wrapper.vm.isSupported);
-    // TODO: Fix this test
-    // await wrapper.find("button").trigger("click");
+    // Assuming that wrapper and shareMock are defined and initialized properly
+    await wrapper.find("button").trigger("click");
 
-    // expect(shareMock).toHaveBeenCalledWith({
-    //   title: "Test Title",
-    //   text: "Test Text",
-    //   url: "https://example.com",
-    // });
+    expect(shareMock).toHaveBeenCalledWith({
+      title: "Test Title",
+      text: "Test Text",
+      url: "https://example.com",
+    });
+  });
+
+  test("it sets currentUrl to window.location.href if props.url is not provided", async () => {
+    // Create a new JSDOM instance with the desired URL
+    const jsdom = new JSDOM("", { url: "https://example.com" });
+
+    // Replace the global window object with the window object from the JSDOM instance
+    global.window = jsdom.window;
+
+    // Mount the component without providing props.url
+    const wrapper = mount(Share, {
+      props: {
+        title: "Test Title",
+        text: "Test Text",
+        // Don't provide url
+      },
+    });
+
+    // Wait for any asynchronous updates to complete
+    await nextTick();
+
+    // Now check if currentUrl was set to window.location.href
+    expect(wrapper.vm.currentUrl).toBe("https://example.com/");
+
+    // Restore the original window object after the test
+    global.window = jsdom.window.parent;
+  });
+
+  test("renders Share2 component when showButton is true", () => {
+    const wrapper = mount(Share, {
+      props: {
+        showButton: true,
+      },
+    });
+
+    expect(wrapper.findComponent(Share2).exists()).toBe(true);
   });
 });

@@ -3,7 +3,7 @@
     v-if="isSupported"
     type="button"
     class="c-share"
-    @click.prevent="startShare(title, text, data.currentUrl)"
+    @click.prevent="startShare(title, text, currentUrl)"
   >
     <Share2
       v-if="showButton"
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import Share2 from "virtual:icons/lucide/share-2";
-import { onMounted, reactive } from "vue";
+import { onMounted, ref } from "vue";
 import { useShare } from "@vueuse/core";
 import { __ } from "@i18n/i18n";
 import { useStore } from "@nanostores/vue";
@@ -39,14 +39,8 @@ const props = withDefaults(defineProps<ShareProps>(), {
   showButton: true,
 });
 
-interface Data {
-  currentUrl: string | undefined;
-}
-
 const lang = useStore(currentLanguage);
-const data: Data = reactive({
-  currentUrl: props.url,
-});
+const currentUrl = ref(props.url);
 
 const startShare = (
   title: string | undefined,
@@ -58,7 +52,7 @@ const startShare = (
 
 onMounted(() => {
   if (!props.url) {
-    data.currentUrl = window.location.href;
+    currentUrl.value = window.location.href;
   }
 });
 </script>
