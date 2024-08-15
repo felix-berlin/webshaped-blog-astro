@@ -15,9 +15,6 @@ export default defineConfig({
     ? "http://localhost:4321"
     : "https://develop.webshaped-blog-astro.pages.dev",
   //TODO:  https://webshaped.de
-  experimental: {
-    devOverlay: false,
-  },
   markdown: {
     syntaxHighlight: "shiki",
     // shikiConfig: {
@@ -33,6 +30,9 @@ export default defineConfig({
       appEntrypoint: "/src/pages/_app",
       script: {
         propsDestructure: true,
+      },
+      devtools: {
+        launchEditor: "code",
       },
     }),
     sitemap({
@@ -128,6 +128,14 @@ export default defineConfig({
 
     resolve: {
       alias: allAlias,
+    },
+
+    css: {
+      preprocessorMaxWorkers: true,
+    },
+
+    build: {
+      sourcemap: true, // This is needed for sentryVitePlugin
     },
   },
 });

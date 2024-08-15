@@ -5,6 +5,7 @@ export const fetchAPI = async (
   const headers = {
     "Content-Type": "application/json",
     Accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.PUBLIC_WP_AUTH_REFRESH_TOKEN}`,
   };
 
   return await fetch(import.meta.env.PUBLIC_WP_API, {
@@ -20,5 +21,7 @@ export const fetchAPI = async (
       const errorMessage = await response.text();
       return Promise.reject(new Error(errorMessage));
     }
+  }).catch((error) => {
+      console.error("error", error);
   });
 };

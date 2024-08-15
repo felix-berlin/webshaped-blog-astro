@@ -1,4 +1,4 @@
-import { atom, onMount, action } from "nanostores";
+import { atom, onMount } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 
 export interface Language {
@@ -111,32 +111,24 @@ onMount(installPrompt, () => {
  *
  * @return  {Promise<void>}
  */
-export const triggerPwaInstall: () => Promise<void> = action(
-  installPrompt,
-  "triggerPwaInstall",
-  async () => {
-    if (!installPrompt.get()) return;
+export const triggerPwaInstall = async (): Promise<void> => {
+  if (!installPrompt.get()) return;
 
-    await installPrompt?.get()?.prompt();
-    // console.log(`Install prompt was: ${result?.outcome}`);
+  await installPrompt?.get()?.prompt();
+  // console.log(`Install prompt was: ${result?.outcome}`);
 
-    disableInAppInstallPrompt();
-  },
-);
+  disableInAppInstallPrompt();
+};
 
 /**
  * Disables the PWA install prompt.
  *
  * @return  {void}
  */
-export const disableInAppInstallPrompt = action(
-  installPrompt,
-  "disableInAppInstallPrompt",
-  () => {
-    installPrompt.set(null);
-    showInstallButton.set(false);
-  },
-);
+export const disableInAppInstallPrompt = (): void => {
+  installPrompt.set(null);
+  showInstallButton.set(false);
+};
 
 export const isMobileBreakpoint = atom<boolean>(false);
 export const windowWidth = atom<number>(0);

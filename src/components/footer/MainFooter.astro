@@ -45,11 +45,7 @@ const allSocials = {
 <footer class="o-footer">
   <SocialList
     class:list={["o-footer__social-list", "is-footer"]}
-    socialItems={getSocialIconData(
-      allSocials,
-      iconStyles,
-      additionalSoicalData,
-    )}
+    socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
     lang={lang}
   />
 
@@ -73,10 +69,7 @@ const allSocials = {
           categories &&
             categories.nodes.map((category) => (
               <li class="c-menu__item">
-                <a
-                  class="c-menu__link"
-                  href={`/category/${firstCategoryPage(category.slug)}`}
-                >
+                <a class="c-menu__link" href={`/category/${firstCategoryPage(category.slug)}`}>
                   {category.name}
                 </a>
               </li>
@@ -88,16 +81,13 @@ const allSocials = {
       <h3 class="o-footer__headline">
         {__(lang?.locale, "footer.headline.other")}
       </h3>
-      <Menu
-        class:list={"o-footer__menu c-menu--footer"}
-        menuItems={footerMenuItems?.menuItems!}
-      />
+      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems?.menuItems!} />
     </div>
     <div class="o-footer__quote">
       <figure>
         <blockquote>
-          „If debugging is the process of removing software bugs, then
-          programming must be the process of putting them in.“
+          „If debugging is the process of removing software bugs, then programming must be the
+          process of putting them in.“
         </blockquote>
         <figcaption>
           —Edsger W. Dijkstra, <cite>(1930 – 2002)</cite>
@@ -122,7 +112,7 @@ const allSocials = {
       </a>
 
       <GreenHosted lang={lang} />
-      <InstallApp showIcon={true} client:only cssClass="c-button--like-link" />
+      <InstallApp showIcon={true} client:only="vue" cssClass="c-button--like-link" />
     </div>
   </div>
 </footer>

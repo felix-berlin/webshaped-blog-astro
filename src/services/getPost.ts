@@ -1,12 +1,7 @@
-import type {
-  Post,
-  RootQueryToPostConnection,
-} from "@ts_types/generated/graphql";
+import type { Post, RootQueryToPostConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 
-export const getAllPostsWithSlugs = async (
-  language = "DE",
-): Promise<RootQueryToPostConnection> => {
+export const getAllPostsWithSlugs = async (language = "DE"): Promise<RootQueryToPostConnection> => {
   const data = await fetchAPI(`
   {
     posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
@@ -79,13 +74,13 @@ export const getPostBySlug = async (
             attributes {
               className
               content
+              }
             }
-          }
-          innerBlocks {
-            attributesJSON
-            name
-            order
-            originalContent
+            innerBlocks {
+              attributesJSON
+              name
+              order
+              originalContent
             ...on CoreImageBlock {
               mediaItem {
                 node {

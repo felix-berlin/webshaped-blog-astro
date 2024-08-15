@@ -24,11 +24,12 @@
 html {
   font-family: fonts.$source-sans-pro;
   color: var(--color-base, #{colors.$blue-dark});
+
+  &[class~=dark] {
+    --color-base: #ffb433;
+  }
 }
 
-@include butler-mx.dark-mode-class("html", false) {
-  --color-base: #ffb433;
-}
 
 a {
   color: var(--color-link-base);

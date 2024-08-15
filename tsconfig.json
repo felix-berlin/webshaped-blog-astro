@@ -1,10 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": [
-    "node_modules",
-    "src/tests/**/*.spec.ts",
-    "src/tests/**/*.test.ts"
-  ],
+  "exclude": ["node_modules", "src/tests/**/*.spec.ts", "src/tests/**/*.test.ts"],
   "compilerOptions": {
     "jsx": "preserve",
     "baseUrl": ".",
@@ -24,8 +20,9 @@
     "types": [
       "vitest/globals",
       "unplugin-icons/types/astro",
+      "vite-plugin-pwa/client",
       "vite-plugin-pwa/info",
-      "vite-plugin-pwa/vanillajs"
+      "vite-plugin-pwa/pwa-assets"
     ],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
     "esModuleInterop": true

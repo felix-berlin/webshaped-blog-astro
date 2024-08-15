@@ -14,23 +14,22 @@
 }
 
 html {
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: base.$background-image-light;
   background-color: var(
     --color-background-doc,
     #{butler-fn.hex-to-rgb(colors.$white, 100%)}
   );
-  background-attachment: fixed;
-  background-size: cover;
-  background-image: base.$background-image-light;
-}
+  &[class~=dark] {
+    --color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
+    --accent-color: var(--red-light);
+    --element-background: var(--white);
 
-@include butler-mx.dark-mode-class("html", false) {
-  --color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
-  --accent-color: var(--red-light);
-  --element-background: var(--white);
+    background-image: base.$background-image-dark;
 
-  background-image: base.$background-image-dark;
-
-  @include butler-mx.select-style(colors.$blue-shallow-dark, colors.$blue-dark);
+    @include butler-mx.select-style(colors.$blue-shallow-dark, colors.$blue-dark);
+  }
 }
 
 body {

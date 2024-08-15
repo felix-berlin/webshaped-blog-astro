@@ -60,10 +60,10 @@
   &--icon {
     --color-button: var(--blue-light);
 
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
+
     @extend .u-button-reset;
     @include mx.icon-center();
-
-    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
     &:active {
       @include butler-mx.feature("motion") {
@@ -86,9 +86,9 @@
   }
 
   &--like-link {
+    padding: 0;
     @extend .u-button-reset;
 
-    padding: 0;
 
     @include mx.icon-center() {
       gap: 5px;

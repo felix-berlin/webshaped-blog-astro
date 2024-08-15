@@ -24,11 +24,7 @@ import ChevronRight from "~icons/lucide/chevron-right";
 import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import HasTranslations from "@components/HasTranslations.vue";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
-import type {
-  Post,
-  MediaSize,
-  RootQueryToCategoryConnection,
-} from "@ts_types/generated/graphql";
+import type { Post, MediaSize, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 
 export interface BlogPost {
   content: Post;
@@ -56,8 +52,7 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const featuredImageSizes = featuredImage?.node?.mediaDetails
-  ?.sizes as MediaSize[];
+const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
 
 const createBreadcrumbItems = () => {
   const items = [
@@ -68,9 +63,7 @@ const createBreadcrumbItems = () => {
   ];
 
   if (categories?.edges?.length) {
-    const parentCategory = categories?.edges?.find(
-      (edge) => edge.node.parent === null,
-    )?.node;
+    const parentCategory = categories?.edges?.find((edge) => edge.node.parent === null)?.node;
     const childCategory = parentCategory?.children?.edges;
 
     items.push({
@@ -81,9 +74,7 @@ const createBreadcrumbItems = () => {
     if (childCategory?.length) {
       items.push({
         text: childCategory[0].node.name!,
-        href: `/${firstCategoryPage(
-          childCategory[0].node.name?.toLowerCase(),
-        )}`,
+        href: `/${firstCategoryPage(childCategory[0].node.name?.toLowerCase())}`,
       });
     }
   }
@@ -134,11 +125,7 @@ const parsedHeadings: ParsedHeading[] =
     />
   </header>
   <article class="c-blog__post">
-    <PostOlderThan
-      date={modifiedGmt || ""}
-      showAfterYears={4}
-      lang={language!}
-    />
+    <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={language!} />
 
     <slot />
   </article>
@@ -147,11 +134,8 @@ const parsedHeadings: ParsedHeading[] =
     <section class="c-blog__info-bar u-glas-background">
       <DateModified date={modifiedGmt || undefined} lang={language} />
       <ReadingTime time={seo?.readingTime || undefined} lang={language} />
-      <Categories
-        categories={categories as RootQueryToCategoryConnection}
-        lang={language}
-      />
-      <HasTranslations translations={translations} lang={language} />
+      <Categories categories={categories as RootQueryToCategoryConnection} lang={language} />
+      <HasTranslations translations={translations} lang={language} client:only="vue" />
     </section>
     <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
   </footer>
@@ -163,11 +147,7 @@ const parsedHeadings: ParsedHeading[] =
         {__(language?.locale!, "blog.table_of_contents")}
       </h2>
       <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
-      <TableOfContents
-        headings={parsedHeadings}
-        tocId="tableOfContents"
-        client:load
-      />
+      <TableOfContents headings={parsedHeadings} tocId="tableOfContents" client:load />
     </div>
   </aside>
 </DefaultLayout>
