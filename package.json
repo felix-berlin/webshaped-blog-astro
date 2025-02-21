@@ -78,6 +78,7 @@
     "@vite-pwa/astro": "^0.5.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vitest/coverage-v8": "^3.0.6",
+    "@vitest/web-worker": "^3.0.6",
     "@vue/compiler-sfc": "^3.5.13",
     "@vue/devtools-api": "^7.7.2",
     "@vue/test-utils": "^2.4.6",

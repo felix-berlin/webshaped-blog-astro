@@ -147,6 +147,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^3.0.6
         version: 3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(msw@2.7.1(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.39.0)(yaml@2.7.0))
+      '@vitest/web-worker':
+        specifier: ^3.0.6
+        version: 3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(msw@2.7.1(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.39.0)(yaml@2.7.0))
       '@vue/compiler-sfc':
         specifier: ^3.5.13
         version: 3.5.13
@@ -3005,6 +3008,11 @@ packages:
 
   '@vitest/utils@3.0.6':
     resolution: {integrity: sha512-18ktZpf4GQFTbf9jK543uspU03Q2qya7ZGya5yiZ0Gx0nnnalBvd5ZBislbl2EhLjM8A8rt4OilqKG7QwcGkvQ==}
+
+  '@vitest/web-worker@3.0.6':
+    resolution: {integrity: sha512-ugm8Y0u9CYecuUMEr8HevpjSHn4mDtLs7GdjPImvrfd9UeCSyv0chxGPaVW8NoOMoKr6GV70LKnxcSogfQcc5Q==}
+    peerDependencies:
+      vitest: 3.0.6
 
   '@volar/kit@2.4.11':
     resolution: {integrity: sha512-ups5RKbMzMCr6RKafcCqDRnJhJDNWqo2vfekwOAj6psZ15v5TlcQFQAyokQJ3wZxVkzxrQM+TqTRDENfQEXpmA==}
@@ -11418,6 +11426,13 @@ snapshots:
       '@vitest/pretty-format': 3.0.6
       loupe: 3.1.3
       tinyrainbow: 2.0.0
+
+  '@vitest/web-worker@3.0.6(vitest@3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(msw@2.7.1(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.39.0)(yaml@2.7.0))':
+    dependencies:
+      debug: 4.4.0
+      vitest: 3.0.6(@types/debug@4.1.12)(@types/node@22.13.4)(jiti@2.4.2)(jsdom@26.0.0)(msw@2.7.1(@types/node@22.13.4)(typescript@5.7.3))(sass@1.85.0)(terser@5.39.0)(yaml@2.7.0)
+    transitivePeerDependencies:
+      - supports-color
 
   '@volar/kit@2.4.11(typescript@5.7.3)':
     dependencies:

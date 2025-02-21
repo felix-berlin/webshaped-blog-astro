@@ -126,10 +126,6 @@ export default defineConfig({
       }), // chooses the compiler automatically
     ],
 
-    resolve: {
-      alias: allAlias,
-    },
-
     css: {
       preprocessorMaxWorkers: true,
     },
