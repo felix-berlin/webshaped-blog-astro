@@ -5,17 +5,19 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@composables/*": ["src/composables/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
       "@utils/*": ["src/utils/*"],
-      "@stores/*": ["src/stores/*"],
       "@i18n/*": ["src/utils/i18n/*"],
-      "@ts_types/*": ["src/types/*"],
       "@features/*": ["src/features/*"],
       "@services/*": ["src/services/*"],
-      "@assets/*": ["src/assets/*"]
+      "@stores/*": ["src/stores/*"],
+      "@sass-butler/*": ["node_modules/@felix_berlin/sass-butler/*"],
+      "@styles/*": ["src/styles/*"],
+      "@ts_types/*": ["src/types/*"]
     },
     "types": [
       "vitest/globals",
