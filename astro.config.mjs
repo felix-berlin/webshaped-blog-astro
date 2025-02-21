@@ -6,7 +6,6 @@ import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
-import allAlias from "./alias.ts";
 // import sentry from "@sentry/astro";
 
 // https://astro.build/config
