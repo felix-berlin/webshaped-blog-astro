@@ -414,12 +414,13 @@ watch(commentForm, (newValue, oldValue) => {
 });
 
 onMounted(() => {
-  if (guestUser.value.author) commentForm.author = guestUser.value.author;
-  if (guestUser.value.email) commentForm.email = guestUser.value.email;
-  if (guestUser.value.privacy) commentForm.privacy = guestUser.value.privacy;
-  if (guestUser.value.saveUser) commentForm.saveUser = guestUser.value.saveUser;
+  if (guestUser.author) commentForm.author = guestUser.author;
+  if (guestUser.email) commentForm.email = guestUser.email;
+  if (guestUser.privacy) commentForm.privacy = guestUser.privacy;
+  if (guestUser.saveUser) commentForm.saveUser = guestUser.saveUser;
 });
 </script>
+
 <style lang="scss">
 @use "@styles/components/form.scss";
 @use "@styles/components/inputs.scss";
