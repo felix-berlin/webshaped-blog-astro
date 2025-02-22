@@ -2,7 +2,7 @@ import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import { loadEnv } from "vite";
 import sitemap from "@astrojs/sitemap";
-// import cloudflare from "@astrojs/cloudflare";
+import node from "@astrojs/node";
 import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
@@ -15,6 +15,10 @@ const apiHost = new URL(PUBLIC_WP_API).host;
 
 // https://astro.build/config
 export default defineConfig({
+  output: "static",
+  adapter: node({
+    mode: "standalone",
+  }),
   site: import.meta.env.DEV
     ? "http://localhost:4321"
     : "https://develop.webshaped-blog-astro.pages.dev",
