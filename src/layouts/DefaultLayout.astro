@@ -13,7 +13,7 @@ import { updateCategoryPaths } from "@utils/helpers";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@ts_types/generated/graphql";
-import type { only } from "node:test";
+import { Head } from "astro-capo";
 
 export interface DefaultLayoutProps {
   content: {
@@ -38,11 +38,11 @@ const mainMenuItems = await getMenuById(2);
 ---
 
 <html lang={langAttr}>
-  <head>
+  <Head>
     <BaseHead title={title} seo={seo} />
 
     <slot name="head" />
-  </head>
+  </Head>
 
   <body class="o-body" class:list={bodyClasses}>
     <MainHeader
