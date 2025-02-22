@@ -1,0 +1,50 @@
+---
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { Image } from "astro:assets";
+import GithubStats from "@components/GithubStats.vue";
+import "@styles/components/_post-card.scss";
+import "@styles/objects/_developer-card.scss";
+
+export const prerender = false;
+
+const content = {
+  title: "New Index",
+  seo: {
+    title: "New Index",
+    description: "New Index",
+    image: {
+      url: "https://via.placeholder.com/1200x630",
+      alt: "New Index",
+    },
+  },
+  language: {
+    locale: "de_DE",
+  },
+};
+---
+
+<DefaultLayout content={content} contentClasses="o-index">
+  <header class="o-developer-card">
+    <div class="o-developer-card__text-wrapper">
+      <h1 class="o-developer-card__headline c-post-card">Tach, ich bin Felix U. K. Scholze</h1>
+
+      <p class="o-developer-card__text c-post-card">
+        Seit mittlerweile über 10 Jahren bin ich Fullstack Software-Entwickler in Berlin, meine
+        spezielles Augenmerk liegt jedoch auf der Entwicklung von dynamischen, zugänglichen und
+        performanten Frontends.
+      </p>
+    </div>
+
+    <Image
+      src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
+      alt="Felix Scholze portrait"
+      layout="responsive"
+      width="500"
+      height="500"
+      priority={true}
+      class="o-developer-card__image c-post-card"
+    />
+  </header>
+
+  <GithubStats client:only="vue" />
+</DefaultLayout>

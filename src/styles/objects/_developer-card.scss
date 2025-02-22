@@ -1,0 +1,27 @@
+.o-developer-card {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin: 2rem 0;
+  gap: 2rem;
+
+  &__text,
+  &__headline {
+    margin: 0;
+    align-self: center;
+    text-align: right;
+    text-wrap: balance;
+  }
+
+  &__text {
+    margin: 1rem 0 0;
+  }
+
+  &__text-wrapper {
+    align-self: end;
+  }
+
+  &__image {
+    transform: scaleX(-1);
+    padding: 0;
+  }
+}
