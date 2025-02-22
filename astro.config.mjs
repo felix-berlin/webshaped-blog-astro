@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
+import { loadEnv } from "vite";
 import sitemap from "@astrojs/sitemap";
 // import cloudflare from "@astrojs/cloudflare";
 import matomo from "astro-matomo";
@@ -7,6 +8,10 @@ import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 // import sentry from "@sentry/astro";
+
+const { PUBLIC_WP_API } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+
+const apiHost = new URL(PUBLIC_WP_API).host;
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,6 +27,10 @@ export default defineConfig({
     //     dark: "github-dark",
     //   },
     // },
+  },
+  image: {
+    domains: [apiHost],
+    remotePatterns: [{ protocol: "https" }],
   },
   prefetch: {
     prefetchAll: true,
