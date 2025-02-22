@@ -58,14 +58,10 @@ export async function GET(context: APIContext): Promise<Response> {
 
     const repos = await fetchAllRepos(username);
 
-    console.log(`Fetched ${repos.length} repositories`);
-
     const languages: Languages = {};
     let totalBytes = 0;
 
     for (const repo of repos) {
-      console.log(repo.name);
-
       const languagesResponse = await fetch(
         `https://api.github.com/repos/${username}/${repo.name}/languages`,
         { headers },

@@ -6,9 +6,15 @@
       <div v-if="loading">Loading...</div>
       <div v-else>
         <h2>Languages Used</h2>
-        <ul>
-          <li v-for="(percentage, language) in languagePercentages" :key="language">
-            {{ language }}: {{ percentage.toFixed(2) }}%
+        <ul class="language-list">
+          <li
+            v-for="(percentage, language) in languagePercentages"
+            :key="language"
+            class="language-item"
+            :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
+            v-tooltip="{ content: language, placement: 'top' }"
+          >
+            <span class="language-percentage">{{ percentage.toFixed(2) }}%</span>
           </li>
         </ul>
         <h2>Total Lines of Code: {{ totalBytes }}</h2>
@@ -46,8 +52,22 @@ onMounted(() => {
 </script>
 
 <style scoped>
-h1,
-h2 {
-  font-family: Arial, sans-serif;
+.language-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.language-item {
+  flex-basis: var(--lang-percentage);
+  border: 1px solid rebeccapurple;
+}
+
+.language-name {
+  font-weight: bold;
+}
+
+.language-percentage {
+  font-style: italic;
 }
 </style>
