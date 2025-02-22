@@ -2,7 +2,7 @@
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 // import { pwaInfo } from "virtual:pwa-info";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 export interface Title {
   title: string;
@@ -46,10 +46,7 @@ const { title, seo } = Astro.props as SeoProps & Title;
    * Check if dark theme is preferred or set by user
    */
   const isDarkTheme = (): string | boolean | null => {
-    if (
-      typeof localStorage !== "undefined" &&
-      localStorage.getItem("darkMode")
-    ) {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("darkMode")) {
       return localStorage.getItem("darkMode");
     }
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -94,20 +91,12 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <title>{title}</title>
 
 {seo?.title && <meta name="title" content={seo?.title} />}
-{
-  seo?.opengraphDescription && (
-    <meta name="description" content={seo?.opengraphDescription} />
-  )
-}
+{seo?.opengraphDescription && <meta name="description" content={seo?.opengraphDescription} />}
 
 <!-- Open Graph / Facebook -->
 {seo?.opengraphType && <meta property="og:type" content={seo?.opengraphType} />}
 {seo?.opengraphUrl && <meta property="og:url" content={seo?.opengraphUrl} />}
-{
-  seo?.opengraphTitle && (
-    <meta property="og:title" content={seo?.opengraphTitle} />
-  )
-}
+{seo?.opengraphTitle && <meta property="og:title" content={seo?.opengraphTitle} />}
 {
   seo?.opengraphDescription && (
     <meta property="og:description" content={seo?.opengraphDescription} />
@@ -121,16 +110,8 @@ const { title, seo } = Astro.props as SeoProps & Title;
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-{
-  seo?.opengraphUrl && (
-    <meta property="twitter:url" content={seo?.opengraphUrl} />
-  )
-}
-{
-  seo?.twitterTitle && (
-    <meta property="twitter:title" content={seo?.twitterTitle} />
-  )
-}
+{seo?.opengraphUrl && <meta property="twitter:url" content={seo?.opengraphUrl} />}
+{seo?.twitterTitle && <meta property="twitter:title" content={seo?.twitterTitle} />}
 {
   seo?.twitterDescription && (
     <meta property="twitter:description" content={seo?.twitterDescription} />
@@ -151,23 +132,11 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <link rel="preconnect" href="//analytics.webshaped.de" />
 
 <!-- Preloads -->
-<link
-  rel="preload"
-  href={SourceSansPro400}
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
-<link
-  rel="preload"
-  href={SourceSansPro700}
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
+<link rel="preload" href={SourceSansPro400} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={SourceSansPro700} as="font" type="font/woff2" crossorigin />
 
 <link rel="manifest" href="/site.webmanifest" />
 <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <script src="/src/services/pwa.ts"></script> -->
 
-<ViewTransitions />
+<ClientRouter />
