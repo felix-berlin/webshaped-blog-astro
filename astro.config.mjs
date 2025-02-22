@@ -23,6 +23,14 @@ export default defineConfig({
     //   },
     // },
   },
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
+  experimental: {
+    responsiveImages: true,
+    clientPrerender: true,
+  },
   prefetch: true,
   integrations: [
     vue({
