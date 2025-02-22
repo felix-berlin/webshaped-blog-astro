@@ -6,36 +6,17 @@
       <p>{{ data.acceptAllCookies }}</p>
     </slot>
     <div>
-      <button type="button" @click="data.acceptAllCookies = false">
-        Reject all
-      </button>
-      <button type="button" @click="data.acceptAllCookies = true">
-        Accept all
-      </button>
+      <button type="button" @click="data.acceptAllCookies = false">Reject all</button>
+      <button type="button" @click="data.acceptAllCookies = true">Accept all</button>
       <button type="button" @click="showOptions">Options</button>
     </div>
     <div v-if="data.showOptions">Options</div>
-    <Matomo
-      v-if="data.isMounted && data.acceptAllCookies"
-      site-id="3"
-      cookie-domain="*.webshaped.de"
-      host="analytics.webshaped.de"
-      :debug-mode="true"
-      :require-consent="false"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import Cookie from "virtual:icons/lucide/cookie";
-import {
-  reactive,
-  watchEffect,
-  onBeforeUnmount,
-  onBeforeMount,
-  onMounted,
-} from "vue";
-import Matomo from "@components/Matomo.vue";
+import { reactive, watchEffect, onBeforeUnmount, onBeforeMount, onMounted } from "vue";
 
 const data = reactive({
   showOptions: false,

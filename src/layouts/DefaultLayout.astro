@@ -54,17 +54,6 @@ const mainMenuItems = await getMenuById(2);
       <slot />
     </main>
 
-    <!-- {
-      import.meta.env.ENABLE_ANALYTICS === "true" && (
-        <Matomo
-          client:only="vue"
-          site-id={"3"}
-          cookie-domain={"*.webshaped.de"}
-          host={"analytics.webshaped.de"}
-          debug-mode={true}
-        />
-      )
-    } -->
     <MainFooter lang={language} transition:persist />
   </body>
 </html>
