@@ -1,9 +1,9 @@
 <template>
-  <ul class="c-language-list">
+  <ul class="c-code-lang-graph">
     <li
       v-for="(percentage, language) in languages"
       :key="language"
-      class="c-language-list__item"
+      class="c-code-lang-graph__item"
       :class="`is-${language.toLowerCase()}`"
       :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
       v-tooltip="{
@@ -25,3 +25,5 @@ const { languages, showTooltips = true } = defineProps<{
   showTooltips?: boolean;
 }>();
 </script>
+
+<style lang="scss"></style>
