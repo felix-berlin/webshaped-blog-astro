@@ -1,35 +1,50 @@
 <template>
-  <div>
-    <h1>GitHub Profile Information</h1>
-    <div v-if="error">{{ error }}</div>
-    <div v-else>
-      <div v-if="loading">Loading...</div>
-      <div v-else>
-        <h2>Languages Used</h2>
-        <ul class="language-list">
-          <li
-            v-for="(percentage, language) in languagePercentages"
-            :key="language"
-            class="language-item"
-            :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
-            v-tooltip="{ content: language, placement: 'top' }"
-          >
-            <span class="language-percentage">{{ percentage.toFixed(2) }}%</span>
-          </li>
-        </ul>
-        <h2>Total Lines of Code: {{ totalBytes }}</h2>
-      </div>
+  <div class="c-github-stats-card c-post-card" v-if="error">{{ error }}</div>
+
+  <div class="c-github-stats-card c-post-card is-graph" v-if="!error">
+    <h2>Folgende Sprachen schreibe ich am meisten:</h2>
+    <GithubStatsSkeleton v-if="loading" />
+
+    <Transition name="fade" mode="out-in">
+      <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
+      </Transition>
+      <i
+      >Der Sprachgraph bezieht sich auf meine öffentlichen und privaten Repositories (main
+      Branch).</i
+      >
     </div>
-  </div>
+
+  <section class="o-github-total-lines" v-if="!error">
+    <div class="c-github-stats-card c-post-card is-total-lines-1">
+      <h2>Gesamtanzahl Codezeilen:</h2>
+    </div>
+    <div class="c-github-stats-card c-post-card is-total-lines-2">
+      {{ loading ? 0 : formattedTotalBytes }}
+    </div>
+  </section class="c-github-stats">
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
+import GithubStatsSkeleton from "./GithubStatsSkeleton.vue";
+import CodeLangGraph from "./CodeLangGraph.vue";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
+
+const filteredLanguagePercentages = computed(() => {
+  return Object.fromEntries(
+    Object.entries(languagePercentages.value).filter(
+      ([, percentage]) => percentage.toFixed(2) !== "0.00",
+    ),
+  );
+});
+
+const formattedTotalBytes = computed(() => {
+  return totalBytes.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+});
 
 onMounted(() => {
   fetch("/api/github/stats")
@@ -51,23 +66,64 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.language-list {
+<style lang="scss">
+/// https://github.com/ozh/github-colors
+$langs: (
+  css: #663399,
+  php: #4f5d95,
+  javascript: #f1e05a,
+  html: #e34c26,
+  scss: #c6538c,
+  sass: #a53b70,
+  typescript: #3178c6,
+  astro: #ff5a03,
+  vue: #41b883,
+  python: #3572a5,
+  dart: #00b4ab,
+  blade: #f7523f,
+  shell: #89e051,
+  powershell: #012456,
+  less: #1d365d,
+  pug: #a86454,
+  ruby: #701516,
+);
+
+.c-language-list {
   display: flex;
   list-style-type: none;
   padding: 0;
 }
 
-.language-item {
+.c-language-list__item {
   flex-basis: var(--lang-percentage);
-  border: 1px solid rebeccapurple;
+  height: 20px;
 }
 
-.language-name {
-  font-weight: bold;
+.o-github-total-lines {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .c-github-stats-card {
+
+    &:first-child {
+      flex: 0 1 content;
+    }
+    &:last-child {
+      flex: 1 0;
+      font-size: 1.5rem;
+    }
+  }
+
 }
 
-.language-percentage {
-  font-style: italic;
+.github-stats-card {
+}
+
+@each $lang, $color in $langs {
+  .is-#{$lang} {
+    background-color: $color;
+  }
 }
 </style>
