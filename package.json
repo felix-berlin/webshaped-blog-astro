@@ -109,7 +109,7 @@
     "typescript": "^5.7.3",
     "unplugin-icons": "^22.1.0",
     "vitest": "^3.0.6",
-    "vue-tsc": "^2.2.2"
+    "vue-tsc": "^2.2.4"
   },
   "dependencies": {
     "@astrojs/node": "^9.1.0",
