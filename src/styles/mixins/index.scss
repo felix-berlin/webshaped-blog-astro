@@ -1,4 +1,5 @@
 @forward "breakpoint";
+@forward "skeleton-loader";
 
 @mixin icon-center {
   &:has(svg) {
