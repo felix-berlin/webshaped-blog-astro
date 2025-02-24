@@ -19,10 +19,7 @@
   &__end {
     display: grid;
     grid-template-columns: var(--columns-grid, 1fr);
-    grid-template-areas: var(
-      --areas-grid,
-      " logo " " quote " " categories " " other " " infos "
-    );
+    grid-template-areas: var(--areas-grid, " logo " " quote " " categories " " other " " infos ");
     padding: 2rem 30px 1rem;
     background-color: butler-fn.hex-to-rgb(colors.$blue-light, 15%);
     border-top-left-radius: 3px;
@@ -123,19 +120,6 @@
 
     figcaption {
       font-size: var(--font-size-sm);
-    }
-  }
-
-  &__menu.c-menu {
-    grid-area: menu;
-
-    @include mx.breakpoint("xs") {
-      align-self: var(--align-self, flex-start);
-      justify-self: var(--justify-self, flex-end);
-    }
-    @include mx.breakpoint("sm") {
-      --align-self: baseline;
-      --justify-self: flex-end;
     }
   }
 }
