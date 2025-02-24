@@ -35,6 +35,7 @@ import type {
   NodeWithAuthorToUserConnectionEdge,
   Maybe,
 } from "@ts_types/generated/graphql";
+import { LAST_FM_SCROBBLER_API } from "astro:env/client";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
@@ -43,7 +44,7 @@ export interface AuthorProps {
 
 defineProps<AuthorProps>();
 
-const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
+const scrobbleApi = LAST_FM_SCROBBLER_API;
 </script>
 
 <style lang="scss">

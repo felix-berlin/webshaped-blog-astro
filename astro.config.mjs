@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import vue from "@astrojs/vue";
 import { loadEnv } from "vite";
 import sitemap from "@astrojs/sitemap";
@@ -9,13 +9,13 @@ import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 
-const { PUBLIC_WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN } = loadEnv(
+const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN } = loadEnv(
   process.env.NODE_ENV,
   process.cwd(),
   "",
 );
 
-const apiHost = new URL(PUBLIC_WP_API).host;
+const apiHost = new URL(WP_API).host;
 
 // https://astro.build/config
 export default defineConfig({
@@ -133,6 +133,28 @@ export default defineConfig({
       },
     }),
   ],
+  env: {
+    schema: {
+      WP_API: envField.string({ context: "client", access: "public", optional: false }),
+      WP_REST_API: envField.string({ context: "client", access: "public", optional: false }),
+      WP_AUTH_REFRESH_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+      WEBMENTION_URL: envField.string({ context: "server", access: "public", optional: false }),
+      LAST_FM_SCROBBLER_API: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+      }),
+      ENABLE_ANALYTICS: envField.boolean({ context: "client", access: "public", default: false }),
+      SENTRY_DSN: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "public", optional: true }),
+      GITHUB_TOKEN: envField.string({ context: "server", access: "secret", optional: false }),
+    },
+  },
   vite: {
     plugins: [
       Icons({

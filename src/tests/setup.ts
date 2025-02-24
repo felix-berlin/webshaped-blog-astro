@@ -6,8 +6,8 @@ import { config } from "@vue/test-utils";
 
 import {
   // Directives
-  VTooltip,
-  VClosePopper,
+  vTooltip,
+  vClosePopper,
   // Components
   Dropdown as VDropdown,
   Tooltip,
@@ -15,7 +15,7 @@ import {
 } from "floating-vue";
 
 beforeAll(() => {
-  vi.stubEnv("PUBLIC_WP_API", "https://cms.webshaped.de/api");
+  vi.stubEnv("WP_API", "https://cms.webshaped.de/api");
 
   config.global.components = {
     VDropdown,
@@ -23,8 +23,8 @@ beforeAll(() => {
     VMenu,
   };
   config.global.directives = {
-    "close-popper": VClosePopper,
-    tooltip: VTooltip,
+    "close-popper": vClosePopper,
+    tooltip: vTooltip,
     // "auto-animate": useAutoAnimate,
   };
 });

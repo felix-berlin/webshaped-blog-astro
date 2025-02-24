@@ -3,6 +3,7 @@ import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 // import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
+import { WEBMENTION_URL } from "astro:env/server";
 
 export interface Title {
   title: string;
@@ -124,8 +125,8 @@ const { title, seo } = Astro.props as SeoProps & Title;
 }
 
 <!-- Webmention -->
-<link rel="webmention" href={`${import.meta.env.WEBMENTION_URL}/webmention`} />
-<link rel="pingback" href={`${import.meta.env.WEBMENTION_URL}/xmlrpc`} />
+<link rel="webmention" href={`${WEBMENTION_URL}/webmention`} />
+<link rel="pingback" href={`${WEBMENTION_URL}/xmlrpc`} />
 <link rel="preconnect" href="//webmention.io" />
 
 <link rel="preconnect" href="//cms.webshaped.de" />

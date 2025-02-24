@@ -1,6 +1,5 @@
 import type { APIContext } from "astro";
-
-const GITHUB_TOKEN = import.meta.env.GITHUB_TOKEN;
+import { GITHUB_TOKEN } from "astro:env/server";
 
 const headers = {
   Authorization: `token ${GITHUB_TOKEN}`,

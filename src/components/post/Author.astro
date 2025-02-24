@@ -10,6 +10,7 @@ import type {
 } from "@ts_types/generated/graphql";
 import { getSocialIconData } from "@utils/helpers";
 import { useTranslations } from "@utils/i18n/utils";
+import { LAST_FM_SCROBBLER_API } from "astro:env/client";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
@@ -18,7 +19,7 @@ export interface AuthorProps {
 
 const { author, lang } = Astro.props as AuthorProps;
 const t = useTranslations(lang);
-const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
+const scrobbleApi = LAST_FM_SCROBBLER_API;
 
 const iconStyles = {
   size: 20,
