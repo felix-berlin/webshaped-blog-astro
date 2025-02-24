@@ -3,7 +3,7 @@
     <details ref="toggleButton" class="c-mobile-toc__button-wrap">
       <summary class="c-mobile-toc__button">
         <div class="c-mobile-toc__fake-button c-button">
-          <span v-text="__(lang?.locale, 'mobile_toc.button')" />
+          <span v-text="t('mobile_toc.button')" />
           <ChevronRight class="c-mobile-toc__fake-button-icon" />
         </div>
 
@@ -26,7 +26,7 @@ import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage, windowWidth } from "@stores/store";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
 import { onClickOutside } from "@vueuse/core";
 
@@ -35,6 +35,7 @@ interface MobileTableOfContentsProps {
 }
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 const pageWidth = useStore(windowWidth);
 const props = defineProps<MobileTableOfContentsProps>();
 const toggleButton = ref<HTMLDetailsElement | null>(null);

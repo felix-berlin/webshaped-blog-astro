@@ -14,7 +14,7 @@
           v-if="comment.author?.node?.avatar"
           :src="comment.author.node.avatar.url!"
           :alt="
-            __(lang?.locale!, 'comment.author.image.alt', {
+            t('comment.author.image.alt', {
               author: comment.author.node.name,
             })
           "
@@ -51,18 +51,12 @@
             @click="toggleReplyCommentForm()"
           >
             <span class="c-comment__reply-button-icon"><Reply width="16" height="16" /> </span>
-            <span class="c-comment__reply-button-text">{{
-              __(lang?.locale!, "comment.reply_button")
-            }}</span>
+            <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date
-            :date="comment.dateGmt!"
-            :lang="lang?.locale as Maybe<Language>"
-            class="c-comment__date"
-          >
+          <Date :date="comment.dateGmt!" :lang="lang" class="c-comment__date">
             <template #before>
-              {{ __(lang?.locale!, "comment.date") }}
+              {{ t("comment.date") }}
             </template>
           </Date>
         </footer>
@@ -108,8 +102,8 @@
 import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
-import { __ } from "@utils/i18n/utils";
-import type { Language, Comment, Maybe } from "@ts_types/generated/graphql";
+import { useTranslations } from "@utils/i18n/utils";
+import type { Comment } from "@ts_types/generated/graphql";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import User from "virtual:icons/lucide/user";
@@ -125,11 +119,9 @@ interface CommentItemProps {
 }
 
 const props = defineProps<CommentItemProps>();
-
 const lang = useStore(currentLanguage);
-
+const t = useTranslations(lang.value);
 const replyToCommentForm = ref(false);
-
 const isAuthor = computed(() => props?.comment?.author?.node.id === props.authorId);
 
 /**

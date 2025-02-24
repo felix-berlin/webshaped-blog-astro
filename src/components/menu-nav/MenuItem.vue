@@ -3,8 +3,7 @@
     :class="[
       'c-menu__item',
       {
-        'has-child':
-          menuItem?.childItems?.nodes && menuItem?.childItems.nodes?.length > 0,
+        'has-child': menuItem?.childItems?.nodes && menuItem?.childItems.nodes?.length > 0,
         'is-active': isCurrentPath,
         'has-visible-child': isOpen,
       },
@@ -48,10 +47,7 @@
         :id="`submenu${depth}${index}`"
         ref="submenu"
         :is-open="isOpen"
-        :class="[
-          `is-level-${depth} is-${submenuDirection}`,
-          { 'is-open': isOpen },
-        ]"
+        :class="[`is-level-${depth} is-${submenuDirection}`, { 'is-open': isOpen }]"
       >
         <template
           v-for="(child, childItemIndex) in props.menuItem.childItems.nodes"
@@ -61,9 +57,9 @@
             :menu-item="child"
             :depth="depth + 1"
             :index="childItemIndex"
-            @mouseenter="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
-            @click="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
-            @focus="!!child?.menuItem?.childItems ?? toggleMenuItem(true)"
+            @mouseenter="!!child?.menuItem?.childItems || toggleMenuItem(true)"
+            @click="!!child?.menuItem?.childItems || toggleMenuItem(true)"
+            @focus="!!child?.menuItem?.childItems || toggleMenuItem(true)"
           />
         </template>
       </MenuSubmenu>

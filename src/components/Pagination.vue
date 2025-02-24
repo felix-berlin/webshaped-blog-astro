@@ -5,7 +5,7 @@
         <component
           :is="1 === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.start}`"
-          :aria-label="__(lang?.locale, 'pagination.first')"
+          :aria-label="t('pagination.first')"
           class="c-pagination__link"
         >
           <ChevronFirst />
@@ -15,7 +15,7 @@
         <component
           :is="page.url.prev ? 'a' : 'span'"
           :href="page.url.prev"
-          :aria-label="__(lang?.locale, 'pagination.previous')"
+          :aria-label="t('pagination.previous')"
           class="c-pagination__link"
         >
           <ChevronLeft />
@@ -33,7 +33,7 @@
         <component
           :is="page.url.next ? 'a' : 'span'"
           :href="page.url.next"
-          :aria-label="__(lang?.locale, 'pagination.next')"
+          :aria-label="t('pagination.next')"
           class="c-pagination__link"
         >
           <ChevronRight />
@@ -43,7 +43,7 @@
         <component
           :is="page.lastPage === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.lastPage}`"
-          :aria-label="__(lang?.locale, 'pagination.last')"
+          :aria-label="t('pagination.last')"
           class="c-pagination__link"
         >
           <ChevronLast />
@@ -58,15 +58,20 @@ import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import type { Page } from "astro/dist/@types/astro";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
+import { currentLanguage } from "@stores/store";
+import { useStore } from "@nanostores/vue";
 
 defineProps<{
   page: Page;
   path: string;
   lang: Maybe<Language>;
 }>();
+
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 </script>
 
 <style lang="scss">

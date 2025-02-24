@@ -8,7 +8,7 @@
       v-show="isMobile"
       type="button"
       class="c-main-nav__toggle c-button c-button--icon"
-      :aria-label="__(lang?.locale!, 'main_nav.toggle_button.label')"
+      :aria-label="t('main_nav.toggle_button.label')"
       :aria-expanded="flyoutIsOpen"
       @click="toggleFlyout"
     >
@@ -52,14 +52,13 @@ import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { isMobileBreakpoint, windowWidth, currentLanguage } from "@stores/store";
-import type { Language, MenuToMenuItemConnection, Maybe } from "@ts_types/generated/graphql";
+import type { MenuToMenuItemConnection } from "@ts_types/generated/graphql";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;
-  lang: Maybe<Language>;
 }
 
 const props = defineProps<MainNavProps>();
@@ -69,6 +68,8 @@ const mainNav = ref(null);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
 const bodyWidthObserver: Ref<ResizeObserver | undefined> = ref();
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 /**
  * Toggle the flyout menu
@@ -97,8 +98,6 @@ const controlScroll = (status: boolean): void => {
  * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
  */
 onMounted(() => {
-  currentLanguage.set(props.lang!);
-
   /**
    * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'isMobile' variables accordingly.
    * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.

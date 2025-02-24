@@ -1,34 +1,35 @@
 import { atom, onMount } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
+import { getLangFromUrl } from "@utils/i18n/utils";
 
-export interface Language {
-  code: string;
-  name: string;
-  locale: string;
-  slug: string;
+export type Language = "en" | "de";
+
+export const currentLanguage = persistentAtom<Language>("language", "en", {
+  encode(value: Language) {
+    return JSON.stringify(value);
+  },
+  decode(value: string): Language {
+    try {
+      return JSON.parse(value);
+    } catch {
+      value;
+    }
+  },
+});
+
+if (typeof window !== "undefined") {
+  window.addEventListener("load", () => {
+    const language = navigator.language;
+    const langShort = language.split("-")[0] as Language;
+    const systemLang = getLangFromUrl(new URL(window.location.href));
+
+    if (langShort === systemLang) {
+      currentLanguage.set(langShort);
+    } else {
+      currentLanguage.set(systemLang);
+    }
+  });
 }
-
-export const currentLanguage = persistentAtom<Language>(
-  "language",
-  {
-    code: "EN",
-    name: "English",
-    locale: "en_US",
-    slug: "en",
-  },
-  {
-    encode(value: Language) {
-      return JSON.stringify(value);
-    },
-    decode(value: string): Language {
-      try {
-        return JSON.parse(value);
-      } catch {
-        value;
-      }
-    },
-  },
-);
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");

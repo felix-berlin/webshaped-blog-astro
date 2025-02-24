@@ -2,7 +2,7 @@
   <div class="c-github-stats-card c-post-card" v-if="error">{{ error }}</div>
 
   <div class="c-github-stats-card c-post-card is-graph" v-if="!error">
-    <h2>Folgende Sprachen schreibe ich am meisten:</h2>
+    <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
     <CodeLangGraph
       class="is-skeleton"
       v-if="loading"
@@ -17,15 +17,12 @@
     <Transition name="fade" mode="out-in">
       <CodeLangList v-if="!loading" :languages="filteredLanguagePercentages" />
     </Transition>
-    <i
-      >Der Sprachgraph bezieht sich auf meine öffentlichen und privaten Repositories (main
-      Branch).</i
-    >
+    <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
 
   <section class="o-github-total-lines" v-if="!error">
     <div class="c-github-stats-card c-post-card is-total-lines-1">
-      <h2>Gesamtanzahl Codezeilen:</h2>
+      <h2>{{ t("github_stats.total_lines.headline") }}</h2>
     </div>
     <div class="c-github-stats-card c-post-card is-total-lines-2">
       {{ loading ? 0 : formattedTotalBytes }}
@@ -37,11 +34,16 @@
 import { ref, onMounted, computed } from "vue";
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
+import { currentLanguage } from "@stores/store";
+import { useStore } from "@nanostores/vue";
+import { useTranslations } from "@utils/i18n/utils";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(

@@ -19,8 +19,33 @@ export const getLangFromUrl = (url: URL) => {
 };
 
 export const useTranslations = (lang: keyof typeof localeStrings) => {
-  return function t(key: keyof (typeof localeStrings)[typeof defaultLang]) {
-    return localeStrings[lang][key] || localeStrings[defaultLang][key];
+  const shortLang = lang?.includes("_") ? (lang.split("_")[0] as keyof typeof localeStrings) : lang;
+  console.log("short", shortLang);
+
+  return function t(
+    key: keyof (typeof localeStrings)[typeof defaultLang],
+    varsToReplace?: object,
+    plural?: number,
+  ) {
+    let translationStr = localeStrings[shortLang][key] || localeStrings[defaultLang][key];
+
+    // If the translation string ends with "--plural", execute the plural form function and store the result in the translation string.
+    if (key.endsWith("--plural") && plural !== undefined) {
+      translationStr = pluralFormFor(translationStr, plural, shortLang);
+    }
+
+    // If there is a filled object with variables to replace, replace them.
+    if (varsToReplace !== undefined && Object.keys(varsToReplace).length !== 0) {
+      const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, "gi");
+
+      translationStr = translationStr
+        .toString()
+        .replace(regex, (matched: string, offset: number) => {
+          return varsToReplace[offset as keyof typeof varsToReplace];
+        });
+    }
+
+    return translationStr || key;
   };
 };
 
@@ -38,7 +63,7 @@ export const useTranslatedPath = (lang: keyof typeof localeStrings) => {
 export const getRouteFromUrl = (url: URL): string | undefined => {
   const pathname = new URL(url).pathname;
   const parts = pathname?.split("/");
-  const path = parts.pop() || parts.pop();
+  const path = parts.pop();
 
   if (path === undefined) {
     return undefined;
@@ -48,8 +73,6 @@ export const getRouteFromUrl = (url: URL): string | undefined => {
 
   if (defaultLang === currentLang) {
     const route = Object.values(routes)[0];
-    console.log(route);
-    console.log(path);
 
     return route[path] !== undefined ? route[path] : undefined;
   }
@@ -59,7 +82,6 @@ export const getRouteFromUrl = (url: URL): string | undefined => {
   };
 
   const reversedKey = getKeyByValue(routes[currentLang], path);
-  console.log("reversedKey", reversedKey);
 
   if (reversedKey !== undefined) {
     return reversedKey;

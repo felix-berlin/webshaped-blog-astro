@@ -7,16 +7,16 @@
       height="18"
     />
     <span class="c-webmentions-count__count">
-      {{ __(lang?.locale!, "webmentions_count.label--plural", { count: count }, count) }}
+      {{ t("webmentions_count.label--plural", { count: count }, count) }}
     </span>
   </component>
 </template>
 
 <script setup lang="ts">
 import { useStore } from "@nanostores/vue";
-import { currentWebmentionsCount } from "@stores/store";
+import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import AtSign from "virtual:icons/lucide/at-sign";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 interface WebmentionsCountProps {
@@ -30,6 +30,8 @@ withDefaults(defineProps<WebmentionsCountProps>(), {
 });
 
 const count = useStore(currentWebmentionsCount);
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 </script>
 
 <style scoped></style>

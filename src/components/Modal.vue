@@ -4,7 +4,7 @@
       v-if="showCloseButton"
       class="c-modal__close c-button c-button--icon"
       type="submit"
-      :aria-label="__(lang?.locale, 'close')"
+      :aria-label="t('close')"
       @click="closeModal"
     >
       <X />
@@ -19,9 +19,7 @@ import { ref, onMounted, watch, onUnmounted } from "vue";
 import X from "virtual:icons/lucide/x";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@utils/i18n/utils";
-
-const lang = useStore(currentLanguage);
+import { useTranslations } from "@utils/i18n/utils";
 
 export interface ModalProps {
   uid: string;
@@ -45,7 +43,8 @@ const {
 const modal = ref<HTMLDialogElement | null>(null);
 const emit = defineEmits(["close", "open"]);
 const isVisible = ref(open);
-
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 /**
  * Open the modal
  *

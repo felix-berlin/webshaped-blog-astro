@@ -4,7 +4,7 @@
       <img
         :src="mention.author.photo"
         :alt="
-          __(lang?.locale!, 'comment.author.image.alt', {
+          t('comment.author.image.alt', {
             author: mention.author.name,
           })
         "
@@ -34,7 +34,7 @@
           :lang="lang?.locale"
         >
           <template #before>
-            {{ __(lang?.locale!, "webmention.posted_on") }}
+            {{ t("webmention.posted_on") }}
           </template>
         </Date>
 
@@ -43,7 +43,7 @@
           class="c-webmention__source"
           target="_blank"
           :aria-label="
-            __(lang?.locale, 'brand_logo.icon_label', {
+            t('brand_logo.icon_label', {
               platform: getHostName(mention.url, true),
             })
           "
@@ -61,7 +61,7 @@
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { getHostName } from "@utils/helpers";
 import ExternalLink from "virtual:icons/lucide/external-link";
 import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
@@ -101,6 +101,7 @@ interface WebmentionsProps {
 const { mention, index } = defineProps<WebmentionsProps>();
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 /**
  * Load icons for the different social media platforms

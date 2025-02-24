@@ -8,7 +8,7 @@
     <Share2
       v-if="showButton"
       focusable="false"
-      :aria-label="__(lang?.locale, 'share.label')"
+      :aria-label="t('share.label')"
       class="c-share__icon"
     />
     <slot />
@@ -19,7 +19,7 @@
 import Share2 from "virtual:icons/lucide/share-2";
 import { onMounted, ref } from "vue";
 import { useShare } from "@vueuse/core";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 
@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<ShareProps>(), {
 
 const lang = useStore(currentLanguage);
 const currentUrl = ref(props.url);
+const t = useTranslations(lang.value);
 
 const startShare = (
   title: string | undefined,

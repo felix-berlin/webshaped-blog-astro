@@ -2,7 +2,7 @@
   <div v-if="getYearDiff(date!, Date.now()) >= showAfterYears" class="c-post-older-than">
     <p class="c-post-older-than__text">
       {{
-        __(lang?.locale, "post_older_than.text", {
+        t("post_older_than.text", {
           years: getYearDiff(date!, Date.now()),
         })
       }}
@@ -11,16 +11,17 @@
 </template>
 
 <script setup lang="ts">
-import { __ } from "@utils/i18n/utils";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import { useTranslations } from "@utils/i18n/utils";
+import type { Maybe } from "@ts_types/generated/graphql";
 
 export interface PostOlderThanProps {
   date: Maybe<string>;
   showAfterYears: number;
-  lang: Maybe<Language>;
+  lang: string;
 }
 
-const props = defineProps<PostOlderThanProps>();
+const { date, showAfterYears, lang } = defineProps<PostOlderThanProps>();
+const t = useTranslations(lang);
 
 const getYearDiff = (date1: string | number, date2: string | number) => {
   return Math.abs(new Date(date2).getFullYear() - new Date(date1).getFullYear());

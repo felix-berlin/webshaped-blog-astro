@@ -1,7 +1,7 @@
 <template>
   <div v-if="translations && translations?.length > 0" class="c-has-translation">
     <p class="c-has-translation__headline">
-      {{ __(lang?.locale, "post_also_available_in") }}
+      {{ t("post_also_available_in") }}
     </p>
     <div
       v-for="translation in translations"
@@ -20,13 +20,14 @@
 </template>
 
 <script setup lang="ts">
-import { __ } from "@utils/i18n/utils";
-import type { Post, Language, Maybe } from "@ts_types/generated/graphql";
+import { useTranslations } from "@utils/i18n/utils";
+import type { Post } from "@ts_types/generated/graphql";
 
 interface HasTranslationsProps {
   translations: Post["translations"];
-  lang: Maybe<Language>;
+  lang: string;
 }
 
-defineProps<HasTranslationsProps>();
+const { translations, lang } = defineProps<HasTranslationsProps>();
+const t = useTranslations(lang);
 </script>

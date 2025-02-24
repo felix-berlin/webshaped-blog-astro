@@ -2,11 +2,11 @@
   <button type="button" class="c-color-mode-toggle c-button c-button--icon" @click="toggleMode()">
     <Transition name="fade" mode="out-in">
       <template v-if="isDark">
-        <Moon focusable="false" :aria-label="__(lang?.locale, 'color_mode_toggle.dark_label')" />
+        <Moon focusable="false" :aria-label="t('color_mode_toggle.dark_label')" />
       </template>
 
       <template v-else-if="!isDark">
-        <Sun focusable="false" :aria-label="__(lang?.locale, 'color_mode_toggle.light_label')" />
+        <Sun focusable="false" :aria-label="t('color_mode_toggle.light_label')" />
       </template>
     </Transition>
   </button>
@@ -17,10 +17,11 @@ import Moon from "virtual:icons/lucide/moon";
 import Sun from "virtual:icons/lucide/sun";
 import { useStore } from "@nanostores/vue";
 import { isDarkMode, currentLanguage } from "@stores/store";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 
 const isDark = useStore(isDarkMode);
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 /**
  * Toggle the color mode.

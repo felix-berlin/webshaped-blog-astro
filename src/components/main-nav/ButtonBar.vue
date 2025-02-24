@@ -8,7 +8,7 @@
       <a
         class="c-main-nav__rss-link c-button c-button--icon"
         href="/rss.xml"
-        :aria-label="__(lang?.locale, 'rss_feed.link_title')"
+        :aria-label="t('rss_feed.link_title')"
       >
         <Rss class="c-main-nav__rss-icon" />
       </a>
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import Rss from "virtual:icons/lucide/rss";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import InstallApp from "@components/InstallApp.vue";
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";
@@ -28,4 +28,5 @@ import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 </script>

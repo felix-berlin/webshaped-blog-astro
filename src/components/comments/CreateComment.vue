@@ -3,14 +3,12 @@
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
         <User v-if="!validEmail(commentForm.email)" width="86" height="86" />
-        <span v-else>{{ __(lang?.locale!, "comment_form.gravatar_hint") }}</span>
+        <span v-else>{{ t("comment_form.gravatar_hint") }}</span>
       </div>
 
       <div class="c-comment__author-name-wrap">
         <h2 class="c-comment__author-name">
-          {{
-            commentForm.author ? commentForm.author : __(lang?.locale!, "comment_form.your_name")
-          }}
+          {{ commentForm.author ? commentForm.author : t("comment_form.your_name") }}
         </h2>
       </div>
     </header>
@@ -19,7 +17,7 @@
       <slot name="beforeContent" />
 
       <h2 class="c-comment__headline">
-        {{ __(lang?.locale!, "comment_form.headline") }}
+        {{ t("comment_form.headline") }}
       </h2>
 
       <Alert
@@ -39,7 +37,7 @@
       >
         <CheckCircle class="c-comment__big-alert-icon" />
         <p class="c-comment__big-alert-text">
-          {{ __(lang?.locale!, "comment_form.success") }}
+          {{ t("comment_form.success") }}
         </p>
       </Alert>
 
@@ -49,9 +47,7 @@
           class="c-form__item is-vertical"
           :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
-          <label class="c-form__label" for="comment">{{
-            __(lang?.locale!, "comment_form.comment.label")
-          }}</label>
+          <label class="c-form__label" for="comment">{{ t("comment_form.comment.label") }}</label>
 
           <textarea
             id="comment"
@@ -73,7 +69,7 @@
             :class="{ 'has-error': formErrors.author.length }"
           >
             <label class="c-form__label c-label is-required" for="author">{{
-              __(lang?.locale!, "comment_form.name.label")
+              t("comment_form.name.label")
             }}</label>
 
             <input
@@ -97,10 +93,10 @@
             }"
           >
             <label class="c-form__label" for="user-email"
-              >{{ __(lang?.locale!, "comment_form.email.label") }}
+              >{{ t("comment_form.email.label") }}
               <Info
                 v-tooltip="{
-                  content: __(lang?.locale!, 'comment_form.email.tooltip'),
+                  content: t('comment_form.email.tooltip'),
                   html: true,
                 }"
                 width="18"
@@ -143,7 +139,7 @@
             class="c-form__label c-label is-required"
             for="privacy"
             v-html="
-              __(lang?.locale!, 'comment_form.privacy.label', {
+              t('comment_form.privacy.label', {
                 link: '/impressum',
               })
             "
@@ -169,11 +165,11 @@
           <label
             class="c-form__label c-label"
             for="saveUser"
-            v-text="__(lang?.locale!, 'comment_form.save_user.label')"
+            v-text="t('comment_form.save_user.label')"
           />
         </div>
         <button type="submit" class="c-button c-button--primary">
-          {{ __(lang?.locale!, "comment_form.submit.button") }}
+          {{ t("comment_form.submit.button") }}
         </button>
       </form>
     </main>
@@ -186,7 +182,7 @@ import { onMounted, reactive, ref, watch } from "vue";
 import { mapStores } from "@nanostores/vue";
 import { guest, currentLanguage } from "@stores/store";
 import Alert from "@components/Alert.vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import User from "virtual:icons/lucide/user";
 import Info from "virtual:icons/lucide/info";
 import type { CreateCommentInput } from "@ts_types/generated/graphql";
@@ -246,6 +242,7 @@ const formResponses: {
 });
 
 const showDialog = ref(false);
+const t = useTranslations(lang);
 
 const emit = defineEmits(["commentCreated", "comment-created"]);
 
@@ -272,23 +269,20 @@ const resetFormErrors = () => {
  */
 const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
-    formErrors.comment = __(currentLanguage.value?.locale, "comment_form.error.comment_to_short");
+    formErrors.comment = t("comment_form.error.comment_to_short");
   }
 
   if (commentForm.author.length <= 1) {
-    formErrors.author = __(currentLanguage.value?.locale, "comment_form.error.author_to_short");
+    formErrors.author = t("comment_form.error.author_to_short");
   }
 
   // If an e-mail address is given, validate it
   if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
-    formErrors.email = __(currentLanguage.value?.locale, "comment_form.error.email_invalid");
+    formErrors.email = t("comment_form.error.email_invalid");
   }
 
   if (!commentForm.privacy) {
-    formErrors.privacy = __(
-      currentLanguage.value?.locale,
-      "comment_form.error.privacy_not_accepted",
-    );
+    formErrors.privacy = t("comment_form.error.privacy_not_accepted");
   }
 
   if (Object.values(formErrors).every((v) => v.length === 0)) {

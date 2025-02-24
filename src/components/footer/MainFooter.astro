@@ -6,7 +6,7 @@ import { getMenuById, getAuthor, getAllCategories } from "@services/api";
 import { firstCategoryPage, getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import InstallApp from "@components/InstallApp.vue";
 import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
@@ -21,7 +21,7 @@ interface MainFooterProps {
 }
 
 const { lang } = Astro.props as MainFooterProps;
-
+const t = useTranslations(lang);
 const iconStyles = {
   size: 40,
   strokeWidth: 1,
@@ -62,7 +62,7 @@ const allSocials = {
 
     <div class="o-footer__categories">
       <h3 class="o-footer__headline">
-        {__(lang?.locale, "categories")}
+        {t("categories")}
       </h3>
       <menu class="c-menu c-menu--footer-two-columns u-list-reset">
         {
@@ -79,7 +79,7 @@ const allSocials = {
     </div>
     <div class="o-footer__other">
       <h3 class="o-footer__headline">
-        {__(lang?.locale, "footer.headline.other")}
+        {t("footer.headline.other")}
       </h3>
       <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems?.menuItems!} />
     </div>
@@ -98,7 +98,7 @@ const allSocials = {
       <div class="o-footer__credits">
         <Copyright width="16" height="16" />
         <span>
-          2015 - {__(lang?.locale, "footer.copyright.now")} Felix Scholze
+          2015 - {t("footer.copyright.now")} Felix Scholze
         </span>
       </div>
       <a

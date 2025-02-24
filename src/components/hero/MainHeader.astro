@@ -7,11 +7,7 @@ import "@styles/objects/_header.scss";
 // import "@styles/components/_searchbar.scss";
 import MainNav from "@components/hero/MainNav.vue";
 // import { currentLanguage } from "@stores/store";
-import type {
-  Language,
-  MenuToMenuItemConnection,
-  Maybe,
-} from "@ts_types/generated/graphql";
+import type { Language, MenuToMenuItemConnection, Maybe } from "@ts_types/generated/graphql";
 
 interface HeaderProps {
   menuItems: MenuToMenuItemConnection;
@@ -22,6 +18,6 @@ const { menuItems, lang } = Astro.props as HeaderProps;
 ---
 
 <header id="mainHeader" class="o-header">
-  <MainNav menuItems={menuItems} lang={lang} client:only="vue" />
+  <MainNav menuItems={menuItems} client:only="vue" />
   <!-- <LanguageSelect class="is-desktop" /> -->
 </header>

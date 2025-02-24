@@ -1,7 +1,7 @@
 <template>
   <button class="c-searchbar c-button c-button--outline" type="button" @click="openSearch">
     <SearchIcon class="c-searchbar__search-icon" />
-    <span class="c-searchbar__label">{{ __(lang?.locale, "search") }}</span>
+    <span class="c-searchbar__label">{{ t("search") }}</span>
     <SquareSlash class="c-searchbar__slash-icon" />
   </button>
 
@@ -24,11 +24,12 @@ import SearchIcon from "virtual:icons/lucide/search";
 import SquareSlash from "virtual:icons/lucide/square-slash";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 
 const lang = useStore(currentLanguage);
 const searchId = "main-search";
 const searchVisible = ref(false);
+const t = useTranslations(lang.value);
 
 /**
  * Open the search modal

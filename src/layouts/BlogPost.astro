@@ -23,6 +23,7 @@ import TabDisplay from "@components/tabs/TabDisplay.vue";
 import ChevronRight from "~icons/lucide/chevron-right";
 import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import HasTranslations from "@components/HasTranslations.vue";
+import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
 import type { Post, MediaSize, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 
@@ -53,6 +54,8 @@ const {
 } = Astro.props as BlogPost;
 
 const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const createBreadcrumbItems = () => {
   const items = [
@@ -125,26 +128,26 @@ const parsedHeadings: ParsedHeading[] =
     />
   </header>
   <article class="c-blog__post">
-    <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={language!} />
+    <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />
 
     <slot />
   </article>
 
   <footer class="c-post-footer">
     <section class="c-blog__info-bar u-glas-background">
-      <DateModified date={modifiedGmt || undefined} lang={language} />
-      <ReadingTime time={seo?.readingTime || undefined} lang={language} />
-      <Categories categories={categories as RootQueryToCategoryConnection} lang={language} />
-      <HasTranslations translations={translations} lang={language} client:only="vue" />
+      <DateModified date={modifiedGmt || undefined} lang={lang} />
+      <ReadingTime time={seo?.readingTime || undefined} lang={lang} />
+      <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
+      <HasTranslations translations={translations} lang={lang} client:only="vue" />
     </section>
     <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
   </footer>
 
   <aside class="c-blog-sidebar">
-    <Author author={author || undefined} lang={language!} />
+    <Author author={author || undefined} lang={lang!} />
     <div class="c-blog-sidebar__toc-wrap">
       <h2 class="c-blog-sidebar__headline is-toc">
-        {__(language?.locale!, "blog.table_of_contents")}
+        {t("blog.table_of_contents")}
       </h2>
       <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
       <TableOfContents headings={parsedHeadings} tocId="tableOfContents" client:load />

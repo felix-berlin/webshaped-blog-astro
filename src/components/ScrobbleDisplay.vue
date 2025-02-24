@@ -13,17 +13,17 @@
           <h2
             class="c-scrobble-display__headline"
             v-text="
-              __(lang?.locale, 'scrobble_display.headline', {
+              t('scrobble_display.headline', {
                 count: numberOfDisplayedTracks,
               })
             "
           />
 
           <button v-close-popper class="c-scrobble-display__close">
-            <X width="14" height="14" :aria-label="__(lang?.locale, 'scrobble_display.close')" />
+            <X width="14" height="14" :aria-label="t('scrobble_display.close')" />
           </button>
         </header>
-        <p v-html="__(lang?.locale, 'scrobble_display.text')" />
+        <p v-html="t('scrobble_display.text')" />
 
         <!-- <TransitionGroup
           name="list"
@@ -41,7 +41,7 @@
             <img
               :src="track.image[1]['#text']"
               :alt="
-                __(lang?.locale, 'scrobble_display.album_cover.alt', {
+                t('scrobble_display.album_cover.alt', {
                   album: track.album['#text'],
                   artist: track.artist['#text'],
                 })
@@ -70,14 +70,14 @@
         <footer>
           <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
-            __(lang?.locale, "scrobble_display.total_text", {
+            t("scrobble_display.total_text", {
               total: state.tracks.recenttracks["@attr"].total,
             })
           }}</span
           ><br />
           <span
             v-html="
-              __(lang?.locale, 'scrobble_display.follow_me', {
+              t('scrobble_display.follow_me', {
                 link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`,
               })
             "
@@ -92,7 +92,7 @@
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import X from "virtual:icons/lucide/x";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
@@ -144,6 +144,7 @@ const state: State = reactive({
 });
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 const stop = watchEffect(() => {
   /**

@@ -1,6 +1,6 @@
 <template>
   <TabsView>
-    <TabItem :header="__(lang?.locale!, 'comments')">
+    <TabItem :header="t('comments')">
       <CommentsClient id="comments" :current-post-id="postId" :author-id="authorId" />
     </TabItem>
     <TabItem header="Webmentions">
@@ -14,7 +14,7 @@ import TabsView from "@components/tabs/TabsView.vue";
 import TabItem from "@components/tabs/TabItem.vue";
 import CommentsClient from "@components/comments/CommentsClient.vue";
 import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import type { NodeWithAuthor } from "@ts_types/generated/graphql";
@@ -27,5 +27,6 @@ export interface TabDisplayProps {
 defineProps<TabDisplayProps>();
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 const WebmentionCount = useStore(currentWebmentionsCount);
 </script>

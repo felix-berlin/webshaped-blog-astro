@@ -8,12 +8,12 @@
     />
     <div class="c-no-comments__text-wrap">
       <p class="c-no-comments__text is-one">
-        {{ __(lang?.locale!, "comment.nothing_is_happening") }}
+        {{ t("comment.nothing_is_happening") }}
       </p>
       <p
         class="c-no-comments__text is-two"
         v-html="
-          __(lang?.locale!, 'comments.no_comments', {
+          t('comments.no_comments', {
             link: '#createComment',
           })
         "
@@ -31,10 +31,11 @@
 <script setup lang="ts">
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 </script>
 
 <style lang="scss">

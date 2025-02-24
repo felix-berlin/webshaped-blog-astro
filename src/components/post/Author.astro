@@ -9,15 +9,15 @@ import type {
   Maybe,
 } from "@ts_types/generated/graphql";
 import { getSocialIconData } from "@utils/helpers";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
-  lang: Maybe<Language>;
+  lang: string;
 }
 
 const { author, lang } = Astro.props as AuthorProps;
-
+const t = useTranslations(lang);
 const scrobbleApi = import.meta.env.PUBLIC_LAST_FM_SCROBBLER_API;
 
 const iconStyles = {
@@ -74,7 +74,7 @@ const allSocials = {
   </p>
 
   <details class="c-author__details-toggle c-details">
-    <summary><span class="c-details__title">{__(lang?.locale, "more")}</span></summary>
+    <summary><span class="c-details__title">{t("more")}</span></summary>
     <SocialList
       socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
       lang={lang}

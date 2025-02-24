@@ -1,7 +1,7 @@
 <template>
   <div class="c-date-modified">
     <p class="c-date-modified__headline">
-      {{ __(lang?.locale!, "last_updated") }}
+      {{ t("last_updated") }}
     </p>
     <Date :date="date!" :lang="lang" class="c-date-modified__date" />
   </div>
@@ -9,12 +9,12 @@
 
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 export interface DateModifiedProps {
   date: string | undefined;
-  lang: Maybe<Language>;
+  lang: string;
 }
 
-defineProps<DateModifiedProps>();
+const { date, lang } = defineProps<DateModifiedProps>();
+const t = useTranslations(lang);
 </script>

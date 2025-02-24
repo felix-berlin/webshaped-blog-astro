@@ -35,7 +35,7 @@
         height="20"
         :class="['c-comments__loading-icon', { 'is-loading': data.partLoading }]"
       />
-      <span>{{ __(lang?.locale!, "comments.load_more.button") }}</span>
+      <span>{{ t("comments.load_more.button") }}</span>
     </button>
   </section>
 </template>
@@ -46,7 +46,7 @@ import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
-import { __ } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
 import { getCommentsById } from "@services/api";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { currentLanguage } from "@stores/store";
@@ -88,6 +88,7 @@ const data = reactive<CommentsData>({
 });
 
 const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 
 /**
  * Get comments by post id

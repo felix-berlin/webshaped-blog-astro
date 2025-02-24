@@ -7,7 +7,6 @@ import "@fontsource/source-sans-pro/700.css";
 import BaseHead from "@components/BaseHead.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
-// import Matomo from "@components/Matomo.vue";
 import { getMenuById, getAuthor } from "@services/api";
 import { updateCategoryPaths } from "@utils/helpers";
 
@@ -27,12 +26,11 @@ export interface DefaultLayoutProps {
 }
 
 const {
-  content: { title, seo, language },
+  content: { title, seo },
   contentClasses,
   bodyClasses,
 } = Astro.props as DefaultLayoutProps;
 
-const langAttr = language.locale?.replace("_", "-");
 const lang = getLangFromUrl(Astro.url);
 const mainMenuItems = await getMenuById(2);
 // const { menuItemsEn }: any = await getMenuById(125); // EN
@@ -48,13 +46,13 @@ const mainMenuItems = await getMenuById(2);
   <body class="o-body" class:list={bodyClasses}>
     <MainHeader
       menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
-      lang={language!}
+      lang={lang}
       transition:persist
     />
     <main class="o-content" class:list={contentClasses}>
       <slot />
     </main>
 
-    <MainFooter lang={language} transition:persist />
+    <MainFooter lang={lang} transition:persist />
   </body>
 </html>

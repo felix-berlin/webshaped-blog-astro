@@ -1,6 +1,6 @@
 <template>
   <div v-if="categories && categories.edges[0].node.name !== 'Uncategorized'" class="c-categories">
-    <p class="c-categories__headline">{{ __(lang?.locale, "categories") }}</p>
+    <p class="c-categories__headline">{{ t("categories") }}</p>
     <div class="c-categories__item-wrap">
       <template v-for="(category, index) in categories.edges" :key="category.node.id">
         <a :href="`/category/${category?.node?.name?.toLowerCase()}/1`" class="c-categories__link">
@@ -14,13 +14,14 @@
 
 <script setup lang="ts">
 import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
-import { __ } from "@utils/i18n/utils";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import { useTranslations } from "@utils/i18n/utils";
 
 interface Props {
   categories: RootQueryToCategoryConnection;
-  lang: Maybe<Language>;
+  lang: string;
 }
 
-defineProps<Props>();
+const { categories, lang } = defineProps<Props>();
+
+const t = useTranslations(lang);
 </script>

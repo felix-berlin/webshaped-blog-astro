@@ -6,11 +6,7 @@
         v-tooltip="{ content: index, placement: 'top' }"
         :href="social.url"
         :target="social.target ? social.target : '_blank'"
-        :aria-label="
-          social.label
-            ? social.label
-            : __(lang?.locale!, 'social_list.link.label', { platform: index })
-        "
+        :aria-label="social.label ? social.label : t('social_list.link.label', { platform: index })"
         :class="`c-social-list__link c-button c-button--outline ${
           social.class ? social.class : ''
         }`"
@@ -40,8 +36,8 @@ import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
 import IconBrandInstagram from "virtual:icons/tabler/brand-instagram";
 import IconBrandYoutube from "virtual:icons/tabler/brand-youtube";
 import IconBrandLinkedin from "virtual:icons/tabler/brand-linkedin";
-import { __ } from "@utils/i18n/utils";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import { useTranslations } from "@utils/i18n/utils";
+import type { Maybe } from "@ts_types/generated/graphql";
 
 export interface SocialItems {
   url?: Maybe<string>;
@@ -67,10 +63,12 @@ export interface SocialListProps {
     github?: SocialItems;
     mastodon?: SocialItems;
   };
-  lang: Maybe<Language>;
+  lang: string;
 }
 
-defineProps<SocialListProps>();
+const { socialItems, lang } = defineProps<SocialListProps>();
+
+const t = useTranslations(lang);
 
 const returnComponent = (component: string) => {
   if (component === "github") {
