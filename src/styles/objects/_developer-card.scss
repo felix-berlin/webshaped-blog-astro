@@ -1,8 +1,17 @@
+@use "@styles/mixins" as mx;
+@use "@sass-butler/functions" as butler-fn;
+
 .o-developer-card {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "image" "text-wrapper";
   margin: 4rem 0 2rem;
   gap: 2rem;
+
+  @include mx.breakpoint("xs") {
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "text-wrapper image";
+  }
 
   &__text,
   &__headline {
@@ -17,12 +26,18 @@
     line-height: 1.4;
   }
 
+  &__headline {
+    font-size: butler-fn.fluid(24, 34, 320, 1024);
+  }
+
   &__text-wrapper {
     align-self: end;
+    grid-area: text-wrapper;
   }
 
   &__image {
     transform: scaleX(-1);
     padding: 0;
+    grid-area: image;
   }
 }

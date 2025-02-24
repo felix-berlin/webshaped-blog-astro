@@ -7,3 +7,9 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}

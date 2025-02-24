@@ -1,0 +1,97 @@
+@use "@styles/mixins" as mx;
+
+/// https://github.com/ozh/github-colors
+$langs: (
+  css: #663399,
+  php: #4f5d95,
+  javascript: #f1e05a,
+  html: #e34c26,
+  scss: #c6538c,
+  sass: #a53b70,
+  typescript: #3178c6,
+  astro: #ff5a03,
+  vue: #41b883,
+  python: #3572a5,
+  dart: #00b4ab,
+  blade: #f7523f,
+  shell: #89e051,
+  powershell: #012456,
+  less: #1d365d,
+  pug: #a86454,
+  ruby: #701516,
+);
+
+.c-github-stats-card {
+  &.is-graph {
+    i {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.c-code-lang-graph {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.c-code-lang-graph__item {
+  flex-basis: var(--lang-percentage);
+  height: 20px;
+
+  @each $lang, $color in $langs {
+    &.is-#{$lang} {
+      background-color: $color;
+    }
+  }
+}
+
+.c-code-lang-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.35rem;
+  padding-inline-start: 1rem;
+
+  &__item {
+    @each $lang, $color in $langs {
+      &.is-#{$lang}::marker {
+        color: $color;
+      }
+    }
+  }
+}
+
+.o-github-total-lines {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .c-github-stats-card {
+    &:first-child {
+      flex: 0 1 content;
+    }
+    &:last-child {
+      flex: 1 0;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.c-code-lang-graph.is-skeleton,
+.c-code-lang-list.is-skeleton {
+  .c-code-lang-graph__item,
+  .c-code-lang-list__item {
+    @include mx.skeleton-loader;
+  }
+
+  .c-code-lang-graph__item {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .c-code-lang-list__item {
+    color: transparent;
+    width: 85%;
+  }
+}
