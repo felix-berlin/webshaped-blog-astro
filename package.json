@@ -97,7 +97,6 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.5.2",
     "prettier-plugin-astro": "^0.14.1",
-    "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.85.0",
     "semantic-release": "^24.2.3",
     "stylelint": "^16.14.1",
