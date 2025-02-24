@@ -1,0 +1,15 @@
+name: web-shaped
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-shaped
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321
