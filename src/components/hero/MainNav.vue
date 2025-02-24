@@ -1,8 +1,6 @@
 <template>
-  <nav ref="mainNav" class="c-main-nav u-glas-background">
+  <nav class="c-main-nav u-glas-background">
     <Logo />
-
-    <!-- <LanguageSelect /> -->
 
     <button
       v-show="isMobile"
@@ -45,9 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import type { Ref } from "vue";
-// import LanguageSelect from "@components/LanguageSelect.vue";
+import { ref, onMounted } from "vue";
 import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
@@ -55,6 +51,7 @@ import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { isMobileBreakpoint, windowWidth, currentLanguage } from "@stores/store";
+import { useResizeObserver } from "@vueuse/core";
 import type { MenuToMenuItemConnection } from "@ts_types/generated/graphql";
 
 export interface MainNavProps {
@@ -64,10 +61,8 @@ export interface MainNavProps {
 const props = defineProps<MainNavProps>();
 
 const isMobile = useStore(isMobileBreakpoint);
-const mainNav = ref(null);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
-const bodyWidthObserver: Ref<ResizeObserver | undefined> = ref();
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
 
@@ -106,7 +101,7 @@ onMounted(() => {
    *
    * @return  {void}
    */
-  bodyWidthObserver.value = new ResizeObserver((entries) => {
+  useResizeObserver(document.body, (entries) => {
     // Cache the computed style of the body element
     const bodyStyle = window.getComputedStyle(document.body);
 
@@ -115,7 +110,7 @@ onMounted(() => {
       (acc, prop) => acc + parseInt(bodyStyle.getPropertyValue(prop)),
       0,
     );
-    const bodyWidth = entries[0].contentBoxSize[0].inlineSize + bodyPadding;
+    const bodyWidth = entries[0].contentRect.width + bodyPadding;
 
     // Update the value of 'isMobile' based on the current screen width
     isMobileBreakpoint.set(bodyWidth < 769);
@@ -130,12 +125,6 @@ onMounted(() => {
       controlScroll(false);
     }
   });
-
-  if (bodyWidthObserver.value) bodyWidthObserver.value.observe(document.body);
-});
-
-onUnmounted(() => {
-  if (bodyWidthObserver.value) bodyWidthObserver.value.disconnect();
 });
 </script>
 
