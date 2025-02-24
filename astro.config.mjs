@@ -7,9 +7,13 @@ import matomo from "astro-matomo";
 import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
-// import sentry from "@sentry/astro";
+import sentry from "@sentry/astro";
 
-const { PUBLIC_WP_API } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const { PUBLIC_WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN } = loadEnv(
+  process.env.NODE_ENV,
+  process.cwd(),
+  "",
+);
 
 const apiHost = new URL(PUBLIC_WP_API).host;
 
@@ -121,18 +125,14 @@ export default defineConfig({
     //   },
     // }),
     //
-    // TODO: on hold, cloudflare pages is not yet supported
-    // @see: https://docs.sentry.io/platforms/javascript/guides/astro/#compatibility
-    // sentry({
-    //   dsn: import.meta.env.SENTRY_DSN,
-    //   sourceMapsUploadOptions: {
-    //     project: import.meta.env.SENTRY_PROJECT_ID,
-    //     authToken: import.meta.env.SENTRY_AUTH_TOKEN,
-    //   },
-    // }),
+    sentry({
+      dsn: SENTRY_DSN,
+      sourceMapsUploadOptions: {
+        project: SENTRY_PROJECT_ID,
+        authToken: SENTRY_AUTH_TOKEN,
+      },
+    }),
   ],
-  // output: import.meta.env.PROD ? 'server' : false,
-  // adapter: cloudflare({ mode: "directory" })
   vite: {
     plugins: [
       Icons({
