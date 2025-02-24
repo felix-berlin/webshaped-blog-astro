@@ -7,10 +7,7 @@
           <ChevronRight class="c-mobile-toc__fake-button-icon" />
         </div>
 
-        <span
-          class="c-mobile-toc__active-headline"
-          v-text="activeHeadlineText"
-        />
+        <span class="c-mobile-toc__active-headline" v-text="activeHeadlineText" />
       </summary>
       <TableOfContents
         class="c-mobile-toc__dropdown"
@@ -29,7 +26,7 @@ import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage, windowWidth } from "@stores/store";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
 import { onClickOutside } from "@vueuse/core";
 
@@ -58,11 +55,9 @@ onClickOutside(mobileToc, (): void => {
 onMounted(() => {
   activeHeadlineText.value = props.headings[0].content;
 
-  document
-    .querySelectorAll("#mobileTableOfContents .c-toc__link")
-    .forEach((link) => {
-      link.addEventListener("click", closeDropdown);
-    });
+  document.querySelectorAll("#mobileTableOfContents .c-toc__link").forEach((link) => {
+    link.addEventListener("click", closeDropdown);
+  });
 });
 </script>
 

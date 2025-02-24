@@ -19,7 +19,7 @@
 import Share2 from "virtual:icons/lucide/share-2";
 import { onMounted, ref } from "vue";
 import { useShare } from "@vueuse/core";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 

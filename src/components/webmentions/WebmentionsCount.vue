@@ -7,14 +7,7 @@
       height="18"
     />
     <span class="c-webmentions-count__count">
-      {{
-        __(
-          lang?.locale!,
-          "webmentions_count.label--plural",
-          { count: count },
-          count,
-        )
-      }}
+      {{ __(lang?.locale!, "webmentions_count.label--plural", { count: count }, count) }}
     </span>
   </component>
 </template>
@@ -23,7 +16,7 @@
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
 import AtSign from "virtual:icons/lucide/at-sign";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 interface WebmentionsCountProps {

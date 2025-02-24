@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import Leaf from "virtual:icons/lucide/leaf";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 interface GreenHostedProps {

@@ -1,13 +1,7 @@
 <template>
   <section class="c-comments">
-    <div
-      id="createComment"
-      class="c-comment is-create-comment is-level-0 is-even"
-    >
-      <CreateComment
-        :current-post-id="currentPostId"
-        @comment-created="reloadComments"
-      />
+    <div id="createComment" class="c-comment is-create-comment is-level-0 is-even">
+      <CreateComment :current-post-id="currentPostId" @comment-created="reloadComments" />
     </div>
 
     <NoComments v-if="!data.hasComments" />
@@ -39,10 +33,7 @@
       <RefreshCw
         width="20"
         height="20"
-        :class="[
-          'c-comments__loading-icon',
-          { 'is-loading': data.partLoading },
-        ]"
+        :class="['c-comments__loading-icon', { 'is-loading': data.partLoading }]"
       />
       <span>{{ __(lang?.locale!, "comments.load_more.button") }}</span>
     </button>
@@ -55,7 +46,7 @@ import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import { getCommentsById } from "@services/api";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { currentLanguage } from "@stores/store";
@@ -105,11 +96,7 @@ const lang = useStore(currentLanguage);
  * @param first
  * @param after
  */
-const getComments = async (
-  currentPostId = props.currentPostId,
-  first = 5,
-  after?: string,
-) => {
+const getComments = async (currentPostId = props.currentPostId, first = 5, after?: string) => {
   data.loading = true;
 
   await getCommentsById(currentPostId, first, after).then((response) => {
@@ -118,8 +105,7 @@ const getComments = async (
     data.comments = [
       ...data.comments,
       ...response.edges.filter(
-        (comment: RootQueryToCommentConnectionEdge) =>
-          comment.node.parentId === null,
+        (comment: RootQueryToCommentConnectionEdge) => comment.node.parentId === null,
       ),
     ];
     data.pageInfo = response.pageInfo as {

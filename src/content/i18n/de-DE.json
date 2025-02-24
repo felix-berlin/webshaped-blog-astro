@@ -67,5 +67,7 @@
   "search": "Suche",
   "close": "Schließen",
   "mobile_toc.button": "Auf dieser Seite",
-  "post_also_available_in": "Beitrag in weiteren Sprachen"
+  "post_also_available_in": "Beitrag in weiteren Sprachen",
+  "dev_card.headline": "Tach, ich bin Felix U. K. Scholze",
+  "dev_card.header_text": "Seit mittlerweile über 10 Jahren bin ich Fullstack Software-Entwickler in Berlin, meine spezielles Augenmerk liegt jedoch auf der Entwicklung von dynamischen, zugänglichen und performanten Frontends."
 }

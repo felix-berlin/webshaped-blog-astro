@@ -6,10 +6,7 @@
       :placement="dropdownPlacement"
       :distance="10"
     >
-      <MusicBars
-        :animate="state.scrobbling"
-        class="c-scrobble-display__music-bar"
-      />
+      <MusicBars :animate="state.scrobbling" class="c-scrobble-display__music-bar" />
 
       <template #popper>
         <header class="c-scrobble-display__header">
@@ -23,11 +20,7 @@
           />
 
           <button v-close-popper class="c-scrobble-display__close">
-            <X
-              width="14"
-              height="14"
-              :aria-label="__(lang?.locale, 'scrobble_display.close')"
-            />
+            <X width="14" height="14" :aria-label="__(lang?.locale, 'scrobble_display.close')" />
           </button>
         </header>
         <p v-html="__(lang?.locale, 'scrobble_display.text')" />
@@ -60,9 +53,7 @@
               height="64"
             />
             <div class="c-scrobble-display__track">
-              <a :href="track.url" class="c-scrobble-display__track-link">{{
-                track.name
-              }}</a>
+              <a :href="track.url" class="c-scrobble-display__track-link">{{ track.name }}</a>
               <MusicBars
                 v-if="track['@attr']?.nowplaying"
                 :animate="true"
@@ -77,11 +68,7 @@
         </div>
         <!-- </TransitionGroup> -->
         <footer>
-          <IconBrandLastfm
-            class="c-scrobble-display__scrobble"
-            width="25"
-            height="25"
-          />
+          <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
             __(lang?.locale, "scrobble_display.total_text", {
               total: state.tracks.recenttracks["@attr"].total,
@@ -105,7 +92,7 @@
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import X from "virtual:icons/lucide/x";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
@@ -184,9 +171,7 @@ watch(
  * @return  {object}  api response
  */
 const getScrobbles = async (): Promise<LastFmData> => {
-  const response = await fetch(
-    `${scrobbleApi}?limit=${numberOfDisplayedTracks}`,
-  );
+  const response = await fetch(`${scrobbleApi}?limit=${numberOfDisplayedTracks}`);
   return await response.json();
 };
 
@@ -228,10 +213,7 @@ const startScrobbleUpdates = (immediately: boolean): void => {
  * @return  {void}
  */
 const stopScrobbleUpdates = (): void => {
-  if (
-    typeof state.updateIntervalId !== "undefined" &&
-    typeof state.updateIntervalId === "number"
-  )
+  if (typeof state.updateIntervalId !== "undefined" && typeof state.updateIntervalId === "number")
     clearInterval(state.updateIntervalId);
 };
 

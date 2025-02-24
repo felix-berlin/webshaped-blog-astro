@@ -61,7 +61,7 @@
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import { getHostName } from "@utils/helpers";
 import ExternalLink from "virtual:icons/lucide/external-link";
 import IconBrandReddit from "virtual:icons/tabler/brand-reddit";

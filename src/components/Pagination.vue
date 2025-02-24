@@ -1,12 +1,7 @@
 <template>
   <nav v-if="page.lastPage > 1" class="c-pagination">
     <ul class="c-pagination__list u-list-reset">
-      <li
-        :class="[
-          'c-pagination__item',
-          { 'is-disabled': 1 === page.currentPage },
-        ]"
-      >
+      <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
         <component
           :is="1 === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.start}`"
@@ -30,10 +25,7 @@
       <li
         v-for="index in page.lastPage"
         :key="index"
-        :class="[
-          'c-pagination__item',
-          { 'is-current': index === page.currentPage },
-        ]"
+        :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
       >
         <a :href="`${path}/${index}`" class="c-pagination__link">{{ index }}</a>
       </li>
@@ -47,12 +39,7 @@
           <ChevronRight />
         </component>
       </li>
-      <li
-        :class="[
-          'c-pagination__item',
-          { 'is-disabled': page.lastPage === page.currentPage },
-        ]"
-      >
+      <li :class="['c-pagination__item', { 'is-disabled': page.lastPage === page.currentPage }]">
         <component
           :is="page.lastPage === page.currentPage ? 'span' : 'a'"
           :href="`${path}/${page.lastPage}`"
@@ -71,7 +58,7 @@ import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Page } from "astro/dist/@types/astro";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 

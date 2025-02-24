@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
 const lang = useStore(currentLanguage);

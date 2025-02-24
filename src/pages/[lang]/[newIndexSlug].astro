@@ -2,8 +2,26 @@
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { Image } from "astro:assets";
 import GithubStats from "@components/GithubStats.vue";
+import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import LanguagePicker from "@components/LanguagePicker.astro";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
+import { routes } from "@utils/i18n/utils";
+import type { InferGetStaticParamsType } from "astro";
+
+export const getStaticPaths = async () => {
+  const pagexData = [routes.de["new-index"], routes.en["new-index"]];
+
+  return pagexData.map((item) => {
+    return {
+      params: {
+        newPageSlug: item,
+      },
+    };
+  });
+};
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 
 export const prerender = false;
 
@@ -21,17 +39,19 @@ const content = {
     locale: "de_DE",
   },
 };
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <DefaultLayout content={content} contentClasses="o-index">
+  <LanguagePicker />
   <header class="o-developer-card">
     <div class="o-developer-card__text-wrapper">
-      <h1 class="o-developer-card__headline c-post-card">Tach, ich bin Felix U. K. Scholze</h1>
+      <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
 
       <p class="o-developer-card__text c-post-card">
-        Seit mittlerweile über 10 Jahren bin ich Fullstack Software-Entwickler in Berlin, meine
-        spezielles Augenmerk liegt jedoch auf der Entwicklung von dynamischen, zugänglichen und
-        performanten Frontends.
+        {t("dev_card.header_text")}
       </p>
     </div>
 

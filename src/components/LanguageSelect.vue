@@ -7,10 +7,7 @@
       aria-label="Select language"
       @blur="changeLanguage($event)"
     >
-      <template
-        v-for="[code, name] in Object.entries(availableLanguages)"
-        :key="code"
-      >
+      <template v-for="[code, name] in Object.entries(languages)" :key="code">
         <option :value="code">
           <span>{{ name }}</span>
         </option>
@@ -20,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { availableLanguages } from "@i18n/i18n";
+import { languages } from "@utils/i18n/utils";
 import { onMounted, reactive } from "vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/i18n";
@@ -37,8 +34,7 @@ const userLanguage = (): string => {
 const changeLanguage = (event: Event) => {
   const newLang = (event.target as HTMLSelectElement).value;
   console.log(newLang);
-  const [_leadingSlash, _oldLang, ...rest] =
-    window.location.pathname.split("/");
+  const [_leadingSlash, _oldLang, ...rest] = window.location.pathname.split("/");
   const slug = rest.join("/");
   // window.location.pathname = `/${newLang}/${slug}`;
   currentLanguage.set(newLang);

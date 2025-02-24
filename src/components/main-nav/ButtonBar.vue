@@ -3,12 +3,7 @@
     <SearchModal />
 
     <div class="c-main-nav__buttons">
-      <InstallApp
-        :show-icon="true"
-        :show-text="false"
-        :icon-size="24"
-        class="c-button--icon"
-      />
+      <InstallApp :show-icon="true" :show-text="false" :icon-size="24" class="c-button--icon" />
 
       <a
         class="c-main-nav__rss-link c-button c-button--icon"
@@ -25,7 +20,7 @@
 
 <script setup lang="ts">
 import Rss from "virtual:icons/lucide/rss";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import InstallApp from "@components/InstallApp.vue";
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";

@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="translations && translations?.length > 0"
-    class="c-has-translation"
-  >
+  <div v-if="translations && translations?.length > 0" class="c-has-translation">
     <p class="c-has-translation__headline">
       {{ __(lang?.locale, "post_also_available_in") }}
     </p>
@@ -23,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Post, Language, Maybe } from "@ts_types/generated/graphql";
 
 interface HasTranslationsProps {

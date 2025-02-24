@@ -14,6 +14,7 @@ import { updateCategoryPaths } from "@utils/helpers";
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@ts_types/generated/graphql";
 import { Head } from "astro-capo";
+import { getLangFromUrl } from "@utils/i18n/utils";
 
 export interface DefaultLayoutProps {
   content: {
@@ -32,12 +33,12 @@ const {
 } = Astro.props as DefaultLayoutProps;
 
 const langAttr = language.locale?.replace("_", "-");
-
+const lang = getLangFromUrl(Astro.url);
 const mainMenuItems = await getMenuById(2);
 // const { menuItemsEn }: any = await getMenuById(125); // EN
 ---
 
-<html lang={langAttr}>
+<html lang={lang}>
   <Head>
     <BaseHead title={title} seo={seo} />
 

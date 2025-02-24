@@ -15,23 +15,13 @@
         }}</span>
       </Share>
     </div>
-    <Heart
-      width="250"
-      height="250"
-      stroke-width="1"
-      class="c-no-mentions__icon is-one"
-    />
-    <ThumbsUp
-      width="250"
-      height="250"
-      stroke-width="1"
-      class="c-no-mentions__icon is-two"
-    />
+    <Heart width="250" height="250" stroke-width="1" class="c-no-mentions__icon is-one" />
+    <ThumbsUp width="250" height="250" stroke-width="1" class="c-no-mentions__icon is-two" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import Share from "@components/Share.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";

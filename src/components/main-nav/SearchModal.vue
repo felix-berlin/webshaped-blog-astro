@@ -24,7 +24,7 @@ import SearchIcon from "virtual:icons/lucide/search";
 import SquareSlash from "virtual:icons/lucide/square-slash";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 
 const lang = useStore(currentLanguage);
 const searchId = "main-search";

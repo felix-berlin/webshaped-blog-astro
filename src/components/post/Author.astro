@@ -9,7 +9,7 @@ import type {
   Maybe,
 } from "@ts_types/generated/graphql";
 import { getSocialIconData } from "@utils/helpers";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 
 export interface AuthorProps {
   author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
@@ -40,11 +40,7 @@ const allSocials = {
 };
 ---
 
-<div
-  class="c-author u-glas-background u-rounded"
-  itemscope
-  itemtype="http://schema.org/Person"
->
+<div class="c-author u-glas-background u-rounded" itemscope itemtype="http://schema.org/Person">
   <div class="c-author__image-wrap">
     {
       author?.node?.avatar?.url && (
@@ -78,15 +74,9 @@ const allSocials = {
   </p>
 
   <details class="c-author__details-toggle c-details">
-    <summary
-      ><span class="c-details__title">{__(lang?.locale, "more")}</span></summary
-    >
+    <summary><span class="c-details__title">{__(lang?.locale, "more")}</span></summary>
     <SocialList
-      socialItems={getSocialIconData(
-        allSocials,
-        iconStyles,
-        additionalSoicalData,
-      )}
+      socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
       lang={lang}
     />
   </details>

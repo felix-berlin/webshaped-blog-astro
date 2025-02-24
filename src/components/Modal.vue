@@ -1,10 +1,5 @@
 <template>
-  <dialog
-    :id="uidHelper('modal')"
-    ref="modal"
-    class="c-modal"
-    :class="[`c-modal--${position}`]"
-  >
+  <dialog :id="uidHelper('modal')" ref="modal" class="c-modal" :class="[`c-modal--${position}`]">
     <button
       v-if="showCloseButton"
       class="c-modal__close c-button c-button--icon"
@@ -24,7 +19,7 @@ import { ref, onMounted, watch, onUnmounted } from "vue";
 import X from "virtual:icons/lucide/x";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 
 const lang = useStore(currentLanguage);
 
@@ -95,8 +90,7 @@ const uidHelper = (id: string): string => {
  */
 const preventScroll = (status: boolean): void => {
   if (disableScroll && status) document.body.classList.add("u-disable-scroll");
-  if (disableScroll && !status)
-    document.body.classList.remove("u-disable-scroll");
+  if (disableScroll && !status) document.body.classList.remove("u-disable-scroll");
 };
 
 /**
@@ -111,15 +105,13 @@ const onClickOutside = (event: MouseEvent): void => {
 };
 
 onMounted(() => {
-  if (closeOnClickOutside)
-    modal.value?.addEventListener("click", onClickOutside);
+  if (closeOnClickOutside) modal.value?.addEventListener("click", onClickOutside);
 
   modal.value?.addEventListener("close", () => closeModal());
 });
 
 onUnmounted(() => {
-  if (closeOnClickOutside)
-    modal.value?.removeEventListener("click", onClickOutside);
+  if (closeOnClickOutside) modal.value?.removeEventListener("click", onClickOutside);
 
   modal.value?.removeEventListener("close", () => closeModal());
 });

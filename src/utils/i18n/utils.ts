@@ -3,27 +3,69 @@ import { getDelimiter } from "@utils/helpers";
 // import { getCollection, type CollectionEntry } from "astro:content";
 import de from "../../content/i18n/de-DE.json";
 import en from "../../content/i18n/en-US.json";
-
-// TODO: Vite doesn't support astro:content yet, so we need to use a workaround.
-// let translationsData: Record<string, CollectionEntry<"i18n">["data"]> = {};
-
-// translationsData = Object.fromEntries(
-//   (await getCollection("i18n")).map(({ id, data }) => [id, data] as const),
-// );
-
-// const allTranslationsData = {
-//   de_DE: translationsData["de-DE"],
-//   en_US: translationsData["en-US"],
-// };
+import { localeStrings, defaultLang, showDefaultLang, routes } from "./ui";
 
 const allTranslationsData = {
   de_DE: de,
   en_US: en,
 };
 
-const availableLanguages = {
-  en: "English",
-  de: "Deutsch",
+export const getLangFromUrl = (url: URL) => {
+  const [, lang] = url.pathname.split("/");
+
+  if (lang in localeStrings) return lang as keyof typeof localeStrings;
+
+  return defaultLang;
+};
+
+export const useTranslations = (lang: keyof typeof localeStrings) => {
+  return function t(key: keyof (typeof localeStrings)[typeof defaultLang]) {
+    return localeStrings[lang][key] || localeStrings[defaultLang][key];
+  };
+};
+
+export const useTranslatedPath = (lang: keyof typeof localeStrings) => {
+  return function translatePath(path: string, l: string = lang) {
+    const pathName = path.replaceAll("/", "");
+    const hasTranslation =
+      defaultLang !== l && routes[l] !== undefined && routes[l][pathName] !== undefined;
+    const translatedPath = hasTranslation ? `/${routes[l][pathName]}` : path;
+
+    return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
+  };
+};
+
+export const getRouteFromUrl = (url: URL): string | undefined => {
+  const pathname = new URL(url).pathname;
+  const parts = pathname?.split("/");
+  const path = parts.pop() || parts.pop();
+
+  if (path === undefined) {
+    return undefined;
+  }
+
+  const currentLang = getLangFromUrl(url);
+
+  if (defaultLang === currentLang) {
+    const route = Object.values(routes)[0];
+    console.log(route);
+    console.log(path);
+
+    return route[path] !== undefined ? route[path] : undefined;
+  }
+
+  const getKeyByValue = (obj: Record<string, string>, value: string): string | undefined => {
+    return Object.keys(obj).find((key) => obj[key] === value);
+  };
+
+  const reversedKey = getKeyByValue(routes[currentLang], path);
+  console.log("reversedKey", reversedKey);
+
+  if (reversedKey !== undefined) {
+    return reversedKey;
+  }
+
+  return undefined;
 };
 
 /**
@@ -35,17 +77,11 @@ const availableLanguages = {
  *
  * @return  {string}                     return the plural string
  */
-const pluralFormFor = (
-  translationString: string,
-  count: number,
-  locale: string,
-): string => {
+const pluralFormFor = (translationString: string, count: number, locale: string): string => {
   const pluralRules = new Intl.PluralRules(locale);
   const matchingForm = pluralRules.select(count);
 
-  return translationString[
-    matchingForm as keyof typeof translationString
-  ] as string;
+  return translationString[matchingForm as keyof typeof translationString] as string;
 };
 
 /**
@@ -60,7 +96,7 @@ const pluralFormFor = (
  *
  * @return  {string}                     return the translated string
  */
-const __ = (
+export const __ = (
   locale: Maybe<string>,
   translationString: string,
   varsToReplace?: object,
@@ -68,8 +104,7 @@ const __ = (
 ): string => {
   const langDelimiter = getDelimiter(locale!);
 
-  const lang =
-    langDelimiter === "-" ? locale : locale?.replace(langDelimiter!, "-");
+  const lang = langDelimiter === "-" ? locale : locale?.replace(langDelimiter!, "-");
 
   let translationStr: string = allTranslationsData[locale][translationString];
 
@@ -88,19 +123,12 @@ const __ = (
      * Create a regular expression for each key in the object.
      * For example: { 'count': 'value', name: 'Jim' } will find {count} and { name } in the translation string.
      */
-    const regex = new RegExp(
-      `\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`,
-      "gi",
-    );
+    const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, "gi");
 
-    return translationStr
-      .toString()
-      .replace(regex, (matched: string, offset: number) => {
-        return varsToReplace[offset as keyof typeof varsToReplace];
-      });
+    return translationStr.toString().replace(regex, (matched: string, offset: number) => {
+      return varsToReplace[offset as keyof typeof varsToReplace];
+    });
   }
 
   return translationStr || translationString;
 };
-
-export { __, availableLanguages };

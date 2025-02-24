@@ -4,9 +4,7 @@
     :class="[
       `is-level-${depth} ${isOdd(depth) ? 'is-odd' : 'is-even'}`,
       {
-        'has-replies':
-          comment?.replies?.nodes?.length != null &&
-          comment.replies.nodes.length > 0,
+        'has-replies': comment?.replies?.nodes?.length != null && comment.replies.nodes.length > 0,
       },
     ]"
   >
@@ -52,9 +50,7 @@
             class="c-comment__reply-button c-button c-button--icon"
             @click="toggleReplyCommentForm()"
           >
-            <span class="c-comment__reply-button-icon"
-              ><Reply width="16" height="16" />
-            </span>
+            <span class="c-comment__reply-button-icon"><Reply width="16" height="16" /> </span>
             <span class="c-comment__reply-button-text">{{
               __(lang?.locale!, "comment.reply_button")
             }}</span>
@@ -80,10 +76,7 @@
       class="c-comment is-create-comment"
       :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
     >
-      <CreateComment
-        :current-post-id="currentPostId"
-        :reply-to-comment-id="comment?.commentId"
-      >
+      <CreateComment :current-post-id="currentPostId" :reply-to-comment-id="comment?.commentId">
         <template #beforeContent>
           <button
             type="button"
@@ -97,9 +90,7 @@
     </div>
     <!-- </Transition> -->
 
-    <template
-      v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0"
-    >
+    <template v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0">
       <CommentItem
         v-for="reply in comment.replies.nodes"
         :key="reply.id"
@@ -117,7 +108,7 @@
 import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Language, Comment, Maybe } from "@ts_types/generated/graphql";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
@@ -139,9 +130,7 @@ const lang = useStore(currentLanguage);
 
 const replyToCommentForm = ref(false);
 
-const isAuthor = computed(
-  () => props?.comment?.author?.node.id === props.authorId,
-);
+const isAuthor = computed(() => props?.comment?.author?.node.id === props.authorId);
 
 /**
  * Methods
@@ -149,8 +138,7 @@ const isAuthor = computed(
 
 const isOdd = (num: number) => num % 2;
 
-const toggleReplyCommentForm = () =>
-  (replyToCommentForm.value = !replyToCommentForm.value);
+const toggleReplyCommentForm = () => (replyToCommentForm.value = !replyToCommentForm.value);
 </script>
 
 <style lang="scss">

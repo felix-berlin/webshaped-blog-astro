@@ -3,17 +3,13 @@
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
         <User v-if="!validEmail(commentForm.email)" width="86" height="86" />
-        <span v-else>{{
-          __(lang?.locale!, "comment_form.gravatar_hint")
-        }}</span>
+        <span v-else>{{ __(lang?.locale!, "comment_form.gravatar_hint") }}</span>
       </div>
 
       <div class="c-comment__author-name-wrap">
         <h2 class="c-comment__author-name">
           {{
-            commentForm.author
-              ? commentForm.author
-              : __(lang?.locale!, "comment_form.your_name")
+            commentForm.author ? commentForm.author : __(lang?.locale!, "comment_form.your_name")
           }}
         </h2>
       </div>
@@ -27,9 +23,7 @@
       </h2>
 
       <Alert
-        v-if="
-          formResponses?.errors && formResponses.errors.length > 0 && showDialog
-        "
+        v-if="formResponses?.errors && formResponses.errors.length > 0 && showDialog"
         type="danger"
         class="c-comment__big-alert c-alert--big-centered"
       >
@@ -49,12 +43,7 @@
         </p>
       </Alert>
 
-      <form
-        v-if="!showDialog"
-        novalidate="true"
-        class="c-form"
-        @submit.prevent="checkForm"
-      >
+      <form v-if="!showDialog" novalidate="true" class="c-form" @submit.prevent="checkForm">
         <div
           v-auto-animate
           class="c-form__item is-vertical"
@@ -72,11 +61,7 @@
             rows="4"
             placeholder=" "
           />
-          <Alert
-            v-if="formErrors.comment.length"
-            type="danger"
-            class="c-alert--small"
-          >
+          <Alert v-if="formErrors.comment.length" type="danger" class="c-alert--small">
             {{ formErrors.comment }}
           </Alert>
         </div>
@@ -99,11 +84,7 @@
               name="author"
               placeholder=" "
             />
-            <Alert
-              v-if="formErrors.author.length"
-              type="danger"
-              class="c-alert--small"
-            >
+            <Alert v-if="formErrors.author.length" type="danger" class="c-alert--small">
               {{ formErrors.author }}
             </Alert>
           </div>
@@ -200,15 +181,12 @@
 </template>
 
 <script setup lang="ts">
-import {
-  createComment,
-  type CreateCommentPayloadExtended,
-} from "@services/api";
+import { createComment, type CreateCommentPayloadExtended } from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
 import { mapStores } from "@nanostores/vue";
 import { guest, currentLanguage } from "@stores/store";
 import Alert from "@components/Alert.vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import User from "virtual:icons/lucide/user";
 import Info from "virtual:icons/lucide/info";
 import type { CreateCommentInput } from "@ts_types/generated/graphql";
@@ -284,9 +262,7 @@ const resetCommentForm = () => {
 
 // reset formErrors function
 const resetFormErrors = () => {
-  Object.keys(formErrors).forEach(
-    (value) => (formErrors[value as keyof CommentForm] = ""),
-  );
+  Object.keys(formErrors).forEach((value) => (formErrors[value as keyof CommentForm] = ""));
 };
 
 /**
@@ -296,29 +272,16 @@ const resetFormErrors = () => {
  */
 const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
-    formErrors.comment = __(
-      currentLanguage.value?.locale,
-      "comment_form.error.comment_to_short",
-    );
+    formErrors.comment = __(currentLanguage.value?.locale, "comment_form.error.comment_to_short");
   }
 
   if (commentForm.author.length <= 1) {
-    formErrors.author = __(
-      currentLanguage.value?.locale,
-      "comment_form.error.author_to_short",
-    );
+    formErrors.author = __(currentLanguage.value?.locale, "comment_form.error.author_to_short");
   }
 
   // If an e-mail address is given, validate it
-  if (
-    commentForm.email &&
-    commentForm.email.length > 0 &&
-    !validEmail(commentForm.email)
-  ) {
-    formErrors.email = __(
-      currentLanguage.value?.locale,
-      "comment_form.error.email_invalid",
-    );
+  if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
+    formErrors.email = __(currentLanguage.value?.locale, "comment_form.error.email_invalid");
   }
 
   if (!commentForm.privacy) {

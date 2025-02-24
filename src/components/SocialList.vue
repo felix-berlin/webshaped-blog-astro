@@ -40,7 +40,7 @@ import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
 import IconBrandInstagram from "virtual:icons/tabler/brand-instagram";
 import IconBrandYoutube from "virtual:icons/tabler/brand-youtube";
 import IconBrandLinkedin from "virtual:icons/tabler/brand-linkedin";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 export interface SocialItems {

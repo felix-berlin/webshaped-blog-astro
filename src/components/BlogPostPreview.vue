@@ -1,9 +1,6 @@
 <template>
   <article v-for="(post, index) in posts" :key="index" class="c-post-card">
-    <a
-      class="c-post-card__link"
-      :href="'/' + post?.language?.slug + '/' + post.slug"
-    >
+    <a class="c-post-card__link" :href="'/' + post?.language?.slug + '/' + post.slug">
       <h2 class="c-post-card__title">{{ post.title }}</h2>
 
       <!-- <Date
@@ -26,11 +23,7 @@
 
       <div class="c-post-card__read-more">
         <span>{{ __(post?.language?.locale, "blog.read_more") }}</span>
-        <ArrowRight
-          width="22"
-          height="22"
-          class="c-post-card__read-more-arrow"
-        />
+        <ArrowRight width="22" height="22" class="c-post-card__read-more-arrow" />
       </div>
     </a>
   </article>
@@ -42,7 +35,7 @@ import Date from "@components/post/Date.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
 import CommentCount from "@components/comments/CommentCount.vue";
 import HasTranslations from "./HasTranslations.vue";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Post } from "@ts_types/generated/graphql";
 
 export interface BlogPostPreviewProps {

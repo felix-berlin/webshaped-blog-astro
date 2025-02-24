@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 
 interface Props {

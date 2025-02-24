@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
-import { __ } from "@i18n/i18n";
+import { __ } from "@utils/i18n/utils";
 export interface DateModifiedProps {
   date: string | undefined;
   lang: Maybe<Language>;
