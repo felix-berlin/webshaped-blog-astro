@@ -72,5 +72,6 @@
   "dev_card.header_text": "I have been a full-stack software developer in Berlin for over 10 years now, but my special focus is on the development of dynamic, accessible and high-performance frontends.",
   "github_stats.lang_graph.headline": "I write the following languages the most:",
   "github_stats.lang_graph.hint": "The language graph refers to my public and private repositories (main branch).",
-  "github_stats.total_lines.headline": "Total lines of code:"
+  "github_stats.total_lines.headline": "Total lines of code:",
+  "install_app.not_ready.tooltip": "The app is not yet ready for installation, please wait a moment."
 }

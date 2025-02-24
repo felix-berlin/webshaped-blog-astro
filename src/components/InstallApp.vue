@@ -1,9 +1,9 @@
 <template>
   <button
-    v-if="showButton"
     class="c-install-button c-button"
     :class="cssClass"
     @click="triggerPwaInstall()"
+    v-tooltip="{ content: t("install_app.not_ready.tooltip"), disabled: installReady }"
   >
     <Download v-if="showIcon" :width="iconSize" :height="iconSize" />
     <template v-if="showText">
@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import {
   installPrompt,
-  showInstallButton,
+  pwaReadyToInstall,
   triggerPwaInstall,
   currentLanguage,
 } from "@stores/store";
@@ -38,7 +38,7 @@ const {
 } = defineProps<InstallAppProps>();
 
 useStore(installPrompt);
-const showButton = useStore(showInstallButton);
+const installReady = useStore(pwaReadyToInstall);
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
 </script>

@@ -11,6 +11,7 @@ import {
   installPrompt,
   isMobileBreakpoint,
   windowWidth,
+  pwaReadyToInstall,
 } from "@stores/store";
 
 export default (app: App) => {
@@ -32,6 +33,7 @@ export default (app: App) => {
     guest,
     currentLanguage,
     installPrompt,
+    pwaReadyToInstall,
     isMobileBreakpoint,
     windowWidth,
   });

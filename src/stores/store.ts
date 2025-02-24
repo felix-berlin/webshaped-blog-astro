@@ -89,23 +89,16 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export const installPrompt = atom<BeforeInstallPromptEvent | null>(null);
-export const showInstallButton = atom<boolean>(false);
+export const pwaReadyToInstall = atom<boolean>(false);
 
-/**
- * Sets the install prompt event.
- *
- * @param   {[type]}  installPrompt
- *
- * @return  {void}
- */
-onMount(installPrompt, () => {
+if (typeof window !== "undefined") {
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
 
     installPrompt.set(event as BeforeInstallPromptEvent);
-    showInstallButton.set(true);
+    pwaReadyToInstall.set(true);
   });
-});
+}
 
 /**
  * Triggers the PWA install prompt.
@@ -128,7 +121,7 @@ export const triggerPwaInstall = async (): Promise<void> => {
  */
 export const disableInAppInstallPrompt = (): void => {
   installPrompt.set(null);
-  showInstallButton.set(false);
+  pwaReadyToInstall.set(false);
 };
 
 export const isMobileBreakpoint = atom<boolean>(false);
