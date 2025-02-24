@@ -1,15 +1,14 @@
 <template>
   <div class="c-language-select">
-    <p>{{ currentLanguage.value }}</p>
     <select
       class="c-language-select__select"
-      :value="obj.userLanguage"
+      v-model="selected"
       aria-label="Select language"
-      @blur="changeLanguage($event)"
+      @change="changeLanguage"
     >
       <template v-for="[code, name] in Object.entries(languages)" :key="code">
         <option :value="code">
-          <span>{{ name }}</span>
+          {{ name }}
         </option>
       </template>
     </select>
@@ -17,36 +16,25 @@
 </template>
 
 <script setup lang="ts">
-import { languages } from "@utils/i18n/utils";
-import { onMounted, reactive } from "vue";
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/i18n";
+import { languages } from "@utils/i18n/ui";
+import { useTranslatedPath, getRouteFromUrl } from "@utils/i18n/utils";
+import { onMounted, ref } from "vue";
+import { useVModel } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
 
-const obj = reactive({
-  userLanguage: "",
-});
-
-const userLanguage = (): string => {
-  const language = navigator.language;
-  return language.split("-")[0];
-};
+const selected = useVModel(currentLanguage);
+const currentUrl = ref();
+const translatePath = ref();
+const route = ref();
 
 const changeLanguage = (event: Event) => {
-  const newLang = (event.target as HTMLSelectElement).value;
-  console.log(newLang);
-  const [_leadingSlash, _oldLang, ...rest] = window.location.pathname.split("/");
-  const slug = rest.join("/");
-  // window.location.pathname = `/${newLang}/${slug}`;
-  currentLanguage.set(newLang);
+  window.location.href = translatePath.value(`/${route.value ? route.value : ""}`, selected.value);
 };
 
 onMounted(() => {
-  if (obj.userLanguage.length < 0) obj.userLanguage = userLanguage();
-  currentLanguage.set(userLanguage());
-  console.log(userLanguage());
-  // console.log(Astro.params);
-
-  // console.log(useStore(currentLanguage));
+  currentUrl.value = new URL(window.location.href);
+  route.value = getRouteFromUrl(currentUrl.value);
+  translatePath.value = useTranslatedPath(selected.value);
 });
 </script>
 
