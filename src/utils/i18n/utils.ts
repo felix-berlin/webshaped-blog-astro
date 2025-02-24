@@ -1,6 +1,5 @@
 import type { Maybe } from "@ts_types/generated/graphql";
 import { getDelimiter } from "@utils/helpers";
-// import { getCollection, type CollectionEntry } from "astro:content";
 import de from "../../content/i18n/de-DE.json";
 import en from "../../content/i18n/en-US.json";
 import { localeStrings, defaultLang, showDefaultLang, routes } from "./ui";
@@ -20,7 +19,6 @@ export const getLangFromUrl = (url: URL) => {
 
 export const useTranslations = (lang: keyof typeof localeStrings) => {
   const shortLang = lang?.includes("_") ? (lang.split("_")[0] as keyof typeof localeStrings) : lang;
-  console.log("short", shortLang);
 
   return function t(
     key: keyof (typeof localeStrings)[typeof defaultLang],

@@ -3,7 +3,7 @@
     class="c-install-button c-button"
     :class="cssClass"
     @click="triggerPwaInstall()"
-    v-tooltip="{ content: t("install_app.not_ready.tooltip"), disabled: installReady }"
+    v-tooltip="{ content: t('install_app.not_ready.tooltip'), disabled: installReady }"
   >
     <Download v-if="showIcon" :width="iconSize" :height="iconSize" />
     <template v-if="showText">

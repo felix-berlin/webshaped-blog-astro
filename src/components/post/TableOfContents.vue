@@ -36,11 +36,7 @@ export interface TableOfContentsProps {
   tocId: string;
 }
 
-const {
-  headings,
-  tocId,
-  htmlElement = "nav",
-} = defineProps<TableOfContentsProps>();
+const { headings, tocId, htmlElement = "nav" } = defineProps<TableOfContentsProps>();
 
 const emit = defineEmits(["currentHeadline"]);
 
@@ -54,9 +50,7 @@ const observer = ref<IntersectionObserver | null>(null);
  *
  * @return  {boolean}
  */
-const isActiveHeadline = (
-  headline: TableOfContentsProps["headings"][0],
-): boolean => {
+const isActiveHeadline = (headline: TableOfContentsProps["headings"][0]): boolean => {
   return (
     activeHeadlineId.value ===
     slugify(headline.content, {

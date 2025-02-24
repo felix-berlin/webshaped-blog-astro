@@ -3,8 +3,6 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { Image } from "astro:assets";
 import GithubStats from "@components/GithubStats.vue";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
-import LanguagePicker from "@components/LanguagePicker.astro";
-import LanguageSelect from "@components/LanguageSelect.vue";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { routes } from "@utils/i18n/ui";
@@ -46,8 +44,6 @@ const t = useTranslations(lang);
 ---
 
 <DefaultLayout content={content} contentClasses="o-index">
-  <LanguagePicker />
-  <LanguageSelect client:only="vue" />
   <header class="o-developer-card">
     <div class="o-developer-card__text-wrapper">
       <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
