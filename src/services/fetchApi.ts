@@ -1,29 +1,18 @@
-import { WP_API } from "astro:env/client";
-import { WP_AUTH_REFRESH_TOKEN } from "astro:env/server";
+import { SITE_URL } from "astro:env/client";
 
-export const fetchAPI = async (query: string, { variables } = { variables: {} }) => {
-  const headers = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${WP_AUTH_REFRESH_TOKEN}`,
-  };
-
-  return await fetch(WP_API, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ query, variables }),
-  })
-    .then(async (response) => {
-      if (response.ok) {
-        // console.log('response', response);
-
-        return await response.json();
-      } else {
-        const errorMessage = await response.text();
-        return Promise.reject(new Error(errorMessage));
-      }
-    })
-    .catch((error) => {
-      console.error("error", error);
+export const fetchAPI = async (query: string, { variables } = { variables: {} }): Promise<any> => {
+  try {
+    const response = await fetch(`${SITE_URL}/api/cms`, {
+      method: "POST",
+      body: JSON.stringify({ query, variables }),
     });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch API error:", error);
+    throw error;
+  }
 };

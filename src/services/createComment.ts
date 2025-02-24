@@ -1,3 +1,4 @@
+import type { APIRoute } from "astro";
 import { fetchAPI } from "@services/fetchApi";
 import type { CreateCommentInput } from "@ts_types/generated/graphql";
 

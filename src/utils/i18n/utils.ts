@@ -29,7 +29,7 @@ export const getLangFromUrl = (url: URL) => {
  *
  * @return  {string}  The translated string, with variables replaced and plural form applied if applicable.
  */
-export const useTranslations = (lang: keyof typeof localeStrings) => {
+export const useTranslations = (lang: keyof typeof localeStrings): Function => {
   const shortLang = lang?.includes("_") ? (lang.split("_")[0] as keyof typeof localeStrings) : lang;
 
   /**

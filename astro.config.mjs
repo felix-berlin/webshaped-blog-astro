@@ -9,7 +9,7 @@ import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 
-const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN } = loadEnv(
+const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN, SITE_URL } = loadEnv(
   process.env.NODE_ENV,
   process.cwd(),
   "",
@@ -19,14 +19,11 @@ const apiHost = new URL(WP_API).host;
 
 // https://astro.build/config
 export default defineConfig({
-  output: "static",
+  output: "server",
   adapter: node({
     mode: "standalone",
   }),
-  site: import.meta.env.DEV
-    ? "http://localhost:4321"
-    : "https://develop.webshaped-blog-astro.pages.dev",
-  //TODO:  https://webshaped.de
+  site: SITE_URL,
   markdown: {
     syntaxHighlight: "shiki",
     // shikiConfig: {
@@ -153,6 +150,7 @@ export default defineConfig({
       SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "public", optional: true }),
       GITHUB_TOKEN: envField.string({ context: "server", access: "secret", optional: false }),
+      SITE_URL: envField.string({ context: "client", access: "public", optional: false }),
     },
   },
   vite: {

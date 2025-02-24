@@ -38,6 +38,4 @@ interface QueryResult {
   };
 }
 
-export interface CreateCommentPayloadExtended
-  extends CreateCommentPayload,
-    QueryResult {}
+export interface CreateCommentPayloadExtended extends CreateCommentPayload, QueryResult {}
