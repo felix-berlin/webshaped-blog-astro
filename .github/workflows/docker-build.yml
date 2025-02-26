@@ -37,6 +37,11 @@ jobs:
         id: extract_tag
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "${{secrets.TEST_SECRETS}}" >> .env
+
       # Debug the environment variables
       - name: Print environment variables
         run: printenv
