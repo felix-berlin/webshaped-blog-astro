@@ -7,10 +7,7 @@ test("Viewing the reading time text", () => {
   const wrapper = mount(ReadingTime, {
     props: {
       time: 12,
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      lang: "en",
     },
   });
 

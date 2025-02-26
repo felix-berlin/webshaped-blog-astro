@@ -6,10 +6,7 @@ import Categories from "@components/Categories.vue";
 describe("Categories.vue", () => {
   const wrapper = mount(Categories, {
     props: {
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      lang: "en",
       categories: {
         edges: [
           {
@@ -28,10 +25,7 @@ describe("Categories.vue", () => {
 
   const emptyWrapper = mount(Categories, {
     props: {
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      lang: "en",
       categories: {
         edges: [
           {

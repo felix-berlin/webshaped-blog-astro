@@ -9,10 +9,7 @@ describe("GreenHosted.vue", () => {
   test("GreenHosted component renders correctly", () => {
     const wrapper = mount(GreenHosted, {
       props: {
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
 

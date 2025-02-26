@@ -9,10 +9,7 @@ describe("HasTranslations.vue", () => {
     wrapper = mount(HasTranslations, {
       propsData: {
         translations: [{ slug: "test-helpful-en", language: { slug: "en", name: "English" } }],
-        lang: {
-          code: "DE",
-          locale: "de_DE",
-        },
+        lang: "de",
       },
     });
   });
@@ -36,10 +33,7 @@ describe("HasTranslations.vue", () => {
     wrapper = mount(HasTranslations, {
       propsData: {
         translations: [],
-        lang: {
-          code: "DE",
-          locale: "de_DE",
-        },
+        lang: "en",
       },
     });
     expect(wrapper.find(".c-has-translation").exists()).toBe(false);

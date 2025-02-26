@@ -14,10 +14,7 @@ describe("PostOlderThan", () => {
       props: {
         date: "2010-01-01",
         showAfterYears: 10,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
 
@@ -37,10 +34,7 @@ describe("PostOlderThan", () => {
       props: {
         date: "2020-01-01",
         showAfterYears: 10,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
 

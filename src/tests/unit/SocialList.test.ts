@@ -18,10 +18,7 @@ describe("SocialList.vue", () => {
           class: "github-link",
         },
       },
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      lang: "en",
     },
   });
 
@@ -37,10 +34,7 @@ describe("SocialList.vue", () => {
     const wrapper = mount(SocialList, {
       props: {
         socialItems,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
     expect(wrapper.findAll(".c-social-list__link")).toHaveLength(6);
@@ -58,10 +52,7 @@ describe("SocialList.vue", () => {
     const wrapper = mount(SocialList, {
       props: {
         socialItems,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
     // console.log(wrapper.html());
@@ -81,10 +72,7 @@ describe("SocialList.vue", () => {
     const wrapper = mount(SocialList, {
       props: {
         socialItems,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
     const links = wrapper.findAll(".c-social-list__link");
@@ -103,10 +91,7 @@ describe("SocialList.vue", () => {
     const wrapper = mount(SocialList, {
       props: {
         socialItems,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
     const links = wrapper.findAll(".c-social-list__link");
