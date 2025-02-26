@@ -60,8 +60,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: compose.yaml
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          load: true
