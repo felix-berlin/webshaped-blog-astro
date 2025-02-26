@@ -29,6 +29,8 @@ jobs:
 
       - name: Run Vitest 🧪
         run: pnpm run test:unit
+        env:
+          SITE_URL: "http://localhost:4321"
 
       - name: Create coverage report 📝
         run: pnpm run test:unit:coverage
