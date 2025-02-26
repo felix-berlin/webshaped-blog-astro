@@ -56,9 +56,9 @@
     "predev": "pnpm run gql:generate",
     "preinstall": "npx only-allow pnpm",
     "postbuild": "pagefind --site dist/",
-    "compose:build:up": "docker-compose -f compose.build.yaml up",
-    "compose:build:build": "docker-compose -f compose.build.yaml build",
-    "compose:build:update": "docker-compose -f compose.build.yaml pull"
+    "compose:build:up": "docker-compose -f compose.yaml up",
+    "compose:build:build": "docker-compose -f compose.yaml build",
+    "compose:build:update": "docker-compose -f compose.yaml pull"
   },
   "packageManager": "pnpm@10.5.1",
   "devDependencies": {
