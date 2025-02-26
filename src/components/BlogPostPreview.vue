@@ -1,6 +1,6 @@
 <template>
   <article v-for="(post, index) in posts" :key="index" class="c-post-card">
-    <a class="c-post-card__link" :href="'/' + post?.language?.slug + '/' + post.slug">
+    <a class="c-post-card__link" :href="postLink(post)">
       <h2 class="c-post-card__title">{{ post.title }}</h2>
 
       <!-- <Date
@@ -44,6 +44,10 @@ export interface BlogPostPreviewProps {
 
 const { posts } = defineProps<BlogPostPreviewProps>();
 const t = useTranslations(posts[0]?.language?.locale);
+
+const postLink = (post: Post): string => {
+  return `/${post?.language?.slug}/posts/${post.slug}`;
+};
 </script>
 
 <style lang="scss">
