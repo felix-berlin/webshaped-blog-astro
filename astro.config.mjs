@@ -10,11 +10,8 @@ import Icons from "unplugin-icons/vite";
 import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
 
-const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN, SITE_URL } = loadEnv(
-  process.env.NODE_ENV,
-  process.cwd(),
-  "",
-);
+const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN, SITE_URL, CODECOV_TOKEN } =
+  loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const apiHost = new URL(WP_API).host;
 
