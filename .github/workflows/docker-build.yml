@@ -37,6 +37,10 @@ jobs:
         id: extract_tag
         run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
+      # Debug the environment variables
+      - name: Print environment variables
+        run: printenv
+
       - name: Build and push Docker image
         run: |
           docker-compose -f compose.build.yaml build
