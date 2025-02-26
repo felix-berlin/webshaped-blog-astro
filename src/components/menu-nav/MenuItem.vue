@@ -57,9 +57,9 @@
             :menu-item="child"
             :depth="depth + 1"
             :index="childItemIndex"
-            @mouseenter="!!child?.menuItem?.childItems || toggleMenuItem(true)"
-            @click="!!child?.menuItem?.childItems || toggleMenuItem(true)"
-            @focus="!!child?.menuItem?.childItems || toggleMenuItem(true)"
+            @mouseenter="!!child?.menuItem?.childItems ?? toggleMenuItem()"
+            @click="!!child?.menuItem?.childItems ?? toggleMenuItem()"
+            @focus="!!child?.menuItem?.childItems ?? toggleMenuItem()"
           />
         </template>
       </MenuSubmenu>
@@ -68,6 +68,7 @@
 </template>
 
 <script setup lang="ts">
+// FIXME: MenuItems in loop are not working as expected
 import { ref, nextTick } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
