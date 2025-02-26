@@ -40,6 +40,12 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v5.3.1
         with:
-          directory: ./coverage
+          directory: ./tests/unit/coverage
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
