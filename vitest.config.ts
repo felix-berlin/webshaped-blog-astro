@@ -79,6 +79,12 @@ export default getViteConfig(
           access: "public",
           default: "http://localhost:4321",
         }),
+        CODECOV_TOKEN: envField.string({
+          context: "server",
+          access: "secret",
+          optional: true,
+          default: "",
+        }),
       },
     },
   },

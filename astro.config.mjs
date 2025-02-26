@@ -8,6 +8,7 @@ import serviceWorker from "astrojs-service-worker";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
+import codecovplugin from "@codecov/astro-plugin";
 
 const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN, SITE_URL } = loadEnv(
   process.env.NODE_ENV,
@@ -129,6 +130,11 @@ export default defineConfig({
         authToken: SENTRY_AUTH_TOKEN,
       },
     }),
+    codecovplugin({
+      enableBundleAnalysis: true,
+      bundleName: "web-shaped-bundle",
+      uploadToken: CODECOV_TOKEN,
+    }),
   ],
   env: {
     schema: {
@@ -156,6 +162,11 @@ export default defineConfig({
         default: "",
       }),
       SITE_URL: envField.string({ context: "client", access: "public", optional: false }),
+      CODECOV_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
     },
   },
   vite: {
