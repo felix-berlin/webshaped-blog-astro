@@ -6,23 +6,11 @@ import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { routes } from "@utils/i18n/ui";
-import type { InferGetStaticParamsType } from "astro";
 
-export const getStaticPaths = async () => {
-  const pagexData = [routes.de["new-index"], routes.en["new-index"]];
+const pagexData = [routes.de["new-index"], routes.en["new-index"]];
 
-  return pagexData.map((item) => {
-    return {
-      params: {
-        newPageSlug: item,
-      },
-    };
-  });
-};
-
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-
-export const prerender = false;
+const { newPageSlug } = Astro.params;
+const page = pagexData.find((item) => item === newPageSlug);
 
 const content = {
   title: "New Index",
