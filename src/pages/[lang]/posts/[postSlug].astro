@@ -21,6 +21,8 @@ import he from "he";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
+export const prerender = true;
+
 export const getStaticPaths = async () => {
   const postWithSlugsDe = await getAllPostsWithSlugs();
   const postWithSlugsEn = await getAllPostsWithSlugs("EN");
