@@ -25,7 +25,7 @@
       <h2>{{ t("github_stats.total_lines.headline") }}</h2>
     </div>
     <div class="c-github-stats-card c-post-card is-total-lines-2">
-      {{ loading ? 0 : formattedTotalBytes }}
+      {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
   </section>
 </template>
@@ -42,6 +42,8 @@ const loading = ref(true);
 const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
+const totalCommits = ref(0);
+const totalAdditions = ref(0);
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
 
@@ -53,9 +55,9 @@ const filteredLanguagePercentages = computed(() => {
   );
 });
 
-const formattedTotalBytes = computed(() => {
-  return totalBytes.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-});
+const formatLargeNumber = (number: number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
 
 const skeletonLangDataMock = {
   CSS: 38.02660312272305,
@@ -88,6 +90,8 @@ onMounted(() => {
     .then((data) => {
       languagePercentages.value = data.languagePercentages;
       totalBytes.value = data.totalBytes;
+      totalCommits.value = data.totalCommits;
+      totalAdditions.value = data.totalAdditions;
       loading.value = false;
     })
     .catch((err) => {
