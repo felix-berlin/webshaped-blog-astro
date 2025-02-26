@@ -45,6 +45,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo "${{secrets.TEST_SECRETS}}" >> .env
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -54,6 +59,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
+          file: compose.build.yaml
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
