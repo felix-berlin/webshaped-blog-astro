@@ -49,10 +49,7 @@
     [
       "@semantic-release-plus/docker",
       {
-        "name": {
-          "namespace": "felix-berlin",
-          "repository": "webshaped-blog-astro"
-        },
+        "name": "ghcr.io/felix-berlin/webshaped-blog-astro",
         "registry": "ghcr.io"
       }
     ]
