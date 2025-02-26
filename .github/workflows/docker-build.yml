@@ -43,6 +43,8 @@ jobs:
           docker tag web-shaped:latest ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
           docker push ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
         env:
+          HOST: ${{ secrets.HOST }}
+          PORT: ${{ secrets.PORT }}
           WP_API: ${{ secrets.WP_API }}
           WP_REST_API: ${{ secrets.WP_REST_API }}
           WP_AUTH_REFRESH_TOKEN: ${{ secrets.WP_AUTH_REFRESH_TOKEN }}
