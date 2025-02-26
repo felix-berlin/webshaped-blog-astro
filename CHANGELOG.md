@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2025-02-26)
+
+
+### Performance Improvements
+
+* prerender blog posts ([edd5480](https://github.com/felix-berlin/webshaped-blog-astro/commit/edd5480997db5f34b6270e51939f3dd186676ef9))
+
 # 1.0.0-beta.1 (2025-02-26)
 
 
