@@ -6,6 +6,9 @@ on:
       - main
       - beta
 
+env:
+  VITEST_CI: true
+
 jobs:
   lint:
     name: Run unit tests
@@ -16,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup pnpm 🛠️
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v4
@@ -27,16 +30,13 @@ jobs:
       - name: Install dependencies 🛠️
         run: pnpm i
 
-      - name: Run Vitest 🧪
-        run: pnpm run test:unit
+      - name: Run Vitest (with coverage report) 🧪
+        run: pnpm run test:unit:ci
         env:
           SITE_URL: "http://localhost:4321"
 
-      - name: Create coverage report 📝
-        run: pnpm run test:unit:coverage
-
       - name: Codecov
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v5.3.1
         with:
           directory: ./coverage
         env:
