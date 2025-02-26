@@ -33,7 +33,7 @@ jobs:
         run: pnpm i
 
       - name: Run Vitest (with coverage report) 🧪
-        run: pnpm run test:unit:ci
+        run: pnpm run test:unit:coverage
         env:
           SITE_URL: "http://localhost:4321"
 
