@@ -53,5 +53,7 @@ jobs:
           ENABLE_ANALYTICS: ${{ secrets.ENABLE_ANALYTICS }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           SENTRY_PROJECT_ID: ${{ secrets.SENTRY_PROJECT_ID }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SITE_URL: ${{ secrets.SITE_URL }}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
