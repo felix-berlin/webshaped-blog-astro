@@ -35,16 +35,15 @@ jobs:
 
       - name: Extract release tag
         id: extract_tag
-        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          TAG_NAME=${TAG_NAME//\//-}
+          echo "RELEASE_TAG=${TAG_NAME}" >> $GITHUB_ENV
 
       - name: Create .env file
         run: |
           touch .env
           echo "${{secrets.TEST_SECRETS}}" >> .env
-
-      # Debug the environment variables
-      - name: Print environment variables
-        run: printenv
 
       - name: Build and push Docker image
         run: |
