@@ -43,13 +43,6 @@ export default {
           "Release <%= nextRelease.version %> - <%= new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %> [skip ci]\n\n<%= nextRelease.notes %>",
       },
     ],
-    [
-      "@semantic-release-plus/docker",
-      {
-        name: "ghcr.io/felix-berlin/webshaped-blog-astro",
-        registry: "ghcr.io",
-      },
-    ],
   ],
   dryRun: false,
 };
