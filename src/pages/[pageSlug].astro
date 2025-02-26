@@ -1,11 +1,9 @@
 ---
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { getPageBySlug } from "@services/api";
-import type {
-  InferGetStaticParamsType,
-  InferGetStaticPropsType,
-  GetStaticPaths,
-} from "astro";
+import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
+
+export const prerender = true;
 
 // Get all pages
 // export async function getStaticPaths() {

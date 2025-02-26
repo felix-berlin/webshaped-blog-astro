@@ -7,6 +7,8 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import { getPostsPreview, getPageBySlug } from "@services/api";
 
+export const prerender = true;
+
 const indexDe: any = await getPageBySlug("blog-index-de");
 // const indexEn: any = await getPageBySlug('blog-index-en');
 
