@@ -1,10 +1,7 @@
 .c-details {
   summary {
     cursor: pointer;
-    background: var(
-        --background-image-details,
-        url("@assets/icons/icon-plus-white.svg")
-      )
+    background: var(--background-image-details, url("../../assets/icons/icon-plus-white.svg"))
       no-repeat left center;
     padding: 0 0 0 15px;
     list-style: none;
@@ -13,7 +10,7 @@
   }
 
   &[open] {
-    --background-image-details: url("@assets/icons/icon-minus-white.svg");
+    --background-image-details: url("../../assets/icons/icon-minus-white.svg");
   }
 
   &__title {
