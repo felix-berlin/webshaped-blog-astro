@@ -18,6 +18,8 @@ jobs:
       - name: Checkout ✅
         uses: actions/checkout@v4
 
+      - run: cp ./.env.pipeline ./.env
+
       - name: Setup pnpm 🛠️
         uses: pnpm/action-setup@v4
 
