@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { WP_API } from "astro:env/client";
-import { WP_AUTH_REFRESH_TOKEN } from "astro:env/server";
+import { WP_AUTH_REFRESH_TOKEN } from "astro:env/client";
 
 const fetchAPI = async (query: string, { variables } = { variables: {} }) => {
   const headers = {
