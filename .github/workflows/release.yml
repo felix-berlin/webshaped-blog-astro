@@ -1,10 +1,16 @@
 name: Release
 
+# on:
+#   workflow_run:
+#     workflows: ["Unit tests"]
+#     types:
+#       - completed
+
 on:
-  workflow_run:
-    workflows: ["Unit tests"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+      - beta
 
 jobs:
   release:
