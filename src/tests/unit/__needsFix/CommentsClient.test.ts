@@ -1,7 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { nextTick } from "vue";
 import { it, expect, describe, beforeAll, vi } from "vitest";
-// @ts-ignore: Unresolved import
 import CommentsClient from "@components/comments/CommentsClient.vue";
 
 describe("CommentsClient", () => {
