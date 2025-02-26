@@ -1,0 +1,44 @@
+name: Build and Push Docker Image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract release tag
+        id: extract_tag
+        run: echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        run: |
+          docker-compose -f compose.build.yaml build
+          docker tag web-shaped:latest ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
+          docker push ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
+        env:
+          WP_API: ${{ secrets.WP_API }}
+          WP_REST_API: ${{ secrets.WP_REST_API }}
+          WP_AUTH_REFRESH_TOKEN: ${{ secrets.WP_AUTH_REFRESH_TOKEN }}
+          WEBMENTION_URL: ${{ secrets.WEBMENTION_URL }}
+          LAST_FM_SCROBBLER_API: ${{ secrets.LAST_FM_SCROBBLER_API }}
+          ENABLE_ANALYTICS: ${{ secrets.ENABLE_ANALYTICS }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_PROJECT_ID: ${{ secrets.SENTRY_PROJECT_ID }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
