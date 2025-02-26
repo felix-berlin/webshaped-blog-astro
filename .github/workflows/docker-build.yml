@@ -1,8 +1,14 @@
 name: Build and Push Docker Image
 
+# on:
+#   release:
+#     types: [published]
+
 on:
-  release:
-    types: [published]
+  pull_request:
+  push:
+    branches:
+      - beta
 
 jobs:
   build:
