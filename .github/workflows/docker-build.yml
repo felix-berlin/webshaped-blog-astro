@@ -16,40 +16,40 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract release tag
-        id: extract_tag
-        run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          TAG_NAME=${TAG_NAME//\//-}
-          echo "RELEASE_TAG=${TAG_NAME}" >> $GITHUB_ENV
-
       - name: Create .env file
         run: |
           touch .env
           echo "${{secrets.TEST_SECRETS}}" >> .env
 
-      - name: Build and push Docker image
-        run: |
-          docker-compose -f compose.build.yaml build
-          docker tag web-shaped:latest ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
-          docker push ghcr.io/${{ github.repository }}:${{ env.RELEASE_TAG }}
+      - name: Build Docker image
+        run: docker-compose -f compose.build.yaml build
+
+      - name: Setup pnpm 🛠️
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "lts/*"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Run semantic-release-plus
+        run: pnpm dlx semantic-release-plus
         env:
           HOST: ${{ secrets.HOST }}
           PORT: ${{ secrets.PORT }}
@@ -65,3 +65,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SITE_URL: ${{ secrets.SITE_URL }}
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}

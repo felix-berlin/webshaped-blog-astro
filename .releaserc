@@ -45,6 +45,16 @@
       {
         "message": "Release <%= nextRelease.version %> - <%= new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %> [skip ci]\n\n<%= nextRelease.notes %>"
       }
+    ],
+    [
+      "@semantic-release-plus/docker",
+      {
+        "name": {
+          "namespace": "felix-berlin",
+          "repository": "webshaped-blog-astro"
+        },
+        "registry": "ghcr.io"
+      }
     ]
   ],
   "dryRun": false
