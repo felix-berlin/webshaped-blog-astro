@@ -48,7 +48,7 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo "${{secrets.TEST_SECRETS}}" >> .env
+          echo "${{secrets.ALL_SECRETS}}" >> .env
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
