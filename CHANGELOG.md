@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2025-02-27)
+
+
+### Features
+
+* replace current dark mode detector logic by new component ([09ddb81](https://github.com/felix-berlin/webshaped-blog-astro/commit/09ddb81ddb52c5dbae80ff9090f5af73e6f31074))
+
 # [1.0.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2025-02-26)
 
 
