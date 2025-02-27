@@ -9,8 +9,13 @@ import { routes } from "@utils/i18n/ui";
 
 const pagexData = [routes.de["new-index"], routes.en["new-index"]];
 
-const { newPageSlug } = Astro.params;
-const page = pagexData.find((item) => item === newPageSlug);
+const { newIndexSlug } = Astro.params;
+
+const page = pagexData.find((item) => {
+  return item === newIndexSlug;
+});
+
+if (!page) return Astro.redirect("/404");
 
 const content = {
   title: "New Index",
