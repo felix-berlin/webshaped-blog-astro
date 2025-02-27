@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2025-02-27)
+
+
+### Bug Fixes
+
+* **GithubStats:** t fn was not reactive ([df78cab](https://github.com/felix-berlin/webshaped-blog-astro/commit/df78cab1407402945e45ee5c6abc6c201f5b8474))
+* make sure the newIndex routes are unique ([a658010](https://github.com/felix-berlin/webshaped-blog-astro/commit/a658010d2d1b64a5665ef2061c2c1a4f17dfbd68))
+
 # [1.0.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2025-02-27)
 
 
