@@ -1,0 +1,56 @@
+---
+
+---
+
+<!-- Block until theme class is set -->
+<script is:inline>
+  /**
+   * Check if dark theme is preferred or set by user
+   */
+  const isDarkTheme = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("darkMode")) {
+      return localStorage.getItem("darkMode");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "true";
+    }
+    return "false";
+  };
+
+  /**
+   * Set dark theme class
+   */
+  const setDarkClass = () => {
+    const htmlClasses = document.documentElement.classList;
+
+    if (isDarkTheme() === "false") {
+      htmlClasses.remove("dark");
+    } else {
+      htmlClasses.add("dark");
+    }
+  };
+
+  /**
+   * Update meta theme color.
+   *
+   * @return  {void}
+   */
+  const setThemeColor = () => {
+    const metaThemeColor = document.querySelector("meta[name=theme-color]");
+    const themeColor = isDarkTheme() === "true" ? "#2b333b" : "#fad0b0";
+    metaThemeColor.setAttribute("content", themeColor);
+  };
+
+  /**
+   * Needs to be set on load because theme-color meta tag comes later in the loading sequence
+   */
+  window.onload = function () {
+    setThemeColor();
+  };
+
+  setDarkClass();
+
+  localStorage.setItem("darkMode", isDarkTheme());
+
+  document.addEventListener("astro:after-swap", setDarkClass);
+</script>
