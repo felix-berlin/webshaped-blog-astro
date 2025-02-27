@@ -45,7 +45,9 @@ const totalBytes = ref(0);
 const totalCommits = ref(0);
 const totalAdditions = ref(0);
 const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+
+// TODO: provide reactivity on global or function level
+const t = computed(() => useTranslations(lang.value));
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(
