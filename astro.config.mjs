@@ -10,8 +10,15 @@ import Icons from "unplugin-icons/vite";
 import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
 
-const { WP_API, SENTRY_DSN, SENTRY_PROJECT_ID, SENTRY_AUTH_TOKEN, SITE_URL, CODECOV_TOKEN } =
-  loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const {
+  WP_API,
+  SENTRY_DSN,
+  SENTRY_PROJECT_ID,
+  SENTRY_AUTH_TOKEN,
+  SITE_URL,
+  CODECOV_TOKEN,
+  ENABLE_ANALYTICS,
+} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const apiHost = new URL(WP_API).host;
 
@@ -67,7 +74,7 @@ export default defineConfig({
       },
     }),
     matomo({
-      enabled: import.meta.env.PROD,
+      enabled: ENABLE_ANALYTICS,
       host: "https://analytics.webshaped.de/",
       siteId: 3,
       debug: true,
@@ -152,10 +159,11 @@ export default defineConfig({
       SENTRY_DSN: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_ENVIRONMENT: envField.string({ context: "server", access: "public", optional: true }),
       GITHUB_TOKEN: envField.string({
         context: "server",
         access: "secret",
-        optional: false,
+        optional: true,
         default: "",
       }),
       SITE_URL: envField.string({ context: "client", access: "public", optional: false }),
