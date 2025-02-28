@@ -1,7 +1,7 @@
 ---
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
-// import { pwaInfo } from "virtual:pwa-info";
+import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
 import { WEBMENTION_URL } from "astro:env/server";
 import SetColorMode from "@components/SetColorMode.astro";
@@ -43,6 +43,10 @@ const { title, seo } = Astro.props as SeoProps & Title;
 ---
 
 <SetColorMode />
+<ClientRouter />
+
+{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+<script src="/src/services/pwa.ts"></script>
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
@@ -107,7 +111,3 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <link rel="preload" href={SourceSansPro700} as="font" type="font/woff2" crossorigin />
 
 <link rel="manifest" href="/site.webmanifest" />
-<!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-<script src="/src/services/pwa.ts"></script> -->
-
-<ClientRouter />
