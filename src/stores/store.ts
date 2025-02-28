@@ -1,4 +1,4 @@
-import { atom, onMount } from "nanostores";
+import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 import { getLangFromUrl } from "@utils/i18n/utils";
 
