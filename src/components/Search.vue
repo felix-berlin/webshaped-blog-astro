@@ -3,14 +3,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, nextTick } from "vue";
 import { PagefindUI } from "@pagefind/default-ui";
 
 export interface SearchProps {
   id: string;
 }
 
-const props = defineProps<SearchProps>();
+const { id } = defineProps<SearchProps>();
 
 let bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
@@ -28,7 +28,7 @@ if (import.meta.env.DEV) {
  */
 const initPagefind = (): void => {
   new PagefindUI({
-    element: `#${props.id}`,
+    element: `#${id}`,
     resetStyles: false,
     showImages: false,
     bundlePath,
@@ -47,15 +47,18 @@ const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
   // If input or textarea is focused, do nothing
   if (activeElement === "INPUT" || activeElement === "TEXTAREA") return;
 
-  if (event.key === "/" || event.key === ".") {
-    event.preventDefault();
-    const inputElement = document?.querySelector(`#${props.id} input`) as HTMLElement;
-    inputElement?.focus();
+  if (!(event.key === "/" || event.key === ".")) {
+    return;
   }
+  event.preventDefault();
+  const inputElement = document?.querySelector(`#${id} input`) as HTMLElement;
+  inputElement?.focus();
 };
 
 onMounted(() => {
-  initPagefind();
+  nextTick(() => {
+    initPagefind();
+  });
 
   window.addEventListener("keydown", (event) => triggerSearchViaKeyboard(event));
 });

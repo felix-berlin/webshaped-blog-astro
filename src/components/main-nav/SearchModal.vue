@@ -12,7 +12,7 @@
     :disable-scroll="true"
     @close="searchVisible = false"
   >
-    <Search id="main-search" />
+    <Search :id="searchId" />
   </Modal>
 </template>
 
@@ -65,11 +65,12 @@ const openSearchViaKeyboard = (event: KeyboardEvent): void => {
   if (document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA")
     return;
 
-  if (event.key === "/" || event.key === ".") {
-    event.preventDefault();
-    openSearch();
-    focusSearch();
+  if (!(event.key === "/" || event.key === ".")) {
+    return;
   }
+  event.preventDefault();
+  openSearch();
+  focusSearch();
 };
 
 onMounted(() => {
