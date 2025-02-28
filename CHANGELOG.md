@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-02-28)
+
+
+### Bug Fixes
+
+* **PWA:** remove duplicated web manifest ([04d9686](https://github.com/felix-berlin/webshaped-blog-astro/commit/04d968683fbccb70c95832fbde605b392631b78e))
+
 # [1.0.0-beta.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2025-02-28)
 
 
