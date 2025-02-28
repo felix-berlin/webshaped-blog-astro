@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { coverageConfigDefaults } from "vitest/config";
-import { getViteConfig, envField } from "astro/config";
+import { getViteConfig } from "astro/config";
 
 export default getViteConfig({
   test: {
