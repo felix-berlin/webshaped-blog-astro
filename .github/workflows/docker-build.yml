@@ -71,7 +71,7 @@ jobs:
           # platforms: linux/amd64,linux/arm64
           platforms: linux/arm64
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
 
       # Add this step to output the build name
@@ -82,7 +82,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: ${{ steps.meta.outputs.tags }}
+          image-ref: ghcr.io/${{ github.repository }}:${{ github.sha }}
           format: "sarif"
           output: "trivy-results.sarif"
 
