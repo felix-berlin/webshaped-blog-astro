@@ -45,10 +45,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create .env file
+      - name: Create .env file for main branch
+        if: github.ref == 'refs/heads/main'
         run: |
           touch .env
-          echo "${{secrets.ALL_SECRETS}}" >> .env
+          echo "${{ secrets.PROD_SECRETS }}" >> .env
+
+      - name: Create .env file for other branches
+        if: github.ref != 'refs/heads/main'
+        run: |
+          touch .env
+          echo "${{ secrets.DEV_SECRETS }}" >> .env
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -56,11 +63,34 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push
+      - name: Build Docker image
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: .
           platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name != 'pull_request' }}
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: "ghcr.io/${{ github.repository }}:${{ steps.meta.outputs.tags }}"
+          format: "sarif"
+          output: "trivy-results.sarif"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "trivy-results.sarif"
+
+      - name: Push Docker image
+        if: success()
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
