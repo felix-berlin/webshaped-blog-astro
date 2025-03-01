@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.9](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2025-03-01)
+
+
+### Bug Fixes
+
+* pagefind path by copieng to public ([eb61f20](https://github.com/felix-berlin/webshaped-blog-astro/commit/eb61f2068d4af7bbe2c577c002058a1b3a1363c9))
+
 # [1.0.0-beta.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-02-28)
 
 
