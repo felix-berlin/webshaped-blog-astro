@@ -114,7 +114,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        navigateFallback: "/404",
+        globDirectory: "dist",
+        // navigateFallback: "/404",
         globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
       },
       devOptions: {
