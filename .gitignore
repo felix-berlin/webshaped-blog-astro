@@ -2,6 +2,7 @@
 dist/
 dev-dist/
 .astro
+public/pagefind
 
 # test output
 coverage
