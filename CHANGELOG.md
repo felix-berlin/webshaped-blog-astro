@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-02-28)
+
+
+### Reverts
+
+* Revert "build: remove unused env file" ([233bf22](https://github.com/felix-berlin/webshaped-blog-astro/commit/233bf22314ebabe99276f81ad42da6521c239aee))
+
 # [1.0.0-beta.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-02-28)
 
 
