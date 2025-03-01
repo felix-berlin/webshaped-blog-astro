@@ -123,7 +123,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/vue": "^5.0.7",
     "@felix_berlin/sass-butler": "^3.1.0",
-    "@fontsource/source-sans-pro": "^5.1.0",
+    "@fontsource/source-sans-pro": "^5.2.0",
     "@formkit/auto-animate": "^0.8.2",
     "@iconify-json/lucide": "^1.2.27",
     "@iconify-json/tabler": "^1.2.16",

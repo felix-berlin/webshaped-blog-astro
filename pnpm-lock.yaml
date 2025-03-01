@@ -24,8 +24,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(sass@1.85.1)
       '@fontsource/source-sans-pro':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.2.0
+        version: 5.2.0
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
@@ -1399,8 +1399,8 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@fontsource/source-sans-pro@5.1.0':
-    resolution: {integrity: sha512-GJijHmnPKwA1G8MqUVOZzbIW8jLBFsJGugAb5/IikvTHHmLp+pJy+g8EhyWbfR8pI04i/EStzW0AzOv0KQEhzg==}
+  '@fontsource/source-sans-pro@5.2.0':
+    resolution: {integrity: sha512-1sE7l64Qmg5aZzvbQjSc24cdf4d/+fCHixamaiXfO+T8jcZFXRuesYH1+8PajSoBuqgiuEJ/VnphKRYU3hso/w==}
 
   '@formkit/auto-animate@0.8.2':
     resolution: {integrity: sha512-SwPWfeRa5veb1hOIBMdzI+73te5puUBHmqqaF1Bu7FjvxlYSz/kJcZKSa9Cg60zL0uRNeJL2SbRxV6Jp6Q1nFQ==}
@@ -9320,7 +9320,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@fontsource/source-sans-pro@5.1.0': {}
+  '@fontsource/source-sans-pro@5.2.0': {}
 
   '@formkit/auto-animate@0.8.2': {}
 
