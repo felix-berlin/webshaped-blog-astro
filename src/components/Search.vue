@@ -12,7 +12,7 @@ export interface SearchProps {
 
 const { id } = defineProps<SearchProps>();
 
-let bundlePath = `${import.meta.env.BASE_URL}/pagefind/`;
+let bundlePath = `${import.meta.env.SITE}/pagefind/`;
 
 if (import.meta.env.DEV) {
   bundlePath = "/dist/pagefind/";
