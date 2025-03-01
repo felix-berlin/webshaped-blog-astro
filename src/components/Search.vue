@@ -31,7 +31,6 @@ const initPagefind = (): void => {
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
-    bundlePath,
   });
 };
 
