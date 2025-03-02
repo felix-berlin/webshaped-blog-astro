@@ -55,7 +55,7 @@
     "gql:generate": "gql-gen --config codegen.ts",
     "predev": "pnpm run gql:generate",
     "preinstall": "npx only-allow pnpm",
-    "postbuild": "pagefind --site dist/ && pnpm run copy:pagefind",
+    "postbuild": "pagefind --site dist/",
     "copy:pagefind": "pnpm dlx shx cp -r dist/pagefind public/",
     "compose:build:up": "docker-compose -f compose.yaml up",
     "compose:build:build": "docker-compose -f compose.yaml build",

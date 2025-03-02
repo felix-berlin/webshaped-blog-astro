@@ -1,9 +1,10 @@
 <template>
   <div :id="id" class="c-search"></div>
+  <!-- <input type="text" ref="searchInput" @focus="initPagefind" @keydown="processResults" /> -->
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, nextTick } from "vue";
+import { onMounted, onUnmounted, nextTick, ref, useTemplateRef } from "vue";
 import { PagefindUI } from "@pagefind/default-ui";
 
 export interface SearchProps {
@@ -11,8 +12,10 @@ export interface SearchProps {
 }
 
 const { id } = defineProps<SearchProps>();
+// const searchInput = useTemplateRef("searchInput");
+const pagefind = ref(null);
 
-let bundlePath = `${import.meta.env.SITE}/pagefind/`;
+let bundlePath = `/pagefind/`;
 
 if (import.meta.env.DEV) {
   bundlePath = "/dist/pagefind/";
@@ -24,14 +27,26 @@ if (import.meta.env.DEV) {
 /**
  * Initialize Pagefind
  *
- * @return  {void}
  */
-const initPagefind = (): void => {
+const initPagefind = async () => {
+  // if (!searchInput.value) return;
+  // pagefind.value = await import("../../public/pagefind/pagefind.js");
+  // console.log(pagefind.value);
+  // pagefind.value.init();
   new PagefindUI({
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
   });
+};
+
+const processResults = async (event) => {
+  const results = await (await pagefind.value.search(event.target.value)).results;
+  for (const result of results) {
+    const data = await result.data();
+    console.log(data, data.meta.title, data.excerpt);
+    // do required DOM manipulation
+  }
 };
 
 /**
