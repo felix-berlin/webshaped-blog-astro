@@ -15,7 +15,7 @@ const { id } = defineProps<SearchProps>();
 // const searchInput = useTemplateRef("searchInput");
 const pagefind = ref(null);
 
-let bundlePath = `/pagefind/`;
+let bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
 if (import.meta.env.DEV) {
   bundlePath = "/dist/pagefind/";
@@ -37,6 +37,7 @@ const initPagefind = async () => {
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
+    bundlePath,
   });
 };
 

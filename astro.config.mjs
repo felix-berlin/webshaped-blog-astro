@@ -8,6 +8,7 @@ import Icons from "unplugin-icons/vite";
 import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
+import { default as pagefind } from "./src/integrations/pagefind.ts";
 
 const {
   WP_API,
@@ -52,6 +53,7 @@ export default defineConfig({
   },
   prefetch: true,
   integrations: [
+    pagefind(),
     vue({
       appEntrypoint: "/src/pages/_app",
       script: {
