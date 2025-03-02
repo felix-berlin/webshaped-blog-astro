@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.13](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2025-03-02)
+
+
+### Features
+
+* add own pagefind integration, try to fix pagefind path ([d2670ef](https://github.com/felix-berlin/webshaped-blog-astro/commit/d2670efe06d31e10dd739c35830232cfe13223a6))
+
 # [1.0.0-beta.12](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2025-03-02)
 
 
