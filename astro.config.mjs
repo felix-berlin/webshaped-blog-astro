@@ -56,12 +56,9 @@ export default defineConfig({
     pagefind(),
     vue({
       appEntrypoint: "/src/pages/_app",
-      script: {
-        propsDestructure: true,
-      },
-      devtools: {
-        launchEditor: "code",
-      },
+      // devtools: {
+      //   launchEditor: "code",
+      // },
     }),
     sitemap({
       lastmod: new Date(),
