@@ -20,9 +20,6 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
     name: "pagefind",
     hooks: {
       "astro:config:setup": ({ config, logger }) => {
-        console.log("config", config);
-        console.log("adapter name", config.adapter?.name);
-
         // if (config.output === "server") {
         //   logger.warn(
         //     "Output type `server` does not produce static *.html pages in its output and thus will not work with astro-pagefind integration.",
@@ -34,7 +31,6 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           outDir = fileURLToPath(new URL(config.base?.replace(/^\//, ""), config.outDir));
         } else if (config.adapter?.name === "@astrojs/node") {
           outDir = fileURLToPath(config.build.client);
-          console.log(outDir);
         } else {
           outDir = fileURLToPath(config.outDir);
         }
