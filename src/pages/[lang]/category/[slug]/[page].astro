@@ -1,0 +1,98 @@
+---
+import "@styles/objects/_category.scss";
+import "@styles/objects/_blog-listing.scss";
+import "@styles/components/_blog-posts.scss";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+import Pagination from "@components/Pagination.vue";
+import { getAllPostPreviewsByCategory } from "@services/api";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+  PaginateFunction,
+} from "astro";
+
+import type { Category, Post } from "@ts_types/generated/graphql";
+
+export const prerender = true;
+interface Paginate {
+  paginate: PaginateFunction;
+}
+
+export const getStaticPaths = async ({ paginate }: Paginate) => {
+  const postPreviews = await getAllPostPreviewsByCategory();
+
+  /**
+   * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
+   */
+  return postPreviews?.nodes.flatMap((category) => {
+    const categoriesDe = category.posts?.nodes;
+    const categoriesEn = category.translations;
+
+    if (!Array.isArray(categoriesDe) || !categoriesDe.length) return [];
+
+    const germanPaths = paginate(categoriesDe as Node[] & Post[], {
+      props: {
+        content: {
+          title: category.name,
+          language: category.language,
+        },
+      },
+      params: {
+        slug: category.slug as string,
+        lang: category.language?.slug as string,
+      },
+      pageSize: 1,
+    });
+
+    // TODO: make slug the same as in german
+    const englishPaths =
+      categoriesEn?.flatMap((translation) => {
+        const categoriesEnPosts = translation?.posts?.nodes;
+        console.log(translation);
+
+        if (!Array.isArray(categoriesEnPosts) || !categoriesEnPosts?.length) return [];
+
+        return paginate(categoriesEnPosts as Node[] & Post[], {
+          props: {
+            content: {
+              title: translation.name,
+              language: translation.language,
+            },
+          },
+          params: {
+            slug: translation.slug as string,
+            lang: translation.language?.slug as string,
+          },
+          pageSize: 1,
+        });
+      }) ?? [];
+    console.log("categoriesEn", englishPaths);
+
+    return [...germanPaths, ...englishPaths];
+  });
+};
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page, content } = Astro.props as Props;
+const { lang, slug } = Astro.params as Params;
+console.log("lang", lang);
+
+const path = `${lang}/category/${slug}`;
+
+const posts = page["data"];
+// console.log("posts", posts);
+---
+
+<DefaultLayout content={content} contentClasses="o-category">
+  <header class="o-category__header">
+    <h1 class="o-category__headline">{content["title"]}</h1>
+  </header>
+  <section class="c-blog-posts">
+    <BlogPostPreview posts={posts} client:visible />
+  </section>
+  <Pagination page={page} path={path} lang={content["language"]} />
+</DefaultLayout>

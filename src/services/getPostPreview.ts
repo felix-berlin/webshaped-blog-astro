@@ -1,7 +1,4 @@
-import type {
-  RootQuery,
-  RootQueryToCategoryConnection,
-} from "@ts_types/generated/graphql";
+import type { RootQuery, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 
 export const getPostsPreview = async (
@@ -159,6 +156,26 @@ export async function getAllPostPreviewsByCategory(
               name
               slug
             }
+            slug
+          }
+        }
+        translations {
+          name
+          slug
+          posts(where: {orderby: {order: ${order}, field: ${field}}, status: ${status}}) {
+            nodes {
+              title
+              excerpt
+              language {
+                code
+                locale
+                name
+                slug
+              }
+              slug
+            }
+          }
+          language {
             slug
           }
         }
