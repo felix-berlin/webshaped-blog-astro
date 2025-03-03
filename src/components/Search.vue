@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, nextTick, ref, useTemplateRef } from "vue";
+import { onMounted, onUnmounted, nextTick } from "vue";
 import { PagefindUI } from "@pagefind/default-ui";
 
 export interface SearchProps {
@@ -12,8 +12,6 @@ export interface SearchProps {
 }
 
 const { id } = defineProps<SearchProps>();
-// const searchInput = useTemplateRef("searchInput");
-const pagefind = ref(null);
 
 let bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
@@ -29,10 +27,6 @@ if (import.meta.env.DEV) {
  *
  */
 const initPagefind = async () => {
-  // if (!searchInput.value) return;
-  // pagefind.value = await import("../../public/pagefind/pagefind.js");
-  // console.log(pagefind.value);
-  // pagefind.value.init();
   new PagefindUI({
     element: `#${id}`,
     resetStyles: false,
