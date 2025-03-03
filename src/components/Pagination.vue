@@ -4,7 +4,7 @@
       <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
         <component
           :is="1 === page.currentPage ? 'span' : 'a'"
-          :href="`${path}/${page.start}`"
+          :href="`/${path}/${page.start}`"
           :aria-label="t('pagination.first')"
           class="c-pagination__link"
         >
@@ -27,8 +27,9 @@
         :key="index"
         :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
       >
-        <a :href="`${path}/${index}`" class="c-pagination__link">{{ index }}</a>
+        <a :href="`/${path}/${index}`" class="c-pagination__link">{{ index }}</a>
       </li>
+
       <li :class="['c-pagination__item', { 'is-disabled': !page.url.next }]">
         <component
           :is="page.url.next ? 'a' : 'span'"
@@ -42,7 +43,7 @@
       <li :class="['c-pagination__item', { 'is-disabled': page.lastPage === page.currentPage }]">
         <component
           :is="page.lastPage === page.currentPage ? 'span' : 'a'"
-          :href="`${path}/${page.lastPage}`"
+          :href="`/${path}/${page.lastPage}`"
           :aria-label="t('pagination.last')"
           class="c-pagination__link"
         >
