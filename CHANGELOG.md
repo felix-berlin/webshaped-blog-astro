@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.14](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2025-03-03)
+
+
+### Bug Fixes
+
+* **Pagination:** paths ([133cf22](https://github.com/felix-berlin/webshaped-blog-astro/commit/133cf22d74849fde1967ab6cfeb4e27f420ae339))
+
+
+### Features
+
+* **category:** add to lang path and provide translation data ([bc27e09](https://github.com/felix-berlin/webshaped-blog-astro/commit/bc27e09507ae6dd04f69935d18cd160afd0cd3e2))
+
 # [1.0.0-beta.13](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2025-03-02)
 
 
