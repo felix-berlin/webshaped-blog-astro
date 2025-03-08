@@ -1,6 +1,5 @@
 <template>
   <div :id="id" class="c-search"></div>
-  <!-- <input type="text" ref="searchInput" @focus="initPagefind" @keydown="processResults" /> -->
 </template>
 
 <script setup lang="ts">
@@ -33,15 +32,6 @@ const initPagefind = async () => {
     showImages: false,
     bundlePath,
   });
-};
-
-const processResults = async (event) => {
-  const results = await (await pagefind.value.search(event.target.value)).results;
-  for (const result of results) {
-    const data = await result.data();
-    console.log(data, data.meta.title, data.excerpt);
-    // do required DOM manipulation
-  }
 };
 
 /**
