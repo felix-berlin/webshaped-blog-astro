@@ -16,41 +16,54 @@ export type Scalars = {
   BlockAttributesObject: { input: any; output: any; }
 };
 
-/** acf/code-highlighting block */
-export type AcfCodeHighlightingBlock = Block & {
-  __typename?: 'AcfCodeHighlightingBlock';
-  attributes?: Maybe<AcfCodeHighlightingBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type AcfCodeHighlighting = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'AcfCodeHighlighting';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the AcfCodeHighlighting Block Type */
+  attributes?: Maybe<AcfCodeHighlightingAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type AcfCodeHighlightingBlockAttributes = {
-  __typename?: 'AcfCodeHighlightingBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
+/** Attributes of the AcfCodeHighlighting Block Type */
+export type AcfCodeHighlightingAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'AcfCodeHighlightingAttributes';
+  /** The &quot;align&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
+  align: Scalars['String']['output'];
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
-  data?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;data&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
+  data: Scalars['BlockAttributesObject']['output'];
+  /** The &quot;lock&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mode&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
+  mode: Scalars['String']['output'];
+  /** The &quot;name&quot; field on the &quot;AcfCodeHighlightingAttributes&quot; block or block attributes */
+  name: Scalars['String']['output'];
 };
 
 /** Connection between the WordProperties_Fields type and the ContentNode type */
@@ -107,41 +120,56 @@ export type AcfFieldGroupFields = {
   fieldGroupName?: Maybe<Scalars['String']['output']>;
 };
 
-/** acf/github-raw-data block */
-export type AcfGithubRawDataBlock = Block & {
-  __typename?: 'AcfGithubRawDataBlock';
-  attributes?: Maybe<AcfGithubRawDataBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type AcfGithubRawData = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & WithAcfGithubRawData & {
+  __typename?: 'AcfGithubRawData';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the AcfGithubRawData Block Type */
+  attributes?: Maybe<AcfGithubRawDataAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** Fields of the GithubRawData ACF Field Group */
+  githubRawData?: Maybe<GithubRawData>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type AcfGithubRawDataBlockAttributes = {
-  __typename?: 'AcfGithubRawDataBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
+/** Attributes of the AcfGithubRawData Block Type */
+export type AcfGithubRawDataAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'AcfGithubRawDataAttributes';
+  /** The &quot;align&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
+  align: Scalars['String']['output'];
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
-  data?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;data&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
+  data: Scalars['BlockAttributesObject']['output'];
+  /** The &quot;lock&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mode?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mode&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
+  mode: Scalars['String']['output'];
+  /** The &quot;name&quot; field on the &quot;AcfGithubRawDataAttributes&quot; block or block attributes */
+  name: Scalars['String']['output'];
 };
 
 /** ACF Link field */
@@ -1089,369 +1117,10 @@ export type BerlinerischWordTypeToTaxonomyConnectionEdge = Edge & OneToOneConnec
   node: Taxonomy;
 };
 
-/** Gutenberg block interface */
-export type Block = {
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-/** Gutenberg post interface */
-export type BlockEditorContentNode = {
-  /** Gutenberg blocks */
-  blocks?: Maybe<Array<Block>>;
-  /** Gutenberg blocks as json string */
-  blocksJSON?: Maybe<Scalars['String']['output']>;
-  /** The globally unique ID for the object */
-  id: Scalars['ID']['output'];
-  /** Previewed gutenberg blocks */
-  previewBlocks?: Maybe<Array<Block>>;
-  /** Previewed Gutenberg blocks as json string */
-  previewBlocksJSON?: Maybe<Scalars['String']['output']>;
-};
-
-/** Connection to BlockEditorContentNode Nodes */
-export type BlockEditorContentNodeConnection = {
-  /** A list of edges (relational context) between RootQuery and connected BlockEditorContentNode Nodes */
-  edges: Array<BlockEditorContentNodeConnectionEdge>;
-  /** A list of connected BlockEditorContentNode Nodes */
-  nodes: Array<BlockEditorContentNode>;
-  /** Information about pagination in a connection. */
-  pageInfo: BlockEditorContentNodeConnectionPageInfo;
-};
-
-/** Edge between a Node and a connected BlockEditorContentNode */
-export type BlockEditorContentNodeConnectionEdge = {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The connected BlockEditorContentNode Node */
-  node: BlockEditorContentNode;
-};
-
-/** Page Info on the connected BlockEditorContentNodeConnectionEdge */
-export type BlockEditorContentNodeConnectionPageInfo = {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Arguments for filtering the BlockEditorContentNodeConnection connection */
-export type BlockEditorContentNodeConnectionWhereArgs = {
-  /** The Types of content to filter */
-  contentTypes?: InputMaybe<Array<InputMaybe<ContentTypeEnum>>>;
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreview = ContentNode & DatabaseIdentifier & Node & NodeWithAuthor & NodeWithContentEditor & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
-  __typename?: 'BlockEditorPreview';
-  /**
-   * The ancestors of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  ancestors?: Maybe<BlockEditorPreviewToBlockEditorPreviewConnection>;
-  /** Connection between the NodeWithAuthor type and the User type */
-  author?: Maybe<NodeWithAuthorToUserConnectionEdge>;
-  /** The database identifier of the author of the node */
-  authorDatabaseId?: Maybe<Scalars['Int']['output']>;
-  /** The globally unique identifier of the author of the node */
-  authorId?: Maybe<Scalars['ID']['output']>;
-  /**
-   * The id field matches the WP_Post-&gt;ID field.
-   * @deprecated Deprecated in favor of the databaseId field
-   */
-  blockEditorPreviewId: Scalars['Int']['output'];
-  blocks?: Maybe<Array<Block>>;
-  blocksJSON?: Maybe<Scalars['String']['output']>;
-  /** The content of the post. */
-  content?: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the ContentType type */
-  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
-  /** The name of the Content Type the node belongs to */
-  contentTypeName: Scalars['String']['output'];
-  /** The unique identifier stored in the database */
-  databaseId: Scalars['Int']['output'];
-  /** Post publishing date. */
-  date?: Maybe<Scalars['String']['output']>;
-  /** The publishing date set in GMT. */
-  dateGmt?: Maybe<Scalars['String']['output']>;
-  /** The desired slug of the post */
-  desiredSlug?: Maybe<Scalars['String']['output']>;
-  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
-  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
-  /** The RSS enclosure for the object */
-  enclosure?: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the EnqueuedScript type */
-  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
-  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
-  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
-  guid?: Maybe<Scalars['String']['output']>;
-  /** Whether the wgg_preview object is password protected. */
-  hasPassword?: Maybe<Scalars['Boolean']['output']>;
-  /** The globally unique identifier of the wgg_preview object. */
-  id: Scalars['ID']['output'];
-  /** Whether the node is a Comment */
-  isComment: Scalars['Boolean']['output'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean']['output'];
-  /** Whether the node represents the front page. */
-  isFrontPage: Scalars['Boolean']['output'];
-  /** Whether  the node represents the blog page. */
-  isPostsPage: Scalars['Boolean']['output'];
-  /** Whether the object is a node in the preview state */
-  isPreview?: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the object is restricted from the current viewer */
-  isRestricted?: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean']['output'];
-  /** The user that most recently edited the node */
-  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
-  lastUpdateTime?: Maybe<Scalars['String']['output']>;
-  /** The permalink of the post */
-  link?: Maybe<Scalars['String']['output']>;
-  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
-  modified?: Maybe<Scalars['String']['output']>;
-  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
-  modifiedGmt?: Maybe<Scalars['String']['output']>;
-  /**
-   * The parent of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  parent?: Maybe<BlockEditorPreviewToParentConnectionEdge>;
-  /** The password for the wgg_preview object. */
-  password?: Maybe<Scalars['String']['output']>;
-  /**
-   * Connection between the BlockEditorPreview type and the BlockEditorPreview type
-   * @deprecated The &quot;BlockEditorPreview&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
-   */
-  preview?: Maybe<BlockEditorPreviewToPreviewConnectionEdge>;
-  /** The database id of the preview node */
-  previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
-  /** Whether the object is a node in the preview state */
-  previewRevisionId?: Maybe<Scalars['ID']['output']>;
-  previewed?: Maybe<BlockEditorContentNode>;
-  previewedDatabaseId?: Maybe<Scalars['Int']['output']>;
-  previewedParentDatabaseId?: Maybe<Scalars['Int']['output']>;
-  /** The Yoast SEO data of the ContentNode */
-  seo?: Maybe<PostTypeSeo>;
-  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
-  slug?: Maybe<Scalars['String']['output']>;
-  /** The current status of the object */
-  status?: Maybe<Scalars['String']['output']>;
-  /** The template assigned to the node */
-  template?: Maybe<ContentTemplate>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  title?: Maybe<Scalars['String']['output']>;
-  /** The unique resource identifier path */
-  uri?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreviewAncestorsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreviewContentArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreviewEnqueuedScriptsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreviewEnqueuedStylesheetsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The BlockEditorPreview type */
-export type BlockEditorPreviewTitleArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-/** Connection to BlockEditorPreview Nodes */
-export type BlockEditorPreviewConnection = {
-  /** A list of edges (relational context) between RootQuery and connected BlockEditorPreview Nodes */
-  edges: Array<BlockEditorPreviewConnectionEdge>;
-  /** A list of connected BlockEditorPreview Nodes */
-  nodes: Array<BlockEditorPreview>;
-  /** Information about pagination in a connection. */
-  pageInfo: BlockEditorPreviewConnectionPageInfo;
-};
-
-/** Edge between a Node and a connected BlockEditorPreview */
-export type BlockEditorPreviewConnectionEdge = {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The connected BlockEditorPreview Node */
-  node: BlockEditorPreview;
-};
-
-/** Page Info on the connected BlockEditorPreviewConnectionEdge */
-export type BlockEditorPreviewConnectionPageInfo = {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** The Type of Identifier used to fetch a single resource. Default is ID. */
-export enum BlockEditorPreviewIdType {
-  /** Identify a resource by the Database ID. */
-  DatabaseId = 'DATABASE_ID',
-  /** Identify a resource by the (hashed) Global ID. */
-  Id = 'ID',
-  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
-  Slug = 'SLUG',
-  /** Identify a resource by the URI. */
-  Uri = 'URI'
-}
-
-/** Connection between the BlockEditorPreview type and the BlockEditorPreview type */
-export type BlockEditorPreviewToBlockEditorPreviewConnection = BlockEditorPreviewConnection & Connection & {
-  __typename?: 'BlockEditorPreviewToBlockEditorPreviewConnection';
-  /** Edges for the BlockEditorPreviewToBlockEditorPreviewConnection connection */
-  edges: Array<BlockEditorPreviewToBlockEditorPreviewConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<BlockEditorPreview>;
-  /** Information about pagination in a connection. */
-  pageInfo: BlockEditorPreviewToBlockEditorPreviewConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type BlockEditorPreviewToBlockEditorPreviewConnectionEdge = BlockEditorPreviewConnectionEdge & Edge & {
-  __typename?: 'BlockEditorPreviewToBlockEditorPreviewConnectionEdge';
-  /**
-   * A cursor for use in pagination
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The item at the end of the edge
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  node: BlockEditorPreview;
-};
-
-/** Page Info on the &quot;BlockEditorPreviewToBlockEditorPreviewConnection&quot; */
-export type BlockEditorPreviewToBlockEditorPreviewConnectionPageInfo = BlockEditorPreviewConnectionPageInfo & PageInfo & WpPageInfo & {
-  __typename?: 'BlockEditorPreviewToBlockEditorPreviewConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Connection between the BlockEditorPreview type and the BlockEditorPreview type */
-export type BlockEditorPreviewToParentConnectionEdge = BlockEditorPreviewConnectionEdge & Edge & OneToOneConnection & {
-  __typename?: 'BlockEditorPreviewToParentConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The node of the connection, without the edges
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  node: BlockEditorPreview;
-};
-
-/** Connection between the BlockEditorPreview type and the BlockEditorPreview type */
-export type BlockEditorPreviewToPreviewConnectionEdge = BlockEditorPreviewConnectionEdge & Edge & OneToOneConnection & {
-  __typename?: 'BlockEditorPreviewToPreviewConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The node of the connection, without the edges
-   * @deprecated The &quot;BlockEditorPreview&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
-   */
-  node: BlockEditorPreview;
+/** Block that supports Anchor field */
+export type BlockWithSupportsAnchor = {
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
 };
 
 /** The category type */
@@ -2392,42 +2061,55 @@ export type Connection = {
   pageInfo: PageInfo;
 };
 
-/** contact-form-7/contact-form-selector block */
-export type ContactForm7ContactFormSelectorBlock = Block & {
-  __typename?: 'ContactForm7ContactFormSelectorBlock';
-  attributes?: Maybe<ContactForm7ContactFormSelectorBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type ContactForm7ContactFormSelector = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'ContactForm7ContactFormSelector';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the ContactForm7ContactFormSelector Block Type */
+  attributes?: Maybe<ContactForm7ContactFormSelectorAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type ContactForm7ContactFormSelectorBlockAttributes = {
-  __typename?: 'ContactForm7ContactFormSelectorBlockAttributes';
+/** Attributes of the ContactForm7ContactFormSelector Block Type */
+export type ContactForm7ContactFormSelectorAttributes = {
+  __typename?: 'ContactForm7ContactFormSelectorAttributes';
+  /** The &quot;className&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hash&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   hash?: Maybe<Scalars['String']['output']>;
+  /** The &quot;htmlClass&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   htmlClass?: Maybe<Scalars['String']['output']>;
+  /** The &quot;htmlId&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   htmlId?: Maybe<Scalars['String']['output']>;
+  /** The &quot;htmlName&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   htmlName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;htmlTitle&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   htmlTitle?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Int']['output']>;
+  /** The &quot;lock&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -2795,11 +2477,7 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Page = 'PAGE',
   /** The Type of Content object */
-  Post = 'POST',
-  /** The Type of Content object */
-  WggPreview = 'WGG_PREVIEW',
-  /** The Type of Content object */
-  WpBlock = 'WP_BLOCK'
+  Post = 'POST'
 }
 
 /** The Type of Identifier used to fetch a single Content Type node. To be used along with the "id" field. Default is "ID". */
@@ -2946,7154 +2624,5627 @@ export enum ContentTypesOfTagEnum {
   Post = 'POST'
 }
 
-/** core/archives block */
-export type CoreArchivesBlock = Block & {
-  __typename?: 'CoreArchivesBlock';
-  attributes?: Maybe<CoreArchivesBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreArchives = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreArchives';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreArchives Block Type */
+  attributes?: Maybe<CoreArchivesAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreArchivesBlockAttributes = {
-  __typename?: 'CoreArchivesBlockAttributes';
+/** Attributes of the CoreArchives Block Type */
+export type CoreArchivesAttributes = {
+  __typename?: 'CoreArchivesAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;displayAsDropdown&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   displayAsDropdown: Scalars['Boolean']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showLabel&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   showLabel: Scalars['Boolean']['output'];
+  /** The &quot;showPostCounts&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   showPostCounts: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes */
   type: Scalars['String']['output'];
 };
 
-/** core/audio block */
-export type CoreAudioBlock = Block & {
-  __typename?: 'CoreAudioBlock';
-  attributes?: Maybe<CoreAudioBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreAudio = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreAudio';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreAudio Block Type */
+  attributes?: Maybe<CoreAudioAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreAudioBlockAttributes = {
-  __typename?: 'CoreAudioBlockAttributes';
+/** Attributes of the CoreAudio Block Type */
+export type CoreAudioAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreAudioAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;autoplay&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   autoplay?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;blob&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   blob?: Maybe<Scalars['String']['output']>;
+  /** The &quot;caption&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;loop&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   loop?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;preload&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   preload?: Maybe<Scalars['String']['output']>;
+  /** The &quot;src&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   src?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreAudioAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-export type CoreAudioBlockAttributesUnion = CoreAudioBlockAttributes | CoreAudioBlockDeprecatedV1Attributes;
-
-export type CoreAudioBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreAudioBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  autoplay?: Maybe<Scalars['Boolean']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  loop?: Maybe<Scalars['Boolean']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  preload?: Maybe<Scalars['String']['output']>;
-  src?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-};
-
-/** core/avatar block */
-export type CoreAvatarBlock = Block & {
-  __typename?: 'CoreAvatarBlock';
-  attributes?: Maybe<CoreAvatarBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreAvatar = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreAvatar';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreAvatar Block Type */
+  attributes?: Maybe<CoreAvatarAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreAvatarBlockAttributes = {
-  __typename?: 'CoreAvatarBlockAttributes';
+/** Attributes of the CoreAvatar Block Type */
+export type CoreAvatarAttributes = {
+  __typename?: 'CoreAvatarAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;size&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   size: Scalars['Float']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;userId&quot; field on the &quot;CoreAvatarAttributes&quot; block or block attributes */
   userId?: Maybe<Scalars['Float']['output']>;
 };
 
-/** core/block block */
-export type CoreBlock = Block & {
+/** A block used for editing the site */
+export type CoreBlock = EditorBlock & PageEditorBlock & PostEditorBlock & {
   __typename?: 'CoreBlock';
-  attributes?: Maybe<CoreBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreBlock Block Type */
+  attributes?: Maybe<CoreBlockAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  reusableBlock: Node;
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
+/** Attributes of the CoreBlock Block Type */
 export type CoreBlockAttributes = {
   __typename?: 'CoreBlockAttributes';
+  /** The &quot;content&quot; field on the &quot;CoreBlockAttributes&quot; block or block attributes */
   content: Scalars['BlockAttributesObject']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreBlockAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreBlockAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;ref&quot; field on the &quot;CoreBlockAttributes&quot; block or block attributes */
   ref?: Maybe<Scalars['Float']['output']>;
 };
 
-export type CoreBlockAttributesUnion = CoreBlockAttributes | CoreBlockDeprecatedV1Attributes | CoreBlockDeprecatedV2Attributes;
-
-export type CoreBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreBlockDeprecatedV1Attributes';
-  content: Scalars['BlockAttributesObject']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreBlockDeprecatedV2Attributes';
-  content: Scalars['BlockAttributesObject']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-};
-
-/** core/button block */
-export type CoreButtonBlock = Block & {
-  __typename?: 'CoreButtonBlock';
-  attributes?: Maybe<CoreButtonBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreButton = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreButton';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreButton Block Type */
+  attributes?: Maybe<CoreButtonAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreButtonBlockAttributes = {
-  __typename?: 'CoreButtonBlockAttributes';
+/** Attributes of the CoreButton Block Type */
+export type CoreButtonAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreButtonAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkClassName&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
+  linkClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   linkTarget?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;placeholder&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   placeholder?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rel&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   tagName: Scalars['String']['output'];
+  /** The &quot;text&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
+  text?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;title&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   type: Scalars['String']['output'];
+  /** The &quot;url&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['Float']['output']>;
 };
 
-export type CoreButtonBlockAttributesUnion = CoreButtonBlockAttributes | CoreButtonBlockDeprecatedV1Attributes | CoreButtonBlockDeprecatedV2Attributes | CoreButtonBlockDeprecatedV3Attributes | CoreButtonBlockDeprecatedV4Attributes | CoreButtonBlockDeprecatedV5Attributes | CoreButtonBlockDeprecatedV6Attributes | CoreButtonBlockDeprecatedV7Attributes | CoreButtonBlockDeprecatedV8Attributes | CoreButtonBlockDeprecatedV9Attributes | CoreButtonBlockDeprecatedV10Attributes | CoreButtonBlockDeprecatedV11Attributes;
-
-export type CoreButtonBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV1Attributes';
+/** A block used for editing the site */
+export type CoreButtons = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreButtons';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV2Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV3Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV4Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV5Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV6Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV7Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV7Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV8Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV8Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV9Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV9Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV10Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV10Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type CoreButtonBlockDeprecatedV11Attributes = {
-  __typename?: 'CoreButtonBlockDeprecatedV11Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type: Scalars['String']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-/** core/buttons block */
-export type CoreButtonsBlock = Block & {
-  __typename?: 'CoreButtonsBlock';
-  attributes?: Maybe<CoreButtonsBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreButtons Block Type */
+  attributes?: Maybe<CoreButtonsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreButtonsBlockAttributes = {
-  __typename?: 'CoreButtonsBlockAttributes';
+/** Attributes of the CoreButtons Block Type */
+export type CoreButtonsAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreButtonsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreButtonsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreButtonsBlockAttributesUnion = CoreButtonsBlockAttributes | CoreButtonsBlockDeprecatedV1Attributes | CoreButtonsBlockDeprecatedV2Attributes;
-
-export type CoreButtonsBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreButtonsBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreButtonsBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreButtonsBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/calendar block */
-export type CoreCalendarBlock = Block & {
-  __typename?: 'CoreCalendarBlock';
-  attributes?: Maybe<CoreCalendarBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCalendar = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCalendar';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCalendar Block Type */
+  attributes?: Maybe<CoreCalendarAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCalendarBlockAttributes = {
-  __typename?: 'CoreCalendarBlockAttributes';
+/** Attributes of the CoreCalendar Block Type */
+export type CoreCalendarAttributes = {
+  __typename?: 'CoreCalendarAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;month&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   month?: Maybe<Scalars['Int']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;year&quot; field on the &quot;CoreCalendarAttributes&quot; block or block attributes */
   year?: Maybe<Scalars['Int']['output']>;
 };
 
-/** core/categories block */
-export type CoreCategoriesBlock = Block & {
-  __typename?: 'CoreCategoriesBlock';
-  attributes?: Maybe<CoreCategoriesBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCategories = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCategories';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCategories Block Type */
+  attributes?: Maybe<CoreCategoriesAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCategoriesBlockAttributes = {
-  __typename?: 'CoreCategoriesBlockAttributes';
+/** Attributes of the CoreCategories Block Type */
+export type CoreCategoriesAttributes = {
+  __typename?: 'CoreCategoriesAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;displayAsDropdown&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   displayAsDropdown: Scalars['Boolean']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showEmpty&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   showEmpty: Scalars['Boolean']['output'];
+  /** The &quot;showHierarchy&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   showHierarchy: Scalars['Boolean']['output'];
+  /** The &quot;showLabel&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   showLabel: Scalars['Boolean']['output'];
+  /** The &quot;showOnlyTopLevel&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   showOnlyTopLevel: Scalars['Boolean']['output'];
+  /** The &quot;showPostCounts&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   showPostCounts: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;taxonomy&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes */
   taxonomy: Scalars['String']['output'];
 };
 
-/** core/code block */
-export type CoreCodeBlock = Block & {
-  __typename?: 'CoreCodeBlock';
-  attributes?: Maybe<CoreCodeBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCode = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCode';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCode Block Type */
+  attributes?: Maybe<CoreCodeAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCodeBlockAttributes = {
-  __typename?: 'CoreCodeBlockAttributes';
+/** Attributes of the CoreCode Block Type */
+export type CoreCodeAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreCodeAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCodeAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/column block */
-export type CoreColumnBlock = Block & {
-  __typename?: 'CoreColumnBlock';
-  attributes?: Maybe<CoreColumnBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreColumn = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreColumn';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreColumn Block Type */
+  attributes?: Maybe<CoreColumnAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreColumnBlockAttributes = {
-  __typename?: 'CoreColumnBlockAttributes';
+/** Attributes of the CoreColumn Block Type */
+export type CoreColumnAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreColumnAttributes';
+  /** The &quot;allowedBlocks&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;verticalAlignment&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   verticalAlignment?: Maybe<Scalars['String']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreColumnAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreColumnBlockAttributesUnion = CoreColumnBlockAttributes | CoreColumnBlockDeprecatedV1Attributes;
-
-export type CoreColumnBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreColumnBlockDeprecatedV1Attributes';
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+/** A block used for editing the site */
+export type CoreColumns = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreColumns';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/columns block */
-export type CoreColumnsBlock = Block & {
-  __typename?: 'CoreColumnsBlock';
-  attributes?: Maybe<CoreColumnsBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreColumns Block Type */
+  attributes?: Maybe<CoreColumnsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreColumnsBlockAttributes = {
-  __typename?: 'CoreColumnsBlockAttributes';
+/** Attributes of the CoreColumns Block Type */
+export type CoreColumnsAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreColumnsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isStackedOnMobile&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   isStackedOnMobile: Scalars['Boolean']['output'];
+  /** The &quot;layout&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;verticalAlignment&quot; field on the &quot;CoreColumnsAttributes&quot; block or block attributes */
   verticalAlignment?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreColumnsBlockAttributesUnion = CoreColumnsBlockAttributes | CoreColumnsBlockDeprecatedV1Attributes | CoreColumnsBlockDeprecatedV2Attributes | CoreColumnsBlockDeprecatedV3Attributes;
-
-export type CoreColumnsBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreColumnsBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreColumnsBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreColumnsBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreColumnsBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreColumnsBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/comment-author-name block */
-export type CoreCommentAuthorNameBlock = Block & {
-  __typename?: 'CoreCommentAuthorNameBlock';
-  attributes?: Maybe<CoreCommentAuthorNameBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentAuthorName = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentAuthorName';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentAuthorName Block Type */
+  attributes?: Maybe<CoreCommentAuthorNameAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentAuthorNameBlockAttributes = {
-  __typename?: 'CoreCommentAuthorNameBlockAttributes';
+/** Attributes of the CoreCommentAuthorName Block Type */
+export type CoreCommentAuthorNameAttributes = {
+  __typename?: 'CoreCommentAuthorNameAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentAuthorNameAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentAuthorNameBlockAttributesUnion = CoreCommentAuthorNameBlockAttributes | CoreCommentAuthorNameBlockDeprecatedV1Attributes;
-
-export type CoreCommentAuthorNameBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreCommentAuthorNameBlockDeprecatedV1Attributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  linkTarget: Scalars['String']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/comment-content block */
-export type CoreCommentContentBlock = Block & {
-  __typename?: 'CoreCommentContentBlock';
-  attributes?: Maybe<CoreCommentContentBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentContent = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentContent';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentContent Block Type */
+  attributes?: Maybe<CoreCommentContentAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentContentBlockAttributes = {
-  __typename?: 'CoreCommentContentBlockAttributes';
+/** Attributes of the CoreCommentContent Block Type */
+export type CoreCommentContentAttributes = {
+  __typename?: 'CoreCommentContentAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentContentAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comment-date block */
-export type CoreCommentDateBlock = Block & {
-  __typename?: 'CoreCommentDateBlock';
-  attributes?: Maybe<CoreCommentDateBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentDate = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentDate';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentDate Block Type */
+  attributes?: Maybe<CoreCommentDateAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentDateBlockAttributes = {
-  __typename?: 'CoreCommentDateBlockAttributes';
+/** Attributes of the CoreCommentDate Block Type */
+export type CoreCommentDateAttributes = {
+  __typename?: 'CoreCommentDateAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;format&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   format?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentDateAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentDateBlockAttributesUnion = CoreCommentDateBlockAttributes | CoreCommentDateBlockDeprecatedV1Attributes;
-
-export type CoreCommentDateBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreCommentDateBlockDeprecatedV1Attributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  format?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/comment-edit-link block */
-export type CoreCommentEditLinkBlock = Block & {
-  __typename?: 'CoreCommentEditLinkBlock';
-  attributes?: Maybe<CoreCommentEditLinkBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentEditLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentEditLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentEditLink Block Type */
+  attributes?: Maybe<CoreCommentEditLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentEditLinkBlockAttributes = {
-  __typename?: 'CoreCommentEditLinkBlockAttributes';
+/** Attributes of the CoreCommentEditLink Block Type */
+export type CoreCommentEditLinkAttributes = {
+  __typename?: 'CoreCommentEditLinkAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreCommentEditLinkAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comment-reply-link block */
-export type CoreCommentReplyLinkBlock = Block & {
-  __typename?: 'CoreCommentReplyLinkBlock';
-  attributes?: Maybe<CoreCommentReplyLinkBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentReplyLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentReplyLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentReplyLink Block Type */
+  attributes?: Maybe<CoreCommentReplyLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentReplyLinkBlockAttributes = {
-  __typename?: 'CoreCommentReplyLinkBlockAttributes';
+/** Attributes of the CoreCommentReplyLink Block Type */
+export type CoreCommentReplyLinkAttributes = {
+  __typename?: 'CoreCommentReplyLinkAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreCommentReplyLinkAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comment-template block */
-export type CoreCommentTemplateBlock = Block & {
-  __typename?: 'CoreCommentTemplateBlock';
-  attributes?: Maybe<CoreCommentTemplateBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentTemplate = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentTemplate';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentTemplate Block Type */
+  attributes?: Maybe<CoreCommentTemplateAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentTemplateBlockAttributes = {
-  __typename?: 'CoreCommentTemplateBlockAttributes';
+/** Attributes of the CoreCommentTemplate Block Type */
+export type CoreCommentTemplateAttributes = {
+  __typename?: 'CoreCommentTemplateAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentTemplateAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/comments block */
-export type CoreCommentsBlock = Block & {
-  __typename?: 'CoreCommentsBlock';
-  attributes?: Maybe<CoreCommentsBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreComments = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreComments';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreComments Block Type */
+  attributes?: Maybe<CoreCommentsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsBlockAttributes = {
-  __typename?: 'CoreCommentsBlockAttributes';
+/** Attributes of the CoreComments Block Type */
+export type CoreCommentsAttributes = {
+  __typename?: 'CoreCommentsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;legacy&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   legacy: Scalars['Boolean']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   tagName: Scalars['String']['output'];
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsBlockAttributesUnion = CoreCommentsBlockAttributes | CoreCommentsBlockDeprecatedV1Attributes;
-
-export type CoreCommentsBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreCommentsBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  legacy: Scalars['Boolean']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/comments-pagination block */
-export type CoreCommentsPaginationBlock = Block & {
-  __typename?: 'CoreCommentsPaginationBlock';
-  attributes?: Maybe<CoreCommentsPaginationBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentsPagination = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentsPagination';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentsPagination Block Type */
+  attributes?: Maybe<CoreCommentsPaginationAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsPaginationBlockAttributes = {
-  __typename?: 'CoreCommentsPaginationBlockAttributes';
+/** Attributes of the CoreCommentsPagination Block Type */
+export type CoreCommentsPaginationAttributes = {
+  __typename?: 'CoreCommentsPaginationAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;paginationArrow&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   paginationArrow: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentsPaginationAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comments-pagination-next block */
-export type CoreCommentsPaginationNextBlock = Block & {
-  __typename?: 'CoreCommentsPaginationNextBlock';
-  attributes?: Maybe<CoreCommentsPaginationNextBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentsPaginationNext = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentsPaginationNext';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentsPaginationNext Block Type */
+  attributes?: Maybe<CoreCommentsPaginationNextAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsPaginationNextBlockAttributes = {
-  __typename?: 'CoreCommentsPaginationNextBlockAttributes';
+/** Attributes of the CoreCommentsPaginationNext Block Type */
+export type CoreCommentsPaginationNextAttributes = {
+  __typename?: 'CoreCommentsPaginationNextAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentsPaginationNextAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comments-pagination-numbers block */
-export type CoreCommentsPaginationNumbersBlock = Block & {
-  __typename?: 'CoreCommentsPaginationNumbersBlock';
-  attributes?: Maybe<CoreCommentsPaginationNumbersBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentsPaginationNumbers = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentsPaginationNumbers';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentsPaginationNumbers Block Type */
+  attributes?: Maybe<CoreCommentsPaginationNumbersAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsPaginationNumbersBlockAttributes = {
-  __typename?: 'CoreCommentsPaginationNumbersBlockAttributes';
+/** Attributes of the CoreCommentsPaginationNumbers Block Type */
+export type CoreCommentsPaginationNumbersAttributes = {
+  __typename?: 'CoreCommentsPaginationNumbersAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentsPaginationNumbersAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comments-pagination-previous block */
-export type CoreCommentsPaginationPreviousBlock = Block & {
-  __typename?: 'CoreCommentsPaginationPreviousBlock';
-  attributes?: Maybe<CoreCommentsPaginationPreviousBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentsPaginationPrevious = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentsPaginationPrevious';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentsPaginationPrevious Block Type */
+  attributes?: Maybe<CoreCommentsPaginationPreviousAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsPaginationPreviousBlockAttributes = {
-  __typename?: 'CoreCommentsPaginationPreviousBlockAttributes';
+/** Attributes of the CoreCommentsPaginationPrevious Block Type */
+export type CoreCommentsPaginationPreviousAttributes = {
+  __typename?: 'CoreCommentsPaginationPreviousAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCommentsPaginationPreviousAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/comments-title block */
-export type CoreCommentsTitleBlock = Block & {
-  __typename?: 'CoreCommentsTitleBlock';
-  attributes?: Maybe<CoreCommentsTitleBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCommentsTitle = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCommentsTitle';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCommentsTitle Block Type */
+  attributes?: Maybe<CoreCommentsTitleAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsTitleBlockAttributes = {
-  __typename?: 'CoreCommentsTitleBlockAttributes';
+/** Attributes of the CoreCommentsTitle Block Type */
+export type CoreCommentsTitleAttributes = {
+  __typename?: 'CoreCommentsTitleAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;level&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showCommentsCount&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   showCommentsCount: Scalars['Boolean']['output'];
+  /** The &quot;showPostTitle&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   showPostTitle: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreCommentsTitleAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCommentsTitleBlockAttributesUnion = CoreCommentsTitleBlockAttributes | CoreCommentsTitleBlockDeprecatedV1Attributes;
-
-export type CoreCommentsTitleBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreCommentsTitleBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  showCommentsCount: Scalars['Boolean']['output'];
-  showPostTitle: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/cover block */
-export type CoreCoverBlock = Block & {
-  __typename?: 'CoreCoverBlock';
-  attributes?: Maybe<CoreCoverBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreCover = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreCover';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreCover Block Type */
+  attributes?: Maybe<CoreCoverAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreCoverBlockAttributes = {
-  __typename?: 'CoreCoverBlockAttributes';
+/** Attributes of the CoreCover Block Type */
+export type CoreCoverAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreCoverAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;allowedBlocks&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;alt&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   alt: Scalars['String']['output'];
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundType&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   backgroundType: Scalars['String']['output'];
+  /** The &quot;borderColor&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;contentPosition&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   contentPosition?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customGradient&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   customGradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customOverlayColor&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   customOverlayColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;dimRatio&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   dimRatio: Scalars['Float']['output'];
+  /** The &quot;focalPoint&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hasParallax&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   hasParallax: Scalars['Boolean']['output'];
+  /** The &quot;id&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;isDark&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   isDark: Scalars['Boolean']['output'];
+  /** The &quot;isRepeated&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   isRepeated: Scalars['Boolean']['output'];
+  /** The &quot;isUserOverlayColor&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;minHeight&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   minHeight?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;minHeightUnit&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   minHeightUnit?: Maybe<Scalars['String']['output']>;
+  /** The &quot;overlayColor&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   overlayColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   tagName: Scalars['String']['output'];
+  /** The &quot;textColor&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
+  /** The &quot;useFeaturedImage&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes */
   useFeaturedImage: Scalars['Boolean']['output'];
 };
 
-export type CoreCoverBlockAttributesUnion = CoreCoverBlockAttributes | CoreCoverBlockDeprecatedV1Attributes | CoreCoverBlockDeprecatedV2Attributes | CoreCoverBlockDeprecatedV3Attributes | CoreCoverBlockDeprecatedV4Attributes | CoreCoverBlockDeprecatedV5Attributes | CoreCoverBlockDeprecatedV6Attributes | CoreCoverBlockDeprecatedV7Attributes | CoreCoverBlockDeprecatedV8Attributes | CoreCoverBlockDeprecatedV9Attributes | CoreCoverBlockDeprecatedV10Attributes | CoreCoverBlockDeprecatedV11Attributes | CoreCoverBlockDeprecatedV12Attributes | CoreCoverBlockDeprecatedV13Attributes;
-
-export type CoreCoverBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV7Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV7Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV8Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV8Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV9Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV9Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV10Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV10Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV11Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV11Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV12Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV12Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-export type CoreCoverBlockDeprecatedV13Attributes = {
-  __typename?: 'CoreCoverBlockDeprecatedV13Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  backgroundType: Scalars['String']['output'];
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  contentPosition?: Maybe<Scalars['String']['output']>;
-  customGradient?: Maybe<Scalars['String']['output']>;
-  customOverlayColor?: Maybe<Scalars['String']['output']>;
-  dimRatio: Scalars['Float']['output'];
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasParallax: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  isDark: Scalars['Boolean']['output'];
-  isRepeated: Scalars['Boolean']['output'];
-  isUserOverlayColor?: Maybe<Scalars['Boolean']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minHeight?: Maybe<Scalars['Float']['output']>;
-  minHeightUnit?: Maybe<Scalars['String']['output']>;
-  overlayColor?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-};
-
-/** core/details block */
-export type CoreDetailsBlock = Block & {
-  __typename?: 'CoreDetailsBlock';
-  attributes?: Maybe<CoreDetailsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreDetails = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreDetails';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreDetails Block Type */
+  attributes?: Maybe<CoreDetailsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreDetailsBlockAttributes = {
-  __typename?: 'CoreDetailsBlockAttributes';
+/** Attributes of the CoreDetails Block Type */
+export type CoreDetailsAttributes = {
+  __typename?: 'CoreDetailsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showContent&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   showContent: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;summary&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
+  summary?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/embed block */
-export type CoreEmbedBlock = Block & {
-  __typename?: 'CoreEmbedBlock';
-  attributes?: Maybe<CoreEmbedBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreEmbed = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreEmbed';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreEmbed Block Type */
+  attributes?: Maybe<CoreEmbedAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreEmbedBlockAttributes = {
-  __typename?: 'CoreEmbedBlockAttributes';
+/** Attributes of the CoreEmbed Block Type */
+export type CoreEmbedAttributes = {
+  __typename?: 'CoreEmbedAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;allowResponsive&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   allowResponsive: Scalars['Boolean']['output'];
+  /** The &quot;caption&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;previewable&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   previewable: Scalars['Boolean']['output'];
+  /** The &quot;providerNameSlug&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   providerNameSlug?: Maybe<Scalars['String']['output']>;
+  /** The &quot;responsive&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   responsive: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   type?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreEmbedAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreEmbedBlockAttributesUnion = CoreEmbedBlockAttributes | CoreEmbedBlockDeprecatedV1Attributes | CoreEmbedBlockDeprecatedV2Attributes;
-
-export type CoreEmbedBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreEmbedBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResponsive: Scalars['Boolean']['output'];
-  className?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  previewable: Scalars['Boolean']['output'];
-  providerNameSlug?: Maybe<Scalars['String']['output']>;
-  responsive: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreEmbedBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreEmbedBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResponsive: Scalars['Boolean']['output'];
-  className?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  previewable: Scalars['Boolean']['output'];
-  providerNameSlug?: Maybe<Scalars['String']['output']>;
-  responsive: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/file block */
-export type CoreFileBlock = Block & {
-  __typename?: 'CoreFileBlock';
-  attributes?: Maybe<CoreFileBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreFile = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreFile';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreFile Block Type */
+  attributes?: Maybe<CoreFileAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreFileBlockAttributes = {
-  __typename?: 'CoreFileBlockAttributes';
+/** Attributes of the CoreFile Block Type */
+export type CoreFileAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreFileAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;blob&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   blob?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;displayPreview&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   displayPreview?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;downloadButtonText&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
+  downloadButtonText?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fileId&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   fileId?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fileName&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
+  fileName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;href&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   href?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;previewHeight&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   previewHeight: Scalars['Float']['output'];
+  /** The &quot;showDownloadButton&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   showDownloadButton: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textLinkHref&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   textLinkHref?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textLinkTarget&quot; field on the &quot;CoreFileAttributes&quot; block or block attributes */
   textLinkTarget?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreFileBlockAttributesUnion = CoreFileBlockAttributes | CoreFileBlockDeprecatedV1Attributes | CoreFileBlockDeprecatedV2Attributes | CoreFileBlockDeprecatedV3Attributes;
-
-export type CoreFileBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreFileBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  displayPreview?: Maybe<Scalars['Boolean']['output']>;
-  fileId?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  previewHeight: Scalars['Float']['output'];
-  showDownloadButton: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  textLinkHref?: Maybe<Scalars['String']['output']>;
-  textLinkTarget?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreFileBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreFileBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  displayPreview?: Maybe<Scalars['Boolean']['output']>;
-  fileId?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  previewHeight: Scalars['Float']['output'];
-  showDownloadButton: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  textLinkHref?: Maybe<Scalars['String']['output']>;
-  textLinkTarget?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreFileBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreFileBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  displayPreview?: Maybe<Scalars['Boolean']['output']>;
-  fileId?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  previewHeight: Scalars['Float']['output'];
-  showDownloadButton: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  textLinkHref?: Maybe<Scalars['String']['output']>;
-  textLinkTarget?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/footnotes block */
-export type CoreFootnotesBlock = Block & {
-  __typename?: 'CoreFootnotesBlock';
-  attributes?: Maybe<CoreFootnotesBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreFootnotes = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreFootnotes';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreFootnotes Block Type */
+  attributes?: Maybe<CoreFootnotesAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreFootnotesBlockAttributes = {
-  __typename?: 'CoreFootnotesBlockAttributes';
+/** Attributes of the CoreFootnotes Block Type */
+export type CoreFootnotesAttributes = {
+  __typename?: 'CoreFootnotesAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreFootnotesAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/freeform block */
-export type CoreFreeformBlock = Block & {
-  __typename?: 'CoreFreeformBlock';
-  attributes?: Maybe<CoreFreeformBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreFreeform = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreFreeform';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreFreeform Block Type */
+  attributes?: Maybe<CoreFreeformAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreFreeformBlockAttributes = {
-  __typename?: 'CoreFreeformBlockAttributes';
+/** Attributes of the CoreFreeform Block Type */
+export type CoreFreeformAttributes = {
+  __typename?: 'CoreFreeformAttributes';
+  /** The &quot;content&quot; field on the &quot;CoreFreeformAttributes&quot; block or block attributes */
   content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreFreeformAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreFreeformAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/gallery block */
-export type CoreGalleryBlock = Block & {
-  __typename?: 'CoreGalleryBlock';
-  attributes?: Maybe<CoreGalleryBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreGallery = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreGallery';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreGallery Block Type */
+  attributes?: Maybe<CoreGalleryAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreGalleryBlockAttributes = {
-  __typename?: 'CoreGalleryBlockAttributes';
+/** Attributes of the CoreGallery Block Type */
+export type CoreGalleryAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreGalleryAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;allowResize&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   allowResize: Scalars['Boolean']['output'];
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;caption&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;columns&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   columns?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;fixedHeight&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   fixedHeight: Scalars['Boolean']['output'];
+  /** The &quot;gradient&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;ids&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   ids: Array<Maybe<Scalars['Float']['output']>>;
+  /** The &quot;imageCrop&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockAttributesImages>>;
+  /** The &quot;images&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
+  images: Array<Maybe<CoreGalleryAttributesImages>>;
+  /** The &quot;layout&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   linkTarget?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTo&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   linkTo?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;randomOrder&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   randomOrder: Scalars['Boolean']['output'];
+  /** The &quot;shortCodeTransforms&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
+  /** The &quot;sizeSlug&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   sizeSlug: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreGalleryBlockAttributesImages = {
-  __typename?: 'CoreGalleryBlockAttributesImages';
+/** The &quot;CoreGalleryAttributesImages&quot; field on the &quot;CoreGalleryAttributes&quot; block attribute field */
+export type CoreGalleryAttributesImages = {
+  __typename?: 'CoreGalleryAttributesImages';
+  /** The &quot;alt&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
   alt: Scalars['String']['output'];
+  /** The &quot;caption&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fullUrl&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
   fullUrl?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
   id?: Maybe<Scalars['String']['output']>;
+  /** The &quot;link&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
   link?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreGalleryAttributesImages&quot; block attribute field */
   url?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreGalleryBlockAttributesUnion = CoreGalleryBlockAttributes | CoreGalleryBlockDeprecatedV1Attributes | CoreGalleryBlockDeprecatedV2Attributes | CoreGalleryBlockDeprecatedV3Attributes | CoreGalleryBlockDeprecatedV4Attributes | CoreGalleryBlockDeprecatedV5Attributes | CoreGalleryBlockDeprecatedV6Attributes | CoreGalleryBlockDeprecatedV7Attributes;
-
-export type CoreGalleryBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
+/** A block used for editing the site */
+export type CoreGroup = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreGroup';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV1AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV1AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV1AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV2AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV2AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV2AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV3AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV3AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV3AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV4AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV4AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV4AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV5AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV5AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV5AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV6AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV6AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV6AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV7Attributes = {
-  __typename?: 'CoreGalleryBlockDeprecatedV7Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowResize: Scalars['Boolean']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns?: Maybe<Scalars['Float']['output']>;
-  fixedHeight: Scalars['Boolean']['output'];
-  gradient?: Maybe<Scalars['String']['output']>;
-  ids: Array<Maybe<Scalars['Float']['output']>>;
-  imageCrop: Scalars['Boolean']['output'];
-  images: Array<Maybe<CoreGalleryBlockDeprecatedV7AttributesImages>>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  linkTo?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  randomOrder: Scalars['Boolean']['output'];
-  shortCodeTransforms: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-  sizeSlug: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGalleryBlockDeprecatedV7AttributesImages = {
-  __typename?: 'CoreGalleryBlockDeprecatedV7AttributesImages';
-  alt: Scalars['String']['output'];
-  fullUrl?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  link?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/group block */
-export type CoreGroupBlock = Block & {
-  __typename?: 'CoreGroupBlock';
-  attributes?: Maybe<CoreGroupBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreGroup Block Type */
+  attributes?: Maybe<CoreGroupAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreGroupBlockAttributes = {
-  __typename?: 'CoreGroupBlockAttributes';
+/** Attributes of the CoreGroup Block Type */
+export type CoreGroupAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreGroupAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;allowedBlocks&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   tagName: Scalars['String']['output'];
+  /** The &quot;textColor&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreGroupBlockAttributesUnion = CoreGroupBlockAttributes | CoreGroupBlockDeprecatedV1Attributes | CoreGroupBlockDeprecatedV2Attributes | CoreGroupBlockDeprecatedV3Attributes | CoreGroupBlockDeprecatedV4Attributes | CoreGroupBlockDeprecatedV5Attributes;
-
-export type CoreGroupBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreGroupBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+/** A block used for editing the site */
+export type CoreHeading = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreHeading';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGroupBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreGroupBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGroupBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreGroupBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGroupBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreGroupBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreGroupBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreGroupBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  settings?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tagName: Scalars['String']['output'];
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/heading block */
-export type CoreHeadingBlock = Block & {
-  __typename?: 'CoreHeadingBlock';
-  attributes?: Maybe<CoreHeadingBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreHeading Block Type */
+  attributes?: Maybe<CoreHeadingAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreHeadingBlockAttributes = {
-  __typename?: 'CoreHeadingBlockAttributes';
+/** Attributes of the CoreHeading Block Type */
+export type CoreHeadingAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreHeadingAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;level&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;placeholder&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   placeholder?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreHeadingAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreHeadingBlockAttributesUnion = CoreHeadingBlockAttributes | CoreHeadingBlockDeprecatedV1Attributes | CoreHeadingBlockDeprecatedV2Attributes | CoreHeadingBlockDeprecatedV3Attributes | CoreHeadingBlockDeprecatedV4Attributes | CoreHeadingBlockDeprecatedV5Attributes;
-
-export type CoreHeadingBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreHeadingBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreHeadingBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreHeadingBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreHeadingBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreHeadingBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreHeadingBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreHeadingBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreHeadingBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreHeadingBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/home-link block */
-export type CoreHomeLinkBlock = Block & {
-  __typename?: 'CoreHomeLinkBlock';
-  attributes?: Maybe<CoreHomeLinkBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreHomeLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreHomeLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreHomeLink Block Type */
+  attributes?: Maybe<CoreHomeLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreHomeLinkBlockAttributes = {
-  __typename?: 'CoreHomeLinkBlockAttributes';
+/** Attributes of the CoreHomeLink Block Type */
+export type CoreHomeLinkAttributes = {
+  __typename?: 'CoreHomeLinkAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/html block */
-export type CoreHtmlBlock = Block & {
-  __typename?: 'CoreHtmlBlock';
-  attributes?: Maybe<CoreHtmlBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreHtml = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreHtml';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreHtml Block Type */
+  attributes?: Maybe<CoreHtmlAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreHtmlBlockAttributes = {
-  __typename?: 'CoreHtmlBlockAttributes';
+/** Attributes of the CoreHtml Block Type */
+export type CoreHtmlAttributes = {
+  __typename?: 'CoreHtmlAttributes';
+  /** The &quot;content&quot; field on the &quot;CoreHtmlAttributes&quot; block or block attributes */
   content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreHtmlAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreHtmlAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/image block */
-export type CoreImageBlock = Block & {
-  __typename?: 'CoreImageBlock';
-  attributes?: Maybe<CoreImageBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreImage = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreImage';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreImage Block Type */
+  attributes?: Maybe<CoreImageAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Connection between the CoreImageBlock type and the MediaItem type */
-  mediaItem?: Maybe<CoreImageBlockToMediaItemConnectionEdge>;
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** Media Details of the CoreImage Block Type */
+  mediaDetails?: Maybe<MediaDetails>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreImageBlockAttributes = {
-  __typename?: 'CoreImageBlockAttributes';
+/** Attributes of the CoreImage Block Type */
+export type CoreImageAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreImageAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;alt&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   alt: Scalars['String']['output'];
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;aspectRatio&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   aspectRatio?: Maybe<Scalars['String']['output']>;
+  /** The &quot;blob&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   blob?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;caption&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;height&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   height?: Maybe<Scalars['String']['output']>;
+  /** The &quot;href&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   href?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;lightbox&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;linkClass&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   linkClass?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkDestination&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   linkDestination?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   linkTarget?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;rel&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;scale&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   scale?: Maybe<Scalars['String']['output']>;
+  /** The &quot;sizeSlug&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   sizeSlug?: Maybe<Scalars['String']['output']>;
+  /** The &quot;src&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
+  src?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreImageBlockAttributesUnion = CoreImageBlockAttributes | CoreImageBlockDeprecatedV1Attributes | CoreImageBlockDeprecatedV2Attributes | CoreImageBlockDeprecatedV3Attributes | CoreImageBlockDeprecatedV4Attributes | CoreImageBlockDeprecatedV5Attributes | CoreImageBlockDeprecatedV6Attributes | CoreImageBlockDeprecatedV7Attributes | CoreImageBlockDeprecatedV8Attributes;
-
-export type CoreImageBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV7Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV7Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreImageBlockDeprecatedV8Attributes = {
-  __typename?: 'CoreImageBlockDeprecatedV8Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  alt: Scalars['String']['output'];
-  anchor?: Maybe<Scalars['String']['output']>;
-  aspectRatio?: Maybe<Scalars['String']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  lightbox?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  scale?: Maybe<Scalars['String']['output']>;
-  sizeSlug?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-/** Connection between the CoreImageBlock type and the MediaItem type */
-export type CoreImageBlockToMediaItemConnectionEdge = Edge & MediaItemConnectionEdge & OneToOneConnection & {
-  __typename?: 'CoreImageBlockToMediaItemConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The node of the connection, without the edges */
-  node: MediaItem;
-};
-
-/** core/latest-comments block */
-export type CoreLatestCommentsBlock = Block & {
-  __typename?: 'CoreLatestCommentsBlock';
-  attributes?: Maybe<CoreLatestCommentsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreLatestComments = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreLatestComments';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreLatestComments Block Type */
+  attributes?: Maybe<CoreLatestCommentsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreLatestCommentsBlockAttributes = {
-  __typename?: 'CoreLatestCommentsBlockAttributes';
+/** Attributes of the CoreLatestComments Block Type */
+export type CoreLatestCommentsAttributes = {
+  __typename?: 'CoreLatestCommentsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;commentsToShow&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   commentsToShow: Scalars['Float']['output'];
+  /** The &quot;displayAvatar&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   displayAvatar: Scalars['Boolean']['output'];
+  /** The &quot;displayDate&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   displayDate: Scalars['Boolean']['output'];
+  /** The &quot;displayExcerpt&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   displayExcerpt: Scalars['Boolean']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreLatestCommentsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/latest-posts block */
-export type CoreLatestPostsBlock = Block & {
-  __typename?: 'CoreLatestPostsBlock';
-  attributes?: Maybe<CoreLatestPostsBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreLatestPosts = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreLatestPosts';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreLatestPosts Block Type */
+  attributes?: Maybe<CoreLatestPostsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreLatestPostsBlockAttributes = {
-  __typename?: 'CoreLatestPostsBlockAttributes';
+/** Attributes of the CoreLatestPosts Block Type */
+export type CoreLatestPostsAttributes = {
+  __typename?: 'CoreLatestPostsAttributes';
+  /** The &quot;addLinkToFeaturedImage&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   addLinkToFeaturedImage: Scalars['Boolean']['output'];
+  /** The &quot;align&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;categories&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   categories?: Maybe<Array<Maybe<Scalars['BlockAttributesObject']['output']>>>;
+  /** The &quot;className&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;columns&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   columns: Scalars['Float']['output'];
+  /** The &quot;displayAuthor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   displayAuthor: Scalars['Boolean']['output'];
+  /** The &quot;displayFeaturedImage&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   displayFeaturedImage: Scalars['Boolean']['output'];
+  /** The &quot;displayPostContent&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   displayPostContent: Scalars['Boolean']['output'];
+  /** The &quot;displayPostContentRadio&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   displayPostContentRadio: Scalars['String']['output'];
+  /** The &quot;displayPostDate&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   displayPostDate: Scalars['Boolean']['output'];
+  /** The &quot;excerptLength&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   excerptLength: Scalars['Float']['output'];
+  /** The &quot;featuredImageAlign&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   featuredImageAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;featuredImageSizeHeight&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   featuredImageSizeHeight?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;featuredImageSizeSlug&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   featuredImageSizeSlug: Scalars['String']['output'];
+  /** The &quot;featuredImageSizeWidth&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   featuredImageSizeWidth?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;order&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   order: Scalars['String']['output'];
+  /** The &quot;orderBy&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   orderBy: Scalars['String']['output'];
+  /** The &quot;postLayout&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   postLayout: Scalars['String']['output'];
+  /** The &quot;postsToShow&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   postsToShow: Scalars['Float']['output'];
+  /** The &quot;selectedAuthor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   selectedAuthor?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreLatestPostsBlockAttributesUnion = CoreLatestPostsBlockAttributes | CoreLatestPostsBlockDeprecatedV1Attributes;
-
-export type CoreLatestPostsBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreLatestPostsBlockDeprecatedV1Attributes';
-  addLinkToFeaturedImage: Scalars['Boolean']['output'];
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  categories?: Maybe<Array<Maybe<Scalars['BlockAttributesObject']['output']>>>;
-  className?: Maybe<Scalars['String']['output']>;
-  columns: Scalars['Float']['output'];
-  displayAuthor: Scalars['Boolean']['output'];
-  displayFeaturedImage: Scalars['Boolean']['output'];
-  displayPostContent: Scalars['Boolean']['output'];
-  displayPostContentRadio: Scalars['String']['output'];
-  displayPostDate: Scalars['Boolean']['output'];
-  excerptLength: Scalars['Float']['output'];
-  featuredImageAlign?: Maybe<Scalars['String']['output']>;
-  featuredImageSizeHeight?: Maybe<Scalars['Float']['output']>;
-  featuredImageSizeSlug: Scalars['String']['output'];
-  featuredImageSizeWidth?: Maybe<Scalars['Float']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  order: Scalars['String']['output'];
-  orderBy: Scalars['String']['output'];
-  postLayout: Scalars['String']['output'];
-  postsToShow: Scalars['Float']['output'];
-  selectedAuthor?: Maybe<Scalars['Float']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/legacy-widget block */
-export type CoreLegacyWidgetBlock = Block & {
-  __typename?: 'CoreLegacyWidgetBlock';
-  attributes?: Maybe<CoreLegacyWidgetBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreLegacyWidget = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreLegacyWidget';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreLegacyWidget Block Type */
+  attributes?: Maybe<CoreLegacyWidgetAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreLegacyWidgetBlockAttributes = {
-  __typename?: 'CoreLegacyWidgetBlockAttributes';
-  className?: Maybe<Scalars['String']['output']>;
+/** Attributes of the CoreLegacyWidget Block Type */
+export type CoreLegacyWidgetAttributes = {
+  __typename?: 'CoreLegacyWidgetAttributes';
+  /** The &quot;id&quot; field on the &quot;CoreLegacyWidgetAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['String']['output']>;
+  /** The &quot;idBase&quot; field on the &quot;CoreLegacyWidgetAttributes&quot; block or block attributes */
   idBase?: Maybe<Scalars['String']['output']>;
+  /** The &quot;instance&quot; field on the &quot;CoreLegacyWidgetAttributes&quot; block or block attributes */
   instance?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreLegacyWidgetAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreLegacyWidgetAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/list block */
-export type CoreListBlock = Block & {
-  __typename?: 'CoreListBlock';
-  attributes?: Maybe<CoreListBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreList = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreList';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreList Block Type */
+  attributes?: Maybe<CoreListAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreListBlockAttributes = {
-  __typename?: 'CoreListBlockAttributes';
+/** Attributes of the CoreList Block Type */
+export type CoreListAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreListAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;ordered&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   ordered: Scalars['Boolean']['output'];
+  /** The &quot;placeholder&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   placeholder?: Maybe<Scalars['String']['output']>;
+  /** The &quot;reversed&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   reversed?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;start&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   start?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   type?: Maybe<Scalars['String']['output']>;
+  /** The &quot;values&quot; field on the &quot;CoreListAttributes&quot; block or block attributes */
   values: Scalars['String']['output'];
 };
 
-export type CoreListBlockAttributesUnion = CoreListBlockAttributes | CoreListBlockDeprecatedV1Attributes | CoreListBlockDeprecatedV2Attributes | CoreListBlockDeprecatedV3Attributes | CoreListBlockDeprecatedV4Attributes;
-
-export type CoreListBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreListBlockDeprecatedV1Attributes';
+/** A block used for editing the site */
+export type CoreListItem = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreListItem';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ordered: Scalars['Boolean']['output'];
-  placeholder?: Maybe<Scalars['String']['output']>;
-  reversed?: Maybe<Scalars['Boolean']['output']>;
-  start?: Maybe<Scalars['Float']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  values: Scalars['String']['output'];
-};
-
-export type CoreListBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreListBlockDeprecatedV2Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ordered: Scalars['Boolean']['output'];
-  placeholder?: Maybe<Scalars['String']['output']>;
-  reversed?: Maybe<Scalars['Boolean']['output']>;
-  start?: Maybe<Scalars['Float']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  values: Scalars['String']['output'];
-};
-
-export type CoreListBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreListBlockDeprecatedV3Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ordered: Scalars['Boolean']['output'];
-  placeholder?: Maybe<Scalars['String']['output']>;
-  reversed?: Maybe<Scalars['Boolean']['output']>;
-  start?: Maybe<Scalars['Float']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  values: Scalars['String']['output'];
-};
-
-export type CoreListBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreListBlockDeprecatedV4Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  ordered: Scalars['Boolean']['output'];
-  placeholder?: Maybe<Scalars['String']['output']>;
-  reversed?: Maybe<Scalars['Boolean']['output']>;
-  start?: Maybe<Scalars['Float']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  values: Scalars['String']['output'];
-};
-
-/** core/list-item block */
-export type CoreListItemBlock = Block & {
-  __typename?: 'CoreListItemBlock';
-  attributes?: Maybe<CoreListItemBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreListItem Block Type */
+  attributes?: Maybe<CoreListItemAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreListItemBlockAttributes = {
-  __typename?: 'CoreListItemBlockAttributes';
+/** Attributes of the CoreListItem Block Type */
+export type CoreListItemAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreListItemAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;placeholder&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   placeholder?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreListItemAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/loginout block */
-export type CoreLoginoutBlock = Block & {
-  __typename?: 'CoreLoginoutBlock';
-  attributes?: Maybe<CoreLoginoutBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreLoginout = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreLoginout';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreLoginout Block Type */
+  attributes?: Maybe<CoreLoginoutAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreLoginoutBlockAttributes = {
-  __typename?: 'CoreLoginoutBlockAttributes';
+/** Attributes of the CoreLoginout Block Type */
+export type CoreLoginoutAttributes = {
+  __typename?: 'CoreLoginoutAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;displayLoginAsForm&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   displayLoginAsForm: Scalars['Boolean']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;redirectToCurrent&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   redirectToCurrent: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreLoginoutAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/media-text block */
-export type CoreMediaTextBlock = Block & {
-  __typename?: 'CoreMediaTextBlock';
-  attributes?: Maybe<CoreMediaTextBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreMediaText = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreMediaText';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreMediaText Block Type */
+  attributes?: Maybe<CoreMediaTextAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreMediaTextBlockAttributes = {
-  __typename?: 'CoreMediaTextBlockAttributes';
+/** Attributes of the CoreMediaText Block Type */
+export type CoreMediaTextAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreMediaTextAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   align: Scalars['String']['output'];
+  /** The &quot;allowedBlocks&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;focalPoint&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;href&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   href?: Maybe<Scalars['String']['output']>;
+  /** The &quot;imageFill&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   imageFill?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;isStackedOnMobile&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   isStackedOnMobile: Scalars['Boolean']['output'];
+  /** The &quot;linkClass&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   linkClass?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkDestination&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   linkDestination?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   linkTarget?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;mediaAlt&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaAlt: Scalars['String']['output'];
+  /** The &quot;mediaId&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaId?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;mediaLink&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaLink?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mediaPosition&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaPosition: Scalars['String']['output'];
+  /** The &quot;mediaSizeSlug&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaSizeSlug?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mediaType&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaType?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mediaUrl&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaUrl?: Maybe<Scalars['String']['output']>;
+  /** The &quot;mediaWidth&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   mediaWidth: Scalars['Float']['output'];
+  /** The &quot;metadata&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;rel&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;useFeaturedImage&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   useFeaturedImage: Scalars['Boolean']['output'];
+  /** The &quot;verticalAlignment&quot; field on the &quot;CoreMediaTextAttributes&quot; block or block attributes */
   verticalAlignment?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreMediaTextBlockAttributesUnion = CoreMediaTextBlockAttributes | CoreMediaTextBlockDeprecatedV1Attributes | CoreMediaTextBlockDeprecatedV2Attributes | CoreMediaTextBlockDeprecatedV3Attributes | CoreMediaTextBlockDeprecatedV4Attributes | CoreMediaTextBlockDeprecatedV5Attributes | CoreMediaTextBlockDeprecatedV6Attributes | CoreMediaTextBlockDeprecatedV7Attributes;
-
-export type CoreMediaTextBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV1Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV2Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV3Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV4Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV5Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV6Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreMediaTextBlockDeprecatedV7Attributes = {
-  __typename?: 'CoreMediaTextBlockDeprecatedV7Attributes';
-  align: Scalars['String']['output'];
-  allowedBlocks?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  focalPoint?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  href?: Maybe<Scalars['String']['output']>;
-  imageFill?: Maybe<Scalars['Boolean']['output']>;
-  isStackedOnMobile: Scalars['Boolean']['output'];
-  linkClass?: Maybe<Scalars['String']['output']>;
-  linkDestination?: Maybe<Scalars['String']['output']>;
-  linkTarget?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  mediaAlt: Scalars['String']['output'];
-  mediaId?: Maybe<Scalars['Float']['output']>;
-  mediaLink?: Maybe<Scalars['String']['output']>;
-  mediaPosition: Scalars['String']['output'];
-  mediaSizeSlug?: Maybe<Scalars['String']['output']>;
-  mediaType?: Maybe<Scalars['String']['output']>;
-  mediaUrl?: Maybe<Scalars['String']['output']>;
-  mediaWidth: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  useFeaturedImage: Scalars['Boolean']['output'];
-  verticalAlignment?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/missing block */
-export type CoreMissingBlock = Block & {
-  __typename?: 'CoreMissingBlock';
-  attributes?: Maybe<CoreMissingBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreMissing = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreMissing';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreMissing Block Type */
+  attributes?: Maybe<CoreMissingAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreMissingBlockAttributes = {
-  __typename?: 'CoreMissingBlockAttributes';
+/** Attributes of the CoreMissing Block Type */
+export type CoreMissingAttributes = {
+  __typename?: 'CoreMissingAttributes';
+  /** The &quot;lock&quot; field on the &quot;CoreMissingAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreMissingAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;originalContent&quot; field on the &quot;CoreMissingAttributes&quot; block or block attributes */
   originalContent?: Maybe<Scalars['String']['output']>;
+  /** The &quot;originalName&quot; field on the &quot;CoreMissingAttributes&quot; block or block attributes */
   originalName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;originalUndelimitedContent&quot; field on the &quot;CoreMissingAttributes&quot; block or block attributes */
   originalUndelimitedContent?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/more block */
-export type CoreMoreBlock = Block & {
-  __typename?: 'CoreMoreBlock';
-  attributes?: Maybe<CoreMoreBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreMore = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreMore';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreMore Block Type */
+  attributes?: Maybe<CoreMoreAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreMoreBlockAttributes = {
-  __typename?: 'CoreMoreBlockAttributes';
+/** Attributes of the CoreMore Block Type */
+export type CoreMoreAttributes = {
+  __typename?: 'CoreMoreAttributes';
+  /** The &quot;customText&quot; field on the &quot;CoreMoreAttributes&quot; block or block attributes */
   customText: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreMoreAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreMoreAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;noTeaser&quot; field on the &quot;CoreMoreAttributes&quot; block or block attributes */
   noTeaser: Scalars['Boolean']['output'];
 };
 
-/** core/navigation block */
-export type CoreNavigationBlock = Block & {
-  __typename?: 'CoreNavigationBlock';
-  attributes?: Maybe<CoreNavigationBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreNavigation = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreNavigation';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreNavigation Block Type */
+  attributes?: Maybe<CoreNavigationAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockAttributes = {
-  __typename?: 'CoreNavigationBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockAttributesUnion = CoreNavigationBlockAttributes | CoreNavigationBlockDeprecatedV1Attributes | CoreNavigationBlockDeprecatedV2Attributes | CoreNavigationBlockDeprecatedV3Attributes | CoreNavigationBlockDeprecatedV4Attributes | CoreNavigationBlockDeprecatedV5Attributes | CoreNavigationBlockDeprecatedV6Attributes;
-
-export type CoreNavigationBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreNavigationBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  ariaLabel?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
-  customTextColor?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  hasIcon: Scalars['Boolean']['output'];
-  icon: Scalars['String']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  maxNestingLevel: Scalars['Float']['output'];
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openSubmenusOnClick: Scalars['Boolean']['output'];
-  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
-  overlayMenu: Scalars['String']['output'];
-  overlayTextColor?: Maybe<Scalars['String']['output']>;
-  ref?: Maybe<Scalars['Float']['output']>;
-  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
-  rgbTextColor?: Maybe<Scalars['String']['output']>;
-  showSubmenuIcon: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  unstableLocation?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/navigation-link block */
-export type CoreNavigationLinkBlock = Block & {
-  __typename?: 'CoreNavigationLinkBlock';
-  attributes?: Maybe<CoreNavigationLinkBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreNavigationLinkBlockAttributes = {
-  __typename?: 'CoreNavigationLinkBlockAttributes';
-  className?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  isTopLevelLink?: Maybe<Scalars['Boolean']['output']>;
-  kind?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  opensInNewTab: Scalars['Boolean']['output'];
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
   type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreNavigation Block Type */
+export type CoreNavigationAttributes = {
+  __typename?: 'CoreNavigationAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customBackgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  customBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customOverlayBackgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  customOverlayBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customOverlayTextColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  customOverlayTextColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customTextColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  customTextColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hasIcon&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  hasIcon: Scalars['Boolean']['output'];
+  /** The &quot;icon&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  icon: Scalars['String']['output'];
+  /** The &quot;layout&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;maxNestingLevel&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  maxNestingLevel: Scalars['Float']['output'];
+  /** The &quot;metadata&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;openSubmenusOnClick&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  openSubmenusOnClick: Scalars['Boolean']['output'];
+  /** The &quot;overlayBackgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  overlayBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;overlayMenu&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  overlayMenu: Scalars['String']['output'];
+  /** The &quot;overlayTextColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  overlayTextColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;ref&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  ref?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;rgbBackgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  rgbBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rgbTextColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  rgbTextColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;showSubmenuIcon&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  showSubmenuIcon: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;__unstableLocation&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes */
+  unstableLocation?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreNavigationLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreNavigationLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreNavigationLink Block Type */
+  attributes?: Maybe<CoreNavigationLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreNavigationLink Block Type */
+export type CoreNavigationLinkAttributes = {
+  __typename?: 'CoreNavigationLinkAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;description&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  description?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;isTopLevelLink&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  isTopLevelLink?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;kind&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  kind?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;opensInNewTab&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  opensInNewTab: Scalars['Boolean']['output'];
+  /** The &quot;rel&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  title?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
+  type?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreNavigationLinkBlockAttributesUnion = CoreNavigationLinkBlockAttributes | CoreNavigationLinkBlockDeprecatedV1Attributes;
-
-export type CoreNavigationLinkBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreNavigationLinkBlockDeprecatedV1Attributes';
-  className?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  isTopLevelLink?: Maybe<Scalars['Boolean']['output']>;
-  kind?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  opensInNewTab: Scalars['Boolean']['output'];
-  rel?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/navigation-submenu block */
-export type CoreNavigationSubmenuBlock = Block & {
-  __typename?: 'CoreNavigationSubmenuBlock';
-  attributes?: Maybe<CoreNavigationSubmenuBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreNavigationSubmenu = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreNavigationSubmenu';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreNavigationSubmenu Block Type */
+  attributes?: Maybe<CoreNavigationSubmenuAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreNavigationSubmenuBlockAttributes = {
-  __typename?: 'CoreNavigationSubmenuBlockAttributes';
+/** Attributes of the CoreNavigationSubmenu Block Type */
+export type CoreNavigationSubmenuAttributes = {
+  __typename?: 'CoreNavigationSubmenuAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;description&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   description?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;id&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;isTopLevelItem&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   isTopLevelItem?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;kind&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   kind?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;opensInNewTab&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   opensInNewTab: Scalars['Boolean']['output'];
+  /** The &quot;rel&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   type?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/nextpage block */
-export type CoreNextpageBlock = Block & {
-  __typename?: 'CoreNextpageBlock';
-  attributes?: Maybe<CoreNextpageBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreNextpage = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreNextpage';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreNextpage Block Type */
+  attributes?: Maybe<CoreNextpageAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreNextpageBlockAttributes = {
-  __typename?: 'CoreNextpageBlockAttributes';
+/** Attributes of the CoreNextpage Block Type */
+export type CoreNextpageAttributes = {
+  __typename?: 'CoreNextpageAttributes';
+  /** The &quot;lock&quot; field on the &quot;CoreNextpageAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreNextpageAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/page-list block */
-export type CorePageListBlock = Block & {
-  __typename?: 'CorePageListBlock';
-  attributes?: Maybe<CorePageListBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePageList = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePageList';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePageList Block Type */
+  attributes?: Maybe<CorePageListAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePageListBlockAttributes = {
-  __typename?: 'CorePageListBlockAttributes';
+/** Attributes of the CorePageList Block Type */
+export type CorePageListAttributes = {
+  __typename?: 'CorePageListAttributes';
+  /** The &quot;className&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isNested&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   isNested: Scalars['Boolean']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;parentPageID&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   parentPageID: Scalars['Int']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
 
-/** core/page-list-item block */
-export type CorePageListItemBlock = Block & {
-  __typename?: 'CorePageListItemBlock';
-  attributes?: Maybe<CorePageListItemBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePageListItem = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePageListItem';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePageListItem Block Type */
+  attributes?: Maybe<CorePageListItemAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePageListItemBlockAttributes = {
-  __typename?: 'CorePageListItemBlockAttributes';
+/** Attributes of the CorePageListItem Block Type */
+export type CorePageListItemAttributes = {
+  __typename?: 'CorePageListItemAttributes';
+  /** The &quot;className&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hasChildren&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;id&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;label&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;link&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   link?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;CorePageListItemAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/paragraph block */
-export type CoreParagraphBlock = Block & {
-  __typename?: 'CoreParagraphBlock';
-  attributes?: Maybe<CoreParagraphBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreParagraph = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreParagraph';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreParagraph Block Type */
+  attributes?: Maybe<CoreParagraphAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreParagraphBlockAttributes = {
-  __typename?: 'CoreParagraphBlockAttributes';
+/** Attributes of the CoreParagraph Block Type */
+export type CoreParagraphAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreParagraphAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;direction&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   direction?: Maybe<Scalars['String']['output']>;
+  /** The &quot;dropCap&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   dropCap: Scalars['Boolean']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;placeholder&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   placeholder?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreParagraphAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreParagraphBlockAttributesUnion = CoreParagraphBlockAttributes | CoreParagraphBlockDeprecatedV1Attributes | CoreParagraphBlockDeprecatedV2Attributes | CoreParagraphBlockDeprecatedV3Attributes | CoreParagraphBlockDeprecatedV4Attributes | CoreParagraphBlockDeprecatedV5Attributes | CoreParagraphBlockDeprecatedV6Attributes;
-
-export type CoreParagraphBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreParagraphBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreParagraphBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreParagraphBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreParagraphBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreParagraphBlockDeprecatedV6Attributes = {
-  __typename?: 'CoreParagraphBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  direction?: Maybe<Scalars['String']['output']>;
-  dropCap: Scalars['Boolean']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/pattern block */
-export type CorePatternBlock = Block & {
-  __typename?: 'CorePatternBlock';
-  attributes?: Maybe<CorePatternBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePattern = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePattern';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePattern Block Type */
+  attributes?: Maybe<CorePatternAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePatternBlockAttributes = {
-  __typename?: 'CorePatternBlockAttributes';
+/** Attributes of the CorePattern Block Type */
+export type CorePatternAttributes = {
+  __typename?: 'CorePatternAttributes';
+  /** The &quot;className&quot; field on the &quot;CorePatternAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePatternAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePatternAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;slug&quot; field on the &quot;CorePatternAttributes&quot; block or block attributes */
   slug?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-author-biography block */
-export type CorePostAuthorBiographyBlock = Block & {
-  __typename?: 'CorePostAuthorBiographyBlock';
-  attributes?: Maybe<CorePostAuthorBiographyBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostAuthor = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostAuthor';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostAuthor Block Type */
+  attributes?: Maybe<CorePostAuthorAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostAuthorBiographyBlockAttributes = {
-  __typename?: 'CorePostAuthorBiographyBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/post-author block */
-export type CorePostAuthorBlock = Block & {
-  __typename?: 'CorePostAuthorBlock';
-  attributes?: Maybe<CorePostAuthorBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePostAuthorBlockAttributes = {
-  __typename?: 'CorePostAuthorBlockAttributes';
+/** Attributes of the CorePostAuthor Block Type */
+export type CorePostAuthorAttributes = {
+  __typename?: 'CorePostAuthorAttributes';
+  /** The &quot;avatarSize&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   avatarSize: Scalars['Float']['output'];
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;byline&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   byline?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showAvatar&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   showAvatar: Scalars['Boolean']['output'];
+  /** The &quot;showBio&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   showBio?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostAuthorAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-author-name block */
-export type CorePostAuthorNameBlock = Block & {
-  __typename?: 'CorePostAuthorNameBlock';
-  attributes?: Maybe<CorePostAuthorNameBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostAuthorBiography = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostAuthorBiography';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostAuthorBiography Block Type */
+  attributes?: Maybe<CorePostAuthorBiographyAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostAuthorNameBlockAttributes = {
-  __typename?: 'CorePostAuthorNameBlockAttributes';
+/** Attributes of the CorePostAuthorBiography Block Type */
+export type CorePostAuthorBiographyAttributes = {
+  __typename?: 'CorePostAuthorBiographyAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostAuthorBiographyAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CorePostAuthorName = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostAuthorName';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostAuthorName Block Type */
+  attributes?: Maybe<CorePostAuthorNameAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CorePostAuthorName Block Type */
+export type CorePostAuthorNameAttributes = {
+  __typename?: 'CorePostAuthorNameAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostAuthorNameAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-comments-form block */
-export type CorePostCommentsFormBlock = Block & {
-  __typename?: 'CorePostCommentsFormBlock';
-  attributes?: Maybe<CorePostCommentsFormBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostComments = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostComments';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostComments Block Type */
+  attributes?: Maybe<CorePostCommentsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostCommentsFormBlockAttributes = {
-  __typename?: 'CorePostCommentsFormBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/post-content block */
-export type CorePostContentBlock = Block & {
-  __typename?: 'CorePostContentBlock';
-  attributes?: Maybe<CorePostContentBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePostContentBlockAttributes = {
-  __typename?: 'CorePostContentBlockAttributes';
+/** Attributes of the CorePostComments Block Type */
+export type CorePostCommentsAttributes = {
+  __typename?: 'CorePostCommentsAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostCommentsAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CorePostCommentsForm = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostCommentsForm';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostCommentsForm Block Type */
+  attributes?: Maybe<CorePostCommentsFormAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CorePostCommentsForm Block Type */
+export type CorePostCommentsFormAttributes = {
+  __typename?: 'CorePostCommentsFormAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostCommentsFormAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CorePostContent = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostContent';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostContent Block Type */
+  attributes?: Maybe<CorePostContentAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CorePostContent Block Type */
+export type CorePostContentAttributes = {
+  __typename?: 'CorePostContentAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-date block */
-export type CorePostDateBlock = Block & {
-  __typename?: 'CorePostDateBlock';
-  attributes?: Maybe<CorePostDateBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostDate = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostDate';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostDate Block Type */
+  attributes?: Maybe<CorePostDateAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostDateBlockAttributes = {
-  __typename?: 'CorePostDateBlockAttributes';
+/** Attributes of the CorePostDate Block Type */
+export type CorePostDateAttributes = {
+  __typename?: 'CorePostDateAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;displayType&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   displayType: Scalars['String']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;format&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   format?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostDateBlockAttributesUnion = CorePostDateBlockAttributes | CorePostDateBlockDeprecatedV1Attributes;
-
-export type CorePostDateBlockDeprecatedV1Attributes = {
-  __typename?: 'CorePostDateBlockDeprecatedV1Attributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  displayType: Scalars['String']['output'];
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  format?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/post-excerpt block */
-export type CorePostExcerptBlock = Block & {
-  __typename?: 'CorePostExcerptBlock';
-  attributes?: Maybe<CorePostExcerptBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostExcerpt = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostExcerpt';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostExcerpt Block Type */
+  attributes?: Maybe<CorePostExcerptAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostExcerptBlockAttributes = {
-  __typename?: 'CorePostExcerptBlockAttributes';
+/** Attributes of the CorePostExcerpt Block Type */
+export type CorePostExcerptAttributes = {
+  __typename?: 'CorePostExcerptAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;excerptLength&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   excerptLength: Scalars['Float']['output'];
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;moreText&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   moreText?: Maybe<Scalars['String']['output']>;
+  /** The &quot;showMoreOnNewLine&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   showMoreOnNewLine: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-featured-image block */
-export type CorePostFeaturedImageBlock = Block & {
-  __typename?: 'CorePostFeaturedImageBlock';
-  attributes?: Maybe<CorePostFeaturedImageBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostFeaturedImage = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostFeaturedImage';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostFeaturedImage Block Type */
+  attributes?: Maybe<CorePostFeaturedImageAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostFeaturedImageBlockAttributes = {
-  __typename?: 'CorePostFeaturedImageBlockAttributes';
+/** Attributes of the CorePostFeaturedImage Block Type */
+export type CorePostFeaturedImageAttributes = {
+  __typename?: 'CorePostFeaturedImageAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;aspectRatio&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   aspectRatio?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customGradient&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   customGradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customOverlayColor&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   customOverlayColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;dimRatio&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   dimRatio: Scalars['Float']['output'];
+  /** The &quot;gradient&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;height&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   height?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;overlayColor&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   overlayColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rel&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   rel: Scalars['String']['output'];
+  /** The &quot;scale&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   scale: Scalars['String']['output'];
+  /** The &quot;sizeSlug&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   sizeSlug?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;useFirstImageFromPost&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   useFirstImageFromPost: Scalars['Boolean']['output'];
+  /** The &quot;width&quot; field on the &quot;CorePostFeaturedImageAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-navigation-link block */
-export type CorePostNavigationLinkBlock = Block & {
-  __typename?: 'CorePostNavigationLinkBlock';
-  attributes?: Maybe<CorePostNavigationLinkBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostNavigationLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostNavigationLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostNavigationLink Block Type */
+  attributes?: Maybe<CorePostNavigationLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostNavigationLinkBlockAttributes = {
-  __typename?: 'CorePostNavigationLinkBlockAttributes';
+/** Attributes of the CorePostNavigationLink Block Type */
+export type CorePostNavigationLinkAttributes = {
+  __typename?: 'CorePostNavigationLinkAttributes';
+  /** The &quot;arrow&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   arrow: Scalars['String']['output'];
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkLabel&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   linkLabel: Scalars['Boolean']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showTitle&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   showTitle: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;taxonomy&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   taxonomy: Scalars['String']['output'];
+  /** The &quot;textAlign&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes */
   type: Scalars['String']['output'];
 };
 
-/** core/post-template block */
-export type CorePostTemplateBlock = Block & {
-  __typename?: 'CorePostTemplateBlock';
-  attributes?: Maybe<CorePostTemplateBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostTemplate = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostTemplate';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostTemplate Block Type */
+  attributes?: Maybe<CorePostTemplateAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostTemplateBlockAttributes = {
-  __typename?: 'CorePostTemplateBlockAttributes';
+/** Attributes of the CorePostTemplate Block Type */
+export type CorePostTemplateAttributes = {
+  __typename?: 'CorePostTemplateAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-terms block */
-export type CorePostTermsBlock = Block & {
-  __typename?: 'CorePostTermsBlock';
-  attributes?: Maybe<CorePostTermsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePostTerms = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostTerms';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostTerms Block Type */
+  attributes?: Maybe<CorePostTermsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** Prefix to display before the post terms */
+  prefix?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** Suffix to display after the post terms */
+  suffix?: Maybe<Scalars['String']['output']>;
+  /** Connection between the CorePostTerms type and the Taxonomy type */
+  taxonomy?: Maybe<CorePostTermsToTaxonomyConnectionEdge>;
+  /** Connection between the CorePostTerms type and the TermNode type */
+  terms?: Maybe<CorePostTermsToTermNodeConnection>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CorePostTermsBlockAttributes = {
-  __typename?: 'CorePostTermsBlockAttributes';
+
+/** A block used for editing the site */
+export type CorePostTermsTermsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Attributes of the CorePostTerms Block Type */
+export type CorePostTermsAttributes = {
+  __typename?: 'CorePostTermsAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;prefix&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   prefix: Scalars['String']['output'];
+  /** The &quot;separator&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   separator: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;suffix&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   suffix: Scalars['String']['output'];
+  /** The &quot;term&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   term?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostTermsAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/post-title block */
-export type CorePostTitleBlock = Block & {
-  __typename?: 'CorePostTitleBlock';
-  attributes?: Maybe<CorePostTitleBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** Connection between the CorePostTerms type and the Taxonomy type */
+export type CorePostTermsToTaxonomyConnectionEdge = Edge & OneToOneConnection & TaxonomyConnectionEdge & {
+  __typename?: 'CorePostTermsToTaxonomyConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Taxonomy;
+};
+
+/** Connection between the CorePostTerms type and the TermNode type */
+export type CorePostTermsToTermNodeConnection = Connection & TermNodeConnection & {
+  __typename?: 'CorePostTermsToTermNodeConnection';
+  /** Edges for the CorePostTermsToTermNodeConnection connection */
+  edges: Array<CorePostTermsToTermNodeConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<TermNode>;
+  /** Information about pagination in a connection. */
+  pageInfo: CorePostTermsToTermNodeConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type CorePostTermsToTermNodeConnectionEdge = Edge & TermNodeConnectionEdge & {
+  __typename?: 'CorePostTermsToTermNodeConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor?: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: TermNode;
+};
+
+/** Page Info on the &quot;CorePostTermsToTermNodeConnection&quot; */
+export type CorePostTermsToTermNodeConnectionPageInfo = PageInfo & TermNodeConnectionPageInfo & WpPageInfo & {
+  __typename?: 'CorePostTermsToTermNodeConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor?: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** Raw schema for page */
+  seo?: Maybe<SeoPostTypePageInfo>;
+  /** When paginating backwards, the cursor to continue. */
+  startCursor?: Maybe<Scalars['String']['output']>;
+  total?: Maybe<Scalars['Int']['output']>;
+};
+
+/** A block used for editing the site */
+export type CorePostTitle = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePostTitle';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePostTitle Block Type */
+  attributes?: Maybe<CorePostTitleAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePostTitleBlockAttributes = {
-  __typename?: 'CorePostTitleBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  linkTarget: Scalars['String']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePostTitleBlockAttributesUnion = CorePostTitleBlockAttributes | CorePostTitleBlockDeprecatedV1Attributes;
-
-export type CorePostTitleBlockDeprecatedV1Attributes = {
-  __typename?: 'CorePostTitleBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  linkTarget: Scalars['String']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  rel: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/preformatted block */
-export type CorePreformattedBlock = Block & {
-  __typename?: 'CorePreformattedBlock';
-  attributes?: Maybe<CorePreformattedBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePreformattedBlockAttributes = {
-  __typename?: 'CorePreformattedBlockAttributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/pullquote block */
-export type CorePullquoteBlock = Block & {
-  __typename?: 'CorePullquoteBlock';
-  attributes?: Maybe<CorePullquoteBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockAttributes = {
-  __typename?: 'CorePullquoteBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockAttributesUnion = CorePullquoteBlockAttributes | CorePullquoteBlockDeprecatedV1Attributes | CorePullquoteBlockDeprecatedV2Attributes | CorePullquoteBlockDeprecatedV3Attributes | CorePullquoteBlockDeprecatedV4Attributes | CorePullquoteBlockDeprecatedV5Attributes | CorePullquoteBlockDeprecatedV6Attributes;
-
-export type CorePullquoteBlockDeprecatedV1Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockDeprecatedV2Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockDeprecatedV3Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockDeprecatedV4Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockDeprecatedV5Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CorePullquoteBlockDeprecatedV6Attributes = {
-  __typename?: 'CorePullquoteBlockDeprecatedV6Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query block */
-export type CoreQueryBlock = Block & {
-  __typename?: 'CoreQueryBlock';
-  attributes?: Maybe<CoreQueryBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryBlockAttributes = {
-  __typename?: 'CoreQueryBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-export type CoreQueryBlockAttributesUnion = CoreQueryBlockAttributes | CoreQueryBlockDeprecatedV1Attributes | CoreQueryBlockDeprecatedV2Attributes | CoreQueryBlockDeprecatedV3Attributes | CoreQueryBlockDeprecatedV4Attributes | CoreQueryBlockDeprecatedV5Attributes;
-
-export type CoreQueryBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreQueryBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-export type CoreQueryBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreQueryBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-export type CoreQueryBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreQueryBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-export type CoreQueryBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreQueryBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-export type CoreQueryBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreQueryBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  enhancedPagination: Scalars['Boolean']['output'];
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  namespace?: Maybe<Scalars['String']['output']>;
-  query: Scalars['BlockAttributesObject']['output'];
-  queryId?: Maybe<Scalars['Float']['output']>;
-  tagName: Scalars['String']['output'];
-};
-
-/** core/query-no-results block */
-export type CoreQueryNoResultsBlock = Block & {
-  __typename?: 'CoreQueryNoResultsBlock';
-  attributes?: Maybe<CoreQueryNoResultsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryNoResultsBlockAttributes = {
-  __typename?: 'CoreQueryNoResultsBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query-pagination block */
-export type CoreQueryPaginationBlock = Block & {
-  __typename?: 'CoreQueryPaginationBlock';
-  attributes?: Maybe<CoreQueryPaginationBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryPaginationBlockAttributes = {
-  __typename?: 'CoreQueryPaginationBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  paginationArrow: Scalars['String']['output'];
-  showLabel: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryPaginationBlockAttributesUnion = CoreQueryPaginationBlockAttributes | CoreQueryPaginationBlockDeprecatedV1Attributes;
-
-export type CoreQueryPaginationBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreQueryPaginationBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  paginationArrow: Scalars['String']['output'];
-  showLabel: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query-pagination-next block */
-export type CoreQueryPaginationNextBlock = Block & {
-  __typename?: 'CoreQueryPaginationNextBlock';
-  attributes?: Maybe<CoreQueryPaginationNextBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryPaginationNextBlockAttributes = {
-  __typename?: 'CoreQueryPaginationNextBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query-pagination-numbers block */
-export type CoreQueryPaginationNumbersBlock = Block & {
-  __typename?: 'CoreQueryPaginationNumbersBlock';
-  attributes?: Maybe<CoreQueryPaginationNumbersBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryPaginationNumbersBlockAttributes = {
-  __typename?: 'CoreQueryPaginationNumbersBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  midSize: Scalars['Float']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query-pagination-previous block */
-export type CoreQueryPaginationPreviousBlock = Block & {
-  __typename?: 'CoreQueryPaginationPreviousBlock';
-  attributes?: Maybe<CoreQueryPaginationPreviousBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryPaginationPreviousBlockAttributes = {
-  __typename?: 'CoreQueryPaginationPreviousBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  label?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/query-title block */
-export type CoreQueryTitleBlock = Block & {
-  __typename?: 'CoreQueryTitleBlock';
-  attributes?: Maybe<CoreQueryTitleBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQueryTitleBlockAttributes = {
-  __typename?: 'CoreQueryTitleBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  showPrefix: Scalars['Boolean']['output'];
-  showSearchTerm: Scalars['Boolean']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
   type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreQueryTitleBlockAttributesUnion = CoreQueryTitleBlockAttributes | CoreQueryTitleBlockDeprecatedV1Attributes;
-
-export type CoreQueryTitleBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreQueryTitleBlockDeprecatedV1Attributes';
+/** Attributes of the CorePostTitle Block Type */
+export type CorePostTitleAttributes = {
+  __typename?: 'CorePostTitleAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
+  isLink: Scalars['Boolean']['output'];
+  /** The &quot;level&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
+  linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  showPrefix: Scalars['Boolean']['output'];
-  showSearchTerm: Scalars['Boolean']['output'];
+  /** The &quot;rel&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
+  rel: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CorePreformatted = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePreformatted';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePreformatted Block Type */
+  attributes?: Maybe<CorePreformattedAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
   type?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/quote block */
-export type CoreQuoteBlock = Block & {
-  __typename?: 'CoreQuoteBlock';
-  attributes?: Maybe<CoreQuoteBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreQuoteBlockAttributes = {
-  __typename?: 'CoreQuoteBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
+/** Attributes of the CorePreformatted Block Type */
+export type CorePreformattedAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CorePreformattedAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type CoreQuoteBlockAttributesUnion = CoreQuoteBlockAttributes | CoreQuoteBlockDeprecatedV1Attributes | CoreQuoteBlockDeprecatedV2Attributes | CoreQuoteBlockDeprecatedV3Attributes | CoreQuoteBlockDeprecatedV4Attributes | CoreQuoteBlockDeprecatedV5Attributes;
-
-export type CoreQuoteBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreQuoteBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type CoreQuoteBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreQuoteBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type CoreQuoteBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreQuoteBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type CoreQuoteBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreQuoteBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-export type CoreQuoteBlockDeprecatedV5Attributes = {
-  __typename?: 'CoreQuoteBlockDeprecatedV5Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-  value: Scalars['String']['output'];
-};
-
-/** core/read-more block */
-export type CoreReadMoreBlock = Block & {
-  __typename?: 'CoreReadMoreBlock';
-  attributes?: Maybe<CoreReadMoreBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreReadMoreBlockAttributes = {
-  __typename?: 'CoreReadMoreBlockAttributes';
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
-  linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePreformattedAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/rss block */
-export type CoreRssBlock = Block & {
-  __typename?: 'CoreRssBlock';
-  attributes?: Maybe<CoreRssBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CorePullquote = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CorePullquote';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CorePullquote Block Type */
+  attributes?: Maybe<CorePullquoteAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreRssBlockAttributes = {
-  __typename?: 'CoreRssBlockAttributes';
+/** Attributes of the CorePullquote Block Type */
+export type CorePullquoteAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CorePullquoteAttributes';
+  /** The &quot;align&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
-  blockLayout: Scalars['String']['output'];
-  className?: Maybe<Scalars['String']['output']>;
-  columns: Scalars['Float']['output'];
-  displayAuthor: Scalars['Boolean']['output'];
-  displayDate: Scalars['Boolean']['output'];
-  displayExcerpt: Scalars['Boolean']['output'];
-  excerptLength: Scalars['Float']['output'];
-  feedURL: Scalars['String']['output'];
-  itemsToShow: Scalars['Float']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-};
-
-/** core/search block */
-export type CoreSearchBlock = Block & {
-  __typename?: 'CoreSearchBlock';
-  attributes?: Maybe<CoreSearchBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreSearchBlockAttributes = {
-  __typename?: 'CoreSearchBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
-  buttonPosition: Scalars['String']['output'];
-  buttonText?: Maybe<Scalars['String']['output']>;
-  buttonUseIcon: Scalars['Boolean']['output'];
+  /** The &quot;citation&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
+  citation?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
-  isSearchFieldHidden: Scalars['Boolean']['output'];
-  label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  placeholder: Scalars['String']['output'];
-  query: Scalars['BlockAttributesObject']['output'];
-  showLabel: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;value&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes */
+  value?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQuery = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQuery';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQuery Block Type */
+  attributes?: Maybe<CoreQueryAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQuery Block Type */
+export type CoreQueryAttributes = {
+  __typename?: 'CoreQueryAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;enhancedPagination&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  enhancedPagination: Scalars['Boolean']['output'];
+  /** The &quot;layout&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;namespace&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  namespace?: Maybe<Scalars['String']['output']>;
+  /** The &quot;query&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  query: Scalars['BlockAttributesObject']['output'];
+  /** The &quot;queryId&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  queryId?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreQueryAttributes&quot; block or block attributes */
+  tagName: Scalars['String']['output'];
+};
+
+/** A block used for editing the site */
+export type CoreQueryNoResults = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryNoResults';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryNoResults Block Type */
+  attributes?: Maybe<CoreQueryNoResultsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryNoResults Block Type */
+export type CoreQueryNoResultsAttributes = {
+  __typename?: 'CoreQueryNoResultsAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreQueryNoResultsAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQueryPagination = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryPagination';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryPagination Block Type */
+  attributes?: Maybe<CoreQueryPaginationAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryPagination Block Type */
+export type CoreQueryPaginationAttributes = {
+  __typename?: 'CoreQueryPaginationAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;paginationArrow&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  paginationArrow: Scalars['String']['output'];
+  /** The &quot;showLabel&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  showLabel: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreQueryPaginationAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQueryPaginationNext = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryPaginationNext';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryPaginationNext Block Type */
+  attributes?: Maybe<CoreQueryPaginationNextAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryPaginationNext Block Type */
+export type CoreQueryPaginationNextAttributes = {
+  __typename?: 'CoreQueryPaginationNextAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreQueryPaginationNextAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQueryPaginationNumbers = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryPaginationNumbers';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryPaginationNumbers Block Type */
+  attributes?: Maybe<CoreQueryPaginationNumbersAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryPaginationNumbers Block Type */
+export type CoreQueryPaginationNumbersAttributes = {
+  __typename?: 'CoreQueryPaginationNumbersAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;midSize&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  midSize: Scalars['Float']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreQueryPaginationNumbersAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQueryPaginationPrevious = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryPaginationPrevious';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryPaginationPrevious Block Type */
+  attributes?: Maybe<CoreQueryPaginationPreviousAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryPaginationPrevious Block Type */
+export type CoreQueryPaginationPreviousAttributes = {
+  __typename?: 'CoreQueryPaginationPreviousAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreQueryPaginationPreviousAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQueryTitle = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQueryTitle';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQueryTitle Block Type */
+  attributes?: Maybe<CoreQueryTitleAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQueryTitle Block Type */
+export type CoreQueryTitleAttributes = {
+  __typename?: 'CoreQueryTitleAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;level&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  levelOptions?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;showPrefix&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  showPrefix: Scalars['Boolean']['output'];
+  /** The &quot;showSearchTerm&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  showSearchTerm: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreQuote = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreQuote';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreQuote Block Type */
+  attributes?: Maybe<CoreQuoteAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreQuote Block Type */
+export type CoreQuoteAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreQuoteAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;citation&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  citation?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;value&quot; field on the &quot;CoreQuoteAttributes&quot; block or block attributes */
+  value: Scalars['String']['output'];
+};
+
+/** A block used for editing the site */
+export type CoreReadMore = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreReadMore';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreReadMore Block Type */
+  attributes?: Maybe<CoreReadMoreAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreReadMore Block Type */
+export type CoreReadMoreAttributes = {
+  __typename?: 'CoreReadMoreAttributes';
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;linkTarget&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreReadMoreAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreRss = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreRss';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreRss Block Type */
+  attributes?: Maybe<CoreRssAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreRss Block Type */
+export type CoreRssAttributes = {
+  __typename?: 'CoreRssAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;blockLayout&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  blockLayout: Scalars['String']['output'];
+  /** The &quot;className&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;columns&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  columns: Scalars['Float']['output'];
+  /** The &quot;displayAuthor&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  displayAuthor: Scalars['Boolean']['output'];
+  /** The &quot;displayDate&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  displayDate: Scalars['Boolean']['output'];
+  /** The &quot;displayExcerpt&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  displayExcerpt: Scalars['Boolean']['output'];
+  /** The &quot;excerptLength&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  excerptLength: Scalars['Float']['output'];
+  /** The &quot;feedURL&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  feedURL: Scalars['String']['output'];
+  /** The &quot;itemsToShow&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  itemsToShow: Scalars['Float']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreSearch = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSearch';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSearch Block Type */
+  attributes?: Maybe<CoreSearchAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreSearch Block Type */
+export type CoreSearchAttributes = {
+  __typename?: 'CoreSearchAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;buttonPosition&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  buttonPosition: Scalars['String']['output'];
+  /** The &quot;buttonText&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  buttonText?: Maybe<Scalars['String']['output']>;
+  /** The &quot;buttonUseIcon&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  buttonUseIcon: Scalars['Boolean']['output'];
+  /** The &quot;className&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isSearchFieldHidden&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  isSearchFieldHidden: Scalars['Boolean']['output'];
+  /** The &quot;label&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;placeholder&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  placeholder: Scalars['String']['output'];
+  /** The &quot;query&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  query: Scalars['BlockAttributesObject']['output'];
+  /** The &quot;showLabel&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  showLabel: Scalars['Boolean']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
+  textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;widthUnit&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes */
   widthUnit?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/separator block */
-export type CoreSeparatorBlock = Block & {
-  __typename?: 'CoreSeparatorBlock';
-  attributes?: Maybe<CoreSeparatorBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
-  isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreSeparatorBlockAttributes = {
-  __typename?: 'CoreSeparatorBlockAttributes';
-  align?: Maybe<Scalars['String']['output']>;
+/** A block used for editing the site */
+export type CoreSeparator = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSeparator';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  opacity: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreSeparatorBlockAttributesUnion = CoreSeparatorBlockAttributes | CoreSeparatorBlockDeprecatedV1Attributes;
-
-export type CoreSeparatorBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreSeparatorBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  opacity: Scalars['String']['output'];
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/shortcode block */
-export type CoreShortcodeBlock = Block & {
-  __typename?: 'CoreShortcodeBlock';
-  attributes?: Maybe<CoreShortcodeBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSeparator Block Type */
+  attributes?: Maybe<CoreSeparatorAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreShortcodeBlockAttributes = {
-  __typename?: 'CoreShortcodeBlockAttributes';
+/** Attributes of the CoreSeparator Block Type */
+export type CoreSeparatorAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreSeparatorAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;cssClassName&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  cssClassName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;opacity&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  opacity: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes */
+  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+};
+
+/** A block used for editing the site */
+export type CoreShortcode = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreShortcode';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreShortcode Block Type */
+  attributes?: Maybe<CoreShortcodeAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+/** Attributes of the CoreShortcode Block Type */
+export type CoreShortcodeAttributes = {
+  __typename?: 'CoreShortcodeAttributes';
+  /** The &quot;lock&quot; field on the &quot;CoreShortcodeAttributes&quot; block or block attributes */
+  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreShortcodeAttributes&quot; block or block attributes */
+  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;text&quot; field on the &quot;CoreShortcodeAttributes&quot; block or block attributes */
   text?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/site-logo block */
-export type CoreSiteLogoBlock = Block & {
-  __typename?: 'CoreSiteLogoBlock';
-  attributes?: Maybe<CoreSiteLogoBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreSiteLogo = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSiteLogo';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSiteLogo Block Type */
+  attributes?: Maybe<CoreSiteLogoAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSiteLogoBlockAttributes = {
-  __typename?: 'CoreSiteLogoBlockAttributes';
+/** Attributes of the CoreSiteLogo Block Type */
+export type CoreSiteLogoAttributes = {
+  __typename?: 'CoreSiteLogoAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;shouldSyncIcon&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   shouldSyncIcon?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreSiteLogoAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['Float']['output']>;
 };
 
-/** core/site-tagline block */
-export type CoreSiteTaglineBlock = Block & {
-  __typename?: 'CoreSiteTaglineBlock';
-  attributes?: Maybe<CoreSiteTaglineBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreSiteTagline = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSiteTagline';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSiteTagline Block Type */
+  attributes?: Maybe<CoreSiteTaglineAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSiteTaglineBlockAttributes = {
-  __typename?: 'CoreSiteTaglineBlockAttributes';
+/** Attributes of the CoreSiteTagline Block Type */
+export type CoreSiteTaglineAttributes = {
+  __typename?: 'CoreSiteTaglineAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;level&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   levelOptions: Scalars['BlockAttributesArray']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSiteTaglineBlockAttributesUnion = CoreSiteTaglineBlockAttributes | CoreSiteTaglineBlockDeprecatedV1Attributes;
-
-export type CoreSiteTaglineBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreSiteTaglineBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  level: Scalars['Float']['output'];
-  levelOptions: Scalars['BlockAttributesArray']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/site-title block */
-export type CoreSiteTitleBlock = Block & {
-  __typename?: 'CoreSiteTitleBlock';
-  attributes?: Maybe<CoreSiteTitleBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreSiteTitle = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSiteTitle';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSiteTitle Block Type */
+  attributes?: Maybe<CoreSiteTitleAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSiteTitleBlockAttributes = {
-  __typename?: 'CoreSiteTitleBlockAttributes';
+/** Attributes of the CoreSiteTitle Block Type */
+export type CoreSiteTitleAttributes = {
+  __typename?: 'CoreSiteTitleAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;isLink&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   isLink: Scalars['Boolean']['output'];
+  /** The &quot;level&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   level: Scalars['Float']['output'];
+  /** The &quot;levelOptions&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   levelOptions: Scalars['BlockAttributesArray']['output'];
+  /** The &quot;linkTarget&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   linkTarget: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSiteTitleBlockAttributesUnion = CoreSiteTitleBlockAttributes | CoreSiteTitleBlockDeprecatedV1Attributes;
-
-export type CoreSiteTitleBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreSiteTitleBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  isLink: Scalars['Boolean']['output'];
-  level: Scalars['Float']['output'];
-  levelOptions: Scalars['BlockAttributesArray']['output'];
-  linkTarget: Scalars['String']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/social-link block */
-export type CoreSocialLinkBlock = Block & {
-  __typename?: 'CoreSocialLinkBlock';
-  attributes?: Maybe<CoreSocialLinkBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreSocialLink = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSocialLink';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSocialLink Block Type */
+  attributes?: Maybe<CoreSocialLinkAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSocialLinkBlockAttributes = {
-  __typename?: 'CoreSocialLinkBlockAttributes';
+/** Attributes of the CoreSocialLink Block Type */
+export type CoreSocialLinkAttributes = {
+  __typename?: 'CoreSocialLinkAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;label&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   label?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;rel&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   rel?: Maybe<Scalars['String']['output']>;
+  /** The &quot;service&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   service?: Maybe<Scalars['String']['output']>;
+  /** The &quot;url&quot; field on the &quot;CoreSocialLinkAttributes&quot; block or block attributes */
   url?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/social-links block */
-export type CoreSocialLinksBlock = Block & {
-  __typename?: 'CoreSocialLinksBlock';
-  attributes?: Maybe<CoreSocialLinksBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreSocialLinks = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSocialLinks';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSocialLinks Block Type */
+  attributes?: Maybe<CoreSocialLinksAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSocialLinksBlockAttributes = {
-  __typename?: 'CoreSocialLinksBlockAttributes';
+/** Attributes of the CoreSocialLinks Block Type */
+export type CoreSocialLinksAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreSocialLinksAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customIconBackgroundColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   customIconBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;customIconColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   customIconColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;iconBackgroundColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   iconBackgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;iconBackgroundColorValue&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   iconBackgroundColorValue?: Maybe<Scalars['String']['output']>;
+  /** The &quot;iconColor&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   iconColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;iconColorValue&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   iconColorValue?: Maybe<Scalars['String']['output']>;
+  /** The &quot;layout&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;openInNewTab&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   openInNewTab: Scalars['Boolean']['output'];
+  /** The &quot;showLabels&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   showLabels: Scalars['Boolean']['output'];
+  /** The &quot;size&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   size?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreSocialLinksAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSocialLinksBlockAttributesUnion = CoreSocialLinksBlockAttributes | CoreSocialLinksBlockDeprecatedV1Attributes;
-
-export type CoreSocialLinksBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreSocialLinksBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
+/** A block used for editing the site */
+export type CoreSpacer = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreSpacer';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  customIconBackgroundColor?: Maybe<Scalars['String']['output']>;
-  customIconColor?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  iconBackgroundColor?: Maybe<Scalars['String']['output']>;
-  iconBackgroundColorValue?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
-  iconColorValue?: Maybe<Scalars['String']['output']>;
-  layout?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  openInNewTab: Scalars['Boolean']['output'];
-  showLabels: Scalars['Boolean']['output'];
-  size?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/spacer block */
-export type CoreSpacerBlock = Block & {
-  __typename?: 'CoreSpacerBlock';
-  attributes?: Maybe<CoreSpacerBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreSpacer Block Type */
+  attributes?: Maybe<CoreSpacerAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSpacerBlockAttributes = {
-  __typename?: 'CoreSpacerBlockAttributes';
+/** Attributes of the CoreSpacer Block Type */
+export type CoreSpacerAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreSpacerAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;height&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   height: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreSpacerAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreSpacerBlockAttributesUnion = CoreSpacerBlockAttributes | CoreSpacerBlockDeprecatedV1Attributes;
-
-export type CoreSpacerBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreSpacerBlockDeprecatedV1Attributes';
+/** A block used for editing the site */
+export type CoreTable = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreTable';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  height: Scalars['String']['output'];
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  width?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/table block */
-export type CoreTableBlock = Block & {
-  __typename?: 'CoreTableBlock';
-  attributes?: Maybe<CoreTableBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreTable Block Type */
+  attributes?: Maybe<CoreTableAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTableBlockAttributes = {
-  __typename?: 'CoreTableBlockAttributes';
+/** Attributes of the CoreTable Block Type */
+export type CoreTableAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreTableAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
-  body: Array<Maybe<CoreTableBlockAttributesBody>>;
+  /** The &quot;body&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
+  body: Array<Maybe<CoreTableAttributesBody>>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;caption&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
-  foot: Array<Maybe<CoreTableBlockAttributesFoot>>;
+  /** The &quot;foot&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
+  foot: Array<Maybe<CoreTableAttributesFoot>>;
+  /** The &quot;gradient&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hasFixedLayout&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   hasFixedLayout: Scalars['Boolean']['output'];
-  head: Array<Maybe<CoreTableBlockAttributesHead>>;
+  /** The &quot;head&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
+  head: Array<Maybe<CoreTableAttributesHead>>;
+  /** The &quot;lock&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreTableAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTableBlockAttributesBody = {
-  __typename?: 'CoreTableBlockAttributesBody';
-  cells: Array<Maybe<CoreTableBlockAttributesBodyCells>>;
+/** The &quot;CoreTableAttributesBody&quot; field on the &quot;CoreTableAttributes&quot; block attribute field */
+export type CoreTableAttributesBody = {
+  __typename?: 'CoreTableAttributesBody';
+  /** The &quot;cells&quot; field on the &quot;CoreTableAttributesBody&quot; block attribute field */
+  cells: Array<Maybe<CoreTableAttributesBodyCells>>;
 };
 
-export type CoreTableBlockAttributesBodyCells = {
-  __typename?: 'CoreTableBlockAttributesBodyCells';
+/** The &quot;CoreTableAttributesBodyCells&quot; field on the &quot;CoreTableAttributesBody&quot; block attribute field */
+export type CoreTableAttributesBodyCells = {
+  __typename?: 'CoreTableAttributesBodyCells';
+  /** The &quot;align&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;colspan&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
   colspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rowspan&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
   rowspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;scope&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
   scope?: Maybe<Scalars['String']['output']>;
+  /** The &quot;tag&quot; field on the &quot;CoreTableAttributesBodyCells&quot; block attribute field */
   tag: Scalars['String']['output'];
 };
 
-export type CoreTableBlockAttributesFoot = {
-  __typename?: 'CoreTableBlockAttributesFoot';
-  cells: Array<Maybe<CoreTableBlockAttributesFootCells>>;
+/** The &quot;CoreTableAttributesFoot&quot; field on the &quot;CoreTableAttributes&quot; block attribute field */
+export type CoreTableAttributesFoot = {
+  __typename?: 'CoreTableAttributesFoot';
+  /** The &quot;cells&quot; field on the &quot;CoreTableAttributesFoot&quot; block attribute field */
+  cells: Array<Maybe<CoreTableAttributesFootCells>>;
 };
 
-export type CoreTableBlockAttributesFootCells = {
-  __typename?: 'CoreTableBlockAttributesFootCells';
+/** The &quot;CoreTableAttributesFootCells&quot; field on the &quot;CoreTableAttributesFoot&quot; block attribute field */
+export type CoreTableAttributesFootCells = {
+  __typename?: 'CoreTableAttributesFootCells';
+  /** The &quot;align&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;colspan&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
   colspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rowspan&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
   rowspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;scope&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
   scope?: Maybe<Scalars['String']['output']>;
+  /** The &quot;tag&quot; field on the &quot;CoreTableAttributesFootCells&quot; block attribute field */
   tag: Scalars['String']['output'];
 };
 
-export type CoreTableBlockAttributesHead = {
-  __typename?: 'CoreTableBlockAttributesHead';
-  cells: Array<Maybe<CoreTableBlockAttributesHeadCells>>;
+/** The &quot;CoreTableAttributesHead&quot; field on the &quot;CoreTableAttributes&quot; block attribute field */
+export type CoreTableAttributesHead = {
+  __typename?: 'CoreTableAttributesHead';
+  /** The &quot;cells&quot; field on the &quot;CoreTableAttributesHead&quot; block attribute field */
+  cells: Array<Maybe<CoreTableAttributesHeadCells>>;
 };
 
-export type CoreTableBlockAttributesHeadCells = {
-  __typename?: 'CoreTableBlockAttributesHeadCells';
+/** The &quot;CoreTableAttributesHeadCells&quot; field on the &quot;CoreTableAttributesHead&quot; block attribute field */
+export type CoreTableAttributesHeadCells = {
+  __typename?: 'CoreTableAttributesHeadCells';
+  /** The &quot;align&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;colspan&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
   colspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;rowspan&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
   rowspan?: Maybe<Scalars['String']['output']>;
+  /** The &quot;scope&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
   scope?: Maybe<Scalars['String']['output']>;
+  /** The &quot;tag&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field */
   tag: Scalars['String']['output'];
 };
 
-export type CoreTableBlockAttributesUnion = CoreTableBlockAttributes | CoreTableBlockDeprecatedV1Attributes | CoreTableBlockDeprecatedV2Attributes | CoreTableBlockDeprecatedV3Attributes | CoreTableBlockDeprecatedV4Attributes;
-
-export type CoreTableBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreTableBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  body: Array<Maybe<CoreTableBlockDeprecatedV1AttributesBody>>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  foot: Array<Maybe<CoreTableBlockDeprecatedV1AttributesFoot>>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasFixedLayout: Scalars['Boolean']['output'];
-  head: Array<Maybe<CoreTableBlockDeprecatedV1AttributesHead>>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreTableBlockDeprecatedV1AttributesBody = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesBody';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV1AttributesBodyCells>>;
-};
-
-export type CoreTableBlockDeprecatedV1AttributesBodyCells = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesBodyCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV1AttributesFoot = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesFoot';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV1AttributesFootCells>>;
-};
-
-export type CoreTableBlockDeprecatedV1AttributesFootCells = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesFootCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV1AttributesHead = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesHead';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV1AttributesHeadCells>>;
-};
-
-export type CoreTableBlockDeprecatedV1AttributesHeadCells = {
-  __typename?: 'CoreTableBlockDeprecatedV1AttributesHeadCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreTableBlockDeprecatedV2Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  body: Array<Maybe<CoreTableBlockDeprecatedV2AttributesBody>>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  foot: Array<Maybe<CoreTableBlockDeprecatedV2AttributesFoot>>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasFixedLayout: Scalars['Boolean']['output'];
-  head: Array<Maybe<CoreTableBlockDeprecatedV2AttributesHead>>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreTableBlockDeprecatedV2AttributesBody = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesBody';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV2AttributesBodyCells>>;
-};
-
-export type CoreTableBlockDeprecatedV2AttributesBodyCells = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesBodyCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV2AttributesFoot = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesFoot';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV2AttributesFootCells>>;
-};
-
-export type CoreTableBlockDeprecatedV2AttributesFootCells = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesFootCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV2AttributesHead = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesHead';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV2AttributesHeadCells>>;
-};
-
-export type CoreTableBlockDeprecatedV2AttributesHeadCells = {
-  __typename?: 'CoreTableBlockDeprecatedV2AttributesHeadCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV3Attributes = {
-  __typename?: 'CoreTableBlockDeprecatedV3Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  body: Array<Maybe<CoreTableBlockDeprecatedV3AttributesBody>>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  foot: Array<Maybe<CoreTableBlockDeprecatedV3AttributesFoot>>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasFixedLayout: Scalars['Boolean']['output'];
-  head: Array<Maybe<CoreTableBlockDeprecatedV3AttributesHead>>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreTableBlockDeprecatedV3AttributesBody = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesBody';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV3AttributesBodyCells>>;
-};
-
-export type CoreTableBlockDeprecatedV3AttributesBodyCells = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesBodyCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV3AttributesFoot = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesFoot';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV3AttributesFootCells>>;
-};
-
-export type CoreTableBlockDeprecatedV3AttributesFootCells = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesFootCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV3AttributesHead = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesHead';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV3AttributesHeadCells>>;
-};
-
-export type CoreTableBlockDeprecatedV3AttributesHeadCells = {
-  __typename?: 'CoreTableBlockDeprecatedV3AttributesHeadCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV4Attributes = {
-  __typename?: 'CoreTableBlockDeprecatedV4Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  body: Array<Maybe<CoreTableBlockDeprecatedV4AttributesBody>>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  foot: Array<Maybe<CoreTableBlockDeprecatedV4AttributesFoot>>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  hasFixedLayout: Scalars['Boolean']['output'];
-  head: Array<Maybe<CoreTableBlockDeprecatedV4AttributesHead>>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreTableBlockDeprecatedV4AttributesBody = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesBody';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV4AttributesBodyCells>>;
-};
-
-export type CoreTableBlockDeprecatedV4AttributesBodyCells = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesBodyCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV4AttributesFoot = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesFoot';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV4AttributesFootCells>>;
-};
-
-export type CoreTableBlockDeprecatedV4AttributesFootCells = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesFootCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-export type CoreTableBlockDeprecatedV4AttributesHead = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesHead';
-  cells: Array<Maybe<CoreTableBlockDeprecatedV4AttributesHeadCells>>;
-};
-
-export type CoreTableBlockDeprecatedV4AttributesHeadCells = {
-  __typename?: 'CoreTableBlockDeprecatedV4AttributesHeadCells';
-  align?: Maybe<Scalars['String']['output']>;
-  colspan?: Maybe<Scalars['String']['output']>;
-  rowspan?: Maybe<Scalars['String']['output']>;
-  scope?: Maybe<Scalars['String']['output']>;
-  tag: Scalars['String']['output'];
-};
-
-/** core/tag-cloud block */
-export type CoreTagCloudBlock = Block & {
-  __typename?: 'CoreTagCloudBlock';
-  attributes?: Maybe<CoreTagCloudBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreTagCloud = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreTagCloud';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreTagCloud Block Type */
+  attributes?: Maybe<CoreTagCloudAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTagCloudBlockAttributes = {
-  __typename?: 'CoreTagCloudBlockAttributes';
+/** Attributes of the CoreTagCloud Block Type */
+export type CoreTagCloudAttributes = {
+  __typename?: 'CoreTagCloudAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;largestFontSize&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   largestFontSize: Scalars['String']['output'];
+  /** The &quot;lock&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;numberOfTags&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   numberOfTags: Scalars['Float']['output'];
+  /** The &quot;showTagCounts&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   showTagCounts: Scalars['Boolean']['output'];
+  /** The &quot;smallestFontSize&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   smallestFontSize: Scalars['String']['output'];
+  /** The &quot;style&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;taxonomy&quot; field on the &quot;CoreTagCloudAttributes&quot; block or block attributes */
   taxonomy: Scalars['String']['output'];
 };
 
-/** core/template-part block */
-export type CoreTemplatePartBlock = Block & {
-  __typename?: 'CoreTemplatePartBlock';
-  attributes?: Maybe<CoreTemplatePartBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreTemplatePart = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreTemplatePart';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreTemplatePart Block Type */
+  attributes?: Maybe<CoreTemplatePartAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTemplatePartBlockAttributes = {
-  __typename?: 'CoreTemplatePartBlockAttributes';
+/** Attributes of the CoreTemplatePart Block Type */
+export type CoreTemplatePartAttributes = {
+  __typename?: 'CoreTemplatePartAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;area&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   area?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;slug&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   slug?: Maybe<Scalars['String']['output']>;
+  /** The &quot;tagName&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   tagName?: Maybe<Scalars['String']['output']>;
+  /** The &quot;theme&quot; field on the &quot;CoreTemplatePartAttributes&quot; block or block attributes */
   theme?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/term-description block */
-export type CoreTermDescriptionBlock = Block & {
-  __typename?: 'CoreTermDescriptionBlock';
-  attributes?: Maybe<CoreTermDescriptionBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreTermDescription = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreTermDescription';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreTermDescription Block Type */
+  attributes?: Maybe<CoreTermDescriptionAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTermDescriptionBlockAttributes = {
-  __typename?: 'CoreTermDescriptionBlockAttributes';
+/** Attributes of the CoreTermDescription Block Type */
+export type CoreTermDescriptionAttributes = {
+  __typename?: 'CoreTermDescriptionAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreTermDescriptionAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/text-columns block */
-export type CoreTextColumnsBlock = Block & {
-  __typename?: 'CoreTextColumnsBlock';
-  attributes?: Maybe<CoreTextColumnsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreTextColumns = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreTextColumns';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreTextColumns Block Type */
+  attributes?: Maybe<CoreTextColumnsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTextColumnsBlockAttributes = {
-  __typename?: 'CoreTextColumnsBlockAttributes';
+/** Attributes of the CoreTextColumns Block Type */
+export type CoreTextColumnsAttributes = {
+  __typename?: 'CoreTextColumnsAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;columns&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
   columns: Scalars['Float']['output'];
-  content: Array<Maybe<CoreTextColumnsBlockAttributesContent>>;
+  /** The &quot;content&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
+  content: Array<Maybe<CoreTextColumnsAttributesContent>>;
+  /** The &quot;lock&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;width&quot; field on the &quot;CoreTextColumnsAttributes&quot; block or block attributes */
   width?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreTextColumnsBlockAttributesContent = {
-  __typename?: 'CoreTextColumnsBlockAttributesContent';
+/** The &quot;CoreTextColumnsAttributesContent&quot; field on the &quot;CoreTextColumnsAttributes&quot; block attribute field */
+export type CoreTextColumnsAttributesContent = {
+  __typename?: 'CoreTextColumnsAttributesContent';
+  /** The &quot;children&quot; field on the &quot;CoreTextColumnsAttributesContent&quot; block attribute field */
   children?: Maybe<Scalars['String']['output']>;
 };
 
-/** core/verse block */
-export type CoreVerseBlock = Block & {
-  __typename?: 'CoreVerseBlock';
-  attributes?: Maybe<CoreVerseBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreVerse = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreVerse';
+  /** The anchor field for the block. */
+  anchor?: Maybe<Scalars['String']['output']>;
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreVerse Block Type */
+  attributes?: Maybe<CoreVerseAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreVerseBlockAttributes = {
-  __typename?: 'CoreVerseBlockAttributes';
+/** Attributes of the CoreVerse Block Type */
+export type CoreVerseAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreVerseAttributes';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;borderColor&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   borderColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;content&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
+  content?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontFamily&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   fontFamily?: Maybe<Scalars['String']['output']>;
+  /** The &quot;fontSize&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   fontSize?: Maybe<Scalars['String']['output']>;
+  /** The &quot;gradient&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   gradient?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;textAlign&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   textAlign?: Maybe<Scalars['String']['output']>;
+  /** The &quot;textColor&quot; field on the &quot;CoreVerseAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreVerseBlockAttributesUnion = CoreVerseBlockAttributes | CoreVerseBlockDeprecatedV1Attributes | CoreVerseBlockDeprecatedV2Attributes;
-
-export type CoreVerseBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreVerseBlockDeprecatedV1Attributes';
+/** A block used for editing the site */
+export type CoreVideo = BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreVideo';
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreVerseBlockDeprecatedV2Attributes = {
-  __typename?: 'CoreVerseBlockDeprecatedV2Attributes';
-  anchor?: Maybe<Scalars['String']['output']>;
-  backgroundColor?: Maybe<Scalars['String']['output']>;
-  borderColor?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  fontFamily?: Maybe<Scalars['String']['output']>;
-  fontSize?: Maybe<Scalars['String']['output']>;
-  gradient?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  textAlign?: Maybe<Scalars['String']['output']>;
-  textColor?: Maybe<Scalars['String']['output']>;
-};
-
-/** core/video block */
-export type CoreVideoBlock = Block & {
-  __typename?: 'CoreVideoBlock';
-  attributes?: Maybe<CoreVideoBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreVideo Block Type */
+  attributes?: Maybe<CoreVideoAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreVideoBlockAttributes = {
-  __typename?: 'CoreVideoBlockAttributes';
+/** Attributes of the CoreVideo Block Type */
+export type CoreVideoAttributes = BlockWithSupportsAnchor & {
+  __typename?: 'CoreVideoAttributes';
+  /** The &quot;align&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   align?: Maybe<Scalars['String']['output']>;
+  /** The anchor field for the block. */
   anchor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;autoplay&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   autoplay?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;blob&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   blob?: Maybe<Scalars['String']['output']>;
+  /** The &quot;caption&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
+  caption?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;controls&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   controls: Scalars['Boolean']['output'];
+  /** The &quot;id&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   id?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;loop&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   loop?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;muted&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   muted?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;playsInline&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   playsInline?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;poster&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   poster?: Maybe<Scalars['String']['output']>;
+  /** The &quot;preload&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   preload: Scalars['String']['output'];
+  /** The &quot;src&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   src?: Maybe<Scalars['String']['output']>;
+  /** The &quot;style&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;tracks&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes */
   tracks: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
 };
 
-export type CoreVideoBlockAttributesUnion = CoreVideoBlockAttributes | CoreVideoBlockDeprecatedV1Attributes;
-
-export type CoreVideoBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreVideoBlockDeprecatedV1Attributes';
-  align?: Maybe<Scalars['String']['output']>;
-  anchor?: Maybe<Scalars['String']['output']>;
-  autoplay?: Maybe<Scalars['Boolean']['output']>;
-  blob?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  controls: Scalars['Boolean']['output'];
-  id?: Maybe<Scalars['Float']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  loop?: Maybe<Scalars['Boolean']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  muted?: Maybe<Scalars['Boolean']['output']>;
-  playsInline?: Maybe<Scalars['Boolean']['output']>;
-  poster?: Maybe<Scalars['String']['output']>;
-  preload: Scalars['String']['output'];
-  src?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  tracks: Array<Maybe<Scalars['BlockAttributesObject']['output']>>;
-};
-
-/** core/widget-group block */
-export type CoreWidgetGroupBlock = Block & {
-  __typename?: 'CoreWidgetGroupBlock';
-  attributes?: Maybe<CoreWidgetGroupBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type CoreWidgetGroup = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'CoreWidgetGroup';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the CoreWidgetGroup Block Type */
+  attributes?: Maybe<CoreWidgetGroupAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type CoreWidgetGroupBlockAttributes = {
-  __typename?: 'CoreWidgetGroupBlockAttributes';
+/** Attributes of the CoreWidgetGroup Block Type */
+export type CoreWidgetGroupAttributes = {
+  __typename?: 'CoreWidgetGroupAttributes';
+  /** The &quot;className&quot; field on the &quot;CoreWidgetGroupAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;CoreWidgetGroupAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;CoreWidgetGroupAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-export type CoreWidgetGroupBlockAttributesUnion = CoreWidgetGroupBlockAttributes | CoreWidgetGroupBlockDeprecatedV1Attributes;
-
-export type CoreWidgetGroupBlockDeprecatedV1Attributes = {
-  __typename?: 'CoreWidgetGroupBlockDeprecatedV1Attributes';
-  className?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;title&quot; field on the &quot;CoreWidgetGroupAttributes&quot; block or block attributes */
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -10151,37 +8302,6 @@ export type CreateBerlinerischWordTypePayload = {
   __typename?: 'CreateBerlinerischWordTypePayload';
   /** The created berlinerisch_word_type */
   berlinerischWordType?: Maybe<BerlinerischWordType>;
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-};
-
-/** Input for the createBlockEditorPreview mutation. */
-export type CreateBlockEditorPreviewInput = {
-  /** The userId to assign as the author of the object */
-  authorId?: InputMaybe<Scalars['ID']['input']>;
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the createBlockEditorPreview mutation. */
-export type CreateBlockEditorPreviewPayload = {
-  __typename?: 'CreateBlockEditorPreviewPayload';
-  /** The Post object mutation type. */
-  blockEditorPreview?: Maybe<BlockEditorPreview>;
   /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: Maybe<Scalars['String']['output']>;
 };
@@ -10400,38 +8520,6 @@ export type CreatePostPayload = {
   post?: Maybe<Post>;
 };
 
-/** Input for the createReusableBlock mutation. */
-export type CreateReusableBlockInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** The excerpt of the object */
-  excerpt?: InputMaybe<Scalars['String']['input']>;
-  language?: InputMaybe<LanguageCodeEnum>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the createReusableBlock mutation. */
-export type CreateReusableBlockPayload = {
-  __typename?: 'CreateReusableBlockPayload';
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-  /** The Post object mutation type. */
-  reusableBlock?: Maybe<ReusableBlock>;
-};
-
 /** Input for the createTag mutation. */
 export type CreateTagInput = {
   /** The slug that the post_tag will be an alias of */
@@ -10604,29 +8692,6 @@ export type DeleteBerlinerischWordTypePayload = {
   deletedId?: Maybe<Scalars['ID']['output']>;
 };
 
-/** Input for the deleteBlockEditorPreview mutation. */
-export type DeleteBlockEditorPreviewInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Whether the object should be force deleted instead of being moved to the trash */
-  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the BlockEditorPreview to delete */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** The payload for the deleteBlockEditorPreview mutation. */
-export type DeleteBlockEditorPreviewPayload = {
-  __typename?: 'DeleteBlockEditorPreviewPayload';
-  /** The object before it was deleted */
-  blockEditorPreview?: Maybe<BlockEditorPreview>;
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-  /** The ID of the deleted object */
-  deletedId?: Maybe<Scalars['ID']['output']>;
-};
-
 /** Input for the deleteCategory mutation. */
 export type DeleteCategoryInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -10753,29 +8818,6 @@ export type DeletePostPayload = {
   post?: Maybe<Post>;
 };
 
-/** Input for the deleteReusableBlock mutation. */
-export type DeleteReusableBlockInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Whether the object should be force deleted instead of being moved to the trash */
-  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the ReusableBlock to delete */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** The payload for the deleteReusableBlock mutation. */
-export type DeleteReusableBlockPayload = {
-  __typename?: 'DeleteReusableBlockPayload';
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-  /** The ID of the deleted object */
-  deletedId?: Maybe<Scalars['ID']['output']>;
-  /** The object before it was deleted */
-  reusableBlock?: Maybe<ReusableBlock>;
-};
-
 /** Input for the deleteTag mutation. */
 export type DeleteTagInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -10831,6 +8873,30 @@ export type Edge = {
   cursor?: Maybe<Scalars['String']['output']>;
   /** The connected node */
   node: Node;
+};
+
+/** Blocks that can be edited to create content and layouts */
+export type EditorBlock = {
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the Block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** Asset enqueued by the CMS */
@@ -12827,6 +10893,18 @@ export type NodeWithContentEditorContentArgs = {
   format?: InputMaybe<PostObjectFieldFormatEnum>;
 };
 
+/** Node that has content blocks associated with it */
+export type NodeWithEditorBlocks = {
+  /** List of editor blocks */
+  editorBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+};
+
+
+/** Node that has content blocks associated with it */
+export type NodeWithEditorBlocksEditorBlocksArgs = {
+  flat?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 /** A node that can have an excerpt */
 export type NodeWithExcerpt = {
   /** The excerpt of the post. */
@@ -12868,6 +10946,30 @@ export type NodeWithPageAttributes = {
   id: Scalars['ID']['output'];
   /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
   menuOrder?: Maybe<Scalars['Int']['output']>;
+};
+
+/** Node that has Page content blocks associated with it */
+export type NodeWithPageEditorBlocks = {
+  /** List of Page editor blocks */
+  editorBlocks?: Maybe<Array<Maybe<PageEditorBlock>>>;
+};
+
+
+/** Node that has Page content blocks associated with it */
+export type NodeWithPageEditorBlocksEditorBlocksArgs = {
+  flat?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Node that has Post content blocks associated with it */
+export type NodeWithPostEditorBlocks = {
+  /** List of Post editor blocks */
+  editorBlocks?: Maybe<Array<Maybe<PostEditorBlock>>>;
+};
+
+
+/** Node that has Post content blocks associated with it */
+export type NodeWithPostEditorBlocksEditorBlocksArgs = {
+  flat?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** A node that can have revisions */
@@ -13034,7 +11136,7 @@ export enum OrderEnum {
 }
 
 /** The page type */
-export type Page = BlockEditorContentNode & ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfHosting & WithAcfStartseite & {
+export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithPageEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfHosting & WithAcfStartseite & {
   __typename?: 'Page';
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<HierarchicalContentNodeToContentNodeAncestorsConnection>;
@@ -13044,10 +11146,6 @@ export type Page = BlockEditorContentNode & ContentNode & DatabaseIdentifier & H
   authorDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** The globally unique identifier of the author of the node */
   authorId?: Maybe<Scalars['ID']['output']>;
-  /** Gutenberg blocks */
-  blocks?: Maybe<Array<Block>>;
-  /** Gutenberg blocks as json string */
-  blocksJSON?: Maybe<Scalars['String']['output']>;
   /** Connection between the HierarchicalContentNode type and the ContentNode type */
   children?: Maybe<HierarchicalContentNodeToContentNodeChildrenConnection>;
   /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
@@ -13072,6 +11170,8 @@ export type Page = BlockEditorContentNode & ContentNode & DatabaseIdentifier & H
   desiredSlug?: Maybe<Scalars['String']['output']>;
   /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
   editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** List of Page editor blocks */
+  editorBlocks?: Maybe<Array<Maybe<PageEditorBlock>>>;
   /** The RSS enclosure for the object */
   enclosure?: Maybe<Scalars['String']['output']>;
   /** Connection between the ContentNode type and the EnqueuedScript type */
@@ -13137,10 +11237,6 @@ export type Page = BlockEditorContentNode & ContentNode & DatabaseIdentifier & H
   password?: Maybe<Scalars['String']['output']>;
   /** Connection between the Page type and the page type */
   preview?: Maybe<PageToPreviewConnectionEdge>;
-  /** Previewed gutenberg blocks */
-  previewBlocks?: Maybe<Array<Block>>;
-  /** Previewed Gutenberg blocks as json string */
-  previewBlocksJSON?: Maybe<Scalars['String']['output']>;
   /** The database id of the preview node */
   previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
@@ -13203,6 +11299,12 @@ export type PageCommentsArgs = {
 /** The page type */
 export type PageContentArgs = {
   format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+
+/** The page type */
+export type PageEditorBlocksArgs = {
+  flat?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -13276,6 +11378,30 @@ export type PageConnectionPageInfo = {
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']['output']>;
   total?: Maybe<Scalars['Int']['output']>;
+};
+
+/** EditorBlock Interface for Page Block Type */
+export type PageEditorBlock = {
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the Block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** The Type of Identifier used to fetch a single resource. Default is ID. */
@@ -13679,7 +11805,7 @@ export type Portfolio_FieldsKundenauswahlArgs = {
 };
 
 /** The post type */
-export type Post = BlockEditorContentNode & ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & {
+export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithPostEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & {
   __typename?: 'Post';
   /**
    * The ancestors of the content node.
@@ -13692,10 +11818,6 @@ export type Post = BlockEditorContentNode & ContentNode & DatabaseIdentifier & M
   authorDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** The globally unique identifier of the author of the node */
   authorId?: Maybe<Scalars['ID']['output']>;
-  /** Gutenberg blocks */
-  blocks?: Maybe<Array<Block>>;
-  /** Gutenberg blocks as json string */
-  blocksJSON?: Maybe<Scalars['String']['output']>;
   /** Connection between the Post type and the category type */
   categories?: Maybe<PostToCategoryConnection>;
   /** The number of comments. Even though WPGraphQL denotes this field as an integer, in WordPress this field should be saved as a numeric string for compatibility. */
@@ -13720,6 +11842,8 @@ export type Post = BlockEditorContentNode & ContentNode & DatabaseIdentifier & M
   desiredSlug?: Maybe<Scalars['String']['output']>;
   /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
   editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** List of Post editor blocks */
+  editorBlocks?: Maybe<Array<Maybe<PostEditorBlock>>>;
   /** The RSS enclosure for the object */
   enclosure?: Maybe<Scalars['String']['output']>;
   /** Connection between the ContentNode type and the EnqueuedScript type */
@@ -13788,10 +11912,6 @@ export type Post = BlockEditorContentNode & ContentNode & DatabaseIdentifier & M
   postId: Scalars['Int']['output'];
   /** Connection between the Post type and the post type */
   preview?: Maybe<PostToPreviewConnectionEdge>;
-  /** Previewed gutenberg blocks */
-  previewBlocks?: Maybe<Array<Block>>;
-  /** Previewed Gutenberg blocks as json string */
-  previewBlocksJSON?: Maybe<Scalars['String']['output']>;
   /** The database id of the preview node */
   previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
   /** Whether the object is a node in the preview state */
@@ -13857,6 +11977,12 @@ export type PostCommentsArgs = {
 /** The post type */
 export type PostContentArgs = {
   format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+
+/** The post type */
+export type PostEditorBlocksArgs = {
+  flat?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -13986,6 +12112,30 @@ export type PostConnectionPageInfo = {
   /** When paginating backwards, the cursor to continue. */
   startCursor?: Maybe<Scalars['String']['output']>;
   total?: Maybe<Scalars['Int']['output']>;
+};
+
+/** EditorBlock Interface for Post Block Type */
+export type PostEditorBlock = {
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
+  isDynamic: Scalars['Boolean']['output'];
+  /** The name of the Block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
 /** The postFormat type */
@@ -15264,383 +13414,6 @@ export type RestoreCommentPayload = {
   restoredId?: Maybe<Scalars['ID']['output']>;
 };
 
-/** The ReusableBlock type */
-export type ReusableBlock = BlockEditorContentNode & ContentNode & DatabaseIdentifier & Node & NodeWithContentEditor & NodeWithExcerpt & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
-  __typename?: 'ReusableBlock';
-  /**
-   * The ancestors of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  ancestors?: Maybe<ReusableBlockToReusableBlockConnection>;
-  /** Gutenberg blocks */
-  blocks?: Maybe<Array<Block>>;
-  /** Gutenberg blocks as json string */
-  blocksJSON?: Maybe<Scalars['String']['output']>;
-  /** The content of the post. */
-  content?: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the ContentType type */
-  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
-  /** The name of the Content Type the node belongs to */
-  contentTypeName: Scalars['String']['output'];
-  /** The unique identifier stored in the database */
-  databaseId: Scalars['Int']['output'];
-  /** Post publishing date. */
-  date?: Maybe<Scalars['String']['output']>;
-  /** The publishing date set in GMT. */
-  dateGmt?: Maybe<Scalars['String']['output']>;
-  /** The desired slug of the post */
-  desiredSlug?: Maybe<Scalars['String']['output']>;
-  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
-  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
-  /** The RSS enclosure for the object */
-  enclosure?: Maybe<Scalars['String']['output']>;
-  /** Connection between the ContentNode type and the EnqueuedScript type */
-  enqueuedScripts?: Maybe<ContentNodeToEnqueuedScriptConnection>;
-  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
-  enqueuedStylesheets?: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
-  /** The excerpt of the post. */
-  excerpt?: Maybe<Scalars['String']['output']>;
-  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
-  guid?: Maybe<Scalars['String']['output']>;
-  /** Whether the wp_block object is password protected. */
-  hasPassword?: Maybe<Scalars['Boolean']['output']>;
-  /** The globally unique identifier of the wp_block object. */
-  id: Scalars['ID']['output'];
-  /** Whether the node is a Comment */
-  isComment: Scalars['Boolean']['output'];
-  /** Whether the node is a Content Node */
-  isContentNode: Scalars['Boolean']['output'];
-  /** Whether the node represents the front page. */
-  isFrontPage: Scalars['Boolean']['output'];
-  /** Whether  the node represents the blog page. */
-  isPostsPage: Scalars['Boolean']['output'];
-  /** Whether the object is a node in the preview state */
-  isPreview?: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the object is restricted from the current viewer */
-  isRestricted?: Maybe<Scalars['Boolean']['output']>;
-  /** True if the node is a revision of another node */
-  isRevision?: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the node is a Term */
-  isTermNode: Scalars['Boolean']['output'];
-  /** Polylang language */
-  language?: Maybe<Language>;
-  /** The user that most recently edited the node */
-  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
-  /** The permalink of the post */
-  link?: Maybe<Scalars['String']['output']>;
-  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
-  modified?: Maybe<Scalars['String']['output']>;
-  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
-  modifiedGmt?: Maybe<Scalars['String']['output']>;
-  /**
-   * The parent of the content node.
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  parent?: Maybe<ReusableBlockToParentConnectionEdge>;
-  /** The password for the wp_block object. */
-  password?: Maybe<Scalars['String']['output']>;
-  /**
-   * Connection between the ReusableBlock type and the ReusableBlock type
-   * @deprecated The &quot;ReusableBlock&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
-   */
-  preview?: Maybe<ReusableBlockToPreviewConnectionEdge>;
-  /** Previewed gutenberg blocks */
-  previewBlocks?: Maybe<Array<Block>>;
-  /** Previewed gutenberg blocks */
-  previewBlocksFrom?: Maybe<Array<Block>>;
-  /** Previewed gutenberg blocks as json string */
-  previewBlocksFromJSON?: Maybe<Scalars['String']['output']>;
-  /** Previewed Gutenberg blocks as json string */
-  previewBlocksJSON?: Maybe<Scalars['String']['output']>;
-  /** The database id of the preview node */
-  previewRevisionDatabaseId?: Maybe<Scalars['Int']['output']>;
-  /** Whether the object is a node in the preview state */
-  previewRevisionId?: Maybe<Scalars['ID']['output']>;
-  /**
-   * The id field matches the WP_Post-&gt;ID field.
-   * @deprecated Deprecated in favor of the databaseId field
-   */
-  reusableBlockId: Scalars['Int']['output'];
-  /** If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node. */
-  revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
-  /** Connection between the ReusableBlock type and the ReusableBlock type */
-  revisions?: Maybe<ReusableBlockToRevisionConnection>;
-  /** The Yoast SEO data of the ContentNode */
-  seo?: Maybe<PostTypeSeo>;
-  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
-  slug?: Maybe<Scalars['String']['output']>;
-  /** The current status of the object */
-  status?: Maybe<Scalars['String']['output']>;
-  /** The template assigned to the node */
-  template?: Maybe<ContentTemplate>;
-  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
-  title?: Maybe<Scalars['String']['output']>;
-  /** Get specific translation version of this object */
-  translation?: Maybe<ReusableBlock>;
-  /** List all translated versions of this post */
-  translations?: Maybe<Array<Maybe<ReusableBlock>>>;
-  /** The unique resource identifier path */
-  uri?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockAncestorsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockContentArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockEnqueuedScriptsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockEnqueuedStylesheetsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockExcerptArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockPreviewBlocksFromArgs = {
-  databaseId: Scalars['Int']['input'];
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockPreviewBlocksFromJsonArgs = {
-  databaseId: Scalars['Int']['input'];
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockRevisionsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<ReusableBlockToRevisionConnectionWhereArgs>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockTitleArgs = {
-  format?: InputMaybe<PostObjectFieldFormatEnum>;
-};
-
-
-/** The ReusableBlock type */
-export type ReusableBlockTranslationArgs = {
-  language: LanguageCodeEnum;
-};
-
-/** Connection to ReusableBlock Nodes */
-export type ReusableBlockConnection = {
-  /** A list of edges (relational context) between RootQuery and connected ReusableBlock Nodes */
-  edges: Array<ReusableBlockConnectionEdge>;
-  /** A list of connected ReusableBlock Nodes */
-  nodes: Array<ReusableBlock>;
-  /** Information about pagination in a connection. */
-  pageInfo: ReusableBlockConnectionPageInfo;
-};
-
-/** Edge between a Node and a connected ReusableBlock */
-export type ReusableBlockConnectionEdge = {
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The connected ReusableBlock Node */
-  node: ReusableBlock;
-};
-
-/** Page Info on the connected ReusableBlockConnectionEdge */
-export type ReusableBlockConnectionPageInfo = {
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** The Type of Identifier used to fetch a single resource. Default is ID. */
-export enum ReusableBlockIdType {
-  /** Identify a resource by the Database ID. */
-  DatabaseId = 'DATABASE_ID',
-  /** Identify a resource by the (hashed) Global ID. */
-  Id = 'ID',
-  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
-  Slug = 'SLUG',
-  /** Identify a resource by the URI. */
-  Uri = 'URI'
-}
-
-/** Connection between the ReusableBlock type and the ReusableBlock type */
-export type ReusableBlockToParentConnectionEdge = Edge & OneToOneConnection & ReusableBlockConnectionEdge & {
-  __typename?: 'ReusableBlockToParentConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The node of the connection, without the edges
-   * @deprecated This content type is not hierarchical and typically will not have a parent
-   */
-  node: ReusableBlock;
-};
-
-/** Connection between the ReusableBlock type and the ReusableBlock type */
-export type ReusableBlockToPreviewConnectionEdge = Edge & OneToOneConnection & ReusableBlockConnectionEdge & {
-  __typename?: 'ReusableBlockToPreviewConnectionEdge';
-  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The node of the connection, without the edges
-   * @deprecated The &quot;ReusableBlock&quot; Type is not publicly queryable and does not support previews. This field will be removed in the future.
-   */
-  node: ReusableBlock;
-};
-
-/** Connection between the ReusableBlock type and the ReusableBlock type */
-export type ReusableBlockToReusableBlockConnection = Connection & ReusableBlockConnection & {
-  __typename?: 'ReusableBlockToReusableBlockConnection';
-  /** Edges for the ReusableBlockToReusableBlockConnection connection */
-  edges: Array<ReusableBlockToReusableBlockConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<ReusableBlock>;
-  /** Information about pagination in a connection. */
-  pageInfo: ReusableBlockToReusableBlockConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type ReusableBlockToReusableBlockConnectionEdge = Edge & ReusableBlockConnectionEdge & {
-  __typename?: 'ReusableBlockToReusableBlockConnectionEdge';
-  /**
-   * A cursor for use in pagination
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /**
-   * The item at the end of the edge
-   * @deprecated This content type is not hierarchical and typically will not have ancestors
-   */
-  node: ReusableBlock;
-};
-
-/** Page Info on the &quot;ReusableBlockToReusableBlockConnection&quot; */
-export type ReusableBlockToReusableBlockConnectionPageInfo = PageInfo & ReusableBlockConnectionPageInfo & WpPageInfo & {
-  __typename?: 'ReusableBlockToReusableBlockConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Connection between the ReusableBlock type and the ReusableBlock type */
-export type ReusableBlockToRevisionConnection = Connection & ReusableBlockConnection & {
-  __typename?: 'ReusableBlockToRevisionConnection';
-  /** Edges for the ReusableBlockToRevisionConnection connection */
-  edges: Array<ReusableBlockToRevisionConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<ReusableBlock>;
-  /** Information about pagination in a connection. */
-  pageInfo: ReusableBlockToRevisionConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type ReusableBlockToRevisionConnectionEdge = Edge & ReusableBlockConnectionEdge & {
-  __typename?: 'ReusableBlockToRevisionConnectionEdge';
-  /** A cursor for use in pagination */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: ReusableBlock;
-};
-
-/** Page Info on the &quot;ReusableBlockToRevisionConnection&quot; */
-export type ReusableBlockToRevisionConnectionPageInfo = PageInfo & ReusableBlockConnectionPageInfo & WpPageInfo & {
-  __typename?: 'ReusableBlockToRevisionConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Arguments for filtering the ReusableBlockToRevisionConnection connection */
-export type ReusableBlockToRevisionConnectionWhereArgs = {
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 /** The root mutation */
 export type RootMutation = {
   __typename?: 'RootMutation';
@@ -15648,8 +13421,6 @@ export type RootMutation = {
   createBerlinerWord?: Maybe<CreateBerlinerWordPayload>;
   /** The createBerlinerischWordType mutation */
   createBerlinerischWordType?: Maybe<CreateBerlinerischWordTypePayload>;
-  /** The createBlockEditorPreview mutation */
-  createBlockEditorPreview?: Maybe<CreateBlockEditorPreviewPayload>;
   /** The createCategory mutation */
   createCategory?: Maybe<CreateCategoryPayload>;
   /** The createComment mutation */
@@ -15662,8 +13433,6 @@ export type RootMutation = {
   createPost?: Maybe<CreatePostPayload>;
   /** The createPostFormat mutation */
   createPostFormat?: Maybe<CreatePostFormatPayload>;
-  /** The createReusableBlock mutation */
-  createReusableBlock?: Maybe<CreateReusableBlockPayload>;
   /** The createTag mutation */
   createTag?: Maybe<CreateTagPayload>;
   /** The createUser mutation */
@@ -15672,8 +13441,6 @@ export type RootMutation = {
   deleteBerlinerWord?: Maybe<DeleteBerlinerWordPayload>;
   /** The deleteBerlinerischWordType mutation */
   deleteBerlinerischWordType?: Maybe<DeleteBerlinerischWordTypePayload>;
-  /** The deleteBlockEditorPreview mutation */
-  deleteBlockEditorPreview?: Maybe<DeleteBlockEditorPreviewPayload>;
   /** The deleteCategory mutation */
   deleteCategory?: Maybe<DeleteCategoryPayload>;
   /** The deleteComment mutation */
@@ -15686,8 +13453,6 @@ export type RootMutation = {
   deletePost?: Maybe<DeletePostPayload>;
   /** The deletePostFormat mutation */
   deletePostFormat?: Maybe<DeletePostFormatPayload>;
-  /** The deleteReusableBlock mutation */
-  deleteReusableBlock?: Maybe<DeleteReusableBlockPayload>;
   /** The deleteTag mutation */
   deleteTag?: Maybe<DeleteTagPayload>;
   /** The deleteUser mutation */
@@ -15712,8 +13477,6 @@ export type RootMutation = {
   updateBerlinerWord?: Maybe<UpdateBerlinerWordPayload>;
   /** The updateBerlinerischWordType mutation */
   updateBerlinerischWordType?: Maybe<UpdateBerlinerischWordTypePayload>;
-  /** The updateBlockEditorPreview mutation */
-  updateBlockEditorPreview?: Maybe<UpdateBlockEditorPreviewPayload>;
   /** The updateCategory mutation */
   updateCategory?: Maybe<UpdateCategoryPayload>;
   /** The updateComment mutation */
@@ -15726,8 +13489,6 @@ export type RootMutation = {
   updatePost?: Maybe<UpdatePostPayload>;
   /** The updatePostFormat mutation */
   updatePostFormat?: Maybe<UpdatePostFormatPayload>;
-  /** The updateReusableBlock mutation */
-  updateReusableBlock?: Maybe<UpdateReusableBlockPayload>;
   /** The updateSettings mutation */
   updateSettings?: Maybe<UpdateSettingsPayload>;
   /** The updateTag mutation */
@@ -15746,12 +13507,6 @@ export type RootMutationCreateBerlinerWordArgs = {
 /** The root mutation */
 export type RootMutationCreateBerlinerischWordTypeArgs = {
   input: CreateBerlinerischWordTypeInput;
-};
-
-
-/** The root mutation */
-export type RootMutationCreateBlockEditorPreviewArgs = {
-  input: CreateBlockEditorPreviewInput;
 };
 
 
@@ -15792,12 +13547,6 @@ export type RootMutationCreatePostFormatArgs = {
 
 
 /** The root mutation */
-export type RootMutationCreateReusableBlockArgs = {
-  input: CreateReusableBlockInput;
-};
-
-
-/** The root mutation */
 export type RootMutationCreateTagArgs = {
   input: CreateTagInput;
 };
@@ -15818,12 +13567,6 @@ export type RootMutationDeleteBerlinerWordArgs = {
 /** The root mutation */
 export type RootMutationDeleteBerlinerischWordTypeArgs = {
   input: DeleteBerlinerischWordTypeInput;
-};
-
-
-/** The root mutation */
-export type RootMutationDeleteBlockEditorPreviewArgs = {
-  input: DeleteBlockEditorPreviewInput;
 };
 
 
@@ -15860,12 +13603,6 @@ export type RootMutationDeletePostArgs = {
 /** The root mutation */
 export type RootMutationDeletePostFormatArgs = {
   input: DeletePostFormatInput;
-};
-
-
-/** The root mutation */
-export type RootMutationDeleteReusableBlockArgs = {
-  input: DeleteReusableBlockInput;
 };
 
 
@@ -15942,12 +13679,6 @@ export type RootMutationUpdateBerlinerischWordTypeArgs = {
 
 
 /** The root mutation */
-export type RootMutationUpdateBlockEditorPreviewArgs = {
-  input: UpdateBlockEditorPreviewInput;
-};
-
-
-/** The root mutation */
 export type RootMutationUpdateCategoryArgs = {
   input: UpdateCategoryInput;
 };
@@ -15980,12 +13711,6 @@ export type RootMutationUpdatePostArgs = {
 /** The root mutation */
 export type RootMutationUpdatePostFormatArgs = {
   input: UpdatePostFormatInput;
-};
-
-
-/** The root mutation */
-export type RootMutationUpdateReusableBlockArgs = {
-  input: UpdateReusableBlockInput;
 };
 
 
@@ -16024,17 +13749,6 @@ export type RootQuery = WithAcfOptionsPageCompanyInformations & WithAcfOptionsPa
   berlinerischWordType?: Maybe<BerlinerischWordType>;
   /** Connection between the RootQuery type and the berlinerischWordType type */
   berlinerischWordTypes?: Maybe<RootQueryToBerlinerischWordTypeConnection>;
-  /** Connection between the RootQuery type and the BlockEditorContentNode type */
-  blockEditorContentNodes?: Maybe<BlockEditorContentNodeConnection>;
-  /** An object of the BlockEditorPreview Type.  */
-  blockEditorPreview?: Maybe<BlockEditorPreview>;
-  /**
-   * A BlockEditorPreview object
-   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
-   */
-  blockEditorPreviewBy?: Maybe<BlockEditorPreview>;
-  /** Connection between the RootQuery type and the BlockEditorPreview type */
-  blockEditorPreviews?: Maybe<RootQueryToBlockEditorPreviewConnection>;
   /** Connection between the RootQuery type and the category type */
   categories?: Maybe<RootQueryToCategoryConnection>;
   /** A 0bject */
@@ -16113,15 +13827,6 @@ export type RootQuery = WithAcfOptionsPageCompanyInformations & WithAcfOptionsPa
   registeredScripts?: Maybe<RootQueryToEnqueuedScriptConnection>;
   /** Connection between the RootQuery type and the EnqueuedStylesheet type */
   registeredStylesheets?: Maybe<RootQueryToEnqueuedStylesheetConnection>;
-  /** An object of the ReusableBlock Type.  */
-  reusableBlock?: Maybe<ReusableBlock>;
-  /**
-   * A ReusableBlock object
-   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
-   */
-  reusableBlockBy?: Maybe<ReusableBlock>;
-  /** Connection between the RootQuery type and the ReusableBlock type */
-  reusableBlocks?: Maybe<RootQueryToReusableBlockConnection>;
   /** Connection between the RootQuery type and the ContentNode type */
   revisions?: Maybe<RootQueryToRevisionsConnection>;
   /** Returns seo site data */
@@ -16200,43 +13905,6 @@ export type RootQueryBerlinerischWordTypesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RootQueryToBerlinerischWordTypeConnectionWhereArgs>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryBlockEditorContentNodesArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<BlockEditorContentNodeConnectionWhereArgs>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryBlockEditorPreviewArgs = {
-  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
-  id: Scalars['ID']['input'];
-  idType?: InputMaybe<BlockEditorPreviewIdType>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryBlockEditorPreviewByArgs = {
-  blockEditorPreviewId?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['ID']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  uri?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryBlockEditorPreviewsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<RootQueryToBlockEditorPreviewConnectionWhereArgs>;
 };
 
 
@@ -16483,33 +14151,6 @@ export type RootQueryRegisteredStylesheetsArgs = {
   before?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryReusableBlockArgs = {
-  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
-  id: Scalars['ID']['input'];
-  idType?: InputMaybe<ReusableBlockIdType>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryReusableBlockByArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-  reusableBlockId?: InputMaybe<Scalars['Int']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-  uri?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** The root entry point into the Graph */
-export type RootQueryReusableBlocksArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<RootQueryToReusableBlockConnectionWhereArgs>;
 };
 
 
@@ -16779,90 +14420,6 @@ export type RootQueryToBerlinerischWordTypeConnectionWhereArgs = {
   termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Connection between the RootQuery type and the BlockEditorPreview type */
-export type RootQueryToBlockEditorPreviewConnection = BlockEditorPreviewConnection & Connection & {
-  __typename?: 'RootQueryToBlockEditorPreviewConnection';
-  /** Edges for the RootQueryToBlockEditorPreviewConnection connection */
-  edges: Array<RootQueryToBlockEditorPreviewConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<BlockEditorPreview>;
-  /** Information about pagination in a connection. */
-  pageInfo: RootQueryToBlockEditorPreviewConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RootQueryToBlockEditorPreviewConnectionEdge = BlockEditorPreviewConnectionEdge & Edge & {
-  __typename?: 'RootQueryToBlockEditorPreviewConnectionEdge';
-  /** A cursor for use in pagination */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: BlockEditorPreview;
-};
-
-/** Page Info on the &quot;RootQueryToBlockEditorPreviewConnection&quot; */
-export type RootQueryToBlockEditorPreviewConnectionPageInfo = BlockEditorPreviewConnectionPageInfo & PageInfo & WpPageInfo & {
-  __typename?: 'RootQueryToBlockEditorPreviewConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Arguments for filtering the RootQueryToBlockEditorPreviewConnection connection */
-export type RootQueryToBlockEditorPreviewConnectionWhereArgs = {
-  /** The user that's connected as the author of the object. Use the userId for the author object. */
-  author?: InputMaybe<Scalars['Int']['input']>;
-  /** Find objects connected to author(s) in the array of author's userIds */
-  authorIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Find objects connected to the author by the author's nicename */
-  authorName?: InputMaybe<Scalars['String']['input']>;
-  /** Find objects NOT connected to author(s) in the array of author's userIds */
-  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  previewedDatabaseId?: InputMaybe<Scalars['Int']['input']>;
-  previewedParentDatabaseId?: InputMaybe<Scalars['Int']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Connection between the RootQuery type and the category type */
@@ -17734,84 +15291,6 @@ export type RootQueryToPostFormatConnectionWhereArgs = {
   updateTermMetaCache?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-/** Connection between the RootQuery type and the ReusableBlock type */
-export type RootQueryToReusableBlockConnection = Connection & ReusableBlockConnection & {
-  __typename?: 'RootQueryToReusableBlockConnection';
-  /** Edges for the RootQueryToReusableBlockConnection connection */
-  edges: Array<RootQueryToReusableBlockConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<ReusableBlock>;
-  /** Information about pagination in a connection. */
-  pageInfo: RootQueryToReusableBlockConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type RootQueryToReusableBlockConnectionEdge = Edge & ReusableBlockConnectionEdge & {
-  __typename?: 'RootQueryToReusableBlockConnectionEdge';
-  /** A cursor for use in pagination */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: ReusableBlock;
-};
-
-/** Page Info on the &quot;RootQueryToReusableBlockConnection&quot; */
-export type RootQueryToReusableBlockConnectionPageInfo = PageInfo & ReusableBlockConnectionPageInfo & WpPageInfo & {
-  __typename?: 'RootQueryToReusableBlockConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Arguments for filtering the RootQueryToReusableBlockConnection connection */
-export type RootQueryToReusableBlockConnectionWhereArgs = {
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Filter by ReusableBlocks by language code (Polylang) */
-  language?: InputMaybe<LanguageCodeFilterEnum>;
-  /** Filter ReusableBlocks by one or more languages (Polylang) */
-  languages?: InputMaybe<Array<LanguageCodeEnum>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
 /** Connection between the RootQuery type and the ContentNode type */
 export type RootQueryToRevisionsConnection = Connection & ContentNodeConnection & {
   __typename?: 'RootQueryToRevisionsConnection';
@@ -18295,11 +15774,9 @@ export type SeoContentTypeArchive = {
 export type SeoContentTypes = {
   __typename?: 'SEOContentTypes';
   berlinerWord?: Maybe<SeoContentType>;
-  blockEditorPreview?: Maybe<SeoContentType>;
   mediaItem?: Maybe<SeoContentType>;
   page?: Maybe<SeoContentType>;
   post?: Maybe<SeoContentType>;
-  reusableBlock?: Maybe<SeoContentType>;
 };
 
 /** The Yoast SEO meta data */
@@ -18526,47 +16003,65 @@ export type SeoWebmaster = {
   yandexVerify?: Maybe<Scalars['String']['output']>;
 };
 
-/** safe-svg/svg-icon block */
-export type SafeSvgSvgIconBlock = Block & {
-  __typename?: 'SafeSvgSvgIconBlock';
-  attributes?: Maybe<SafeSvgSvgIconBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type SafeSvgSvgIcon = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'SafeSvgSvgIcon';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the SafeSvgSvgIcon Block Type */
+  attributes?: Maybe<SafeSvgSvgIconAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type SafeSvgSvgIconBlockAttributes = {
-  __typename?: 'SafeSvgSvgIconBlockAttributes';
+/** Attributes of the SafeSvgSvgIcon Block Type */
+export type SafeSvgSvgIconAttributes = {
+  __typename?: 'SafeSvgSvgIconAttributes';
+  /** The &quot;alignment&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   alignment?: Maybe<Scalars['String']['output']>;
+  /** The &quot;backgroundColor&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   backgroundColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;dimensionHeight&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   dimensionHeight?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;dimensionWidth&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   dimensionWidth?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;imageHeight&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   imageHeight?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;imageID&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   imageID: Scalars['Float']['output'];
+  /** The &quot;imageSizes&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   imageSizes?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;imageWidth&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   imageWidth?: Maybe<Scalars['Float']['output']>;
+  /** The &quot;lock&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;style&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   style?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;svgURL&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   svgURL: Scalars['String']['output'];
+  /** The &quot;textColor&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   textColor?: Maybe<Scalars['String']['output']>;
+  /** The &quot;type&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes */
   type: Scalars['String']['output'];
 };
 
@@ -19726,41 +17221,6 @@ export type UpdateBerlinerischWordTypePayload = {
   clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
-/** Input for the updateBlockEditorPreview mutation. */
-export type UpdateBlockEditorPreviewInput = {
-  /** The userId to assign as the author of the object */
-  authorId?: InputMaybe<Scalars['ID']['input']>;
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the BlockEditorPreview object */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the updateBlockEditorPreview mutation. */
-export type UpdateBlockEditorPreviewPayload = {
-  __typename?: 'UpdateBlockEditorPreviewPayload';
-  /** The Post object mutation type. */
-  blockEditorPreview?: Maybe<BlockEditorPreview>;
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-};
-
 /** Input for the updateCategory mutation. */
 export type UpdateCategoryInput = {
   /** The slug that the category will be an alias of */
@@ -19991,42 +17451,6 @@ export type UpdatePostPayload = {
   post?: Maybe<Post>;
 };
 
-/** Input for the updateReusableBlock mutation. */
-export type UpdateReusableBlockInput = {
-  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** The content of the object */
-  content?: InputMaybe<Scalars['String']['input']>;
-  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
-  date?: InputMaybe<Scalars['String']['input']>;
-  /** The excerpt of the object */
-  excerpt?: InputMaybe<Scalars['String']['input']>;
-  /** The ID of the ReusableBlock object */
-  id: Scalars['ID']['input'];
-  /** Override the edit lock when another user is editing the post */
-  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
-  language?: InputMaybe<LanguageCodeEnum>;
-  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
-  menuOrder?: InputMaybe<Scalars['Int']['input']>;
-  /** The password used to protect the content of the object */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** The slug of the object */
-  slug?: InputMaybe<Scalars['String']['input']>;
-  /** The status of the object */
-  status?: InputMaybe<PostStatusEnum>;
-  /** The title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-/** The payload for the updateReusableBlock mutation. */
-export type UpdateReusableBlockPayload = {
-  __typename?: 'UpdateReusableBlockPayload';
-  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
-  clientMutationId?: Maybe<Scalars['String']['output']>;
-  /** The Post object mutation type. */
-  reusableBlock?: Maybe<ReusableBlock>;
-};
-
 /** Input for the updateSettings mutation. */
 export type UpdateSettingsInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
@@ -20170,8 +17594,6 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   __typename?: 'User';
   /** Avatar object for user. The avatar object can be retrieved in different sizes by specifying the size argument. */
   avatar?: Maybe<Avatar>;
-  /** Connection between the User type and the BlockEditorPreview type */
-  blockEditorPreviews?: Maybe<UserToBlockEditorPreviewConnection>;
   /** User metadata option name. Usually it will be &quot;wp_capabilities&quot;. */
   capKey?: Maybe<Scalars['String']['output']>;
   /** A list of capabilities (permissions) granted to the user */
@@ -20265,16 +17687,6 @@ export type UserAvatarArgs = {
   forceDefault?: InputMaybe<Scalars['Boolean']['input']>;
   rating?: InputMaybe<AvatarRatingEnum>;
   size?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** A User object */
-export type UserBlockEditorPreviewsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  before?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  where?: InputMaybe<UserToBlockEditorPreviewConnectionWhereArgs>;
 };
 
 
@@ -20474,88 +17886,6 @@ export enum UserRoleEnum {
   /** User role with specific capabilities */
   Subscriber = 'SUBSCRIBER'
 }
-
-/** Connection between the User type and the BlockEditorPreview type */
-export type UserToBlockEditorPreviewConnection = BlockEditorPreviewConnection & Connection & {
-  __typename?: 'UserToBlockEditorPreviewConnection';
-  /** Edges for the UserToBlockEditorPreviewConnection connection */
-  edges: Array<UserToBlockEditorPreviewConnectionEdge>;
-  /** The nodes of the connection, without the edges */
-  nodes: Array<BlockEditorPreview>;
-  /** Information about pagination in a connection. */
-  pageInfo: UserToBlockEditorPreviewConnectionPageInfo;
-};
-
-/** An edge in a connection */
-export type UserToBlockEditorPreviewConnectionEdge = BlockEditorPreviewConnectionEdge & Edge & {
-  __typename?: 'UserToBlockEditorPreviewConnectionEdge';
-  /** A cursor for use in pagination */
-  cursor?: Maybe<Scalars['String']['output']>;
-  /** The item at the end of the edge */
-  node: BlockEditorPreview;
-};
-
-/** Page Info on the &quot;UserToBlockEditorPreviewConnection&quot; */
-export type UserToBlockEditorPreviewConnectionPageInfo = BlockEditorPreviewConnectionPageInfo & PageInfo & WpPageInfo & {
-  __typename?: 'UserToBlockEditorPreviewConnectionPageInfo';
-  /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']['output']>;
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** Raw schema for page */
-  seo?: Maybe<SeoPostTypePageInfo>;
-  /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']['output']>;
-  total?: Maybe<Scalars['Int']['output']>;
-};
-
-/** Arguments for filtering the UserToBlockEditorPreviewConnection connection */
-export type UserToBlockEditorPreviewConnectionWhereArgs = {
-  /** The user that's connected as the author of the object. Use the userId for the author object. */
-  author?: InputMaybe<Scalars['Int']['input']>;
-  /** Find objects connected to author(s) in the array of author's userIds */
-  authorIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Find objects connected to the author by the author's nicename */
-  authorName?: InputMaybe<Scalars['String']['input']>;
-  /** Find objects NOT connected to author(s) in the array of author's userIds */
-  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Filter the connection based on dates */
-  dateQuery?: InputMaybe<DateQueryInput>;
-  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
-  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
-  /** Specific database ID of the object */
-  id?: InputMaybe<Scalars['Int']['input']>;
-  /** Array of IDs for the objects to retrieve */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Get objects with a specific mimeType property */
-  mimeType?: InputMaybe<MimeTypeEnum>;
-  /** Slug / post_name of the object */
-  name?: InputMaybe<Scalars['String']['input']>;
-  /** Specify objects to retrieve. Use slugs */
-  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** What parameter to use to order the objects by. */
-  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
-  /** Use ID to return only children. Use 0 to return only top-level items */
-  parent?: InputMaybe<Scalars['ID']['input']>;
-  /** Specify objects whose parent is in an array */
-  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Specify posts whose parent is not in an array */
-  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  /** Show posts with a specific password. */
-  password?: InputMaybe<Scalars['String']['input']>;
-  /** Show Posts based on a keyword search */
-  search?: InputMaybe<Scalars['String']['input']>;
-  /** Retrieve posts where post status is in an array. */
-  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
-  /** Show posts with a specific status. */
-  status?: InputMaybe<PostStatusEnum>;
-  /** Title of the object */
-  title?: InputMaybe<Scalars['String']['input']>;
-};
 
 /** Connection between the User type and the Comment type */
 export type UserToCommentConnection = CommentConnection & Connection & {
@@ -21474,160 +18804,142 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars['Boolean']['output']>;
 };
 
-/** yoast/faq-block block */
-export type YoastFaqBlock = Block & {
+/** A block used for editing the site */
+export type YoastFaqBlock = EditorBlock & PageEditorBlock & PostEditorBlock & {
   __typename?: 'YoastFaqBlock';
-  attributes?: Maybe<YoastFaqBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the YoastFaqBlock Block Type */
+  attributes?: Maybe<YoastFaqBlockAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
+/** Attributes of the YoastFaqBlock Block Type */
 export type YoastFaqBlockAttributes = {
   __typename?: 'YoastFaqBlockAttributes';
+  /** The &quot;additionalListCssClasses&quot; field on the &quot;YoastFaqBlockAttributes&quot; block or block attributes */
   additionalListCssClasses?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;YoastFaqBlockAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;YoastFaqBlockAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;YoastFaqBlockAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;questions&quot; field on the &quot;YoastFaqBlockAttributes&quot; block or block attributes */
   questions?: Maybe<Scalars['BlockAttributesArray']['output']>;
 };
 
-export type YoastFaqBlockAttributesUnion = YoastFaqBlockAttributes | YoastFaqBlockDeprecatedV1Attributes;
-
-export type YoastFaqBlockDeprecatedV1Attributes = {
-  __typename?: 'YoastFaqBlockDeprecatedV1Attributes';
-  additionalListCssClasses?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  questions?: Maybe<Scalars['BlockAttributesArray']['output']>;
-};
-
-/** yoast/how-to-block block */
-export type YoastHowToBlock = Block & {
+/** A block used for editing the site */
+export type YoastHowToBlock = EditorBlock & PageEditorBlock & PostEditorBlock & {
   __typename?: 'YoastHowToBlock';
-  attributes?: Maybe<YoastHowToBlockAttributesUnion>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the YoastHowToBlock Block Type */
+  attributes?: Maybe<YoastHowToBlockAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
+/** Attributes of the YoastHowToBlock Block Type */
 export type YoastHowToBlockAttributes = {
   __typename?: 'YoastHowToBlockAttributes';
+  /** The &quot;additionalListCssClasses&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   additionalListCssClasses?: Maybe<Scalars['String']['output']>;
+  /** The &quot;className&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;days&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   days?: Maybe<Scalars['String']['output']>;
+  /** The &quot;defaultDurationText&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   defaultDurationText?: Maybe<Scalars['String']['output']>;
+  /** The &quot;description&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   description?: Maybe<Scalars['String']['output']>;
+  /** The &quot;durationText&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   durationText?: Maybe<Scalars['String']['output']>;
+  /** The &quot;hasDuration&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   hasDuration?: Maybe<Scalars['Boolean']['output']>;
+  /** The &quot;hours&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   hours?: Maybe<Scalars['String']['output']>;
+  /** The &quot;jsonDescription&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   jsonDescription?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;minutes&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   minutes?: Maybe<Scalars['String']['output']>;
+  /** The &quot;steps&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   steps?: Maybe<Scalars['BlockAttributesArray']['output']>;
+  /** The &quot;unorderedList&quot; field on the &quot;YoastHowToBlockAttributes&quot; block or block attributes */
   unorderedList?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type YoastHowToBlockAttributesUnion = YoastHowToBlockAttributes | YoastHowToBlockDeprecatedV1Attributes | YoastHowToBlockDeprecatedV2Attributes;
-
-export type YoastHowToBlockDeprecatedV1Attributes = {
-  __typename?: 'YoastHowToBlockDeprecatedV1Attributes';
-  additionalListCssClasses?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  days?: Maybe<Scalars['String']['output']>;
-  defaultDurationText?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  durationText?: Maybe<Scalars['String']['output']>;
-  hasDuration?: Maybe<Scalars['Boolean']['output']>;
-  hours?: Maybe<Scalars['String']['output']>;
-  jsonDescription?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minutes?: Maybe<Scalars['String']['output']>;
-  steps?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  unorderedList?: Maybe<Scalars['Boolean']['output']>;
-};
-
-export type YoastHowToBlockDeprecatedV2Attributes = {
-  __typename?: 'YoastHowToBlockDeprecatedV2Attributes';
-  additionalListCssClasses?: Maybe<Scalars['String']['output']>;
-  className?: Maybe<Scalars['String']['output']>;
-  days?: Maybe<Scalars['String']['output']>;
-  defaultDurationText?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  durationText?: Maybe<Scalars['String']['output']>;
-  hasDuration?: Maybe<Scalars['Boolean']['output']>;
-  hours?: Maybe<Scalars['String']['output']>;
-  jsonDescription?: Maybe<Scalars['String']['output']>;
-  lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
-  minutes?: Maybe<Scalars['String']['output']>;
-  steps?: Maybe<Scalars['BlockAttributesArray']['output']>;
-  unorderedList?: Maybe<Scalars['Boolean']['output']>;
-};
-
-/** yoast-seo/breadcrumbs block */
-export type YoastSeoBreadcrumbsBlock = Block & {
-  __typename?: 'YoastSeoBreadcrumbsBlock';
-  attributes?: Maybe<YoastSeoBreadcrumbsBlockAttributes>;
-  /** Block attributes, JSON encoded */
-  attributesJSON?: Maybe<Scalars['String']['output']>;
-  /** Server side rendered content. */
-  dynamicContent?: Maybe<Scalars['String']['output']>;
-  /** Gutenberg blocks */
-  innerBlocks?: Maybe<Array<Block>>;
-  /** Is block rendered server side. */
+/** A block used for editing the site */
+export type YoastSeoBreadcrumbs = EditorBlock & PageEditorBlock & PostEditorBlock & {
+  __typename?: 'YoastSeoBreadcrumbs';
+  /** The API version of the Gutenberg Block */
+  apiVersion?: Maybe<Scalars['Int']['output']>;
+  /** Attributes of the YoastSeoBreadcrumbs Block Type */
+  attributes?: Maybe<YoastSeoBreadcrumbsAttributes>;
+  /** The name of the category the Block belongs to */
+  blockEditorCategoryName?: Maybe<Scalars['String']['output']>;
+  /** The id of the Block */
+  clientId?: Maybe<Scalars['String']['output']>;
+  /** CSS Classnames to apply to the block */
+  cssClassNames?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  /** The inner blocks of the Block */
+  innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
+  /** Whether the block is Dynamic (server rendered) */
   isDynamic: Scalars['Boolean']['output'];
-  /** Name of the block. */
-  name: Scalars['String']['output'];
-  order: Scalars['Int']['output'];
-  /** Original HTML content. */
-  originalContent?: Maybe<Scalars['String']['output']>;
-  /** Parent post. */
-  parentNode: Node;
-  /** Parent post id. */
-  parentNodeDatabaseId: Scalars['Int']['output'];
-  /** Original HTML content with inner blocks. */
-  saveContent?: Maybe<Scalars['String']['output']>;
+  /** The name of the block */
+  name?: Maybe<Scalars['String']['output']>;
+  /** The parent id of the Block */
+  parentClientId?: Maybe<Scalars['String']['output']>;
+  /** The rendered HTML for the block */
+  renderedHtml?: Maybe<Scalars['String']['output']>;
+  /** The (GraphQL) type of the block */
+  type?: Maybe<Scalars['String']['output']>;
 };
 
-export type YoastSeoBreadcrumbsBlockAttributes = {
-  __typename?: 'YoastSeoBreadcrumbsBlockAttributes';
+/** Attributes of the YoastSeoBreadcrumbs Block Type */
+export type YoastSeoBreadcrumbsAttributes = {
+  __typename?: 'YoastSeoBreadcrumbsAttributes';
+  /** The &quot;className&quot; field on the &quot;YoastSeoBreadcrumbsAttributes&quot; block or block attributes */
   className?: Maybe<Scalars['String']['output']>;
+  /** The &quot;lock&quot; field on the &quot;YoastSeoBreadcrumbsAttributes&quot; block or block attributes */
   lock?: Maybe<Scalars['BlockAttributesObject']['output']>;
+  /** The &quot;metadata&quot; field on the &quot;YoastSeoBreadcrumbsAttributes&quot; block or block attributes */
   metadata?: Maybe<Scalars['BlockAttributesObject']['output']>;
 };
