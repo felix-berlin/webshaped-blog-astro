@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.15](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2025-03-08)
+
+
+### Features
+
+* **content-blocks:** migrate from WP GraphQL Gutenberg to WPGraphQL Content Blocks ([78db85b](https://github.com/felix-berlin/webshaped-blog-astro/commit/78db85b9225562ae94adcab8004916662e74500f))
+* **queries:** migrate from WP GraphQL Gutenberg to WPGraphQL Content Blocks ([c6ba63e](https://github.com/felix-berlin/webshaped-blog-astro/commit/c6ba63e331aae632e791ba4efba4691e59cfcd4a))
+
 # [1.0.0-beta.14](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2025-03-03)
 
 
