@@ -1,15 +1,19 @@
 <template>
   <div class="c-buttons">
-    <ButtonBlock v-for="button in block.innerBlocks" :key="button.text" :block="button" />
+    <ButtonBlock
+      v-for="button in block.innerBlocks"
+      :key="button?.attributes.text"
+      :block="button"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
-import type { CoreButtonsBlock } from "@ts_types/generated/graphql";
+import type { CoreButtons } from "@ts_types/generated/graphql";
 
 export interface ButtonBlockProps {
-  block: CoreButtonsBlock;
+  block: CoreButtons;
 }
 
 const { block } = defineProps<ButtonBlockProps>();

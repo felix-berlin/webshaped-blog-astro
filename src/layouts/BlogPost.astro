@@ -23,12 +23,12 @@ import ChevronRight from "~icons/lucide/chevron-right";
 import { isHtml, parse, getHtmlContent } from "@utils/helpers";
 import HasTranslations from "@components/HasTranslations.vue";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
-import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
+import type { CoreHeading } from "@ts_types/generated/graphql";
 import type { Post, MediaSize, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 
 export interface BlogPost {
   content: Post;
-  headings?: CoreHeadingBlock[];
+  headings?: CoreHeading[];
 }
 
 const {
@@ -92,7 +92,8 @@ interface ParsedHeading {
 // create new array with allready parsed JSON and only the headline.
 const parsedHeadings: ParsedHeading[] =
   headings?.map((heading) => {
-    const headlineContent = parse(heading?.attributesJSON);
+    const headlineContent = heading?.attributes;
+    if (!headlineContent) return null;
 
     return {
       content: headlineContent.content,

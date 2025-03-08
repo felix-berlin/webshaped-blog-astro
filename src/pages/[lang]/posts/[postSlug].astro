@@ -6,7 +6,7 @@ import "@styles/plugins/shiki.scss";
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
 import { getAllPostsWithSlugs, getPostBySlug } from "@services/api";
-import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
+import type { CoreHeading } from "@ts_types/generated/graphql";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
 import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
 import FigureBlock from "@components/content-blocks/FigureBlock.vue";
@@ -16,8 +16,6 @@ import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
 import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
 import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
 import { Code } from "astro/components";
-import { parse } from "@utils/helpers";
-import he from "he";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
@@ -51,18 +49,22 @@ const findLanguage = (content: string, prefix = "lang-"): string | null => {
   return match;
 };
 
-const headings = post?.blocks?.filter(
-  (block: CoreHeadingBlock) =>
+const isCoreHeading = (block: any): block is CoreHeading => {
+  return (
+    block &&
     block.name === "core/heading" &&
-    (JSON.parse(block.attributesJSON as string).level === 2 ||
-      JSON.parse(block.attributesJSON as string).level === 3)
-) as CoreHeadingBlock[];
+    (block.attributes?.level === 2 || block.attributes?.level === 3)
+  );
+};
+
+const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
 ---
 
 <BlogPost content={post} headings={headings}>
   {
-    post?.blocks?.map((block) => {
-      // return <pre>{block.name}</pre>;
+    post?.editorBlocks?.map((block) => {
+      if (!block) return null;
+
       if (block.name === "core/paragraph") {
         return <ParagraphBlock block={block} />;
       }
@@ -73,14 +75,13 @@ const headings = post?.blocks?.filter(
         return <FigureBlock block={block} />;
       }
       if (block.name === "core/buttons") {
-        return <ButtonsBlock block={block} client:only="vue" />;
+        return <ButtonsBlock block={block} />;
       }
       if (block.name === "core/list") {
         return <ListBlock block={block} />;
       }
       if (block.name === "core/details") {
         return <DetailsBlock block={block} />;
-        return <pre>{block}</pre>;
       }
       if (block.name === "acf/github-raw-data") {
         return <GitHubRawData block={block} />;
@@ -92,8 +93,8 @@ const headings = post?.blocks?.filter(
         return (
           <div class="c-blocks__code">
             <Code
-              code={he.decode(parse(block.attributesJSON).content)}
-              lang={parse(block.attributesJSON).className}
+              code={block.attributes?.content}
+              lang={block.attributes?.className}
               theme="css-variables"
             />
           </div>

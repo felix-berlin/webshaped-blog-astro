@@ -50,7 +50,6 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
     const englishPaths =
       categoriesEn?.flatMap((translation) => {
         const categoriesEnPosts = translation?.posts?.nodes;
-        console.log(translation);
 
         if (!Array.isArray(categoriesEnPosts) || !categoriesEnPosts?.length) return [];
 
@@ -68,7 +67,6 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
           pageSize: 1,
         });
       }) ?? [];
-    console.log("categoriesEn", englishPaths);
 
     return [...germanPaths, ...englishPaths];
   });
@@ -79,12 +77,10 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { page, content } = Astro.props as Props;
 const { lang, slug } = Astro.params as Params;
-console.log("lang", lang);
 
 const path = `${lang}/category/${slug}`;
 
 const posts = page["data"];
-// console.log("posts", posts);
 ---
 
 <DefaultLayout content={content} contentClasses="o-category">

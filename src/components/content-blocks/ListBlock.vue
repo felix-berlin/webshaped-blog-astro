@@ -6,7 +6,7 @@
   >
     <ListItemBlock
       v-for="listItem in block.innerBlocks"
-      :key="parse(listItem.attributesJSON).content"
+      :key="listItem.attributes.content"
       :block="listItem"
       class="c-blocks__list-item"
     >
@@ -16,15 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@utils/helpers";
 import ListItemBlock from "@components/content-blocks/ListItemBlock.vue";
-import type { CoreListBlock } from "@ts_types/generated/graphql";
+import type { CoreList } from "@ts_types/generated/graphql";
 
 export interface ListBlockProps {
-  block: CoreListBlock;
+  block: CoreList;
 }
 
 const props = defineProps<ListBlockProps>();
 
-const blockAttrs = parse(props.block.attributesJSON);
+const blockAttrs = props.block.attributes;
 </script>

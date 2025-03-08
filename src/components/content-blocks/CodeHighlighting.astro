@@ -1,16 +1,16 @@
 ---
-import type { AcfCodeHighlightingBlock } from "@ts_types/generated/graphql";
+import type { AcfCodeHighlighting } from "@ts_types/generated/graphql";
 import { parse } from "@utils/helpers";
 import { Code } from "astro/components";
 
 interface GitHubRawDataProps {
-  block: AcfCodeHighlightingBlock;
+  block: AcfCodeHighlighting;
 }
 
 const { block } = Astro.props as GitHubRawDataProps;
 
-const blockAttrs = parse(block.attributesJSON);
-const { language, use_custom_language, custom_language, code } = blockAttrs.data;
+const blockAttrs = parse(block?.attributes?.data);
+const { language, use_custom_language, custom_language, code } = blockAttrs;
 
 const codeLang = use_custom_language ? custom_language : language;
 ---

@@ -13,19 +13,19 @@
 </template>
 
 <script setup lang="ts">
-import { isHtml, parse, getHtmlContent } from "@utils/helpers";
+import { isHtml, getHtmlContent } from "@utils/helpers";
 import slugify from "slugify";
-import type { CoreHeadingBlock } from "@ts_types/generated/graphql";
+import type { CoreHeading } from "@ts_types/generated/graphql";
 import he from "he";
 
 export interface HeadlineBlockProps {
-  block: CoreHeadingBlock;
+  block: CoreHeading;
 }
 
 const { block } = defineProps<HeadlineBlockProps>();
 
-const headline: string = parse(block.attributesJSON).content;
-const headlineLevel: string = parse(block.attributesJSON).level;
+const headline = block.attributes?.content;
+const headlineLevel = block.attributes?.level;
 
 /**
  * Generates an id for the headline.
@@ -33,8 +33,6 @@ const headlineLevel: string = parse(block.attributesJSON).level;
  * @return  {string}
  */
 const generateId = (): string => {
-  return isHtml(headline)
-    ? getHtmlContent(headline)
-    : slugify(headline, { lower: true });
+  return isHtml(headline) ? getHtmlContent(headline) : slugify(headline, { lower: true });
 };
 </script>

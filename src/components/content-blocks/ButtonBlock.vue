@@ -1,23 +1,22 @@
 <template>
   <a
-    :href="blockAttrs?.url"
-    :title="blockAttrs?.title"
-    :target="blockAttrs?.target"
-    :rel="blockAttrs?.rel"
+    :href="url"
+    :title="title"
+    :target="linkTarget"
+    :rel="rel"
     class="c-button c-button--primary"
-    >{{ blockAttrs?.text }}</a
+    >{{ text }}</a
   >
 </template>
 
 <script setup lang="ts">
-import { parse } from "@utils/helpers";
-import type { CoreButtonsBlock } from "@ts_types/generated/graphql";
+import type { CoreButton } from "@ts_types/generated/graphql";
 
 export interface ButtonBlockProps {
-  block: CoreButtonsBlock["innerBlocks"];
+  block: CoreButton;
 }
 
 const props = defineProps<ButtonBlockProps>();
 
-const blockAttrs = parse(props.block?.attributesJSON);
+const { text, type, url, textAlign, title, linkTarget, rel } = props.block?.attributes;
 </script>

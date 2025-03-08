@@ -2,29 +2,27 @@
   <figure class="c-blocks__image">
     <ImageResponsive
       v-if="block.name === 'core/image'"
-      :id="blockAttrs.id"
-      :src="mediaItem?.mediaItemUrl"
-      :src-set="mediaItem?.srcSet"
-      :width="mediaItem?.mediaDetails?.width"
-      :height="mediaItem?.mediaDetails?.height"
-      :alt="mediaItem?.altText"
+      :id="id"
+      :src="url"
+      :width="width"
+      :height="height"
+      :alt="alt"
       class="c-blog__hero-image"
     />
-    <figcaption v-if="blockAttrs.caption" v-html="blockAttrs.caption" />
+    <figcaption v-if="caption" v-html="caption" />
   </figure>
 </template>
 
 <script setup lang="ts">
-import { parse } from "@utils/helpers";
 import ImageResponsive from "@components/ImageResponsive.vue";
-import type { CoreImageBlock } from "@ts_types/generated/graphql";
+import type { CoreImage } from "@ts_types/generated/graphql";
 
 export interface FigureBlockProps {
-  block: CoreImageBlock;
+  block: CoreImage;
 }
 
 const props = defineProps<FigureBlockProps>();
 
-const blockAttrs = parse(props.block.attributesJSON);
+const { id, url, width, height, alt, caption } = props.block.attributes;
 const mediaItem = props.block.mediaItem?.node;
 </script>

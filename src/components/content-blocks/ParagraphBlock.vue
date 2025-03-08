@@ -1,13 +1,13 @@
 <template>
-  <p class="c-blocks__paragraph" v-html="parse(block.attributesJSON).content" />
+  <p class="c-blocks__paragraph" v-html="block.attributes.content" />
 </template>
 
 <script setup lang="ts">
 import { parse } from "@utils/helpers";
-import type { CoreParagraphBlock } from "@ts_types/generated/graphql";
+import type { CoreParagraph } from "@ts_types/generated/graphql";
 
 export interface ParagraphBlockProps {
-  block: CoreParagraphBlock;
+  block: CoreParagraph;
 }
 
 defineProps<ParagraphBlockProps>();

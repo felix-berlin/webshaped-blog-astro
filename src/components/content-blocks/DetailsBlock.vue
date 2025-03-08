@@ -1,6 +1,6 @@
 <template>
-  <details :open="blockAttrs.showContent" class="c-block-details">
-    <summary class="c-block-details__summary">{{ blockAttrs.summary }}</summary>
+  <details :open="showContent" class="c-block-details">
+    <summary class="c-block-details__summary">{{ summary }}</summary>
     <template v-if="block.innerBlocks?.length">
       <ContentBlocks :blocks="block.innerBlocks" />
     </template>
@@ -8,15 +8,14 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@utils/helpers";
 import ContentBlocks from "@components/ContentBlocks.vue";
-import type { CoreDetailsBlock } from "@ts_types/generated/graphql";
+import type { CoreDetails } from "@ts_types/generated/graphql";
 
 export interface FigureBlockProps {
-  block: CoreDetailsBlock;
+  block: CoreDetails;
 }
 
 const props = defineProps<FigureBlockProps>();
 
-const blockAttrs = parse(props.block.attributesJSON);
+const { showContent, summary } = props.block.attributes;
 </script>
