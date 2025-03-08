@@ -1,5 +1,6 @@
 import type { Post, RootQueryToPostConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
+import { allBlocks, coreDetails } from "./blockFragments";
 
 export const getAllPostsWithSlugs = async (language = "DE"): Promise<RootQueryToPostConnection> => {
   const data = await fetchAPI(`
@@ -41,85 +42,15 @@ export const getPostBySlug = async (
         content
         postId
         id
-        blocks {
-          attributesJSON
+        editorBlocks(flat: false) {
+          apiVersion
+          blockEditorCategoryName
+          clientId
           name
-          order
-          originalContent
-          ...on CoreImageBlock {
-            mediaItem {
-              node {
-                altText
-                mediaItemUrl
-                srcSet
-                sizes
-                mimeType
-                mediaDetails {
-                  height
-                  width
-                  sizes {
-                    width
-                    sourceUrl
-                    mimeType
-                  }
-                }
-              }
-            }
-          }
-          ... on CoreCodeBlock {
-            attributesJSON
-            originalContent
-            name
-            order
-            attributes {
-              className
-              content
-              }
-            }
-            innerBlocks {
-              attributesJSON
-              name
-              order
-              originalContent
-            ...on CoreImageBlock {
-              mediaItem {
-                node {
-                  altText
-                  mediaItemUrl
-                  srcSet
-                  sizes
-                  mimeType
-                  mediaDetails {
-                    height
-                    width
-                    sizes {
-                      width
-                      sourceUrl
-                      mimeType
-                    }
-                  }
-                }
-              }
-            }
-            innerBlocks {
-              attributesJSON
-              name
-              order
-              originalContent
-              innerBlocks {
-                attributesJSON
-                name
-                order
-                originalContent
-                innerBlocks {
-                  attributesJSON
-                  name
-                  order
-                  originalContent
-                }
-              }
-            }
-          }
+          parentClientId
+          type
+          ${allBlocks}
+          ${coreDetails(allBlocks)}
         }
         author {
           node {
