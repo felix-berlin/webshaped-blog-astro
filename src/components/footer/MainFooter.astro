@@ -3,7 +3,7 @@ import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@services/api";
-import { firstCategoryPage, getSocialIconData } from "@utils/helpers";
+import { firstCategoryPage, getSocialIconData, removeLocaleCode } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { useTranslations } from "@utils/i18n/utils";
@@ -21,6 +21,7 @@ interface MainFooterProps {
 }
 
 const { lang } = Astro.props as MainFooterProps;
+
 const t = useTranslations(lang);
 const iconStyles = {
   size: 40,
@@ -67,13 +68,18 @@ const allSocials = {
       <menu class="c-menu c-menu--footer-two-columns u-list-reset">
         {
           categories &&
-            categories.nodes.map((category) => (
-              <li class="c-menu__item">
-                <a class="c-menu__link" href={`/category/${firstCategoryPage(category.slug)}`}>
-                  {category.name}
-                </a>
-              </li>
-            ))
+            categories.nodes
+              .filter((category) => category.language?.slug === lang)
+              .map((category) => (
+                <li class="c-menu__item">
+                  <a
+                    class="c-menu__link"
+                    href={`${category.language?.slug}/category/${firstCategoryPage(removeLocaleCode(category.slug))}`}
+                  >
+                    {category.name}
+                  </a>
+                </li>
+              ))
         }
       </menu>
     </div>

@@ -1,9 +1,7 @@
 import type { RootQuery } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 
-export const getCategoryBySlug = async (
-  slug: string,
-): Promise<RootQuery["categories"]> => {
+export const getCategoryBySlug = async (slug: string): Promise<RootQuery["categories"]> => {
   const data = await fetchAPI(`
   {
     categories(first: 10000, where: {slug: "${slug}"}) {
@@ -45,6 +43,17 @@ export const getCategoryBySlug = async (
   return data?.categories?.nodes;
 };
 
+const categoryNodesContent = `
+  count
+  name
+  slug
+  language {
+    code
+    slug
+    locale
+  }
+`;
+
 /**
  * Receives all available categories
  *
@@ -52,27 +61,29 @@ export const getCategoryBySlug = async (
  */
 export const getAllCategories = async (
   first = 10_000,
-  exclude: number[] = [1], // 1 = allgemein
+  exclude: string = "[1, 96]", // 1 = allgemein
   orderby = "NAME",
   hideEmpty = true,
+  languages = "[DE, EN]",
 ): Promise<RootQuery["categories"]> => {
   const data = await fetchAPI(`
   {
-    categories(first: ${first}, where: {exclude: ${exclude}, orderby: ${orderby}, hideEmpty: ${hideEmpty}}) {
+    categories(
+      first: ${first},
+      where: {
+        exclude: ${exclude},
+        orderby: ${orderby},
+        hideEmpty: ${hideEmpty},
+        languages: ${languages}
+      }) {
       nodes {
-        count
-        name
-        slug
+        ${categoryNodesContent}
         children {
           nodes {
-            count
-            name
-            slug
+            ${categoryNodesContent}
             children {
               nodes {
-                count
-                name
-                slug
+                ${categoryNodesContent}
               }
             }
           }

@@ -231,3 +231,12 @@ export const getSocialIconData = (
 export const isWebWorkerSupported = () => {
   return typeof Worker !== "undefined";
 };
+
+export const removeLocaleCode = (category: string | null) => {
+  if (!category) return "";
+  // Split the category string by the hyphen
+  const parts = category.split("-");
+
+  // Return the first part of the split string
+  return parts[0];
+};

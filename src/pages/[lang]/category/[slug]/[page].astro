@@ -12,6 +12,7 @@ import type {
   GetStaticPaths,
   PaginateFunction,
 } from "astro";
+import { removeLocaleCode } from "@utils/helpers";
 
 import type { Category, Post } from "@ts_types/generated/graphql";
 
@@ -56,13 +57,13 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
         return paginate(categoriesEnPosts as Node[] & Post[], {
           props: {
             content: {
-              title: translation.name,
-              language: translation.language,
+              title: translation?.name,
+              language: translation?.language,
             },
           },
           params: {
-            slug: translation.slug as string,
-            lang: translation.language?.slug as string,
+            slug: removeLocaleCode(translation?.slug) as string,
+            lang: translation?.language?.slug as string,
           },
           pageSize: 1,
         });
