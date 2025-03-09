@@ -13,7 +13,6 @@
       <MenuIcon class="c-main-nav__menu-icon is-mobile" />
     </button>
 
-    <!-- TODO: Move this section to MainHeader with Teleport -->
     <Teleport v-if="isMobile" to="#mainHeader">
       <Transition name="fade">
         <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">

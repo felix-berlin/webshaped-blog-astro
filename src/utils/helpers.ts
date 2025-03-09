@@ -89,17 +89,26 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
 /**
  * Update category paths in the main menu
  *
- * @return  {[type]}
  */
-export const updateCategoryPaths = (mainMenuItems: Maybe<Menu>): Maybe<Menu> => {
+export const updateCategoryPaths = (mainMenuItems: Maybe<Menu>, lang: "de" | "en"): Maybe<Menu> => {
   mainMenuItems?.menuItems?.nodes.forEach((item: MenuItem) => {
-    if (item?.childItems) {
-      item.childItems.nodes.forEach((childItem: MenuItem) => {
-        if ("path" in childItem && isCategoryPath(childItem.path)) {
-          childItem.path = firstCategoryPage(childItem.path);
-        }
-      });
-    }
+    if (!item?.childItems) return;
+
+    // Loop through the child items (menu item) of the main menu
+    item.childItems.nodes.forEach((childItem: MenuItem) => {
+      if (!("path" in childItem && isCategoryPath(childItem.path))) {
+        return;
+      }
+
+      // In german locale, /de is missing in the path
+      if (lang === "de") {
+        childItem.path = `/de${firstCategoryPage(childItem.path)}`;
+      }
+      // In english locale, categories are postfixed with "-en", we need to remove it
+      if (lang === "en") {
+        childItem.path = firstCategoryPage(removeLocaleCode(childItem.path));
+      }
+    });
   });
   return mainMenuItems;
 };

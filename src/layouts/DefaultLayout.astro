@@ -32,8 +32,10 @@ const {
 } = Astro.props as DefaultLayoutProps;
 
 const lang = getLangFromUrl(Astro.url);
-const mainMenuItems = await getMenuById(2);
-// const { menuItemsEn }: any = await getMenuById(125); // EN
+const mainMenuItemsDe = await getMenuById(2);
+const mainMenuItemsEn = await getMenuById(125);
+
+const mainMenuItems = lang === "de" ? mainMenuItemsDe : mainMenuItemsEn;
 ---
 
 <html lang={lang}>
@@ -45,7 +47,7 @@ const mainMenuItems = await getMenuById(2);
 
   <body class="o-body" class:list={bodyClasses}>
     <MainHeader
-      menuItems={updateCategoryPaths(mainMenuItems)?.menuItems!}
+      menuItems={updateCategoryPaths(mainMenuItems, lang)?.menuItems}
       lang={lang}
       transition:persist
     />
