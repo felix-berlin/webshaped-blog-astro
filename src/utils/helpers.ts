@@ -3,7 +3,7 @@ import type {
   Menu,
   MenuItem,
   SeoUserSocial,
-  User_Socialadvanced,
+  SocialAdvanced,
 } from "@ts_types/generated/graphql";
 
 /**
@@ -208,7 +208,7 @@ type SocialItems = {
  * @return  {SocialItems}
  */
 export const getSocialIconData = (
-  socials: SeoUserSocial | User_Socialadvanced,
+  socials: SeoUserSocial | SocialAdvanced,
   iconStyles: object,
   additionalData: AdditionalData,
 ): SocialItems => {

@@ -190,6 +190,7 @@ import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";
 import { excludeObjectKeys } from "@utils/objectHelpers";
+import { useI18n } from "@/composables/useI18n";
 
 interface Props {
   currentPostId: number;
@@ -198,9 +199,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { guestUser, lang } = mapStores({
+const { guestUser } = mapStores({
   guestUser: guest,
-  lang: currentLanguage,
 });
 
 interface CommentForm {
@@ -242,7 +242,7 @@ const formResponses: {
 });
 
 const showDialog = ref(false);
-const t = useTranslations(lang);
+const { t } = useI18n();
 
 const emit = defineEmits(["commentCreated", "comment-created"]);
 

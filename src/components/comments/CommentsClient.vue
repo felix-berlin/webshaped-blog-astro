@@ -46,13 +46,11 @@ import CommentItem from "@components/comments/CommentItem.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
-import { useTranslations } from "@utils/i18n/utils";
 import { getCommentsById } from "@services/api";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
-import { currentLanguage } from "@stores/store";
-import { useStore } from "@nanostores/vue";
 import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";
 import NoComments from "@components/comments/NoComments.vue";
+import { useI18n } from "@/composables/useI18n";
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
@@ -87,8 +85,7 @@ const data = reactive<CommentsData>({
   commentsCount: 0,
 });
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 
 /**
  * Get comments by post id

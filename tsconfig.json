@@ -17,15 +17,15 @@
       "@stores/*": ["src/stores/*"],
       "@sass-butler/*": ["node_modules/@felix_berlin/sass-butler/*"],
       "@styles/*": ["src/styles/*"],
-      "@ts_types/*": ["src/types/*"]
+      "@ts_types/*": ["src/types/*"],
+      "@/*": ["src/*"]
     },
     "types": [
       "vitest/globals",
       "unplugin-icons/types/astro",
       "unplugin-icons/types/vue",
       "vite-plugin-pwa/client",
-      "vite-plugin-pwa/info",
-      "vite-plugin-pwa/pwa-assets"
+      "vite-plugin-pwa/info"
     ],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
     "esModuleInterop": true

@@ -34,9 +34,7 @@
 import { ref, onMounted, computed } from "vue";
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
-import { currentLanguage } from "@stores/store";
-import { useStore } from "@nanostores/vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
@@ -44,10 +42,7 @@ const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
 const totalCommits = ref(0);
 const totalAdditions = ref(0);
-const lang = useStore(currentLanguage);
-
-// TODO: provide reactivity on global or function level
-const t = computed(() => useTranslations(lang.value));
+const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(

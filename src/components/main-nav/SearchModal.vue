@@ -22,14 +22,11 @@ import Modal from "@components/Modal.vue";
 import Search from "@components/Search.vue";
 import SearchIcon from "virtual:icons/lucide/search";
 import SquareSlash from "virtual:icons/lucide/square-slash";
-import { currentLanguage } from "@stores/store";
-import { useStore } from "@nanostores/vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 
-const lang = useStore(currentLanguage);
 const searchId = "main-search";
 const searchVisible = ref(false);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 
 /**
  * Open the search modal
