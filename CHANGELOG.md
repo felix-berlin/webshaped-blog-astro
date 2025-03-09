@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.16](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2025-03-09)
+
+
+### Features
+
+* **i18n:** add reactive version for t() ([54b6ab2](https://github.com/felix-berlin/webshaped-blog-astro/commit/54b6ab2d32767fee309954d5c1944ab63e3f33d7))
+
 # [1.0.0-beta.15](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2025-03-08)
 
 
