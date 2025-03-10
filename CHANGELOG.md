@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.17](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2025-03-09)
+
+
+### Features
+
+* **main footer:** show categories by locale ([66afb64](https://github.com/felix-berlin/webshaped-blog-astro/commit/66afb6491beab5d5b5240539292caa1ebeb1a2c8))
+* **main nav:** show categories by locale ([1e3d50d](https://github.com/felix-berlin/webshaped-blog-astro/commit/1e3d50da93e75a18434176d3cbc1ae624e7f2263))
+
 # [1.0.0-beta.16](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2025-03-09)
 
 
