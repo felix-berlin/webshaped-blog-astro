@@ -9,6 +9,7 @@ import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const {
   WP_API,
@@ -19,9 +20,17 @@ const {
   CODECOV_TOKEN,
   ENABLE_ANALYTICS,
   PWA_DEBUG,
+  BUNDLE_ANALYZER_OPEN,
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const apiHost = new URL(WP_API).host;
+
+const visualizerPlugin = visualizer({
+  open: BUNDLE_ANALYZER_OPEN === "true",
+  template: "treemap",
+  gzipSize: true,
+  brotliSize: true,
+});
 
 // https://astro.build/config
 export default defineConfig({
@@ -168,6 +177,11 @@ export default defineConfig({
         optional: true,
       }),
       PWA_DEBUG: envField.boolean({ context: "server", access: "public", default: false }),
+      BUNDLE_ANALYZER_OPEN: envField.boolean({
+        context: "server",
+        access: "public",
+        default: false,
+      }),
     },
   },
   vite: {
@@ -181,6 +195,7 @@ export default defineConfig({
           }
         },
       }), // chooses the compiler automatically
+      visualizerPlugin,
     ],
 
     css: {
