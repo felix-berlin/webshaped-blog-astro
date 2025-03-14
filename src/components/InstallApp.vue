@@ -13,14 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  installPrompt,
-  pwaReadyToInstall,
-  triggerPwaInstall,
-  currentLanguage,
-} from "@stores/store";
+import { installPrompt, pwaReadyToInstall, triggerPwaInstall } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 import Download from "virtual:icons/lucide/download";
 
 export interface InstallAppProps {
@@ -39,8 +34,7 @@ const {
 
 useStore(installPrompt);
 const installReady = useStore(pwaReadyToInstall);
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 </script>
 
 <style scoped></style>
