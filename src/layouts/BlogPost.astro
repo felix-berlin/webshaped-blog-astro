@@ -100,9 +100,18 @@ const parsedHeadings: ParsedHeading[] =
       level: headlineContent.level,
     };
   }) || [];
+
+const translationsRoutes = {
+  [lang]: slug,
+  [translations?.[0]?.language?.slug]: translations?.[0]?.slug,
+};
 ---
 
-<DefaultLayout content={{ title, seo, language }} contentClasses={["c-blog"]}>
+<DefaultLayout
+  content={{ title, seo, language }}
+  contentClasses={["c-blog"]}
+  translationsRoutes={translationsRoutes}
+>
   <!-- LastFM API -->
   <link rel="preconnect" href="//last-fm.kasimir.dev" slot="head" />
   <!-- Gravatar -->

@@ -1,6 +1,7 @@
 import { atom } from "nanostores";
 import { persistentAtom } from "@nanostores/persistent";
 import { getLangFromUrl } from "@utils/i18n/utils";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 export type Language = "en" | "de";
 
@@ -30,6 +31,8 @@ if (typeof window !== "undefined") {
     }
   });
 }
+
+export const translationRoutes = atom<TranslationRoutes | undefined>({});
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");

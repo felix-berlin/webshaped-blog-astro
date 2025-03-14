@@ -8,16 +8,18 @@ import "@styles/objects/_header.scss";
 import MainNav from "@components/hero/MainNav.vue";
 // import { currentLanguage } from "@stores/store";
 import type { Language, MenuToMenuItemConnection, Maybe } from "@ts_types/generated/graphql";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 interface HeaderProps {
   menuItems: MenuToMenuItemConnection;
   lang: Maybe<Language>;
+  translationsRoutes?: TranslationRoutes;
 }
 
-const { menuItems, lang } = Astro.props as HeaderProps;
+const { menuItems, lang, translationsRoutes } = Astro.props as HeaderProps;
 ---
 
 <header id="mainHeader" class="o-header">
-  <MainNav menuItems={menuItems} client:only="vue" />
+  <MainNav menuItems={menuItems} translationsRoutes={translationsRoutes} client:only="vue" />
   <!-- <LanguageSelect class="is-desktop" /> -->
 </header>

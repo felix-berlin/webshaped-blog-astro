@@ -1,4 +1,5 @@
 import { localeStrings, defaultLang, showDefaultLang, routes } from "./ui";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 /**
  * Extracts the language code from the given URL's pathname.
@@ -82,13 +83,28 @@ export const useTranslations = (lang: keyof typeof localeStrings): Function => {
  * @returns The translated path. If the path does not have a translation, it returns the original path.
  * If `showDefaultLang` is false and the language is the default language, it returns the translated path without the language prefix.
  */
-export const useTranslatedPath = (lang: keyof typeof localeStrings) => {
+export const useTranslatedPath = (
+  lang: keyof typeof localeStrings,
+  additionalRoutes: TranslationRoutes,
+) => {
   return function translatePath(path: string, l: string = lang) {
     const pathName = path.replaceAll("/", "");
-    const hasTranslation =
-      defaultLang !== l && routes[l] !== undefined && routes[l][pathName] !== undefined;
-    const translatedPath = hasTranslation ? `/${routes[l][pathName]}` : path;
 
+    const hasAstroTranslation =
+      defaultLang !== l && routes[l] !== undefined && routes[l][pathName] !== undefined;
+
+    const hasAdditionalTranslation = !!additionalRoutes && additionalRoutes[l] !== undefined;
+
+    let translatedPath = hasAstroTranslation ? `/${routes[l][pathName]}` : null; // maybe path instead off null
+
+    if (hasAdditionalTranslation) {
+      const newPath = path.split("/");
+      newPath.pop();
+      const middlePath = newPath.join("/");
+
+      translatedPath = `${middlePath}/${additionalRoutes[l]}`;
+    }
+    if (!translatedPath) return;
     return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
   };
 };
@@ -115,11 +131,12 @@ export const getRouteFromUrl = (url: URL): string | undefined => {
 
   const currentLang = getLangFromUrl(url);
 
-  if (defaultLang === currentLang) {
-    const route = Object.values(routes)[0];
+  // TODO: Check if this is necessary
+  // if (defaultLang === currentLang) {
+  //   const route = Object.values(routes)[0];
 
-    return route[path] !== undefined ? route[path] : undefined;
-  }
+  //   return route[path] !== undefined ? route[path] : undefined;
+  // }
 
   const getKeyByValue = (obj: Record<string, string>, value: string): string | undefined => {
     return Object.keys(obj).find((key) => obj[key] === value);

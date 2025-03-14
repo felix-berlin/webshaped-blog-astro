@@ -29,7 +29,7 @@ import type { Maybe } from "@ts_types/generated/graphql";
 
 export interface ImageResponsiveProps {
   src: Maybe<string>;
-  srcSet: Maybe<string>;
+  srcSet?: Maybe<string>;
   sizes?: Maybe<string>;
   alt?: Maybe<string>;
   width?: Maybe<number>;

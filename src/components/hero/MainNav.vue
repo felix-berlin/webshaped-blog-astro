@@ -49,21 +49,25 @@ import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
-import { isMobileBreakpoint, windowWidth, currentLanguage } from "@stores/store";
+import { isMobileBreakpoint, windowWidth, currentLanguage, translationRoutes } from "@stores/store";
 import { useResizeObserver } from "@vueuse/core";
 import type { MenuToMenuItemConnection } from "@ts_types/generated/graphql";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;
+  translationsRoutes?: TranslationRoutes;
 }
 
-const props = defineProps<MainNavProps>();
+const { menuItems, translationsRoutes } = defineProps<MainNavProps>();
 
 const isMobile = useStore(isMobileBreakpoint);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
+
+translationRoutes.set(translationsRoutes);
 
 /**
  * Toggle the flyout menu

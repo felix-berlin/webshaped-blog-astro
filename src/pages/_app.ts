@@ -12,6 +12,7 @@ import {
   isMobileBreakpoint,
   windowWidth,
   pwaReadyToInstall,
+  translationRoutes,
 } from "@stores/store";
 
 export default (app: App) => {
@@ -36,5 +37,6 @@ export default (app: App) => {
     pwaReadyToInstall,
     isMobileBreakpoint,
     windowWidth,
+    translationRoutes,
   });
 };

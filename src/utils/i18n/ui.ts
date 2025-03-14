@@ -24,10 +24,8 @@ type Routes = {
 export const routes: Routes = {
   de: {
     "new-index": "neuer-index",
-    "page-x": "seite-x",
   },
   en: {
     "new-index": "new-index",
-    "page-x": "page-x",
   },
 };
