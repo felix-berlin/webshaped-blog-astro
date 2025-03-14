@@ -103,16 +103,12 @@ export const translateCmsPath = (
   translationRoutes: TranslationRoutes,
 ) => {
   const pathname = new URL(url).pathname;
-  const newPath = pathname.split("/");
-  newPath.pop();
-  newPath.shift();
-  newPath.shift();
-  const middlePath = newPath.join("/");
+  const newPath = pathname.split("/").slice(2, -1).join("/");
   const routes = translationRoutes?.[lang];
 
   if (!routes) return;
 
-  return `/${lang}/${middlePath}/${routes}`;
+  return `/${lang}/${newPath}/${routes}`;
 };
 
 /**
@@ -133,6 +129,15 @@ export const getRouteFromUrl = (url: URL): string | undefined => {
 
   if (path === undefined) {
     return undefined;
+  }
+
+  // Handle dynamic routes
+  const dynamicRoutePattern = /^\/(\w+)\/category\/(\w+)\/(\d+)$/;
+  const match = pathname.match(dynamicRoutePattern);
+
+  if (match) {
+    const [, langSegment, category, page] = match;
+    return `category/${category}/${page}`;
   }
 
   const currentLang = getLangFromUrl(url);
