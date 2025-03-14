@@ -59,7 +59,7 @@ const t = useTranslations(lang);
 const createBreadcrumbItems = () => {
   const items = [
     {
-      text: "Home",
+      text: lang === "de" ? "Start" : "Home",
       href: "/",
     },
   ];
@@ -70,13 +70,13 @@ const createBreadcrumbItems = () => {
 
     items.push({
       text: parentCategory?.name!,
-      href: `/${firstCategoryPage(parentCategory?.name?.toLowerCase())}`,
+      href: `/${lang}/category/${firstCategoryPage(parentCategory?.name?.toLowerCase())}`,
     });
 
     if (childCategory?.length) {
       items.push({
         text: childCategory[0].node.name!,
-        href: `/${firstCategoryPage(childCategory[0].node.name?.toLowerCase())}`,
+        href: `/${lang}/category/${firstCategoryPage(childCategory[0].node.name?.toLowerCase())}`,
       });
     }
   }
