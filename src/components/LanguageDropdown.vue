@@ -51,4 +51,6 @@ onMounted(() => {
 });
 </script>
 
-<style scoped></style>
+<style lang="scss">
+@use "@styles/components/lang-dropdown.scss";
+</style>
