@@ -75,6 +75,7 @@ jobs:
           cache-from: |
             type=registry,ref=${{ steps.meta.outputs.tags }}
             type=registry,ref=ghcr.io/${{ github.repository }}:latest
+            type=registry,ref=ghcr.io/${{ github.repository }}:beta
           cache-to: type=inline
 
       # - name: Build Docker image
