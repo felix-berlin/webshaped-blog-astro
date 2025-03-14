@@ -107,7 +107,7 @@
     "sass": "^1.85.1",
     "semantic-release": "^24.2.3",
     "sirv": "^3.0.1",
-    "stylelint": "^16.15.0",
+    "stylelint": "^16.16.0",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recommended-scss": "^14.1.0",
     "stylelint-config-recommended-vue": "^1.6.0",
