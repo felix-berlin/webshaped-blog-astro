@@ -1,4 +1,5 @@
 import { localeStrings, defaultLang, showDefaultLang, routes } from "./ui";
+import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 /**
@@ -175,4 +176,8 @@ const pluralFormFor = (translationString: string, count: number, locale: string)
   const matchingForm = pluralRules.select(count);
 
   return translationString[matchingForm as keyof typeof translationString] as string;
+};
+
+export const categoryPathBuilder = (categorySlug: string, lang: string) => {
+  return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug))}`;
 };

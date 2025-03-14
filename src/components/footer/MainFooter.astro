@@ -3,10 +3,10 @@ import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import { getMenuById, getAuthor, getAllCategories } from "@services/api";
-import { firstCategoryPage, getSocialIconData, removeLocaleCode } from "@utils/helpers";
+import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
-import { useTranslations } from "@utils/i18n/utils";
+import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 import InstallApp from "@components/InstallApp.vue";
 import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
@@ -74,7 +74,7 @@ const allSocials = {
                 <li class="c-menu__item">
                   <a
                     class="c-menu__link"
-                    href={`${category.language?.slug}/category/${firstCategoryPage(removeLocaleCode(category.slug))}`}
+                    href={categoryPathBuilder(category.slug, category.language?.slug)}
                   >
                     {category.name}
                   </a>

@@ -106,15 +106,18 @@ export const getPostBySlug = async (
           edges {
             node {
               name
+              slug
               parent {
                 node {
                   name
+                  slug
                 }
               }
               children {
                 edges {
                   node {
                     name
+                    slug
                   }
                 }
               }
