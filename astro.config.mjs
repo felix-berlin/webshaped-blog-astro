@@ -127,8 +127,7 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
       },
       devOptions: {
-        enabled: PWA_DEBUG ?? false,
-        navigateFallbackAllowlist: [/^\//],
+        enabled: !!PWA_DEBUG ?? false,
       },
     }),
     sentry({
