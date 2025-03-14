@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import { languages } from "@utils/i18n/ui";
-import { useTranslatedPath, getRouteFromUrl } from "@utils/i18n/utils";
+import { useTranslatedPath, getRouteFromUrl, translateCmsPath } from "@utils/i18n/utils";
 import { onMounted, ref } from "vue";
 import { currentLanguage, translationRoutes } from "@stores/store";
 import { useStore } from "@nanostores/vue";
@@ -35,14 +35,18 @@ const paths = ref();
 const createPaths = (route: string) => {
   const result = {};
   for (const language in languages) {
-    result[language] = translatePath.value(`/${route ? route : ""}`, language);
+    result[language] = routes.value
+      ? translateCmsPath(currentUrl.value, language, routes.value)
+      : translatePath.value(`/${route ? route : ""}`, language);
   }
+
   paths.value = result;
 };
+
 onMounted(() => {
   currentUrl.value = new URL(window.location.href);
   route.value = getRouteFromUrl(currentUrl.value);
-  translatePath.value = useTranslatedPath(lang.value, routes.value);
+  translatePath.value = useTranslatedPath(lang.value);
   createPaths(route.value);
 });
 </script>
