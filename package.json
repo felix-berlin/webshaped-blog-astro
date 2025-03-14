@@ -127,7 +127,7 @@
     "@felix_berlin/sass-butler": "^3.1.0",
     "@fontsource/source-sans-pro": "^5.2.5",
     "@formkit/auto-animate": "^0.8.2",
-    "@iconify-json/lucide": "^1.2.29",
+    "@iconify-json/lucide": "^1.2.30",
     "@iconify-json/tabler": "^1.2.17",
     "@nanostores/i18n": "^0.12.2",
     "@nanostores/persistent": "^0.10.2",
