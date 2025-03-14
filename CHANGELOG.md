@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.18](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2025-03-14)
+
+
+### Bug Fixes
+
+* **HasTranslations:** update path ([548f9e8](https://github.com/felix-berlin/webshaped-blog-astro/commit/548f9e8689bc6f7c78394e3ad1227de94dc43565))
+
+
+### Features
+
+* **InstallApp:** use new composable useI18n ([bb8b487](https://github.com/felix-berlin/webshaped-blog-astro/commit/bb8b48709653576ca9fd297866685b1bee790444))
+
 # [1.0.0-beta.17](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2025-03-09)
 
 
