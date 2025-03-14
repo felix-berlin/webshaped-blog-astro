@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.21](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2025-03-14)
+
+
+### Bug Fixes
+
+* **breadcrumbs:** locale paths ([add935a](https://github.com/felix-berlin/webshaped-blog-astro/commit/add935a6e45eb6128f62614f9cc5b17f72510ccd))
+* **head:** head content inside title tag ([8039e5e](https://github.com/felix-berlin/webshaped-blog-astro/commit/8039e5eb70a990a5af3550283c4abb36f55b59ca))
+* missing lang prop ([b6e4d22](https://github.com/felix-berlin/webshaped-blog-astro/commit/b6e4d2290cb75b4afa7f1065daccf7045ed9a3c2))
+
+
+### Features
+
+* **i18n:** add category pattern; optimize fn ([c03742b](https://github.com/felix-berlin/webshaped-blog-astro/commit/c03742b22ef2c8a55c82b34ebdd451c55cdf1f5c))
+* use reactive useI18n in client side components ([2558a2f](https://github.com/felix-berlin/webshaped-blog-astro/commit/2558a2f4c894e56abdd82de7e179438b68bbe34c))
+
 # [1.0.0-beta.20](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2025-03-14)
 
 
