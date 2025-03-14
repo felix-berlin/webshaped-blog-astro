@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.22](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.21...v1.0.0-beta.22) (2025-03-14)
+
+
+### Features
+
+* **categories:** Unify categroy slug creation ([9045208](https://github.com/felix-berlin/webshaped-blog-astro/commit/90452089a82322df9c1efae8d5f9582e0639d39a))
+
 # [1.0.0-beta.21](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2025-03-14)
 
 
