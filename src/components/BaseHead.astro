@@ -36,10 +36,13 @@ export interface Seo {
 export interface SeoProps {
   title: Title;
   seo: Seo;
+  lang: "de" | "en";
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo } = Astro.props as SeoProps & Title;
+
+// console.log(Astro.url);
 ---
 
 <SetColorMode />
@@ -69,38 +72,35 @@ const { title, seo } = Astro.props as SeoProps & Title;
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary Meta Tags -->
-<title>{title}</title>
+<title set:text={title} />
 
-{seo?.title && <meta name="title" content={seo?.title} />}
-{seo?.opengraphDescription && <meta name="description" content={seo?.opengraphDescription} />}
+{seo?.title && <meta name="title" content={seo.title} />}
+{seo?.opengraphDescription && <meta name="description" content={seo.opengraphDescription} />}
 
 <!-- Open Graph / Facebook -->
-{seo?.opengraphType && <meta property="og:type" content={seo?.opengraphType} />}
-{seo?.opengraphUrl && <meta property="og:url" content={seo?.opengraphUrl} />}
-{seo?.opengraphTitle && <meta property="og:title" content={seo?.opengraphTitle} />}
-{
-  seo?.opengraphDescription && (
-    <meta property="og:description" content={seo?.opengraphDescription} />
-  )
-}
+{seo?.opengraphType && <meta property="og:type" content={seo.opengraphType} />}
+{seo?.opengraphUrl && <meta property="og:url" content={seo.opengraphUrl} />}
+{seo?.opengraphTitle && <meta property="og:title" content={seo.opengraphTitle} />}
+{seo?.opengraphDescription && <meta property="og:description" content={seo.opengraphDescription} />}
 {
   seo?.opengraphImage?.sourceUrl && (
-    <meta property="og:image" content={seo?.opengraphImage?.sourceUrl} />
+    <meta property="og:image" content={seo.opengraphImage.sourceUrl} />
   )
 }
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-{seo?.opengraphUrl && <meta property="twitter:url" content={seo?.opengraphUrl} />}
-{seo?.twitterTitle && <meta property="twitter:title" content={seo?.twitterTitle} />}
+{seo?.opengraphUrl && <meta property="twitter:url" content={seo.opengraphUrl} />}
+{seo?.twitterTitle && <meta property="twitter:title" content={seo.twitterTitle} />}
+
 {
   seo?.twitterDescription && (
-    <meta property="twitter:description" content={seo?.twitterDescription} />
+    <meta property="twitter:description" content={seo.twitterDescription} />
   )
 }
 {
   seo?.opengraphImage?.sourceUrl && (
-    <meta property="twitter:image" content={seo?.opengraphImage?.sourceUrl} />
+    <meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
   )
 }
 
