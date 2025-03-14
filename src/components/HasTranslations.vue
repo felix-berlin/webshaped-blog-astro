@@ -9,7 +9,7 @@
       class="c-has-translation__translations"
     >
       <a
-        :href="`/${translation?.language?.slug}/${translation?.slug}`"
+        :href="`/${translation?.language?.slug}/posts/${translation?.slug}`"
         class="c-has-translation__link"
         :aria-label="`Blog in ${translation?.language?.name} lesen`"
       >
