@@ -4,6 +4,7 @@
   "color_mode_toggle.dark_label": "Dunklen Modus aktivieren",
   "color_mode_toggle.light_label": "Hellen Modus aktivieren",
   "blog.read_more": "Weiterlesen",
+  "blog.read_in_lang": "Diesen Beitrag in { lang } lesen",
   "blog.table_of_contents": "Inhaltsverzeichnis",
   "share.label": "Seite teilen",
   "post_older_than.text": "Dieser Post wurde seid { years } Jahren nicht mehr aktualisiert. Möglicherweise ist der Inhalt nicht mehr ganz aktuell.",

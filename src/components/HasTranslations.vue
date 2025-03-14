@@ -11,7 +11,7 @@
       <a
         :href="`/${translation?.language?.slug}/posts/${translation?.slug}`"
         class="c-has-translation__link"
-        :aria-label="`Blog in ${translation?.language?.name} lesen`"
+        :aria-label="t('blog.read_in_lang', { lang: translation?.language?.name })"
       >
         {{ translation?.language?.name }}
       </a>

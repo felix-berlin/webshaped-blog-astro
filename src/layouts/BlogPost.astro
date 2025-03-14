@@ -147,7 +147,7 @@ const translationsRoutes = {
       <DateModified date={modifiedGmt || undefined} lang={lang} />
       <ReadingTime time={seo?.readingTime || undefined} lang={lang} />
       <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
-      <HasTranslations translations={translations} lang={lang} client:only="vue" />
+      <HasTranslations translations={translations} lang={lang} />
     </section>
     <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
   </footer>

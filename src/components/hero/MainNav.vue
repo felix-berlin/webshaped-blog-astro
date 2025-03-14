@@ -47,9 +47,9 @@ import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 import { useStore } from "@nanostores/vue";
-import { isMobileBreakpoint, windowWidth, currentLanguage, translationRoutes } from "@stores/store";
+import { isMobileBreakpoint, windowWidth, translationRoutes } from "@stores/store";
 import { useResizeObserver } from "@vueuse/core";
 import type { MenuToMenuItemConnection } from "@ts_types/generated/graphql";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
@@ -64,8 +64,7 @@ const { menuItems, translationsRoutes } = defineProps<MainNavProps>();
 const isMobile = useStore(isMobileBreakpoint);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 
 translationRoutes.set(translationsRoutes);
 

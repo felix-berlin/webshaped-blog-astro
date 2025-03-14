@@ -22,14 +22,11 @@
 
 <script setup lang="ts">
 import Rss from "virtual:icons/lucide/rss";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 import InstallApp from "@components/InstallApp.vue";
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";
 import LanguageDropdown from "@components/LanguageDropdown.vue";
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 </script>

@@ -14,7 +14,7 @@ import TabsView from "@components/tabs/TabsView.vue";
 import TabItem from "@components/tabs/TabItem.vue";
 import CommentsClient from "@components/comments/CommentsClient.vue";
 import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import type { NodeWithAuthor } from "@ts_types/generated/graphql";
@@ -26,7 +26,6 @@ export interface TabDisplayProps {
 
 defineProps<TabDisplayProps>();
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 const WebmentionCount = useStore(currentWebmentionsCount);
 </script>

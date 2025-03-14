@@ -16,12 +16,11 @@
 import Moon from "virtual:icons/lucide/moon";
 import Sun from "virtual:icons/lucide/sun";
 import { useStore } from "@nanostores/vue";
-import { isDarkMode, currentLanguage } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
+import { isDarkMode } from "@stores/store";
+import { useI18n } from "@/composables/useI18n";
 
 const isDark = useStore(isDarkMode);
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 
 /**
  * Toggle the color mode.

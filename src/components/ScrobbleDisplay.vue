@@ -92,9 +92,7 @@
 import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
 import MusicBars from "./MusicBars.vue";
 import X from "virtual:icons/lucide/x";
-import { useTranslations } from "@utils/i18n/utils";
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
+import { useI18n } from "@/composables/useI18n";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
 
 export interface ScrobbleDisplayProps {
@@ -143,8 +141,7 @@ const state: State = reactive({
   idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
 });
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 
 const stop = watchEffect(() => {
   /**

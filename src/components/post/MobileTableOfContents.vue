@@ -25,8 +25,8 @@ import { ref, onMounted } from "vue";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
-import { currentLanguage, windowWidth } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
+import { windowWidth } from "@stores/store";
+import { useI18n } from "@/composables/useI18n";
 import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
 import { onClickOutside } from "@vueuse/core";
 
@@ -34,8 +34,7 @@ interface MobileTableOfContentsProps {
   headings: TableOfContentsProps["headings"];
 }
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 const pageWidth = useStore(windowWidth);
 const props = defineProps<MobileTableOfContentsProps>();
 const toggleButton = ref<HTMLDetailsElement | null>(null);
