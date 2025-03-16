@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.24](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2025-03-16)
+
+
+### Bug Fixes
+
+* **nav:** single top level menu items ([58c9198](https://github.com/felix-berlin/webshaped-blog-astro/commit/58c9198dca30c9113d78581c73d350ea5d4f30e5))
+
 # [1.0.0-beta.23](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.22...v1.0.0-beta.23) (2025-03-14)
 
 
