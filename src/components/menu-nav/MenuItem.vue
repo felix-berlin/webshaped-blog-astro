@@ -3,7 +3,7 @@
     :class="[
       'c-menu__item',
       {
-        'has-child': menuItem?.childItems?.nodes && menuItem?.childItems.nodes?.length > 0,
+        'has-child': hasChild,
         'is-active': isCurrentPath,
         'has-visible-child': isOpen,
       },
@@ -11,14 +11,15 @@
     role="menuitem"
   >
     <a
-      v-if="!props.menuItem.childItems"
-      :href="props.menuItem.path!"
+      v-if="!hasChild"
+      :href="menuItem.path!"
       class="c-menu__link"
-      @click="$emit('menu-item-target-clicked', true)"
-      @mouseenter="$emit('menu-item-target-clicked', true)"
-      @focus="$emit('menu-item-target-clicked', true)"
+      :class="`is-level-${depth}`"
+      @click="$emit('menu-item-target-clicked', depth, index, true)"
+      @mouseenter="$emit('menu-item-target-clicked', depth, index, true)"
+      @focus="$emit('menu-item-target-clicked', depth, index, true)"
     >
-      {{ props.menuItem.label }}
+      {{ menuItem.label }}
     </a>
 
     <!-- If menu item has child -->
@@ -27,13 +28,14 @@
         :ref="`menu-title-${depth}${index}`"
         type="button"
         class="c-menu__link is-menu-title"
+        :class="`is-level-${depth}`"
         :aria-expanded="isOpen"
         :aria-controls="`submenu${depth}${index}`"
-        @click="toggleMenuItem()"
-        @mouseenter="toggleMenuItem()"
-        @focus="toggleMenuItem()"
+        @click="toggleMenuItem(depth, index)"
+        @mouseenter="toggleMenuItem(depth, index)"
+        @focus="toggleMenuItem(depth, index)"
       >
-        <span class="c-menu__link-title">{{ props.menuItem.label }}</span>
+        <span class="c-menu__link-title">{{ menuItem.label }}</span>
         <span
           v-show="$slots.menuTitleIcon"
           class="c-menu__link-icon"
@@ -49,17 +51,15 @@
         :is-open="isOpen"
         :class="[`is-level-${depth} is-${submenuDirection}`, { 'is-open': isOpen }]"
       >
-        <template
-          v-for="(child, childItemIndex) in props.menuItem.childItems.nodes"
-          :key="child.label"
-        >
+        <template v-for="(child, childItemIndex) in menuItem?.childItems?.nodes" :key="child.label">
           <MenuItem
             :menu-item="child"
             :depth="depth + 1"
             :index="childItemIndex"
-            @mouseenter="!!child?.menuItem?.childItems ?? toggleMenuItem()"
-            @click="!!child?.menuItem?.childItems ?? toggleMenuItem()"
-            @focus="!!child?.menuItem?.childItems ?? toggleMenuItem()"
+            :has-child="(child?.childItems?.nodes ?? []).length > 0"
+            @mouseenter="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
+            @click="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
+            @focus="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
           />
         </template>
       </MenuSubmenu>
@@ -68,7 +68,6 @@
 </template>
 
 <script setup lang="ts">
-// FIXME: MenuItems in loop are not working as expected
 import { ref, nextTick } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
@@ -78,10 +77,10 @@ export interface MenuItemProps {
   menuItem: MenuItem;
   depth: number;
   index: number;
-  hasChild?: boolean;
+  hasChild: boolean;
 }
 
-const props = defineProps<MenuItemProps>();
+const { menuItem, depth, index, hasChild } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
 const isCurrentPath = ref(false);
@@ -90,7 +89,7 @@ const submenuDirection = ref("right");
 
 const emit = defineEmits<{
   "submenu-state": [isOpen: boolean];
-  "menu-item-target-clicked": [value: boolean];
+  "menu-item-target-clicked": [depth: number, index: number, value: boolean];
 }>();
 
 /**
@@ -98,11 +97,17 @@ const emit = defineEmits<{
  *
  * @return  {Promise<void>}
  */
-const toggleMenuItem = async (sendEmit?: boolean): Promise<void> => {
+const toggleMenuItem = async (
+  itemDepth: number,
+  itemIndex: number,
+  sendEmit?: boolean,
+): Promise<void> => {
+  if (itemDepth !== depth || itemIndex !== index) return;
+
   isOpen.value = !isOpen.value;
 
   if (sendEmit) {
-    emit("menu-item-target-clicked", true);
+    emit("menu-item-target-clicked", depth, index, true);
   }
 
   await openSubmenu();

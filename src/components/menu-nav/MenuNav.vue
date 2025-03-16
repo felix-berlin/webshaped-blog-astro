@@ -1,14 +1,15 @@
 <template>
   <menu class="c-menu u-list-reset" role="menu">
-    <template v-for="(item, index) in props.menuItems" :key="item.label">
+    <template v-for="(item, index) in menuItems" :key="item.label">
       <MenuItem
         :menu-item="item"
         :depth="0"
         :index="index"
+        :has-child="(item?.childItems?.nodes ?? []).length > 0"
         @submenu-state="$emit('submenu-state', $event)"
         @menu-item-target-clicked="$emit('menu-item-target-clicked', $event)"
       >
-        <template #menuTitleIcon>
+        <template #menuTitleIcon v-if="item.childItems && item.childItems.nodes.length > 0">
           <ChevronDown class="c-main-nav__menu-icon is-mobile" />
         </template>
       </MenuItem>
@@ -25,7 +26,7 @@ export interface MenuProps {
   menuItems: MenuItemData[];
 }
 
-const props = defineProps<MenuProps>();
+const { menuItems } = defineProps<MenuProps>();
 
 defineEmits<{
   "submenu-state": [isOpen: boolean];

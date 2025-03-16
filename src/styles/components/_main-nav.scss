@@ -49,8 +49,7 @@
       z-index: 4;
       background-color: var(--blue-dark);
       inset: 0;
-      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge
-        layout.$spacing-edge;
+      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -103,11 +102,23 @@
       margin-left: 30px;
     }
 
+    a.menu-link.is-level-0 {
+      --color-link-base: var(--red-light);
+    }
+
+    button.menu-link.is-level-0 {
+      color: var(--red-light);
+    }
+
     .c-menu__link {
       font-size: var(--size-font, 24px);
 
       @include mx.breakpoint("sm") {
         --size-font: 18px;
+      }
+
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
