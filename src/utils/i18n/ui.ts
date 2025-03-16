@@ -23,9 +23,9 @@ type Routes = {
 
 export const routes: Routes = {
   de: {
-    "new-index": "neuer-index",
+    about: "ueber-mich",
   },
   en: {
-    "new-index": "new-index",
+    about: "about",
   },
 };

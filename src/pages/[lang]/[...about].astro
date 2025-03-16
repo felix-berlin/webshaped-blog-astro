@@ -7,12 +7,12 @@ import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { routes } from "@utils/i18n/ui";
 
-const pagexData = [routes.de["new-index"], routes.en["new-index"]];
+const pagexData = [routes.de["about"], routes.en["about"]];
 
-const { newIndexSlug } = Astro.params;
+const { about } = Astro.params;
 
 const page = pagexData.find((item) => {
-  return item === newIndexSlug;
+  return item === about;
 });
 
 if (!page) return Astro.redirect("/404");
