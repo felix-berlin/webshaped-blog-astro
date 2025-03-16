@@ -2,18 +2,7 @@ import type { App } from "vue";
 import FloatingVue from "floating-vue";
 import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
 import { devtools } from "@nanostores/vue/devtools";
-
-import {
-  currentWebmentionsCount,
-  isDarkMode,
-  guest,
-  currentLanguage,
-  installPrompt,
-  isMobileBreakpoint,
-  windowWidth,
-  pwaReadyToInstall,
-  translationRoutes,
-} from "@stores/store";
+import * as store from "@stores/store";
 
 export default (app: App) => {
   app.use(FloatingVue, {
@@ -28,15 +17,5 @@ export default (app: App) => {
     },
   });
   app.use(autoAnimatePlugin);
-  app.use(devtools, {
-    currentWebmentionsCount,
-    isDarkMode,
-    guest,
-    currentLanguage,
-    installPrompt,
-    pwaReadyToInstall,
-    isMobileBreakpoint,
-    windowWidth,
-    translationRoutes,
-  });
+  app.use(devtools, store);
 };
