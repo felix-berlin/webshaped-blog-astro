@@ -3,14 +3,15 @@
     <Languages />
     <template #popper>
       <menu class="c-lang-dropdown u-list-reset">
-        <li class="c-lang-dropdown__item" v-for="(path, language) in paths" :key="language">
+        <li class="c-lang-dropdown__item" v-for="(path, language) in routes" :key="language">
           <Component
-            :is="path ? 'a' : 'p'"
+            :is="'a'"
             class="c-lang-dropdown__link"
             :class="{ 'is-not-translated': !path, 'is-active': lang === language }"
             :href="path"
-            >{{ languages[language] }}</Component
           >
+            {{ languages[language] }}
+          </Component>
         </li>
       </menu>
     </template>
@@ -19,36 +20,13 @@
 
 <script setup lang="ts">
 import { languages } from "@utils/i18n/ui";
-import { useTranslatedPath, getRouteFromUrl, translateCmsPath } from "@utils/i18n/utils";
-import { onMounted, ref } from "vue";
-import { currentLanguage, translationRoutes } from "@stores/store";
 import { useStore } from "@nanostores/vue";
+import { currentLanguage, translationRoutes } from "@stores/store";
 import Languages from "virtual:icons/lucide/languages";
 
+// Reactive store values
 const lang = useStore(currentLanguage);
 const routes = useStore(translationRoutes);
-const currentUrl = ref();
-const translatePath = ref();
-const route = ref();
-const paths = ref();
-
-const createPaths = (route: string) => {
-  const result = {};
-  for (const language in languages) {
-    result[language] = routes.value
-      ? translateCmsPath(currentUrl.value, language, routes.value)
-      : translatePath.value(`/${route ? route : ""}`, language);
-  }
-
-  paths.value = result;
-};
-
-onMounted(() => {
-  currentUrl.value = new URL(window.location.href);
-  route.value = getRouteFromUrl(currentUrl.value);
-  translatePath.value = useTranslatedPath(lang.value);
-  createPaths(route.value);
-});
 </script>
 
 <style lang="scss">

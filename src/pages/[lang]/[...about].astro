@@ -7,13 +7,14 @@ import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { routes } from "@utils/i18n/ui";
 
-const pagexData = [routes.de["about"], routes.en["about"]];
+const pageData = [routes.de["about"], routes.en["about"]];
 
 const { about } = Astro.params;
 
-const page = pagexData.find((item) => {
+const page = pageData.find((item) => {
   return item === about;
 });
+// console.log(page);
 
 if (!page) return Astro.redirect("/404");
 
@@ -34,9 +35,14 @@ const content = {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const translationsRoutes = {
+  de: "ueber-mich",
+  en: "about",
+};
 ---
 
-<DefaultLayout content={content} contentClasses="o-index">
+<DefaultLayout content={content} contentClasses="o-index" translationsRoutes={translationsRoutes}>
   <header class="o-developer-card">
     <div class="o-developer-card__text-wrapper">
       <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>

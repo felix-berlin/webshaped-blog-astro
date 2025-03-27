@@ -1,5 +1,5 @@
-import de from "../../content/i18n/de-DE.json";
-import en from "../../content/i18n/en-US.json";
+import de from "@/content/i18n/de-DE.json";
+import en from "@/content/i18n/en-US.json";
 
 export const languages = {
   en: "English",

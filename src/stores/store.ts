@@ -18,6 +18,8 @@ export const currentLanguage = persistentAtom<Language>("language", "en", {
   },
 });
 
+export const translationRoutes = atom<TranslationRoutes | undefined>({});
+
 if (typeof window !== "undefined") {
   window.addEventListener("load", () => {
     const language = navigator.language;
@@ -29,10 +31,10 @@ if (typeof window !== "undefined") {
     } else {
       currentLanguage.set(systemLang);
     }
+
+    translationRoutes.set(window.translationRoutes);
   });
 }
-
-export const translationRoutes = atom<TranslationRoutes | undefined>({});
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");
