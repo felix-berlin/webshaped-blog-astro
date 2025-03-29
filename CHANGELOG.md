@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.25](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.24...v1.0.0-beta.25) (2025-03-29)
+
+
+### Bug Fixes
+
+* **i18n:** set routes directly to store ([6911a95](https://github.com/felix-berlin/webshaped-blog-astro/commit/6911a95773c8ae7a97816d45d7861f678f32af99))
+
 # [1.0.0-beta.24](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2025-03-16)
 
 
