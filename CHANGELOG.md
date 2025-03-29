@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.27](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.26...v1.0.0-beta.27) (2025-03-29)
+
+
+### Bug Fixes
+
+* **pwa:** env var to bool convert; ([dcaed07](https://github.com/felix-berlin/webshaped-blog-astro/commit/dcaed0735aa8ab394ea336fc94154a21920f0218))
+
 # [1.0.0-beta.26](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.25...v1.0.0-beta.26) (2025-03-29)
 
 
