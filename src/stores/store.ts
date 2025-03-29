@@ -31,8 +31,6 @@ if (typeof window !== "undefined") {
     } else {
       currentLanguage.set(systemLang);
     }
-
-    translationRoutes.set(window.translationRoutes);
   });
 }
 

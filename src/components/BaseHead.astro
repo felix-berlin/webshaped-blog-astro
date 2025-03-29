@@ -7,6 +7,7 @@ import { WEBMENTION_URL } from "astro:env/server";
 import SetColorMode from "@components/SetColorMode.astro";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
+import StoreSetter from "@components/StoreSetter.vue";
 export interface Title {
   title: string;
 }
@@ -85,9 +86,7 @@ const fullTranslationRoutes = Object.entries(translations).reduce<TranslationRou
 );
 ---
 
-<script define:vars={{ fullTranslationRoutes }}>
-  window.translationRoutes = fullTranslationRoutes;
-</script>
+<StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
 <SetColorMode />
 <ClientRouter />
 
