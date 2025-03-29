@@ -40,6 +40,7 @@ export default defineConfig({
     mode: "standalone",
   }),
   site: SITE_URL,
+  trailingSlash: "never",
   markdown: {
     syntaxHighlight: "shiki",
     // shikiConfig: {

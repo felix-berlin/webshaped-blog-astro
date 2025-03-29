@@ -78,6 +78,10 @@ export function createLocalizedUrl(
 const translations = translationsRoutes || {};
 const fullTranslationRoutes = Object.entries(translations).reduce<TranslationRoutes>(
   (acc, [key, value]) => {
+    if (!key || key === "undefined") {
+      return acc; // Skip undefined or invalid language keys
+    }
+
     const alternateUrl = createLocalizedUrl(Astro.url.href, key, translations);
     acc[key] = alternateUrl; // Add the key-value pair to the object
     return acc;
