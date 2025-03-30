@@ -99,7 +99,7 @@ const path = `${lang}/category/${slug}`;
 const posts = page.data;
 
 const translationsRoutes = availableLanguages.reduce((acc, language) => {
-  acc[language] = `${language}/category/${slug}/${page.currentPage}`;
+  acc[language] = `/${language}/category/${slug}/${page.currentPage}`;
   return acc;
 }, {});
 ---
@@ -113,7 +113,7 @@ const translationsRoutes = availableLanguages.reduce((acc, language) => {
     <h1 class="o-category__headline">{content.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts} client:visible />
+    <BlogPostPreview posts={posts} />
   </section>
   <Pagination page={page} path={path} lang={content.language} />
 </DefaultLayout>

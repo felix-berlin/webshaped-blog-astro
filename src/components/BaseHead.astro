@@ -51,15 +51,12 @@ export interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo, translationsRoutes, lang } = Astro.props;
 
-// TODO: optimize following code
-export function createTaxonomyLocalizedUrl(
-  url: URL,
-  lang: string,
-  translations: TranslationRoutes
-): string {
-  return `${url.origin}/${translations[lang]}`;
-}
-
+/**
+ * This function creates a localized URL based on slug.
+ * @param url - A string (href) that represents the URL to be localized.
+ * @param lang  - A string that represents the language code (e.g., "de" or "en").
+ * @param translations - An object containing translation routes for different languages.
+ */
 export function createLocalizedUrl(
   url: string,
   lang: string,
@@ -69,53 +66,33 @@ export function createLocalizedUrl(
   const lastPart = urlParts.pop(); // Remove the last part of the URL
 
   // Replace the language segment (e.g., /de/ or /en/) in the URL
-  urlParts.forEach((part, index) => {
-    if (part === "de" || part === "en") {
-      urlParts[index] = lang;
-    }
-  });
+  const updatedUrlParts = urlParts.map((part) => (part === "de" || part === "en" ? lang : part));
 
-  if (lastPart && translations[lang]) {
-    urlParts.push(translations[lang]); // Replace with the translation for the current language
-  } else {
-    urlParts.push(lastPart); // If no translation is found, keep the original last part
-  }
+  // Append the translated or original last part
+  const translatedLastPart = lastPart && translations[lang] ? translations[lang] : lastPart;
+  updatedUrlParts.push(translatedLastPart);
 
-  return urlParts.join("/");
+  return updatedUrlParts.join("/");
 }
 
 const translations = translationsRoutes || {};
-let fullTranslationRoutes = {};
 const isTaxonomy = translations?.taxonomy === "category";
-let taxonomyRoutes = {};
-if (isTaxonomy) {
-  delete translations.taxonomy;
 
-  taxonomyRoutes = Object.entries(translations).reduce<TranslationRoutes>(
-    (acc, [key, value]) => {
-      const alternateUrl = createTaxonomyLocalizedUrl(Astro.url, key, translations);
-      acc[key] = alternateUrl; // Add the key-value pair to the object
-      return acc;
-    },
-    {} as TranslationRoutes // Initialize the accumulator with the correct type
-  );
-}
+// Separate taxonomy routes if applicable
+// Remove the taxonomy key from translations, this was just for identification
+// and not needed in the final routes
+const taxonomyRoutes = isTaxonomy ? (({ taxonomy, ...rest }) => rest)(translations) : {};
 
-const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>(
-  (acc, [key, value]) => {
-    if (!key || key === "undefined") {
-      return acc; // Skip undefined or invalid language keys
-    }
+// Create localized URLs excluding the taxonomy
+const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>((acc, [key, value]) => {
+  if (key && key !== "undefined") {
+    acc[key] = createLocalizedUrl(Astro.url.href, key, translations);
+  }
+  return acc;
+}, {} as TranslationRoutes);
 
-    const alternateUrl = createLocalizedUrl(Astro.url.href, key, translations);
-    acc[key] = alternateUrl; // Add the key-value pair to the object
-    return acc;
-  },
-  {} as TranslationRoutes // Initialize the accumulator with the correct type
-);
-
-if (isTaxonomy) fullTranslationRoutes = taxonomyRoutes;
-else fullTranslationRoutes = otherRoutes;
+// Determine the full translation routes
+const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 ---
 
 <StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
