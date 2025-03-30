@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.29](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2025-03-30)
+
+
+### Bug Fixes
+
+* **i18n:** link alternate hrefs ([0506945](https://github.com/felix-berlin/webshaped-blog-astro/commit/050694564ef5956d751bf35e42b59a86be163684))
+
+
+### Performance Improvements
+
+* **TableOfContents:** prevent he package from export to client script ([2a69a18](https://github.com/felix-berlin/webshaped-blog-astro/commit/2a69a18f09efbeaae1eca5047e7308e5cb3240f6))
+
 # [1.0.0-beta.28](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2025-03-30)
 
 
