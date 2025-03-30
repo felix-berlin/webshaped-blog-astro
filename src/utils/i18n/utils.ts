@@ -1,6 +1,5 @@
-import { localeStrings, defaultLang, showDefaultLang, routes } from "./ui";
+import { localeStrings, defaultLang } from "./ui";
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 /**
  * Extracts the language code from the given URL's pathname.
@@ -73,96 +72,6 @@ export const useTranslations = (lang: keyof typeof localeStrings): Function => {
 };
 
 /**
- * Hook to generate a translated path based on the provided language.
- *
- * @param lang - The language key to use for translation, which should be a key of the `localeStrings` object.
- * @returns A function that translates a given path to the specified language.
- *
- * The returned function takes the following parameters:
- * @param path - The original path to be translated.
- * @param l - The language key to translate the path to. Defaults to the `lang` parameter.
- * @returns The translated path. If the path does not have a translation, it returns the original path.
- * If `showDefaultLang` is false and the language is the default language, it returns the translated path without the language prefix.
- */
-export const useTranslatedPath = (lang: keyof typeof localeStrings) => {
-  return function translatePath(path: string, l: string = lang) {
-    const pathName = path.replaceAll("/", "");
-
-    const hasAstroTranslation =
-      defaultLang !== l && routes[l] !== undefined && routes[l][pathName] !== undefined;
-
-    const translatedPath = hasAstroTranslation ? `/${routes[l][pathName]}` : path;
-
-    if (!translatedPath) return;
-    return !showDefaultLang && l === defaultLang ? translatedPath : `/${l}${translatedPath}`;
-  };
-};
-
-export const translateCmsPath = (
-  url: string,
-  lang: string,
-  translationRoutes: TranslationRoutes,
-) => {
-  const pathname = new URL(url).pathname;
-  const newPath = pathname.split("/").slice(2, -1).join("/");
-  const routes = translationRoutes?.[lang];
-
-  if (!routes) return;
-
-  return `/${lang}/${newPath}/${routes}`;
-};
-
-/**
- * Retrieves the route from a given URL.
- *
- * @param url - The URL object from which to extract the route.
- * @returns The route as a string if found, otherwise `undefined`.
- *
- * This function extracts the pathname from the provided URL, splits it into parts,
- * and attempts to determine the route based on the current language and predefined routes.
- * If the current language matches the default language, it checks if the path exists in the routes.
- * If the current language is different, it reverses the lookup to find the corresponding key.
- */
-export const getRouteFromUrl = (url: URL): string | undefined => {
-  const pathname = new URL(url).pathname;
-  const parts = pathname?.split("/");
-  const path = parts.pop();
-
-  if (path === undefined) {
-    return undefined;
-  }
-
-  // Handle dynamic routes
-  const dynamicRoutePattern = /^\/(\w+)\/category\/(\w+)\/(\d+)$/;
-  const match = pathname.match(dynamicRoutePattern);
-
-  if (match) {
-    const [, langSegment, category, page] = match;
-    return `category/${category}/${page}`;
-  }
-
-  const currentLang = getLangFromUrl(url);
-
-  if (defaultLang === currentLang) {
-    const route = Object.values(routes)[0];
-
-    return route[path] !== undefined ? route[path] : undefined;
-  }
-
-  const getKeyByValue = (obj: Record<string, string>, value: string): string | undefined => {
-    return Object.keys(obj).find((key) => obj[key] === value);
-  };
-
-  const reversedKey = getKeyByValue(routes[currentLang], path);
-
-  if (reversedKey !== undefined) {
-    return reversedKey;
-  }
-
-  return undefined;
-};
-
-/**
  * Selects the correct plural based on the language and the plural object supplied.
  *
  * @param   {string}  translationString  translation string
@@ -178,6 +87,14 @@ const pluralFormFor = (translationString: string, count: number, locale: string)
   return translationString[matchingForm as keyof typeof translationString] as string;
 };
 
+/**
+ * Builds the path for a category based on the provided slug and language.
+ *
+ * @param   {string}  categorySlug   The slug of the category.
+ * @param   {string}  lang          The language code.
+ *
+ * @return  {string}                The constructed path for the category.
+ */
 export const categoryPathBuilder = (categorySlug: string, lang: string) => {
   return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug))}`;
 };

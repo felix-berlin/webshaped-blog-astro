@@ -8,24 +8,7 @@ export const languages = {
 
 export const defaultLang = "de";
 
-export const showDefaultLang = true;
-
 export const localeStrings = {
   en,
   de,
-};
-
-type Routes = {
-  [key: string]: {
-    [key: string]: string;
-  };
-};
-
-export const routes: Routes = {
-  de: {
-    about: "ueber-mich",
-  },
-  en: {
-    about: "about",
-  },
 };

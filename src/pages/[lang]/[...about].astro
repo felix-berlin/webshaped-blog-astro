@@ -5,16 +5,19 @@ import GithubStats from "@components/GithubStats.vue";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
-import { routes } from "@utils/i18n/ui";
 
-const pageData = [routes.de["about"], routes.en["about"]];
+const translationsRoutes = {
+  de: "ueber-mich",
+  en: "about",
+};
+
+const pageData = [translationsRoutes.de, translationsRoutes.en];
 
 const { about } = Astro.params;
 
 const page = pageData.find((item) => {
   return item === about;
 });
-// console.log(page);
 
 if (!page) return Astro.redirect("/404");
 
@@ -35,11 +38,6 @@ const content = {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const translationsRoutes = {
-  de: "ueber-mich",
-  en: "about",
-};
 ---
 
 <DefaultLayout content={content} contentClasses="o-index" translationsRoutes={translationsRoutes}>
