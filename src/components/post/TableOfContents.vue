@@ -9,13 +9,12 @@
             'is-active': isActiveHeadline(headline),
           },
         ]"
+        v-bind="
+          isHtml(headline.content)
+            ? { textContent: getHtmlContent(headline.content) }
+            : { innerHTML: headline.content }
+        "
       >
-        <template v-if="isHtml(headline.content)">
-          {{ getHtmlContent(headline.content) }}
-        </template>
-        <template v-else>
-          {{ he.decode(headline.content) }}
-        </template>
       </a>
     </template>
   </component>
@@ -25,7 +24,6 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import slugify from "slugify";
 import { isHtml, getHtmlContent } from "@utils/helpers";
-import he from "he";
 
 export interface TableOfContentsProps {
   headings: {
