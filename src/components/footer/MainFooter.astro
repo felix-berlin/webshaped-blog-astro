@@ -7,7 +7,7 @@ import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
-import InstallApp from "@components/InstallApp.vue";
+// import InstallApp from "@components/InstallApp.vue";
 import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
@@ -118,7 +118,8 @@ const allSocials = {
       </a>
 
       <GreenHosted lang={lang} />
-      <InstallApp showIcon={true} client:only="vue" cssClass="c-button--like-link" />
+      <!-- FIXME: PWA is not working (manifest is not found ect.) -->
+      <!-- <InstallApp showIcon={true} client:only="vue" cssClass="c-button--like-link" /> -->
     </div>
   </div>
 </footer>

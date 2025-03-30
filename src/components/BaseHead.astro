@@ -1,7 +1,7 @@
 ---
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
-import { pwaInfo } from "virtual:pwa-info";
+// import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
 import { WEBMENTION_URL } from "astro:env/server";
 import SetColorMode from "@components/SetColorMode.astro";
@@ -99,8 +99,9 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 <SetColorMode />
 <ClientRouter />
 
-{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
-<script src="/src/services/pwa.ts"></script>
+<!-- FIXME: PWA is not working (manifest is not found ect.) -->
+<!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
+<!-- <script src="/src/services/pwa.ts"></script> -->
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />

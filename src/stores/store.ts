@@ -91,41 +91,42 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
 }
 
+// FIXME: PWA is not working (manifest is not found ect.)
 export const installPrompt = atom<BeforeInstallPromptEvent | null>(null);
 export const pwaReadyToInstall = atom<boolean>(false);
 
-if (typeof window !== "undefined") {
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
+// if (typeof window !== "undefined") {
+//   window.addEventListener("beforeinstallprompt", (event) => {
+//     event.preventDefault();
 
-    installPrompt.set(event as BeforeInstallPromptEvent);
-    pwaReadyToInstall.set(true);
-  });
-}
+//     installPrompt.set(event as BeforeInstallPromptEvent);
+//     pwaReadyToInstall.set(true);
+//   });
+// }
 
 /**
  * Triggers the PWA install prompt.
  *
  * @return  {Promise<void>}
  */
-export const triggerPwaInstall = async (): Promise<void> => {
-  if (!installPrompt.get()) return;
+// export const triggerPwaInstall = async (): Promise<void> => {
+//   if (!installPrompt.get()) return;
 
-  await installPrompt?.get()?.prompt();
-  // console.log(`Install prompt was: ${result?.outcome}`);
+//   await installPrompt?.get()?.prompt();
+//   // console.log(`Install prompt was: ${result?.outcome}`);
 
-  disableInAppInstallPrompt();
-};
+//   disableInAppInstallPrompt();
+// };
 
 /**
  * Disables the PWA install prompt.
  *
  * @return  {void}
  */
-export const disableInAppInstallPrompt = (): void => {
-  installPrompt.set(null);
-  pwaReadyToInstall.set(false);
-};
+// export const disableInAppInstallPrompt = (): void => {
+//   installPrompt.set(null);
+//   pwaReadyToInstall.set(false);
+// };
 
 export const isMobileBreakpoint = atom<boolean>(false);
 export const windowWidth = atom<number>(0);

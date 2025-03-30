@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import node from "@astrojs/node";
 import matomo from "astro-matomo";
 import Icons from "unplugin-icons/vite";
-import AstroPWA from "@vite-pwa/astro";
+// import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
@@ -91,51 +91,52 @@ export default defineConfig({
       heartBeatTimer: 5,
       disableCookies: true,
     }),
-    AstroPWA({
-      $schema: "https://json.schemastore.org/web-manifest-combined.json",
-      mode: import.meta.env.DEV ? "development" : "production",
-      base: "/",
-      scope: "/",
-      includeAssets: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
-      registerType: "autoUpdate",
-      manifest: {
-        name: "Web Shaped",
-        short_name: "WS",
-        theme_color: "#ffffff",
-        background_color: "#303956",
-        lang: "en",
-        icons: [
-          {
-            src: "android-chrome-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "android-chrome-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-          {
-            src: "android-chrome-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
-          },
-        ],
-      },
-      workbox: {
-        globDirectory: "dist",
-        // navigateFallback: "/404",
-        globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
-      },
-      devOptions: {
-        enabled: PWA_DEBUG === "true",
-        navigateFallbackAllowlist: [/^\/$/],
-      },
-      experimental: {
-        directoryAndTrailingSlashHandler: true,
-      },
-    }),
+    // FIXME: PWA is not working (manifest is not found ect.)
+    // AstroPWA({
+    //   $schema: "https://json.schemastore.org/web-manifest-combined.json",
+    //   mode: import.meta.env.DEV ? "development" : "production",
+    //   base: "/",
+    //   scope: "/",
+    //   includeAssets: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
+    //   registerType: "autoUpdate",
+    //   manifest: {
+    //     name: "Web Shaped",
+    //     short_name: "WS",
+    //     theme_color: "#ffffff",
+    //     background_color: "#303956",
+    //     lang: "en",
+    //     icons: [
+    //       {
+    //         src: "android-chrome-192x192.png",
+    //         sizes: "192x192",
+    //         type: "image/png",
+    //       },
+    //       {
+    //         src: "android-chrome-512x512.png",
+    //         sizes: "512x512",
+    //         type: "image/png",
+    //       },
+    //       {
+    //         src: "android-chrome-512x512.png",
+    //         sizes: "512x512",
+    //         type: "image/png",
+    //         purpose: "any maskable",
+    //       },
+    //     ],
+    //   },
+    //   workbox: {
+    //     globDirectory: "dist",
+    //     // navigateFallback: "/404",
+    //     globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
+    //   },
+    //   devOptions: {
+    //     enabled: PWA_DEBUG === "true",
+    //     navigateFallbackAllowlist: [/^\/$/],
+    //   },
+    //   experimental: {
+    //     directoryAndTrailingSlashHandler: true,
+    //   },
+    // }),
     sentry({
       release: `${name}@${version}`,
       dsn: SENTRY_DSN,
