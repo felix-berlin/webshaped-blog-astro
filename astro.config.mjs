@@ -143,6 +143,11 @@ export default defineConfig({
       sourceMapsUploadOptions: {
         project: SENTRY_PROJECT_ID,
         authToken: SENTRY_AUTH_TOKEN,
+        filesToDeleteAfterUpload: ["dist/**/*.map"],
+      },
+      debug: false,
+      bundleSizeOptimizations: {
+        excludeDebugStatements: true,
       },
     }),
     codecovplugin({

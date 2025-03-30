@@ -17,5 +17,7 @@ export default (app: App) => {
     },
   });
   app.use(autoAnimatePlugin);
-  app.use(devtools, store);
+  if (process.env.NODE_ENV !== "production") {
+    app.use(devtools, store); // Only enable devtools in non-production environments
+  }
 };
