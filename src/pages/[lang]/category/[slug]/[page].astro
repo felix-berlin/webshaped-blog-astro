@@ -31,7 +31,15 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
     const categoriesDe = category.posts?.nodes;
     const categoriesEn = category.translations;
 
-    if (!Array.isArray(categoriesDe) || !categoriesDe.length) return [];
+    const availableLanguages: string[] = [];
+
+    const hasDeCategories = Array.isArray(categoriesDe) && categoriesDe.length;
+
+    if (hasDeCategories) {
+      availableLanguages.push(category.language?.slug);
+    }
+
+    if (!hasDeCategories) return [];
 
     const germanPaths = paginate(categoriesDe as Node[] & Post[], {
       props: {
@@ -39,6 +47,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
           title: category.name,
           language: category.language,
         },
+        availableLanguages: availableLanguages,
       },
       params: {
         slug: category.slug as string,
@@ -52,7 +61,13 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
       categoriesEn?.flatMap((translation) => {
         const categoriesEnPosts = translation?.posts?.nodes;
 
-        if (!Array.isArray(categoriesEnPosts) || !categoriesEnPosts?.length) return [];
+        const hasEnCategories = Array.isArray(categoriesEnPosts) && categoriesEnPosts.length;
+
+        if (hasEnCategories) {
+          availableLanguages.push(translation?.language?.slug);
+        }
+
+        if (!hasEnCategories) return [];
 
         return paginate(categoriesEnPosts as Node[] & Post[], {
           props: {
@@ -60,6 +75,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
               title: translation?.name,
               language: translation?.language,
             },
+            availableLanguages: availableLanguages,
           },
           params: {
             slug: removeLocaleCode(translation?.slug) as string,
@@ -76,15 +92,23 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { page, content } = Astro.props as Props;
+const { page, content, availableLanguages } = Astro.props as Props;
 const { lang, slug } = Astro.params as Params;
 
 const path = `${lang}/category/${slug}`;
-
 const posts = page.data;
+
+const translationsRoutes = availableLanguages.reduce((acc, language) => {
+  acc[language] = `${language}/category/${slug}/${page.currentPage}`;
+  return acc;
+}, {});
 ---
 
-<DefaultLayout content={content} contentClasses="o-category">
+<DefaultLayout
+  content={content}
+  contentClasses="o-category"
+  translationsRoutes={{ taxonomy: "category", ...translationsRoutes }}
+>
   <header class="o-category__header">
     <h1 class="o-category__headline">{content.title}</h1>
   </header>

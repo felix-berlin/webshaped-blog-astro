@@ -6,8 +6,8 @@ import { ClientRouter } from "astro:transitions";
 import { WEBMENTION_URL } from "astro:env/server";
 import SetColorMode from "@components/SetColorMode.astro";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
-
 import StoreSetter from "@components/StoreSetter.vue";
+
 export interface Title {
   title: string;
 }
@@ -51,6 +51,15 @@ export interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo, translationsRoutes, lang } = Astro.props;
 
+// TODO: optimize following code
+export function createTaxonomyLocalizedUrl(
+  url: URL,
+  lang: string,
+  translations: TranslationRoutes
+): string {
+  return `${url.origin}/${translations[lang]}`;
+}
+
 export function createLocalizedUrl(
   url: string,
   lang: string,
@@ -76,7 +85,23 @@ export function createLocalizedUrl(
 }
 
 const translations = translationsRoutes || {};
-const fullTranslationRoutes = Object.entries(translations).reduce<TranslationRoutes>(
+let fullTranslationRoutes = {};
+const isTaxonomy = translations?.taxonomy === "category";
+let taxonomyRoutes = {};
+if (isTaxonomy) {
+  delete translations.taxonomy;
+
+  taxonomyRoutes = Object.entries(translations).reduce<TranslationRoutes>(
+    (acc, [key, value]) => {
+      const alternateUrl = createTaxonomyLocalizedUrl(Astro.url, key, translations);
+      acc[key] = alternateUrl; // Add the key-value pair to the object
+      return acc;
+    },
+    {} as TranslationRoutes // Initialize the accumulator with the correct type
+  );
+}
+
+const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>(
   (acc, [key, value]) => {
     if (!key || key === "undefined") {
       return acc; // Skip undefined or invalid language keys
@@ -88,6 +113,9 @@ const fullTranslationRoutes = Object.entries(translations).reduce<TranslationRou
   },
   {} as TranslationRoutes // Initialize the accumulator with the correct type
 );
+
+if (isTaxonomy) fullTranslationRoutes = taxonomyRoutes;
+else fullTranslationRoutes = otherRoutes;
 ---
 
 <StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
