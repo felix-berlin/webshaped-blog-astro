@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.28](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2025-03-30)
+
+
+### Features
+
+* **i18n:** add taxonomy support ([ba67a6a](https://github.com/felix-berlin/webshaped-blog-astro/commit/ba67a6a0a5fd7e5464ac0cdc29433fd91ed7477b))
+
 # [1.0.0-beta.27](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.26...v1.0.0-beta.27) (2025-03-29)
 
 
