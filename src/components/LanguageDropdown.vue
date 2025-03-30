@@ -4,14 +4,9 @@
     <template #popper>
       <menu class="c-lang-dropdown u-list-reset">
         <li class="c-lang-dropdown__item" v-for="(path, language) in routes" :key="language">
-          <Component
-            :is="'a'"
-            class="c-lang-dropdown__link"
-            :class="{ 'is-not-translated': !path, 'is-active': lang === language }"
-            :href="path"
-          >
+          <a class="c-lang-dropdown__link" :class="{ 'is-active': lang === language }" :href="path">
             {{ languages[language] }}
-          </Component>
+          </a>
         </li>
       </menu>
     </template>
