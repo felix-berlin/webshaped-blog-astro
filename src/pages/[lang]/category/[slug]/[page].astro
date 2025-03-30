@@ -99,7 +99,7 @@ const path = `${lang}/category/${slug}`;
 const posts = page.data;
 
 const translationsRoutes = availableLanguages.reduce((acc, language) => {
-  acc[language] = `/${language}/category/${slug}/${page.currentPage}`;
+  acc[language] = `${Astro.url.origin}/${language}/category/${slug}/${page.currentPage}`;
   return acc;
 }, {});
 ---

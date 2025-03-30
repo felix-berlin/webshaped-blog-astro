@@ -109,11 +109,10 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 <!-- Locale -->
 {
   Object.entries(fullTranslationRoutes).map(([key, value]) => {
-    const alternateUrl = createLocalizedUrl(Astro.url.href, key, fullTranslationRoutes);
-    return <link rel="alternate" hreflang={key} href={alternateUrl} />;
+    return <link rel="alternate" hreflang={key} href={value} />;
   })
 }
-<link rel="alternate" hreflang="x-default" href={translations["de"]} />
+<link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
 
 <!-- Favicon -->
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
