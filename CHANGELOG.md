@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.30](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2025-03-30)
+
+
+### Performance Improvements
+
+* remove vue dev tools and source map on prod ([7724afe](https://github.com/felix-berlin/webshaped-blog-astro/commit/7724afea2c6c83f3b0ae63d74c1d319a8e9a358f))
+
 # [1.0.0-beta.29](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2025-03-30)
 
 
