@@ -302,3 +302,25 @@ export const getPostBySlug = async (
 
   return data?.post;
 };
+
+export const getAllRssPostsFromEachLang = async (
+  languages = "[DE, EN]",
+): Promise<RootQueryToPostConnection> => {
+  const data = await fetchAPI(`
+  {
+    posts(first: 10000, where: {status: PUBLISH, languages: ${languages}}) {
+      nodes {
+        title
+        slug
+        excerpt
+        dateGmt
+        language {
+          slug
+        }
+      }
+    }
+  }
+  `).then((res) => res.data);
+
+  return data?.posts;
+};
