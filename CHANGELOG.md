@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.31](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2025-03-31)
+
+
+### Features
+
+* **api:** new query createLocalizedUrl ([c9fb60e](https://github.com/felix-berlin/webshaped-blog-astro/commit/c9fb60e5da713053c21f9009f2680eee7a6e6766))
+* **api:** new query createLocalizedUrl ([011cae3](https://github.com/felix-berlin/webshaped-blog-astro/commit/011cae3dc0d05794107e5240393fa4e6f0aac4aa))
+* create RssLink component ([549c039](https://github.com/felix-berlin/webshaped-blog-astro/commit/549c0392f700eb2abcda4cd176df2b0c9f54e3ff))
+* **head:** add rss auto discovery link; ([5c9da34](https://github.com/felix-berlin/webshaped-blog-astro/commit/5c9da34c03b3f45e1fdb6c48ba9ecc96d3ac9d62))
+* replace current rss link by component ([5ff8357](https://github.com/felix-berlin/webshaped-blog-astro/commit/5ff835759962df411e1c7822d29530570f0a7ae3))
+* **rss:** add localized rss feeds ([056fc51](https://github.com/felix-berlin/webshaped-blog-astro/commit/056fc51b82034abe692688d7b6c4777117a6e3a0))
+
 # [1.0.0-beta.30](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2025-03-30)
 
 
