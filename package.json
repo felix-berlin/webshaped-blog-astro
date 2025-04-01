@@ -60,7 +60,7 @@
     "compose:build:build": "docker-compose -f compose.yaml build",
     "compose:build:update": "docker-compose -f compose.yaml pull"
   },
-  "packageManager": "pnpm@10.7.0",
+  "packageManager": "pnpm@10.7.1",
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@codecov/astro-plugin": "^1.9.0",
@@ -78,7 +78,7 @@
     "@shikijs/transformers": "^3.2.1",
     "@types/he": "^1.2.3",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.13.17",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
     "@vite-pwa/astro": "^1.0.0",
@@ -104,7 +104,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "rollup-plugin-visualizer": "^5.14.0",
-    "sass": "^1.86.0",
+    "sass": "^1.86.1",
     "semantic-release": "^24.2.3",
     "sirv": "^3.0.1",
     "stylelint": "^16.17.0",
