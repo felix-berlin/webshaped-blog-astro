@@ -2,14 +2,14 @@
   <figure class="c-blocks__image">
     <ImageResponsive
       v-if="block.name === 'core/image'"
-      :id="id"
-      :src="url"
-      :width="width"
-      :height="height"
-      :alt="alt"
+      :id="attributes?.id"
+      :src="attributes?.src"
+      :width="mediaDetails?.width"
+      :height="mediaDetails?.height"
+      :alt="attributes?.alt"
       class="c-blog__hero-image"
     />
-    <figcaption v-if="caption" v-html="caption" />
+    <figcaption v-if="attributes?.caption" v-html="attributes?.caption" />
   </figure>
 </template>
 
@@ -23,6 +23,6 @@ export interface FigureBlockProps {
 
 const props = defineProps<FigureBlockProps>();
 
-const { id, url, width, height, alt, caption } = props.block.attributes;
-const mediaItem = props.block.mediaItem?.node;
+const attributes = props.block.attributes;
+const mediaDetails = props.block.mediaDetails;
 </script>

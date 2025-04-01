@@ -51,7 +51,6 @@ export interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo, translationsRoutes, lang } = Astro.props;
-console.log(lang);
 
 const translations = translationsRoutes || {};
 const isTaxonomy = translations?.taxonomy === "category";

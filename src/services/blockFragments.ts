@@ -64,15 +64,15 @@ const coreImage = `
       sizes {
         sourceUrl
         file
-        filePath
         fileSize
         height
         mimeType
         name
         width
       }
+      height
+      width
     }
-    renderedHtml
   }
 `;
 
