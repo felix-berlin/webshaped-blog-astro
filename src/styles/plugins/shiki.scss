@@ -1,16 +1,28 @@
 // TODO: add light theme, maybe better dark theme as well?
 // Example: https://github.com/withastro/starlight/blob/40a2b31461a0aca3d182567f430c380d7184e0d6/packages/starlight/style/shiki.css
 // Docs: https://github.com/shikijs/shiki/blob/main/docs/themes.md
-:root {
-  --astro-code-color-text: #e1e4e8;
-  --astro-code-color-background: #24292e;
-  --astro-code-token-constant: #ffab70;
-  --astro-code-token-string: #9ecbff;
-  --astro-code-token-comment: #6a737d;
-  --astro-code-token-keyword: #f97583;
-  --astro-code-token-parameter: #79b8ff;
-  --astro-code-token-function: #79b8ff;
-  --astro-code-token-string-expression: #9ecbff;
-  --astro-code-token-punctuation: #6a737d;
-  --astro-code-token-link: #ffab70;
+// :root {
+//   --astro-code-color-text: #e1e4e8;
+//   --astro-code-color-background: #24292e;
+//   --astro-code-token-constant: #ffab70;
+//   --astro-code-token-string: #9ecbff;
+//   --astro-code-token-comment: #6a737d;
+//   --astro-code-token-keyword: #f97583;
+//   --astro-code-token-parameter: #79b8ff;
+//   --astro-code-token-function: #79b8ff;
+//   --astro-code-token-string-expression: #9ecbff;
+//   --astro-code-token-punctuation: #6a737d;
+//   --astro-code-token-link: #ffab70;
+// }
+
+.dark {
+  .astro-code,
+  .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }

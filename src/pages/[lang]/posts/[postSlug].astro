@@ -16,6 +16,9 @@ import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
 import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
 import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
 import { Code } from "astro/components";
+import he from "he";
+import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
+import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
@@ -93,9 +96,13 @@ const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
         return (
           <div class="c-blocks__code">
             <Code
-              code={block.attributes?.content}
+              code={he.decode(block.attributes?.content || "")}
               lang={block.attributes?.className}
-              theme="css-variables"
+              themes={{
+                light: materialThemeLighter,
+                dark: materialThemePalenight,
+              }}
+              wrap
             />
           </div>
         );
