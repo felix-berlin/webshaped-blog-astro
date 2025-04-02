@@ -1,6 +1,8 @@
 ---
 import type { GithubRawData } from "@ts_types/generated/graphql";
 import { Code } from "astro/components";
+import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
+import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
 interface GitHubRawDataProps {
   block: GithubRawData;
@@ -20,5 +22,13 @@ const content = await getContent();
 ---
 
 <div class="c-blocks__code">
-  <Code code={content} lang={codeLanguage} theme="css-variables" />
+  <Code
+    code={content}
+    lang={codeLanguage}
+    themes={{
+      light: materialThemeLighter,
+      dark: materialThemePalenight,
+    }}
+    wrap
+  />
 </div>
