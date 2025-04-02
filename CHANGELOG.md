@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.32](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2025-04-01)
+
+
+### Bug Fixes
+
+* **FigureBlock:** attributes ([12ec8dc](https://github.com/felix-berlin/webshaped-blog-astro/commit/12ec8dcb80abf2794b937fac92a2db2a8b19965b))
+
+
+### Features
+
+* add code light and dark theme ([273481a](https://github.com/felix-berlin/webshaped-blog-astro/commit/273481a7292472b501cfa9ba9951180fc2ddfc26))
+
 # [1.0.0-beta.31](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2025-03-31)
 
 
