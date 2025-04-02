@@ -1,11 +1,15 @@
 import type { Post, RootQueryToPostConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 import { allBlocks, coreDetails } from "./blockFragments";
+import { SHOW_TEST_DATA } from "astro:env/client";
 
-export const getAllPostsWithSlugs = async (language = "DE"): Promise<RootQueryToPostConnection> => {
+export const getAllPostsWithSlugs = async (
+  language = "DE",
+  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
+): Promise<RootQueryToPostConnection> => {
   const data = await fetchAPI(`
   {
-    posts(first: 10000, where: {status: PUBLISH, language: ${language}}) {
+    posts(first: 10000, where: {stati: ${stati}, language: ${language}}) {
       edges {
         node {
           slug
@@ -272,6 +276,8 @@ export const getPostBySlug = async (
           readingTime
           canonical
           metaDesc
+          metaRobotsNofollow
+          metaRobotsNoindex
           opengraphSiteName
           opengraphAuthor
           opengraphDescription
@@ -286,8 +292,6 @@ export const getPostBySlug = async (
           }
           twitterDescription
           twitterTitle
-          metaRobotsNofollow
-          metaRobotsNoindex
         }
         translations {
           slug

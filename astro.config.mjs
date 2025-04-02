@@ -63,6 +63,9 @@ export default defineConfig({
     clientPrerender: true,
   },
   prefetch: true,
+  redirects: {
+    "/category/web-analytics": "/de/category/matomo/1",
+  },
   integrations: [
     pagefind(),
     vue({
@@ -191,6 +194,11 @@ export default defineConfig({
       PWA_DEBUG: envField.boolean({ context: "server", access: "public", default: false }),
       BUNDLE_ANALYZER_OPEN: envField.boolean({
         context: "server",
+        access: "public",
+        default: false,
+      }),
+      SHOW_TEST_DATA: envField.boolean({
+        context: "client",
         access: "public",
         default: false,
       }),

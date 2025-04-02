@@ -1,16 +1,17 @@
 import type { RootQuery, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
+import { SHOW_TEST_DATA } from "astro:env/client";
 
 export const getPostsPreview = async (
   first = 10_000,
-  status = "PUBLISH",
+  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
   orderby = "DATE",
-  order = "ASC",
+  order = "DESC",
   language = "DE",
 ): Promise<RootQuery["posts"]> => {
   const data = await fetchAPI(`
     {
-      posts(first: ${first}, where: {language: ${language}, status: ${status}, orderby: {field: ${orderby}, order: ${order}}}) {
+      posts(first: ${first}, where: {language: ${language}, stati: ${stati}, orderby: {field: ${orderby}, order: ${order}}}) {
         nodes {
           dateGmt
           modifiedGmt
@@ -60,13 +61,14 @@ export const getPostsPreviewByCategory = async (
   category: string,
   first = 10_000,
   field = "DATE",
-  order = "ASC",
+  order = "DESC",
+  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
 ): Promise<RootQuery["posts"]> => {
   const data = await fetchAPI(`
   {
     posts(
       first: ${first},
-      where: {categoryName: "${category}", orderby: {field: ${field}, order: ${order}}, status: PUBLISH}
+      where: {categoryName: "${category}", orderby: {field: ${field}, order: ${order}}, stati: ${stati}}
     ) {
       nodes {
         dateGmt
@@ -114,8 +116,8 @@ export const getPostsPreviewByCategory = async (
 
 export async function getAllPostPreviewsByCategory(
   field = "DATE",
-  order = "ASC",
-  status = "PUBLISH",
+  order = "DESC",
+  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
   exclude: number[] = [1], // 1 = allgemein
 ): Promise<RootQueryToCategoryConnection> {
   const data = await fetchAPI(`
@@ -146,7 +148,7 @@ export async function getAllPostPreviewsByCategory(
             }
           }
         }
-        posts(where: {orderby: {order: ${order}, field: ${field}}, status: ${status}}) {
+        posts(where: {orderby: {order: ${order}, field: ${field}}, stati: ${stati}}) {
           nodes {
             title
             excerpt
@@ -162,7 +164,7 @@ export async function getAllPostPreviewsByCategory(
         translations {
           name
           slug
-          posts(where: {orderby: {order: ${order}, field: ${field}}, status: ${status}}) {
+          posts(where: {orderby: {order: ${order}, field: ${field}}, stati: ${stati}}) {
             nodes {
               title
               excerpt
