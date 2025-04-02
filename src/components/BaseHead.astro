@@ -49,9 +49,7 @@ export interface Props {
   translationsRoutes: TranslationRoutes;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, seo, translationsRoutes, lang } = Astro.props;
-
 const translations = translationsRoutes || {};
 const isTaxonomy = translations?.taxonomy === "category";
 
@@ -102,11 +100,13 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 <meta name="theme-color" content="#ffffff" />
 <meta name="generator" content={Astro.generator} />
 
+<link rel="canonical" href={seo?.canonical || Astro.url} />
+
 <!-- Primary Meta Tags -->
 <title set:text={title} />
 
 {seo?.title && <meta name="title" content={seo.title} />}
-{seo?.opengraphDescription && <meta name="description" content={seo.opengraphDescription} />}
+{seo?.metaDesc && <meta name="description" content={seo.metaDesc} />}
 
 <!-- Open Graph / Facebook -->
 {seo?.opengraphType && <meta property="og:type" content={seo.opengraphType} />}
