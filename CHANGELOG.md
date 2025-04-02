@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.33](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.32...v1.0.0-beta.33) (2025-04-02)
+
+
+### Features
+
+* **dev:** display test data by condition ([6ade68a](https://github.com/felix-berlin/webshaped-blog-astro/commit/6ade68aca163aaf7fc5365044b59bae4e9149ae7))
+* **seo:** add canonical and description ([7295ef7](https://github.com/felix-berlin/webshaped-blog-astro/commit/7295ef7d519643a49b9c8ae589da5b5e3032011b))
+
 # [1.0.0-beta.32](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.31...v1.0.0-beta.32) (2025-04-01)
 
 
