@@ -25,16 +25,16 @@ import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 export const prerender = true;
 
 export const getStaticPaths = async () => {
-  const postWithSlugsDe = await getAllPostsWithSlugs();
-  const postWithSlugsEn = await getAllPostsWithSlugs("EN");
+  const postWithSlugs = await getAllPostsWithSlugs();
 
-  const postWithSlugsAllLang = [...postWithSlugsDe.edges, ...postWithSlugsEn.edges];
+  // Posts without slugs happen mostly on draft posts
+  const posts = postWithSlugs.nodes.filter((post) => post?.slug);
 
-  return postWithSlugsAllLang.map(({ node }) => {
+  return posts.map((post) => {
     return {
       params: {
-        postSlug: node.slug,
-        lang: node?.language?.slug,
+        postSlug: post.slug,
+        lang: post?.language?.slug,
       },
     };
   });
@@ -45,12 +45,6 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { postSlug, lang } = Astro.params as Params;
 const post = await getPostBySlug(postSlug!, 90);
-
-const findLanguage = (content: string, prefix = "lang-"): string | null => {
-  const regex = new RegExp(prefix + "[a-z]+", "gm");
-  const match = content.match(regex)?.toString().replace(prefix, "") as string | null;
-  return match;
-};
 
 const isCoreHeading = (block: any): block is CoreHeading => {
   return (

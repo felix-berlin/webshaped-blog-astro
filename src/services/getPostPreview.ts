@@ -11,7 +11,13 @@ export const getPostsPreview = async (
 ): Promise<RootQuery["posts"]> => {
   const data = await fetchAPI(`
     {
-      posts(first: ${first}, where: {language: ${language}, stati: ${stati}, orderby: {field: ${orderby}, order: ${order}}}) {
+      posts(
+        first: ${first},
+        where: {
+          language: ${language},
+          stati: ${stati},
+          orderby: {field: ${orderby}, order: ${order}}
+        }) {
         nodes {
           dateGmt
           modifiedGmt

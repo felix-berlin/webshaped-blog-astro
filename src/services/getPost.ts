@@ -4,23 +4,21 @@ import { allBlocks, coreDetails } from "./blockFragments";
 import { SHOW_TEST_DATA } from "astro:env/client";
 
 export const getAllPostsWithSlugs = async (
-  language = "DE",
+  languages = "[DE, EN]",
   stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
 ): Promise<RootQueryToPostConnection> => {
   const data = await fetchAPI(`
   {
-    posts(first: 10000, where: {stati: ${stati}, language: ${language}}) {
-      edges {
-        node {
+    posts(first: 10000, where: {languages: ${languages}, stati: ${stati}}) {
+      nodes {
+        slug
+        language {
+          slug
+        }
+        translations {
           slug
           language {
             slug
-          }
-          translations {
-            slug
-            language {
-              slug
-            }
           }
         }
       }
@@ -309,10 +307,11 @@ export const getPostBySlug = async (
 
 export const getAllRssPostsFromEachLang = async (
   languages = "[DE, EN]",
+  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
 ): Promise<RootQueryToPostConnection> => {
   const data = await fetchAPI(`
   {
-    posts(first: 10000, where: {status: PUBLISH, languages: ${languages}}) {
+    posts(first: 10000, where: {stati: ${stati}, languages: ${languages}}) {
       nodes {
         title
         slug
