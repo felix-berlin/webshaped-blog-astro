@@ -1,7 +1,4 @@
-import type {
-  RootQueryToCommentConnection,
-  Maybe,
-} from "@ts_types/generated/graphql";
+import type { RootQueryToCommentConnection, Maybe } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 
 export const getCommentsById = async (
@@ -14,7 +11,7 @@ export const getCommentsById = async (
       comments(
         where: {
           contentId: "${contentId}",
-          contentStatus: PUBLISH,
+          ${import.meta.env.PROD ? "contentStatus: PUBLISH," : ""}
           orderby: COMMENT_DATE_GMT,
         },
         first: ${first},
