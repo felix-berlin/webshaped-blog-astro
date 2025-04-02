@@ -43,13 +43,14 @@
     grid-area: flyout;
 
     @include mx.breakpoint("sm", "max") {
-      --height-header: 120px;
+      --height-header: 130px;
 
       position: fixed;
       z-index: 4;
       background-color: var(--blue-dark);
       inset: 0;
-      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge layout.$spacing-edge;
+      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge * 2
+        layout.$spacing-edge;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -66,6 +67,14 @@
           butler-fn.hex-to-rgb(colors.$blue-light, 8%) 25%,
           butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
         );
+      }
+
+      .c-menu {
+        &__link {
+          &.is-level-0 {
+            padding-inline: 1rem;
+          }
+        }
       }
 
       .c-main-nav__button-bar {
@@ -102,14 +111,6 @@
       margin-left: 30px;
     }
 
-    a.menu-link.is-level-0 {
-      --color-link-base: var(--red-light);
-    }
-
-    button.menu-link.is-level-0 {
-      color: var(--red-light);
-    }
-
     .c-menu__link {
       font-size: var(--size-font, 24px);
 
@@ -119,6 +120,10 @@
 
       &:hover {
         text-decoration: underline;
+      }
+
+      &.is-level-0 {
+        --color-link-base: var(--red-light);
       }
     }
   }

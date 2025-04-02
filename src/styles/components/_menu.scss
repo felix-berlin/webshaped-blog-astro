@@ -4,24 +4,36 @@
 
   &__item {
     &.has-child {
-      .is-menu-title {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-        background-color: transparent;
-        border: none;
-        color: var(--color-link-base);
-
-        > * {
-          pointer-events: none;
-        }
-      }
+      position: relative;
     }
   }
 
   &__link {
     cursor: pointer;
     color: var(--color-menu-link, var(--color-link-base));
+
+    &:has(.c-menu__link-icon, .c-menu__link-title) {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+
+      > * {
+        pointer-events: none;
+      }
+    }
+
+    &.is-level-0 {
+      color: var(--color-menu-link);
+    }
+  }
+
+  &__link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &--header {
