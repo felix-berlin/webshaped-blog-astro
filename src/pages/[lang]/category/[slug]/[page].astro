@@ -28,6 +28,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
    * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
    */
   return postPreviews?.nodes.flatMap((category) => {
+    const { seo } = category;
     const categoriesDe = category.posts?.nodes;
     const categoriesEn = category.translations;
 
@@ -46,6 +47,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
         content: {
           title: category.name,
           language: category.language,
+          seo,
         },
         availableLanguages: availableLanguages,
       },
@@ -59,6 +61,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
     // TODO: make slug the same as in german
     const englishPaths =
       categoriesEn?.flatMap((translation) => {
+        const { seo } = translation;
         const categoriesEnPosts = translation?.posts?.nodes;
 
         const hasEnCategories = Array.isArray(categoriesEnPosts) && categoriesEnPosts.length;
@@ -74,6 +77,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
             content: {
               title: translation?.name,
               language: translation?.language,
+              seo,
             },
             availableLanguages: availableLanguages,
           },
@@ -92,7 +96,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { page, content, availableLanguages } = Astro.props as Props;
+const { page, content, availableLanguages, seo } = Astro.props as Props;
 const { lang, slug } = Astro.params as Params;
 
 const path = `${lang}/category/${slug}`;

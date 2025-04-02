@@ -1,6 +1,7 @@
 import type { RootQuery, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
 import { SHOW_TEST_DATA } from "astro:env/client";
+import { seo } from "@/services/fragments";
 
 export const getPostsPreview = async (
   first = 10_000,
@@ -187,6 +188,7 @@ export async function getAllPostPreviewsByCategory(
             slug
           }
         }
+        ${seo}
       }
     }
   }

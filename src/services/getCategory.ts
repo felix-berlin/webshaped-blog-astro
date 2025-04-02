@@ -1,5 +1,6 @@
 import type { RootQuery } from "@ts_types/generated/graphql";
 import { fetchAPI } from "@services/fetchApi";
+import { seo } from "@/services/fragments";
 
 export const getCategoryBySlug = async (slug: string): Promise<RootQuery["categories"]> => {
   const data = await fetchAPI(`
@@ -15,27 +16,7 @@ export const getCategoryBySlug = async (slug: string): Promise<RootQuery["catego
           name
           slug
         }
-        seo {
-          title
-          canonical
-          metaDesc
-          opengraphSiteName
-          opengraphAuthor
-          opengraphDescription
-          opengraphPublisher
-          opengraphTitle
-          opengraphType
-          opengraphUrl
-          opengraphPublishedTime
-          opengraphModifiedTime
-          opengraphImage {
-            sourceUrl
-          }
-          twitterDescription
-          twitterTitle
-          metaRobotsNofollow
-          metaRobotsNoindex
-        }
+        ${seo}
       }
     }
   }

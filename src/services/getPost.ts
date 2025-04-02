@@ -2,6 +2,7 @@ import type { Post, RootQueryToPostConnection } from "@ts_types/generated/graphq
 import { fetchAPI } from "@services/fetchApi";
 import { allBlocks, coreDetails } from "./blockFragments";
 import { SHOW_TEST_DATA } from "astro:env/client";
+import { seo } from "@/services/fragments";
 
 export const getAllPostsWithSlugs = async (
   languages = "[DE, EN]",
