@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.35](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2025-04-02)
+
+
+### Bug Fixes
+
+* **main nav:** styling and spacing ([46e5c46](https://github.com/felix-berlin/webshaped-blog-astro/commit/46e5c4698c95d65a8e1dcb151746c75b5938f24d))
+
+
+### Features
+
+* **api:** show draft comments in dev mode ([aa34372](https://github.com/felix-berlin/webshaped-blog-astro/commit/aa34372b80213384bb425569ca10b83c88f3233e))
+* **seo:** add seo data to category ([a368de2](https://github.com/felix-berlin/webshaped-blog-astro/commit/a368de238998d22b5628861580e73aa7df9efbec))
+
 # [1.0.0-beta.34](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2025-04-02)
 
 
