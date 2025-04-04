@@ -269,20 +269,20 @@ const resetFormErrors = () => {
  */
 const checkForm = (): void => {
   if (commentForm.comment.length <= 1) {
-    formErrors.comment = t("comment_form.error.comment_to_short");
+    formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
 
   if (commentForm.author.length <= 1) {
-    formErrors.author = t("comment_form.error.author_to_short");
+    formErrors.author = t.value("comment_form.error.author_to_short");
   }
 
   // If an e-mail address is given, validate it
   if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
-    formErrors.email = t("comment_form.error.email_invalid");
+    formErrors.email = t.value("comment_form.error.email_invalid");
   }
 
   if (!commentForm.privacy) {
-    formErrors.privacy = t("comment_form.error.privacy_not_accepted");
+    formErrors.privacy = t.value("comment_form.error.privacy_not_accepted");
   }
 
   if (Object.values(formErrors).every((v) => v.length === 0)) {
