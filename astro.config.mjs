@@ -158,6 +158,7 @@ export default defineConfig({
       bundleName: "web-shaped-bundle",
       uploadToken: CODECOV_TOKEN,
     }),
+    (await import("@playform/inline")).default(),
   ],
   env: {
     schema: {
