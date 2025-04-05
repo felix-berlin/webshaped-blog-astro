@@ -9,7 +9,7 @@ import { getPostsPreview, getPageBySlug } from "@services/api";
 
 export const prerender = true;
 
-const indexDe: any = await getPageBySlug("blog-index-de");
+const indexDe: any = await getPageBySlug("startseite");
 // const indexEn: any = await getPageBySlug('blog-index-en');
 
 const posts: any = await getPostsPreview();
@@ -38,6 +38,6 @@ const posts: any = await getPostsPreview();
     <h1 class="o-index__headline">{indexDe.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts.nodes} client:visible />
+    <BlogPostPreview posts={posts.nodes} />
   </section>
 </DefaultLayout>
