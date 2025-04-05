@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.37](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2025-04-05)
+
+
+### Features
+
+* categories should show 6 items per page ([0ca1933](https://github.com/felix-berlin/webshaped-blog-astro/commit/0ca1933d7d1b42b9778decce8b0c1ddd69f2c1c2))
+* use og title if there ([19d7f35](https://github.com/felix-berlin/webshaped-blog-astro/commit/19d7f35215f1cbc23d85c2b885ca050e7ff9753b))
+
+
+### Performance Improvements
+
+* BlogPostPreview should render static ([e9acbb5](https://github.com/felix-berlin/webshaped-blog-astro/commit/e9acbb5a09d04eda2695d4665a50e876e0ea2b7f))
+
 # [1.0.0-beta.36](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.35...v1.0.0-beta.36) (2025-04-05)
 
 
