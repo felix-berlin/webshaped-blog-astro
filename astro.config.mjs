@@ -151,6 +151,8 @@ export default defineConfig({
       debug: false,
       bundleSizeOptimizations: {
         excludeDebugStatements: true,
+        excludeReplayShadowDom: true,
+        excludeReplayIframe: true,
       },
     }),
     codecovplugin({
