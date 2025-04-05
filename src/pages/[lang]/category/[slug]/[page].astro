@@ -23,6 +23,7 @@ interface Paginate {
 
 export const getStaticPaths = async ({ paginate }: Paginate) => {
   const postPreviews = await getAllPostPreviewsByCategory();
+  const pageCount = 6;
 
   /**
    * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
@@ -55,7 +56,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
         slug: category.slug as string,
         lang: category.language?.slug as string,
       },
-      pageSize: 1,
+      pageSize: pageCount,
     });
 
     // TODO: make slug the same as in german
@@ -85,7 +86,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
             slug: removeLocaleCode(translation?.slug) as string,
             lang: translation?.language?.slug as string,
           },
-          pageSize: 1,
+          pageSize: pageCount,
         });
       }) ?? [];
 
