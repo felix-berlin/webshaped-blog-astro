@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.36](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.35...v1.0.0-beta.36) (2025-04-05)
+
+
+### Bug Fixes
+
+* **i18n:** missing locale strings ([742b92e](https://github.com/felix-berlin/webshaped-blog-astro/commit/742b92e3fc20b0826d328d0c8973a638ee3f79a2))
+
+
+### Features
+
+* add fetchApiWithAuth ([a2946a8](https://github.com/felix-berlin/webshaped-blog-astro/commit/a2946a8db2fd417c4e680b94e475ffaf05571bb3))
+
 # [1.0.0-beta.35](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2025-04-02)
 
 
