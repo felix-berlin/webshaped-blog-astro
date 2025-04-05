@@ -1,33 +1,31 @@
 import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { config } from "@vue/test-utils";
-// import { setupServer } from "msw/node";
-// import { graphql, http } from "msw";
-// import { useAutoAnimate } from "@formkit/auto-animate/vue";
+import { server } from "./mocks/node.ts";
+import { useAutoAnimate } from "@formkit/auto-animate/vue";
 
 import {
   // Directives
   vTooltip,
   vClosePopper,
   // Components
-  Dropdown as VDropdown,
+  Dropdown,
   Tooltip,
-  Menu as VMenu,
+  Menu,
 } from "floating-vue";
 
-beforeAll(() => {
-  vi.stubEnv("WP_API", "https://cms.webshaped.de/api");
+vi.stubEnv("WP_API", "https://cms.webshaped.de/api");
 
-  config.global.components = {
-    VDropdown,
-    Tooltip,
-    VMenu,
-  };
-  config.global.directives = {
-    "close-popper": vClosePopper,
-    tooltip: vTooltip,
-    // "auto-animate": useAutoAnimate,
-  };
-});
+config.global.components = {
+  VDropdown: Dropdown,
+  VTooltip: Tooltip,
+  VMenu: Menu,
+};
+
+config.global.directives = {
+  "close-popper": vClosePopper,
+  tooltip: vTooltip,
+  "auto-animate": useAutoAnimate,
+};
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),
@@ -36,38 +34,14 @@ const ResizeObserverMock = vi.fn(() => ({
 }));
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
 
-// const posts = [
-//   {
-//     userId: 1,
-//     id: 1,
-//     title: "first post title",
-//     body: "first post body",
-//   },
-//   // ...
-// ];
+beforeAll(() => {
+  server.listen();
+});
 
-// export const restHandlers = [
-//   http.get("https://rest-endpoint.example/path/to/posts", (req, res, ctx) => {
-//     return res(ctx.status(200), ctx.json(posts));
-//   }),
-// ];
+afterEach(() => {
+  server.resetHandlers();
+});
 
-// const graphqlHandlers = [
-//   graphql.query(
-//     "https://graphql-endpoint.example/api/v1/posts",
-//     (req, res, ctx) => {
-//       return res(ctx.data(posts));
-//     },
-//   ),
-// ];
-
-// const server = setupServer(...restHandlers, ...graphqlHandlers);
-
-// // Start server before all tests
-// beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
-
-// //  Close server after all tests
-// afterAll(() => server.close());
-
-// // Reset handlers after each test `important for test isolation`
-// afterEach(() => server.resetHandlers());
+afterAll(() => {
+  server.close();
+});
