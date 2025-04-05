@@ -7,8 +7,6 @@ import "@fontsource/source-sans-pro/700.css";
 import BaseHead from "@components/BaseHead.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
-import { getMenuById, getAuthor } from "@services/api";
-import { updateCategoryPaths } from "@utils/helpers";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@ts_types/generated/graphql";
@@ -36,10 +34,6 @@ const {
 } = Astro.props as DefaultLayoutProps;
 
 const lang = getLangFromUrl(Astro.url);
-const mainMenuItemsDe = await getMenuById(2);
-const mainMenuItemsEn = await getMenuById(125);
-
-const mainMenuItems = lang === "de" ? mainMenuItemsDe : mainMenuItemsEn;
 ---
 
 <html lang={lang}>
@@ -50,11 +44,7 @@ const mainMenuItems = lang === "de" ? mainMenuItemsDe : mainMenuItemsEn;
   </Head>
 
   <body class="o-body" class:list={bodyClasses}>
-    <MainHeader
-      menuItems={updateCategoryPaths(mainMenuItems, lang)?.menuItems}
-      lang={lang}
-      transition:persist
-    />
+    <MainHeader lang={lang} transition:persist />
     <main class="o-content" class:list={contentClasses}>
       <slot />
     </main>

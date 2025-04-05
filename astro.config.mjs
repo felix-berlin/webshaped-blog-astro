@@ -165,9 +165,9 @@ export default defineConfig({
       WP_API: envField.string({ context: "client", access: "public", optional: false }),
       WP_REST_API: envField.string({ context: "client", access: "public", optional: false }),
       WP_AUTH_REFRESH_TOKEN: envField.string({
-        context: "client",
-        access: "public",
-        optional: false,
+        context: "server",
+        access: "secret",
+        optional: true,
       }),
       WEBMENTION_URL: envField.string({ context: "server", access: "public", optional: false }),
       LAST_FM_SCROBBLER_API: envField.string({
@@ -178,7 +178,7 @@ export default defineConfig({
       ENABLE_ANALYTICS: envField.boolean({ context: "client", access: "public", default: false }),
       SENTRY_DSN: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
-      SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
       SENTRY_ENVIRONMENT: envField.string({ context: "server", access: "public", optional: true }),
       GITHUB_TOKEN: envField.string({
         context: "server",

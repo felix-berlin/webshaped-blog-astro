@@ -8,13 +8,21 @@ import "@styles/objects/_header.scss";
 import MainNav from "@components/hero/MainNav.vue";
 // import { currentLanguage } from "@stores/store";
 import type { Language, MenuToMenuItemConnection, Maybe } from "@ts_types/generated/graphql";
+import { getMenuById } from "@services/api";
+import { updateCategoryPaths } from "@utils/helpers";
 
 interface HeaderProps {
-  menuItems: MenuToMenuItemConnection;
-  lang: Maybe<Language>;
+  lang: Language;
 }
 
-const { menuItems, lang } = Astro.props as HeaderProps;
+const { lang } = Astro.props as HeaderProps;
+
+const mainMenuItemsDe = await getMenuById(2);
+const mainMenuItemsEn = await getMenuById(125);
+
+const mainMenuItems = lang === "de" ? mainMenuItemsDe : mainMenuItemsEn;
+
+const menuItems = updateCategoryPaths(mainMenuItems, lang)?.menuItems;
 ---
 
 <header id="mainHeader" class="o-header">

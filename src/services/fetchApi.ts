@@ -1,4 +1,4 @@
-import { WP_AUTH_REFRESH_TOKEN, SITE_URL, WP_API } from "astro:env/client";
+import { SITE_URL, WP_API } from "astro:env/client";
 // const baseUrl = import.meta.env.DEV ? SITE_URL : "";
 
 // export const fetchAPI = async (query: string, { variables } = { variables: {} }): Promise<any> => {
@@ -21,8 +21,6 @@ import { WP_AUTH_REFRESH_TOKEN, SITE_URL, WP_API } from "astro:env/client";
 export const fetchAPI = async (query: string, { variables } = { variables: {} }) => {
   const headers = {
     "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: `Bearer ${WP_AUTH_REFRESH_TOKEN}`,
   };
 
   return await fetch(WP_API, {
@@ -35,6 +33,37 @@ export const fetchAPI = async (query: string, { variables } = { variables: {} })
         // console.log('response', response);
 
         return await response.json();
+      } else {
+        const errorMessage = await response.text();
+        return Promise.reject(new Error(errorMessage));
+      }
+    })
+    .catch((error) => {
+      console.error("error", error);
+    });
+};
+
+export const fetchApiWithAuth = async (
+  authToken: string,
+  query: string,
+  { variables } = { variables: {} },
+) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: `Bearer ${authToken}`,
+  };
+
+  return await fetch(WP_API, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ query, variables }),
+  })
+    .then(async (response) => {
+      if (response.ok) {
+        const jsonData = await response.json(); // Read the response body once
+
+        return jsonData; // Return the data
       } else {
         const errorMessage = await response.text();
         return Promise.reject(new Error(errorMessage));
