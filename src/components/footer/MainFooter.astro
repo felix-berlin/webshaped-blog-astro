@@ -2,7 +2,7 @@
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
-import { getMenuById, getAuthor, getAllCategories } from "@services/api";
+import { getMenuItems, getAuthor, getAllCategories } from "@services/api";
 import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
@@ -12,8 +12,8 @@ import type { RootQuery, Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
 
-const categories = (await getAllCategories()) as RootQuery["categories"];
-const footerMenuItems = (await getMenuById(38)) as RootQuery["menu"];
+const categories = await getAllCategories();
+const footerMenuItems = await getMenuItems("DE", "SECONDARY_MENU");
 const author = await getAuthor();
 
 interface MainFooterProps {
@@ -87,7 +87,7 @@ const allSocials = {
       <h3 class="o-footer__headline">
         {t("footer.headline.other")}
       </h3>
-      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems?.menuItems!} />
+      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems} />
     </div>
     <div class="o-footer__quote">
       <figure>

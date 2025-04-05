@@ -6,8 +6,7 @@
       :class="[
         'c-menu__item',
         {
-          'has-child':
-            item?.childItems?.nodes && item.childItems.nodes.length > 0,
+          'has-child': item?.childItems?.nodes && item.childItems.nodes.length > 0,
         },
       ]"
     >
@@ -22,25 +21,14 @@
       <span v-else class="c-menu__link is-menu-title">
         <span class="c-menu__link-title">{{ item.label }}</span>
 
-        <span
-          v-show="$slots.menuTitleIcon"
-          class="c-menu__link-icon"
-        >
+        <span v-show="$slots.menuTitleIcon" class="c-menu__link-icon">
           <slot name="menuTitleIcon" />
         </span>
       </span>
 
       <menu class="c-submenu u-list-reset">
-        <li
-          v-for="child in item?.childItems?.nodes"
-          :key="child.label!"
-          class="c-submenu__item"
-        >
-          <a
-            :href="child.path!"
-            class="c-submenu__link"
-            >{{ child.label }}</a
-          >
+        <li v-for="child in item?.childItems?.nodes" :key="child.label!" class="c-submenu__item">
+          <a :href="child.path!" class="c-submenu__link">{{ child.label }}</a>
         </li>
       </menu>
     </li>
@@ -48,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuToMenuItemConnection } from "../types/generated/graphql";
+import type { MenuItem, Maybe } from "../types/generated/graphql";
 
 export interface MenuProps {
-  menuItems: MenuToMenuItemConnection;
+  menuItems: Maybe<MenuItem[]>;
 }
 
 const props = defineProps<MenuProps>();

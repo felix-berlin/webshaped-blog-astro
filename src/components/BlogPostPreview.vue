@@ -31,10 +31,10 @@
 
 <script setup lang="ts">
 import ArrowRight from "virtual:icons/lucide/arrow-right";
-import Date from "@components/post/Date.vue";
-import ReadingTime from "@components/post/ReadingTime.vue";
-import CommentCount from "@components/comments/CommentCount.vue";
-import HasTranslations from "./HasTranslations.vue";
+// import Date from "@components/post/Date.vue";
+// import ReadingTime from "@components/post/ReadingTime.vue";
+// import CommentCount from "@components/comments/CommentCount.vue";
+// import HasTranslations from "./HasTranslations.vue";
 import { useTranslations } from "@utils/i18n/utils";
 import type { Post } from "@ts_types/generated/graphql";
 
