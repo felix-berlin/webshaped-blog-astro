@@ -2476,7 +2476,7 @@
           },
           {
             "name": "seo",
-            "description": "The Yoast SEO data of the Kategorien taxonomy.",
+            "description": "The Yoast SEO data of the Categories taxonomy.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -6042,13 +6042,13 @@
         "enumValues": [
           {
             "name": "APPROVE",
-            "description": "Comments with the Freigegeben status",
+            "description": "Comments with the Approved status",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "HOLD",
-            "description": "Comments with the Nicht freigegeben status",
+            "description": "Comments with the Unapproved status",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -6060,7 +6060,7 @@
           },
           {
             "name": "TRASH",
-            "description": "Comments with the Papierkorb status",
+            "description": "Comments with the Trash status",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -48370,7 +48370,7 @@
         "fields": [
           {
             "name": "defaultCommentStatus",
-            "description": "Erlaube Besuchern, neue Beiträge zu kommentieren.",
+            "description": "Allow people to submit comments on new posts.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -48382,7 +48382,7 @@
           },
           {
             "name": "defaultPingStatus",
-            "description": "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben.",
+            "description": "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50727,7 +50727,7 @@
         "fields": [
           {
             "name": "dateFormat",
-            "description": "Ein Zeitformat für alle datumsbasierten Zeichenfolgen.",
+            "description": "A date format for all date strings.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50739,7 +50739,7 @@
           },
           {
             "name": "description",
-            "description": "Website-Untertitel.",
+            "description": "Site tagline.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50751,7 +50751,7 @@
           },
           {
             "name": "email",
-            "description": "Diese Adresse wird für administrative Zwecke verwendet, wie Benachrichtigungen über neue Benutzer.",
+            "description": "This address is used for admin purposes, like new user notification.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50763,7 +50763,7 @@
           },
           {
             "name": "language",
-            "description": "WordPress-Ländercode.",
+            "description": "WordPress locale code.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50775,7 +50775,7 @@
           },
           {
             "name": "startOfWeek",
-            "description": "Die Zahl eines Wochentages, mit dem die Woche beginnen sollte.",
+            "description": "A day number of the week that the week should start on.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50787,7 +50787,7 @@
           },
           {
             "name": "timeFormat",
-            "description": "Ein Zeitformat für alle zeitbasierten Zeichenfolgen.",
+            "description": "A time format for all time strings.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50799,7 +50799,7 @@
           },
           {
             "name": "timezone",
-            "description": "Eine Stadt in deiner Zeitzone.",
+            "description": "A city in the same timezone as you.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50811,7 +50811,7 @@
           },
           {
             "name": "title",
-            "description": "Website-Titel.",
+            "description": "Site title.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50823,7 +50823,7 @@
           },
           {
             "name": "url",
-            "description": "Website-URL.",
+            "description": "Site URL.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -70331,7 +70331,7 @@
           },
           {
             "name": "seo",
-            "description": "The Yoast SEO data of the Formate taxonomy.",
+            "description": "The Yoast SEO data of the Formats taxonomy.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -77069,7 +77069,7 @@
         "fields": [
           {
             "name": "pageForPosts",
-            "description": "Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen",
+            "description": "The ID of the page that should display the latest posts",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -77081,7 +77081,7 @@
           },
           {
             "name": "pageOnFront",
-            "description": "Die ID der Seite, die auf der Startseite angezeigt werden soll",
+            "description": "The ID of the page that should be displayed on the front page",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -77093,7 +77093,7 @@
           },
           {
             "name": "postsPerPage",
-            "description": "Maximal angezeigte Beiträge.",
+            "description": "Blog pages show at most.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -77105,7 +77105,7 @@
           },
           {
             "name": "showOnFront",
-            "description": "Was auf der Startseite angezeigt werden soll",
+            "description": "What to show on the front page",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -90083,6 +90083,18 @@
             "deprecationReason": null
           },
           {
+            "name": "taxonomyArchives",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOTaxonomyTypes",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "webmaster",
             "description": "",
             "args": [],
@@ -91397,6 +91409,126 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SEOTaxonomyType",
+        "description": "The Yoast SEO search appearance Taxonomy types fields",
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "archive",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOTaxonomyTypeArchive",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SEOTaxonomyTypeArchive",
+        "description": "The Yoast SEO search appearance Taxonomy types fields",
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "metaDesc",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaRobotsNoindex",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SEOTaxonomyTypes",
+        "description": "The Yoast SEO archive configuration data for taxonomies",
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "category",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOTaxonomyType",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "postFormat",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOTaxonomyType",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tag",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "SEOTaxonomyType",
               "ofType": null
             },
             "isDeprecated": false,
@@ -93941,7 +94073,7 @@
           },
           {
             "name": "seo",
-            "description": "The Yoast SEO data of the Schlagwörter taxonomy.",
+            "description": "The Yoast SEO data of the Tags taxonomy.",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -100382,7 +100514,7 @@
           },
           {
             "name": "discussionSettingsDefaultCommentStatus",
-            "description": "Erlaube Besuchern, neue Beiträge zu kommentieren.",
+            "description": "Allow people to submit comments on new posts.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100394,7 +100526,7 @@
           },
           {
             "name": "discussionSettingsDefaultPingStatus",
-            "description": "Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben.",
+            "description": "Allow link notifications from other blogs (pingbacks and trackbacks) on new articles.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100406,7 +100538,7 @@
           },
           {
             "name": "generalSettingsDateFormat",
-            "description": "Ein Zeitformat für alle datumsbasierten Zeichenfolgen.",
+            "description": "A date format for all date strings.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100418,7 +100550,7 @@
           },
           {
             "name": "generalSettingsDescription",
-            "description": "Website-Untertitel.",
+            "description": "Site tagline.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100430,7 +100562,7 @@
           },
           {
             "name": "generalSettingsEmail",
-            "description": "Diese Adresse wird für administrative Zwecke verwendet, wie Benachrichtigungen über neue Benutzer.",
+            "description": "This address is used for admin purposes, like new user notification.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100442,7 +100574,7 @@
           },
           {
             "name": "generalSettingsLanguage",
-            "description": "WordPress-Ländercode.",
+            "description": "WordPress locale code.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100454,7 +100586,7 @@
           },
           {
             "name": "generalSettingsStartOfWeek",
-            "description": "Die Zahl eines Wochentages, mit dem die Woche beginnen sollte.",
+            "description": "A day number of the week that the week should start on.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -100466,7 +100598,7 @@
           },
           {
             "name": "generalSettingsTimeFormat",
-            "description": "Ein Zeitformat für alle zeitbasierten Zeichenfolgen.",
+            "description": "A time format for all time strings.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100478,7 +100610,7 @@
           },
           {
             "name": "generalSettingsTimezone",
-            "description": "Eine Stadt in deiner Zeitzone.",
+            "description": "A city in the same timezone as you.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100490,7 +100622,7 @@
           },
           {
             "name": "generalSettingsTitle",
-            "description": "Website-Titel.",
+            "description": "Site title.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100502,7 +100634,7 @@
           },
           {
             "name": "generalSettingsUrl",
-            "description": "Website-URL.",
+            "description": "Site URL.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100514,7 +100646,7 @@
           },
           {
             "name": "readingSettingsPageForPosts",
-            "description": "Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen",
+            "description": "The ID of the page that should display the latest posts",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -100526,7 +100658,7 @@
           },
           {
             "name": "readingSettingsPageOnFront",
-            "description": "Die ID der Seite, die auf der Startseite angezeigt werden soll",
+            "description": "The ID of the page that should be displayed on the front page",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -100538,7 +100670,7 @@
           },
           {
             "name": "readingSettingsPostsPerPage",
-            "description": "Maximal angezeigte Beiträge.",
+            "description": "Blog pages show at most.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -100550,7 +100682,7 @@
           },
           {
             "name": "readingSettingsShowOnFront",
-            "description": "Was auf der Startseite angezeigt werden soll",
+            "description": "What to show on the front page",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100562,7 +100694,7 @@
           },
           {
             "name": "writingSettingsDefaultCategory",
-            "description": "Standard-Beitragskategorie.",
+            "description": "Default post category.",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -100574,7 +100706,7 @@
           },
           {
             "name": "writingSettingsDefaultPostFormat",
-            "description": "Standard-Beitragsformat.",
+            "description": "Default post format.",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -100586,7 +100718,7 @@
           },
           {
             "name": "writingSettingsUseSmilies",
-            "description": "Emoticons wie :-) und :-P als Grafiken anzeigen.",
+            "description": "Convert emoticons like :-) and :-P to graphics on display.",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -107457,7 +107589,7 @@
         "fields": [
           {
             "name": "defaultCategory",
-            "description": "Standard-Beitragskategorie.",
+            "description": "Default post category.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -107469,7 +107601,7 @@
           },
           {
             "name": "defaultPostFormat",
-            "description": "Standard-Beitragsformat.",
+            "description": "Default post format.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -107481,7 +107613,7 @@
           },
           {
             "name": "useSmilies",
-            "description": "Emoticons wie :-) und :-P als Grafiken anzeigen.",
+            "description": "Convert emoticons like :-) and :-P to graphics on display.",
             "args": [],
             "type": {
               "kind": "SCALAR",

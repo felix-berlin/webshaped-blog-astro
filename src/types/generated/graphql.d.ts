@@ -298,7 +298,7 @@ export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermN
   parentId?: Maybe<Scalars['ID']['output']>;
   /** Connection between the Category type and the post type */
   posts?: Maybe<CategoryToPostConnection>;
-  /** The Yoast SEO data of the Kategorien taxonomy. */
+  /** The Yoast SEO data of the Categories taxonomy. */
   seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']['output']>;
@@ -898,13 +898,13 @@ export enum CommentNodeIdTypeEnum {
 
 /** The status of the comment object. */
 export enum CommentStatusEnum {
-  /** Comments with the Freigegeben status */
+  /** Comments with the Approved status */
   Approve = 'APPROVE',
-  /** Comments with the Nicht freigegeben status */
+  /** Comments with the Unapproved status */
   Hold = 'HOLD',
   /** Comments with the Spam status */
   Spam = 'SPAM',
-  /** Comments with the Papierkorb status */
+  /** Comments with the Trash status */
   Trash = 'TRASH'
 }
 
@@ -7876,9 +7876,9 @@ export type DeleteUserPayload = {
 /** The discussion setting type */
 export type DiscussionSettings = {
   __typename?: 'DiscussionSettings';
-  /** Erlaube Besuchern, neue Beiträge zu kommentieren. */
+  /** Allow people to submit comments on new posts. */
   defaultCommentStatus?: Maybe<Scalars['String']['output']>;
-  /** Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben. */
+  /** Allow link notifications from other blogs (pingbacks and trackbacks) on new articles. */
   defaultPingStatus?: Maybe<Scalars['String']['output']>;
 };
 
@@ -8099,23 +8099,23 @@ export type EnqueuedStylesheetConnectionPageInfo = {
 /** The general setting type */
 export type GeneralSettings = {
   __typename?: 'GeneralSettings';
-  /** Ein Zeitformat für alle datumsbasierten Zeichenfolgen. */
+  /** A date format for all date strings. */
   dateFormat?: Maybe<Scalars['String']['output']>;
-  /** Website-Untertitel. */
+  /** Site tagline. */
   description?: Maybe<Scalars['String']['output']>;
-  /** Diese Adresse wird für administrative Zwecke verwendet, wie Benachrichtigungen über neue Benutzer. */
+  /** This address is used for admin purposes, like new user notification. */
   email?: Maybe<Scalars['String']['output']>;
-  /** WordPress-Ländercode. */
+  /** WordPress locale code. */
   language?: Maybe<Scalars['String']['output']>;
-  /** Die Zahl eines Wochentages, mit dem die Woche beginnen sollte. */
+  /** A day number of the week that the week should start on. */
   startOfWeek?: Maybe<Scalars['Int']['output']>;
-  /** Ein Zeitformat für alle zeitbasierten Zeichenfolgen. */
+  /** A time format for all time strings. */
   timeFormat?: Maybe<Scalars['String']['output']>;
-  /** Eine Stadt in deiner Zeitzone. */
+  /** A city in the same timezone as you. */
   timezone?: Maybe<Scalars['String']['output']>;
-  /** Website-Titel. */
+  /** Site title. */
   title?: Maybe<Scalars['String']['output']>;
-  /** Website-URL. */
+  /** Site URL. */
   url?: Maybe<Scalars['String']['output']>;
 };
 
@@ -11193,7 +11193,7 @@ export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceI
   postFormatId?: Maybe<Scalars['Int']['output']>;
   /** Connection between the PostFormat type and the post type */
   posts?: Maybe<PostFormatToPostConnection>;
-  /** The Yoast SEO data of the Formate taxonomy. */
+  /** The Yoast SEO data of the Formats taxonomy. */
   seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']['output']>;
@@ -12303,13 +12303,13 @@ export type Previewable = {
 /** The reading setting type */
 export type ReadingSettings = {
   __typename?: 'ReadingSettings';
-  /** Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen */
+  /** The ID of the page that should display the latest posts */
   pageForPosts?: Maybe<Scalars['Int']['output']>;
-  /** Die ID der Seite, die auf der Startseite angezeigt werden soll */
+  /** The ID of the page that should be displayed on the front page */
   pageOnFront?: Maybe<Scalars['Int']['output']>;
-  /** Maximal angezeigte Beiträge. */
+  /** Blog pages show at most. */
   postsPerPage?: Maybe<Scalars['Int']['output']>;
-  /** Was auf der Startseite angezeigt werden soll */
+  /** What to show on the front page */
   showOnFront?: Maybe<Scalars['String']['output']>;
 };
 
@@ -14498,6 +14498,7 @@ export type SeoConfig = {
   redirects?: Maybe<Array<Maybe<SeoRedirect>>>;
   schema?: Maybe<SeoSchema>;
   social?: Maybe<SeoSocial>;
+  taxonomyArchives?: Maybe<SeoTaxonomyTypes>;
   webmaster?: Maybe<SeoWebmaster>;
 };
 
@@ -14706,6 +14707,28 @@ export type SeoSocialYoutube = {
 export type SeoTaxonomySchema = {
   __typename?: 'SEOTaxonomySchema';
   raw?: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO search appearance Taxonomy types fields */
+export type SeoTaxonomyType = {
+  __typename?: 'SEOTaxonomyType';
+  archive?: Maybe<SeoTaxonomyTypeArchive>;
+};
+
+/** The Yoast SEO search appearance Taxonomy types fields */
+export type SeoTaxonomyTypeArchive = {
+  __typename?: 'SEOTaxonomyTypeArchive';
+  metaDesc?: Maybe<Scalars['String']['output']>;
+  metaRobotsNoindex?: Maybe<Scalars['Boolean']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/** The Yoast SEO archive configuration data for taxonomies */
+export type SeoTaxonomyTypes = {
+  __typename?: 'SEOTaxonomyTypes';
+  category?: Maybe<SeoTaxonomyType>;
+  postFormat?: Maybe<SeoTaxonomyType>;
+  tag?: Maybe<SeoTaxonomyType>;
 };
 
 export type SeoUser = {
@@ -15108,7 +15131,7 @@ export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Unif
   name?: Maybe<Scalars['String']['output']>;
   /** Connection between the Tag type and the post type */
   posts?: Maybe<TagToPostConnection>;
-  /** The Yoast SEO data of the Schlagwörter taxonomy. */
+  /** The Yoast SEO data of the Tags taxonomy. */
   seo?: Maybe<TaxonomySeo>;
   /** An alphanumeric identifier for the object unique to its type. */
   slug?: Maybe<Scalars['String']['output']>;
@@ -16145,41 +16168,41 @@ export type UpdatePostPayload = {
 export type UpdateSettingsInput = {
   /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Erlaube Besuchern, neue Beiträge zu kommentieren. */
+  /** Allow people to submit comments on new posts. */
   discussionSettingsDefaultCommentStatus?: InputMaybe<Scalars['String']['input']>;
-  /** Link-Benachrichtigungen von anderen Blogs (Pingbacks und Trackbacks) zu neuen Beiträgen erlauben. */
+  /** Allow link notifications from other blogs (pingbacks and trackbacks) on new articles. */
   discussionSettingsDefaultPingStatus?: InputMaybe<Scalars['String']['input']>;
-  /** Ein Zeitformat für alle datumsbasierten Zeichenfolgen. */
+  /** A date format for all date strings. */
   generalSettingsDateFormat?: InputMaybe<Scalars['String']['input']>;
-  /** Website-Untertitel. */
+  /** Site tagline. */
   generalSettingsDescription?: InputMaybe<Scalars['String']['input']>;
-  /** Diese Adresse wird für administrative Zwecke verwendet, wie Benachrichtigungen über neue Benutzer. */
+  /** This address is used for admin purposes, like new user notification. */
   generalSettingsEmail?: InputMaybe<Scalars['String']['input']>;
-  /** WordPress-Ländercode. */
+  /** WordPress locale code. */
   generalSettingsLanguage?: InputMaybe<Scalars['String']['input']>;
-  /** Die Zahl eines Wochentages, mit dem die Woche beginnen sollte. */
+  /** A day number of the week that the week should start on. */
   generalSettingsStartOfWeek?: InputMaybe<Scalars['Int']['input']>;
-  /** Ein Zeitformat für alle zeitbasierten Zeichenfolgen. */
+  /** A time format for all time strings. */
   generalSettingsTimeFormat?: InputMaybe<Scalars['String']['input']>;
-  /** Eine Stadt in deiner Zeitzone. */
+  /** A city in the same timezone as you. */
   generalSettingsTimezone?: InputMaybe<Scalars['String']['input']>;
-  /** Website-Titel. */
+  /** Site title. */
   generalSettingsTitle?: InputMaybe<Scalars['String']['input']>;
-  /** Website-URL. */
+  /** Site URL. */
   generalSettingsUrl?: InputMaybe<Scalars['String']['input']>;
-  /** Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen */
+  /** The ID of the page that should display the latest posts */
   readingSettingsPageForPosts?: InputMaybe<Scalars['Int']['input']>;
-  /** Die ID der Seite, die auf der Startseite angezeigt werden soll */
+  /** The ID of the page that should be displayed on the front page */
   readingSettingsPageOnFront?: InputMaybe<Scalars['Int']['input']>;
-  /** Maximal angezeigte Beiträge. */
+  /** Blog pages show at most. */
   readingSettingsPostsPerPage?: InputMaybe<Scalars['Int']['input']>;
-  /** Was auf der Startseite angezeigt werden soll */
+  /** What to show on the front page */
   readingSettingsShowOnFront?: InputMaybe<Scalars['String']['input']>;
-  /** Standard-Beitragskategorie. */
+  /** Default post category. */
   writingSettingsDefaultCategory?: InputMaybe<Scalars['Int']['input']>;
-  /** Standard-Beitragsformat. */
+  /** Default post format. */
   writingSettingsDefaultPostFormat?: InputMaybe<Scalars['String']['input']>;
-  /** Emoticons wie :-) und :-P als Grafiken anzeigen. */
+  /** Convert emoticons like :-) and :-P to graphics on display. */
   writingSettingsUseSmilies?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -17242,11 +17265,11 @@ export type WithAcfStartseite = {
 /** The writing setting type */
 export type WritingSettings = {
   __typename?: 'WritingSettings';
-  /** Standard-Beitragskategorie. */
+  /** Default post category. */
   defaultCategory?: Maybe<Scalars['Int']['output']>;
-  /** Standard-Beitragsformat. */
+  /** Default post format. */
   defaultPostFormat?: Maybe<Scalars['String']['output']>;
-  /** Emoticons wie :-) und :-P als Grafiken anzeigen. */
+  /** Convert emoticons like :-) and :-P to graphics on display. */
   useSmilies?: Maybe<Scalars['Boolean']['output']>;
 };
 
