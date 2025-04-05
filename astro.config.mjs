@@ -10,7 +10,7 @@ import sentry from "@sentry/astro";
 import codecovplugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
 import { visualizer } from "rollup-plugin-visualizer";
-import { name, version } from "./package.json";
+import { version } from "./package.json";
 import spotlightjs from "@spotlightjs/astro";
 
 const {
@@ -142,7 +142,9 @@ export default defineConfig({
     //   },
     // }),
     sentry({
-      release: `${name}@${version}`,
+      release: {
+        name: version,
+      },
       dsn: SENTRY_DSN,
       sourceMapsUploadOptions: {
         project: SENTRY_PROJECT_ID,
