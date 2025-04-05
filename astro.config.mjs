@@ -11,6 +11,7 @@ import codecovplugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
 import { visualizer } from "rollup-plugin-visualizer";
 import { name, version } from "./package.json";
+import spotlightjs from "@spotlightjs/astro";
 
 const {
   WP_API,
@@ -155,6 +156,7 @@ export default defineConfig({
         excludeReplayIframe: true,
       },
     }),
+    spotlightjs(),
     codecovplugin({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
