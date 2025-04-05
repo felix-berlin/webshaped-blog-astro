@@ -53,3 +53,26 @@ export const getMenuById = async (id: number): Promise<RootQuery["menu"]> => {
 
   return data?.menu;
 };
+
+export const getMenuItems = async (lang: string, location: string) => {
+  const data = await fetchAPI(`
+  {
+    menuItems(where: {language: ${lang}, location: ${location}, parentDatabaseId: 0}) {
+      nodes {
+        label
+        order
+        path
+        childItems {
+          nodes {
+            label
+            order
+            path
+          }
+        }
+      }
+    }
+  }
+  `).then((res) => res.data);
+
+  return data?.menuItems;
+};
