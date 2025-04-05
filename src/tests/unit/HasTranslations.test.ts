@@ -24,7 +24,7 @@ describe("HasTranslations.vue", () => {
 
     links.forEach((link, i) => {
       expect(link.attributes("href")).toBe(
-        `/${wrapper.props().translations[i].language.slug}/${wrapper.props().translations[i].slug}`,
+        `/${wrapper.props().translations[i].language.slug}/posts/${wrapper.props().translations[i].slug}`,
       );
     });
   });

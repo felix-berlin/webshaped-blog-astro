@@ -45,8 +45,10 @@ describe("MenuItem", () => {
         menuItem: twoMenuItem,
         depth: 0,
         index: 0,
+        hasChild: true,
       },
     });
+
     expect(wrapper.find("button").exists()).toBe(true);
   });
 
@@ -56,6 +58,7 @@ describe("MenuItem", () => {
         menuItem: twoMenuItem,
         depth: 0,
         index: 0,
+        hasChild: true,
       },
     });
     const button = wrapper.find("button");
@@ -69,6 +72,7 @@ describe("MenuItem", () => {
         menuItem: twoMenuItem,
         depth: 0,
         index: 0,
+        hasChild: true,
       },
     });
     const button = wrapper.find("button");
@@ -80,8 +84,6 @@ describe("MenuItem", () => {
     await button.trigger("click");
 
     expect(wrapper.vm.isOpen).toBe(false);
-    expect(wrapper.findComponent({ name: "MenuSubmenu" }).vm.isOpen).toBe(
-      false,
-    );
+    expect(wrapper.findComponent({ name: "MenuSubmenu" }).vm.isOpen).toBe(false);
   });
 });

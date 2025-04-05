@@ -23,14 +23,10 @@ describe("updateCategoryPaths", () => {
       },
     };
 
-    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems, "de");
 
-    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe(
-      "/category1/1",
-    );
-    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe(
-      "/category2/1",
-    );
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe("/de/category1/1");
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe("/de/category2/1");
   });
 
   it("does not update paths that are not category paths", () => {
@@ -53,20 +49,16 @@ describe("updateCategoryPaths", () => {
       },
     };
 
-    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems, "de");
 
-    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe(
-      "/category1/1",
-    );
-    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe(
-      "/product1",
-    );
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[0].path).toBe("/de/category1/1");
+    expect(updatedMenuItems.menuItems.nodes[0].childItems.nodes[1].path).toBe("/product1");
   });
 
   it("returns null if mainMenuItems is null", () => {
     const mainMenuItems = null;
 
-    const updatedMenuItems = updateCategoryPaths(mainMenuItems);
+    const updatedMenuItems = updateCategoryPaths(mainMenuItems, "de");
 
     expect(updatedMenuItems).toBeNull();
   });

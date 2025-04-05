@@ -31,7 +31,11 @@
           mode="out-in"
           class="c-scrobble-display__list"
         > -->
-        <div v-auto-animate class="c-scrobble-display__list">
+        <div
+          v-auto-animate
+          class="c-scrobble-display__list"
+          v-if="state?.tracks?.recenttracks?.track"
+        >
           <div
             v-for="track in state.tracks.recenttracks.track"
             :key="track"
@@ -71,14 +75,14 @@
           <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
             t("scrobble_display.total_text", {
-              total: state.tracks.recenttracks["@attr"].total,
+              total: state?.tracks?.recenttracks?.["@attr"]?.total,
             })
           }}</span
           ><br />
           <span
             v-html="
               t('scrobble_display.follow_me', {
-                link: `https://www.last.fm/user/${state.tracks.recenttracks['@attr'].user}`,
+                link: `https://www.last.fm/user/${state?.tracks?.recenttracks?.['@attr']?.user}`,
               })
             "
           />
