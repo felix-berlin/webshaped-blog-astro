@@ -103,7 +103,7 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 <link rel="canonical" href={seo?.canonical || Astro.url} />
 
 <!-- Primary Meta Tags -->
-<title set:text={title} />
+<title set:text={seo?.title ? seo.title : title} />
 
 {seo?.title && <meta name="title" content={seo.title} />}
 {seo?.metaDesc && <meta name="description" content={seo.metaDesc} />}
