@@ -216,7 +216,7 @@ export default defineConfig({
           }
         },
       }), // chooses the compiler automatically
-      visualizerPlugin,
+      BUNDLE_ANALYZER_OPEN === "true" ? visualizerPlugin : null,
     ],
 
     css: {
