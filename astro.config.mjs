@@ -63,7 +63,6 @@ export default defineConfig({
     responsiveImages: true,
     clientPrerender: true,
   },
-  prefetch: true,
   redirects: {
     "/category/web-analytics": "/de/category/matomo/1",
   },
