@@ -20,6 +20,8 @@
           "
           :width="comment.author.node.avatar.width!"
           :height="comment.author.node.avatar.height!"
+          loading="lazy"
+          decoding="async"
           class="c-comment__author-image"
         />
         <div v-else class="c-comment__author-icon">
