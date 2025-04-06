@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.46](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-04-06)
+
+
+### Bug Fixes
+
+* remove workflow_dispatch ([d058bb9](https://github.com/felix-berlin/webshaped-blog-astro/commit/d058bb95167184a6298b1efd2d1aa948c59ce02b))
+
 # [1.0.0-beta.45](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-04-06)
 
 
