@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.42](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.41...v1.0.0-beta.42) (2025-04-06)
+
+
+### Features
+
+* disable theme toggle until lightmode is ready ([1a66b44](https://github.com/felix-berlin/webshaped-blog-astro/commit/1a66b442a76709617594aebcb9c777291ee1cd25))
+
 # [1.0.0-beta.41](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2025-04-06)
 
 
