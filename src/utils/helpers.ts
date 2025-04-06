@@ -51,7 +51,12 @@ export const getHtmlContent = (str: string): string => {
     return "";
   }
   const htmlTagRegex = /<[^>]*>/g;
-  return str.replace(htmlTagRegex, "");
+  let previous;
+  do {
+    previous = str;
+    str = str.replace(htmlTagRegex, "");
+  } while (str !== previous);
+  return str;
 };
 
 /**
