@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.44](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-04-06)
+
+
+### Performance Improvements
+
+* **CommentItem:** load image lazy ([4628b50](https://github.com/felix-berlin/webshaped-blog-astro/commit/4628b50e544fb4a2363c3983e2e745182f8da46b))
+
 # [1.0.0-beta.43](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-04-06)
 
 
