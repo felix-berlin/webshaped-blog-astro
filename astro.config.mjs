@@ -158,7 +158,7 @@ export default defineConfig({
         excludeReplayIframe: true,
       },
     }),
-    spotlightjs(),
+    // spotlightjs(),
     codecovplugin({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
