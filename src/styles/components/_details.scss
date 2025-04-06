@@ -1,0 +1,19 @@
+.c-details {
+  summary {
+    cursor: pointer;
+    background: var(--background-image-details, url("../../assets/icons/icon-plus-white.svg"))
+      no-repeat left center;
+    padding: 0 0 0 15px;
+    list-style: none;
+    margin: 0;
+    vertical-align: middle;
+  }
+
+  &[open] {
+    --background-image-details: url("../../assets/icons/icon-minus-white.svg");
+  }
+
+  &__title {
+    margin-left: 0.2rem;
+  }
+}

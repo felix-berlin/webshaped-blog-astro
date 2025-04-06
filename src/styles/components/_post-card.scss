@@ -1,0 +1,88 @@
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+
+.c-post-card {
+  padding: 2rem;
+  background-color: butler-fn.hex-to-rgb(colors.$blue-light, 8%);
+  border-radius: base.$border-radius;
+  position: relative;
+
+  @include butler-mx.feature("motion") {
+    @include butler-mx.hover {
+      --opacity-arrow: 1;
+      --color-title-post-card: var(--red-light);
+
+      transition: color opacity 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+    }
+  }
+  @include butler-mx.breakpoint("xs") {
+    --translate-background: 10px, -7px;
+  }
+
+  &::after {
+    content: "";
+    background-color: butler-fn.hex-to-rgb(colors.$blue-light, 5%);
+    border-radius: base.$border-radius;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: blur(3px) hue-rotate(21deg);
+    will-change: transform;
+  }
+
+  p,
+  h2 {
+    margin: 0;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    height: 100%;
+  }
+
+  &__title {
+    color: var(--color-title-post-card, inherit);
+  }
+
+  &__excerpt {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  &__read-more {
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: auto;
+
+    @include butler-mx.feature("motion") {
+      @include butler-mx.hover {
+        --transform-arrow: translateX(0.15rem);
+        --color-arrow: var(--accent-color);
+      }
+    }
+
+    &-arrow {
+      opacity: var(--opacity-arrow, 0);
+      transition: all 0.2s ease-in-out;
+      transform: var(--transform-arrow, translateX(0));
+      color: var(--color-arrow, currentColor);
+
+      @include butler-mx.feature("no-motion") {
+        --opacity-arrow: 1;
+      }
+
+      @media (hover: none) {
+        --opacity-arrow: 1;
+      }
+    }
+  }
+}

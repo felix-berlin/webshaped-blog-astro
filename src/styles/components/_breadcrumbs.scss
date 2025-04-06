@@ -1,0 +1,5 @@
+@use "@styles/utilities";
+@use "@styles/variables/colors";
+@use "astro-breadcrumbs/breadcrumbs.scss" with (
+  $color-link: colors.$blue-shallow-dark
+);

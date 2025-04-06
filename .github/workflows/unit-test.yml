@@ -1,0 +1,47 @@
+name: Unit tests
+on:
+  pull_request:
+
+env:
+  VITEST_CI: true
+
+jobs:
+  lint:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout ✅
+        uses: actions/checkout@v4
+
+      - run: cp ./.env.pipeline ./.env
+
+      - name: Setup pnpm 🛠️
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "pnpm"
+
+      - name: Install dependencies 🛠️
+        run: pnpm i
+
+      - name: Run Vitest (with coverage report) 🧪
+        run: pnpm run test:unit:coverage
+        env:
+          SITE_URL: "http://localhost:4321"
+
+      - name: Codecov
+        uses: codecov/codecov-action@v5.3.1
+        with:
+          directory: ./tests/unit/coverage
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

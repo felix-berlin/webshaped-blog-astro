@@ -1,0 +1,39 @@
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+@use "@styles/variables/colors";
+
+.c-social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  &__link {
+    --width-border-button-outline: 2px;
+    --color-border-button-outline: #{butler-fn.hex-to-rgb(
+        colors.$red-light,
+        20%
+      )};
+    --padding-button-outline: 0.5rem;
+    --color-button-outline: var(--accent-color);
+
+    display: flex;
+
+    .c-social-list__icon {
+      path {
+        stroke-width: 1;
+      }
+    }
+  }
+
+  &:where(.is-footer) {
+    container-type: inline-size;
+    container-name: social-list;
+
+    .c-social-list__icon {
+      @container social-list (max-width: 600px) {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

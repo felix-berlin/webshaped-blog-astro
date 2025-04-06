@@ -1,0 +1,126 @@
+---
+import SocialList from "@components/SocialList.vue";
+import Menu from "@components/Menu.vue";
+import GreenHosted from "@components/footer/GreenHosted.vue";
+import { getMenuItems, getAuthor, getAllCategories } from "@services/api";
+import { getSocialIconData } from "@utils/helpers";
+import { version } from "../../../package.json";
+import "@styles/objects/_footer.scss";
+import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
+// import InstallApp from "@components/InstallApp.vue";
+import type { Language, Maybe } from "@ts_types/generated/graphql";
+import Copyright from "~icons/lucide/copyright";
+import GitCommit from "~icons/lucide/git-commit";
+
+const categories = await getAllCategories();
+const footerMenuItems = await getMenuItems("DE", "SECONDARY_MENU");
+const author = await getAuthor();
+
+interface MainFooterProps {
+  lang: Maybe<Language>;
+}
+
+const { lang } = Astro.props as MainFooterProps;
+
+const t = useTranslations(lang);
+const iconStyles = {
+  size: 40,
+  strokeWidth: 1,
+};
+
+const additionalSoicalData = {
+  mastodon: {
+    rel: "me",
+  },
+  github: {
+    rel: "me",
+  },
+};
+
+const allSocials = {
+  ...author?.seo?.social,
+  ...author?.socialAdvanced,
+};
+---
+
+<footer class="o-footer">
+  <SocialList
+    class:list={["o-footer__social-list", "is-footer"]}
+    socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
+    lang={lang}
+  />
+
+  <div class="o-footer__end">
+    <div class="o-footer__logo">
+      <img
+        src="/assets/logo/web_shaped_logo_2023_whail_trans_white_outline_no-spacing.svg"
+        alt="Web Shaped Logo"
+        width="150"
+        height="103"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="o-footer__categories">
+      <h3 class="o-footer__headline">
+        {t("categories")}
+      </h3>
+      <menu class="c-menu c-menu--footer-two-columns u-list-reset">
+        {
+          categories &&
+            categories.nodes
+              .filter((category) => category.language?.slug === lang)
+              .map((category) => (
+                <li class="c-menu__item">
+                  <a
+                    class="c-menu__link"
+                    href={categoryPathBuilder(category.slug, category.language?.slug)}
+                  >
+                    {category.name}
+                  </a>
+                </li>
+              ))
+        }
+      </menu>
+    </div>
+    <div class="o-footer__other">
+      <h3 class="o-footer__headline">
+        {t("footer.headline.other")}
+      </h3>
+      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems} />
+    </div>
+    <div class="o-footer__quote">
+      <figure>
+        <blockquote>
+          „If debugging is the process of removing software bugs, then programming must be the
+          process of putting them in.“
+        </blockquote>
+        <figcaption>
+          —Edsger W. Dijkstra, <cite>(1930 – 2002)</cite>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="o-footer__infos">
+      <div class="o-footer__credits">
+        <Copyright width="16" height="16" />
+        <span>
+          2015 - {t("footer.copyright.now")} Felix Scholze
+        </span>
+      </div>
+      <a
+        href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
+        class="o-footer__version"
+        target="_blank"
+        title="Github Releases Seite"
+      >
+        <GitCommit width="16" height="16" />
+        <span>Website Version: {version}</span>
+      </a>
+
+      <GreenHosted lang={lang} />
+      <!-- FIXME: PWA is not working (manifest is not found ect.) -->
+      <!-- <InstallApp showIcon={true} client:only="vue" cssClass="c-button--like-link" /> -->
+    </div>
+  </div>
+</footer>

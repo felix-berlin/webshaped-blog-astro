@@ -1,0 +1,94 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+
+.c-webmentions {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  row-gap: 4rem;
+  container-type: inline-size;
+  container-name: webmentions;
+}
+
+.c-webmention {
+  container-type: inline-size;
+  flex: 1 0 calc(50% - 15px);
+  width: 100%;
+  display: grid;
+  min-width: 280px;
+  grid-template-columns: var(--columns-grid-webmention, max-content 1fr);
+  grid-template-areas: "content content" "header header";
+  gap: 15px;
+
+  @container webmentions (inline-size > 425px) {
+    grid-template-areas: "header content";
+    min-width: 390px;
+  }
+
+  &__header {
+    align-self: flex-end;
+    width: fit-content;
+    width: max(75px, 120px);
+  }
+
+  &__content {
+    white-space: pre-line;
+    margin: var(--spacing-outer-content, 0 0 35px 0);
+    row-gap: 15px;
+    max-width: 100%;
+
+    @container webmentions (inline-size < 425px) {
+      &::after,
+      &::before {
+        height: 8px;
+      }
+
+      &::after {
+        bottom: -18px;
+        width: 80px;
+      }
+
+      &::before {
+        bottom: -36px;
+        width: 8px;
+      }
+    }
+    @container webmentions (590px <= inline-size <= 768px) or (inline-size > 1000px) {
+      --spacing-outer-content: 0 0 0 35px;
+
+      &::after,
+      &::before {
+        width: 8px;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+
+      &::after {
+        left: -18px;
+        height: 80px;
+      }
+
+      &::before {
+        left: -36px;
+        height: 8px;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: auto;
+  }
+
+  &__source {
+    color: var(--accent-color);
+
+    @include butler-mx.hover {
+      path {
+        fill: var(--accent-color);
+      }
+    }
+  }
+}

@@ -1,0 +1,163 @@
+---
+import "@styles/app.scss";
+import "@styles/components/_blog.scss";
+import "@styles/components/_blog-sidebar.scss";
+import "@styles/components/post/_post-footer.scss";
+
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import DateModified from "@components/post/DateModified.vue";
+import ReadingTime from "@components/post/ReadingTime.vue";
+import TableOfContents from "@components/post/TableOfContents.vue";
+import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
+import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
+import Categories from "@components/Categories.vue";
+// import Author from "@components/post/Author.vue";
+import Author from "@components/post/Author.astro";
+// import Matomo from "@components/Matomo.vue";
+import PostOlderThan from "@components/post/PostOlderThan.vue";
+import { Breadcrumbs } from "astro-breadcrumbs";
+import ImageResponsive from "@components/ImageResponsive.vue";
+import TabDisplay from "@components/tabs/TabDisplay.vue";
+import ChevronRight from "~icons/lucide/chevron-right";
+import HasTranslations from "@components/HasTranslations.vue";
+import { getLangFromUrl, useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
+import type { CoreHeading } from "@ts_types/generated/graphql";
+import type { Post, MediaSize, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
+
+export interface BlogPost {
+  content: Post;
+  headings?: CoreHeading[];
+}
+
+const {
+  content: {
+    title,
+    slug,
+    dateGmt,
+    modifiedGmt,
+    featuredImage,
+    seo,
+    language,
+    comments,
+    commentCount,
+    postId,
+    id,
+    content,
+    categories,
+    author,
+    translations,
+  },
+  headings,
+} = Astro.props as BlogPost;
+
+const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const createBreadcrumbItems = () => {
+  const items = [
+    {
+      text: lang === "de" ? "Start" : "Home",
+      href: "/",
+    },
+  ];
+
+  if (categories?.edges?.length) {
+    const parentCategory = categories?.edges?.find((edge) => edge.node.parent === null)?.node;
+    const childCategory = parentCategory?.children?.edges;
+
+    items.push({
+      text: parentCategory?.name!,
+      href: categoryPathBuilder(parentCategory?.slug, lang),
+    });
+
+    if (childCategory?.length) {
+      items.push({
+        text: childCategory[0].node.name!,
+        href: categoryPathBuilder(childCategory[0].node.slug, lang),
+      });
+    }
+  }
+
+  return items;
+};
+
+interface ParsedHeading {
+  content: string;
+  level: number;
+}
+
+// create new array with allready parsed JSON and only the headline.
+const parsedHeadings: ParsedHeading[] =
+  headings?.map((heading) => {
+    const headlineContent = heading?.attributes;
+    if (!headlineContent) return null;
+
+    return {
+      content: headlineContent.content,
+      level: headlineContent.level,
+    };
+  }) || [];
+
+const translationsRoutes = {
+  [lang]: slug,
+  [translations?.[0]?.language?.slug]: translations?.[0]?.slug,
+};
+---
+
+<DefaultLayout
+  content={{ title, seo, language }}
+  contentClasses={["c-blog h-entry"]}
+  translationsRoutes={translationsRoutes}
+>
+  <!-- LastFM API -->
+  <link rel="preconnect" href="//last-fm.kasimir.dev" slot="head" />
+  <!-- Gravatar -->
+  <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
+  <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
+  <MobileTableOfContents headings={parsedHeadings} client:only="vue" />
+
+  <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
+    <ChevronRight slot="separator" width="20" height="20" />
+  </Breadcrumbs>
+
+  <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
+    <h1 class="c-blog__title p-name">{title}</h1>
+
+    <ImageResponsive
+      src={featuredImage?.node.mediaItemUrl}
+      srcSet={featuredImage?.node.srcSet}
+      width={featuredImage?.node.mediaDetails?.width}
+      height={featuredImage?.node.mediaDetails?.height}
+      alt={featuredImage?.node.altText}
+      aboveTheFold={true}
+      class:list="c-blog__hero-image"
+    />
+  </header>
+  <article class="c-blog__post e-content">
+    <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />
+
+    <slot />
+  </article>
+
+  <footer class="c-post-footer">
+    <section class="c-blog__info-bar u-glas-background">
+      <DateModified date={modifiedGmt || undefined} lang={lang} />
+      <ReadingTime time={seo?.readingTime || undefined} lang={lang} />
+      <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
+      <HasTranslations translations={translations} lang={lang} />
+    </section>
+    <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
+  </footer>
+
+  <aside class="c-blog-sidebar">
+    <Author author={author || undefined} lang={lang!} />
+    <div class="c-blog-sidebar__toc-wrap">
+      <h2 class="c-blog-sidebar__headline is-toc">
+        {t("blog.table_of_contents")}
+      </h2>
+      <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
+      <TableOfContents headings={parsedHeadings} tocId="tableOfContents" client:load />
+    </div>
+  </aside>
+</DefaultLayout>

@@ -1,0 +1,12 @@
+@forward "breakpoint";
+@forward "skeleton-loader";
+
+@mixin icon-center {
+  &:has(svg) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @content;
+  }
+}

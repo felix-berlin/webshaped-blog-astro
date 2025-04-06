@@ -1,0 +1,53 @@
+@forward "@styles/utilities/transitions";
+@use "@styles/variables/colors";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+@use "@styles/variables/base";
+
+.u-slide-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+:where(.u-list-reset) {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.u-glas-background {
+  position: relative;
+  background-color: var(
+    --background-color-glas,
+    #{butler-fn.hex-to-rgb(colors.$new01, 15%)}
+  );
+
+  @include butler-mx.dark-mode-class {
+    --background-color-glas: #{butler-fn.hex-to-rgb(colors.$blue-light, 15%)};
+  }
+
+  &::after {
+    content: "";
+    background-color: var(
+      --background-color-glas-after,
+      #{butler-fn.hex-to-rgb(colors.$new01, 10%)}
+    );
+    border-radius: base.$border-radius;
+    position: absolute;
+    width: 100%;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: blur(3px) hue-rotate(21deg);
+
+    @include butler-mx.dark-mode-class {
+      --background-color-glas-after: #{butler-fn.hex-to-rgb(
+          colors.$blue-light,
+          10%
+        )};
+    }
+  }
+}
+
+.u-rounded {
+  border-radius: base.$border-radius;
+}

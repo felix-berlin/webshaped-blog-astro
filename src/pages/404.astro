@@ -1,0 +1,19 @@
+---
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import Search from "@components/Search.astro";
+
+const notFoundContent = {
+  title: "Not Found",
+  seo: "",
+  language: {
+    code: "DE",
+    locale: "de_DE",
+  },
+};
+---
+
+<DefaultLayout content={notFoundContent}>
+  <h1>404</h1>
+
+  <Search />
+</DefaultLayout>

@@ -1,0 +1,125 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/colors";
+@use "@styles/variables/layout";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+
+.o-footer {
+  overflow: hidden;
+  max-width: layout.$layout-width;
+  margin: 0 auto;
+
+  &__social-list {
+    margin: 45px 0 25px;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &__end {
+    display: grid;
+    grid-template-columns: var(--columns-grid, 1fr);
+    grid-template-areas: var(--areas-grid, " logo " " quote " " categories " " other " " infos ");
+    padding: 2rem 30px 1rem;
+    background-color: butler-fn.hex-to-rgb(colors.$blue-light, 15%);
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    position: relative;
+    row-gap: 3rem;
+
+    &::after {
+      content: "";
+      background-color: butler-fn.hex-to-rgb(colors.$blue-light, 10%);
+      border-radius: base.$border-radius;
+      position: absolute;
+      height: 115%;
+      width: 100%;
+      inset: 0;
+      transform: rotate(var(--rotate-background, 1deg))
+        translate(var(--translate-background, 8px, -7px));
+      z-index: -1;
+      backdrop-filter: blur(3px) hue-rotate(21deg);
+    }
+
+    @include mx.breakpoint("sm") {
+      --columns-grid: 225px 1fr;
+      --areas-grid: " logo quote " " categories other " " infos infos ";
+    }
+    @include mx.breakpoint("md") {
+      --columns-grid: 225px 2fr 1fr 3fr;
+      --areas-grid: " logo categories other quote " " infos infos infos infos ";
+
+      gap: 2rem;
+    }
+  }
+
+  &__infos {
+    grid-area: infos;
+    display: flex;
+    column-gap: 30px;
+    row-gap: 0.7rem;
+    flex-wrap: wrap;
+    color: var(--white);
+  }
+
+  &__headline {
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+  }
+
+  &__credits,
+  &__version,
+  .c-green-hosted {
+    font-size: 0.8rem;
+  }
+
+  &__credits {
+    grid-area: credits;
+
+    @include mx.icon-center() {
+      gap: 5px;
+    }
+  }
+
+  &__version {
+    grid-area: version;
+  }
+
+  .c-green-hosted {
+    grid-area: green-hosted;
+  }
+
+  &__categories {
+    grid-area: categories;
+  }
+
+  &__other {
+    grid-area: other;
+  }
+
+  &__logo {
+    grid-area: logo;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__quote {
+    grid-area: quote;
+
+    figure {
+      margin: 0;
+    }
+
+    blockquote {
+      font-size: var(--font-size-lg);
+      line-height: 2.2rem;
+      font-style: italic;
+      text-align: justify;
+      margin: 0 0 1rem;
+    }
+
+    figcaption {
+      font-size: var(--font-size-sm);
+    }
+  }
+}

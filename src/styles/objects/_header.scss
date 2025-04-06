@@ -1,0 +1,10 @@
+@use "@styles/variables/layout";
+
+.o-header {
+  grid-area: header;
+
+  .c-main-nav {
+    max-width: layout.$layout-width;
+    margin: 0 auto;
+  }
+}

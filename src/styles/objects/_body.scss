@@ -1,0 +1,5 @@
+@use "@styles/variables/layout";
+
+.o-body {
+  padding: 20px layout.$spacing-edge 0 layout.$spacing-edge;
+}

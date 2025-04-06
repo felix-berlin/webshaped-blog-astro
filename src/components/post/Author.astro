@@ -1,0 +1,84 @@
+---
+import "@styles/components/_author.scss";
+import "@styles/components/_details.scss";
+import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
+import SocialList from "@components/SocialList.vue";
+import type {
+  Language,
+  NodeWithAuthorToUserConnectionEdge,
+  Maybe,
+} from "@ts_types/generated/graphql";
+import { getSocialIconData } from "@utils/helpers";
+import { useTranslations } from "@utils/i18n/utils";
+import { LAST_FM_SCROBBLER_API } from "astro:env/client";
+
+export interface AuthorProps {
+  author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
+  lang: string;
+}
+
+const { author, lang } = Astro.props as AuthorProps;
+const t = useTranslations(lang);
+const scrobbleApi = LAST_FM_SCROBBLER_API;
+
+const iconStyles = {
+  size: 20,
+  strokeWidth: 1,
+};
+
+const additionalSoicalData = {
+  mastodon: {
+    rel: "me",
+  },
+  github: {
+    rel: "me",
+  },
+};
+
+const allSocials = {
+  ...author?.node?.seo?.social,
+  ...author?.node?.socialAdvanced,
+};
+---
+
+<div class="c-author u-glas-background u-rounded" itemscope itemtype="http://schema.org/Person">
+  <div class="c-author__image-wrap">
+    {
+      author?.node?.avatar?.url && (
+        <img
+          src={author.node.avatar.url}
+          class="c-author__image"
+          alt="`Foto des Author: ${author?.node.firstName} ${author?.node.lastName}`"
+          width={author.node.avatar.width}
+          height={author.node.avatar.height}
+          loading="eager"
+          itemprop="image"
+          src="path/to/author/image.jpg"
+        />
+      )
+    }
+
+    <ScrobbleDisplay
+      scrobbleApi={scrobbleApi}
+      dropdownPlacement="left"
+      idle-after-count={1}
+      client:only="vue"
+    />
+  </div>
+
+  <p class="c-author__name" itemprop="name">
+    {`${author?.node.firstName} ${author?.node.lastName}`}
+  </p>
+
+  <p class="c-author__description" itemprop="description">
+    {author?.node.description}
+  </p>
+
+  <details class="c-author__details-toggle c-details">
+    <summary><span class="c-details__title">{t("more")}</span></summary>
+    <SocialList
+      socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
+      lang={lang}
+    />
+  </details>
+</div>

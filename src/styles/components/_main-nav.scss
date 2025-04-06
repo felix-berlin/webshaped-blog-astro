@@ -1,0 +1,163 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/layout";
+@use "@styles/variables/shadows";
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+
+.c-main-nav {
+  display: grid;
+  grid-template:
+    [header-left] var(--grid-areas-header, "logo toggle") 40px [header-right]
+    [flyout-left] var(--grid-areas-flyout, "flyout flyout") auto [flyout-right]
+    / max-content 1fr;
+  position: relative;
+  padding: 20px layout.$spacing-edge;
+  border-radius: base.$border-radius;
+  z-index: 5;
+  container-type: inline-size;
+
+  @include mx.breakpoint("sm") {
+    grid-template:
+      [header-left] var(--grid-areas-header, "logo menu button-bar")
+      [header-right]
+      / max-content 1fr;
+  }
+
+  *:not(.c-main-nav__flyout) {
+    @include mx.breakpoint("sm", "max") {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .c-logo {
+    grid-area: logo;
+
+    img {
+      max-width: 80cqi;
+    }
+  }
+
+  &__flyout {
+    grid-area: flyout;
+
+    @include mx.breakpoint("sm", "max") {
+      --height-header: 130px;
+
+      position: fixed;
+      z-index: 4;
+      background-color: var(--blue-dark);
+      inset: 0;
+      padding: var(--height-header) layout.$spacing-edge layout.$spacing-edge * 2
+        layout.$spacing-edge;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: scroll;
+
+      &::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          butler-fn.hex-to-rgb(colors.$red-light, 25%) 0%,
+          butler-fn.hex-to-rgb(colors.$blue-light, 8%) 25%,
+          butler-fn.hex-to-rgb(colors.$blue-dark, 85%) 85%
+        );
+      }
+
+      .c-menu {
+        &__link {
+          &.is-level-0 {
+            padding-inline: 1rem;
+          }
+        }
+      }
+
+      .c-main-nav__button-bar {
+        --gap-button-bar: 1.8rem;
+
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 1.5rem;
+        column-gap: var(--gap-button-bar);
+
+        .c-main-nav__buttons {
+          --column-gap-buttons: var(--gap-button-bar);
+
+          display: flex;
+        }
+
+        .c-searchbar {
+          flex: 1 0 min(100%, 250px);
+        }
+      }
+    }
+  }
+
+  &__menu {
+    grid-area: menu;
+    flex-direction: var(--direction-flex, column);
+    position: relative;
+
+    @include mx.breakpoint("sm") {
+      --direction-flex: row;
+
+      align-items: center;
+      column-gap: 2rem;
+      margin-left: 30px;
+    }
+
+    .c-menu__link {
+      font-size: var(--size-font, 24px);
+
+      @include mx.breakpoint("sm") {
+        --size-font: 18px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &.is-level-0 {
+        --color-link-base: var(--red-light);
+      }
+    }
+  }
+
+  &__toggle {
+    grid-area: toggle;
+    justify-self: flex-end;
+
+    @include mx.breakpoint("sm") {
+      --display-button: none;
+    }
+  }
+
+  &__button-bar {
+    grid-area: button-bar;
+    display: flex;
+    column-gap: 1rem;
+  }
+
+  &__buttons {
+    display: flex;
+    column-gap: var(--column-gap-buttons, 1rem);
+  }
+
+  &__rss-link {
+    padding-inline: 6px;
+    padding-block: 1px;
+  }
+
+  .c-searchbar {
+    width: clamp(135px, 150px, 200px);
+
+    @container (inline-size > 800px) {
+      margin-right: 50px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@use "@styles/utilities/animations";
+
+.c-comments {
+  grid-area: comments;
+
+  &__load-more-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: center;
+    margin: 100px auto 0;
+  }
+
+  &__loading-icon {
+    &.is-loading {
+      animation: rotate-center 0.6s ease-in-out infinite both;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
+  }
+}

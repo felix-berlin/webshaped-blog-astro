@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContentBlocks > ContentBlocks renders correctly 1`] = `
+"<div id=\\"postContent\\" class=\\"c-blocks\\">
+  <p class=\\"c-blocks__paragraph\\">This is a paragraph.</p>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <h2 id=\\"this-is-a-heading\\" class=\\"c-blocks__heading c-blocks__heading--2\\">This is a heading</h2>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <div class=\\"c-blocks__code\\"><code>console.log(\\"Hello, world!\\");</code></div>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <figure class=\\"c-blocks__image\\"><img src=\\"https://example.com/image.jpg\\" alt=\\"An example image\\">
+    <figcaption>This is an example image.</figcaption>
+  </figure>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if--><a id=\\"click-me\\" href=\\"https://example.com\\" title=\\"An example link\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\" class=\\"c-blocks__button primary\\">Click me!</a>
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+  <div>
+    <div>This is some custom HTML.</div>
+  </div>
+</div>"
+`;

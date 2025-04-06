@@ -1,0 +1,24 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables" as vars;
+@use "@sass-butler/mixins" as butler-mx;
+
+.c-blog-sidebar {
+  grid-area: sidebar;
+
+  &__toc-wrap {
+    @include mx.breakpoint("md") {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+    }
+    @include mx.breakpoint("md", "max") {
+      display: none;
+    }
+  }
+
+  &__headline {
+    margin-top: 0;
+    line-height: 0.7;
+    text-transform: uppercase;
+  }
+}

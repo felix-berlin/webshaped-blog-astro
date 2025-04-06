@@ -1,0 +1,48 @@
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+@use "@styles/variables/fonts";
+@use "@styles/variables/colors";
+@use "@styles/mixins" as mx;
+
+// @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
+// @include fontsource-mx.fontFace($weight: 700);
+
+:root {
+  @each $name, $size in fonts.$font-sizes {
+    --font-size-#{$name}: #{$size};
+  }
+}
+
+@for $h from 1 to 6 {
+  h#{$h} {
+    font-family: fonts.$source-sans-pro;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+}
+
+html {
+  font-family: fonts.$source-sans-pro;
+  color: var(--color-base, #{colors.$blue-dark});
+
+  &[class~=dark] {
+    --color-base: #ffb433;
+  }
+}
+
+
+a {
+  color: var(--color-link-base);
+  cursor: pointer;
+  text-decoration: none;
+
+  @include butler-mx.dark-mode-class {
+    --color-link-base: #{colors.$white};
+  }
+
+  &:not(.c-post-card__link) {
+    @include mx.icon-center() {
+      gap: 5px;
+    }
+  }
+}

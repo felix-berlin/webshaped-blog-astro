@@ -1,0 +1,40 @@
+.c-pagination {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--accent-color);
+    height: 50px;
+    aspect-ratio: 1;
+  }
+
+  &__item {
+    &:not(:last-of-type) {
+      .c-pagination__link {
+        border-right: none;
+      }
+    }
+
+    &.is-current {
+      .c-pagination__link {
+        background-color: var(--accent-color);
+        color: #fff;
+      }
+    }
+
+    &.is-disabled {
+      .c-pagination__link {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

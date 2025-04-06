@@ -1,0 +1,34 @@
+---
+// import LanguageSelect from "@components/LanguageSelect.vue";
+import "@styles/objects/_header.scss";
+// import "@styles/components/_main-nav.scss";
+// import "@styles/components/_menu.scss";
+// import "@pagefind/default-ui/css/ui.css";
+// import "@styles/components/_searchbar.scss";
+import MainNav from "@components/hero/MainNav.vue";
+// import { currentLanguage } from "@stores/store";
+import type { Language, MenuToMenuItemConnection, Maybe } from "@ts_types/generated/graphql";
+import { getMenuItems } from "@services/api";
+import { updateCategoryPaths } from "@utils/helpers";
+
+interface HeaderProps {
+  lang: string | "de" | "en";
+}
+
+const { lang } = Astro.props as HeaderProps;
+
+let mainMenuItems = null;
+
+if (lang === "de") {
+  mainMenuItems = await getMenuItems("DE", "PRIMARY_MENU");
+} else if (lang === "en") {
+  mainMenuItems = await getMenuItems("EN", "PRIMARY_MENU");
+}
+
+const menuItems = updateCategoryPaths(mainMenuItems, lang);
+---
+
+<header id="mainHeader" class="o-header">
+  <MainNav menuItems={menuItems} client:only="vue" />
+  <!-- <LanguageSelect class="is-desktop" /> -->
+</header>

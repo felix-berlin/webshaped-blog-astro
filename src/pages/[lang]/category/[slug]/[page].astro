@@ -1,0 +1,124 @@
+---
+import "@styles/objects/_category.scss";
+import "@styles/objects/_blog-listing.scss";
+import "@styles/components/_blog-posts.scss";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+import Pagination from "@components/Pagination.vue";
+import { getAllPostPreviewsByCategory } from "@services/api";
+import type {
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+  GetStaticPaths,
+  PaginateFunction,
+} from "astro";
+import { removeLocaleCode } from "@utils/helpers";
+
+import type { Category, Post } from "@ts_types/generated/graphql";
+
+export const prerender = true;
+interface Paginate {
+  paginate: PaginateFunction;
+}
+
+export const getStaticPaths = async ({ paginate }: Paginate) => {
+  const postPreviews = await getAllPostPreviewsByCategory();
+  const pageCount = 6;
+
+  /**
+   * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
+   */
+  return postPreviews?.nodes.flatMap((category) => {
+    const { seo } = category;
+    const categoriesDe = category.posts?.nodes;
+    const categoriesEn = category.translations;
+
+    const availableLanguages: string[] = [];
+
+    const hasDeCategories = Array.isArray(categoriesDe) && categoriesDe.length;
+
+    if (hasDeCategories) {
+      availableLanguages.push(category.language?.slug);
+    }
+
+    if (!hasDeCategories) return [];
+
+    const germanPaths = paginate(categoriesDe as Node[] & Post[], {
+      props: {
+        content: {
+          title: category.name,
+          language: category.language,
+          seo,
+        },
+        availableLanguages: availableLanguages,
+      },
+      params: {
+        slug: category.slug as string,
+        lang: category.language?.slug as string,
+      },
+      pageSize: pageCount,
+    });
+
+    // TODO: make slug the same as in german
+    const englishPaths =
+      categoriesEn?.flatMap((translation) => {
+        const { seo } = translation;
+        const categoriesEnPosts = translation?.posts?.nodes;
+
+        const hasEnCategories = Array.isArray(categoriesEnPosts) && categoriesEnPosts.length;
+
+        if (hasEnCategories) {
+          availableLanguages.push(translation?.language?.slug);
+        }
+
+        if (!hasEnCategories) return [];
+
+        return paginate(categoriesEnPosts as Node[] & Post[], {
+          props: {
+            content: {
+              title: translation?.name,
+              language: translation?.language,
+              seo,
+            },
+            availableLanguages: availableLanguages,
+          },
+          params: {
+            slug: removeLocaleCode(translation?.slug) as string,
+            lang: translation?.language?.slug as string,
+          },
+          pageSize: pageCount,
+        });
+      }) ?? [];
+
+    return [...germanPaths, ...englishPaths];
+  });
+};
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { page, content, availableLanguages, seo } = Astro.props as Props;
+const { lang, slug } = Astro.params as Params;
+
+const path = `${lang}/category/${slug}`;
+const posts = page.data;
+
+const translationsRoutes = availableLanguages.reduce((acc, language) => {
+  acc[language] = `${Astro.url.origin}/${language}/category/${slug}/${page.currentPage}`;
+  return acc;
+}, {});
+---
+
+<DefaultLayout
+  content={content}
+  contentClasses="o-category"
+  translationsRoutes={{ taxonomy: "category", ...translationsRoutes }}
+>
+  <header class="o-category__header">
+    <h1 class="o-category__headline">{content.title}</h1>
+  </header>
+  <section class="c-blog-posts">
+    <BlogPostPreview posts={posts} />
+  </section>
+  <Pagination page={page} path={path} lang={content.language} />
+</DefaultLayout>

@@ -1,0 +1,33 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "exclude": ["dist", "node_modules", "src/tests/**/*.spec.ts", "src/tests/**/*.test.ts"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@composables/*": ["src/composables/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@utils/*": ["src/utils/*"],
+      "@i18n/*": ["src/utils/i18n/*"],
+      "@features/*": ["src/features/*"],
+      "@services/*": ["src/services/*"],
+      "@stores/*": ["src/stores/*"],
+      "@sass-butler/*": ["node_modules/@felix_berlin/sass-butler/*"],
+      "@styles/*": ["src/styles/*"],
+      "@ts_types/*": ["src/types/*"],
+      "@/*": ["src/*"]
+    },
+    "types": [
+      "vitest/globals",
+      "unplugin-icons/types/astro",
+      "unplugin-icons/types/vue",
+      "vite-plugin-pwa/client",
+      "vite-plugin-pwa/info"
+    ],
+    // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
+    "esModuleInterop": true
+  }
+}

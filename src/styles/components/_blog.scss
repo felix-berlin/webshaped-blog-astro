@@ -1,0 +1,97 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+@use "@styles/components/breadcrumbs";
+@use "@styles/variables/base";
+@use "@styles/variables/colors";
+@use "@styles/variables" as vars;
+
+.c-blog {
+  display: grid;
+  grid-template: var(
+    --template-grid,
+    " breadcrumbs " " header " " sidebar " " article " "footer "
+  );
+  grid-template-columns: var(--columns-grid, 1fr);
+  column-gap: 25px;
+  word-break: break-word;
+
+  @include mx.breakpoint("md") {
+    --template-grid: " breadcrumbs breadcrumbs " " header header "
+      " article sidebar " " footer footer ";
+    --columns-grid: 3fr 1fr;
+  }
+
+  &__header {
+    grid-area: header;
+
+    &:has(.c-blog__hero-image) {
+      .c-blog__hero-image {
+        margin: 0 0 7rem;
+      }
+
+      .c-blog__title {
+        --spacing-title-blog: 0 0 3rem;
+      }
+    }
+  }
+
+  &__title {
+    flex: 1 0 100%;
+    font-size: butler-fn.fluid(32, 48, 320, 1024);
+    margin: var(--spacing-title-blog, 0 0 3rem);
+  }
+
+  &__hero-image {
+    display: block;
+
+    img {
+      border: 2px solid colors.$blue-shallow-dark;
+      border-radius: base.$border-radius;
+    }
+  }
+
+  &__post {
+    grid-area: article;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .c-blocks__code {
+    display: grid;
+  }
+
+  &__info-bar {
+    padding: 1rem 2rem;
+    border-radius: base.$border-radius;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    margin: 4rem 0;
+
+    .c-categories__headline,
+    .c-date-modified__headline,
+    .c-reading-time__headline,
+    .c-has-translation__headline {
+      text-transform: uppercase;
+      color: var(--blue-shallow-dark);
+      margin: 0 0 0.5rem;
+    }
+
+    .c-reading-time__time {
+      margin: 0;
+    }
+  }
+
+  .c-post-footer {
+    grid-area: footer;
+  }
+
+  .c-breadcrumbs {
+    grid-area: breadcrumbs;
+    margin: 2rem 0 5rem;
+  }
+}

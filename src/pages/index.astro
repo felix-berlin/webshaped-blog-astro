@@ -1,0 +1,43 @@
+---
+import "@styles/components/_blog-posts.scss";
+import "@styles/objects/_blog-listing.scss";
+import "@styles/objects/_index.scss";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+import { getPostsPreview, getPageBySlug } from "@services/api";
+
+export const prerender = true;
+
+const indexDe: any = await getPageBySlug("startseite");
+// const indexEn: any = await getPageBySlug('blog-index-en');
+
+const posts: any = await getPostsPreview();
+
+// const allPost = posts.nodes.map(post => {
+//   let posts = {...post};
+
+//   // console.log('vorher', posts);
+
+//   if (post.translations.length) {
+//     console.log('MIT POST', post.slug, post.translations[0].slug);
+
+//     posts = {...post.translations[0], ...post};
+//   }
+//   // delete post.translations;
+//   // posts = {...post};
+
+//   console.log('nacher', posts.slug);
+
+//   return posts;
+// });
+---
+
+<DefaultLayout content={indexDe} contentClasses="o-index">
+  <header class="o-index__header">
+    <h1 class="o-index__headline">{indexDe.title}</h1>
+  </header>
+  <section class="c-blog-posts">
+    <BlogPostPreview posts={posts.nodes} />
+  </section>
+</DefaultLayout>

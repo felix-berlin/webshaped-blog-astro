@@ -1,0 +1,102 @@
+@use "sass:color";
+@use "@styles/variables/shadows";
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+@use "@styles/mixins" as mx;
+
+.c-button {
+  cursor: pointer;
+  border-radius: base.$border-radius;
+  color: var(--color-button, inherit);
+  background-color: var(--color-background-button, transparent);
+
+  @include butler-mx.feature("motion") {
+    transition: all 0.2s ease-in-out;
+  }
+
+  &--outline {
+    --color-button: var(--white);
+
+    border: var(--width-border-button-outline, 1px) solid
+      var(--color-border-button-outline, var(--accent-color));
+    padding: var(--padding-button-outline, 0.5rem 1rem);
+
+    @include butler-mx.feature("motion") {
+      @include butler-mx.hover {
+        box-shadow: 0 0 15px 1px butler-fn.hex-to-rgb(colors.$red-light, 50%);
+        backdrop-filter: blur(3px) hue-rotate(21deg);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--accent-color);
+    }
+
+    &.is-inactive {
+      --color-border: #{butler-fn.hex-to-rgb(colors.$red-light, 50%)};
+    }
+  }
+
+  &--primary {
+    --color-button: var(--white);
+    --color-background-button: var(--accent-color);
+
+    padding: 0.5rem 1rem;
+    border: none;
+
+    @include butler-mx.hover {
+      --color-background-button: #{color.adjust(
+          colors.$red-light,
+          $blackness: 8%
+        )};
+    }
+    @include mx.icon-center() {
+      gap: 10px;
+    }
+  }
+
+  &--icon {
+    --color-button: var(--blue-light);
+
+    transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
+
+    @extend .u-button-reset;
+    @include mx.icon-center();
+
+    &:active {
+      @include butler-mx.feature("motion") {
+        --color-button: var(--white);
+        --color-background-button: var(--accent-color);
+      }
+    }
+
+    @include butler-mx.feature("motion") {
+      @include butler-mx.hover {
+        svg {
+          --shadow: var(--accent-color);
+        }
+      }
+    }
+
+    svg {
+      filter: drop-shadow(shadows.$white-light-shadow);
+    }
+  }
+
+  &--like-link {
+    padding: 0;
+    @extend .u-button-reset;
+
+
+    @include mx.icon-center() {
+      gap: 5px;
+    }
+  }
+}
+
+.u-button-reset {
+  background-color: transparent;
+  border: none;
+}

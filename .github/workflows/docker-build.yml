@@ -1,0 +1,116 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - main
+      - beta
+  # - "**"
+  # pull_request:
+  # The trigger on release and prerelease does not work, so i use push tags instead
+  # release:
+  #   types: [published] # Ensure the workflow runs only when a release is published
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Login to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create .env file for main branch
+        if: github.ref == 'refs/heads/main'
+        run: |
+          touch .env
+          echo "${{ secrets.PROD_SECRETS }}" >> .env
+
+      - name: Create .env file for other branches
+        if: github.ref != 'refs/heads/main'
+        run: |
+          touch .env
+          echo "${{ secrets.DEV_SECRETS }}" >> .env
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          # platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: |
+            type=registry,ref=${{ steps.meta.outputs.tags }}
+            type=registry,ref=ghcr.io/${{ github.repository }}:latest
+            type=registry,ref=ghcr.io/${{ github.repository }}:beta
+          cache-to: type=inline
+
+      # - name: Build Docker image
+      #   id: build
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     # platforms: linux/amd64,linux/arm64
+      #     platforms: linux/arm64
+      #     push: false
+      #     load: true
+      #     tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+      #     labels: ${{ steps.meta.outputs.labels }}
+
+      # - name: Run Trivy vulnerability scanner
+      #   uses: aquasecurity/trivy-action@0.28.0
+      #   with:
+      #     image-ref: ghcr.io/${{ github.repository }}:${{ github.sha }}
+      #     format: "sarif"
+      #     output: "trivy-results.sarif"
+
+      # - name: Upload Trivy scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v3
+      #   with:
+      #     sarif_file: "trivy-results.sarif"
+
+      # - name: Push Docker image
+      #   if: success()
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     # platforms: linux/amd64,linux/arm64
+      #     platforms: linux/arm64
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}

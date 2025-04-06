@@ -1,0 +1,80 @@
+@use "sass:color";
+@use "@styles/variables/colors";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+
+.c-scrobble-display {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__headline {
+    margin: 0;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__track-item {
+    display: grid;
+    grid-template:
+      "image track"
+      "image artist"
+      / auto 1fr;
+    row-gap: 0.2rem;
+    column-gap: 0.75rem;
+    background-color: var(
+      --color-background-item,
+      #{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)}
+    );
+    border-radius: 3px;
+    padding: 0.25rem;
+
+    &.is-playing {
+      --color-background-item: #{butler-fn.hex-to-rgb(colors.$red-light, 20%)};
+    }
+  }
+
+  &__image {
+    grid-area: image;
+    border-radius: 3px;
+  }
+
+  &__track {
+    grid-area: track;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-end;
+
+    &-link {
+      color: var(--color, var(--white));
+
+      @include butler-mx.dark-mode-class {
+        --color: var(--blue-dark);
+      }
+    }
+  }
+
+  &__artist {
+    grid-area: artist;
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--color, #{color.adjust(#fff, $alpha: -0.5)});
+
+    @include butler-mx.dark-mode-class {
+      --color: #{color.adjust(colors.$blue-dark, $alpha: -0.25)};
+    }
+  }
+
+  &__now-playing {
+    margin-right: 0.75rem;
+  }
+
+  &__music-bar {
+    cursor: pointer;
+  }
+}

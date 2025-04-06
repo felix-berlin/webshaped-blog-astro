@@ -1,0 +1,27 @@
+@use "@styles/mixins" as mx;
+
+.c-webmention.is-loading,
+.c-comment.is-loading {
+  .c-webmention__author-image,
+  .c-comment__author-image,
+  h2,
+  .c-webmention__content,
+  .c-comment__content {
+    @include mx.skeleton-loader;
+  }
+
+  .c-webmention__author-image,
+  .c-comment__author-image {
+    height: 86px;
+  }
+
+  h2 {
+    margin-top: 8px;
+    height: 15px;
+    width: 100%;
+  }
+
+  p {
+    height: 70px;
+  }
+}

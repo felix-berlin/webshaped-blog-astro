@@ -1,0 +1,43 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+@use "@styles/components/breadcrumbs";
+@use "@styles/variables/base";
+@use "@styles/variables/colors";
+@use "@styles/variables" as vars;
+
+.c-blocks {
+  &__heading {
+    &--2 {
+      font-size: butler-fn.px-to-rem(32);
+      line-height: butler-fn.px-to-rem(54);
+      margin: 96px 0 32px;
+    }
+  }
+
+  &__paragraph,
+  &__list {
+    font-size: butler-fn.px-to-rem(18);
+    line-height: butler-fn.px-to-rem(34);
+  }
+
+  &__code {
+    .astro-code {
+      padding: 1rem;
+    }
+
+    .github-dark {
+      display: none;
+    }
+
+    @include butler-mx.dark-mode-class {
+      .github-light {
+        display: none;
+      }
+
+      .github-dark {
+        display: block;
+      }
+    }
+  }
+}

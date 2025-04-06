@@ -1,0 +1,125 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@styles/variables/colors";
+@use "@styles/variables/base";
+@use "@sass-butler/mixins" as butler-mx;
+@use "@sass-butler/functions" as butler-fn;
+
+:root {
+  @each $name, $color in colors.$all-colors {
+    --#{$name}: #{$color};
+  }
+
+  --accent-color: var(--orange-light);
+  --element-background: var(--blue-dark);
+}
+
+html {
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: base.$background-image-light;
+  background-color: var(
+    --color-background-doc,
+    #{butler-fn.hex-to-rgb(colors.$white, 100%)}
+  );
+  &[class~=dark] {
+    --color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
+    --accent-color: var(--red-light);
+    --element-background: var(--white);
+
+    background-image: base.$background-image-dark;
+
+    @include butler-mx.select-style(colors.$blue-shallow-dark, colors.$blue-dark);
+  }
+}
+
+body {
+  position: relative;
+  margin: 0;
+
+  @include butler-mx.font-smoothing;
+
+  & > main {
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -3;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(
+        --gradient-background,
+        linear-gradient(
+          25deg,
+          #{butler-fn.hex-to-rgb(#fff0d6, 10%)} 0%,
+          #{butler-fn.hex-to-rgb(#fff0d6, 95%)} var(--gradient-opacity-top, 10%),
+          #{butler-fn.hex-to-rgb(#fff0d6, 95%)} var(--gradient-opacity-bottom, 90%),
+          #{butler-fn.hex-to-rgb(#fff0d6, 10%)} 100%
+        )
+      );
+
+      @include butler-mx.dark-mode-class {
+        --gradient-background: linear-gradient(
+          25deg,
+          #{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 0%,
+          #{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-top, 10%),
+          #{butler-fn.hex-to-rgb(colors.$blue-dark, 95%)} var(--gradient-opacity-bottom, 90%),
+          #{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)} 100%
+        );
+      }
+      @include butler-mx.breakpoint("md") {
+        --gradient-opacity-top: 20%;
+        --gradient-opacity-bottom: 80%;
+      }
+    }
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: -2;
+    background: var(--gradient-background, none);
+    will-change: transform;
+  }
+
+  &::after {
+    bottom: 0;
+    left: 0;
+
+    --gradient-background: linear-gradient(
+      14deg,
+      #{butler-fn.hex-to-rgb(#ffcb70, 60%)} 0%,
+      #{butler-fn.hex-to-rgb(#ed3c63, 0%)} 40%
+    );
+
+    @include butler-mx.dark-mode-class {
+      --gradient-background: linear-gradient(
+        14deg,
+        #{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 0%,
+        #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 40%
+      );
+    }
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+
+    --gradient-background: linear-gradient(
+      25deg,
+      #{butler-fn.hex-to-rgb(colors.$orange-light, 0%)} 60%,
+      #{butler-fn.hex-to-rgb(#ed3c63, 10%)} 100%
+    );
+
+    @include butler-mx.dark-mode-class {
+      --gradient-background: linear-gradient(
+        25deg,
+        #{butler-fn.hex-to-rgb(colors.$blue-dark, 0%)} 60%,
+        #{butler-fn.hex-to-rgb(colors.$red-light, 60%)} 100%
+      );
+    }
+  }
+}

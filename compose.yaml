@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: webshaped-blog-astro
+    ports:
+      - "4321:4321"
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 4321

@@ -1,0 +1,22 @@
+.c-lang-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__link {
+    margin: 0;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &.is-not-translated {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.is-active {
+      font-weight: bold;
+    }
+  }
+}

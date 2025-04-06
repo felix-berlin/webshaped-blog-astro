@@ -1,0 +1,11 @@
+@use "@styles/variables/base";
+
+.c-post-older-than {
+  background-color: var(--color-background, var(--blue-light));
+  padding: 15px;
+  border-radius: base.$border-radius;
+
+  &__text {
+    margin: 0;
+  }
+}

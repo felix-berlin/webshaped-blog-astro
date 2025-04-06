@@ -1,0 +1,47 @@
+@use "@styles/mixins" as mx; // Needs to be loaded before the sass-butler mixins
+@use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
+
+.c-no-mentions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &__icon {
+    stroke: var(--blue-shallow-dark);
+    opacity: 0.2;
+
+    &.is-two {
+      align-self: flex-end;
+    }
+  }
+
+  &__text {
+    font-size: butler-fn.fluid(22, 32, 320, 425);
+
+    &-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      z-index: 1;
+
+      @include mx.breakpoint("sm") {
+        width: 70%;
+      }
+    }
+
+    &.is-one {
+      margin: 0;
+    }
+
+    &.is-two {
+      margin: 13% 0 0 13%;
+    }
+  }
+
+  &__share-button {
+    margin: 1rem 0 0 13%;
+  }
+}

@@ -1,0 +1,65 @@
+---
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { Image } from "astro:assets";
+import GithubStats from "@components/GithubStats.vue";
+import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import "@styles/components/_post-card.scss";
+import "@styles/objects/_developer-card.scss";
+
+const translationsRoutes = {
+  de: "ueber-mich",
+  en: "about",
+};
+
+const pageData = [translationsRoutes.de, translationsRoutes.en];
+
+const { about } = Astro.params;
+
+const page = pageData.find((item) => {
+  return item === about;
+});
+
+if (!page) return Astro.redirect("/404");
+
+const content = {
+  title: "New Index",
+  seo: {
+    title: "New Index",
+    description: "New Index",
+    image: {
+      url: "https://via.placeholder.com/1200x630",
+      alt: "New Index",
+    },
+  },
+  language: {
+    locale: "de_DE",
+  },
+};
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<DefaultLayout content={content} contentClasses="o-index" translationsRoutes={translationsRoutes}>
+  <header class="o-developer-card">
+    <div class="o-developer-card__text-wrapper">
+      <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
+
+      <p class="o-developer-card__text c-post-card">
+        {t("dev_card.header_text")}
+      </p>
+    </div>
+
+    <Image
+      src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
+      alt="Felix Scholze portrait"
+      layout="responsive"
+      width="500"
+      height="500"
+      priority={true}
+      class="o-developer-card__image c-post-card"
+    />
+  </header>
+
+  <GithubStats client:only="vue" />
+</DefaultLayout>
