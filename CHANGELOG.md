@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.54](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.53...v1.0.0-beta.54) (2025-04-06)
+
+
+### Bug Fixes
+
+* set lang via StoreSetter ([61dd08e](https://github.com/felix-berlin/webshaped-blog-astro/commit/61dd08e6706d1ebb9edeb382f5a769cb2c2bf1e5))
+
 # [1.0.0-beta.53](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.52...v1.0.0-beta.53) (2025-04-06)
 
 
