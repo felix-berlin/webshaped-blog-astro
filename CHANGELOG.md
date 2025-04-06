@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.48](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-04-06)
+
+
+### Bug Fixes
+
+* logo color ([61c11f7](https://github.com/felix-berlin/webshaped-blog-astro/commit/61c11f7d3a1d18f11348bfcad83494371f238f56))
+
 # [1.0.0-beta.47](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-04-06)
 
 
