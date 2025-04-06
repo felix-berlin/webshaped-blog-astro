@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.53](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.52...v1.0.0-beta.53) (2025-04-06)
+
+
+### Bug Fixes
+
+* try to use cread for release trigger ([af34654](https://github.com/felix-berlin/webshaped-blog-astro/commit/af346547daaa2d3717de2028ab4f6e06bf724e18))
+
 # [1.0.0-beta.52](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.51...v1.0.0-beta.52) (2025-04-06)
 
 
