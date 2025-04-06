@@ -28,16 +28,9 @@
 </template>
 
 <script setup lang="ts">
-import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
-import IconBrandMastodon from "virtual:icons/tabler/brand-mastodon";
-import IconBrandGithub from "virtual:icons/tabler/brand-github";
-import IconBrandTwitter from "virtual:icons/tabler/brand-twitter";
-import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
-import IconBrandInstagram from "virtual:icons/tabler/brand-instagram";
-import IconBrandYoutube from "virtual:icons/tabler/brand-youtube";
-import IconBrandLinkedin from "virtual:icons/tabler/brand-linkedin";
 import { useTranslations } from "@utils/i18n/utils";
 import type { Maybe } from "@ts_types/generated/graphql";
+import { defineAsyncComponent } from "vue";
 
 export interface SocialItems {
   url?: Maybe<string>;
@@ -70,33 +63,33 @@ const { socialItems, lang } = defineProps<SocialListProps>();
 
 const t = useTranslations(lang);
 
+/**
+ * Dynamically load the icon component for the given platform
+ *
+ * @param {string} component - The platform name
+ * @returns {object} - The async component
+ */
 const returnComponent = (component: string) => {
-  if (component === "github") {
-    return IconBrandGithub;
+  switch (component) {
+    case "github":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
+    case "facebook":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
+    case "twitter":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
+    case "instagram":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-instagram"));
+    case "youtube":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-youtube"));
+    case "linkedIn":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-linkedin"));
+    case "mastodon":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
+    case "reddit":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
+    default:
+      return null;
   }
-  if (component === "facebook") {
-    return IconBrandFacebook;
-  }
-  if (component === "twitter") {
-    return IconBrandTwitter;
-  }
-  if (component === "instagram") {
-    return IconBrandInstagram;
-  }
-  if (component === "youtube") {
-    return IconBrandYoutube;
-  }
-  if (component === "linkedIn") {
-    return IconBrandLinkedin;
-  }
-  if (component === "mastodon") {
-    return IconBrandMastodon;
-  }
-  if (component === "reddit") {
-    return IconBrandReddit;
-  }
-
-  return;
 };
 </script>
 
