@@ -10,14 +10,15 @@
 
       <RssLink class="c-main-nav__rss-link" />
 
-      <ColorModeToggle class="c-main-nav__color-toggle" />
+      <!-- TODO: Enable after lightmode is final: #9 -->
+      <!-- <ColorModeToggle class="c-main-nav__color-toggle" /> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 // import InstallApp from "@components/InstallApp.vue";
-import ColorModeToggle from "@components/ColorModeToggle.vue";
+// import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";
 import LanguageDropdown from "@components/LanguageDropdown.vue";
 import RssLink from "@components/RssLink.vue";

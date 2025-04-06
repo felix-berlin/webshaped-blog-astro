@@ -36,7 +36,8 @@ const {
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<html lang={lang}>
+<!-- TODO: Remove after lightmode is final: #9 -->
+<html lang={lang} class="dark">
   <Head>
     <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes} />
 

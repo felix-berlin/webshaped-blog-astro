@@ -3,7 +3,7 @@ import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 // import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
-import SetColorMode from "@components/SetColorMode.astro";
+// import SetColorMode from "@components/SetColorMode.astro";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 import StoreSetter from "@components/StoreSetter.vue";
 import { createLocalizedUrl } from "@utils/i18n/utils.ts";
@@ -73,7 +73,8 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 ---
 
 <StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
-<SetColorMode />
+<!-- TODO: Enable after lightmode is final: #9 -->
+<!-- <SetColorMode /> -->
 <ClientRouter />
 
 <!-- FIXME: PWA is not working (manifest is not found ect.) -->
