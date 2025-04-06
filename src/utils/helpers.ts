@@ -15,7 +15,16 @@ import type {
  */
 export const isHtml = (str: string): boolean => {
   if (!str) return false;
-  const htmlTagRegex = /<([a-z]+)([^<]+|&[a-z]+;)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
+  if (typeof DOMParser !== "undefined") {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(str, "text/html");
+
+    // If the parsed document contains elements, it's valid HTML
+    return Array.from(doc.body.childNodes).some((node) => node.nodeType === 1);
+  }
+
+  // Fallback for environments without DOMParser (e.g., Node.js)
+  const htmlTagRegex = /<([a-z]+)([^<]*?(&[a-z]+;)?)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
   return htmlTagRegex.test(str.trim());
 };
 
@@ -113,6 +122,7 @@ export const updateCategoryPaths = (
       }
     });
   });
+
   return mainMenuItems;
 };
 
