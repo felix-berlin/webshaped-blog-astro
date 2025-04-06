@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.38](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2025-04-06)
+
+
+### Bug Fixes
+
+* **Webmentions:** suspense bug ([a41466d](https://github.com/felix-berlin/webshaped-blog-astro/commit/a41466d1122970f0e83499c953854a4e7c72fec4))
+
+
+### Features
+
+* add minimal microformats2 classes ([1d755f6](https://github.com/felix-berlin/webshaped-blog-astro/commit/1d755f6d2f8e3da615c23311e3f283527aaddd32))
+
 # [1.0.0-beta.37](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2025-04-05)
 
 
