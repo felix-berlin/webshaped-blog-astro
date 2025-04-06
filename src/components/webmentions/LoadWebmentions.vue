@@ -1,10 +1,7 @@
 <template>
   <Transition name="fade" mode="in-out">
     <Suspense>
-      <Webmentions
-        :current-url="false"
-        target="https://develop.webshaped-blog-astro.pages.dev/de/matomo-tracking-script-optimal-einbinden/"
-      />
+      <Webmentions :current-url="true" />
 
       <template #fallback>
         <div class="c-webmentions">
