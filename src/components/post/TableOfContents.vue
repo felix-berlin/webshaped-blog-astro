@@ -14,6 +14,7 @@
             ? { textContent: getHtmlContent(headline.content) }
             : { innerHTML: headline.content }
         "
+        @click="emit('tocLinkClicked')"
       >
       </a>
     </template>
@@ -36,7 +37,7 @@ export interface TableOfContentsProps {
 
 const { headings, tocId, htmlElement = "nav" } = defineProps<TableOfContentsProps>();
 
-const emit = defineEmits(["currentHeadline"]);
+const emit = defineEmits(["currentHeadline", "tocLinkClicked"]);
 
 const activeHeadlineId = ref("");
 const observer = ref<IntersectionObserver | null>(null);
