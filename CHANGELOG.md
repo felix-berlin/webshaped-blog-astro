@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.50](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-04-06)
+
+
+### Bug Fixes
+
+* Incomplete multi-character sanitization ([4327402](https://github.com/felix-berlin/webshaped-blog-astro/commit/4327402ff6c68de94d452e2b6c9e4ad017378a4d))
+
 # [1.0.0-beta.49](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-04-06)
 
 
