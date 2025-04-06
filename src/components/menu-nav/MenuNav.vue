@@ -6,8 +6,8 @@
         :depth="0"
         :index="index"
         :has-child="(item?.childItems?.nodes ?? []).length > 0"
-        @submenu-state="$emit('submenu-state', $event)"
-        @menu-item-target-clicked="$emit('menu-item-target-clicked', $event)"
+        @submenu-state="emit('submenu-state', $event)"
+        @menu-item-target-clicked="emit('menu-item-target-clicked', $event)"
       >
         <template #menuTitleIcon v-if="item.childItems && item.childItems.nodes.length > 0">
           <ChevronDown class="c-main-nav__menu-icon is-mobile" />
@@ -28,9 +28,9 @@ export interface MenuProps {
 
 const { menuItems } = defineProps<MenuProps>();
 
-defineEmits<{
+const emit = defineEmits<{
   "submenu-state": [isOpen: boolean];
-  "menu-item-target-clicked": [value: boolean];
+  "menu-item-target-clicked": [value: number];
 }>();
 </script>
 
