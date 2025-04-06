@@ -41,16 +41,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from "vue";
-import CommentItem from "@components/comments/CommentItem.vue";
+import { onMounted, reactive, defineAsyncComponent } from "vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { getCommentsById } from "@services/api";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import type { RootQueryToCommentConnectionEdge } from "@ts_types/generated/graphql";
-import NoComments from "@components/comments/NoComments.vue";
 import { useI18n } from "@/composables/useI18n";
+
+const CommentItem = defineAsyncComponent(() => import("@components/comments/CommentItem.vue"));
+const NoComments = defineAsyncComponent(() => import("@components/comments/NoComments.vue"));
 
 export interface CommentsProps {
   currentPostId: Post["postId"];
@@ -133,10 +134,6 @@ const reloadComments = () => {
 
 onMounted(async () => {
   await getComments();
-
-  // const test = data.comments.find((comment) => comment.node.parentId === null);
-
-  // console.log(test);
 });
 </script>
 
