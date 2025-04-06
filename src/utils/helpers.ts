@@ -153,7 +153,7 @@ export const capitalize = (str: string | null | undefined): string => {
 };
 
 /**
- * Get the domain name from a URL
+ * Get the domain name without TDL from a URL
  *
  * @param   {string}  url - The URL from which to extract the domain name.
  *

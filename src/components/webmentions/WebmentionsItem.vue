@@ -63,12 +63,7 @@ import { currentLanguage } from "@stores/store";
 import Date from "@components/post/Date.vue";
 import { useTranslations } from "@utils/i18n/utils";
 import { getHostName } from "@utils/helpers";
-import ExternalLink from "virtual:icons/lucide/external-link";
-import IconBrandReddit from "virtual:icons/tabler/brand-reddit";
-import IconBrandMastodon from "virtual:icons/tabler/brand-mastodon";
-import IconBrandGithub from "virtual:icons/tabler/brand-github";
-import IconBrandTwitter from "virtual:icons/tabler/brand-twitter";
-import IconBrandFacebook from "virtual:icons/tabler/brand-facebook";
+import { ref, onMounted, defineAsyncComponent } from "vue";
 
 export interface Webmention {
   author: {
@@ -102,6 +97,7 @@ const { mention, index } = defineProps<WebmentionsProps>();
 
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
+const icon = ref(null);
 
 /**
  * Load icons for the different social media platforms
@@ -109,23 +105,28 @@ const t = useTranslations(lang.value);
  * @param   {string}  url
  */
 const loadIcons = (url: string) => {
-  if (getHostName(url, true) === "twitter") {
-    return IconBrandTwitter;
+  const platform = getHostName(url, true);
+
+  switch (platform) {
+    case "twitter":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
+    case "github":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
+    case "reddit":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
+    case "facebook":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
+    case "mastodon":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
+    default:
+      return defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
   }
-  if (getHostName(url, true) === "github") {
-    return IconBrandGithub;
-  }
-  if (getHostName(url, true) === "reddit") {
-    return IconBrandReddit;
-  }
-  if (getHostName(url, true) === "facebook") {
-    return IconBrandFacebook;
-  }
-  if (getHostName(url, true) === "mastodon") {
-    return IconBrandMastodon;
-  }
-  return ExternalLink;
 };
+
+// Load the icon when the component is mounted
+onMounted(() => {
+  icon.value = loadIcons(mention.url);
+});
 </script>
 
 <style scoped></style>
