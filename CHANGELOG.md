@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.41](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2025-04-06)
+
+
+### Bug Fixes
+
+* **MainNav:** add missing close icon ([e62eb4b](https://github.com/felix-berlin/webshaped-blog-astro/commit/e62eb4b13b3418cb1cce1cafda815df26c4219e2))
+
 # [1.0.0-beta.40](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2025-04-06)
 
 
