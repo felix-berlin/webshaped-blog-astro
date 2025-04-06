@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.40](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2025-04-06)
+
+
+### Bug Fixes
+
+* **LoadWebmentions:** load current url ([2bca432](https://github.com/felix-berlin/webshaped-blog-astro/commit/2bca4322665f46e4a16a1c1776c2ce3ceef77ce5))
+* **MenuNav:** emit types ([6415ccf](https://github.com/felix-berlin/webshaped-blog-astro/commit/6415ccf59d99a36c33f49e2f853db01393c6be91))
+
+
+### Features
+
+* provide better A11y support for tablist ([b50512a](https://github.com/felix-berlin/webshaped-blog-astro/commit/b50512a20581e38cc4b37e483329008e241c5e5f))
+* **TableOfContents:** emit click event ([4804c67](https://github.com/felix-berlin/webshaped-blog-astro/commit/4804c678bb0e2ed0e3d347fda278df2cca8d477f))
+
+
+### Performance Improvements
+
+* **CommentsClient:** load conditional componets dynamic ([d90c381](https://github.com/felix-berlin/webshaped-blog-astro/commit/d90c38136de120b50ae84c37e4834f23d42ed80e))
+* **TabDisplay:** load tab content dynamic ([cb6a8b5](https://github.com/felix-berlin/webshaped-blog-astro/commit/cb6a8b5288a97634df4ce6a849ceec13fb86f273))
+* **Webmentions:** load conditional components dynamic ([911c019](https://github.com/felix-berlin/webshaped-blog-astro/commit/911c01950910ed1df9ec1d64ce7ae39de066506a))
+
 # [1.0.0-beta.39](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2025-04-06)
 
 
