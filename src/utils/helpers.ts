@@ -1,4 +1,10 @@
-import type { Maybe, MenuItem, SeoUserSocial, SocialAdvanced } from "@ts_types/generated/graphql";
+import type {
+  Maybe,
+  MenuItem,
+  SeoUserSocial,
+  SocialAdvanced,
+  MenuToMenuItemConnection,
+} from "@ts_types/generated/graphql";
 
 /**
  * Checks if the given string is HTML
@@ -85,7 +91,7 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
  *
  */
 export const updateCategoryPaths = (
-  mainMenuItems: Maybe<MenuItem[]>,
+  mainMenuItems: MenuToMenuItemConnection,
   lang: "de" | "en",
 ): Maybe<MenuItem[]> => {
   mainMenuItems?.nodes.forEach((item: MenuItem) => {

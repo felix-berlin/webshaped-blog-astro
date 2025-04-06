@@ -3,35 +3,33 @@ import { describe, expect, it } from "vitest";
 import TabItem from "@components/tabs/TabItem.vue";
 
 describe("TabItem.vue", () => {
-  it("renders correctly when header is equal to selectedTabHeader", async () => {
-    const wrapper = mount(TabItem, {
+  const factory = (props = {}, provide = {}) => {
+    return mount(TabItem, {
       props: {
         header: "Tab 1",
         badge: "1",
+        ...props,
       },
       global: {
         provide: {
           selectedTabHeader: "Tab 1",
+          tabProps: [
+            { header: "Kommentare", tabId: "tab-0", tabpanelId: "tabpanel-0" },
+            { header: "Webmentions", tabId: "tab-1", tabpanelId: "tabpanel-1" },
+          ],
+          ...provide,
         },
       },
     });
+  };
 
+  it("renders correctly when header matches selectedTabHeader", () => {
+    const wrapper = factory();
     expect(wrapper.find(".c-tab").exists()).toBe(true);
   });
 
-  it("does not render when header is not equal to selectedTabHeader", async () => {
-    const wrapper = mount(TabItem, {
-      props: {
-        header: "Tab 1",
-        badge: "1",
-      },
-      global: {
-        provide: {
-          selectedTabHeader: "Tab 2",
-        },
-      },
-    });
-
+  it("does not render when header does not match selectedTabHeader", () => {
+    const wrapper = factory({}, { selectedTabHeader: "Tab 2" });
     expect(wrapper.find(".c-tab").exists()).toBe(false);
   });
 });
