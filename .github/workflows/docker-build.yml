@@ -2,14 +2,12 @@ name: Build and Push Docker Image
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
-  # push:
-  #   tags:
-  #     - "v*.*.*"
-  # branches:
-  #   - main
-  #   - beta
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - main
+      - beta
   # - "**"
   # pull_request:
   # The trigger on release and prerelease does not work, so i use push tags instead
