@@ -22,17 +22,11 @@ const page = pageData.find((item) => {
 if (!page) return Astro.redirect("/404");
 
 const content = {
-  title: "New Index",
-  seo: {
-    title: "New Index",
-    description: "New Index",
-    image: {
-      url: "https://via.placeholder.com/1200x630",
-      alt: "New Index",
-    },
+  de: {
+    title: "Über mich",
   },
-  language: {
-    locale: "de_DE",
+  en: {
+    title: "About me",
   },
 };
 
@@ -40,7 +34,11 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<DefaultLayout content={content} contentClasses="o-index" translationsRoutes={translationsRoutes}>
+<DefaultLayout
+  content={content[lang]}
+  contentClasses="o-index"
+  translationsRoutes={translationsRoutes}
+>
   <header class="o-developer-card">
     <div class="o-developer-card__text-wrapper">
       <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
