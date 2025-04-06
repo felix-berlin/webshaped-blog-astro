@@ -13,12 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, defineAsyncComponent } from "vue";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
-import WebmentionsItem from "@components/webmentions/WebmentionsItem.vue";
-import NoMentions from "@components/webmentions/NoMentions.vue";
 import type { Webmention } from "@components/webmentions/WebmentionsItem.vue";
+
+const WebmentionsItem = defineAsyncComponent(
+  () => import("@components/webmentions/WebmentionsItem.vue"),
+);
+
+const NoMentions = defineAsyncComponent(() => import("@components/webmentions/NoMentions.vue"));
+
 /**
  * Everything about Webmentions
  *
