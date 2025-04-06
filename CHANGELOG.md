@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.52](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.51...v1.0.0-beta.52) (2025-04-06)
+
+
+### Bug Fixes
+
+* htmlTagRegex syntax ([65338c5](https://github.com/felix-berlin/webshaped-blog-astro/commit/65338c5c2f5231b2391cdc74650d08383c158368))
+
 # [1.0.0-beta.51](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-04-06)
 
 
