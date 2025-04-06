@@ -107,7 +107,7 @@ const translationsRoutes = {
 
 <DefaultLayout
   content={{ title, seo, language }}
-  contentClasses={["c-blog"]}
+  contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
   <!-- LastFM API -->
@@ -122,7 +122,7 @@ const translationsRoutes = {
   </Breadcrumbs>
 
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
-    <h1 class="c-blog__title">{title}</h1>
+    <h1 class="c-blog__title p-name">{title}</h1>
 
     <ImageResponsive
       src={featuredImage?.node.mediaItemUrl}
@@ -134,7 +134,7 @@ const translationsRoutes = {
       class:list="c-blog__hero-image"
     />
   </header>
-  <article class="c-blog__post">
+  <article class="c-blog__post e-content">
     <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />
 
     <slot />
