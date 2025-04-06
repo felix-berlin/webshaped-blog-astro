@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.45](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-04-06)
+
+
+### Bug Fixes
+
+* remove comment ([2ca2206](https://github.com/felix-berlin/webshaped-blog-astro/commit/2ca22066e8fd1c5593a6b65031e06795fa47d4e3))
+
 # [1.0.0-beta.44](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-04-06)
 
 
