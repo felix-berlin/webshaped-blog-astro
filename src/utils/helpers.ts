@@ -24,7 +24,7 @@ export const isHtml = (str: string): boolean => {
   }
 
   // Fallback for environments without DOMParser (e.g., Node.js)
-  const htmlTagRegex = /<([a-z]+)([^<]*?(&[a-z]+;)?)*(?:>(.*)<\/\1>|\s+\/>)$/gm;
+  const htmlTagRegex = /<([a-z]+)([^<]*?(&[a-z]+;)?)*(?:>(.*?)<\/\1>|\s+\/>)$/gm;
   return htmlTagRegex.test(str.trim());
 };
 
