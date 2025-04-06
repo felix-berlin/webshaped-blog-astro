@@ -10,7 +10,10 @@
       :aria-expanded="flyoutIsOpen"
       @click="toggleFlyout"
     >
-      <MenuIcon class="c-main-nav__menu-icon is-mobile" />
+      <Transition name="fade" mode="out-in">
+        <MenuIcon v-if="!flyoutIsOpen" class="c-main-nav__menu-icon is-mobile" />
+        <CloseIcon v-else class="c-main-nav__menu-icon is-mobile" />
+      </Transition>
     </button>
 
     <Teleport v-if="isMobile" to="#mainHeader">
@@ -45,6 +48,7 @@
 import { ref, onMounted } from "vue";
 import Logo from "@components/Logo.vue";
 import MenuIcon from "virtual:icons/lucide/menu";
+import CloseIcon from "virtual:icons/lucide/x";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { useI18n } from "@/composables/useI18n";
