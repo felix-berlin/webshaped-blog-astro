@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.39](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2025-04-06)
+
+
+### Features
+
+* generate webmentions url dynamic ([285e947](https://github.com/felix-berlin/webshaped-blog-astro/commit/285e9474304bdf27d9e9de111d57c1c7f9a53cbc))
+
+
+### Performance Improvements
+
+* **SocialList:** load icons dynamic ([97dc8a5](https://github.com/felix-berlin/webshaped-blog-astro/commit/97dc8a5b31197ac30d492f7149f82934d10ae549))
+* **WebmentionsItem:** load icon dynamic ([89f84d5](https://github.com/felix-berlin/webshaped-blog-astro/commit/89f84d5b1b7a8977b2275f38e7215be590f98749))
+
 # [1.0.0-beta.38](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2025-04-06)
 
 
