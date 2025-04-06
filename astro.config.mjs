@@ -175,7 +175,6 @@ export default defineConfig({
         access: "secret",
         optional: true,
       }),
-      WEBMENTION_URL: envField.string({ context: "server", access: "public", optional: false }),
       LAST_FM_SCROBBLER_API: envField.string({
         context: "client",
         access: "public",

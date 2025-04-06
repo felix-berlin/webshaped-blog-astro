@@ -246,3 +246,16 @@ export const removeLocaleCode = (category: string | null) => {
   // Return the first part of the split string
   return parts[0];
 };
+
+/**
+ * Get the webmention URL for a given URL
+ *
+ * @param   {URL}  url  The URL of the current site
+ *
+ * @return  {string}
+ */
+export const getWebmentionsUrl = (url: URL): string => {
+  const siteDomain = new URL(url).hostname;
+  const webmentionUrlStart = "https://webmention.io/";
+  return `${webmentionUrlStart}${siteDomain}`;
+};

@@ -3,11 +3,11 @@ import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 // import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
-import { WEBMENTION_URL } from "astro:env/server";
 import SetColorMode from "@components/SetColorMode.astro";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 import StoreSetter from "@components/StoreSetter.vue";
 import { createLocalizedUrl } from "@utils/i18n/utils.ts";
+import { getWebmentionsUrl } from "@utils/helpers.ts";
 
 export interface Title {
   title: string;
@@ -68,6 +68,8 @@ const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>((acc,
 
 // Determine the full translation routes
 const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
+
+const webmentionUrl = getWebmentionsUrl(Astro.url);
 ---
 
 <StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
@@ -144,8 +146,8 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 />
 
 <!-- Webmention -->
-<link rel="webmention" href={`${WEBMENTION_URL}/webmention`} />
-<link rel="pingback" href={`${WEBMENTION_URL}/xmlrpc`} />
+<link rel="webmention" href={`${webmentionUrl}/webmention`} />
+<link rel="pingback" href={`${webmentionUrl}/xmlrpc`} />
 <link rel="preconnect" href="//webmention.io" />
 
 <link rel="preconnect" href="//cms.webshaped.de" />
