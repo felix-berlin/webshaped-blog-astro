@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
+import { ref, nextTick, useTemplateRef } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
 import type { MenuItem } from "@ts_types/generated/graphql";
@@ -84,7 +84,7 @@ const { menuItem, depth, index, hasChild } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
 const isCurrentPath = ref(false);
-const submenu = ref(null);
+const submenu = useTemplateRef("submenu");
 const submenuDirection = ref("right");
 
 const emit = defineEmits<{

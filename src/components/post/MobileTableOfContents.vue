@@ -15,13 +15,14 @@
         html-element="div"
         toc-id="mobileTableOfContents"
         @current-headline="currentHeadline($event)"
+        @toc-link-clicked="closeDropdown"
       />
     </details>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, useTemplateRef } from "vue";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
@@ -37,9 +38,9 @@ interface MobileTableOfContentsProps {
 const { t } = useI18n();
 const pageWidth = useStore(windowWidth);
 const props = defineProps<MobileTableOfContentsProps>();
-const toggleButton = ref<HTMLDetailsElement | null>(null);
+const toggleButton = useTemplateRef("toggleButton");
 const activeHeadlineText = ref("");
-const mobileToc = ref<HTMLElement | null>(null);
+const mobileToc = useTemplateRef("mobileToc");
 
 const currentHeadline = (event: string) => (activeHeadlineText.value = event);
 
@@ -54,10 +55,6 @@ onClickOutside(mobileToc, (): void => {
 
 onMounted(() => {
   activeHeadlineText.value = props.headings[0].content;
-
-  document.querySelectorAll("#mobileTableOfContents .c-toc__link").forEach((link) => {
-    link.addEventListener("click", closeDropdown);
-  });
 });
 </script>
 
