@@ -5,34 +5,36 @@ import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 export type Language = "en" | "de";
 
-export const currentLanguage = persistentAtom<Language>("language", "en", {
-  encode(value: Language) {
-    return JSON.stringify(value);
-  },
-  decode(value: string): Language {
-    try {
-      return JSON.parse(value);
-    } catch {
-      value;
-    }
-  },
-});
+export const currentLanguage = atom<string>("de");
+
+// export const currentLanguage = persistentAtom<Language>("language", "en", {
+//   encode(value: Language) {
+//     return JSON.stringify(value);
+//   },
+//   decode(value: string): Language {
+//     try {
+//       return JSON.parse(value);
+//     } catch {
+//       value;
+//     }
+//   },
+// });
 
 export const translationRoutes = atom<TranslationRoutes | undefined>({});
 
-if (typeof window !== "undefined") {
-  window.addEventListener("load", () => {
-    const language = navigator.language;
-    const langShort = language.split("-")[0] as Language;
-    const systemLang = getLangFromUrl(new URL(window.location.href));
+// if (typeof window !== "undefined") {
+//   window.addEventListener("load", () => {
+//     const language = navigator.language;
+//     const langShort = language.split("-")[0] as Language;
+//     const systemLang = getLangFromUrl(new URL(window.location.href));
 
-    if (langShort === systemLang) {
-      currentLanguage.set(langShort);
-    } else {
-      currentLanguage.set(systemLang);
-    }
-  });
-}
+//     if (langShort === systemLang) {
+//       currentLanguage.set(langShort);
+//     } else {
+//       currentLanguage.set(systemLang);
+//     }
+//   });
+// }
 
 export type LoadingStateValue = "empty" | "loading" | "loaded";
 export const loadingState = atom<LoadingStateValue>("empty");

@@ -72,7 +72,7 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 const webmentionUrl = getWebmentionsUrl(Astro.url);
 ---
 
-<StoreSetter locale-routes={fullTranslationRoutes} client:only="vue" />
+<StoreSetter locale-routes={fullTranslationRoutes} lang={lang} client:only="vue" />
 <!-- TODO: Enable after lightmode is final: #9 -->
 <!-- <SetColorMode /> -->
 <ClientRouter />
