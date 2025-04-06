@@ -12,12 +12,18 @@
 <script setup lang="ts">
 import TabsView from "@components/tabs/TabsView.vue";
 import TabItem from "@components/tabs/TabItem.vue";
-import CommentsClient from "@components/comments/CommentsClient.vue";
-import LoadWebmentions from "@components/webmentions/LoadWebmentions.vue";
 import { useI18n } from "@/composables/useI18n";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import type { NodeWithAuthor } from "@ts_types/generated/graphql";
+import { defineAsyncComponent } from "vue";
+
+const CommentsClient = defineAsyncComponent(
+  () => import("@components/comments/CommentsClient.vue"),
+);
+const LoadWebmentions = defineAsyncComponent(
+  () => import("@components/webmentions/LoadWebmentions.vue"),
+);
 
 export interface TabDisplayProps {
   postId: number;
