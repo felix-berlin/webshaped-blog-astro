@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.51](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-04-06)
+
+
+### Bug Fixes
+
+* dom parser ([55080f5](https://github.com/felix-berlin/webshaped-blog-astro/commit/55080f52a658d335d7608c6fe3938653c75c7b6c))
+
 # [1.0.0-beta.50](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-04-06)
 
 
