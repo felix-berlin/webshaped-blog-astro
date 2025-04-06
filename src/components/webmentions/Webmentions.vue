@@ -1,13 +1,15 @@
 <template>
-  <div class="c-webmentions">
-    <WebmentionsItem
-      v-for="(mention, index) in state.mentions"
-      :key="mention['wm-id']"
-      :mention="mention"
-      :index="index"
-    />
+  <div>
+    <div class="c-webmentions" v-if="webmentionsCount > 0">
+      <WebmentionsItem
+        v-for="(mention, index) in state.mentions"
+        :key="mention['wm-id']"
+        :mention="mention"
+        :index="index"
+      />
+    </div>
+    <NoMentions v-if="webmentionsCount === 0" />
   </div>
-  <NoMentions v-if="webmentionsCount === 0" />
 </template>
 
 <script setup lang="ts">
@@ -34,10 +36,7 @@ interface Webmentions {
   mentions: Webmention[];
 }
 
-const props = withDefaults(defineProps<WebmentionsProps>(), {
-  target: "",
-  currentUrl: false,
-});
+const { target = "", currentUrl = false } = defineProps<WebmentionsProps>();
 
 const state: Webmentions = reactive({
   mentions: [],
@@ -52,38 +51,36 @@ const webmentionsCount = useStore(currentWebmentionsCount);
  * @var {[type]}
  */
 // TODO: Remove or comment out. This is just for testing.
-await fetch(`https://webmention.io/api/mentions.jf2?target=${props.target}`)
-  .then((res) => res.json())
-  .then(async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+// await fetch(`https://webmention.io/api/mentions.jf2?target=${target}`)
+//   .then((res) => res.json())
+//   .then(async (data) => {
+//     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    currentWebmentionsCount.set(data.children.length);
+//     currentWebmentionsCount.set(data.children.length);
 
-    // create 10 fake mentions
-    for (let i = 0; i < 10; i++) {
-      data.children.push(data.children[0]);
-    }
+//     // create 10 fake mentions
+//     for (let i = 0; i < 10; i++) {
+//       data.children.push(data.children[0]);
+//     }
 
-    state.mentions = data.children;
-  });
+//     state.mentions = data.children;
+//   });
 
-// const getWebmentions = async (target = props.target) => {
-//   if (props.currentUrl) {
-//     target = window.location.href;
-//   }
+const getWebmentions = async (mentionTarget = target) => {
+  if (currentUrl) {
+    mentionTarget = window.location.href;
+  }
 
-//   const response = await fetch(
-//     `https://webmention.io/api/mentions.jf2?target=${target}`,
-//   );
-//   const data = await response.json();
-//   console.log("Webmentions", data);
-//   currentWebmentionsCount.set(data.children.length);
-//   state.mentions = data.children;
-// };
+  const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${mentionTarget}`);
+  const data = await response.json();
+  console.log("Webmentions", data);
+  currentWebmentionsCount.set(data.children.length);
+  state.mentions = data.children;
+};
 
-// onMounted(async () => {
-//   await getWebmentions();
-// });
+onMounted(async () => {
+  await getWebmentions();
+});
 </script>
 
 <style lang="scss">
