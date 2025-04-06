@@ -1,9 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  # The trigger on release and prerelease does not work, so i use push tags instead
-  # release:
-  #   types: [published] # Ensure the workflow runs only when a release is published
   workflow_dispatch: # Allow manual triggering of the workflow
   push:
     tags:
@@ -11,6 +8,9 @@ on:
   #   branches:
   #     - "**"
   # pull_request:
+  # The trigger on release and prerelease does not work, so i use push tags instead
+  # release:
+  #   types: [published] # Ensure the workflow runs only when a release is published
 
 jobs:
   docker:
