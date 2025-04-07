@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.1...v1.0.2) (2025-04-07)
+
+
+### Bug Fixes
+
+* **matomo:** viewTransition was not enabled ([d4b9c5a](https://github.com/felix-berlin/webshaped-blog-astro/commit/d4b9c5a3adbed6f9940559a24cbcb9aae72ca374))
+
 ## [1.0.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.0...v1.0.1) (2025-04-06)
 
 
