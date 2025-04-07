@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.2...v1.0.3) (2025-04-07)
+
+
+### Bug Fixes
+
+* missing matomo setting ([ef93812](https://github.com/felix-berlin/webshaped-blog-astro/commit/ef9381290ec133ef9e0b5c29cb887332456464b3))
+
 ## [1.0.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.1...v1.0.2) (2025-04-07)
 
 
