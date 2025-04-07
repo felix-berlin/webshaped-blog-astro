@@ -93,6 +93,9 @@ export default defineConfig({
       debug: false,
       heartBeatTimer: 5,
       disableCookies: true,
+      viewTransition: {
+        contentElement: "main",
+      },
     }),
     // FIXME: PWA is not working (manifest is not found ect.)
     // AstroPWA({
