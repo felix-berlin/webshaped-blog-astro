@@ -36,8 +36,8 @@ importers:
         specifier: ^1.2.17
         version: 1.2.17
       '@nanostores/i18n':
-        specifier: ^0.12.2
-        version: 0.12.2(nanostores@0.11.4)
+        specifier: ^1.0.0
+        version: 1.0.0(nanostores@0.11.4)
       '@nanostores/persistent':
         specifier: ^0.10.2
         version: 0.10.2(nanostores@0.11.4)
@@ -1986,11 +1986,11 @@ packages:
     resolution: {integrity: sha512-wK+5pLK5XFmgtH3aQ2YVvA3HohS3xqV/OxuVOdNx9Wpnz7VE/fnC+e1A7ln6LFYeck7gOJ/dsZV6OLplOtAJ2w==}
     engines: {node: '>=18'}
 
-  '@nanostores/i18n@0.12.2':
-    resolution: {integrity: sha512-BZNDNB83qwfU8YGYEI5zwstBZGPRUfifhZcw0SqaiGLqUBe4onpQ/NCr4cRg0khlsvPtJ37MQ/XZaT7dN+/RvA==}
-    engines: {node: ^18.0.0 || >=20.0.0}
+  '@nanostores/i18n@1.0.0':
+    resolution: {integrity: sha512-nryvahZr695YDK7C9qGimNJfxvxIu6azaAARW7mwXx0jabmS1KiTDXh4bd+7kUMKdt2KGKw9nblwmdIqzIHahw==}
+    engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
-      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0
+      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
 
   '@nanostores/logger@0.4.0':
     resolution: {integrity: sha512-8ipUQgX9udy3Uc9X9b7CFDZQR7DAKa+ZbZlIOcs3F0F1nDEYejffV2UoTQ1oYQ1F+DTXrNZIyZWhw+IWuSqvRQ==}
@@ -10480,7 +10480,7 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@nanostores/i18n@0.12.2(nanostores@0.11.4)':
+  '@nanostores/i18n@1.0.0(nanostores@0.11.4)':
     dependencies:
       nanostores: 0.11.4
 
