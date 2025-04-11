@@ -33,9 +33,7 @@ describe("CommentItem", () => {
   });
 
   it("renders the comment content", () => {
-    expect(wrapper.find(".c-comment__text").html()).toContain(
-      "<p>Test comment</p>",
-    );
+    expect(wrapper.find(".c-comment__text").html()).toContain("<p>Test comment</p>");
   });
 
   it("toggles the reply comment form when the reply button is clicked", async () => {
@@ -43,13 +41,11 @@ describe("CommentItem", () => {
     await replyButton.trigger("click");
 
     expect(wrapper.vm.replyToCommentForm).toBe(true);
-    expect(wrapper.findComponent({ name: "CreateComment" }).exists()).toBe(
-      true,
-    );
+    expect(wrapper.findComponent({ name: "CreateComment" }).exists()).toBe(true);
   });
 
   it("reply button text is there", () => {
-    expect(wrapper.find(".c-comment__reply-button").text()).toBe("Reply");
+    expect(wrapper.find(".c-comment__reply-button").text()).toBe("Antworten");
   });
 
   it("returns false for another user's comment", () => {
