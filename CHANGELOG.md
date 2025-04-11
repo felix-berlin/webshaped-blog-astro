@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.5...v1.0.6) (2025-04-11)
+
+
+### Bug Fixes
+
+* **deployment:** missing condition for other branches ([1b1c909](https://github.com/felix-berlin/webshaped-blog-astro/commit/1b1c9095fa9ef58308f26a9217b149820c64ee69))
+
 ## [1.0.5](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.4...v1.0.5) (2025-04-11)
 
 
