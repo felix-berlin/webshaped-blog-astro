@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.3...v1.0.4) (2025-04-11)
+
+
+### Bug Fixes
+
+* **deps:** upgrade ([aed4f6f](https://github.com/felix-berlin/webshaped-blog-astro/commit/aed4f6f4275186868a023bfd508568c87d8d857c))
+
 ## [1.0.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.2...v1.0.3) (2025-04-07)
 
 
