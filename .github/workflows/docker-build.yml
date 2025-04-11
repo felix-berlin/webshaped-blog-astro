@@ -6,8 +6,8 @@ on:
     tags:
       - "v*.*.*"
     branches:
-      - main
       - beta
+      # - main
   # - "**"
   # pull_request:
   # The trigger on release and prerelease does not work, so i use push tags instead
