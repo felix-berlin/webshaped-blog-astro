@@ -1,5 +1,7 @@
 # Webshaped Blog Frontend
 
+[![codecov](https://codecov.io/gh/felix-berlin/webshaped-blog-astro/graph/badge.svg?token=FFV1OJ5AEL)](https://codecov.io/gh/felix-berlin/webshaped-blog-astro)
+
 ```
 npm init astro -- --template blog
 ```
