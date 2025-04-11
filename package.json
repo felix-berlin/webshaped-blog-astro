@@ -144,7 +144,7 @@
     "astro-matomo": "^1.8.1",
     "floating-vue": "5.2.2",
     "he": "^1.2.0",
-    "nanostores": "^0.11.4",
+    "nanostores": "^1.0.0",
     "pagefind": "^1.3.0",
     "sharp": "^0.34.1",
     "slugify": "^1.6.6",
