@@ -54,7 +54,7 @@ jobs:
           echo "${{ secrets.PROD_SECRETS }}" >> .env
 
       - name: Create .env file for other branches
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/main' && !(startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-'))
         run: |
           touch .env
           echo "${{ secrets.DEV_SECRETS }}" >> .env
