@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.6...v1.0.7) (2025-04-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tm-themes to v1.10.4 ([#24](https://github.com/felix-berlin/webshaped-blog-astro/issues/24)) ([f418f16](https://github.com/felix-berlin/webshaped-blog-astro/commit/f418f16d1d87ea2a9c8ee950786579fa0d9d4daf))
+
 ## [1.0.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.5...v1.0.6) (2025-04-11)
 
 
