@@ -197,7 +197,7 @@ importers:
         version: 2.4.1(eslint@9.24.0(jiti@2.4.2))
       graphql-config:
         specifier: ^5.1.3
-        version: 5.1.3(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3)
+        version: 5.1.4(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3)
       jsdom:
         specifier: ^26.0.0
         version: 26.0.0
@@ -1612,6 +1612,12 @@ packages:
 
   '@graphql-tools/load@8.0.19':
     resolution: {integrity: sha512-YA3T9xTy2B6dNTnqsCzqSclA23j4v3p3A2Vdn0jEbZPGLMRPzWW8MJu2nlgQ8uua1IpYD/J8xgyrFxxAo3qPmQ==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+
+  '@graphql-tools/load@8.1.0':
+    resolution: {integrity: sha512-OGfOm09VyXdNGJS/rLqZ6ztCiG2g6AMxhwtET8GZXTbnjptFc17GtKwJ3Jv5w7mjJ8dn0BHydvIuEKEUK4ciYw==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -4813,8 +4819,8 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
-  graphql-config@5.1.3:
-    resolution: {integrity: sha512-RBhejsPjrNSuwtckRlilWzLVt2j8itl74W9Gke1KejDTz7oaA5kVd6wRn9zK9TS5mcmIYGxf7zN7a1ORMdxp1Q==}
+  graphql-config@5.1.4:
+    resolution: {integrity: sha512-ObdBeL3ycddHrNbFvhGZ12pK8jUzWvvyN2A+6ij3XrtLH/KrkXt+BboEAEgXmeUrTcD5RjJnz8IZu3Cgc/oX/w==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       cosmiconfig-toml-loader: ^1.0.0
@@ -5826,6 +5832,10 @@ packages:
   mimic-fn@4.0.0:
     resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
     engines: {node: '>=12'}
+
+  minimatch@10.0.1:
+    resolution: {integrity: sha512-ethXTt3SGGR+95gudmqJ1eNhRO7eGEGIgYA9vnPatK4/etz2MEVDno5GMCibdMTuBMyElzIlgxMna3K94XDIDQ==}
+    engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -9799,7 +9809,7 @@ snapshots:
       debounce: 1.2.1
       detect-indent: 6.1.0
       graphql: 16.10.0
-      graphql-config: 5.1.3(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3)
+      graphql-config: 5.1.4(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3)
       inquirer: 8.2.6
       is-glob: 4.0.3
       jiti: 1.21.7
@@ -10114,6 +10124,14 @@ snapshots:
       unixify: 1.0.0
 
   '@graphql-tools/load@8.0.19(graphql@16.10.0)':
+    dependencies:
+      '@graphql-tools/schema': 10.0.23(graphql@16.10.0)
+      '@graphql-tools/utils': 10.8.6(graphql@16.10.0)
+      graphql: 16.10.0
+      p-limit: 3.1.0
+      tslib: 2.8.1
+
+  '@graphql-tools/load@8.1.0(graphql@16.10.0)':
     dependencies:
       '@graphql-tools/schema': 10.0.23(graphql@16.10.0)
       '@graphql-tools/utils': 10.8.6(graphql@16.10.0)
@@ -12784,7 +12802,7 @@ snapshots:
   camel-case@4.1.2:
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   camelcase@8.0.0: {}
 
@@ -12793,7 +12811,7 @@ snapshots:
   capital-case@1.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
       upper-case-first: 2.0.2
 
   ccount@2.0.1: {}
@@ -12845,7 +12863,7 @@ snapshots:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   char-regex@1.0.2: {}
 
@@ -12994,7 +13012,7 @@ snapshots:
   constant-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
       upper-case: 2.0.2
 
   conventional-changelog-angular@8.0.0:
@@ -13266,7 +13284,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   dot-prop@5.3.0:
     dependencies:
@@ -13986,18 +14004,18 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-config@5.1.3(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3):
+  graphql-config@5.1.4(@types/node@22.14.1)(graphql@16.10.0)(typescript@5.8.3):
     dependencies:
       '@graphql-tools/graphql-file-loader': 8.0.19(graphql@16.10.0)
       '@graphql-tools/json-file-loader': 8.0.18(graphql@16.10.0)
-      '@graphql-tools/load': 8.0.19(graphql@16.10.0)
+      '@graphql-tools/load': 8.1.0(graphql@16.10.0)
       '@graphql-tools/merge': 9.0.24(graphql@16.10.0)
       '@graphql-tools/url-loader': 8.0.31(@types/node@22.14.1)(graphql@16.10.0)
       '@graphql-tools/utils': 10.8.6(graphql@16.10.0)
-      cosmiconfig: 8.3.6(typescript@5.8.3)
+      cosmiconfig: 9.0.0(typescript@5.8.3)
       graphql: 16.10.0
       jiti: 2.4.2
-      minimatch: 9.0.5
+      minimatch: 10.0.1
       string-env-interpolation: 1.0.1
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -14170,7 +14188,7 @@ snapshots:
   header-case@2.0.4:
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   headers-polyfill@4.0.3: {}
 
@@ -14432,7 +14450,7 @@ snapshots:
 
   is-lower-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   is-map@2.0.3: {}
 
@@ -14507,7 +14525,7 @@ snapshots:
 
   is-upper-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   is-weakmap@2.0.2: {}
 
@@ -14803,11 +14821,11 @@ snapshots:
 
   lower-case-first@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   lru-cache@10.4.3: {}
 
@@ -15210,6 +15228,10 @@ snapshots:
 
   mimic-fn@4.0.0: {}
 
+  minimatch@10.0.1:
+    dependencies:
+      brace-expansion: 2.0.1
+
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.11
@@ -15309,7 +15331,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   node-addon-api@7.1.1:
     optional: true
@@ -15554,7 +15576,7 @@ snapshots:
   param-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   parent-module@1.0.1:
     dependencies:
@@ -15610,14 +15632,14 @@ snapshots:
   pascal-case@3.1.2:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   path-browserify@1.0.1: {}
 
   path-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   path-exists@3.0.0: {}
 
@@ -16452,7 +16474,7 @@ snapshots:
   sentence-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
       upper-case-first: 2.0.2
 
   serialize-javascript@4.0.0:
@@ -16650,7 +16672,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   source-map-js@1.2.1: {}
 
@@ -16695,7 +16717,7 @@ snapshots:
 
   sponge-case@1.0.1:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   stackback@0.0.2: {}
 
@@ -16949,7 +16971,7 @@ snapshots:
 
   swap-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   symbol-tree@3.2.4: {}
 
@@ -17041,7 +17063,7 @@ snapshots:
 
   title-case@3.0.3:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   tldts-core@6.1.85: {}
 
@@ -17347,11 +17369,11 @@ snapshots:
 
   upper-case-first@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   upper-case@2.0.2:
     dependencies:
-      tslib: 2.8.1
+      tslib: 2.6.3
 
   uri-js@4.4.1:
     dependencies:
