@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.7...v1.0.8) (2025-04-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.37 ([#29](https://github.com/felix-berlin/webshaped-blog-astro/issues/29)) ([4850aa7](https://github.com/felix-berlin/webshaped-blog-astro/commit/4850aa75f64102d0e1aa1ab5ddd644ab0acd4348))
+
 ## [1.0.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.6...v1.0.7) (2025-04-12)
 
 
