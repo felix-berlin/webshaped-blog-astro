@@ -88,7 +88,7 @@ importers:
         version: 1.6.6
       tm-themes:
         specifier: ^1.10.3
-        version: 1.10.4
+        version: 1.10.5
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.3)
@@ -7472,8 +7472,8 @@ packages:
     resolution: {integrity: sha512-gBdZ1RjCSevRPFix/hpaUWeak2/RNUZB4/8frF1r5uYMHjFptkiT0JXIebWvgI/0ZHXvxaUDDJshiA0j6GdL3w==}
     hasBin: true
 
-  tm-themes@1.10.4:
-    resolution: {integrity: sha512-sJpOuT+sSwubcPLizVwvXprEvZtkIrnHOelOL2ZmDBOjEm+wKa/1I1wWG/wrGlYw+ZvYFWK+gVcVcJbb8NAzuA==}
+  tm-themes@1.10.5:
+    resolution: {integrity: sha512-/2auLAWQK4LDB61o1+N0/YXtY/3KLCoGV0xX7ZLKuWSc5Z4si3N/BZIqRp+oXOR4SnZsD51OkdOmi/NoUcGvpg==}
 
   tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
@@ -17078,7 +17078,7 @@ snapshots:
     dependencies:
       tldts-core: 6.1.85
 
-  tm-themes@1.10.4: {}
+  tm-themes@1.10.5: {}
 
   tmp@0.0.33:
     dependencies:
