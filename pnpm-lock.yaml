@@ -42,8 +42,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.0.1)
       '@nanostores/vue':
-        specifier: ^0.11.0
-        version: 0.11.0(@nanostores/logger@0.4.0(nanostores@1.0.1))(@vue/devtools-api@7.7.6)(nanostores@1.0.1)(vue@3.5.13(typescript@5.8.3))
+        specifier: ^1.0.0
+        version: 1.0.0(@nanostores/logger@0.4.0(nanostores@1.0.1))(@vue/devtools-api@7.7.6)(nanostores@1.0.1)(vue@3.5.13(typescript@5.8.3))
       '@pagefind/default-ui':
         specifier: ^1.3.0
         version: 1.3.0
@@ -2129,13 +2129,13 @@ packages:
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
 
-  '@nanostores/vue@0.11.0':
-    resolution: {integrity: sha512-4ndyLhwVFl1xhOnvWuMvYiG4K2rYvkaQWP3nJC1/RwK/dvpDgLPywwv6MnBdFydqbOGuXNaXOEwa3HsG9CujmA==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+  '@nanostores/vue@1.0.0':
+    resolution: {integrity: sha512-+WtqBD0YXZoMmk7rjRrm0yd2F8e2O3yOk6jR3vpUREBj7UaKEEKpMrPpkpcltboL5ShlYYP0QkSwkpaMwmigOQ==}
+    engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
-      '@nanostores/logger': '>=0.4.0'
+      '@nanostores/logger': ^0.4.0 || ^1.0.0
       '@vue/devtools-api': '>=7.6.2'
-      nanostores: '>=0.11.3'
+      nanostores: ^0.11.3 || ^1.0.0
       vue: '>=3.3.1'
     peerDependenciesMeta:
       '@nanostores/logger':
@@ -10821,7 +10821,7 @@ snapshots:
     dependencies:
       nanostores: 1.0.1
 
-  '@nanostores/vue@0.11.0(@nanostores/logger@0.4.0(nanostores@1.0.1))(@vue/devtools-api@7.7.6)(nanostores@1.0.1)(vue@3.5.13(typescript@5.8.3))':
+  '@nanostores/vue@1.0.0(@nanostores/logger@0.4.0(nanostores@1.0.1))(@vue/devtools-api@7.7.6)(nanostores@1.0.1)(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       nanostores: 1.0.1
       vue: 3.5.13(typescript@5.8.3)
