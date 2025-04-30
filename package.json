@@ -71,7 +71,7 @@
     "@graphql-codegen/introspection": "^4.0.3",
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.0",
-    "@nanostores/logger": "^0.4.0",
+    "@nanostores/logger": "^1.0.0",
     "@playform/inline": "0.1.2",
     "@playwright/test": "^1.51.1",
     "@semantic-release/changelog": "^6.0.3",
