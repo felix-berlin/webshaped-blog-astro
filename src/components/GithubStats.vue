@@ -1,15 +1,15 @@
 <template>
-  <div class="c-github-stats-card c-post-card" v-if="error">{{ error }}</div>
+  <div v-if="error" class="c-github-stats-card c-post-card">{{ error }}</div>
 
-  <div class="c-github-stats-card c-post-card is-graph" v-if="!error">
+  <div v-if="!error" class="c-github-stats-card c-post-card is-graph">
     <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
     <CodeLangGraph
-      class="is-skeleton"
       v-if="loading"
+      class="is-skeleton"
       :languages="skeletonLangDataMock"
       :show-tooltips="false"
     />
-    <CodeLangList class="is-skeleton" v-if="loading" :languages="filteredLanguagePercentages" />
+    <CodeLangList v-if="loading" class="is-skeleton" :languages="filteredLanguagePercentages" />
 
     <Transition name="fade" mode="out-in">
       <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
@@ -28,6 +28,21 @@
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
   </section> -->
+  <section v-if="!error">
+    <h2>Most starred Repos</h2>
+    <a
+      v-for="repo in mostStarredRepos"
+      :key="repo.name"
+      :href="repo.url"
+      target="_blank"
+      class="c-github-stats-card c-post-card"
+    >
+      <h3>{{ repo.name }}</h3>
+      <p>{{ repo.description }}</p>
+      <div>{{ repo.stars }}</div>
+      <div>{{ repo.mostUsedLanguage }}</div>
+    </a>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -41,7 +56,7 @@ const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
 const totalCommits = ref(0);
-const totalAdditions = ref(0);
+const mostStarredRepos = ref(0);
 const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {
@@ -88,7 +103,7 @@ onMounted(() => {
       languagePercentages.value = data.languagePercentages;
       totalBytes.value = data.totalBytes;
       totalCommits.value = data.totalCommits;
-      totalAdditions.value = data.totalAdditions;
+      mostStarredRepos.value = data.mostStarredRepos;
       loading.value = false;
     })
     .catch((err) => {
