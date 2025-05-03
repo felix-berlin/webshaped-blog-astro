@@ -1643,6 +1643,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "CoreDetails",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "CoreDetailsAttributes",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "CoreFile",
             "ofType": null
           },
@@ -11957,6 +11967,30 @@
             "deprecationReason": null
           },
           {
+            "name": "backgroundColor",
+            "description": "The &quot;backgroundColor&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "className",
             "description": "The &quot;className&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
             "args": [],
@@ -11999,6 +12033,18 @@
           {
             "name": "fontSize",
             "description": "The &quot;fontSize&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "gradient",
+            "description": "The &quot;gradient&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -12071,6 +12117,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "The &quot;textColor&quot; field on the &quot;CoreArchivesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -14374,6 +14432,18 @@
             "deprecationReason": null
           },
           {
+            "name": "backgroundColor",
+            "description": "The &quot;backgroundColor&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "borderColor",
             "description": "The &quot;borderColor&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes",
             "args": [],
@@ -14428,6 +14498,18 @@
           {
             "name": "fontSize",
             "description": "The &quot;fontSize&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "gradient",
+            "description": "The &quot;gradient&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -14577,6 +14659,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "The &quot;textColor&quot; field on the &quot;CoreCategoriesAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -17867,6 +17961,18 @@
             "deprecationReason": null
           },
           {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "className",
             "description": "The &quot;className&quot; field on the &quot;CoreCommentsAttributes&quot; block or block attributes",
             "args": [],
@@ -20116,6 +20222,18 @@
             "deprecationReason": null
           },
           {
+            "name": "sizeSlug",
+            "description": "The &quot;sizeSlug&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "style",
             "description": "The &quot;style&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes",
             "args": [],
@@ -20201,6 +20319,18 @@
         "description": "A block used for editing the site",
         "isOneOf": null,
         "fields": [
+          {
+            "name": "anchor",
+            "description": "The anchor field for the block.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "apiVersion",
             "description": "The API version of the Gutenberg Block",
@@ -20350,6 +20480,11 @@
         "interfaces": [
           {
             "kind": "INTERFACE",
+            "name": "BlockWithSupportsAnchor",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "EditorBlock",
             "ofType": null
           },
@@ -20376,6 +20511,30 @@
           {
             "name": "align",
             "description": "The &quot;align&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "allowedBlocks",
+            "description": "The &quot;allowedBlocks&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesArray",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "anchor",
+            "description": "The anchor field for the block.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -20494,6 +20653,30 @@
             "deprecationReason": null
           },
           {
+            "name": "name",
+            "description": "The &quot;name&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "placeholder",
+            "description": "The &quot;placeholder&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "showContent",
             "description": "The &quot;showContent&quot; field on the &quot;CoreDetailsAttributes&quot; block or block attributes",
             "args": [],
@@ -20547,7 +20730,13 @@
           }
         ],
         "inputFields": null,
-        "interfaces": [],
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "BlockWithSupportsAnchor",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -22683,6 +22872,18 @@
           {
             "name": "anchor",
             "description": "The anchor field for the block.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ariaLabel",
+            "description": "The &quot;ariaLabel&quot; field on the &quot;CoreGroupAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -24891,6 +25092,18 @@
           {
             "name": "backgroundColor",
             "description": "The &quot;backgroundColor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -27898,6 +28111,18 @@
             "deprecationReason": null
           },
           {
+            "name": "ariaLabel",
+            "description": "The &quot;ariaLabel&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "backgroundColor",
             "description": "The &quot;backgroundColor&quot; field on the &quot;CoreNavigationAttributes&quot; block or block attributes",
             "args": [],
@@ -29374,6 +29599,30 @@
         "isOneOf": null,
         "fields": [
           {
+            "name": "backgroundColor",
+            "description": "The &quot;backgroundColor&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "className",
             "description": "The &quot;className&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
             "args": [],
@@ -29400,6 +29649,18 @@
           {
             "name": "fontSize",
             "description": "The &quot;fontSize&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "gradient",
+            "description": "The &quot;gradient&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -29472,6 +29733,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "The &quot;textColor&quot; field on the &quot;CorePageListAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -32289,6 +32562,18 @@
             "deprecationReason": null
           },
           {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "className",
             "description": "The &quot;className&quot; field on the &quot;CorePostContentAttributes&quot; block or block attributes",
             "args": [],
@@ -34147,6 +34432,18 @@
           {
             "name": "backgroundColor",
             "description": "The &quot;backgroundColor&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CorePostTemplateAttributes&quot; block or block attributes",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -38437,6 +38734,338 @@
       },
       {
         "kind": "OBJECT",
+        "name": "CoreQueryTotal",
+        "description": "A block used for editing the site",
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "apiVersion",
+            "description": "The API version of the Gutenberg Block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "attributes",
+            "description": "Attributes of the CoreQueryTotal Block Type",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "CoreQueryTotalAttributes",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockEditorCategoryName",
+            "description": "The name of the category the Block belongs to",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientId",
+            "description": "The id of the Block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cssClassNames",
+            "description": "CSS Classnames to apply to the block",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "innerBlocks",
+            "description": "The inner blocks of the Block",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "EditorBlock",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "isDynamic",
+            "description": "Whether the block is Dynamic (server rendered)",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "The name of the block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "parentClientId",
+            "description": "The parent id of the Block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "renderedHtml",
+            "description": "The rendered HTML for the block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The (GraphQL) type of the block",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "EditorBlock",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "PageEditorBlock",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "PostEditorBlock",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CoreQueryTotalAttributes",
+        "description": "Attributes of the CoreQueryTotal Block Type",
+        "isOneOf": null,
+        "fields": [
+          {
+            "name": "align",
+            "description": "The &quot;align&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "backgroundColor",
+            "description": "The &quot;backgroundColor&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "className",
+            "description": "The &quot;className&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "displayType",
+            "description": "The &quot;displayType&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fontFamily",
+            "description": "The &quot;fontFamily&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fontSize",
+            "description": "The &quot;fontSize&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "gradient",
+            "description": "The &quot;gradient&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lock",
+            "description": "The &quot;lock&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": "The &quot;metadata&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "style",
+            "description": "The &quot;style&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "The &quot;textColor&quot; field on the &quot;CoreQueryTotalAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "CoreQuote",
         "description": "A block used for editing the site",
         "isOneOf": null,
@@ -39373,6 +40002,18 @@
             "deprecationReason": null
           },
           {
+            "name": "backgroundColor",
+            "description": "The &quot;backgroundColor&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "blockLayout",
             "description": "The &quot;blockLayout&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
             "args": [],
@@ -39384,6 +40025,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "borderColor",
+            "description": "The &quot;borderColor&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39497,6 +40150,18 @@
             "deprecationReason": null
           },
           {
+            "name": "gradient",
+            "description": "The &quot;gradient&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "itemsToShow",
             "description": "The &quot;itemsToShow&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
             "args": [],
@@ -39531,6 +40196,30 @@
             "type": {
               "kind": "SCALAR",
               "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "style",
+            "description": "The &quot;style&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BlockAttributesObject",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "textColor",
+            "description": "The &quot;textColor&quot; field on the &quot;CoreRssAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -40317,6 +41006,22 @@
               "kind": "SCALAR",
               "name": "BlockAttributesObject",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tagName",
+            "description": "The &quot;tagName&quot; field on the &quot;CoreSeparatorAttributes&quot; block or block attributes",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -49375,6 +50080,11 @@
           {
             "kind": "OBJECT",
             "name": "CoreQueryTitle",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "CoreQueryTotal",
             "ofType": null
           },
           {
@@ -64440,6 +65150,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "CoreQueryTotal",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "CoreQuote",
             "ofType": null
           },
@@ -69747,6 +70462,11 @@
           {
             "kind": "OBJECT",
             "name": "CoreQueryTitle",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "CoreQueryTotal",
             "ofType": null
           },
           {
