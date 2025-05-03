@@ -1,0 +1,30 @@
+query GhRepos($username: String!, $after: String) {
+  user(login: $username) {
+    repositories(first: 100, after: $after, ownerAffiliations: OWNER) {
+      nodes {
+        name
+        languages(first: 10) {
+          edges {
+            size
+            node {
+              name
+            }
+          }
+        }
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              history {
+                totalCount
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

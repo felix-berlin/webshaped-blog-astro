@@ -20,14 +20,14 @@
     <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
 
-  <section class="o-github-total-lines" v-if="!error">
+  <!-- <section class="o-github-total-lines" v-if="!error">
     <div class="c-github-stats-card c-post-card is-total-lines-1">
       <h2>{{ t("github_stats.total_lines.headline") }}</h2>
     </div>
     <div class="c-github-stats-card c-post-card is-total-lines-2">
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
-  </section>
+  </section> -->
 </template>
 
 <script setup lang="ts">
