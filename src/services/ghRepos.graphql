@@ -3,7 +3,11 @@ query GhRepos($username: String!, $after: String) {
     repositories(first: 100, after: $after, ownerAffiliations: OWNER) {
       nodes {
         name
-        languages(first: 10) {
+        stargazerCount
+        url
+        description
+        forkCount
+        languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
           edges {
             size
             node {

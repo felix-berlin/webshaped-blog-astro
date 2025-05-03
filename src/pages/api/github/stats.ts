@@ -38,6 +38,14 @@ export async function GET(context: APIContext): Promise<Response> {
     const languages: { [key: string]: number } = {};
     let totalBytes = 0;
     let totalCommits = 0;
+    let mostStarredRepos: {
+      name: string;
+      stars: number;
+      url: string;
+      description: string;
+      mostUsedLanguage: string;
+      forkCount: number;
+    }[] = [];
 
     while (hasNextPage) {
       const reposResponse = await client.query(GhRepos, { username, after }).toPromise();
@@ -67,8 +75,22 @@ export async function GET(context: APIContext): Promise<Response> {
         if (repo.defaultBranchRef?.target?.history?.totalCount) {
           totalCommits += repo.defaultBranchRef.target.history.totalCount;
         }
+
+        // Collect most starred repositories
+        const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
+        mostStarredRepos.push({
+          name: repo.name,
+          stars: repo.stargazerCount,
+          url: repo.url,
+          description: repo.description || "No description available",
+          mostUsedLanguage,
+          forkCount: repo.forkCount,
+        });
       }
     }
+
+    // Sort repositories by stars and limit to top 5
+    mostStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
 
     // Calculate language percentages
     const languagePercentages: { [key: string]: number } = {};
@@ -81,6 +103,7 @@ export async function GET(context: APIContext): Promise<Response> {
         languagePercentages,
         totalBytes,
         totalCommits,
+        mostStarredRepos,
       }),
       {
         status: 200,
