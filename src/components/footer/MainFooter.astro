@@ -2,7 +2,7 @@
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
-import { getMenuItems, getAuthor, getAllCategories } from "@services/api";
+import { getMenuItems, getAllCategories } from "@services/api";
 import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
@@ -11,10 +11,19 @@ import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
+import GetAuthor from "@services/GetAuthor.graphql";
+import { gqlApi } from "@services/fetchApi.ts";
 
 const categories = await getAllCategories();
 const footerMenuItems = await getMenuItems("DE", "SECONDARY_MENU");
-const author = await getAuthor();
+let author = null;
+
+try {
+  const response = await gqlApi(GetAuthor);
+  author = response.data?.user;
+} catch (error) {
+  console.error("Error fetching author data:", error);
+}
 
 interface MainFooterProps {
   lang: Maybe<Language>;

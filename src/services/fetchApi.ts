@@ -1,4 +1,7 @@
 import { SITE_URL, WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import type { DocumentNode } from "graphql";
+
 // const baseUrl = import.meta.env.DEV ? SITE_URL : "";
 
 // export const fetchAPI = async (query: string, { variables } = { variables: {} }): Promise<any> => {
@@ -72,4 +75,18 @@ export const fetchApiWithAuth = async (
     .catch((error) => {
       console.error("error", error);
     });
+};
+
+export const gqlApi = async (query: DocumentNode, { variables } = { variables: {} }) => {
+  const client = new Client({
+    url: WP_API,
+    fetchOptions: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    exchanges: [fetchExchange],
+  });
+
+  return await client.query(query, variables).toPromise();
 };
