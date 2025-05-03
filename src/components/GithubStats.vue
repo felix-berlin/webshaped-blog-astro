@@ -56,7 +56,7 @@ const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
 const totalCommits = ref(0);
-const mostStarredRepos = ref(0);
+const mostStarredRepos = ref([]);
 const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {

@@ -89,7 +89,7 @@ export async function GET(context: APIContext): Promise<Response> {
       }
     }
 
-    // Sort repositories by stars and limit to top 5
+    // Sort repositories by stars and limit to top 6
     mostStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
 
     // Calculate language percentages
