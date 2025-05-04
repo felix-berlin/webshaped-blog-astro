@@ -5,7 +5,6 @@ import "@styles/plugins/shiki.scss";
 
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
-import { getAllPostsWithSlugs, getPostBySlug } from "@services/api";
 import type { CoreHeading } from "@ts_types/generated/graphql";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
 import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
@@ -19,16 +18,32 @@ import { Code } from "astro/components";
 import he from "he";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
-
-import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import { GetAllPostsDocument } from "@/gql/graphql.ts";
+import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
 
 export const prerender = true;
 
-export const getStaticPaths = async () => {
-  const postWithSlugs = await getAllPostsWithSlugs();
+export const getStaticPaths = (async () => {
+  const client = new Client({
+    url: WP_API,
+    fetchOptions: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    exchanges: [cacheExchange, fetchExchange],
+  });
+
+  const postsResponse = await client.query(GetAllPostsDocument, { size: 90 }).toPromise();
 
   // Posts without slugs happen mostly on draft posts
-  const posts = postWithSlugs.nodes.filter((post) => post?.slug);
+  const posts = postsResponse?.data?.posts?.nodes.filter((post) => post?.slug);
+
+  if (!posts) {
+    return;
+  }
 
   return posts.map((post) => {
     return {
@@ -36,15 +51,18 @@ export const getStaticPaths = async () => {
         postSlug: post.slug,
         lang: post?.language?.slug,
       },
+      props: {
+        post: post,
+      },
     };
   });
-};
+}) satisfies GetStaticPaths;
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { postSlug, lang } = Astro.params as Params;
-const post = await getPostBySlug(postSlug!, 90);
+const { post } = Astro.props;
 
 const isCoreHeading = (block: any): block is CoreHeading => {
   return (

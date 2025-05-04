@@ -1,42 +1,18 @@
-import type { Post, RootQueryToPostConnection } from "@ts_types/generated/graphql";
-import { fetchAPI } from "@services/fetchApi";
-import { allBlocks, coreDetails } from "./blockFragments";
-import { SHOW_TEST_DATA } from "astro:env/client";
-import { seo } from "@/services/fragments";
+// import { SHOW_TEST_DATA } from "astro:env/client";
+import { graphql } from "@/gql";
 
-export const getAllPostsWithSlugs = async (
-  languages = "[DE, EN]",
-  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
-): Promise<RootQueryToPostConnection> => {
-  const data = await fetchAPI(`
-  {
-    posts(first: 10000, where: {languages: ${languages}, stati: ${stati}}) {
+// TODO: add condition for test data
+// SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
+
+export const GetAllPosts = graphql(`
+  query GetAllPosts(
+    $first: Int = 10000
+    $languages: [LanguageCodeEnum!] = [DE, EN]
+    $stati: [PostStatusEnum] = [PUBLISH]
+    $size: Int = 96
+  ) {
+    posts(first: $first, where: { languages: $languages, stati: $stati }) {
       nodes {
-        slug
-        language {
-          slug
-        }
-        translations {
-          slug
-          language {
-            slug
-          }
-        }
-      }
-    }
-  }
-  `).then((res) => res.data);
-
-  return data?.posts;
-};
-
-export const getPostBySlug = async (
-  slug: number | string,
-  authorAvatarSize = 96,
-): Promise<Post> => {
-  const data = await fetchAPI(`
-    {
-      post(id: "${slug}", idType: URI) {
         title
         slug
         excerpt
@@ -52,12 +28,12 @@ export const getPostBySlug = async (
           name
           parentClientId
           type
-          ${allBlocks}
-          ${coreDetails(allBlocks)}
+          ...CoreDetails
+          ...AllBlocks
         }
         author {
           node {
-            avatar(size: ${authorAvatarSize}) {
+            avatar(size: $size) {
               foundAvatar
               height
               url
@@ -131,127 +107,25 @@ export const getPostBySlug = async (
         commentStatus
         comments(
           first: 100
-          where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT, parent: 0}
+          where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT, parent: 0 }
         ) {
           nodes {
-            content
-            dateGmt
-            id
-            parentId
-            commentId
-            author {
-              node {
-                name
-                id
-                avatar {
-                  foundAvatar
-                  default
-                  height
-                  width
-                  url
-                }
-              }
-            }
-            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+            ...CommentDetails
+            replies(where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT }) {
               nodes {
-                content
-                dateGmt
-                id
-                parentId
-                commentId
-                author {
-                  node {
-                    name
-                    id
-                    avatar {
-                      foundAvatar
-                      height
-                      size
-                      url
-                      width
-                    }
-                  }
-                }
-                replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                ...CommentDetails
+                replies(where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT }) {
                   nodes {
-                    content
-                    dateGmt
-                    id
-                    parentId
-                    commentId
-                    author {
-                      node {
-                        name
-                        id
-                        avatar {
-                          foundAvatar
-                          height
-                          size
-                          url
-                          width
-                        }
-                      }
-                    }
-                    replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                    ...CommentDetails
+                    replies(where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT }) {
                       nodes {
-                        content
-                        dateGmt
-                        id
-                        parentId
-                        commentId
-                        author {
-                          node {
-                            name
-                            id
-                            avatar {
-                              foundAvatar
-                              height
-                              size
-                              url
-                              width
-                            }
-                          }
-                        }
-                        replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                        ...CommentDetails
+                        replies(where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT }) {
                           nodes {
-                            content
-                            dateGmt
-                            id
-                            parentId
-                            commentId
-                            author {
-                              node {
-                                name
-                                id
-                                avatar {
-                                  foundAvatar
-                                  height
-                                  size
-                                  url
-                                  width
-                                }
-                              }
-                            }
-                            replies(where: {contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT}) {
+                            ...CommentDetails
+                            replies(where: { contentStatus: PUBLISH, orderby: COMMENT_DATE_GMT }) {
                               nodes {
-                                content
-                                dateGmt
-                                id
-                                parentId
-                                commentId
-                                author {
-                                  node {
-                                    name
-                                    id
-                                    avatar {
-                                      foundAvatar
-                                      height
-                                      size
-                                      url
-                                      width
-                                    }
-                                  }
-                                }
+                                ...CommentDetails
                               }
                             }
                           }
@@ -301,30 +175,5 @@ export const getPostBySlug = async (
         }
       }
     }
-  `).then((res) => res.data);
-
-  return data?.post;
-};
-
-export const getAllRssPostsFromEachLang = async (
-  languages = "[DE, EN]",
-  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
-): Promise<RootQueryToPostConnection> => {
-  const data = await fetchAPI(`
-  {
-    posts(first: 10000, where: {stati: ${stati}, languages: ${languages}}) {
-      nodes {
-        title
-        slug
-        excerpt
-        dateGmt
-        language {
-          slug
-        }
-      }
-    }
   }
-  `).then((res) => res.data);
-
-  return data?.posts;
-};
+`);

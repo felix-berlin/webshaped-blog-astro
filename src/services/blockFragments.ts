@@ -1,15 +1,17 @@
-export const coreParagraph = `
-  ... on CoreParagraph {
+import { graphql } from "@/gql";
+
+export const CoreParagraph = graphql(`
+  fragment CoreParagraph on CoreParagraph {
     name
     attributes {
       content
       align
     }
   }
-`;
+`);
 
-export const coreList = `
-  ... on CoreList {
+export const CoreList = graphql(`
+  fragment CoreList on CoreList {
     name
     innerBlocks {
       name
@@ -20,10 +22,10 @@ export const coreList = `
       }
     }
   }
-`;
+`);
 
-export const coreHeading = `
-  ... on CoreHeading {
+export const CoreHeading = graphql(`
+  fragment CoreHeading on CoreHeading {
     name
     attributes {
       align
@@ -32,10 +34,10 @@ export const coreHeading = `
       textAlign
     }
   }
-`;
+`);
 
-export const coreCode = `
-  ... on CoreCode {
+export const CoreCode = graphql(`
+  fragment CoreCode on CoreCode {
     name
     attributes {
       content
@@ -43,10 +45,10 @@ export const coreCode = `
       className
     }
   }
-`;
+`);
 
-const coreImage = `
-  ... on CoreImage {
+const CoreImage = graphql(`
+  fragment CoreImage on CoreImage {
     name
     attributes {
       align
@@ -74,10 +76,10 @@ const coreImage = `
       width
     }
   }
-`;
+`);
 
-const coreButton = `
-  ... on CoreButton {
+const CoreButton = graphql(`
+  fragment CoreButton on CoreButton {
     name
     attributes {
       text
@@ -89,59 +91,63 @@ const coreButton = `
       rel
     }
   }
-`;
+`);
 
-const coreButtons = `
-  ... on CoreButtons {
+const CoreButtons = graphql(`
+  fragment CoreButtons on CoreButtons {
     name
     attributes {
       align
     }
     innerBlocks {
-      ${coreButton}
+      ...CoreButton
     }
   }
-`;
+`);
 
-const acfGithubRawData = `
-  ... on AcfGithubRawData {
+const AcfGithubRawData = graphql(`
+  fragment AcfGithubRawData on AcfGithubRawData {
     name
     githubRawData {
       codeLanguage
       githubRawUrl
     }
   }
-`;
+`);
 
-const acfCodeHighlighting = `
-  ... on AcfCodeHighlighting {
+const AcfCodeHighlighting = graphql(`
+  fragment AcfCodeHighlighting on AcfCodeHighlighting {
     name
     attributes {
       data
     }
   }
-`;
+`);
 
-export const allBlocks =
-  coreParagraph +
-  coreList +
-  coreHeading +
-  coreCode +
-  coreImage +
-  coreButton +
-  coreButtons +
-  acfGithubRawData +
-  acfCodeHighlighting;
+export const CoreDetails = (allInnerBlocks: string) =>
+  graphql(`
+    fragment CoreDetails on CoreDetails {
+      name
+      attributes {
+        summary
+        showContent
+      }
+      innerBlocks {
+        ...AllBlocks
+      }
+    }
+  `);
 
-export const coreDetails = (allInnerBlocks: string) => `
-  ... on CoreDetails {
-    name
-    attributes {
-      summary
-      showContent
-    }
-    innerBlocks {
-      ${allInnerBlocks}
-    }
+export const AllBlocks = graphql(`
+  fragment AllBlocks on EditorBlock {
+    ...CoreParagraph
+    ...CoreList
+    ...CoreHeading
+    ...CoreCode
+    ...CoreImage
+    ...CoreButton
+    ...CoreButtons
+    ...AcfGithubRawData
+    ...AcfCodeHighlighting
   }
-`;
+`);
