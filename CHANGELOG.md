@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.15...v1.1.0) (2025-05-04)
+
+
+### Bug Fixes
+
+* init type for mostStarredRepos ([3cd8071](https://github.com/felix-berlin/webshaped-blog-astro/commit/3cd80717fcca6a474f8f7d824a5ad0267e8680d5))
+
+
+### Features
+
+* add most starred repos styles ([857e274](https://github.com/felix-berlin/webshaped-blog-astro/commit/857e2746b90cacf474633065db6e61c6d98d3074))
+* add urql vue; use new CreateComment mutation ([562a618](https://github.com/felix-berlin/webshaped-blog-astro/commit/562a6188c414c9072caf13e9c412e70d45419c82))
+* **GithubStats:** add basic mostStarredRepos markup ([43a9639](https://github.com/felix-berlin/webshaped-blog-astro/commit/43a963958255cf6de6f71dd89b0058fffed9f4f7))
+* remove unused window types ([0c73e29](https://github.com/felix-berlin/webshaped-blog-astro/commit/0c73e29d1940d7d06ef0c4abae3508f9ef0814f5))
+* **stats endpoint:** add mostStarredRepos ([87ab21b](https://github.com/felix-berlin/webshaped-blog-astro/commit/87ab21b71fbac481edba090e0b7a67b54e4b6c07))
+
 ## [1.0.15](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.14...v1.0.15) (2025-04-26)
 
 
