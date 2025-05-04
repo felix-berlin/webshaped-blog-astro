@@ -1,7 +1,5 @@
-import { SITE_URL, WP_API } from "astro:env/client";
+import { WP_API } from "astro:env/client";
 import { Client, cacheExchange, fetchExchange } from "@urql/core";
-import type { OperationResult } from "@urql/core";
-import type { DocumentNode } from "graphql";
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import type { Variables } from "@urql/core";
 

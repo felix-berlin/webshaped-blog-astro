@@ -74,5 +74,6 @@
   "github_stats.lang_graph.headline": "Folgende Sprachen schreibe ich am meisten:",
   "github_stats.lang_graph.hint": "Der Sprachgraph bezieht sich auf meine öffentlichen und privaten Repositories (main Branch).",
   "github_stats.total_lines.headline": "Gesamtanzahl Codezeilen:",
+  "github_stats.most_starred.headline": "Meine { count } beliebtesten Repositories:",
   "install_app.not_ready.tooltip": "Die App ist noch nicht Installations bereit, bitte warte noch einen Moment."
 }

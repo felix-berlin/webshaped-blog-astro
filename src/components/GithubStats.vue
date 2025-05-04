@@ -28,20 +28,29 @@
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
   </section> -->
-  <section v-if="!error">
-    <h2>Most starred Repos</h2>
-    <a
-      v-for="repo in mostStarredRepos"
-      :key="repo.name"
-      :href="repo.url"
-      target="_blank"
-      class="c-github-stats-card c-post-card"
-    >
-      <h3>{{ repo.name }}</h3>
-      <p>{{ repo.description }}</p>
-      <div>{{ repo.stars }}</div>
-      <div>{{ repo.mostUsedLanguage }}</div>
-    </a>
+  <section v-if="!error" class="o-github-most-starred">
+    <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
+    <div class="o-github-most-starred__list">
+      <a
+        v-for="repo in mostStarredRepos"
+        :key="repo.name"
+        :href="repo.url"
+        target="_blank"
+        class="c-post-card o-github-most-starred__item"
+      >
+        <h3 class="o-github-most-starred__title">{{ repo.name }}</h3>
+        <p class="o-github-most-starred__description">{{ repo.description }}</p>
+        <div
+          class="o-github-most-starred__lang"
+          :class="`is-${repo.mostUsedLanguage.toLowerCase()}`"
+        >
+          {{ repo.mostUsedLanguage }}
+        </div>
+        <div class="o-github-most-starred__stars">
+          <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
+        </div>
+      </a>
+    </div>
   </section>
 </template>
 
@@ -50,6 +59,7 @@ import { ref, onMounted, computed } from "vue";
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
 import { useI18n } from "@/composables/useI18n";
+import StarIcon from "virtual:icons/lucide/star";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
