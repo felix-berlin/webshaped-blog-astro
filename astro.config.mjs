@@ -241,7 +241,7 @@ export default defineConfig({
         },
       }), // chooses the compiler automatically
       BUNDLE_ANALYZER_OPEN === "true" ? visualizerPlugin : null,
-      graphqlLoader(),
+      graphqlLoader({ sourceMapOptions: { hires: true } }),
     ],
 
     css: {

@@ -53,10 +53,10 @@
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
     "format": "npx prettier --write .",
-    "gql:generate": "gql-gen --config codegen.ts",
-    "predev": "pnpm run gql:generate",
+    "gql:generate": "graphql-codegen --config codegen.ts",
     "preinstall": "npx only-allow pnpm",
-    "copy:pagefind": "pnpm dlx shx cp -r dist/pagefind public/"
+    "copy:pagefind": "pnpm dlx shx cp -r dist/pagefind public/",
+    "predev": "pnpm run gql:generate"
   },
   "packageManager": "pnpm@10.10.0",
   "devDependencies": {
@@ -64,9 +64,11 @@
     "@codecov/astro-plugin": "^1.9.0",
     "@faker-js/faker": "^9.7.0",
     "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/client-preset": "^4.8.0",
     "@graphql-codegen/introspection": "^4.0.3",
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.0",
+    "@graphql-eslint/eslint-plugin": "^4.4.0",
     "@nanostores/logger": "^1.0.0",
     "@playform/inline": "0.1.2",
     "@playwright/test": "^1.52.0",
@@ -91,6 +93,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-vue": "^10.1.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
+    "graphql": "^16.11.0",
     "graphql-config": "^5.1.5",
     "jsdom": "^26.1.0",
     "msw": "^2.7.5",

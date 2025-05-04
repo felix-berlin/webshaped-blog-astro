@@ -12,17 +12,44 @@ const config: CodegenConfig = {
       },
     },
   ],
+  documents: ["src/**/*.{graphql,js,ts,jsx,tsx}", "!src/services/ghRepos.graphql", "!src/gql/**/*"],
+  ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    "src/types/generated/graphql.d.ts": {
-      plugins: ["typescript", "typescript-operations"],
+    "./src/gql/": {
+      preset: "client",
       config: {
-        maybeValue: "T | null | undefined",
+        useTypeImports: true,
       },
-    },
-    "./graphql.schema.json": {
-      plugins: ["introspection"],
+      plugins: [],
     },
   },
+  hooks: { afterAllFileWrite: ["prettier --write"] },
 };
 
 export default config;
+
+// Old codegen config
+// const config: CodegenConfig = {
+//   schema: [
+//     {
+//       [WP_API]: {
+//         headers: {
+//           Authorization: `Bearer ${WP_AUTH_REFRESH_TOKEN}`,
+//         },
+//       },
+//     },
+//   ],
+//   generates: {
+//     "src/types/generated/graphql.d.ts": {
+//       plugins: ["typescript", "typescript-operations"],
+//       config: {
+//         maybeValue: "T | null | undefined",
+//       },
+//     },
+//     "./graphql.schema.json": {
+//       plugins: ["introspection"],
+//     },
+//   },
+// };
+
+// export default config;
