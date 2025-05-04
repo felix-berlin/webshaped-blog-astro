@@ -137,6 +137,7 @@
     "@sentry/astro": "^9.15.0",
     "@spotlightjs/astro": "^3.2.3",
     "@urql/core": "^5.1.1",
+    "@urql/vue": "^1.4.3",
     "@vueuse/core": "^13.1.0",
     "astro": "^5.7.10",
     "astro-breadcrumbs": "^3.3.1",

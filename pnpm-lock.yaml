@@ -56,6 +56,9 @@ importers:
       '@urql/core':
         specifier: ^5.1.1
         version: 5.1.1(graphql@16.11.0)
+      '@urql/vue':
+        specifier: ^1.4.3
+        version: 1.4.3(@urql/core@5.1.1(graphql@16.11.0))(vue@3.5.13(typescript@5.8.3))
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.1.0(vue@3.5.13(typescript@5.8.3))
@@ -3213,6 +3216,12 @@ packages:
 
   '@urql/core@5.1.1':
     resolution: {integrity: sha512-aGh024z5v2oINGD/In6rAtVKTm4VmQ2TxKQBAtk2ZSME5dunZFcjltw4p5ENQg+5CBhZ3FHMzl0Oa+rwqiWqlg==}
+
+  '@urql/vue@1.4.3':
+    resolution: {integrity: sha512-+zdMQFBHL1V+tdTKzAqhiIP14cJ6GAUDux7uhC3rAt/rQhaVcdRmLuf0dhco04UHC+rdkd6sZ4epemL9VeTfRA==}
+    peerDependencies:
+      '@urql/core': ^5.0.0
+      vue: ^2.7.0 || ^3.0.0
 
   '@vite-pwa/astro@1.1.0':
     resolution: {integrity: sha512-LLBhhRaU7jZ93P+Dq79Jxj0HOXlg/Dn2Z8wBvpxoZl/eB4CbbKjNbTnKQ7VcmffqKBrAvAluUJjbp7zkwD3MFQ==}
@@ -12145,6 +12154,12 @@ snapshots:
       wonka: 6.3.5
     transitivePeerDependencies:
       - graphql
+
+  '@urql/vue@1.4.3(@urql/core@5.1.1(graphql@16.11.0))(vue@3.5.13(typescript@5.8.3))':
+    dependencies:
+      '@urql/core': 5.1.1(graphql@16.11.0)
+      vue: 3.5.13(typescript@5.8.3)
+      wonka: 6.3.5
 
   '@vite-pwa/astro@1.1.0(astro@5.7.10(@types/node@22.15.3)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(vite@6.3.4(@types/node@22.15.3)(jiti@2.4.2)(sass@1.87.0)(terser@5.39.0)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
     dependencies:
