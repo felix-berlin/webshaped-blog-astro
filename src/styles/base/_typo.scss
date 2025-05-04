@@ -25,11 +25,10 @@ html {
   font-family: fonts.$source-sans-pro;
   color: var(--color-base, #{colors.$blue-dark});
 
-  &[class~=dark] {
+  &[class~="dark"] {
     --color-base: #ffb433;
   }
 }
-
 
 a {
   color: var(--color-link-base);
@@ -40,7 +39,7 @@ a {
     --color-link-base: #{colors.$white};
   }
 
-  &:not(.c-post-card__link) {
+  &:not(.c-post-card__link, .c-post-card) {
     @include mx.icon-center() {
       gap: 5px;
     }

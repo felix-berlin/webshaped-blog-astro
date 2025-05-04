@@ -177,12 +177,10 @@
 </template>
 
 <script setup lang="ts">
-import { createComment, type CreateCommentPayloadExtended } from "@services/api";
 import { onMounted, reactive, ref, watch } from "vue";
 import { mapStores } from "@nanostores/vue";
-import { guest, currentLanguage } from "@stores/store";
+import { guest } from "@stores/store";
 import Alert from "@components/Alert.vue";
-import { useTranslations } from "@utils/i18n/utils";
 import User from "virtual:icons/lucide/user";
 import Info from "virtual:icons/lucide/info";
 import type { CreateCommentInput } from "@ts_types/generated/graphql";
@@ -191,6 +189,8 @@ import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";
 import { excludeObjectKeys } from "@utils/objectHelpers";
 import { useI18n } from "@/composables/useI18n";
+import { useMutation } from "@urql/vue";
+import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: number;
@@ -233,10 +233,7 @@ const formErrors: FormErrors = reactive({
   privacy: "",
 });
 
-const formResponses: {
-  success: CreateCommentPayloadExtended["success"];
-  errors: CreateCommentPayloadExtended["errors"];
-} = reactive({
+const formResponses = reactive({
   success: false,
   errors: [],
 });
@@ -305,58 +302,62 @@ const validEmail = (email: string | undefined): boolean | undefined => {
   return re.test(email);
 };
 
+const createComment = useMutation(CreateCommentDocument);
+
 /**
  * Send a GraphQL request to create a comment
- *
- * @return  {Promise}
  */
-const create = async (): Promise<void> => {
-  await createComment(
-    props.currentPostId,
-    commentForm.comment,
-    commentForm.author,
-    commentForm.email,
-    props.replyToCommentId,
-  ).then(
-    async (response) => {
-      if (commentForm.saveUser) {
-        console.log("save user", excludeObjectKeys(commentForm, ["comment"]));
-        guest.set(excludeObjectKeys(commentForm, ["comment"]));
-      }
+const create = async () => {
+  await createComment
+    .executeMutation({
+      author: commentForm.author,
+      authorEmail: commentForm.email,
+      content: commentForm.comment,
+      parent: props.replyToCommentId,
+      commentOn: props.currentPostId,
+    })
+    .then(
+      async (response) => {
+        const { data, error } = response;
 
-      if (!commentForm.saveUser) {
-        guest.set({ saveUser: false });
-      }
+        if (commentForm.saveUser) {
+          console.log("save user", excludeObjectKeys(commentForm, ["comment"]));
+          guest.set(excludeObjectKeys(commentForm, ["comment"]));
+        }
 
-      if (typeof response?.data?.createComment?.success !== "undefined") {
-        formResponses.success = response?.data.createComment.success;
-        showDialog.value = true;
+        if (!commentForm.saveUser) {
+          guest.set({ saveUser: false });
+        }
 
-        await promiseTimeout(3000);
+        if (data) {
+          formResponses.success = data.createComment?.success;
+          showDialog.value = true;
 
-        showDialog.value = false;
-        formResponses.success = false;
+          await promiseTimeout(3000);
 
-        emit("commentCreated");
+          showDialog.value = false;
+          formResponses.success = false;
 
-        if (!commentForm.saveUser) resetCommentForm();
-        commentForm.comment = "";
-      }
+          emit("commentCreated");
 
-      if (typeof response.errors !== "undefined") {
-        formResponses.errors = response.errors;
-        showDialog.value = true;
+          if (!commentForm.saveUser) resetCommentForm();
+          commentForm.comment = "";
+        }
 
-        await promiseTimeout(3000);
+        if (error) {
+          formResponses.errors = errors;
+          showDialog.value = true;
 
-        showDialog.value = false;
-        formResponses.errors = [];
-      }
-    },
-    (error) => {
-      console.error("oh no, login failed", error);
-    },
-  );
+          await promiseTimeout(3000);
+
+          showDialog.value = false;
+          formResponses.errors = [];
+        }
+      },
+      (error) => {
+        console.error("Cant save comment", error);
+      },
+    );
 };
 
 watch(commentForm, (newValue, oldValue) => {

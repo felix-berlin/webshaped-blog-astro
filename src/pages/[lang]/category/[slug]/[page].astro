@@ -21,7 +21,7 @@ interface Paginate {
   paginate: PaginateFunction;
 }
 
-export const getStaticPaths = async ({ paginate }: Paginate) => {
+export const getStaticPaths = (async ({ paginate }: Paginate) => {
   const postPreviews = await getAllPostPreviewsByCategory();
   const pageCount = 6;
 
@@ -83,7 +83,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
             availableLanguages: availableLanguages,
           },
           params: {
-            slug: removeLocaleCode(translation?.slug) as string,
+            slug: removeLocaleCode(translation?.slug),
             lang: translation?.language?.slug as string,
           },
           pageSize: pageCount,
@@ -92,12 +92,12 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 
     return [...germanPaths, ...englishPaths];
   });
-};
+}) satisfies GetStaticPaths;
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { page, content, availableLanguages, seo } = Astro.props as Props;
+const { page, content, availableLanguages, seo } = Astro.props;
 const { lang, slug } = Astro.params as Params;
 
 const path = `${lang}/category/${slug}`;

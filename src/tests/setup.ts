@@ -2,6 +2,8 @@ import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { config } from "@vue/test-utils";
 import { server } from "./mocks/node.ts";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
+import urql, { cacheExchange, fetchExchange } from "@urql/vue";
+import { WP_API } from "astro:env/client";
 
 import {
   // Directives
@@ -26,6 +28,21 @@ config.global.directives = {
   tooltip: vTooltip,
   "auto-animate": useAutoAnimate,
 };
+
+config.global.plugins = [
+  [
+    urql,
+    {
+      url: WP_API,
+      fetchOptions: {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      exchanges: [cacheExchange, fetchExchange],
+    },
+  ],
+];
 
 const ResizeObserverMock = vi.fn(() => ({
   observe: vi.fn(),

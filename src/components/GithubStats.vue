@@ -1,15 +1,15 @@
 <template>
-  <div class="c-github-stats-card c-post-card" v-if="error">{{ error }}</div>
+  <div v-if="error" class="c-github-stats-card c-post-card">{{ error }}</div>
 
-  <div class="c-github-stats-card c-post-card is-graph" v-if="!error">
+  <div v-if="!error" class="c-github-stats-card c-post-card is-graph">
     <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
     <CodeLangGraph
-      class="is-skeleton"
       v-if="loading"
+      class="is-skeleton"
       :languages="skeletonLangDataMock"
       :show-tooltips="false"
     />
-    <CodeLangList class="is-skeleton" v-if="loading" :languages="filteredLanguagePercentages" />
+    <CodeLangList v-if="loading" class="is-skeleton" :languages="filteredLanguagePercentages" />
 
     <Transition name="fade" mode="out-in">
       <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
@@ -20,12 +20,36 @@
     <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
 
-  <section class="o-github-total-lines" v-if="!error">
+  <!-- <section class="o-github-total-lines" v-if="!error">
     <div class="c-github-stats-card c-post-card is-total-lines-1">
       <h2>{{ t("github_stats.total_lines.headline") }}</h2>
     </div>
     <div class="c-github-stats-card c-post-card is-total-lines-2">
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
+    </div>
+  </section> -->
+  <section v-if="!error" class="o-github-most-starred">
+    <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
+    <div class="o-github-most-starred__list">
+      <a
+        v-for="repo in mostStarredRepos"
+        :key="repo.name"
+        :href="repo.url"
+        target="_blank"
+        class="c-post-card o-github-most-starred__item"
+      >
+        <h3 class="o-github-most-starred__title">{{ repo.name }}</h3>
+        <p class="o-github-most-starred__description">{{ repo.description }}</p>
+        <div
+          class="o-github-most-starred__lang"
+          :class="`is-${repo.mostUsedLanguage.toLowerCase()}`"
+        >
+          {{ repo.mostUsedLanguage }}
+        </div>
+        <div class="o-github-most-starred__stars">
+          <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
+        </div>
+      </a>
     </div>
   </section>
 </template>
@@ -35,13 +59,14 @@ import { ref, onMounted, computed } from "vue";
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
 import { useI18n } from "@/composables/useI18n";
+import StarIcon from "virtual:icons/lucide/star";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
 const languagePercentages = ref<{ [key: string]: number }>({});
 const totalBytes = ref(0);
 const totalCommits = ref(0);
-const totalAdditions = ref(0);
+const mostStarredRepos = ref([]);
 const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {
@@ -88,7 +113,7 @@ onMounted(() => {
       languagePercentages.value = data.languagePercentages;
       totalBytes.value = data.totalBytes;
       totalCommits.value = data.totalCommits;
-      totalAdditions.value = data.totalAdditions;
+      mostStarredRepos.value = data.mostStarredRepos;
       loading.value = false;
     })
     .catch((err) => {
