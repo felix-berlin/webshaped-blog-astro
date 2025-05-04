@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.1.0...v1.2.0) (2025-05-04)
+
+
+### Features
+
+* add kevin powell img reset ([61a2b99](https://github.com/felix-berlin/webshaped-blog-astro/commit/61a2b99598fdad6c40dba4b95624d7cd5254b275))
+
 # [1.1.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.0.15...v1.1.0) (2025-05-04)
 
 
