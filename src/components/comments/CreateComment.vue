@@ -264,7 +264,7 @@ const resetFormErrors = () => {
  *
  * @return  {void}
  */
-const checkForm = (): void => {
+const checkForm = async (): void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
@@ -283,7 +283,7 @@ const checkForm = (): void => {
   }
 
   if (Object.values(formErrors).every((v) => v.length === 0)) {
-    create();
+    await create();
   }
 };
 
