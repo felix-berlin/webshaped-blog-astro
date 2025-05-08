@@ -147,11 +147,11 @@ const translationsRoutes = {
       <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
       <HasTranslations translations={translations} lang={lang} />
     </section>
-    <TabDisplay postId={postId} authorId={author?.node.id} client:only="vue" />
+    <TabDisplay postId={id} authorId={author?.node.id} client:only="vue" />
   </footer>
 
   <aside class="c-blog-sidebar">
-    <Author author={author || undefined} lang={lang!} />
+    <Author author={author || undefined} lang={lang} />
     <div class="c-blog-sidebar__toc-wrap">
       <h2 class="c-blog-sidebar__headline is-toc">
         {t("blog.table_of_contents")}

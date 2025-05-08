@@ -19414,7 +19414,7 @@ export type CommentFieldsFragment = {
   dateGmt?: string | null;
   id: string;
   parentId?: string | null;
-  commentId?: number | null;
+  parentDatabaseId?: number | null;
   author?: {
     __typename?: "CommentToCommenterConnectionEdge";
     node:
@@ -22194,7 +22194,7 @@ export const CommentFieldsFragmentDoc = {
           { kind: "Field", name: { kind: "Name", value: "dateGmt" } },
           { kind: "Field", name: { kind: "Name", value: "id" } },
           { kind: "Field", name: { kind: "Name", value: "parentId" } },
-          { kind: "Field", name: { kind: "Name", value: "commentId" } },
+          { kind: "Field", name: { kind: "Name", value: "parentDatabaseId" } },
           {
             kind: "Field",
             name: { kind: "Name", value: "author" },
@@ -22875,7 +22875,7 @@ export const GetCommentsByIdDocument = {
           { kind: "Field", name: { kind: "Name", value: "dateGmt" } },
           { kind: "Field", name: { kind: "Name", value: "id" } },
           { kind: "Field", name: { kind: "Name", value: "parentId" } },
-          { kind: "Field", name: { kind: "Name", value: "commentId" } },
+          { kind: "Field", name: { kind: "Name", value: "parentDatabaseId" } },
           {
             kind: "Field",
             name: { kind: "Name", value: "author" },

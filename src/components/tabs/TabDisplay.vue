@@ -26,7 +26,7 @@ const LoadWebmentions = defineAsyncComponent(
 );
 
 export interface TabDisplayProps {
-  postId: number;
+  postId: string;
   authorId: NodeWithAuthor["authorId"];
 }
 

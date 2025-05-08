@@ -117,7 +117,7 @@ interface CommentItemProps {
   comment: Comment;
   depth: number;
   authorId?: string;
-  currentPostId: number;
+  currentPostId: string;
 }
 
 const props = defineProps<CommentItemProps>();

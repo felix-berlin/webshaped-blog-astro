@@ -1,15 +1,15 @@
 <template>
   <section class="c-comments">
     <div id="createComment" class="c-comment is-create-comment is-level-0 is-even">
-      <CreateComment :current-post-id="currentPostId" @comment-created="reloadComments" />
+      <CreateComment :current-post-id="currentPostId" @comment-created="getComments" />
     </div>
 
-    <NoComments v-if="!data.hasComments" />
+    <NoComments v-if="!hasComments" />
 
     <div v-auto-animate class="c-comments__list">
-      <template v-if="data.hasComments">
+      <template v-if="hasComments">
         <CommentItem
-          v-for="comment in data.comments"
+          v-for="comment in cleanComments"
           :key="comment.node.id"
           :comment="comment.node"
           :depth="0"
@@ -17,23 +17,20 @@
           :current-post-id="currentPostId"
         />
       </template>
-      <template v-if="!data.hasLoaded">
+      <template v-if="!comments.fetching">
         <CommentItemSkeleton v-for="item in 5" :key="item" />
       </template>
     </div>
 
     <button
-      v-if="data?.pageInfo?.hasNextPage"
       class="c-comments__load-more-button c-button c-button--outline"
-      @click="
-        getComments(props.currentPostId, 5, data.pageInfo.endCursor);
-        data.partLoading = true;
-      "
+      :class="{ 'is-loading': comments.fetching.value }"
+      @click="getComments()"
     >
       <RefreshCw
         width="20"
         height="20"
-        :class="['c-comments__loading-icon', { 'is-loading': data.partLoading }]"
+        :class="['c-comments__loading-icon', { 'is-loading': comments.fetching.value }]"
       />
       <span>{{ t("comments.load_more.button") }}</span>
     </button>
@@ -41,49 +38,70 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, defineAsyncComponent } from "vue";
+import { computed, reactive, defineAsyncComponent } from "vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
-import type { NodeWithAuthor, Post } from "@ts_types/generated/graphql";
+import type { NodeWithAuthor, Post } from "@/gql/graphql.ts";
 import CreateComment from "@components/comments/CreateComment.vue";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { useI18n } from "@/composables/useI18n";
 import { useQuery } from "@urql/vue";
-import { GetCommentsByIdDocument, type GetCommentsByIdQuery } from "@/gql/graphql.ts";
+import { GetCommentsByIdDocument } from "@/gql/graphql.ts";
+import { flatListToHierarchical } from "@/utils/helpers.ts";
+
+import type {
+  RootQueryToCommentConnectionEdge,
+  RootQueryToCommentConnectionPageInfo,
+} from "@/gql/graphql.ts";
 
 const CommentItem = defineAsyncComponent(() => import("@components/comments/CommentItem.vue"));
 const NoComments = defineAsyncComponent(() => import("@components/comments/NoComments.vue"));
 
 export interface CommentsProps {
-  currentPostId: Post["postId"];
+  currentPostId: Post["id"];
   id: NodeWithAuthor["id"];
   authorId: NodeWithAuthor["authorId"];
 }
 
 interface CommentsData {
-  comments: GetCommentsByIdQuery[];
-  pageInfo: {
-    hasNextPage?: boolean;
-    endCursor?: string;
-  };
-  loading: boolean;
-  hasLoaded: boolean;
+  comments: Array<RootQueryToCommentConnectionEdge> | [];
+  pageInfo: RootQueryToCommentConnectionPageInfo;
   partLoading: boolean;
-  hasComments: boolean;
-  commentsCount: number;
 }
 
 const props = defineProps<CommentsProps>();
 
-const emit = defineEmits(["comments-count"]);
-
 const data = reactive<CommentsData>({
   comments: [],
   pageInfo: {},
-  loading: false,
-  hasLoaded: false,
   partLoading: false,
-  hasComments: true,
-  commentsCount: 0,
+});
+
+const queryVariables = reactive({
+  contentId: props.currentPostId,
+  first: 5, // Anzahl der Kommentare pro Seite
+  after: null, // Startcursor (für Pagination)
+});
+
+const comments = useQuery({
+  query: GetCommentsByIdDocument,
+  variables: queryVariables,
+  pause: true,
+});
+
+const commentsCount = computed(() => {
+  return data.comments.length;
+});
+
+const hasComments = computed(() => {
+  return !!commentsCount.value;
+});
+
+const cleanComments = computed(() => {
+  return data.comments.filter((comment) => comment.node.parentId === null);
+});
+
+const herarchicalComments = computed(() => {
+  return flatListToHierarchical(data.comments);
 });
 
 const { t } = useI18n();
@@ -95,59 +113,31 @@ const { t } = useI18n();
  * @param first
  * @param after
  */
-const getComments = async (currentPostId = props.currentPostId, first = 5, after?: string) => {
-  data.loading = true;
+const getComments = () => {
+  if (data.pageInfo.hasNextPage) {
+    queryVariables.after = data.pageInfo.endCursor;
+  }
 
-  await useQuery({
-    query: GetCommentsByIdDocument,
-    variables: {
-      id: currentPostId,
-      first,
-      after,
-    },
-  }).then((response) => {
+  comments.executeQuery({ variables: queryVariables }).then((response) => {
     const { error } = response;
-
     if (error.value) {
       console.error("Error fetching comments:", error.value);
-      data.loading = false;
       return;
     }
 
-    const comments = response.data.value;
+    const newEdges = response.data.value?.comments?.edges || [];
+    const pageInfo = response.data.value?.comments?.pageInfo;
 
-    // Because the API returns all comments, we need to filter out all child comments
-    if (comments?.comments?.edges) {
-      data.comments = [
-        ...data.comments,
-        ...comments.comments.edges.filter((comment) => comment.node.parentId === null),
-      ];
+    if (newEdges.length) {
+      // Append new comments to the existing list
+      data.comments = [...data.comments, ...newEdges];
     }
 
-    data.pageInfo = comments.pageInfo;
-    data.loading = false;
-    data.hasLoaded = true;
-    data.hasComments = !!data.comments?.length;
-    data.commentsCount = data.comments.length;
-
-    emit("comments-count", data.commentsCount);
-
-    if (after) {
-      data.partLoading = false;
-    }
+    data.pageInfo = pageInfo;
   });
 };
 
-const reloadComments = async () => {
-  data.comments = [];
-  data.pageInfo = {};
-  data.loading = false;
-  await getComments();
-};
-
-onMounted(async () => {
-  await getComments();
-});
+getComments();
 </script>
 
 <style lang="scss">

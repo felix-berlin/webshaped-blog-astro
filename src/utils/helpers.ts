@@ -280,3 +280,40 @@ export const getWebmentionsUrl = (url: URL): string => {
   const webmentionUrlStart = "https://webmention.io/";
   return `${webmentionUrlStart}${siteDomain}`;
 };
+
+/**
+ * WPGraphQL API: Convert a flat list of items to a hierarchical structure
+ * @see: https://www.wpgraphql.com/docs/hierarchical-data#converting-flat-lists-to-hierarchical
+ */
+export function flatListToHierarchical<T extends Record<string, any>>(
+  data: T[] = [],
+  options: {
+    idKey?: keyof T;
+    parentKey?: keyof T;
+    childrenKey?: string;
+  } = {},
+): T[] {
+  const { idKey = "id", parentKey = "parentId", childrenKey = "children" } = options;
+
+  const tree: T[] = [];
+  const childrenOf: Record<string | number, T[]> = {};
+
+  data.forEach((item) => {
+    const newItem = { ...item };
+    const id = newItem[idKey];
+    // parentId can be undefined or null, treat as 0 (root)
+    const parentId = newItem[parentKey] ?? 0;
+
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+
+    if (parentId && parentId !== 0) {
+      childrenOf[parentId] = childrenOf[parentId] || [];
+      childrenOf[parentId].push(newItem);
+    } else {
+      tree.push(newItem);
+    }
+  });
+
+  return tree;
+}

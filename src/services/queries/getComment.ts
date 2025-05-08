@@ -6,7 +6,7 @@ export const CommentFields = graphql(`
     dateGmt
     id
     parentId
-    commentId
+    parentDatabaseId
     author {
       node {
         name

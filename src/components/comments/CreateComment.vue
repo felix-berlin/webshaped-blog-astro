@@ -193,7 +193,7 @@ import { useMutation } from "@urql/vue";
 import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
-  currentPostId: number;
+  currentPostId: string;
   replyToCommentId?: CreateCommentInput["parent"] | number;
 }
 
