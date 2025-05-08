@@ -19346,6 +19346,33 @@ export type TaxonomySeoFragmentFragment = {
   opengraphImage?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
 } & { " $fragmentName"?: "TaxonomySeoFragmentFragment" };
 
+export type GetMenuItemsQueryVariables = Exact<{
+  language?: InputMaybe<LanguageCodeFilterEnum>;
+  location?: InputMaybe<MenuLocationEnum>;
+}>;
+
+export type GetMenuItemsQuery = {
+  __typename?: "RootQuery";
+  menuItems?: {
+    __typename?: "RootQueryToMenuItemConnection";
+    nodes: Array<{
+      __typename?: "MenuItem";
+      label?: string | null;
+      order?: number | null;
+      path?: string | null;
+      childItems?: {
+        __typename?: "MenuItemToMenuItemConnection";
+        nodes: Array<{
+          __typename?: "MenuItem";
+          label?: string | null;
+          order?: number | null;
+          path?: string | null;
+        }>;
+      } | null;
+    }>;
+  } | null;
+};
+
 export type GetPagesBySlugsQueryVariables = Exact<{
   slugs?: InputMaybe<
     Array<InputMaybe<Scalars["String"]["input"]>> | InputMaybe<Scalars["String"]["input"]>
@@ -21162,94 +21189,6 @@ export type CommentFieldsFragment = {
   } | null;
 } & { " $fragmentName"?: "CommentFieldsFragment" };
 
-export type GetPrimaryMenuQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetPrimaryMenuQuery = {
-  __typename?: "RootQuery";
-  menus?: {
-    __typename?: "RootQueryToMenuConnection";
-    nodes: Array<{
-      __typename?: "Menu";
-      menuItems?: {
-        __typename?: "MenuToMenuItemConnection";
-        edges: Array<{
-          __typename?: "MenuToMenuItemConnectionEdge";
-          node: {
-            __typename?: "MenuItem";
-            connectedNode?: {
-              __typename?: "MenuItemToMenuItemLinkableConnectionEdge";
-              node:
-                | { __typename?: "Category" }
-                | { __typename?: "Page"; isPostsPage: boolean; slug?: string | null }
-                | { __typename?: "Post" }
-                | { __typename?: "Tag" };
-            } | null;
-          } & { " $fragmentRefs"?: { MenuItemFieldsFragment: MenuItemFieldsFragment } };
-        }>;
-      } | null;
-    }>;
-  } | null;
-};
-
-export type GetMenuByIdQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]["input"]>;
-}>;
-
-export type GetMenuByIdQuery = {
-  __typename?: "RootQuery";
-  menu?: {
-    __typename?: "Menu";
-    menuItems?: {
-      __typename?: "MenuToMenuItemConnection";
-      nodes: Array<
-        {
-          __typename?: "MenuItem";
-          childItems?: {
-            __typename?: "MenuItemToMenuItemConnection";
-            nodes: Array<
-              { __typename?: "MenuItem" } & {
-                " $fragmentRefs"?: { MenuItemFieldsFragment: MenuItemFieldsFragment };
-              }
-            >;
-          } | null;
-        } & { " $fragmentRefs"?: { MenuItemFieldsFragment: MenuItemFieldsFragment } }
-      >;
-    } | null;
-  } | null;
-};
-
-export type GetMenuItemsQueryVariables = Exact<{
-  language?: InputMaybe<LanguageCodeFilterEnum>;
-  location?: InputMaybe<MenuLocationEnum>;
-}>;
-
-export type GetMenuItemsQuery = {
-  __typename?: "RootQuery";
-  menuItems?: {
-    __typename?: "RootQueryToMenuItemConnection";
-    nodes: Array<
-      {
-        __typename?: "MenuItem";
-        childItems?: {
-          __typename?: "MenuItemToMenuItemConnection";
-          nodes: Array<
-            { __typename?: "MenuItem" } & {
-              " $fragmentRefs"?: { MenuItemFieldsFragment: MenuItemFieldsFragment };
-            }
-          >;
-        } | null;
-      } & { " $fragmentRefs"?: { MenuItemFieldsFragment: MenuItemFieldsFragment } }
-    >;
-  } | null;
-};
-
-export type MenuItemFieldsFragment = {
-  __typename?: "MenuItem";
-  label?: string | null;
-  order?: number | null;
-  path?: string | null;
-} & { " $fragmentName"?: "MenuItemFieldsFragment" };
-
 export const CoreParagraphFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -22401,24 +22340,6 @@ export const CommentFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CommentFieldsFragment, unknown>;
-export const MenuItemFieldsFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MenuItemFields" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "MenuItem" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "label" } },
-          { kind: "Field", name: { kind: "Name", value: "order" } },
-          { kind: "Field", name: { kind: "Name", value: "path" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<MenuItemFieldsFragment, unknown>;
 export const CreateCommentDocument = {
   kind: "Document",
   definitions: [
@@ -22545,6 +22466,103 @@ export const CreateCommentDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateCommentMutation, CreateCommentMutationVariables>;
+export const GetMenuItemsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMenuItems" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "language" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "LanguageCodeFilterEnum" } },
+          defaultValue: { kind: "EnumValue", value: "DE" },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "location" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "MenuLocationEnum" } },
+          defaultValue: { kind: "EnumValue", value: "PRIMARY_MENU" },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "menuItems" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "language" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "language" } },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "location" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "location" } },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "parentDatabaseId" },
+                      value: { kind: "IntValue", value: "0" },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "nodes" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "label" } },
+                      { kind: "Field", name: { kind: "Name", value: "order" } },
+                      { kind: "Field", name: { kind: "Name", value: "path" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "childItems" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "nodes" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  { kind: "Field", name: { kind: "Name", value: "label" } },
+                                  { kind: "Field", name: { kind: "Name", value: "order" } },
+                                  { kind: "Field", name: { kind: "Name", value: "path" } },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMenuItemsQuery, GetMenuItemsQueryVariables>;
 export const GetPagesBySlugsDocument = {
   kind: "Document",
   definitions: [
@@ -25164,363 +25182,3 @@ export const GetCommentsByIdDocument = {
     },
   ],
 } as unknown as DocumentNode<GetCommentsByIdQuery, GetCommentsByIdQueryVariables>;
-export const GetPrimaryMenuDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetPrimaryMenu" },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "menus" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "location" },
-                      value: { kind: "EnumValue", value: "PRIMARY_MENU" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "nodes" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "menuItems" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "edges" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "node" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "FragmentSpread",
-                                          name: { kind: "Name", value: "MenuItemFields" },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "connectedNode" },
-                                          selectionSet: {
-                                            kind: "SelectionSet",
-                                            selections: [
-                                              {
-                                                kind: "Field",
-                                                name: { kind: "Name", value: "node" },
-                                                selectionSet: {
-                                                  kind: "SelectionSet",
-                                                  selections: [
-                                                    {
-                                                      kind: "InlineFragment",
-                                                      typeCondition: {
-                                                        kind: "NamedType",
-                                                        name: { kind: "Name", value: "Page" },
-                                                      },
-                                                      selectionSet: {
-                                                        kind: "SelectionSet",
-                                                        selections: [
-                                                          {
-                                                            kind: "Field",
-                                                            name: {
-                                                              kind: "Name",
-                                                              value: "isPostsPage",
-                                                            },
-                                                          },
-                                                          {
-                                                            kind: "Field",
-                                                            name: { kind: "Name", value: "slug" },
-                                                          },
-                                                        ],
-                                                      },
-                                                    },
-                                                  ],
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MenuItemFields" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "MenuItem" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "label" } },
-          { kind: "Field", name: { kind: "Name", value: "order" } },
-          { kind: "Field", name: { kind: "Name", value: "path" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetPrimaryMenuQuery, GetPrimaryMenuQueryVariables>;
-export const GetMenuByIdDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetMenuById" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          defaultValue: { kind: "StringValue", value: "", block: false },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "menu" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: { kind: "Variable", name: { kind: "Name", value: "id" } },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "idType" },
-                value: { kind: "EnumValue", value: "DATABASE_ID" },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "menuItems" },
-                  arguments: [
-                    {
-                      kind: "Argument",
-                      name: { kind: "Name", value: "where" },
-                      value: {
-                        kind: "ObjectValue",
-                        fields: [
-                          {
-                            kind: "ObjectField",
-                            name: { kind: "Name", value: "parentDatabaseId" },
-                            value: { kind: "IntValue", value: "0" },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "nodes" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "FragmentSpread",
-                              name: { kind: "Name", value: "MenuItemFields" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "childItems" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "nodes" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "FragmentSpread",
-                                          name: { kind: "Name", value: "MenuItemFields" },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MenuItemFields" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "MenuItem" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "label" } },
-          { kind: "Field", name: { kind: "Name", value: "order" } },
-          { kind: "Field", name: { kind: "Name", value: "path" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetMenuByIdQuery, GetMenuByIdQueryVariables>;
-export const GetMenuItemsDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetMenuItems" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "language" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "LanguageCodeFilterEnum" } },
-          defaultValue: { kind: "EnumValue", value: "ALL" },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "location" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "MenuLocationEnum" } },
-          defaultValue: { kind: "EnumValue", value: "PRIMARY_MENU" },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "menuItems" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "language" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "language" } },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "location" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "location" } },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "parentDatabaseId" },
-                      value: { kind: "IntValue", value: "0" },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "nodes" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "FragmentSpread", name: { kind: "Name", value: "MenuItemFields" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "childItems" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "nodes" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "FragmentSpread",
-                                    name: { kind: "Name", value: "MenuItemFields" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "MenuItemFields" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "MenuItem" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "label" } },
-          { kind: "Field", name: { kind: "Name", value: "order" } },
-          { kind: "Field", name: { kind: "Name", value: "path" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetMenuItemsQuery, GetMenuItemsQueryVariables>;

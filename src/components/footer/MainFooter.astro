@@ -2,7 +2,7 @@
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
-import { getMenuItems, getAllCategories } from "@services/api";
+import { getAllCategories } from "@services/api";
 import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
@@ -11,11 +11,30 @@ import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 import type { Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
-import GetAuthor from "@services/GetAuthor.graphql";
+import GetAuthor from "@services/queries/GetAuthor.graphql";
 import { gqlApi } from "@services/fetchApi.ts";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import { GetMenuItemsDocument } from "@/gql/graphql.ts";
 
 const categories = await getAllCategories();
-const footerMenuItems = await getMenuItems("DE", "SECONDARY_MENU");
+
+const client = new Client({
+  url: WP_API,
+  fetchOptions: {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  },
+  exchanges: [cacheExchange, fetchExchange],
+});
+
+const footerMenuItemsResponse = await client
+  .query(GetMenuItemsDocument, { language: "DE", location: "SECONDARY_MENU" })
+  .toPromise();
+
+const footerMenuItems = footerMenuItemsResponse?.data?.menuItems;
+
 let author = null;
 
 try {
