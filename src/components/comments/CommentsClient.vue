@@ -22,7 +22,11 @@
       </template>
     </div>
 
-    <button class="c-comments__load-more-button c-button c-button--outline" @click="getComments()">
+    <button
+      v-if="data?.pageInfo?.hasNextPage"
+      class="c-comments__load-more-button c-button c-button--outline"
+      @click="getComments()"
+    >
       <RefreshCw
         width="20"
         height="20"
