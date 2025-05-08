@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { isHtml, getHtmlContent } from "@utils/helpers";
 import slugify from "slugify";
-import type { CoreHeading } from "@ts_types/generated/graphql";
+import type { CoreHeading } from "@/gql/graphql.ts";
 import he from "he";
 
 export interface HeadlineBlockProps {

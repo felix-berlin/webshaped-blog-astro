@@ -2,17 +2,14 @@
   <div class="c-date">
     <slot name="before" />
 
-    <time
-      class="c-date"
-      v-text="formattedDate(date, props.lang?.locale ?? '')"
-    />
+    <time class="c-date" v-text="formattedDate(date, props.lang?.locale ?? '')" />
 
     <slot name="after" />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import type { Language, Maybe } from "@/gql/graphql.ts";
 
 export interface DateProps {
   date: string;

@@ -61,7 +61,7 @@ import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
 import { useTranslations } from "@utils/i18n/utils";
 import type { Page } from "astro/dist/@types/astro";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import type { Language, Maybe } from "@/gql/graphql.ts";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 

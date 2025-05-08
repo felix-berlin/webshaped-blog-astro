@@ -2,31 +2,47 @@
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
-import { getMenuItems, getAllCategories } from "@services/api";
 import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 // import InstallApp from "@components/InstallApp.vue";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
-import GetAuthor from "@services/GetAuthor.graphql";
-import { gqlApi } from "@services/fetchApi.ts";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import {
+  GetMenuItemsDocument,
+  GetAllCategoriesDocument,
+  GetAuthorDocument,
+} from "@/gql/graphql.ts";
 
-const categories = await getAllCategories();
-const footerMenuItems = await getMenuItems("DE", "SECONDARY_MENU");
-let author = null;
+const client = new Client({
+  url: WP_API,
+  fetchOptions: {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  },
+  exchanges: [cacheExchange, fetchExchange],
+});
 
-try {
-  const response = await gqlApi(GetAuthor);
-  author = response.data?.user;
-} catch (error) {
-  console.error("Error fetching author data:", error);
-}
+const categoriesResponse = await client.query(GetAllCategoriesDocument, {}).toPromise();
+
+const categories = categoriesResponse?.data?.categories;
+
+const footerMenuItemsResponse = await client
+  .query(GetMenuItemsDocument, { language: "DE", location: "SECONDARY_MENU" })
+  .toPromise();
+
+const footerMenuItems = footerMenuItemsResponse?.data?.menuItems;
+
+const authorResponse = await client.query(GetAuthorDocument, {}).toPromise();
+
+const author = authorResponse.data?.user;
 
 interface MainFooterProps {
-  lang: Maybe<Language>;
+  lang: "de" | "en";
 }
 
 const { lang } = Astro.props as MainFooterProps;

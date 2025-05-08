@@ -183,7 +183,7 @@ import { guest } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import User from "virtual:icons/lucide/user";
 import Info from "virtual:icons/lucide/info";
-import type { CreateCommentInput } from "@ts_types/generated/graphql";
+import type { CreateCommentInput } from "@/gql/graphql.ts";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";
@@ -193,7 +193,7 @@ import { useMutation } from "@urql/vue";
 import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
-  currentPostId: number;
+  currentPostId: string;
   replyToCommentId?: CreateCommentInput["parent"] | number;
 }
 
@@ -264,7 +264,7 @@ const resetFormErrors = () => {
  *
  * @return  {void}
  */
-const checkForm = (): void => {
+const checkForm = async (): void => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
@@ -283,7 +283,7 @@ const checkForm = (): void => {
   }
 
   if (Object.values(formErrors).every((v) => v.length === 0)) {
-    create();
+    await create();
   }
 };
 

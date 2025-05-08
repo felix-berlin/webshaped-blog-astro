@@ -36,7 +36,7 @@ import ArrowRight from "virtual:icons/lucide/arrow-right";
 // import CommentCount from "@components/comments/CommentCount.vue";
 // import HasTranslations from "./HasTranslations.vue";
 import { useTranslations } from "@utils/i18n/utils";
-import type { Post } from "@ts_types/generated/graphql";
+import type { Post } from "@/gql/graphql.ts";
 
 export interface BlogPostPreviewProps {
   posts: Array<Post>;

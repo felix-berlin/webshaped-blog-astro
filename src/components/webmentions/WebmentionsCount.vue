@@ -17,7 +17,7 @@ import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
 import AtSign from "virtual:icons/lucide/at-sign";
 import { useTranslations } from "@utils/i18n/utils";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
+import type { Language, Maybe } from "@/gql/graphql.ts";
 
 interface WebmentionsCountProps {
   elementIs?: string;

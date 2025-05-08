@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
+import type { RootQueryToCategoryConnection } from "@/gql/graphql.ts";
 import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 
 interface Props {

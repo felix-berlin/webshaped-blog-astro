@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
-import type { Maybe } from "@ts_types/generated/graphql";
+import type { Maybe } from "@/gql/graphql.ts";
 import { defineAsyncComponent } from "vue";
 
 export interface SocialItems {
