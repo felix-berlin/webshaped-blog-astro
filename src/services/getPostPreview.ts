@@ -1,81 +1,19 @@
-import type { RootQuery, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
-import { fetchAPI } from "@services/fetchApi";
-import { SHOW_TEST_DATA } from "astro:env/client";
-import { seo } from "@/services/fragments";
+import { graphql } from "@/gql";
 
-export const getPostsPreview = async (
-  first = 10_000,
-  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
-  orderby = "DATE",
-  order = "DESC",
-  language = "DE",
-): Promise<RootQuery["posts"]> => {
-  const data = await fetchAPI(`
-    {
-      posts(
-        first: ${first},
-        where: {
-          language: ${language},
-          stati: ${stati},
-          orderby: {field: ${orderby}, order: ${order}}
-        }) {
-        nodes {
-          dateGmt
-          modifiedGmt
-          slug
-          commentCount
-          excerpt
-          title
-          language {
-            code
-            locale
-            name
-            slug
-          }
-          translations {
-            slug
-            language {
-              code
-              locale
-              name
-              slug
-            }
-          }
-          featuredImage {
-            node {
-              altText
-              mediaItemUrl
-              srcSet
-              sizes
-              mediaDetails {
-                height
-                width
-              }
-            }
-          }
-          seo {
-            readingTime
-          }
-        }
-      }
-    }
-  `).then((res) => res.data);
+// TODO: add condition for test data
+// SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
 
-  return data?.posts;
-};
-
-export const getPostsPreviewByCategory = async (
-  category: string,
-  first = 10_000,
-  field = "DATE",
-  order = "DESC",
-  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
-): Promise<RootQuery["posts"]> => {
-  const data = await fetchAPI(`
-  {
+export const GetPostsPreview = graphql(`
+  query GetPostsPreview(
+    $first: Int = 10000
+    $languages: [LanguageCodeEnum!] = [DE]
+    $stati: [PostStatusEnum] = [PUBLISH]
+    $field: PostObjectsConnectionOrderbyEnum = AUTHOR
+    $order: OrderEnum = ASC
+  ) {
     posts(
-      first: ${first},
-      where: {categoryName: "${category}", orderby: {field: ${field}, order: ${order}}, stati: ${stati}}
+      first: $first
+      where: { languages: $languages, stati: $stati, orderby: { field: $field, order: $order } }
     ) {
       nodes {
         dateGmt
@@ -91,6 +29,7 @@ export const getPostsPreviewByCategory = async (
           slug
         }
         translations {
+          slug
           language {
             code
             locale
@@ -116,20 +55,16 @@ export const getPostsPreviewByCategory = async (
       }
     }
   }
-  `).then((res) => res.data);
+`);
 
-  return data?.posts;
-};
-
-export async function getAllPostPreviewsByCategory(
-  field = "DATE",
-  order = "DESC",
-  stati = SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
-  exclude: number[] = [1], // 1 = allgemein
-): Promise<RootQueryToCategoryConnection> {
-  const data = await fetchAPI(`
-  {
-    categories(where: {exclude: ${exclude}}) {
+export const GetAllPostPreviewsByCategory = graphql(`
+  query GetAllPostPreviewsByCategory(
+    $exclude: [ID] = [1] # Allgemein
+    $field: PostObjectsConnectionOrderbyEnum = DATE
+    $order: OrderEnum = DESC
+    $stati: [PostStatusEnum] = [PUBLISH]
+  ) {
+    categories(where: { exclude: $exclude }) {
       nodes {
         count
         name
@@ -140,7 +75,7 @@ export async function getAllPostPreviewsByCategory(
           name
           slug
         }
-        children(where: {}) {
+        children {
           nodes {
             count
             name
@@ -155,7 +90,7 @@ export async function getAllPostPreviewsByCategory(
             }
           }
         }
-        posts(where: {orderby: {order: ${order}, field: ${field}}, stati: ${stati}}) {
+        posts(where: { orderby: { field: $field, order: $order }, stati: $stati }) {
           nodes {
             title
             excerpt
@@ -171,7 +106,7 @@ export async function getAllPostPreviewsByCategory(
         translations {
           name
           slug
-          posts(where: {orderby: {order: ${order}, field: ${field}}, stati: ${stati}}) {
+          posts(where: { orderby: { field: $field, order: $order }, stati: $stati }) {
             nodes {
               title
               excerpt
@@ -188,11 +123,28 @@ export async function getAllPostPreviewsByCategory(
             slug
           }
         }
-        ${seo}
+        seo {
+          title
+          canonical
+          metaDesc
+          metaRobotsNofollow
+          metaRobotsNoindex
+          opengraphSiteName
+          opengraphAuthor
+          opengraphDescription
+          opengraphPublisher
+          opengraphTitle
+          opengraphType
+          opengraphUrl
+          opengraphPublishedTime
+          opengraphModifiedTime
+          opengraphImage {
+            sourceUrl
+          }
+          twitterDescription
+          twitterTitle
+        }
       }
     }
   }
-  `).then((res) => res.data);
-
-  return data?.categories;
-}
+`);

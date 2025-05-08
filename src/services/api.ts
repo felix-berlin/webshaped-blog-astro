@@ -7,7 +7,6 @@ export * from "@services/getPage";
 export * from "@services/getComment";
 export * from "@services/getPost";
 export * from "@services/getPostPreview";
-export * from "@services/getTag";
 export * from "@services/getAuthor";
 
 interface Error {
