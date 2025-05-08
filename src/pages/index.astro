@@ -3,11 +3,10 @@ import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
 import "@styles/objects/_index.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
 import { WP_API } from "astro:env/client";
 import { Client, cacheExchange, fetchExchange } from "@urql/core";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
-import { getPostsPreview } from "@services/api";
 
 export const prerender = true;
 
@@ -29,25 +28,9 @@ const pagesResponse = await client
 
 const indexDe = pagesResponse?.data?.pages?.nodes;
 
-const posts = await getPostsPreview();
+const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
 
-// const allPost = posts.nodes.map(post => {
-//   let posts = {...post};
-
-//   // console.log('vorher', posts);
-
-//   if (post.translations.length) {
-//     console.log('MIT POST', post.slug, post.translations[0].slug);
-
-//     posts = {...post.translations[0], ...post};
-//   }
-//   // delete post.translations;
-//   // posts = {...post};
-
-//   console.log('nacher', posts.slug);
-
-//   return posts;
-// });
+const posts = postsResponse?.data?.posts;
 ---
 
 <DefaultLayout content={indexDe} contentClasses="o-index">
