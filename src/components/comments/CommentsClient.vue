@@ -46,7 +46,7 @@ import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { useI18n } from "@/composables/useI18n";
 import { useQuery } from "@urql/vue";
 import { GetCommentsByIdDocument } from "@/gql/graphql.ts";
-import { flatListToHierarchical } from "@/utils/helpers.ts";
+import { paginatedFlatListToHierarchical } from "@/utils/helpers.ts";
 
 import type {
   RootQueryToCommentConnectionEdge,
@@ -100,8 +100,18 @@ const cleanComments = computed(() => {
   return data.comments.filter((comment) => comment.node.parentId === null);
 });
 
-const herarchicalComments = computed(() => {
-  return flatListToHierarchical(data.comments);
+/**
+ * TODO: Remove replies from GetCommentsById and use this function
+ * This change need adjustments in CommentItem.vue
+ *
+ * @return  {[type]}  [return description]
+ */
+const hierarchicalComments = computed(() => {
+  return paginatedFlatListToHierarchical(data.comments, {
+    idKey: "id",
+    parentKey: "parentId", // or "parentDatabaseId" if needed
+    childrenKey: "children",
+  });
 });
 
 const { t } = useI18n();

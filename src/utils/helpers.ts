@@ -317,3 +317,24 @@ export function flatListToHierarchical<T extends Record<string, any>>(
 
   return tree;
 }
+
+/**
+ * Convert a paginated (edges/nodes) flat list to a hierarchical structure.
+ * @param data - Array of edges with { node: {...} }
+ * @param options - Keys for id, parent, children, and node accessor
+ */
+export function paginatedFlatListToHierarchical<T extends Record<string, any>>(
+  data: { node: T }[] = [],
+  options: {
+    idKey?: keyof T;
+    parentKey?: keyof T;
+    childrenKey?: string;
+    nodeKey?: string; // defaults to 'node'
+  } = {},
+): T[] {
+  const { nodeKey = "node" } = options;
+  // Extract nodes from edges
+  const nodes = data.map((edge) => edge[nodeKey]);
+  // Use the existing flatListToHierarchical function
+  return flatListToHierarchical(nodes, options);
+}
