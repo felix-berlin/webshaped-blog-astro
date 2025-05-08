@@ -134,7 +134,3 @@ const isOdd = (num: number) => num % 2;
 
 const toggleReplyCommentForm = () => (replyToCommentForm.value = !replyToCommentForm.value);
 </script>
-
-<style lang="scss">
-@use "@styles/components/comments/comment";
-</style>

@@ -152,7 +152,7 @@ getComments();
 
 <style lang="scss">
 @use "@styles/components/comments/comments";
-
+@use "@styles/components/comments/comment";
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
