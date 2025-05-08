@@ -2,22 +2,18 @@
 import SocialList from "@components/SocialList.vue";
 import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
-import { getAllCategories } from "@services/api";
 import { getSocialIconData } from "@utils/helpers";
 import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
 import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 // import InstallApp from "@components/InstallApp.vue";
-import type { Language, Maybe } from "@ts_types/generated/graphql";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
 import GetAuthor from "@services/queries/GetAuthor.graphql";
 import { gqlApi } from "@services/fetchApi.ts";
 import { WP_API } from "astro:env/client";
 import { Client, cacheExchange, fetchExchange } from "@urql/core";
-import { GetMenuItemsDocument } from "@/gql/graphql.ts";
-
-const categories = await getAllCategories();
+import { GetMenuItemsDocument, GetAllCategoriesDocument } from "@/gql/graphql.ts";
 
 const client = new Client({
   url: WP_API,
@@ -28,6 +24,10 @@ const client = new Client({
   },
   exchanges: [cacheExchange, fetchExchange],
 });
+
+const categoriesResponse = await client.query(GetAllCategoriesDocument, {}).toPromise();
+
+const categories = categoriesResponse?.data?.categories;
 
 const footerMenuItemsResponse = await client
   .query(GetMenuItemsDocument, { language: "DE", location: "SECONDARY_MENU" })
@@ -45,7 +45,7 @@ try {
 }
 
 interface MainFooterProps {
-  lang: Maybe<Language>;
+  lang: "de" | "en";
 }
 
 const { lang } = Astro.props as MainFooterProps;

@@ -1,70 +1,38 @@
-import type { RootQuery } from "@ts_types/generated/graphql";
-import { fetchAPI } from "@services/fetchApi";
-import { seo } from "@/services/fragments";
+import { graphql } from "@/gql";
 
-export const getCategoryBySlug = async (slug: string): Promise<RootQuery["categories"]> => {
-  const data = await fetchAPI(`
-  {
-    categories(first: 10000, where: {slug: "${slug}"}) {
-      nodes {
-        name
-        slug
-        count
-        language {
-          code
-          locale
-          name
-          slug
-        }
-        ${seo}
-      }
+const CategoryFields = graphql(`
+  fragment CategoryFields on Category {
+    count
+    name
+    slug
+    language {
+      code
+      slug
+      locale
     }
   }
-  `).then((res) => res.data);
-  return data?.categories?.nodes;
-};
+`);
 
-const categoryNodesContent = `
-  count
-  name
-  slug
-  language {
-    code
-    slug
-    locale
-  }
-`;
-
-/**
- * Receives all available categories
- *
- * @return  {object}
- */
-export const getAllCategories = async (
-  first = 10_000,
-  exclude: string = "[1, 96]", // 1 = allgemein
-  orderby = "NAME",
-  hideEmpty = true,
-  languages = "[DE, EN]",
-): Promise<RootQuery["categories"]> => {
-  const data = await fetchAPI(`
-  {
+export const GetAllCategories = graphql(`
+  query GetAllCategories(
+    $first: Int = 10000
+    $exclude: [ID] = [1, 96]
+    $hideEmpty: Boolean = true
+    $languages: [LanguageCodeEnum!] = [DE, EN]
+    $orderby: TermObjectsConnectionOrderbyEnum = NAME
+  ) {
     categories(
-      first: ${first},
-      where: {
-        exclude: ${exclude},
-        orderby: ${orderby},
-        hideEmpty: ${hideEmpty},
-        languages: ${languages}
-      }) {
+      first: $first
+      where: { exclude: $exclude, orderby: $orderby, hideEmpty: $hideEmpty, languages: $languages }
+    ) {
       nodes {
-        ${categoryNodesContent}
+        ...CategoryFields
         children {
           nodes {
-            ${categoryNodesContent}
+            ...CategoryFields
             children {
               nodes {
-                ${categoryNodesContent}
+                ...CategoryFields
               }
             }
           }
@@ -72,7 +40,4 @@ export const getAllCategories = async (
       }
     }
   }
-  `).then((res) => res.data);
-
-  return data?.categories;
-};
+`);

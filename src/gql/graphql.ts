@@ -19346,6 +19346,57 @@ export type TaxonomySeoFragmentFragment = {
   opengraphImage?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
 } & { " $fragmentName"?: "TaxonomySeoFragmentFragment" };
 
+export type CategoryFieldsFragment = {
+  __typename?: "Category";
+  count?: number | null;
+  name?: string | null;
+  slug?: string | null;
+  language?: {
+    __typename?: "Language";
+    code?: LanguageCodeEnum | null;
+    slug?: string | null;
+    locale?: string | null;
+  } | null;
+} & { " $fragmentName"?: "CategoryFieldsFragment" };
+
+export type GetAllCategoriesQueryVariables = Exact<{
+  first?: InputMaybe<Scalars["Int"]["input"]>;
+  exclude?: InputMaybe<
+    Array<InputMaybe<Scalars["ID"]["input"]>> | InputMaybe<Scalars["ID"]["input"]>
+  >;
+  hideEmpty?: InputMaybe<Scalars["Boolean"]["input"]>;
+  languages?: InputMaybe<Array<LanguageCodeEnum> | LanguageCodeEnum>;
+  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
+}>;
+
+export type GetAllCategoriesQuery = {
+  __typename?: "RootQuery";
+  categories?: {
+    __typename?: "RootQueryToCategoryConnection";
+    nodes: Array<
+      {
+        __typename?: "Category";
+        children?: {
+          __typename?: "CategoryToCategoryConnection";
+          nodes: Array<
+            {
+              __typename?: "Category";
+              children?: {
+                __typename?: "CategoryToCategoryConnection";
+                nodes: Array<
+                  { __typename?: "Category" } & {
+                    " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment };
+                  }
+                >;
+              } | null;
+            } & { " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment } }
+          >;
+        } | null;
+      } & { " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment } }
+    >;
+  } | null;
+};
+
 export type GetMenuItemsQueryVariables = Exact<{
   language?: InputMaybe<LanguageCodeFilterEnum>;
   location?: InputMaybe<MenuLocationEnum>;
@@ -21011,104 +21062,6 @@ export type GetAuthorQuery = {
   } | null;
 };
 
-export type GetCategoryBySlugQueryVariables = Exact<{
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  slug?: InputMaybe<
-    Array<InputMaybe<Scalars["String"]["input"]>> | InputMaybe<Scalars["String"]["input"]>
-  >;
-}>;
-
-export type GetCategoryBySlugQuery = {
-  __typename?: "RootQuery";
-  categories?: {
-    __typename?: "RootQueryToCategoryConnection";
-    nodes: Array<{
-      __typename?: "Category";
-      name?: string | null;
-      slug?: string | null;
-      count?: number | null;
-      language?: {
-        __typename?: "Language";
-        code?: LanguageCodeEnum | null;
-        locale?: string | null;
-        name?: string | null;
-        slug?: string | null;
-      } | null;
-      seo?: {
-        __typename?: "TaxonomySEO";
-        title?: string | null;
-        canonical?: string | null;
-        metaDesc?: string | null;
-        metaRobotsNofollow?: string | null;
-        metaRobotsNoindex?: string | null;
-        opengraphSiteName?: string | null;
-        opengraphAuthor?: string | null;
-        opengraphDescription?: string | null;
-        opengraphPublisher?: string | null;
-        opengraphTitle?: string | null;
-        opengraphType?: string | null;
-        opengraphUrl?: string | null;
-        opengraphPublishedTime?: string | null;
-        opengraphModifiedTime?: string | null;
-        twitterDescription?: string | null;
-        twitterTitle?: string | null;
-        opengraphImage?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
-      } | null;
-    }>;
-  } | null;
-};
-
-export type GetAllCategoriesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars["Int"]["input"]>;
-  hideEmpty?: InputMaybe<Scalars["Boolean"]["input"]>;
-  languages?: InputMaybe<Array<LanguageCodeEnum> | LanguageCodeEnum>;
-  orderby?: InputMaybe<TermObjectsConnectionOrderbyEnum>;
-  exclude?: InputMaybe<
-    Array<InputMaybe<Scalars["ID"]["input"]>> | InputMaybe<Scalars["ID"]["input"]>
-  >;
-}>;
-
-export type GetAllCategoriesQuery = {
-  __typename?: "RootQuery";
-  categories?: {
-    __typename?: "RootQueryToCategoryConnection";
-    nodes: Array<
-      {
-        __typename?: "Category";
-        children?: {
-          __typename?: "CategoryToCategoryConnection";
-          nodes: Array<
-            {
-              __typename?: "Category";
-              children?: {
-                __typename?: "CategoryToCategoryConnection";
-                nodes: Array<
-                  { __typename?: "Category" } & {
-                    " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment };
-                  }
-                >;
-              } | null;
-            } & { " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment } }
-          >;
-        } | null;
-      } & { " $fragmentRefs"?: { CategoryFieldsFragment: CategoryFieldsFragment } }
-    >;
-  } | null;
-};
-
-export type CategoryFieldsFragment = {
-  __typename?: "Category";
-  count?: number | null;
-  name?: string | null;
-  slug?: string | null;
-  language?: {
-    __typename?: "Language";
-    code?: LanguageCodeEnum | null;
-    slug?: string | null;
-    locale?: string | null;
-  } | null;
-} & { " $fragmentName"?: "CategoryFieldsFragment" };
-
 export type GetCommentsByIdQueryVariables = Exact<{
   contentId?: InputMaybe<Scalars["ID"]["input"]>;
   contentStatus?: InputMaybe<Array<InputMaybe<PostStatusEnum>> | InputMaybe<PostStatusEnum>>;
@@ -22466,6 +22419,201 @@ export const CreateCommentDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateCommentMutation, CreateCommentMutationVariables>;
+export const GetAllCategoriesDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetAllCategories" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "first" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
+          defaultValue: { kind: "IntValue", value: "10000" },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "exclude" } },
+          type: {
+            kind: "ListType",
+            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          },
+          defaultValue: {
+            kind: "ListValue",
+            values: [
+              { kind: "IntValue", value: "1" },
+              { kind: "IntValue", value: "96" },
+            ],
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "hideEmpty" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Boolean" } },
+          defaultValue: { kind: "BooleanValue", value: true },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "languages" } },
+          type: {
+            kind: "ListType",
+            type: {
+              kind: "NonNullType",
+              type: { kind: "NamedType", name: { kind: "Name", value: "LanguageCodeEnum" } },
+            },
+          },
+          defaultValue: {
+            kind: "ListValue",
+            values: [
+              { kind: "EnumValue", value: "DE" },
+              { kind: "EnumValue", value: "EN" },
+            ],
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "orderby" } },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "TermObjectsConnectionOrderbyEnum" },
+          },
+          defaultValue: { kind: "EnumValue", value: "NAME" },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "categories" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "first" },
+                value: { kind: "Variable", name: { kind: "Name", value: "first" } },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "where" },
+                value: {
+                  kind: "ObjectValue",
+                  fields: [
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "exclude" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "exclude" } },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "orderby" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "orderby" } },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "hideEmpty" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "hideEmpty" } },
+                    },
+                    {
+                      kind: "ObjectField",
+                      name: { kind: "Name", value: "languages" },
+                      value: { kind: "Variable", name: { kind: "Name", value: "languages" } },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "nodes" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "FragmentSpread", name: { kind: "Name", value: "CategoryFields" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "children" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "nodes" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "FragmentSpread",
+                                    name: { kind: "Name", value: "CategoryFields" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "children" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        {
+                                          kind: "Field",
+                                          name: { kind: "Name", value: "nodes" },
+                                          selectionSet: {
+                                            kind: "SelectionSet",
+                                            selections: [
+                                              {
+                                                kind: "FragmentSpread",
+                                                name: { kind: "Name", value: "CategoryFields" },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "CategoryFields" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Category" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "count" } },
+          { kind: "Field", name: { kind: "Name", value: "name" } },
+          { kind: "Field", name: { kind: "Name", value: "slug" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "language" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "code" } },
+                { kind: "Field", name: { kind: "Name", value: "slug" } },
+                { kind: "Field", name: { kind: "Name", value: "locale" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
 export const GetMenuItemsDocument = {
   kind: "Document",
   definitions: [
@@ -24584,332 +24732,6 @@ export const GetAuthorDocument = {
     },
   ],
 } as unknown as DocumentNode<GetAuthorQuery, GetAuthorQueryVariables>;
-export const GetCategoryBySlugDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetCategoryBySlug" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "first" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
-          defaultValue: { kind: "IntValue", value: "1000" },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "slug" } },
-          type: {
-            kind: "ListType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
-          },
-          defaultValue: { kind: "StringValue", value: "", block: false },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "categories" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "first" },
-                value: { kind: "Variable", name: { kind: "Name", value: "first" } },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "slug" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "slug" } },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "nodes" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "name" } },
-                      { kind: "Field", name: { kind: "Name", value: "slug" } },
-                      { kind: "Field", name: { kind: "Name", value: "count" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "language" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            { kind: "Field", name: { kind: "Name", value: "code" } },
-                            { kind: "Field", name: { kind: "Name", value: "locale" } },
-                            { kind: "Field", name: { kind: "Name", value: "name" } },
-                            { kind: "Field", name: { kind: "Name", value: "slug" } },
-                          ],
-                        },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "seo" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            { kind: "Field", name: { kind: "Name", value: "title" } },
-                            { kind: "Field", name: { kind: "Name", value: "canonical" } },
-                            { kind: "Field", name: { kind: "Name", value: "metaDesc" } },
-                            { kind: "Field", name: { kind: "Name", value: "metaRobotsNofollow" } },
-                            { kind: "Field", name: { kind: "Name", value: "metaRobotsNoindex" } },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphSiteName" } },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphAuthor" } },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "opengraphDescription" },
-                            },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphPublisher" } },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphTitle" } },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphType" } },
-                            { kind: "Field", name: { kind: "Name", value: "opengraphUrl" } },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "opengraphPublishedTime" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "opengraphModifiedTime" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "opengraphImage" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  { kind: "Field", name: { kind: "Name", value: "sourceUrl" } },
-                                ],
-                              },
-                            },
-                            { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
-                            { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetCategoryBySlugQuery, GetCategoryBySlugQueryVariables>;
-export const GetAllCategoriesDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetAllCategories" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "first" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "Int" } },
-          defaultValue: { kind: "IntValue", value: "1000" },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "hideEmpty" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "Boolean" } },
-          defaultValue: { kind: "BooleanValue", value: true },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "languages" } },
-          type: {
-            kind: "ListType",
-            type: {
-              kind: "NonNullType",
-              type: { kind: "NamedType", name: { kind: "Name", value: "LanguageCodeEnum" } },
-            },
-          },
-          defaultValue: {
-            kind: "ListValue",
-            values: [
-              { kind: "EnumValue", value: "DE" },
-              { kind: "EnumValue", value: "EN" },
-            ],
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "orderby" } },
-          type: {
-            kind: "NamedType",
-            name: { kind: "Name", value: "TermObjectsConnectionOrderbyEnum" },
-          },
-          defaultValue: { kind: "EnumValue", value: "NAME" },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "exclude" } },
-          type: {
-            kind: "ListType",
-            type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          },
-          defaultValue: {
-            kind: "ListValue",
-            values: [
-              { kind: "IntValue", value: "1" },
-              { kind: "IntValue", value: "96" },
-            ],
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "categories" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "first" },
-                value: { kind: "Variable", name: { kind: "Name", value: "first" } },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "where" },
-                value: {
-                  kind: "ObjectValue",
-                  fields: [
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "exclude" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "exclude" } },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "orderby" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "orderby" } },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "hideEmpty" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "hideEmpty" } },
-                    },
-                    {
-                      kind: "ObjectField",
-                      name: { kind: "Name", value: "languages" },
-                      value: { kind: "Variable", name: { kind: "Name", value: "languages" } },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "nodes" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "FragmentSpread", name: { kind: "Name", value: "CategoryFields" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "children" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "nodes" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "FragmentSpread",
-                                    name: { kind: "Name", value: "CategoryFields" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "children" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "nodes" },
-                                          selectionSet: {
-                                            kind: "SelectionSet",
-                                            selections: [
-                                              {
-                                                kind: "FragmentSpread",
-                                                name: { kind: "Name", value: "CategoryFields" },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "CategoryFields" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Category" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "count" } },
-          { kind: "Field", name: { kind: "Name", value: "name" } },
-          { kind: "Field", name: { kind: "Name", value: "slug" } },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "language" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "code" } },
-                { kind: "Field", name: { kind: "Name", value: "slug" } },
-                { kind: "Field", name: { kind: "Name", value: "locale" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
 export const GetCommentsByIdDocument = {
   kind: "Document",
   definitions: [
