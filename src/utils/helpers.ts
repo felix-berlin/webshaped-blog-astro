@@ -242,6 +242,14 @@ export const getSocialIconData = (
   if (!socials) return {};
   const socialItems: SocialItems = {};
 
+  // If urql cache is used, the __typename is added to the object
+  // and we need to remove it to avoid errors
+  if (socials?.__typename) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { __typename, ...rest } = socials;
+    socials = rest;
+  }
+
   for (const [key, value] of Object.entries(socials)) {
     if (!value) continue;
 
