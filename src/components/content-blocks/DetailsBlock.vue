@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import ContentBlocks from "@components/ContentBlocks.vue";
-import type { CoreDetails } from "@ts_types/generated/graphql";
+import type { CoreDetails } from "@/gql/graphql.ts";
 
 export interface FigureBlockProps {
   block: CoreDetails;

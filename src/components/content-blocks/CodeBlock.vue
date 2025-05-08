@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CoreCodeBlock } from "@ts_types/generated/graphql";
+import type { CoreCodeBlock } from "@/gql/graphql.ts";
 
 export interface CodeBlockProps {
   block: CoreCodeBlock;

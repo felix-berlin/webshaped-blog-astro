@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
-import type { Post } from "@ts_types/generated/graphql";
+import type { Post } from "@/gql/graphql.ts";
 
 interface HasTranslationsProps {
   translations: Post["translations"];

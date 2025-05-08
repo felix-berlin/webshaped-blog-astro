@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import ImageResponsive from "@components/ImageResponsive.vue";
-import type { CoreImage } from "@ts_types/generated/graphql";
+import type { CoreImage } from "@/gql/graphql.ts";
 
 export interface FigureBlockProps {
   block: CoreImage;

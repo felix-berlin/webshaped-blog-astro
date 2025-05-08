@@ -4,7 +4,7 @@ import type {
   SeoUserSocial,
   SocialAdvanced,
   MenuToMenuItemConnection,
-} from "@ts_types/generated/graphql";
+} from "@/gql/graphql.ts";
 
 /**
  * Checks if the given string is HTML

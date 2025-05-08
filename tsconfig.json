@@ -18,7 +18,6 @@
       "@stores/*": ["src/stores/*"],
       "@sass-butler/*": ["node_modules/@felix_berlin/sass-butler/*"],
       "@styles/*": ["src/styles/*"],
-      "@ts_types/*": ["src/types/*"],
       "@/*": ["src/*"]
     },
     "types": [

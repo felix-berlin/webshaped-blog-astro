@@ -24,7 +24,7 @@
 import CommentItem from "@components/comments/CommentItem.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useTranslations } from "@utils/i18n/utils";
-import type { Comment } from "@ts_types/generated/graphql";
+import type { Comment } from "@/gql/graphql.ts";
 
 export interface CommentsProps {
   comments: {

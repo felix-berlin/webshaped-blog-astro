@@ -183,7 +183,7 @@ import { guest } from "@stores/store";
 import Alert from "@components/Alert.vue";
 import User from "virtual:icons/lucide/user";
 import Info from "virtual:icons/lucide/info";
-import type { CreateCommentInput } from "@ts_types/generated/graphql";
+import type { CreateCommentInput } from "@/gql/graphql.ts";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { promiseTimeout } from "@vueuse/core";

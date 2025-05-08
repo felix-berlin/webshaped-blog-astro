@@ -105,7 +105,7 @@ import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { useTranslations } from "@utils/i18n/utils";
-import type { Comment } from "@ts_types/generated/graphql";
+import type { Comment } from "@/gql/graphql.ts";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import User from "virtual:icons/lucide/user";

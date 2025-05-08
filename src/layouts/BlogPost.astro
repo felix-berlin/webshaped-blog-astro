@@ -21,8 +21,8 @@ import TabDisplay from "@components/tabs/TabDisplay.vue";
 import ChevronRight from "~icons/lucide/chevron-right";
 import HasTranslations from "@components/HasTranslations.vue";
 import { getLangFromUrl, useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
-import type { CoreHeading } from "@ts_types/generated/graphql";
-import type { Post, MediaSize, RootQueryToCategoryConnection } from "@ts_types/generated/graphql";
+import type { CoreHeading } from "@/gql/graphql.ts";
+import type { Post, MediaSize, RootQueryToCategoryConnection } from "@/gql/graphql.ts";
 
 export interface BlogPost {
   content: Post;

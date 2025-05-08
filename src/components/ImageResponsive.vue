@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type { Maybe } from "@ts_types/generated/graphql";
+import type { Maybe } from "@/gql/graphql.ts";
 
 export interface ImageResponsiveProps {
   src: Maybe<string>;

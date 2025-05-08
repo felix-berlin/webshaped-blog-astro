@@ -15,7 +15,7 @@ import TabItem from "@components/tabs/TabItem.vue";
 import { useI18n } from "@/composables/useI18n";
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount, currentLanguage } from "@stores/store";
-import type { NodeWithAuthor } from "@ts_types/generated/graphql";
+import type { NodeWithAuthor } from "@/gql/graphql.ts";
 import { defineAsyncComponent } from "vue";
 
 const CommentsClient = defineAsyncComponent(

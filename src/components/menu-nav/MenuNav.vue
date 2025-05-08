@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import MenuItem from "@components/menu-nav/MenuItem.vue";
-import type { MenuItem as MenuItemData } from "@ts_types/generated/graphql";
+import type { MenuItem as MenuItemData } from "@/gql/graphql.ts";
 import ChevronDown from "virtual:icons/lucide/chevron-down";
 
 export interface MenuProps {
