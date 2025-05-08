@@ -9,11 +9,13 @@ import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 // import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
-import GetAuthor from "@services/queries/GetAuthor.graphql";
-import { gqlApi } from "@services/fetchApi.ts";
 import { WP_API } from "astro:env/client";
 import { Client, cacheExchange, fetchExchange } from "@urql/core";
-import { GetMenuItemsDocument, GetAllCategoriesDocument } from "@/gql/graphql.ts";
+import {
+  GetMenuItemsDocument,
+  GetAllCategoriesDocument,
+  GetAuthorDocument,
+} from "@/gql/graphql.ts";
 
 const client = new Client({
   url: WP_API,
@@ -35,14 +37,9 @@ const footerMenuItemsResponse = await client
 
 const footerMenuItems = footerMenuItemsResponse?.data?.menuItems;
 
-let author = null;
+const authorResponse = await client.query(GetAuthorDocument, {}).toPromise();
 
-try {
-  const response = await gqlApi(GetAuthor);
-  author = response.data?.user;
-} catch (error) {
-  console.error("Error fetching author data:", error);
-}
+const author = authorResponse.data?.user;
 
 interface MainFooterProps {
   lang: "de" | "en";

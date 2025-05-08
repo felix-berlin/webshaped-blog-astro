@@ -19346,6 +19346,38 @@ export type TaxonomySeoFragmentFragment = {
   opengraphImage?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
 } & { " $fragmentName"?: "TaxonomySeoFragmentFragment" };
 
+export type GetAuthorQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+  idType?: InputMaybe<UserNodeIdTypeEnum>;
+}>;
+
+export type GetAuthorQuery = {
+  __typename?: "RootQuery";
+  user?: {
+    __typename?: "User";
+    seo?: {
+      __typename?: "SEOUser";
+      social?: {
+        __typename?: "SEOUserSocial";
+        facebook?: string | null;
+        instagram?: string | null;
+        linkedIn?: string | null;
+        mySpace?: string | null;
+        pinterest?: string | null;
+        soundCloud?: string | null;
+        twitter?: string | null;
+        wikipedia?: string | null;
+        youTube?: string | null;
+      } | null;
+    } | null;
+    socialAdvanced?: {
+      __typename?: "SocialAdvanced";
+      github?: string | null;
+      mastodon?: string | null;
+    } | null;
+  } | null;
+};
+
 export type CategoryFieldsFragment = {
   __typename?: "Category";
   count?: number | null;
@@ -21110,38 +21142,6 @@ export type GetAllPostPreviewsByCategoryQuery = {
   } | null;
 };
 
-export type GetAuthorQueryVariables = Exact<{
-  id?: InputMaybe<Scalars["ID"]["input"]>;
-  idType?: InputMaybe<UserNodeIdTypeEnum>;
-}>;
-
-export type GetAuthorQuery = {
-  __typename?: "RootQuery";
-  user?: {
-    __typename?: "User";
-    seo?: {
-      __typename?: "SEOUser";
-      social?: {
-        __typename?: "SEOUserSocial";
-        facebook?: string | null;
-        instagram?: string | null;
-        linkedIn?: string | null;
-        mySpace?: string | null;
-        pinterest?: string | null;
-        soundCloud?: string | null;
-        twitter?: string | null;
-        wikipedia?: string | null;
-        youTube?: string | null;
-      } | null;
-    } | null;
-    socialAdvanced?: {
-      __typename?: "SocialAdvanced";
-      github?: string | null;
-      mastodon?: string | null;
-    } | null;
-  } | null;
-};
-
 export const CoreParagraphFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -22419,6 +22419,94 @@ export const CreateCommentDocument = {
     },
   ],
 } as unknown as DocumentNode<CreateCommentMutation, CreateCommentMutationVariables>;
+export const GetAuthorDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetAuthor" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          defaultValue: { kind: "StringValue", value: "1", block: false },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "idType" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "UserNodeIdTypeEnum" } },
+          defaultValue: { kind: "EnumValue", value: "DATABASE_ID" },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "user" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: { kind: "Variable", name: { kind: "Name", value: "id" } },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "idType" },
+                value: { kind: "Variable", name: { kind: "Name", value: "idType" } },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "seo" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "social" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            { kind: "Field", name: { kind: "Name", value: "facebook" } },
+                            { kind: "Field", name: { kind: "Name", value: "instagram" } },
+                            { kind: "Field", name: { kind: "Name", value: "linkedIn" } },
+                            { kind: "Field", name: { kind: "Name", value: "mySpace" } },
+                            { kind: "Field", name: { kind: "Name", value: "pinterest" } },
+                            { kind: "Field", name: { kind: "Name", value: "soundCloud" } },
+                            { kind: "Field", name: { kind: "Name", value: "twitter" } },
+                            { kind: "Field", name: { kind: "Name", value: "wikipedia" } },
+                            { kind: "Field", name: { kind: "Name", value: "youTube" } },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "socialAdvanced" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "github" } },
+                      { kind: "Field", name: { kind: "Name", value: "mastodon" } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetAuthorQuery, GetAuthorQueryVariables>;
 export const GetAllCategoriesDocument = {
   kind: "Document",
   definitions: [
@@ -24916,91 +25004,3 @@ export const GetAllPostPreviewsByCategoryDocument = {
   GetAllPostPreviewsByCategoryQuery,
   GetAllPostPreviewsByCategoryQueryVariables
 >;
-export const GetAuthorDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "query",
-      name: { kind: "Name", value: "GetAuthor" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
-          defaultValue: { kind: "StringValue", value: "1", block: false },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: { kind: "Variable", name: { kind: "Name", value: "idType" } },
-          type: { kind: "NamedType", name: { kind: "Name", value: "UserNodeIdTypeEnum" } },
-          defaultValue: { kind: "EnumValue", value: "DATABASE_ID" },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "user" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "id" },
-                value: { kind: "Variable", name: { kind: "Name", value: "id" } },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "idType" },
-                value: { kind: "Variable", name: { kind: "Name", value: "idType" } },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "seo" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "social" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            { kind: "Field", name: { kind: "Name", value: "facebook" } },
-                            { kind: "Field", name: { kind: "Name", value: "instagram" } },
-                            { kind: "Field", name: { kind: "Name", value: "linkedIn" } },
-                            { kind: "Field", name: { kind: "Name", value: "mySpace" } },
-                            { kind: "Field", name: { kind: "Name", value: "pinterest" } },
-                            { kind: "Field", name: { kind: "Name", value: "soundCloud" } },
-                            { kind: "Field", name: { kind: "Name", value: "twitter" } },
-                            { kind: "Field", name: { kind: "Name", value: "wikipedia" } },
-                            { kind: "Field", name: { kind: "Name", value: "youTube" } },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "Field",
-                  name: { kind: "Name", value: "socialAdvanced" },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "github" } },
-                      { kind: "Field", name: { kind: "Name", value: "mastodon" } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<GetAuthorQuery, GetAuthorQueryVariables>;

@@ -1,32 +1,25 @@
-import type { RootQuery } from "@ts_types/generated/graphql";
-import { fetchAPI } from "@services/fetchApi";
+import { graphql } from "@/gql";
 
-export const getAuthor = async (
-  id = "1",
-  idType = "DATABASE_ID",
-): Promise<RootQuery["user"]> => {
-  const data = await fetchAPI(`
-    {
-      user(id: "${id}", idType: ${idType}) {
-        seo {
-          social {
-            facebook
-            instagram
-            linkedIn
-            mySpace
-            pinterest
-            soundCloud
-            twitter
-            wikipedia
-            youTube
-          }
-        }
-        socialAdvanced {
-          github
-          mastodon
+export const GetAuthor = graphql(`
+  query GetAuthor($id: ID = "1", $idType: UserNodeIdTypeEnum = DATABASE_ID) {
+    user(id: $id, idType: $idType) {
+      seo {
+        social {
+          facebook
+          instagram
+          linkedIn
+          mySpace
+          pinterest
+          soundCloud
+          twitter
+          wikipedia
+          youTube
         }
       }
-    }`).then((res) => res.data);
-
-  return data?.user;
-};
+      socialAdvanced {
+        github
+        mastodon
+      }
+    }
+  }
+`);
