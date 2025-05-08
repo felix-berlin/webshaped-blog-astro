@@ -1,13 +1,13 @@
 import type { CreateCommentPayload } from "@ts_types/generated/graphql";
 
-export * from "@services/createComment";
-export * from "@services/getMenu";
-export * from "@services/getCategory";
-export * from "@services/getPage";
-export * from "@services/getComment";
-export * from "@services/getPost";
-export * from "@services/getPostPreview";
-export * from "@services/getAuthor";
+export * from "@services/mutations/createComment";
+export * from "@services/queries/getMenu";
+export * from "@services/queries/getCategory";
+export * from "@services/queries/getPage";
+export * from "@services/queries/getComment";
+export * from "@services/queries/getPost";
+export * from "@services/queries/getPostPreview";
+export * from "@services/queries/getAuthor";
 
 interface Error {
   message?: string;

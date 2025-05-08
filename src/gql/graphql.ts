@@ -19236,35 +19236,6 @@ export type AllBlocksFragment =
   | AllBlocks_YoastHowToBlock_Fragment
   | AllBlocks_YoastSeoBreadcrumbs_Fragment;
 
-export type CreateCommentMutationVariables = Exact<{
-  author?: InputMaybe<Scalars["String"]["input"]>;
-  authorEmail?: InputMaybe<Scalars["String"]["input"]>;
-  content?: InputMaybe<Scalars["String"]["input"]>;
-  parent?: InputMaybe<Scalars["ID"]["input"]>;
-  commentOn?: InputMaybe<Scalars["Int"]["input"]>;
-}>;
-
-export type CreateCommentMutation = {
-  __typename?: "RootMutation";
-  createComment?: {
-    __typename?: "CreateCommentPayload";
-    success?: boolean | null;
-    comment?: {
-      __typename?: "Comment";
-      id: string;
-      content?: string | null;
-      status?: CommentStatusEnum | null;
-      isRestricted?: boolean | null;
-      author?: {
-        __typename?: "CommentToCommenterConnectionEdge";
-        node:
-          | { __typename?: "CommentAuthor"; name?: string | null; email?: string | null }
-          | { __typename?: "User"; name?: string | null; email?: string | null };
-      } | null;
-    } | null;
-  } | null;
-};
-
 export type PostTypeSeoFragmentFragment = {
   __typename?: "PostTypeSEO";
   title?: string | null;
@@ -19325,26 +19296,34 @@ export type CommentDetailsFragment = {
   } | null;
 } & { " $fragmentName"?: "CommentDetailsFragment" };
 
-export type TaxonomySeoFragmentFragment = {
-  __typename?: "TaxonomySEO";
-  title?: string | null;
-  canonical?: string | null;
-  metaDesc?: string | null;
-  metaRobotsNofollow?: string | null;
-  metaRobotsNoindex?: string | null;
-  opengraphSiteName?: string | null;
-  opengraphAuthor?: string | null;
-  opengraphDescription?: string | null;
-  opengraphPublisher?: string | null;
-  opengraphTitle?: string | null;
-  opengraphType?: string | null;
-  opengraphUrl?: string | null;
-  opengraphPublishedTime?: string | null;
-  opengraphModifiedTime?: string | null;
-  twitterDescription?: string | null;
-  twitterTitle?: string | null;
-  opengraphImage?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
-} & { " $fragmentName"?: "TaxonomySeoFragmentFragment" };
+export type CreateCommentMutationVariables = Exact<{
+  author?: InputMaybe<Scalars["String"]["input"]>;
+  authorEmail?: InputMaybe<Scalars["String"]["input"]>;
+  content?: InputMaybe<Scalars["String"]["input"]>;
+  parent?: InputMaybe<Scalars["ID"]["input"]>;
+  commentOn?: InputMaybe<Scalars["Int"]["input"]>;
+}>;
+
+export type CreateCommentMutation = {
+  __typename?: "RootMutation";
+  createComment?: {
+    __typename?: "CreateCommentPayload";
+    success?: boolean | null;
+    comment?: {
+      __typename?: "Comment";
+      id: string;
+      content?: string | null;
+      status?: CommentStatusEnum | null;
+      isRestricted?: boolean | null;
+      author?: {
+        __typename?: "CommentToCommenterConnectionEdge";
+        node:
+          | { __typename?: "CommentAuthor"; name?: string | null; email?: string | null }
+          | { __typename?: "User"; name?: string | null; email?: string | null };
+      } | null;
+    } | null;
+  } | null;
+};
 
 export type GetAuthorQueryVariables = Exact<{
   id?: InputMaybe<Scalars["ID"]["input"]>;
@@ -22171,45 +22150,6 @@ export const CommentDetailsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CommentDetailsFragment, unknown>;
-export const TaxonomySeoFragmentFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "TaxonomySEOFragment" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "TaxonomySEO" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "title" } },
-          { kind: "Field", name: { kind: "Name", value: "canonical" } },
-          { kind: "Field", name: { kind: "Name", value: "metaDesc" } },
-          { kind: "Field", name: { kind: "Name", value: "metaRobotsNofollow" } },
-          { kind: "Field", name: { kind: "Name", value: "metaRobotsNoindex" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphSiteName" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphAuthor" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphDescription" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphPublisher" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphTitle" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphType" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphUrl" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphPublishedTime" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphModifiedTime" } },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "opengraphImage" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [{ kind: "Field", name: { kind: "Name", value: "sourceUrl" } }],
-            },
-          },
-          { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
-          { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<TaxonomySeoFragmentFragment, unknown>;
 export const CategoryFieldsFragmentDoc = {
   kind: "Document",
   definitions: [
