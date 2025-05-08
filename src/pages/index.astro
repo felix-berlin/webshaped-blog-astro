@@ -26,7 +26,7 @@ const pagesResponse = await client
   })
   .toPromise();
 
-const indexDe = pagesResponse?.data?.pages?.nodes;
+const indexDe = pagesResponse?.data?.pages?.nodes[0];
 
 const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
 
