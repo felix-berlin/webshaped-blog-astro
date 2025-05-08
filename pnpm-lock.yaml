@@ -99,6 +99,9 @@ importers:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.3)
     devDependencies:
+      '@0no-co/graphqlsp':
+        specifier: ^1.12.16
+        version: 1.12.16(graphql@16.11.0)(typescript@5.8.3)
       '@astrojs/check':
         specifier: ^0.9.4
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.5.3)(typescript@5.8.3)
@@ -117,6 +120,9 @@ importers:
       '@graphql-codegen/introspection':
         specifier: ^4.0.3
         version: 4.0.3(graphql@16.11.0)
+      '@graphql-codegen/schema-ast':
+        specifier: ^4.1.0
+        version: 4.1.0(graphql@16.11.0)
       '@graphql-codegen/typescript':
         specifier: ^4.1.6
         version: 4.1.6(graphql@16.11.0)
@@ -286,6 +292,12 @@ packages:
     peerDependenciesMeta:
       graphql:
         optional: true
+
+  '@0no-co/graphqlsp@1.12.16':
+    resolution: {integrity: sha512-B5pyYVH93Etv7xjT6IfB7QtMBdaaC07yjbhN6v8H7KgFStMkPvi+oWYBTibMFRMY89qwc9H8YixXg8SXDVgYWw==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0
 
   '@actions/core@1.11.1':
     resolution: {integrity: sha512-hXJCSrkwfA46Vd9Z3q4cpEpHB1rL5NG04+/rbqW9d3+CSvtB1tYe8UTpAlixa1vj0m/ULglfEK2UKxMGxCxv5A==}
@@ -1452,6 +1464,12 @@ packages:
 
   '@formkit/auto-animate@0.8.2':
     resolution: {integrity: sha512-SwPWfeRa5veb1hOIBMdzI+73te5puUBHmqqaF1Bu7FjvxlYSz/kJcZKSa9Cg60zL0uRNeJL2SbRxV6Jp6Q1nFQ==}
+
+  '@gql.tada/internal@1.0.8':
+    resolution: {integrity: sha512-XYdxJhtHC5WtZfdDqtKjcQ4d7R1s0d1rnlSs3OcBEUbYiPoJJfZU7tWsVXuv047Z6msvmr4ompJ7eLSK5Km57g==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0
 
   '@graphql-codegen/add@5.0.3':
     resolution: {integrity: sha512-SxXPmramkth8XtBlAHu4H4jYcYXM/o3p01+psU+0NADQowA8jtYkK6MW5rV6T+CxkEaNZItfSmZRPgIuypcqnA==}
@@ -8544,6 +8562,12 @@ snapshots:
     optionalDependencies:
       graphql: 16.11.0
 
+  '@0no-co/graphqlsp@1.12.16(graphql@16.11.0)(typescript@5.8.3)':
+    dependencies:
+      '@gql.tada/internal': 1.0.8(graphql@16.11.0)(typescript@5.8.3)
+      graphql: 16.11.0
+      typescript: 5.8.3
+
   '@actions/core@1.11.1':
     dependencies:
       '@actions/exec': 1.1.1
@@ -9911,6 +9935,12 @@ snapshots:
   '@fontsource/source-sans-pro@5.2.5': {}
 
   '@formkit/auto-animate@0.8.2': {}
+
+  '@gql.tada/internal@1.0.8(graphql@16.11.0)(typescript@5.8.3)':
+    dependencies:
+      '@0no-co/graphql.web': 1.1.2(graphql@16.11.0)
+      graphql: 16.11.0
+      typescript: 5.8.3
 
   '@graphql-codegen/add@5.0.3(graphql@16.11.0)':
     dependencies:

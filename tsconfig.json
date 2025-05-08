@@ -29,6 +29,12 @@
       "vite-plugin-pwa/info"
     ],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
+      }
+    ]
   }
 }

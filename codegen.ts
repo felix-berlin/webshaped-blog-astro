@@ -1,5 +1,6 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 import { loadEnv } from "vite";
+
 const { WP_AUTH_REFRESH_TOKEN, WP_API } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const config: CodegenConfig = {
@@ -21,6 +22,12 @@ const config: CodegenConfig = {
         useTypeImports: true,
       },
       plugins: [],
+    },
+    "./schema.graphql": {
+      plugins: ["schema-ast"],
+      config: {
+        includeDirectives: true,
+      },
     },
   },
   hooks: { afterAllFileWrite: ["prettier --write"] },
