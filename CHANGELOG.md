@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.2.0...v1.3.0) (2025-05-08)
+
+
+### Bug Fixes
+
+* **CommentsClient:** add missing condition ([4ac87d6](https://github.com/felix-berlin/webshaped-blog-astro/commit/4ac87d60d8ac871f2406401122d650ed70da5357))
+* **CommentsClient:** remove debug code ([e09c412](https://github.com/felix-berlin/webshaped-blog-astro/commit/e09c4121b5987db8b796a33502be2a426ee02740))
+* missing index data ([f4a5d57](https://github.com/felix-berlin/webshaped-blog-astro/commit/f4a5d5773759b120c043c4b6d97fa2071bf9aa4c))
+* missing preview post on index ([cdb4d36](https://github.com/felix-berlin/webshaped-blog-astro/commit/cdb4d36fc3aaf475a75ff955512bf4e59fd7d624))
+* missing styles when no comments where made ([94710ba](https://github.com/felix-berlin/webshaped-blog-astro/commit/94710ba790c5cd38bfce8b6b5856f3716d63a8cb))
+* **SocialLsit:** render error ([8ae2ca7](https://github.com/felix-berlin/webshaped-blog-astro/commit/8ae2ca7bf9e4b771064909f72778e322f984c30e))
+
+
+### Features
+
+* add paginatedFlatListToHierarchical helper ([e06cf5c](https://github.com/felix-berlin/webshaped-blog-astro/commit/e06cf5cf14cd0cdbb25ac51e78933122ed5c5c2c))
+
 # [1.2.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.1.0...v1.2.0) (2025-05-04)
 
 
