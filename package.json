@@ -140,6 +140,7 @@
     "@sentry/astro": "^9.17.0",
     "@spotlightjs/astro": "^3.2.3",
     "@urql/core": "^5.1.1",
+    "@urql/exchange-graphcache": "^7.2.3",
     "@urql/vue": "^1.4.3",
     "@vueuse/core": "^13.1.0",
     "astro": "^5.7.12",

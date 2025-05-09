@@ -12,8 +12,10 @@ export default getViteConfig({
       include: ["src/**"],
       exclude: [
         "src/types/**",
+        "src/gql/**",
         "src/env.d.ts",
         "src/pages/_app.ts",
+        "codegen.ts",
         ...coverageConfigDefaults.exclude,
       ],
       reportsDirectory: "./tests/unit/coverage",
