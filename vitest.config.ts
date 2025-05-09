@@ -12,7 +12,7 @@ export default getViteConfig({
       include: ["src/**"],
       exclude: [
         "src/types/**",
-        "scr/gql/**",
+        "src/gql/**",
         "src/env.d.ts",
         "src/pages/_app.ts",
         "codegen.ts",
