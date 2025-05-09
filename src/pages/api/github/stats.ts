@@ -1,7 +1,33 @@
 import type { APIContext } from "astro";
 import { GITHUB_TOKEN } from "astro:env/server";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import { Client, fetchExchange } from "@urql/core";
 import GhRepos from "@services/ghRepos.graphql";
+import { cacheExchange } from "@urql/exchange-graphcache";
+
+// eslint-disable-next-line
+const cache = cacheExchange({
+  resolvers: {
+    User: {
+      repositories: (parent, args, cache, info) => {
+        return {
+          __typename: "RepositoryConnection",
+          // Wichtig: args als key für Pagination
+          args,
+        };
+      },
+    },
+  },
+  keys: {
+    RepositoryConnection: () => null,
+    Repository: (repo) => `${repo.owner?.login ?? "unknown"}/${repo.name}`,
+    User: () => null,
+    Language: () => null,
+    Ref: () => null,
+    Commit: () => null,
+  },
+  // TTL-Konfiguration (1 Tag in Millisekunden)
+  ttl: 24 * 60 * 60 * 1000,
+});
 
 const client = new Client({
   url: "https://api.github.com/graphql",
@@ -10,7 +36,7 @@ const client = new Client({
       Authorization: `Bearer ${GITHUB_TOKEN}`,
     },
   },
-  exchanges: [cacheExchange, fetchExchange],
+  exchanges: [cache, fetchExchange],
 });
 
 export async function GET(context: APIContext): Promise<Response> {
@@ -19,6 +45,7 @@ export async function GET(context: APIContext): Promise<Response> {
     const USER_QUERY = `
       query {
         viewer {
+          id
           login
         }
       }

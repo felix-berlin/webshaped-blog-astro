@@ -1,8 +1,13 @@
 query GhRepos($username: String!, $after: String) {
   user(login: $username) {
+    id
     repositories(first: 100, after: $after, ownerAffiliations: OWNER) {
       nodes {
+        id
         name
+        owner {
+          login
+        }
         stargazerCount
         url
         description
@@ -11,13 +16,16 @@ query GhRepos($username: String!, $after: String) {
           edges {
             size
             node {
+              id
               name
             }
           }
         }
         defaultBranchRef {
+          id
           target {
             ... on Commit {
+              id
               history {
                 totalCount
               }
