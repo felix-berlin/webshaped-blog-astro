@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.3.0...v1.4.0) (2025-05-09)
+
+
+### Features
+
+* **stats:** cache endpoint more efficent and invalidate cache after 24h ([3887021](https://github.com/felix-berlin/webshaped-blog-astro/commit/38870212f1253d0a9bec366a0da661b8523b5b25))
+
 # [1.3.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.2.0...v1.3.0) (2025-05-08)
 
 
