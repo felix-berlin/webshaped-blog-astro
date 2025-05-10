@@ -63,7 +63,7 @@ import StarIcon from "virtual:icons/lucide/star";
 
 const loading = ref(true);
 const error = ref<string | null>(null);
-const languagePercentages = ref<{ [key: string]: number }>({});
+const languagePercentages = ref<{ language: string; percentage: number }[]>([]);
 const totalBytes = ref(0);
 const totalCommits = ref(0);
 const mostStarredRepos = ref([]);
@@ -71,9 +71,9 @@ const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(
-    Object.entries(languagePercentages.value).filter(
-      ([, percentage]) => percentage.toFixed(2) !== "0.00",
-    ),
+    languagePercentages.value
+      .filter(({ percentage }) => percentage.toFixed(2) !== "0.00")
+      .map(({ language, percentage }) => [language, percentage]),
   );
 });
 
