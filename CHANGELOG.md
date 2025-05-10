@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.5.0...v1.6.0) (2025-05-10)
+
+
+### Features
+
+* add missing lang colors ([ef389c2](https://github.com/felix-berlin/webshaped-blog-astro/commit/ef389c249681080dd7b5db34b48a3c5ec14b069f))
+
 # [1.5.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.4.0...v1.5.0) (2025-05-10)
 
 
