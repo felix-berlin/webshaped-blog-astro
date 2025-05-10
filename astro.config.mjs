@@ -7,7 +7,7 @@ import matomo from "astro-matomo";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
-import codecovplugin from "@codecov/astro-plugin";
+import codecovAstroPlugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
 import { visualizer } from "rollup-plugin-visualizer";
 import { version } from "./package.json";
@@ -163,7 +163,7 @@ export default defineConfig({
       },
     }),
     // spotlightjs(),
-    codecovplugin({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
       uploadToken: CODECOV_TOKEN,
