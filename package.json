@@ -55,7 +55,6 @@
     "format": "npx prettier --write .",
     "gql:generate": "graphql-codegen --config codegen.ts",
     "gql:generate:watch": "graphql-codegen --config codegen.ts --watch",
-    "gql:generate:gh": "graphql-codegen --config graphql.config.ts --project github",
     "preinstall": "npx only-allow pnpm",
     "copy:pagefind": "pnpm dlx shx cp -r dist/pagefind public/",
     "predev": "pnpm run gql:generate"
