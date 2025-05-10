@@ -13,7 +13,7 @@ const config: CodegenConfig = {
       },
     },
   ],
-  documents: ["src/**/*.{graphql,js,ts,jsx,tsx}", "!src/services/ghRepos.graphql", "!src/gql/**/*"],
+  documents: ["src/**/*.{graphql,js,ts,jsx,tsx}", "!src/gql/**/*", "!src/services/github/**/*"],
   ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
     "./src/gql/": {

@@ -1,10 +1,10 @@
 import type { APIContext } from "astro";
 import { GITHUB_TOKEN } from "astro:env/server";
 import { Client, fetchExchange } from "@urql/core";
-import GhRepos from "@services/ghRepos.graphql";
+import GhRepos from "@services/github/GhRepos.graphql";
+import GhSingleRepo from "@services/github/GhSingleRepo.graphql";
 import { cacheExchange } from "@urql/exchange-graphcache";
 
-// eslint-disable-next-line
 const cache = cacheExchange({
   resolvers: {
     User: {
@@ -38,6 +38,9 @@ const client = new Client({
   },
   exchanges: [cache, fetchExchange],
 });
+
+// List of additional repos (owner/name)
+const extraRepos = [{ owner: "bitsundbaeume", name: "publication2023" }];
 
 export async function GET(context: APIContext): Promise<Response> {
   try {
@@ -116,6 +119,33 @@ export async function GET(context: APIContext): Promise<Response> {
       }
     }
 
+    // get additional single repos and merge them
+    for (const { owner, name } of extraRepos) {
+      const singleRepoResponse = await client.query(GhSingleRepo, { owner, name }).toPromise();
+      if (singleRepoResponse.error) continue; // Fehlerhafte Repos überspringen
+      const repo = singleRepoResponse.data.repository;
+      if (!repo) continue;
+      for (const language of repo.languages.edges) {
+        const languageName = language.node.name;
+        const size = language.size;
+        if (!languages[languageName]) languages[languageName] = 0;
+        languages[languageName] += size;
+        totalBytes += size;
+      }
+      if (repo.defaultBranchRef?.target?.history?.totalCount) {
+        totalCommits += repo.defaultBranchRef.target.history.totalCount;
+      }
+      const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
+      mostStarredRepos.push({
+        name: repo.name,
+        stars: repo.stargazerCount,
+        url: repo.url,
+        description: repo.description || "No description available",
+        mostUsedLanguage,
+        forkCount: repo.forkCount,
+      });
+    }
+
     // Sort repositories by stars and limit to top 6
     mostStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
 
@@ -125,9 +155,14 @@ export async function GET(context: APIContext): Promise<Response> {
       languagePercentages[language] = (bytesOfCode / totalBytes) * 100;
     }
 
+    // Sort languages by percentage descending
+    const sortedLanguages = Object.entries(languagePercentages)
+      .sort((a, b) => b[1] - a[1])
+      .map(([language, percentage]) => ({ language, percentage }));
+
     return new Response(
       JSON.stringify({
-        languagePercentages,
+        languagePercentages: sortedLanguages,
         totalBytes,
         totalCommits,
         mostStarredRepos,
