@@ -5,16 +5,38 @@ import GhRepos from "@services/github/GhRepos.graphql";
 import GhSingleRepo from "@services/github/GhSingleRepo.graphql";
 import { cacheExchange } from "@urql/exchange-graphcache";
 
+// --- Types ---
+type RepoNode = {
+  name: string;
+  stargazerCount: number;
+  url: string;
+  description?: string;
+  forkCount: number;
+  languages: { edges: { node: { name: string }; size: number }[] };
+  defaultBranchRef?: {
+    target?: {
+      history?: { totalCount?: number };
+    };
+  };
+};
+
+type RepoSummary = {
+  name: string;
+  stars: number;
+  url: string;
+  description: string;
+  mostUsedLanguage: string;
+  forkCount: number;
+};
+
+// --- Cache config ---
 const cache = cacheExchange({
   resolvers: {
     User: {
-      repositories: (parent, args, cache, info) => {
-        return {
-          __typename: "RepositoryConnection",
-          // Wichtig: args als key für Pagination
-          args,
-        };
-      },
+      repositories: (parent, args) => ({
+        __typename: "RepositoryConnection",
+        args,
+      }),
     },
   },
   keys: {
@@ -25,7 +47,6 @@ const cache = cacheExchange({
     Ref: () => null,
     Commit: () => null,
   },
-  // TTL-Konfiguration (1 Tag in Millisekunden)
   ttl: 24 * 60 * 60 * 1000,
 });
 
@@ -42,9 +63,37 @@ const client = new Client({
 // List of additional repos (owner/name)
 const extraRepos = [{ owner: "bitsundbaeume", name: "publication2023" }];
 
+// --- Helper: Aggregate repo data ---
+function aggregateRepoData(
+  repo: RepoNode,
+  languages: Record<string, number>,
+  mostStarredRepos: RepoSummary[],
+  totals: { bytes: number; commits: number },
+) {
+  for (const language of repo.languages.edges) {
+    const languageName = language.node.name;
+    const size = language.size;
+    if (!languages[languageName]) languages[languageName] = 0;
+    languages[languageName] += size;
+    totals.bytes += size;
+  }
+  if (repo.defaultBranchRef?.target?.history?.totalCount) {
+    totals.commits += repo.defaultBranchRef.target.history.totalCount;
+  }
+  const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
+  mostStarredRepos.push({
+    name: repo.name,
+    stars: repo.stargazerCount,
+    url: repo.url,
+    description: repo.description || "No description available",
+    mostUsedLanguage,
+    forkCount: repo.forkCount,
+  });
+}
+
 export async function GET(context: APIContext): Promise<Response> {
   try {
-    // Fetch user information
+    // --- Fetch user info ---
     const USER_QUERY = `
       query {
         viewer {
@@ -53,134 +102,75 @@ export async function GET(context: APIContext): Promise<Response> {
         }
       }
     `;
-
     const userResponse = await client.query(USER_QUERY, {}).toPromise();
-
     if (userResponse.error) {
       throw new Error(`Error fetching user info: ${userResponse.error.message}`);
     }
-
     const username = userResponse.data.viewer.login;
 
-    // Fetch repositories and aggregate data
+    // --- Aggregation setup ---
     let hasNextPage = true;
     let after: string | null = null;
-    const languages: { [key: string]: number } = {};
-    let totalBytes = 0;
-    let totalCommits = 0;
-    let mostStarredRepos: {
-      name: string;
-      stars: number;
-      url: string;
-      description: string;
-      mostUsedLanguage: string;
-      forkCount: number;
-    }[] = [];
+    const languages: Record<string, number> = {};
+    const mostStarredRepos: RepoSummary[] = [];
+    const totals = { bytes: 0, commits: 0 };
 
+    // --- Fetch all user repos (paginated) ---
     while (hasNextPage) {
       const reposResponse = await client.query(GhRepos, { username, after }).toPromise();
-
       if (reposResponse.error) {
         throw new Error(`Error fetching repositories: ${reposResponse.error.message}`);
       }
-
       const repositories = reposResponse.data.user.repositories;
       hasNextPage = repositories.pageInfo.hasNextPage;
       after = repositories.pageInfo.endCursor;
 
-      for (const repo of repositories.nodes) {
-        // Aggregate language data
-        for (const language of repo.languages.edges) {
-          const languageName = language.node.name;
-          const size = language.size;
-
-          if (!languages[languageName]) {
-            languages[languageName] = 0;
-          }
-          languages[languageName] += size;
-          totalBytes += size;
-        }
-
-        // Aggregate commit data
-        if (repo.defaultBranchRef?.target?.history?.totalCount) {
-          totalCommits += repo.defaultBranchRef.target.history.totalCount;
-        }
-
-        // Collect most starred repositories
-        const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
-        mostStarredRepos.push({
-          name: repo.name,
-          stars: repo.stargazerCount,
-          url: repo.url,
-          description: repo.description || "No description available",
-          mostUsedLanguage,
-          forkCount: repo.forkCount,
-        });
+      for (const repo of repositories.nodes as RepoNode[]) {
+        aggregateRepoData(repo, languages, mostStarredRepos, totals);
       }
     }
 
-    // get additional single repos and merge them
+    // --- Fetch and merge extra repos ---
     for (const { owner, name } of extraRepos) {
       const singleRepoResponse = await client.query(GhSingleRepo, { owner, name }).toPromise();
-      if (singleRepoResponse.error) continue; // Fehlerhafte Repos überspringen
-      const repo = singleRepoResponse.data.repository;
+      if (singleRepoResponse.error) {
+        console.warn(`Skipping extra repo ${owner}/${name}: ${singleRepoResponse.error.message}`);
+        continue;
+      }
+      const repo = singleRepoResponse.data.repository as RepoNode | undefined;
       if (!repo) continue;
-      for (const language of repo.languages.edges) {
-        const languageName = language.node.name;
-        const size = language.size;
-        if (!languages[languageName]) languages[languageName] = 0;
-        languages[languageName] += size;
-        totalBytes += size;
-      }
-      if (repo.defaultBranchRef?.target?.history?.totalCount) {
-        totalCommits += repo.defaultBranchRef.target.history.totalCount;
-      }
-      const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
-      mostStarredRepos.push({
-        name: repo.name,
-        stars: repo.stargazerCount,
-        url: repo.url,
-        description: repo.description || "No description available",
-        mostUsedLanguage,
-        forkCount: repo.forkCount,
-      });
+      aggregateRepoData(repo, languages, mostStarredRepos, totals);
     }
 
-    // Sort repositories by stars and limit to top 6
-    mostStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
+    // --- Sort and limit starred repos ---
+    const topStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
 
-    // Calculate language percentages
-    const languagePercentages: { [key: string]: number } = {};
-    for (const [language, bytesOfCode] of Object.entries(languages)) {
-      languagePercentages[language] = (bytesOfCode / totalBytes) * 100;
-    }
+    // --- Calculate language percentages ---
+    const languagePercentages = Object.entries(languages)
+      .map(([language, bytesOfCode]) => ({
+        language,
+        percentage: (bytesOfCode / (totals.bytes || 1)) * 100,
+      }))
+      .sort((a, b) => b.percentage - a.percentage);
 
-    // Sort languages by percentage descending
-    const sortedLanguages = Object.entries(languagePercentages)
-      .sort((a, b) => b[1] - a[1])
-      .map(([language, percentage]) => ({ language, percentage }));
-
+    // --- Response ---
     return new Response(
       JSON.stringify({
-        languagePercentages: sortedLanguages,
-        totalBytes,
-        totalCommits,
-        mostStarredRepos,
+        languagePercentages,
+        totalBytes: totals.bytes,
+        totalCommits: totals.commits,
+        mostStarredRepos: topStarredRepos,
       }),
       {
         status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       },
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error fetching data from API: ${error.message}`);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
   }
 }
