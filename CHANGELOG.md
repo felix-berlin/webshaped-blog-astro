@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.4.0...v1.5.0) (2025-05-10)
+
+
+### Features
+
+* **github-stats:** better responsive lang list ([faf84ed](https://github.com/felix-berlin/webshaped-blog-astro/commit/faf84ede73b8a1850d92fd544ac409159091e64b))
+* **stats:** endpoint merges singles repos to owner repos and sort them by percentage ([433c85d](https://github.com/felix-berlin/webshaped-blog-astro/commit/433c85ddb39226e29124a12de6900830e88f36b5))
+
 # [1.4.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.3.0...v1.4.0) (2025-05-09)
 
 
