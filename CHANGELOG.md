@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.8.0...v1.9.0) (2025-05-12)
+
+
+### Bug Fixes
+
+* **about-me:** image gen ([817d2f3](https://github.com/felix-berlin/webshaped-blog-astro/commit/817d2f31a63cec4ffec1317b32cec60f375561ac))
+
+
+### Features
+
+* **about-me:** use api seo data ([371ab6b](https://github.com/felix-berlin/webshaped-blog-astro/commit/371ab6ba2b78c3747be893983a4c1f32f6286c55))
+* optimize getPage query (add translation) ([464245f](https://github.com/felix-berlin/webshaped-blog-astro/commit/464245fdaad058112e8fa9a2e22c3c438f42399e))
+
 # [1.8.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.7.1...v1.8.0) (2025-05-12)
 
 
