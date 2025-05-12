@@ -5,40 +5,54 @@ import GithubStats from "@components/GithubStats.vue";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
+import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
 
-const translationsRoutes = {
-  de: "ueber-mich",
-  en: "about",
-};
-
-const pageData = [translationsRoutes.de, translationsRoutes.en];
-
-const { about } = Astro.params;
-
-const page = pageData.find((item) => {
-  return item === about;
+const client = new Client({
+  url: WP_API,
+  fetchOptions: {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  },
+  exchanges: [cacheExchange, fetchExchange],
 });
 
-if (!page) return Astro.redirect("/404");
+const pagesResponse = await client
+  .query(GetPagesBySlugsDocument, {
+    slugs: ["ueber-mich"],
+  })
+  .toPromise();
 
-const content = {
-  de: {
-    title: "Über mich",
-  },
-  en: {
-    title: "About me",
-  },
-};
+if (!pagesResponse) return Astro.redirect("/404");
+
+const pagesData = pagesResponse?.data?.pages?.nodes?.[0];
+
+if (!pagesData) return Astro.redirect("/404");
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const { about } = Astro.params;
+
+// Combine main page and translations into one array
+const allPages = [...(pagesData?.translations ?? []), ...(pagesData ? [pagesData] : [])];
+
+// Find the page with the matching slug
+const page = allPages.find((item) => item?.slug === about);
+
+if (!page) return Astro.redirect("/404");
+
+const translationsRoutes = allPages.reduce<Record<string, string>>((acc, curr) => {
+  const langSlug = curr?.language?.slug;
+  if (langSlug && curr?.slug) {
+    acc[langSlug] = curr.slug;
+  }
+  return acc;
+}, {});
 ---
 
-<DefaultLayout
-  content={content[lang]}
-  contentClasses="o-index"
-  translationsRoutes={translationsRoutes}
->
+<DefaultLayout content={page} contentClasses="o-index" translationsRoutes={translationsRoutes}>
   <header class="o-developer-card">
     <div class="o-developer-card__text-wrapper">
       <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
@@ -51,7 +65,7 @@ const t = useTranslations(lang);
     <Image
       src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
       alt="Felix Scholze portrait"
-      layout="responsive"
+      layout="constrained"
       width="500"
       height="500"
       priority={true}
