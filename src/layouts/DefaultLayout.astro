@@ -38,11 +38,14 @@ const lang = getLangFromUrl(Astro.url);
 
 <!-- TODO: Remove after lightmode is final: #9 -->
 <html lang={lang} class="dark">
-  <Head>
-    <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes} />
+  <!-- <Head> -->
+  <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes}>
+    <Fragment slot="head">
+      <slot name="head" />
+    </Fragment>
+  </BaseHead>
 
-    <slot name="head" />
-  </Head>
+  <!-- </Head> -->
 
   <body class="o-body" class:list={bodyClasses}>
     <MainHeader lang={lang} transition:persist />

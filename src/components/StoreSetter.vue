@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <slot></slot>
+</template>
 
 <script setup lang="ts">
 import { translationRoutes, currentLanguage } from "@stores/store";
