@@ -19515,6 +19515,25 @@ export type GetMenuItemsQuery = {
   } | null;
 };
 
+export type PageFieldFragmentFragment = {
+  __typename?: "Page";
+  slug?: string | null;
+  title?: string | null;
+  content?: string | null;
+  language?: {
+    __typename?: "Language";
+    code?: LanguageCodeEnum | null;
+    locale?: string | null;
+    name?: string | null;
+    slug?: string | null;
+  } | null;
+  seo?:
+    | ({ __typename?: "PostTypeSEO" } & {
+        " $fragmentRefs"?: { PostTypeSeoFragmentFragment: PostTypeSeoFragmentFragment };
+      })
+    | null;
+} & { " $fragmentName"?: "PageFieldFragmentFragment" };
+
 export type GetPagesBySlugsQueryVariables = Exact<{
   slugs?: InputMaybe<
     Array<InputMaybe<Scalars["String"]["input"]>> | InputMaybe<Scalars["String"]["input"]>
@@ -19525,23 +19544,17 @@ export type GetPagesBySlugsQuery = {
   __typename?: "RootQuery";
   pages?: {
     __typename?: "RootQueryToPageConnection";
-    nodes: Array<{
-      __typename?: "Page";
-      slug?: string | null;
-      title?: string | null;
-      content?: string | null;
-      language?: {
-        __typename?: "Language";
-        code?: LanguageCodeEnum | null;
-        locale?: string | null;
-        name?: string | null;
-      } | null;
-      seo?:
-        | ({ __typename?: "PostTypeSEO" } & {
-            " $fragmentRefs"?: { PostTypeSeoFragmentFragment: PostTypeSeoFragmentFragment };
-          })
-        | null;
-    }>;
+    nodes: Array<
+      {
+        __typename?: "Page";
+        translations?: Array<
+          | ({ __typename?: "Page" } & {
+              " $fragmentRefs"?: { PageFieldFragmentFragment: PageFieldFragmentFragment };
+            })
+          | null
+        > | null;
+      } & { " $fragmentRefs"?: { PageFieldFragmentFragment: PageFieldFragmentFragment } }
+    >;
   } | null;
 };
 
@@ -22057,45 +22070,6 @@ export const CoreDetailsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CoreDetailsFragment, unknown>;
-export const PostTypeSeoFragmentFragmentDoc = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "FragmentDefinition",
-      name: { kind: "Name", value: "PostTypeSeoFragment" },
-      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "PostTypeSEO" } },
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          { kind: "Field", name: { kind: "Name", value: "title" } },
-          { kind: "Field", name: { kind: "Name", value: "canonical" } },
-          { kind: "Field", name: { kind: "Name", value: "metaDesc" } },
-          { kind: "Field", name: { kind: "Name", value: "metaRobotsNofollow" } },
-          { kind: "Field", name: { kind: "Name", value: "metaRobotsNoindex" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphSiteName" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphAuthor" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphDescription" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphPublisher" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphTitle" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphType" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphUrl" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphPublishedTime" } },
-          { kind: "Field", name: { kind: "Name", value: "opengraphModifiedTime" } },
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "opengraphImage" },
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [{ kind: "Field", name: { kind: "Name", value: "sourceUrl" } }],
-            },
-          },
-          { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
-          { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<PostTypeSeoFragmentFragment, unknown>;
 export const CommentDetailsFragmentDoc = {
   kind: "Document",
   definitions: [
@@ -22233,6 +22207,120 @@ export const CommentFieldsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<CommentFieldsFragment, unknown>;
+export const PostTypeSeoFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "PostTypeSeoFragment" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "PostTypeSEO" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "canonical" } },
+          { kind: "Field", name: { kind: "Name", value: "metaDesc" } },
+          { kind: "Field", name: { kind: "Name", value: "metaRobotsNofollow" } },
+          { kind: "Field", name: { kind: "Name", value: "metaRobotsNoindex" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphSiteName" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphAuthor" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphDescription" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphPublisher" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphTitle" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphType" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphUrl" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphPublishedTime" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphModifiedTime" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "opengraphImage" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [{ kind: "Field", name: { kind: "Name", value: "sourceUrl" } }],
+            },
+          },
+          { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
+          { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostTypeSeoFragmentFragment, unknown>;
+export const PageFieldFragmentFragmentDoc = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "PageFieldFragment" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Page" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "slug" } },
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "content" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "language" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "code" } },
+                { kind: "Field", name: { kind: "Name", value: "locale" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "slug" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "seo" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "FragmentSpread", name: { kind: "Name", value: "PostTypeSeoFragment" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "PostTypeSeoFragment" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "PostTypeSEO" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "canonical" } },
+          { kind: "Field", name: { kind: "Name", value: "metaDesc" } },
+          { kind: "Field", name: { kind: "Name", value: "metaRobotsNofollow" } },
+          { kind: "Field", name: { kind: "Name", value: "metaRobotsNoindex" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphSiteName" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphAuthor" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphDescription" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphPublisher" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphTitle" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphType" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphUrl" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphPublishedTime" } },
+          { kind: "Field", name: { kind: "Name", value: "opengraphModifiedTime" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "opengraphImage" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [{ kind: "Field", name: { kind: "Name", value: "sourceUrl" } }],
+            },
+          },
+          { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
+          { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PageFieldFragmentFragment, unknown>;
 export const CreateCommentDocument = {
   kind: "Document",
   definitions: [
@@ -23060,30 +23148,19 @@ export const GetPagesBySlugsDocument = {
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
-                      { kind: "Field", name: { kind: "Name", value: "slug" } },
-                      { kind: "Field", name: { kind: "Name", value: "title" } },
-                      { kind: "Field", name: { kind: "Name", value: "content" } },
                       {
-                        kind: "Field",
-                        name: { kind: "Name", value: "language" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            { kind: "Field", name: { kind: "Name", value: "code" } },
-                            { kind: "Field", name: { kind: "Name", value: "locale" } },
-                            { kind: "Field", name: { kind: "Name", value: "name" } },
-                          ],
-                        },
+                        kind: "FragmentSpread",
+                        name: { kind: "Name", value: "PageFieldFragment" },
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "seo" },
+                        name: { kind: "Name", value: "translations" },
                         selectionSet: {
                           kind: "SelectionSet",
                           selections: [
                             {
                               kind: "FragmentSpread",
-                              name: { kind: "Name", value: "PostTypeSeoFragment" },
+                              name: { kind: "Name", value: "PageFieldFragment" },
                             },
                           ],
                         },
@@ -23128,6 +23205,42 @@ export const GetPagesBySlugsDocument = {
           },
           { kind: "Field", name: { kind: "Name", value: "twitterDescription" } },
           { kind: "Field", name: { kind: "Name", value: "twitterTitle" } },
+        ],
+      },
+    },
+    {
+      kind: "FragmentDefinition",
+      name: { kind: "Name", value: "PageFieldFragment" },
+      typeCondition: { kind: "NamedType", name: { kind: "Name", value: "Page" } },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          { kind: "Field", name: { kind: "Name", value: "slug" } },
+          { kind: "Field", name: { kind: "Name", value: "title" } },
+          { kind: "Field", name: { kind: "Name", value: "content" } },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "language" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "code" } },
+                { kind: "Field", name: { kind: "Name", value: "locale" } },
+                { kind: "Field", name: { kind: "Name", value: "name" } },
+                { kind: "Field", name: { kind: "Name", value: "slug" } },
+              ],
+            },
+          },
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "seo" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "FragmentSpread", name: { kind: "Name", value: "PostTypeSeoFragment" } },
+              ],
+            },
+          },
         ],
       },
     },
