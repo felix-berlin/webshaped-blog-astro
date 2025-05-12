@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.7.0...v1.7.1) (2025-05-12)
+
+
+### Bug Fixes
+
+* **BaseHead:** head generation does no longer create two head el ([61767f8](https://github.com/felix-berlin/webshaped-blog-astro/commit/61767f8557953a86ac4076ac129045e5a5b07e35))
+
 # [1.7.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.6.0...v1.7.0) (2025-05-10)
 
 
