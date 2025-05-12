@@ -74,6 +74,9 @@ importers:
       astro-capo:
         specifier: ^0.0.1
         version: 0.0.1(astro@5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))
+      astro-loading-indicator:
+        specifier: ^0.7.0
+        version: 0.7.0(astro@5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))
       astro-matomo:
         specifier: ^1.8.1
         version: 1.8.1(astro@5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1))
@@ -3670,6 +3673,11 @@ packages:
   astro-eslint-parser@1.2.2:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-loading-indicator@0.7.0:
+    resolution: {integrity: sha512-oNSUYbHq8Aaol0zcVuBzGz+qrqKsviOvKl1xaaKo3DLkEef7HCzHQAgTgWv4lB1iYFWa5GaieQvlxBO4KjzKZg==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0
 
   astro-matomo@1.8.1:
     resolution: {integrity: sha512-ifSyb6Pw57cWiAPQB8Y2+mIFaKBxBMCcwmu2U1bJpTrMYTdw8bDyP1YfpzMgXdvFhXXWiOBYzgMb4TAfZTAQYg==}
@@ -12813,6 +12821,10 @@ snapshots:
       semver: 7.7.1
     transitivePeerDependencies:
       - supports-color
+
+  astro-loading-indicator@0.7.0(astro@5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1)):
+    dependencies:
+      astro: 5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1)
 
   astro-matomo@1.8.1(astro@5.7.12(@types/node@22.15.17)(jiti@2.4.2)(rollup@2.79.2)(sass@1.87.0)(terser@5.39.0)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
