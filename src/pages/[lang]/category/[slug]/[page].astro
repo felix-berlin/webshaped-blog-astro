@@ -5,24 +5,38 @@ import "@styles/components/_blog-posts.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import Pagination from "@components/Pagination.vue";
-import { getAllPostPreviewsByCategory } from "@services/api";
+import { removeLocaleCode } from "@utils/helpers";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import { GetAllPostPreviewsByCategoryDocument } from "@/gql/graphql.ts";
+
 import type {
   InferGetStaticParamsType,
   InferGetStaticPropsType,
   GetStaticPaths,
   PaginateFunction,
 } from "astro";
-import { removeLocaleCode } from "@utils/helpers";
-
-import type { Category, Post } from "@ts_types/generated/graphql";
 
 export const prerender = true;
+
 interface Paginate {
   paginate: PaginateFunction;
 }
 
-export const getStaticPaths = async ({ paginate }: Paginate) => {
-  const postPreviews = await getAllPostPreviewsByCategory();
+export const getStaticPaths = (async ({ paginate }: Paginate) => {
+  const client = new Client({
+    url: WP_API,
+    fetchOptions: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    exchanges: [cacheExchange, fetchExchange],
+  });
+
+  const postsResponse = await client.query(GetAllPostPreviewsByCategoryDocument, {}).toPromise();
+
+  const postPreviews = postsResponse?.data?.categories;
   const pageCount = 6;
 
   /**
@@ -43,7 +57,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 
     if (!hasDeCategories) return [];
 
-    const germanPaths = paginate(categoriesDe as Node[] & Post[], {
+    const germanPaths = paginate(categoriesDe, {
       props: {
         content: {
           title: category.name,
@@ -73,7 +87,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 
         if (!hasEnCategories) return [];
 
-        return paginate(categoriesEnPosts as Node[] & Post[], {
+        return paginate(categoriesEnPosts, {
           props: {
             content: {
               title: translation?.name,
@@ -83,7 +97,7 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
             availableLanguages: availableLanguages,
           },
           params: {
-            slug: removeLocaleCode(translation?.slug) as string,
+            slug: removeLocaleCode(translation?.slug),
             lang: translation?.language?.slug as string,
           },
           pageSize: pageCount,
@@ -92,12 +106,12 @@ export const getStaticPaths = async ({ paginate }: Paginate) => {
 
     return [...germanPaths, ...englishPaths];
   });
-};
+}) satisfies GetStaticPaths;
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { page, content, availableLanguages, seo } = Astro.props as Props;
+const { page, content, availableLanguages, seo } = Astro.props;
 const { lang, slug } = Astro.params as Params;
 
 const path = `${lang}/category/${slug}`;

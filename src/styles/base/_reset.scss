@@ -8,3 +8,15 @@ html {
 *::after {
   box-sizing: inherit;
 }
+
+/// image reset by Kevin Powell
+/// @see https://www.youtube.com/watch?v=345V2MU3E_w
+img {
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+  shape-margin: 1rem;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}

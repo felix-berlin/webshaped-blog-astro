@@ -19,6 +19,12 @@ $langs: (
   less: #1d365d,
   pug: #a86454,
   ruby: #701516,
+  mdx: #fcb32c,
+  dockerfile: #384d54,
+  kotlin: #a97bff,
+  swift: #f05138,
+  objective-c: #438eff,
+  xslt: #eb8ceb,
 );
 
 .c-github-stats-card {
@@ -48,8 +54,9 @@ $langs: (
 
 .c-code-lang-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.35rem;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  row-gap: 0.35rem;
+  column-gap: 1.7rem;
   padding-inline-start: 1rem;
 
   &__item {
@@ -75,6 +82,66 @@ $langs: (
     &:last-child {
       flex: 1 0;
       font-size: 1.5rem;
+    }
+  }
+}
+
+.o-github-most-starred {
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.5rem;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-areas:
+      "title title"
+      "description description"
+      "lang stars";
+    grid-template-rows: auto 1fr auto;
+    gap: 0.75rem;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    grid-area: title;
+  }
+
+  &__description {
+    grid-area: description;
+    font-size: 0.9rem;
+  }
+
+  &__stars {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    grid-area: stars;
+  }
+
+  &__lang {
+    grid-area: lang;
+
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      margin-inline-end: 4px;
+    }
+
+    @each $lang, $color in $langs {
+      &.is-#{$lang}::before {
+        background: $color;
+      }
     }
   }
 }

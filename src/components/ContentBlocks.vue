@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EditorBlock } from "@ts_types/generated/graphql";
+import type { EditorBlock } from "@/gql/graphql.ts";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
 import CodeBlock from "@components/content-blocks/CodeBlock.vue";
 import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";

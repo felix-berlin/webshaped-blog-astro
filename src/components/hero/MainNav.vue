@@ -55,7 +55,7 @@ import { useI18n } from "@/composables/useI18n";
 import { useStore } from "@nanostores/vue";
 import { isMobileBreakpoint, windowWidth } from "@stores/store";
 import { useResizeObserver } from "@vueuse/core";
-import type { MenuToMenuItemConnection } from "@ts_types/generated/graphql";
+import type { MenuToMenuItemConnection } from "@/gql/graphql.ts";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;

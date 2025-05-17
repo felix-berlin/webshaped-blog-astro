@@ -9,7 +9,7 @@ import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 
 import type { SeoProps } from "@components/BaseHead.astro";
-import type { Language } from "@ts_types/generated/graphql";
+import type { Language } from "@/gql/graphql.ts";
 import { Head } from "astro-capo";
 import { getLangFromUrl } from "@utils/i18n/utils";
 
@@ -38,11 +38,12 @@ const lang = getLangFromUrl(Astro.url);
 
 <!-- TODO: Remove after lightmode is final: #9 -->
 <html lang={lang} class="dark">
-  <Head>
-    <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes} />
-
-    <slot name="head" />
-  </Head>
+  <!-- <Head> -->
+  <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes}>
+    <Fragment slot="head">
+      <slot name="head" />
+    </Fragment>
+  </BaseHead>
 
   <body class="o-body" class:list={bodyClasses}>
     <MainHeader lang={lang} transition:persist />

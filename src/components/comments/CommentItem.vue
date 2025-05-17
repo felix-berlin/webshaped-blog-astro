@@ -105,7 +105,7 @@ import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { computed, ref } from "vue";
 import { useTranslations } from "@utils/i18n/utils";
-import type { Comment } from "@ts_types/generated/graphql";
+import type { Comment } from "@/gql/graphql.ts";
 import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
 import User from "virtual:icons/lucide/user";
@@ -117,7 +117,7 @@ interface CommentItemProps {
   comment: Comment;
   depth: number;
   authorId?: string;
-  currentPostId: number;
+  currentPostId: string;
 }
 
 const props = defineProps<CommentItemProps>();
@@ -134,7 +134,3 @@ const isOdd = (num: number) => num % 2;
 
 const toggleReplyCommentForm = () => (replyToCommentForm.value = !replyToCommentForm.value);
 </script>
-
-<style lang="scss">
-@use "@styles/components/comments/comment";
-</style>

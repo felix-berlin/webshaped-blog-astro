@@ -1,5 +1,6 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 import { loadEnv } from "vite";
+
 const { WP_AUTH_REFRESH_TOKEN, WP_API } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const config: CodegenConfig = {
@@ -12,17 +13,24 @@ const config: CodegenConfig = {
       },
     },
   ],
+  documents: ["src/**/*.{graphql,js,ts,jsx,tsx}", "!src/gql/**/*", "!src/services/github/**/*"],
+  ignoreNoDocuments: true, // for better experience with the watcher
   generates: {
-    "src/types/generated/graphql.d.ts": {
-      plugins: ["typescript", "typescript-operations"],
+    "./src/gql/": {
+      preset: "client",
       config: {
-        maybeValue: "T | null | undefined",
+        useTypeImports: true,
+      },
+      plugins: [],
+    },
+    "./schema.graphql": {
+      plugins: ["schema-ast"],
+      config: {
+        includeDirectives: true,
       },
     },
-    "./graphql.schema.json": {
-      plugins: ["introspection"],
-    },
   },
+  hooks: { afterAllFileWrite: ["prettier --write"] },
 };
 
 export default config;

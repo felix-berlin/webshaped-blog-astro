@@ -1,182 +1,176 @@
 import type { APIContext } from "astro";
 import { GITHUB_TOKEN } from "astro:env/server";
+import { Client, fetchExchange } from "@urql/core";
+import GhRepos from "@services/github/GhRepos.graphql";
+import GhSingleRepo from "@services/github/GhSingleRepo.graphql";
+import { cacheExchange } from "@urql/exchange-graphcache";
 
-const headers = {
-  Authorization: `token ${GITHUB_TOKEN}`,
-  Accept: "application/vnd.github.v3+json",
+// --- Types ---
+type RepoNode = {
+  name: string;
+  stargazerCount: number;
+  url: string;
+  description?: string;
+  forkCount: number;
+  languages: { edges: { node: { name: string }; size: number }[] };
+  defaultBranchRef?: {
+    target?: {
+      history?: { totalCount?: number };
+    };
+  };
 };
 
-interface Repo {
+type RepoSummary = {
   name: string;
-}
+  stars: number;
+  url: string;
+  description: string;
+  mostUsedLanguage: string;
+  forkCount: number;
+};
 
-interface Languages {
-  [key: string]: number;
-}
+// --- Cache config ---
+const cache = cacheExchange({
+  resolvers: {
+    User: {
+      repositories: (parent, args) => ({
+        __typename: "RepositoryConnection",
+        args,
+      }),
+    },
+  },
+  keys: {
+    RepositoryConnection: () => null,
+    Repository: (repo) => `${repo.owner?.login ?? "unknown"}/${repo.name}`,
+    User: () => null,
+    Language: () => null,
+    Ref: () => null,
+    Commit: () => null,
+  },
+  ttl: 24 * 60 * 60 * 1000,
+});
 
-interface Commit {
-  total: number;
-}
+const client = new Client({
+  url: "https://api.github.com/graphql",
+  fetchOptions: {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    },
+  },
+  exchanges: [cache, fetchExchange],
+});
 
-interface Stats {
-  additions: number;
-  deletions: number;
-}
+// List of additional repos (owner/name)
+const extraRepos = [{ owner: "bitsundbaeume", name: "publication2023" }];
 
-async function fetchAllRepos(username: string): Promise<Repo[]> {
-  let repos: Repo[] = [];
-  let page = 1;
-  let hasNextPage = true;
-
-  while (hasNextPage) {
-    const response = await fetch(
-      `https://api.github.com/user/repos?per_page=100&page=${page}&affiliation=owner`,
-      {
-        headers,
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error(`Error fetching repositories: ${response.statusText}`);
-    }
-
-    const pageRepos = (await response.json()) as Repo[];
-    repos = repos.concat(pageRepos);
-
-    const linkHeader = response.headers.get("Link");
-    if (linkHeader?.includes('rel="next"')) {
-      page++;
-    } else {
-      hasNextPage = false;
-    }
+// --- Helper: Aggregate repo data ---
+function aggregateRepoData(
+  repo: RepoNode,
+  languages: Record<string, number>,
+  mostStarredRepos: RepoSummary[],
+  totals: { bytes: number; commits: number },
+) {
+  for (const language of repo.languages.edges) {
+    const languageName = language.node.name;
+    const size = language.size;
+    if (!languages[languageName]) languages[languageName] = 0;
+    languages[languageName] += size;
+    totals.bytes += size;
   }
-
-  return repos;
-}
-
-async function fetchTotalCommits(username: string, repoName: string): Promise<number> {
-  const response = await fetch(
-    `https://api.github.com/repos/${username}/${repoName}/commits?per_page=1`,
-    { headers },
-  );
-
-  if (!response.ok) {
-    throw new Error(`Error fetching commits for repo ${repoName}: ${response.statusText}`);
+  if (repo.defaultBranchRef?.target?.history?.totalCount) {
+    totals.commits += repo.defaultBranchRef.target.history.totalCount;
   }
-
-  const linkHeader = response.headers.get("Link");
-  if (linkHeader) {
-    const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
-    if (match) {
-      return parseInt(match[1], 10);
-    }
-  }
-
-  const commits = (await response.json()) as Commit[];
-  return commits.length;
-}
-
-async function fetchTotalAdditions(username: string, repoName: string): Promise<number> {
-  const response = await fetch(
-    `https://api.github.com/repos/${username}/${repoName}/stats/code_frequency`,
-    { headers },
-  );
-
-  if (!response.ok) {
-    console.error(`Error fetching code frequency for repo ${repoName}: ${response.statusText}`);
-    return 0;
-  }
-
-  const stats = await response.json();
-
-  if (!Array.isArray(stats)) {
-    console.error(`Unexpected response format for code frequency: ${JSON.stringify(stats)}`);
-    return 0;
-  }
-
-  return stats.reduce((total, stat) => {
-    if (Array.isArray(stat) && stat.length >= 3) {
-      return total + stat[1]; // stat[1] is the number of additions
-    } else {
-      console.error(`Unexpected stat format: ${JSON.stringify(stat)}`);
-      return total;
-    }
-  }, 0);
+  const mostUsedLanguage = repo.languages.edges[0]?.node.name || "Unknown";
+  mostStarredRepos.push({
+    name: repo.name,
+    stars: repo.stargazerCount,
+    url: repo.url,
+    description: repo.description || "No description available",
+    mostUsedLanguage,
+    forkCount: repo.forkCount,
+  });
 }
 
 export async function GET(context: APIContext): Promise<Response> {
   try {
-    const userResponse = await fetch("https://api.github.com/user", { headers });
-    if (!userResponse.ok) {
-      console.error(`Error fetching user info: ${userResponse.statusText}`);
-      throw new Error(`Error fetching user info: ${userResponse.statusText}`);
-    }
-    const userData = await userResponse.json();
-    const username = userData.login;
-
-    const repos = await fetchAllRepos(username);
-
-    const languages: Languages = {};
-    let totalBytes = 0;
-    let totalCommits = 0;
-    let totalAdditions = 0;
-
-    for (const repo of repos) {
-      const languagesResponse = await fetch(
-        `https://api.github.com/repos/${username}/${repo.name}/languages`,
-        { headers },
-      );
-      if (!languagesResponse.ok) {
-        console.error(
-          `Error fetching languages for repo ${repo.name}: ${languagesResponse.statusText}`,
-        );
-        throw new Error(
-          `Error fetching languages for repo ${repo.name}: ${languagesResponse.statusText}`,
-        );
-      }
-      const repoLanguages = (await languagesResponse.json()) as Languages;
-
-      for (const [language, bytesOfCode] of Object.entries(repoLanguages)) {
-        if (!languages[language]) {
-          languages[language] = 0;
+    // --- Fetch user info ---
+    const USER_QUERY = `
+      query {
+        viewer {
+          id
+          login
         }
-        languages[language] += bytesOfCode;
-        totalBytes += bytesOfCode;
       }
+    `;
+    const userResponse = await client.query(USER_QUERY, {}).toPromise();
+    if (userResponse.error) {
+      throw new Error(`Error fetching user info: ${userResponse.error.message}`);
+    }
+    const username = userResponse.data.viewer.login;
 
-      const repoCommits = await fetchTotalCommits(username, repo.name);
-      totalCommits += repoCommits;
+    // --- Aggregation setup ---
+    let hasNextPage = true;
+    let after: string | null = null;
+    const languages: Record<string, number> = {};
+    const mostStarredRepos: RepoSummary[] = [];
+    const totals = { bytes: 0, commits: 0 };
 
-      const repoAdditions = await fetchTotalAdditions(username, repo.name);
-      totalAdditions += repoAdditions;
+    // --- Fetch all user repos (paginated) ---
+    while (hasNextPage) {
+      const reposResponse = await client.query(GhRepos, { username, after }).toPromise();
+      if (reposResponse.error) {
+        throw new Error(`Error fetching repositories: ${reposResponse.error.message}`);
+      }
+      const repositories = reposResponse.data.user.repositories;
+      hasNextPage = repositories.pageInfo.hasNextPage;
+      after = repositories.pageInfo.endCursor;
+
+      for (const repo of repositories.nodes as RepoNode[]) {
+        aggregateRepoData(repo, languages, mostStarredRepos, totals);
+      }
     }
 
-    const languagePercentages: { [key: string]: number } = {};
-    for (const [language, bytesOfCode] of Object.entries(languages)) {
-      languagePercentages[language] = (bytesOfCode / totalBytes) * 100;
+    // --- Fetch and merge extra repos ---
+    for (const { owner, name } of extraRepos) {
+      const singleRepoResponse = await client.query(GhSingleRepo, { owner, name }).toPromise();
+      if (singleRepoResponse.error) {
+        console.warn(`Skipping extra repo ${owner}/${name}: ${singleRepoResponse.error.message}`);
+        continue;
+      }
+      const repo = singleRepoResponse.data.repository as RepoNode | undefined;
+      if (!repo) continue;
+      aggregateRepoData(repo, languages, mostStarredRepos, totals);
     }
 
+    // --- Sort and limit starred repos ---
+    const topStarredRepos = mostStarredRepos.sort((a, b) => b.stars - a.stars).slice(0, 6);
+
+    // --- Calculate language percentages ---
+    const languagePercentages = Object.entries(languages)
+      .map(([language, bytesOfCode]) => ({
+        language,
+        percentage: (bytesOfCode / (totals.bytes || 1)) * 100,
+      }))
+      .sort((a, b) => b.percentage - a.percentage);
+
+    // --- Response ---
     return new Response(
       JSON.stringify({
         languagePercentages,
-        totalBytes,
-        totalCommits,
-        totalAdditions,
+        totalBytes: totals.bytes,
+        totalCommits: totals.commits,
+        mostStarredRepos: topStarredRepos,
       }),
       {
         status: 200,
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       },
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error(`Error fetching data from API: ${error.message}`);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
   }
 }

@@ -1,78 +1,20 @@
 # Webshaped Blog Frontend
 
-```
-npm init astro -- --template blog
-```
+[![codecov](https://codecov.io/gh/felix-berlin/webshaped-blog-astro/graph/badge.svg?token=FFV1OJ5AEL)](https://codecov.io/gh/felix-berlin/webshaped-blog-astro)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
+## Building the project
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The `.env.runtime` file signals to Astro that the actual value will be available when the built application is run. See: <https://docs.astro.build/en/guides/integrations-guide/node/#runtime-environment-variables>
 
-Features:
+### Local development
 
-- ✅ SEO-friendly setup with canonical URLs and OpenGraph data
-- ✅ Full Markdown support
+1. `pnpm install` to install the dependencies
+2. `cp .env.example .env` to create a new `.env` file
+3. `cp .env .env.runtime` to create a new `.env.runtime` file
+4. Adjust the `.env.runtime` and `.env` files to your needs.
 
-## 🚀 Project Structure
+### Docker
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-├── public
-│   ├── assets
-│   │   └── blog
-│   │       └── introducing-astro.jpg
-│   ├── favicon.ico
-│   ├── social.jpg
-│   └── social.png
-├── src
-│   ├── components
-│   │   ├── Author.astro
-│   │   ├── BaseHead.astro
-│   │   ├── BlogPostPreview.astro
-│   │   ├── FollowMe.astro
-│   │   ├── Header.astro
-│   │   └── LikeButton.tsx
-│   ├── layouts
-│   │   └── BlogPost.astro
-│   ├── pages
-│   │   ├── index.astro
-│   │   └── posts
-│   │       ├── interactive-content.md
-│   │       └── static-content.md
-│   └── styles
-│       └── blog.css
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-Used folder structure: <https://fadamakis.com/a-front-end-application-folder-structure-that-makes-sense-ecc0b690968b>
-
-```
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-Before you start, run `pnpm config set enable-pre-post-scripts true` to enable pre and post scripts.
-
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `docker-compose -f compose.yaml up` to start the project
+- `docker-compose -f compose.yaml build` to build the project
+- `docker-compose -f compose.yaml pull` to pull the latest images

@@ -1,14 +1,27 @@
 import rss from "@astrojs/rss";
-import { getAllRssPostsFromEachLang } from "@services/getPost.ts";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
+import { GetAllPostsDocument } from "@/gql/graphql.ts";
 
 export const GET = async (context) => {
   const lang = context.params.lang;
 
-  // Query all posts from WordPress
-  const posts = await getAllRssPostsFromEachLang();
+  const client = new Client({
+    url: WP_API,
+    fetchOptions: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+    exchanges: [cacheExchange, fetchExchange],
+  });
+
+  const postsResponse = await client.query(GetAllPostsDocument, { size: 90 }).toPromise();
 
   // Filter posts by language
-  const filteredPosts = posts.nodes.filter((post) => post.language.slug === lang);
+  const filteredPosts = postsResponse.data.posts.nodes.filter(
+    (post) => post.language.slug === lang,
+  );
 
   // Map the posts to the RSS items format
   const items = filteredPosts.map((post) => ({

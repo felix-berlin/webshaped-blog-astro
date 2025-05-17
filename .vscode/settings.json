@@ -1,5 +1,8 @@
 {
   "prettier.prettierPath": "./node_modules/prettier",
-  "i18n-ally.localesPaths": ["src/locales"],
-  "i18n-ally.sourceLanguage": "de"
+  "i18n-ally.localesPaths": ["./src/content/i18n/*"],
+  "i18n-ally.pathMatcher": "{locale}.json",
+  "i18n-ally.sourceLanguage": "de",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -8,6 +8,8 @@ import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 import StoreSetter from "@components/StoreSetter.vue";
 import { createLocalizedUrl } from "@utils/i18n/utils.ts";
 import { getWebmentionsUrl } from "@utils/helpers.ts";
+import { Head } from "astro-capo";
+import LoadingIndicator from "astro-loading-indicator/component";
 
 export interface Title {
   title: string;
@@ -72,88 +74,97 @@ const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 const webmentionUrl = getWebmentionsUrl(Astro.url);
 ---
 
+<Head>
+  <!-- TODO: Enable after lightmode is final: #9 -->
+  <!-- <SetColorMode /> -->
+  <ClientRouter />
+  <LoadingIndicator color="var(--color-base)" height="2px" />
+
+  <!-- FIXME: PWA is not working (manifest is not found ect.) -->
+  <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
+  <!-- <script src="/src/services/pwa.ts"></script> -->
+
+  <!-- Global Metadata -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Locale -->
+  {
+    Object.entries(fullTranslationRoutes).map(([key, value]) => {
+      return <link rel="alternate" hreflang={key} href={value} />;
+    })
+  }
+  <link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#303956" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="generator" content={Astro.generator} />
+
+  <link rel="canonical" href={seo?.canonical || Astro.url} />
+
+  <!-- Primary Meta Tags -->
+  <title set:text={seo?.title ? seo.title : title} />
+
+  {seo?.title && <meta name="title" content={seo.title} />}
+  {seo?.metaDesc && <meta name="description" content={seo.metaDesc} />}
+
+  <!-- Open Graph / Facebook -->
+  {seo?.opengraphType && <meta property="og:type" content={seo.opengraphType} />}
+  {seo?.opengraphUrl && <meta property="og:url" content={seo.opengraphUrl} />}
+  {seo?.opengraphTitle && <meta property="og:title" content={seo.opengraphTitle} />}
+  {
+    seo?.opengraphDescription && (
+      <meta property="og:description" content={seo.opengraphDescription} />
+    )
+  }
+  {
+    seo?.opengraphImage?.sourceUrl && (
+      <meta property="og:image" content={seo.opengraphImage.sourceUrl} />
+    )
+  }
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  {seo?.opengraphUrl && <meta property="twitter:url" content={seo.opengraphUrl} />}
+  {seo?.twitterTitle && <meta property="twitter:title" content={seo.twitterTitle} />}
+
+  {
+    seo?.twitterDescription && (
+      <meta property="twitter:description" content={seo.twitterDescription} />
+    )
+  }
+  {
+    seo?.opengraphImage?.sourceUrl && (
+      <meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
+    )
+  }
+
+  <!-- RSS auto discovery -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Web Shaped"
+    href={new URL(`${lang}/rss.xml`, Astro.site)}
+  />
+
+  <!-- Webmention -->
+  <link rel="webmention" href={`${webmentionUrl}/webmention`} />
+  <link rel="pingback" href={`${webmentionUrl}/xmlrpc`} />
+  <link rel="preconnect" href="//webmention.io" />
+
+  <link rel="preconnect" href="//cms.webshaped.de" />
+  <link rel="preconnect" href="//analytics.webshaped.de" />
+
+  <!-- Preloads -->
+  <link rel="preload" href={SourceSansPro400} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={SourceSansPro700} as="font" type="font/woff2" crossorigin />
+
+  <slot name="head" />
+</Head>
 <StoreSetter locale-routes={fullTranslationRoutes} lang={lang} client:only="vue" />
-<!-- TODO: Enable after lightmode is final: #9 -->
-<!-- <SetColorMode /> -->
-<ClientRouter />
-
-<!-- FIXME: PWA is not working (manifest is not found ect.) -->
-<!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
-<!-- <script src="/src/services/pwa.ts"></script> -->
-
-<!-- Global Metadata -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<!-- Locale -->
-{
-  Object.entries(fullTranslationRoutes).map(([key, value]) => {
-    return <link rel="alternate" hreflang={key} href={value} />;
-  })
-}
-<link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
-
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#303956" />
-<link rel="sitemap" href="/sitemap-index.xml" />
-<meta name="msapplication-TileColor" content="#ffffff" />
-<meta name="theme-color" content="#ffffff" />
-<meta name="generator" content={Astro.generator} />
-
-<link rel="canonical" href={seo?.canonical || Astro.url} />
-
-<!-- Primary Meta Tags -->
-<title set:text={seo?.title ? seo.title : title} />
-
-{seo?.title && <meta name="title" content={seo.title} />}
-{seo?.metaDesc && <meta name="description" content={seo.metaDesc} />}
-
-<!-- Open Graph / Facebook -->
-{seo?.opengraphType && <meta property="og:type" content={seo.opengraphType} />}
-{seo?.opengraphUrl && <meta property="og:url" content={seo.opengraphUrl} />}
-{seo?.opengraphTitle && <meta property="og:title" content={seo.opengraphTitle} />}
-{seo?.opengraphDescription && <meta property="og:description" content={seo.opengraphDescription} />}
-{
-  seo?.opengraphImage?.sourceUrl && (
-    <meta property="og:image" content={seo.opengraphImage.sourceUrl} />
-  )
-}
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-{seo?.opengraphUrl && <meta property="twitter:url" content={seo.opengraphUrl} />}
-{seo?.twitterTitle && <meta property="twitter:title" content={seo.twitterTitle} />}
-
-{
-  seo?.twitterDescription && (
-    <meta property="twitter:description" content={seo.twitterDescription} />
-  )
-}
-{
-  seo?.opengraphImage?.sourceUrl && (
-    <meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
-  )
-}
-
-<!-- RSS auto discovery -->
-<link
-  rel="alternate"
-  type="application/rss+xml"
-  title="Web Shaped"
-  href={new URL(`${lang}/rss.xml`, Astro.site)}
-/>
-
-<!-- Webmention -->
-<link rel="webmention" href={`${webmentionUrl}/webmention`} />
-<link rel="pingback" href={`${webmentionUrl}/xmlrpc`} />
-<link rel="preconnect" href="//webmention.io" />
-
-<link rel="preconnect" href="//cms.webshaped.de" />
-<link rel="preconnect" href="//analytics.webshaped.de" />
-
-<!-- Preloads -->
-<link rel="preload" href={SourceSansPro400} as="font" type="font/woff2" crossorigin />
-<link rel="preload" href={SourceSansPro700} as="font" type="font/woff2" crossorigin />

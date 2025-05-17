@@ -7,11 +7,12 @@ import matomo from "astro-matomo";
 import Icons from "unplugin-icons/vite";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
-import codecovplugin from "@codecov/astro-plugin";
+import codecovAstroPlugin from "@codecov/astro-plugin";
 import { default as pagefind } from "./src/integrations/pagefind.ts";
 import { visualizer } from "rollup-plugin-visualizer";
 import { version } from "./package.json";
 import spotlightjs from "@spotlightjs/astro";
+import graphqlLoader from "vite-plugin-graphql-loader";
 
 const {
   WP_API,
@@ -24,6 +25,7 @@ const {
   PWA_DEBUG,
   BUNDLE_ANALYZER_OPEN,
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+// console.log("TEST", new URL(WP_API).host);
 
 const apiHost = new URL(WP_API).host;
 
@@ -93,6 +95,9 @@ export default defineConfig({
       debug: false,
       heartBeatTimer: 5,
       disableCookies: true,
+      viewTransition: {
+        contentElement: "main",
+      },
     }),
     // FIXME: PWA is not working (manifest is not found ect.)
     // AstroPWA({
@@ -158,7 +163,7 @@ export default defineConfig({
       },
     }),
     // spotlightjs(),
-    codecovplugin({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
       uploadToken: CODECOV_TOKEN,
@@ -167,8 +172,13 @@ export default defineConfig({
   ],
   env: {
     schema: {
-      WP_API: envField.string({ context: "client", access: "public", optional: false }),
-      WP_REST_API: envField.string({ context: "client", access: "public", optional: false }),
+      WP_API: envField.string({ context: "client", access: "public", optional: false, url: true }),
+      WP_REST_API: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+        url: true,
+      }),
       WP_AUTH_REFRESH_TOKEN: envField.string({
         context: "server",
         access: "secret",
@@ -178,19 +188,29 @@ export default defineConfig({
         context: "client",
         access: "public",
         optional: false,
+        url: true,
       }),
       ENABLE_ANALYTICS: envField.boolean({ context: "client", access: "public", default: false }),
-      SENTRY_DSN: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_DSN: envField.string({
+        context: "server",
+        access: "public",
+        optional: true,
+        url: true,
+      }),
       SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
       SENTRY_ENVIRONMENT: envField.string({ context: "server", access: "public", optional: true }),
       GITHUB_TOKEN: envField.string({
         context: "server",
         access: "secret",
-        optional: true,
-        default: "",
+        optional: false,
       }),
-      SITE_URL: envField.string({ context: "client", access: "public", optional: false }),
+      SITE_URL: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+        url: true,
+      }),
       CODECOV_TOKEN: envField.string({
         context: "server",
         access: "secret",
@@ -221,6 +241,7 @@ export default defineConfig({
         },
       }), // chooses the compiler automatically
       BUNDLE_ANALYZER_OPEN === "true" ? visualizerPlugin : null,
+      graphqlLoader({ sourceMapOptions: { hires: true } }),
     ],
 
     css: {

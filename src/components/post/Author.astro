@@ -3,11 +3,7 @@ import "@styles/components/_author.scss";
 import "@styles/components/_details.scss";
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import SocialList from "@components/SocialList.vue";
-import type {
-  Language,
-  NodeWithAuthorToUserConnectionEdge,
-  Maybe,
-} from "@ts_types/generated/graphql";
+import type { Language, NodeWithAuthorToUserConnectionEdge, Maybe } from "@/gql/graphql.ts";
 import { getSocialIconData } from "@utils/helpers";
 import { useTranslations } from "@utils/i18n/utils";
 import { LAST_FM_SCROBBLER_API } from "astro:env/client";

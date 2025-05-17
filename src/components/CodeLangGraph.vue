@@ -3,14 +3,14 @@
     <li
       v-for="(percentage, language) in languages"
       :key="language"
-      class="c-code-lang-graph__item"
-      :class="`is-${language.toLowerCase()}`"
-      :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
       v-tooltip="{
         content: `${language} ${percentage.toFixed(2)}%`,
         placement: 'top',
         disabled: !showTooltips,
       }"
+      class="c-code-lang-graph__item"
+      :class="`is-${language.toLowerCase()}`"
+      :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
     ></li>
   </ul>
 </template>

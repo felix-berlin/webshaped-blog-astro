@@ -3,41 +3,41 @@ import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
 import "@styles/objects/_index.scss";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-
+import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
+import { WP_API } from "astro:env/client";
+import { Client, cacheExchange, fetchExchange } from "@urql/core";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
-import { getPostsPreview, getPageBySlug } from "@services/api";
 
 export const prerender = true;
 
-const indexDe: any = await getPageBySlug("startseite");
-// const indexEn: any = await getPageBySlug('blog-index-en');
+const client = new Client({
+  url: WP_API,
+  fetchOptions: {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  },
+  exchanges: [cacheExchange, fetchExchange],
+});
 
-const posts: any = await getPostsPreview();
+const pagesResponse = await client
+  .query(GetPagesBySlugsDocument, {
+    slugs: ["startseite"],
+  })
+  .toPromise();
 
-// const allPost = posts.nodes.map(post => {
-//   let posts = {...post};
+const indexDe = pagesResponse?.data?.pages?.nodes[0];
 
-//   // console.log('vorher', posts);
+const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
 
-//   if (post.translations.length) {
-//     console.log('MIT POST', post.slug, post.translations[0].slug);
-
-//     posts = {...post.translations[0], ...post};
-//   }
-//   // delete post.translations;
-//   // posts = {...post};
-
-//   console.log('nacher', posts.slug);
-
-//   return posts;
-// });
+const posts = postsResponse?.data?.posts;
 ---
 
 <DefaultLayout content={indexDe} contentClasses="o-index">
   <header class="o-index__header">
-    <h1 class="o-index__headline">{indexDe.title}</h1>
+    <h1 class="o-index__headline">{indexDe?.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts.nodes} />
+    <BlogPostPreview posts={posts?.nodes} />
   </section>
 </DefaultLayout>
