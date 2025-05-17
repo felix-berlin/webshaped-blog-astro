@@ -126,15 +126,19 @@ const translationsRoutes = {
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
     <h1 class="c-blog__title p-name">{title}</h1>
 
-    <ImageResponsive
-      src={featuredImage?.node.mediaItemUrl}
-      srcSet={featuredImage?.node.srcSet}
-      width={featuredImage?.node.mediaDetails?.width}
-      height={featuredImage?.node.mediaDetails?.height}
-      alt={featuredImage?.node.altText}
-      aboveTheFold={true}
-      class:list="c-blog__hero-image"
-    />
+    {
+      featuredImage?.node.mediaItemUrl && (
+        <ImageResponsive
+          src={featuredImage?.node.mediaItemUrl}
+          srcSet={featuredImage?.node.srcSet}
+          width={featuredImage?.node.mediaDetails?.width}
+          height={featuredImage?.node.mediaDetails?.height}
+          alt={featuredImage?.node.altText}
+          aboveTheFold={true}
+          class:list="c-blog__hero-image"
+        />
+      )
+    }
   </header>
   <article class="c-blog__post e-content">
     <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />
