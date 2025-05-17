@@ -3,7 +3,7 @@ import type {
   MenuItem,
   SeoUserSocial,
   SocialAdvanced,
-  MenuToMenuItemConnection,
+  RootQueryToMenuItemConnection,
 } from "@/gql/graphql.ts";
 
 /**
@@ -69,6 +69,21 @@ export const getHtmlContent = (str: string): string => {
 };
 
 /**
+ * Remove trailing slash from a string
+ *
+ * @param   {string}  str  - The string to remove the trailing slash from.
+ *
+ * @return  {string}       - The string without the trailing slash.
+ */
+export const removeTrailingSlash = (str: string): string => {
+  if (!str) return "";
+  if (str.endsWith("/")) {
+    return str.slice(0, -1);
+  }
+  return str;
+};
+
+/**
  * Create URL to the first page of a category
  *
  * @param   {string}  categoryPath
@@ -81,7 +96,7 @@ export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"):
   }
 
   if (categoryPath?.endsWith("/")) {
-    categoryPath = categoryPath.slice(0, -1);
+    categoryPath = removeTrailingSlash(categoryPath);
   }
 
   return `${categoryPath}/${firstPage}`;
@@ -105,25 +120,25 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
  *
  */
 export const updateCategoryPaths = (
-  mainMenuItems: MenuToMenuItemConnection,
+  mainMenuItems: RootQueryToMenuItemConnection,
   lang: "de" | "en",
-): Maybe<MenuItem[]> => {
+) => {
   mainMenuItems?.nodes.forEach((item: MenuItem) => {
     if (!item?.childItems) return;
 
     // Loop through the child items (menu item) of the main menu
     item.childItems.nodes.forEach((childItem: MenuItem) => {
-      if (!("path" in childItem && isCategoryPath(childItem.path))) {
+      if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
         return;
       }
 
       // In german locale, /de is missing in the path
       if (lang === "de") {
-        childItem.path = `/de${firstCategoryPage(childItem.path)}`;
+        childItem.path = `/de${firstCategoryPage(childItem?.path || null)}`;
       }
       // In english locale, categories are postfixed with "-en", we need to remove it
       if (lang === "en") {
-        childItem.path = firstCategoryPage(removeLocaleCode(childItem.path));
+        childItem.path = firstCategoryPage(removeLocaleCode(childItem?.path || null));
       }
     });
   });
