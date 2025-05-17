@@ -4,12 +4,12 @@ import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-
 // import { pwaInfo } from "virtual:pwa-info";
 import { ClientRouter } from "astro:transitions";
 // import SetColorMode from "@components/SetColorMode.astro";
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 import StoreSetter from "@components/StoreSetter.vue";
 import { createLocalizedUrl } from "@utils/i18n/utils.ts";
 import { getWebmentionsUrl } from "@utils/helpers.ts";
 import { Head } from "astro-capo";
 import LoadingIndicator from "astro-loading-indicator/component";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 export interface Title {
   title: string;
@@ -94,7 +94,11 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
       return <link rel="alternate" hreflang={key} href={value} />;
     })
   }
-  <link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
+  {
+    Object.keys(fullTranslationRoutes).length > 1 && (
+      <link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
+    )
+  }
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
