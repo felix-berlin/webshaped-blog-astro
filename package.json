@@ -105,7 +105,7 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
-    "rollup-plugin-visualizer": "^5.14.0",
+    "rollup-plugin-visualizer": "^6.0.0",
     "sass": "^1.88.0",
     "semantic-release": "^24.2.3",
     "sirv": "^3.0.1",
