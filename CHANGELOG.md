@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.5](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.4...v1.9.5) (2025-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @spotlightjs/astro to v3.2.4 ([#109](https://github.com/felix-berlin/webshaped-blog-astro/issues/109)) ([1ec0f36](https://github.com/felix-berlin/webshaped-blog-astro/commit/1ec0f369c44309b247d193a4dd509f44fcc6c4b9))
+
 ## [1.9.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.3...v1.9.4) (2025-06-14)
 
 
