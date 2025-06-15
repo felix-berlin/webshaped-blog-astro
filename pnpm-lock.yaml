@@ -79,7 +79,7 @@ importers:
         version: 0.7.0(astro@5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1))
       astro-matomo:
         specifier: ^1.8.1
-        version: 1.8.1(astro@5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1))
+        version: 1.9.0(astro@5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1))
       floating-vue:
         specifier: 5.2.2
         version: 5.2.2(vue@3.5.16(typescript@5.8.3))
@@ -3905,8 +3905,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0 || ^5.0.0
 
-  astro-matomo@1.8.1:
-    resolution: {integrity: sha512-ifSyb6Pw57cWiAPQB8Y2+mIFaKBxBMCcwmu2U1bJpTrMYTdw8bDyP1YfpzMgXdvFhXXWiOBYzgMb4TAfZTAQYg==}
+  astro-matomo@1.9.0:
+    resolution: {integrity: sha512-eOmhDHvqjrasJvhaKTSEZIMk9pW/3OcqYS6VVGOQBrEg33H1/Mk62sJuv2dxmsg3cNTDwm2rlZlw9r18KNgYnw==}
     peerDependencies:
       astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
@@ -13224,7 +13224,7 @@ snapshots:
     dependencies:
       astro: 5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1)
 
-  astro-matomo@1.8.1(astro@5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-matomo@1.9.0(astro@5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
       astro: 5.9.3(@types/node@22.15.31)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.42.0)(typescript@5.8.3)(yaml@2.7.1)
 
