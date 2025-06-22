@@ -1235,60 +1235,6 @@ export type Connection = {
   pageInfo: PageInfo;
 };
 
-/** A block used for editing the site */
-export type ContactForm7ContactFormSelector = EditorBlock &
-  PageEditorBlock &
-  PostEditorBlock & {
-    __typename?: "ContactForm7ContactFormSelector";
-    /** The API version of the Gutenberg Block */
-    apiVersion?: Maybe<Scalars["Int"]["output"]>;
-    /** Attributes of the ContactForm7ContactFormSelector Block Type */
-    attributes?: Maybe<ContactForm7ContactFormSelectorAttributes>;
-    /** The name of the category the Block belongs to */
-    blockEditorCategoryName?: Maybe<Scalars["String"]["output"]>;
-    /** The id of the Block */
-    clientId?: Maybe<Scalars["String"]["output"]>;
-    /** CSS Classnames to apply to the block */
-    cssClassNames?: Maybe<Array<Maybe<Scalars["String"]["output"]>>>;
-    /** The inner blocks of the Block */
-    innerBlocks?: Maybe<Array<Maybe<EditorBlock>>>;
-    /** Whether the block is Dynamic (server rendered) */
-    isDynamic: Scalars["Boolean"]["output"];
-    /** The name of the block */
-    name?: Maybe<Scalars["String"]["output"]>;
-    /** The parent id of the Block */
-    parentClientId?: Maybe<Scalars["String"]["output"]>;
-    /** The rendered HTML for the block */
-    renderedHtml?: Maybe<Scalars["String"]["output"]>;
-    /** The (GraphQL) type of the block */
-    type?: Maybe<Scalars["String"]["output"]>;
-  };
-
-/** Attributes of the ContactForm7ContactFormSelector Block Type */
-export type ContactForm7ContactFormSelectorAttributes = {
-  __typename?: "ContactForm7ContactFormSelectorAttributes";
-  /** The &quot;className&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  className?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;hash&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  hash?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;htmlClass&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  htmlClass?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;htmlId&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  htmlId?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;htmlName&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  htmlName?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;htmlTitle&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  htmlTitle?: Maybe<Scalars["String"]["output"]>;
-  /** The &quot;id&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  id?: Maybe<Scalars["Int"]["output"]>;
-  /** The &quot;lock&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  lock?: Maybe<Scalars["BlockAttributesObject"]["output"]>;
-  /** The &quot;metadata&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  metadata?: Maybe<Scalars["BlockAttributesObject"]["output"]>;
-  /** The &quot;title&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes */
-  title?: Maybe<Scalars["String"]["output"]>;
-};
-
 /** Base interface for content objects like posts, pages, and media items. Provides common fields available across these content types. */
 export type ContentNode = {
   /** Connection between the ContentNode type and the ContentType type */
@@ -12051,8 +11997,6 @@ export enum PostStatusEnum {
   DpRewriteRepublish = "DP_REWRITE_REPUBLISH",
   /** Content that is saved but not yet published or visible to the public */
   Draft = "DRAFT",
-  /** Objects with the flamingo-spam status */
-  FlamingoSpam = "FLAMINGO_SPAM",
   /** Objects with the future status */
   Future = "FUTURE",
   /** Content that inherits its status from a parent object */
@@ -18011,7 +17955,6 @@ export type CoreListFragment = {
   innerBlocks?: Array<
     | { __typename?: "AcfCodeHighlighting"; name?: string | null }
     | { __typename?: "AcfGithubRawData"; name?: string | null }
-    | { __typename?: "ContactForm7ContactFormSelector"; name?: string | null }
     | { __typename?: "CoreArchives"; name?: string | null }
     | { __typename?: "CoreAudio"; name?: string | null }
     | { __typename?: "CoreAvatar"; name?: string | null }
@@ -18197,7 +18140,6 @@ export type CoreButtonsFragment = {
   innerBlocks?: Array<
     | { __typename?: "AcfCodeHighlighting" }
     | { __typename?: "AcfGithubRawData" }
-    | { __typename?: "ContactForm7ContactFormSelector" }
     | { __typename?: "CoreArchives" }
     | { __typename?: "CoreAudio" }
     | { __typename?: "CoreAvatar" }
@@ -18336,11 +18278,6 @@ export type CoreDetailsFragment = {
     | ({ __typename?: "AcfGithubRawData" } & {
         " $fragmentRefs"?: {
           AllBlocks_AcfGithubRawData_Fragment: AllBlocks_AcfGithubRawData_Fragment;
-        };
-      })
-    | ({ __typename?: "ContactForm7ContactFormSelector" } & {
-        " $fragmentRefs"?: {
-          AllBlocks_ContactForm7ContactFormSelector_Fragment: AllBlocks_ContactForm7ContactFormSelector_Fragment;
         };
       })
     | ({ __typename?: "CoreArchives" } & {
@@ -18731,10 +18668,6 @@ type AllBlocks_AcfCodeHighlighting_Fragment = ({ __typename?: "AcfCodeHighlighti
 type AllBlocks_AcfGithubRawData_Fragment = ({ __typename?: "AcfGithubRawData" } & {
   " $fragmentRefs"?: { AcfGithubRawDataFragment: AcfGithubRawDataFragment };
 }) & { " $fragmentName"?: "AllBlocks_AcfGithubRawData_Fragment" };
-
-type AllBlocks_ContactForm7ContactFormSelector_Fragment = {
-  __typename?: "ContactForm7ContactFormSelector";
-} & { " $fragmentName"?: "AllBlocks_ContactForm7ContactFormSelector_Fragment" };
 
 type AllBlocks_CoreArchives_Fragment = { __typename?: "CoreArchives" } & {
   " $fragmentName"?: "AllBlocks_CoreArchives_Fragment";
@@ -19135,7 +19068,6 @@ type AllBlocks_YoastSeoBreadcrumbs_Fragment = { __typename?: "YoastSeoBreadcrumb
 export type AllBlocksFragment =
   | AllBlocks_AcfCodeHighlighting_Fragment
   | AllBlocks_AcfGithubRawData_Fragment
-  | AllBlocks_ContactForm7ContactFormSelector_Fragment
   | AllBlocks_CoreArchives_Fragment
   | AllBlocks_CoreAudio_Fragment
   | AllBlocks_CoreAvatar_Fragment
@@ -19606,19 +19538,6 @@ export type GetAllPostsQuery = {
           } & {
             " $fragmentRefs"?: {
               AllBlocks_AcfGithubRawData_Fragment: AllBlocks_AcfGithubRawData_Fragment;
-            };
-          })
-        | ({
-            __typename?: "ContactForm7ContactFormSelector";
-            apiVersion?: number | null;
-            blockEditorCategoryName?: string | null;
-            clientId?: string | null;
-            name?: string | null;
-            parentClientId?: string | null;
-            type?: string | null;
-          } & {
-            " $fragmentRefs"?: {
-              AllBlocks_ContactForm7ContactFormSelector_Fragment: AllBlocks_ContactForm7ContactFormSelector_Fragment;
             };
           })
         | ({

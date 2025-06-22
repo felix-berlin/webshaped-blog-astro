@@ -2090,102 +2090,6 @@ interface Connection {
 }
 
 """
-A block used for editing the site
-"""
-type ContactForm7ContactFormSelector implements EditorBlock & PageEditorBlock & PostEditorBlock {
-  """
-  The API version of the Gutenberg Block
-  """
-  apiVersion: Int
-  """
-  Attributes of the ContactForm7ContactFormSelector Block Type
-  """
-  attributes: ContactForm7ContactFormSelectorAttributes
-  """
-  The name of the category the Block belongs to
-  """
-  blockEditorCategoryName: String
-  """
-  The id of the Block
-  """
-  clientId: String
-  """
-  CSS Classnames to apply to the block
-  """
-  cssClassNames: [String]
-  """
-  The inner blocks of the Block
-  """
-  innerBlocks: [EditorBlock]
-  """
-  Whether the block is Dynamic (server rendered)
-  """
-  isDynamic: Boolean!
-  """
-  The name of the block
-  """
-  name: String
-  """
-  The parent id of the Block
-  """
-  parentClientId: String
-  """
-  The rendered HTML for the block
-  """
-  renderedHtml: String
-  """
-  The (GraphQL) type of the block
-  """
-  type: String
-}
-
-"""
-Attributes of the ContactForm7ContactFormSelector Block Type
-"""
-type ContactForm7ContactFormSelectorAttributes {
-  """
-  The &quot;className&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  className: String
-  """
-  The &quot;hash&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  hash: String
-  """
-  The &quot;htmlClass&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  htmlClass: String
-  """
-  The &quot;htmlId&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  htmlId: String
-  """
-  The &quot;htmlName&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  htmlName: String
-  """
-  The &quot;htmlTitle&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  htmlTitle: String
-  """
-  The &quot;id&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  id: Int
-  """
-  The &quot;lock&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  lock: BlockAttributesObject
-  """
-  The &quot;metadata&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  metadata: BlockAttributesObject
-  """
-  The &quot;title&quot; field on the &quot;ContactForm7ContactFormSelectorAttributes&quot; block or block attributes
-  """
-  title: String
-}
-
-"""
 Base interface for content objects like posts, pages, and media items. Provides common fields available across these content types.
 """
 interface ContentNode implements Node & UniformResourceIdentifiable {
@@ -21143,10 +21047,6 @@ enum PostStatusEnum {
   Content that is saved but not yet published or visible to the public
   """
   DRAFT
-  """
-  Objects with the flamingo-spam status
-  """
-  FLAMINGO_SPAM
   """
   Objects with the future status
   """
