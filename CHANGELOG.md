@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.14](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.13...v1.9.14) (2025-06-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v13.4.0 ([#129](https://github.com/felix-berlin/webshaped-blog-astro/issues/129)) ([13004bd](https://github.com/felix-berlin/webshaped-blog-astro/commit/13004bd0bdbef1990e714465c9089dbedfab4c11))
+
 ## [1.9.13](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.12...v1.9.13) (2025-06-22)
 
 
