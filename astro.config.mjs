@@ -56,13 +56,13 @@ export default defineConfig({
   image: {
     domains: [apiHost],
     remotePatterns: [{ protocol: "https" }],
+    responsiveStyles: true,
   },
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
   experimental: {
-    responsiveImages: true,
     clientPrerender: true,
   },
   redirects: {
