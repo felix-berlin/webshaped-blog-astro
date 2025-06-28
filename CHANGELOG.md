@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.17](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.16...v1.9.17) (2025-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @urql/exchange-graphcache to v7.2.4 ([#142](https://github.com/felix-berlin/webshaped-blog-astro/issues/142)) ([f619d02](https://github.com/felix-berlin/webshaped-blog-astro/commit/f619d0285c5f94b6697b77b88713fb5531c64786))
+
 ## [1.9.16](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.15...v1.9.16) (2025-06-28)
 
 
