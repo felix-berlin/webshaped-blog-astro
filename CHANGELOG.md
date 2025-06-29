@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.18](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.17...v1.9.18) (2025-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.33.0 ([#140](https://github.com/felix-berlin/webshaped-blog-astro/issues/140)) ([5ccf277](https://github.com/felix-berlin/webshaped-blog-astro/commit/5ccf277e9f689329e43e23ae224069d60209776b))
+
 ## [1.9.17](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.16...v1.9.17) (2025-06-28)
 
 
