@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.22](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.21...v1.9.22) (2025-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @urql/core to v5.2.0 ([#162](https://github.com/felix-berlin/webshaped-blog-astro/issues/162)) ([1aadc2c](https://github.com/felix-berlin/webshaped-blog-astro/commit/1aadc2cb0524d72c4e3d5aa72080c8e1f1478e6f))
+
 ## [1.9.21](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.20...v1.9.21) (2025-07-06)
 
 
