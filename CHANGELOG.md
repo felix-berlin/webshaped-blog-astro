@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.25](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.24...v1.9.25) (2025-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nanostores/vue to v1.0.1 ([#166](https://github.com/felix-berlin/webshaped-blog-astro/issues/166)) ([f65c455](https://github.com/felix-berlin/webshaped-blog-astro/commit/f65c455b9de415bf4b5941c550d969477b87cbe4))
+
 ## [1.9.24](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.23...v1.9.24) (2025-07-11)
 
 
