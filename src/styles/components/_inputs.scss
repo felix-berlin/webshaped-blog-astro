@@ -110,14 +110,8 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
 .c-input--radio {
   --color-active: var(--red-light);
   --color-inner-active: #fff;
-  --color-border-disabled-checked: #{color.scale(
-      vars.$red-light,
-      $lightness: 60%
-    )};
-  --color-background-disabled-checked: #{color.scale(
-      vars.$red-light,
-      $lightness: 80%
-    )};
+  --color-border-disabled-checked: #{color.scale(vars.$red-light, $lightness: 60%)};
+  --color-background-disabled-checked: #{color.scale(vars.$red-light, $lightness: 80%)};
   --duration-transition-transform: 0.3s;
   --timing-transition-transform: ease;
   --duration-transition-opacity: 0.2s;
@@ -147,8 +141,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     top: 0;
     position: absolute;
     transition:
-      transform var(--duration-transition-transform)
-        var(--timing-transition-transform),
+      transform var(--duration-transition-transform) var(--timing-transition-transform),
       opacity var(--duration-transition-opacity);
   }
 

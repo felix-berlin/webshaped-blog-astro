@@ -53,12 +53,7 @@
 
   @return $shades;
 }
-@function generateColorShades2(
-  $base-color,
-  $num-shades,
-  $lighten-percent,
-  $darken-percent
-) {
+@function generateColorShades2($base-color, $num-shades, $lighten-percent, $darken-percent) {
   $shades: ();
 
   // Generate shades for light mode
@@ -91,10 +86,7 @@
 
   // Generate shades for light mode
   @for $i from 1 through $num-shades {
-    $shade: color.adjust(
-      $base-color,
-      $lightness: calc((100% / ($num-shades * 2)) * $i)
-    );
+    $shade: color.adjust($base-color, $lightness: calc((100% / ($num-shades * 2)) * $i));
     $shades: map.merge($shades, ("light-" + (6 - $i) * 100: $shade));
   }
   $shades: map.merge(
@@ -105,10 +97,7 @@
   );
 
   @for $i from 1 through $num-shades {
-    $shade: color.adjust(
-      $base-color,
-      $lightness: calc((100% / ($num-shades * 2)) * $i * -1)
-    );
+    $shade: color.adjust($base-color, $lightness: calc((100% / ($num-shades * 2)) * $i * -1));
     $shades: map.merge($shades, ("dark-" + $i * 100: $shade));
   }
 
@@ -119,10 +108,7 @@
 
   // Generate shades for light mode
   @for $i from 1 through $num-shades {
-    $shade: color.adjust(
-      $base-color,
-      $lightness: calc((100% / ($num-shades * 2)) * $i)
-    );
+    $shade: color.adjust($base-color, $lightness: calc((100% / ($num-shades * 2)) * $i));
     $shades: map.merge($shades, ("light-" + (11 - $i) * 50: $shade));
   }
   $shades: map.merge(
@@ -133,10 +119,7 @@
   );
 
   @for $i from 1 through $num-shades {
-    $shade: color.adjust(
-      $base-color,
-      $lightness: calc((100% / ($num-shades * 2)) * $i * -1)
-    );
+    $shade: color.adjust($base-color, $lightness: calc((100% / ($num-shades * 2)) * $i * -1));
     $shades: map.merge($shades, ("dark-" + $i * 50: $shade));
   }
 

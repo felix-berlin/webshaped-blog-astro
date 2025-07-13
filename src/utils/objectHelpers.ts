@@ -15,18 +15,14 @@ export const excludeObjectKeys = (
   exclude: string[],
 ): Record<string, unknown> => {
   if (typeof object !== "object" || object === null) {
-    throw new Error(
-      "Invalid input: object must be an object and cannot be null",
-    );
+    throw new Error("Invalid input: object must be an object and cannot be null");
   }
 
   if (!Array.isArray(exclude) || exclude.length === 0) {
     return object;
   }
 
-  return Object.fromEntries(
-    Object.entries(object).filter(([key]) => !exclude.includes(key)),
-  );
+  return Object.fromEntries(Object.entries(object).filter(([key]) => !exclude.includes(key)));
 };
 
 type FilteredObject<T, K extends keyof T> = {
@@ -49,9 +45,7 @@ export const filterObjectByKeys = <T, K extends keyof T>(
   filter: K[],
 ): FilteredObject<T, K> => {
   if (typeof object !== "object" || object === null)
-    throw new Error(
-      "Invalid input: object must be an object and cannot be null",
-    );
+    throw new Error("Invalid input: object must be an object and cannot be null");
 
   if (!Array.isArray(filter)) return {} as FilteredObject<T, K>;
 

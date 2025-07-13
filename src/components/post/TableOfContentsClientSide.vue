@@ -69,16 +69,12 @@ observer.value = new IntersectionObserver(
       if (entry.isIntersecting) {
         const headline = entry.target as HTMLElement;
         const toc = document.getElementById(props.id) as HTMLDivElement;
-        const tocLinks = toc.querySelectorAll(
-          "a",
-        ) as NodeListOf<HTMLAnchorElement>;
+        const tocLinks = toc.querySelectorAll("a") as NodeListOf<HTMLAnchorElement>;
 
         tocLinks.forEach((link) => {
           link.classList.remove("c-toc__link--active");
         });
-        const tocLink = toc.querySelector(
-          `a[href="#${headline.id}"]`,
-        ) as HTMLAnchorElement;
+        const tocLink = toc.querySelector(`a[href="#${headline.id}"]`) as HTMLAnchorElement;
         tocLink.classList.add("c-toc__link--active");
       }
     });

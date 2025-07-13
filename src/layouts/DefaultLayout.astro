@@ -7,11 +7,10 @@ import "@fontsource/source-sans-pro/700.css";
 import BaseHead from "@components/BaseHead.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
+import { getLangFromUrl } from "@utils/i18n/utils";
 
 import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@/gql/graphql.ts";
-import { Head } from "astro-capo";
-import { getLangFromUrl } from "@utils/i18n/utils";
 
 export type TranslationRoutes = { [key: string]: string };
 

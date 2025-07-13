@@ -4,11 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto("https://demo.playwright.dev/todomvc");
 });
 
-const TODO_ITEMS = [
-  "buy some cheese",
-  "feed the cat",
-  "book a doctors appointment",
-];
+const TODO_ITEMS = ["buy some cheese", "feed the cat", "book a doctors appointment"];
 
 test.describe("New Todo", () => {
   test("should allow me to add todo items", async ({ page }) => {
@@ -27,17 +23,12 @@ test.describe("New Todo", () => {
     await newTodo.press("Enter");
 
     // Make sure the list now has two todo items.
-    await expect(page.getByTestId("todo-title")).toHaveText([
-      TODO_ITEMS[0],
-      TODO_ITEMS[1],
-    ]);
+    await expect(page.getByTestId("todo-title")).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]]);
 
     await checkNumberOfTodosInLocalStorage(page, 2);
   });
 
-  test("should clear text input field when an item is added", async ({
-    page,
-  }) => {
+  test("should clear text input field when an item is added", async ({ page }) => {
     // create a new todo locator
     const newTodo = page.getByPlaceholder("What needs to be done?");
 
@@ -50,9 +41,7 @@ test.describe("New Todo", () => {
     await checkNumberOfTodosInLocalStorage(page, 1);
   });
 
-  test("should append new items to the bottom of the list", async ({
-    page,
-  }) => {
+  test("should append new items to the bottom of the list", async ({ page }) => {
     // Create 3 items.
     await createDefaultTodos(page);
 
@@ -94,9 +83,7 @@ test.describe("Mark all as completed", () => {
     await checkNumberOfCompletedTodosInLocalStorage(page, 3);
   });
 
-  test("should allow me to clear the complete state of all items", async ({
-    page,
-  }) => {
+  test("should allow me to clear the complete state of all items", async ({ page }) => {
     const toggleAll = page.getByLabel("Mark all as complete");
     // Check and then immediately uncheck.
     await toggleAll.check();
@@ -186,20 +173,12 @@ test.describe("Item", () => {
     const todoItems = page.getByTestId("todo-item");
     const secondTodo = todoItems.nth(1);
     await secondTodo.dblclick();
-    await expect(secondTodo.getByRole("textbox", { name: "Edit" })).toHaveValue(
-      TODO_ITEMS[1],
-    );
-    await secondTodo
-      .getByRole("textbox", { name: "Edit" })
-      .fill("buy some sausages");
+    await expect(secondTodo.getByRole("textbox", { name: "Edit" })).toHaveValue(TODO_ITEMS[1]);
+    await secondTodo.getByRole("textbox", { name: "Edit" }).fill("buy some sausages");
     await secondTodo.getByRole("textbox", { name: "Edit" }).press("Enter");
 
     // Explicitly assert the new text value.
-    await expect(todoItems).toHaveText([
-      TODO_ITEMS[0],
-      "buy some sausages",
-      TODO_ITEMS[2],
-    ]);
+    await expect(todoItems).toHaveText([TODO_ITEMS[0], "buy some sausages", TODO_ITEMS[2]]);
     await checkTodosInLocalStorage(page, "buy some sausages");
   });
 });
@@ -225,53 +204,28 @@ test.describe("Editing", () => {
   test("should save edits on blur", async ({ page }) => {
     const todoItems = page.getByTestId("todo-item");
     await todoItems.nth(1).dblclick();
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .fill("buy some sausages");
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .dispatchEvent("blur");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).fill("buy some sausages");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).dispatchEvent("blur");
 
-    await expect(todoItems).toHaveText([
-      TODO_ITEMS[0],
-      "buy some sausages",
-      TODO_ITEMS[2],
-    ]);
+    await expect(todoItems).toHaveText([TODO_ITEMS[0], "buy some sausages", TODO_ITEMS[2]]);
     await checkTodosInLocalStorage(page, "buy some sausages");
   });
 
   test("should trim entered text", async ({ page }) => {
     const todoItems = page.getByTestId("todo-item");
     await todoItems.nth(1).dblclick();
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .fill("    buy some sausages    ");
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .press("Enter");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).fill("    buy some sausages    ");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).press("Enter");
 
-    await expect(todoItems).toHaveText([
-      TODO_ITEMS[0],
-      "buy some sausages",
-      TODO_ITEMS[2],
-    ]);
+    await expect(todoItems).toHaveText([TODO_ITEMS[0], "buy some sausages", TODO_ITEMS[2]]);
     await checkTodosInLocalStorage(page, "buy some sausages");
   });
 
-  test("should remove the item if an empty text string was entered", async ({
-    page,
-  }) => {
+  test("should remove the item if an empty text string was entered", async ({ page }) => {
     const todoItems = page.getByTestId("todo-item");
     await todoItems.nth(1).dblclick();
     await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).fill("");
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .press("Enter");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).press("Enter");
 
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
   });
@@ -279,14 +233,8 @@ test.describe("Editing", () => {
   test("should cancel edits on escape", async ({ page }) => {
     const todoItems = page.getByTestId("todo-item");
     await todoItems.nth(1).dblclick();
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .fill("buy some sausages");
-    await todoItems
-      .nth(1)
-      .getByRole("textbox", { name: "Edit" })
-      .press("Escape");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).fill("buy some sausages");
+    await todoItems.nth(1).getByRole("textbox", { name: "Edit" }).press("Escape");
     await expect(todoItems).toHaveText(TODO_ITEMS);
   });
 });
@@ -319,9 +267,7 @@ test.describe("Clear completed button", () => {
 
   test("should display the correct text", async ({ page }) => {
     await page.locator(".todo-list li .toggle").first().check();
-    await expect(
-      page.getByRole("button", { name: "Clear completed" }),
-    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Clear completed" })).toBeVisible();
   });
 
   test("should remove completed items when clicked", async ({ page }) => {
@@ -332,14 +278,10 @@ test.describe("Clear completed button", () => {
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]]);
   });
 
-  test("should be hidden when there are no items that are completed", async ({
-    page,
-  }) => {
+  test("should be hidden when there are no items that are completed", async ({ page }) => {
     await page.locator(".todo-list li .toggle").first().check();
     await page.getByRole("button", { name: "Clear completed" }).click();
-    await expect(
-      page.getByRole("button", { name: "Clear completed" }),
-    ).toBeHidden();
+    await expect(page.getByRole("button", { name: "Clear completed" })).toBeHidden();
   });
 });
 
@@ -433,9 +375,7 @@ test.describe("Routing", () => {
   });
 
   test("should highlight the currently applied filter", async ({ page }) => {
-    await expect(page.getByRole("link", { name: "All" })).toHaveClass(
-      "selected",
-    );
+    await expect(page.getByRole("link", { name: "All" })).toHaveClass("selected");
 
     //create locators for active and completed links
     const activeLink = page.getByRole("link", { name: "Active" });
@@ -467,15 +407,10 @@ async function checkNumberOfTodosInLocalStorage(page: Page, expected: number) {
   }, expected);
 }
 
-async function checkNumberOfCompletedTodosInLocalStorage(
-  page: Page,
-  expected: number,
-) {
+async function checkNumberOfCompletedTodosInLocalStorage(page: Page, expected: number) {
   return await page.waitForFunction((e) => {
     return (
-      JSON.parse(localStorage["react-todos"]).filter(
-        (todo: any) => todo.completed,
-      ).length === e
+      JSON.parse(localStorage["react-todos"]).filter((todo: any) => todo.completed).length === e
     );
   }, expected);
 }

@@ -23,6 +23,7 @@ import HasTranslations from "@components/HasTranslations.vue";
 import { getLangFromUrl, useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
 import type { CoreHeading } from "@/gql/graphql.ts";
 import type { Post, MediaSize, RootQueryToCategoryConnection } from "@/gql/graphql.ts";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 export interface BlogPost {
   content: Post;
@@ -67,14 +68,14 @@ const createBreadcrumbItems = () => {
     const childCategory = parentCategory?.children?.edges;
 
     items.push({
-      text: parentCategory?.name!,
-      href: categoryPathBuilder(parentCategory?.slug, lang),
+      text: parentCategory?.name || "",
+      href: categoryPathBuilder(parentCategory?.slug || "", lang),
     });
 
     if (childCategory?.length) {
       items.push({
         text: childCategory[0].node.name!,
-        href: categoryPathBuilder(childCategory[0].node.slug, lang),
+        href: categoryPathBuilder(childCategory[0].node.slug || "", lang),
       });
     }
   }
@@ -89,15 +90,16 @@ interface ParsedHeading {
 
 // create new array with allready parsed JSON and only the headline.
 const parsedHeadings: ParsedHeading[] =
-  headings?.map((heading) => {
-    const headlineContent = heading?.attributes;
-    if (!headlineContent) return null;
-
-    return {
-      content: headlineContent.content,
-      level: headlineContent.level,
-    };
-  }) || [];
+  headings
+    ?.map((heading) => {
+      const headlineContent = heading?.attributes;
+      if (!headlineContent || typeof headlineContent.content !== "string") return undefined;
+      return {
+        content: headlineContent.content,
+        level: headlineContent.level,
+      };
+    })
+    .filter((h): h is ParsedHeading => !!h) || [];
 
 const translationsRoutes = {
   [lang]: slug,
@@ -124,15 +126,19 @@ const translationsRoutes = {
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
     <h1 class="c-blog__title p-name">{title}</h1>
 
-    <ImageResponsive
-      src={featuredImage?.node.mediaItemUrl}
-      srcSet={featuredImage?.node.srcSet}
-      width={featuredImage?.node.mediaDetails?.width}
-      height={featuredImage?.node.mediaDetails?.height}
-      alt={featuredImage?.node.altText}
-      aboveTheFold={true}
-      class:list="c-blog__hero-image"
-    />
+    {
+      featuredImage?.node.mediaItemUrl && (
+        <ImageResponsive
+          src={featuredImage?.node.mediaItemUrl}
+          srcSet={featuredImage?.node.srcSet}
+          width={featuredImage?.node.mediaDetails?.width}
+          height={featuredImage?.node.mediaDetails?.height}
+          alt={featuredImage?.node.altText}
+          aboveTheFold={true}
+          class:list="c-blog__hero-image"
+        />
+      )
+    }
   </header>
   <article class="c-blog__post e-content">
     <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />

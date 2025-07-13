@@ -9,10 +9,7 @@
 
   &__link {
     --width-border-button-outline: 2px;
-    --color-border-button-outline: #{butler-fn.hex-to-rgb(
-        colors.$red-light,
-        20%
-      )};
+    --color-border-button-outline: #{butler-fn.hex-to-rgb(colors.$red-light, 20%)};
     --padding-button-outline: 0.5rem;
     --color-button-outline: var(--accent-color);
 

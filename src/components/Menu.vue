@@ -36,10 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import type { MenuItem, Maybe } from "../types/generated/graphql";
+import type { RootQueryToMenuItemConnection } from "@/gql/graphql";
 
 export interface MenuProps {
-  menuItems: Maybe<MenuItem[]>;
+  menuItems: RootQueryToMenuItemConnection;
 }
 
 const props = defineProps<MenuProps>();
