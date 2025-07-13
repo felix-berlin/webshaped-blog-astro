@@ -2,6 +2,188 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.26](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.25...v1.9.26) (2025-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.38.0 ([#172](https://github.com/felix-berlin/webshaped-blog-astro/issues/172)) ([e092f4d](https://github.com/felix-berlin/webshaped-blog-astro/commit/e092f4d027a782dfd0a63b7377da12872e21f19c))
+
+## [1.9.25](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.24...v1.9.25) (2025-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nanostores/vue to v1.0.1 ([#166](https://github.com/felix-berlin/webshaped-blog-astro/issues/166)) ([f65c455](https://github.com/felix-berlin/webshaped-blog-astro/commit/f65c455b9de415bf4b5941c550d969477b87cbe4))
+
+## [1.9.24](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.23...v1.9.24) (2025-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.57 ([#165](https://github.com/felix-berlin/webshaped-blog-astro/issues/165)) ([16f62d4](https://github.com/felix-berlin/webshaped-blog-astro/commit/16f62d4b431d727c39e7d36e973b6a314a149c95))
+
+## [1.9.23](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.22...v1.9.23) (2025-07-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v13.5.0 ([#163](https://github.com/felix-berlin/webshaped-blog-astro/issues/163)) ([ecf6de3](https://github.com/felix-berlin/webshaped-blog-astro/commit/ecf6de3297264f31a64cb279066fcb9d01eece92))
+
+## [1.9.22](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.21...v1.9.22) (2025-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @urql/core to v5.2.0 ([#162](https://github.com/felix-berlin/webshaped-blog-astro/issues/162)) ([1aadc2c](https://github.com/felix-berlin/webshaped-blog-astro/commit/1aadc2cb0524d72c4e3d5aa72080c8e1f1478e6f))
+
+## [1.9.21](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.20...v1.9.21) (2025-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.35.0 ([#161](https://github.com/felix-berlin/webshaped-blog-astro/issues/161)) ([e072df0](https://github.com/felix-berlin/webshaped-blog-astro/commit/e072df08ca0173d5fe73eb0af0435cd426641ef2))
+
+## [1.9.20](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.19...v1.9.20) (2025-07-06)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nanostores/persistent to v1.1.0 ([#160](https://github.com/felix-berlin/webshaped-blog-astro/issues/160)) ([04d432f](https://github.com/felix-berlin/webshaped-blog-astro/commit/04d432fb5c7871065b6e49f8b72017ebb6685745))
+
+## [1.9.19](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.18...v1.9.19) (2025-07-05)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.55 ([#154](https://github.com/felix-berlin/webshaped-blog-astro/issues/154)) ([bdb4ee6](https://github.com/felix-berlin/webshaped-blog-astro/commit/bdb4ee697af106bb553acdb55722db8783b02803))
+
+## [1.9.18](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.17...v1.9.18) (2025-06-29)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.33.0 ([#140](https://github.com/felix-berlin/webshaped-blog-astro/issues/140)) ([5ccf277](https://github.com/felix-berlin/webshaped-blog-astro/commit/5ccf277e9f689329e43e23ae224069d60209776b))
+
+## [1.9.17](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.16...v1.9.17) (2025-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @urql/exchange-graphcache to v7.2.4 ([#142](https://github.com/felix-berlin/webshaped-blog-astro/issues/142)) ([f619d02](https://github.com/felix-berlin/webshaped-blog-astro/commit/f619d0285c5f94b6697b77b88713fb5531c64786))
+
+## [1.9.16](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.15...v1.9.16) (2025-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @urql/core to v5.1.2 ([#141](https://github.com/felix-berlin/webshaped-blog-astro/issues/141)) ([fc9f406](https://github.com/felix-berlin/webshaped-blog-astro/commit/fc9f406849622f2958dccd4125455d24c26570c6))
+
+## [1.9.15](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.14...v1.9.15) (2025-06-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.53 ([#137](https://github.com/felix-berlin/webshaped-blog-astro/issues/137)) ([3d2d35e](https://github.com/felix-berlin/webshaped-blog-astro/commit/3d2d35ea01da4289bf34a26f32384bef2ba1780e))
+
+## [1.9.14](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.13...v1.9.14) (2025-06-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vueuse/core to v13.4.0 ([#129](https://github.com/felix-berlin/webshaped-blog-astro/issues/129)) ([13004bd](https://github.com/felix-berlin/webshaped-blog-astro/commit/13004bd0bdbef1990e714465c9089dbedfab4c11))
+
+## [1.9.13](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.12...v1.9.13) (2025-06-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.30.0 ([#128](https://github.com/felix-berlin/webshaped-blog-astro/issues/128)) ([9cbfd74](https://github.com/felix-berlin/webshaped-blog-astro/commit/9cbfd742fb5cbe0f992eedd6ce4feb580ac9aeda))
+
+## [1.9.12](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.11...v1.9.12) (2025-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update vue monorepo to v3.5.17 ([#125](https://github.com/felix-berlin/webshaped-blog-astro/issues/125)) ([81829eb](https://github.com/felix-berlin/webshaped-blog-astro/commit/81829eb5e969e9a927eaafef1bd0a1bd3ec2178c))
+
+## [1.9.11](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.10...v1.9.11) (2025-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @spotlightjs/astro to v3.2.5 ([#124](https://github.com/felix-berlin/webshaped-blog-astro/issues/124)) ([44f40fe](https://github.com/felix-berlin/webshaped-blog-astro/commit/44f40fea5640990000614feec11e2ffff61bbe88))
+
+## [1.9.10](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.9...v1.9.10) (2025-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nanostores/i18n to v1.0.1 ([#123](https://github.com/felix-berlin/webshaped-blog-astro/issues/123)) ([4c485af](https://github.com/felix-berlin/webshaped-blog-astro/commit/4c485af8ee3e02401f6e586c84c92fcf9251e5f7))
+
+## [1.9.9](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.8...v1.9.9) (2025-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.51 ([#122](https://github.com/felix-berlin/webshaped-blog-astro/issues/122)) ([347177e](https://github.com/felix-berlin/webshaped-blog-astro/commit/347177e845b21f7ef3d33ca74f5d4e2fde659018))
+
+## [1.9.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.7...v1.9.8) (2025-06-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency astro-matomo to v1.9.0 ([#116](https://github.com/felix-berlin/webshaped-blog-astro/issues/116)) ([1c5ecdd](https://github.com/felix-berlin/webshaped-blog-astro/commit/1c5ecdd0998fb3c78c85fddf3ebc4e43e9d2dd56))
+
+## [1.9.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.6...v1.9.7) (2025-06-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.29.0 ([#115](https://github.com/felix-berlin/webshaped-blog-astro/issues/115)) ([434aafe](https://github.com/felix-berlin/webshaped-blog-astro/commit/434aafee8a0bd13c63f477895331b5f33e391a96))
+
+## [1.9.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.5...v1.9.6) (2025-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency astro to v5.9.3 ([#110](https://github.com/felix-berlin/webshaped-blog-astro/issues/110)) ([cf3a572](https://github.com/felix-berlin/webshaped-blog-astro/commit/cf3a572d03c3cc6ce6fc7dae2dc7b83705183c0d))
+
+## [1.9.5](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.4...v1.9.5) (2025-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @spotlightjs/astro to v3.2.4 ([#109](https://github.com/felix-berlin/webshaped-blog-astro/issues/109)) ([1ec0f36](https://github.com/felix-berlin/webshaped-blog-astro/commit/1ec0f369c44309b247d193a4dd509f44fcc6c4b9))
+
+## [1.9.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.3...v1.9.4) (2025-06-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.48 ([#108](https://github.com/felix-berlin/webshaped-blog-astro/issues/108)) ([70478d5](https://github.com/felix-berlin/webshaped-blog-astro/commit/70478d554ce14eda3b12eb5261db3c78102aeb71))
+
+## [1.9.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.2...v1.9.3) (2025-06-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency astro to v5.9.1 ([#103](https://github.com/felix-berlin/webshaped-blog-astro/issues/103)) ([f206553](https://github.com/felix-berlin/webshaped-blog-astro/commit/f206553acffdd8f4231ca56c4a12f58e03323805))
+
+## [1.9.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.1...v1.9.2) (2025-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/astro to v9.24.0 ([#92](https://github.com/felix-berlin/webshaped-blog-astro/issues/92)) ([170a37d](https://github.com/felix-berlin/webshaped-blog-astro/commit/170a37d8823331ef5b36ce46d68060e9e3abd044))
+
+## [1.9.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.0...v1.9.1) (2025-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/lucide to v1.2.45 ([#90](https://github.com/felix-berlin/webshaped-blog-astro/issues/90)) ([bc4c17a](https://github.com/felix-berlin/webshaped-blog-astro/commit/bc4c17afbee337d744d0f19a9f0f795c952ffdd3))
+
 # [1.9.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.8.0...v1.9.0) (2025-05-12)
 
 
