@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.0...v1.10.1) (2025-07-13)
+
+
+### Bug Fixes
+
+* **pnpm:** lockfile issue ([bab7318](https://github.com/felix-berlin/webshaped-blog-astro/commit/bab73187f65cbdde606733b22139c18bdb2b83f7))
+
 # [1.10.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.26...v1.10.0) (2025-07-13)
 
 
