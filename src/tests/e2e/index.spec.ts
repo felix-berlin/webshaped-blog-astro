@@ -7,16 +7,18 @@ test("dark and light mode toggle", async ({ page }) => {
   await page.locator(".c-color-mode-toggle").click();
   await expect(page.locator("html")).toHaveClass("dark");
   await expect(page.locator("html")).not.toHaveClass("light");
-  await expect(
-    page.locator(".c-color-mode-toggle .lucide-moon-icon"),
-  ).toHaveAttribute("aria-label", "Dunklen Modus aktivieren");
+  await expect(page.locator(".c-color-mode-toggle .lucide-moon-icon")).toHaveAttribute(
+    "aria-label",
+    "Dunklen Modus aktivieren",
+  );
 
   // Toggle light mode
   await page.locator(".c-color-mode-toggle").click();
   await expect(page.locator("html")).toHaveClass("");
-  await expect(
-    page.locator(".c-color-mode-toggle .lucide-sun-icon"),
-  ).toHaveAttribute("aria-label", "Hellen Modus aktivieren");
+  await expect(page.locator(".c-color-mode-toggle .lucide-sun-icon")).toHaveAttribute(
+    "aria-label",
+    "Hellen Modus aktivieren",
+  );
 });
 
 test("MainNav submenu toggle", async ({ page }) => {

@@ -47,10 +47,7 @@
     border: none;
 
     @include butler-mx.hover {
-      --color-background-button: #{color.adjust(
-          colors.$red-light,
-          $blackness: 8%
-        )};
+      --color-background-button: #{color.adjust(colors.$red-light, $blackness: 8%)};
     }
     @include mx.icon-center() {
       gap: 10px;
@@ -88,7 +85,6 @@
   &--like-link {
     padding: 0;
     @extend .u-button-reset;
-
 
     @include mx.icon-center() {
       gap: 5px;

@@ -17,10 +17,7 @@
 
 .u-glas-background {
   position: relative;
-  background-color: var(
-    --background-color-glas,
-    #{butler-fn.hex-to-rgb(colors.$new01, 15%)}
-  );
+  background-color: var(--background-color-glas, #{butler-fn.hex-to-rgb(colors.$new01, 15%)});
 
   @include butler-mx.dark-mode-class {
     --background-color-glas: #{butler-fn.hex-to-rgb(colors.$blue-light, 15%)};
@@ -40,10 +37,7 @@
     backdrop-filter: blur(3px) hue-rotate(21deg);
 
     @include butler-mx.dark-mode-class {
-      --background-color-glas-after: #{butler-fn.hex-to-rgb(
-          colors.$blue-light,
-          10%
-        )};
+      --background-color-glas-after: #{butler-fn.hex-to-rgb(colors.$blue-light, 10%)};
     }
   }
 }

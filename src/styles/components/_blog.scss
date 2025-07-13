@@ -8,17 +8,14 @@
 
 .c-blog {
   display: grid;
-  grid-template: var(
-    --template-grid,
-    " breadcrumbs " " header " " sidebar " " article " "footer "
-  );
+  grid-template: var(--template-grid, " breadcrumbs " " header " " sidebar " " article " "footer ");
   grid-template-columns: var(--columns-grid, 1fr);
   column-gap: 25px;
   word-break: break-word;
 
   @include mx.breakpoint("md") {
-    --template-grid: " breadcrumbs breadcrumbs " " header header "
-      " article sidebar " " footer footer ";
+    --template-grid: " breadcrumbs breadcrumbs " " header header " " article sidebar "
+      " footer footer ";
     --columns-grid: 3fr 1fr;
   }
 

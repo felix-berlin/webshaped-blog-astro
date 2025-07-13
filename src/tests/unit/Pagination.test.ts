@@ -48,9 +48,7 @@ describe("Pagination", () => {
       },
     });
 
-    const prevButton = wrapper.find(
-      ".c-pagination__item.is-disabled .c-pagination__link",
-    );
+    const prevButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
     expect(prevButton.exists()).toBe(true);
   });
 
@@ -74,9 +72,7 @@ describe("Pagination", () => {
       },
     });
 
-    const nextButton = wrapper.find(
-      ".c-pagination__item.is-disabled .c-pagination__link",
-    );
+    const nextButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
     expect(nextButton.exists()).toBe(true);
   });
 

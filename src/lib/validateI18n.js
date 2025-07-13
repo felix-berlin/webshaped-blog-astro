@@ -17,19 +17,11 @@ const missingKeysInDE = enUSKeys.filter((key) => !deDEKeys.includes(key));
 const missingKeysInEN = deDEKeys.filter((key) => !enUSKeys.includes(key));
 
 if (missingKeysInDE.length > 0) {
-  console.log(
-    `The following keys are missing in de-DE.json: ${missingKeysInDE.join(
-      ", ",
-    )}`,
-  );
+  console.log(`The following keys are missing in de-DE.json: ${missingKeysInDE.join(", ")}`);
 }
 
 if (missingKeysInEN.length > 0) {
-  console.log(
-    `The following keys are missing in en-US.json: ${missingKeysInEN.join(
-      ", ",
-    )}`,
-  );
+  console.log(`The following keys are missing in en-US.json: ${missingKeysInEN.join(", ")}`);
 } else {
   console.log("All keys are present in both files.");
 }

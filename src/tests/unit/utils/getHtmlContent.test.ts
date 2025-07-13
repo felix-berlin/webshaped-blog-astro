@@ -38,8 +38,6 @@ describe("getHtmlContent()", () => {
     const consoleSpy = vi.spyOn(console, "error");
     const result = getHtmlContent(str);
     expect(result).toBe("");
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "The given string is not valid HTML",
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("The given string is not valid HTML");
   });
 });
