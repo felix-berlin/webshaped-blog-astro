@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.26...v1.10.0) (2025-07-13)
+
+
+### Bug Fixes
+
+* **BlogPost:** fix type errors ([3c8a392](https://github.com/felix-berlin/webshaped-blog-astro/commit/3c8a3925c781b1b3ac5d27547a3c7f0ea9e06001))
+* **BlogPost:** make sure src is not null ([ecf7691](https://github.com/felix-berlin/webshaped-blog-astro/commit/ecf7691f9654af0d01acfb8c3266507605f55af0))
+* **deps:** update ([43bf266](https://github.com/felix-berlin/webshaped-blog-astro/commit/43bf266b1939718897ce5ef2f0e64e153bb72ad4))
+* **Menu:** fix types ([da2283e](https://github.com/felix-berlin/webshaped-blog-astro/commit/da2283ef9f262c259dcdccab5dbdd14a6c889a5d))
+* **x-default:** make sure x-default is only set when more then one lang exist ([dad42b3](https://github.com/felix-berlin/webshaped-blog-astro/commit/dad42b36041486699ce2f972dc5142699624a342))
+
+
+### Features
+
+* **helpers:** add removeTrailingSlash and fix somes types ([cf682f8](https://github.com/felix-berlin/webshaped-blog-astro/commit/cf682f806ac73d4826071faaf1ba205de51defe7))
+
 ## [1.9.26](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.9.25...v1.9.26) (2025-07-12)
 
 
