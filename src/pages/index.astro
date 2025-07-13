@@ -2,23 +2,24 @@
 import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
 import "@styles/objects/_index.scss";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
-import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl } from "@utils/i18n/utils";
+import { WP_API } from "astro:env/client";
+
+import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
 
 export const prerender = true;
 
 const client = new Client({
-  url: WP_API,
+  exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     headers: {
       "Content-Type": "application/json",
     },
   },
-  exchanges: [cacheExchange, fetchExchange],
+  url: WP_API,
 });
 
 const pagesResponse = await client
@@ -29,13 +30,11 @@ const pagesResponse = await client
 
 const indexDe = pagesResponse?.data?.pages?.nodes[0];
 const translations = indexDe?.translations;
-console.log("indexDe", "/" + translations?.[0]?.language?.slug);
 const lang = getLangFromUrl(Astro.url);
 const translationsRoutes = {
   [lang]: "/",
   [translations?.[0]?.language?.slug]: "/" + translations?.[0]?.language?.slug,
 };
-console.log("translationsRoutes", translationsRoutes);
 
 const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
 
