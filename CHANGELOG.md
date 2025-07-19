@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.2...v1.10.3) (2025-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @nanostores/i18n to v1.1.2 ([#187](https://github.com/felix-berlin/webshaped-blog-astro/issues/187)) ([6e50875](https://github.com/felix-berlin/webshaped-blog-astro/commit/6e508758e461aa5a641f78e477191a591788760e))
+
 ## [1.10.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.1...v1.10.2) (2025-07-18)
 
 
