@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.6...v1.10.7) (2025-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @iconify-json/tabler to v1.2.20 ([#191](https://github.com/felix-berlin/webshaped-blog-astro/issues/191)) ([85b33f5](https://github.com/felix-berlin/webshaped-blog-astro/commit/85b33f54a7f546f65d4db5d4b8b1c2ee5098e133))
+
 ## [1.10.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.5...v1.10.6) (2025-07-25)
 
 

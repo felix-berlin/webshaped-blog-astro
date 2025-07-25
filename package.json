@@ -1,7 +1,7 @@
 {
   "name": "webshaped-blog-frontend",
   "type": "module",
-  "version": "1.10.6",
+  "version": "1.10.7",
   "description": "My personal blog",
   "homepage": "https://webshaped.de",
   "repository": {
