@@ -34,7 +34,7 @@ importers:
         version: 0.8.2
       '@iconify-json/lucide':
         specifier: ^1.2.57
-        version: 1.2.57
+        version: 1.2.58
       '@iconify-json/tabler':
         specifier: ^1.2.19
         version: 1.2.19
@@ -116,7 +116,7 @@ importers:
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.6.2)(typescript@5.8.3)
       '@codecov/astro-plugin':
         specifier: ^1.9.1
-        version: 1.9.1(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
+        version: 1.9.1(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
       '@faker-js/faker':
         specifier: ^9.9.0
         version: 9.9.0
@@ -176,10 +176,10 @@ importers:
         version: 24.0.15
       '@vite-pwa/astro':
         specifier: ^1.1.0
-        version: 1.1.0(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
+        version: 1.1.0(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
       '@vitejs/plugin-vue':
         specifier: ^6.0.0
-        version: 6.0.0(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.17(typescript@5.8.3))
+        version: 6.0.0(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.17(typescript@5.8.3))
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.10.4(@types/node@24.0.15)(typescript@5.8.3))(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
@@ -284,7 +284,7 @@ importers:
         version: 22.1.0(@vue/compiler-sfc@3.5.17)(vue-template-compiler@2.7.14)
       vite:
         specifier: npm:rolldown-vite@latest
-        version: rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
+        version: rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vite-plugin-graphql-loader:
         specifier: ^4.0.4
         version: 4.0.4
@@ -1893,8 +1893,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify-json/lucide@1.2.57':
-    resolution: {integrity: sha512-I1CIObdPBIL/9v75KKoyHWNhq+qqN6ef8+iJY4AVpHLtnRu0Vbp6K0TKcoYZ70U+EgiL6krEbFdcjK3+fwpfHQ==}
+  '@iconify-json/lucide@1.2.58':
+    resolution: {integrity: sha512-4ONe3ONaauEaf7wEQIvlWz2xHaMXUXuQeJVRBMu4PmsBrMEfdnc2vRZRyAudmcQo8yWmEsLu6WM7/5qWUdDJHQ==}
 
   '@iconify-json/tabler@1.2.19':
     resolution: {integrity: sha512-JDeQTQxHD8KE12pAbPVHX1WFVOPq8D0XfRb/LwYHwGwYE0HP9OIjJ//TKxS1Gt++RirYu6Xsx+Jm5LA5KbykoA==}
@@ -7577,8 +7577,8 @@ packages:
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
 
-  rolldown-vite@7.0.10:
-    resolution: {integrity: sha512-t3jMDID78NAJ2PWd0Q5RFrDpD1mFv20ouO/yDbqeHzG2Iyi2ZsjChLKClag1bUm591JJXBsoJIjP6FDkFi9qbw==}
+  rolldown-vite@7.0.11:
+    resolution: {integrity: sha512-5C0rxNUIQLnFNJenYieXU1A9RSAbnM7hGFZayIvR/wbU2tiCE/CQ6Z2dIk1msTozZlNrM0nSYeYLM/6VWuMYuA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -10272,10 +10272,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@codecov/astro-plugin@1.9.1(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
+  '@codecov/astro-plugin@1.9.1(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
     dependencies:
       '@codecov/bundler-plugin-core': 1.9.1
-      '@codecov/vite-plugin': 1.9.1(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
+      '@codecov/vite-plugin': 1.9.1(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
       astro: 5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       unplugin: 1.16.1
     transitivePeerDependencies:
@@ -10290,11 +10290,11 @@ snapshots:
       unplugin: 1.16.1
       zod: 3.24.3
 
-  '@codecov/vite-plugin@1.9.1(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
+  '@codecov/vite-plugin@1.9.1(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
     dependencies:
       '@codecov/bundler-plugin-core': 1.9.1
       unplugin: 1.16.1
-      vite: rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
+      vite: rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
 
   '@colors/colors@1.5.0':
     optional: true
@@ -11300,7 +11300,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify-json/lucide@1.2.57':
+  '@iconify-json/lucide@1.2.58':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -13369,10 +13369,10 @@ snapshots:
       vue: 3.5.17(typescript@5.8.3)
       wonka: 6.3.5
 
-  '@vite-pwa/astro@1.1.0(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
+  '@vite-pwa/astro@1.1.0(astro@5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
     dependencies:
       astro: 5.12.0(@types/node@24.0.15)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
-      vite-plugin-pwa: 0.16.5(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
+      vite-plugin-pwa: 0.16.5(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
 
   '@vitejs/plugin-vue-jsx@4.2.0(rolldown-vite@7.0.8(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
@@ -13390,10 +13390,10 @@ snapshots:
       vite: rolldown-vite@7.0.8(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vue: 3.5.17(typescript@5.8.3)
 
-  '@vitejs/plugin-vue@6.0.0(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.17(typescript@5.8.3))':
+  '@vitejs/plugin-vue@6.0.0(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.19
-      vite: rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
+      vite: rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vue: 3.5.17(typescript@5.8.3)
 
   '@vitest/coverage-v8@3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.10.4(@types/node@24.0.15)(typescript@5.8.3))(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
@@ -17895,11 +17895,11 @@ snapshots:
 
   rfdc@1.4.1: {}
 
-  rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1):
+  rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1):
     dependencies:
-      fdir: 6.4.6(picomatch@4.0.2)
+      fdir: 6.4.6(picomatch@4.0.3)
       lightningcss: 1.30.1
-      picomatch: 4.0.2
+      picomatch: 4.0.3
       postcss: 8.5.6
       rolldown: 1.0.0-beta.29
       tinyglobby: 0.2.14
@@ -17931,9 +17931,9 @@ snapshots:
 
   rolldown-vite@7.0.9(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1):
     dependencies:
-      fdir: 6.4.6(picomatch@4.0.2)
+      fdir: 6.4.6(picomatch@4.0.3)
       lightningcss: 1.30.1
-      picomatch: 4.0.2
+      picomatch: 4.0.3
       postcss: 8.5.6
       rolldown: 1.0.0-beta.27
       tinyglobby: 0.2.14
@@ -19169,12 +19169,12 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-pwa@0.16.5(rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
+  vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0):
     dependencies:
       debug: 4.4.1
       fast-glob: 3.3.3
       pretty-bytes: 6.1.1
-      vite: rolldown-vite@7.0.10(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
+      vite: rolldown-vite@7.0.11(@types/node@24.0.15)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       workbox-build: 7.0.0(@types/babel__core@7.20.5)
       workbox-window: 7.3.0
     transitivePeerDependencies:
