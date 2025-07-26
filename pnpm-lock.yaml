@@ -40,7 +40,7 @@ importers:
         version: 1.2.20
       '@nanostores/i18n':
         specifier: ^1.0.1
-        version: 1.1.2(nanostores@1.0.1)
+        version: 1.2.1(nanostores@1.0.1)
       '@nanostores/persistent':
         specifier: ^1.1.0
         version: 1.1.0(nanostores@1.0.1)
@@ -2181,8 +2181,8 @@ packages:
     resolution: {integrity: sha512-RuzCup9Ct91Y7V79xwCb146RaBRHZ7NBbrIUySumd1rpKqHL5OonaqrGIbug5hNwP/fRyxFMA6ISgw4FTtYFYg==}
     engines: {node: '>=18'}
 
-  '@nanostores/i18n@1.1.2':
-    resolution: {integrity: sha512-PpePo2iEFPUUmjjM6/R3xA8KyT3xCkCOTBYjtzm2jT+xLBV/RF9RF8pculRz5xDB1ioWdr89y5rMVB1sJhmmMw==}
+  '@nanostores/i18n@1.2.1':
+    resolution: {integrity: sha512-yKhK5/Fpa1vOHFH1NylwwIH55hv8LfP9k56Y9u7Hy63NaV9mQpQkvebirf4R3543s4ULJnLkQ+GxC9D6NtfTJw==}
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
@@ -11351,7 +11351,7 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@nanostores/i18n@1.1.2(nanostores@1.0.1)':
+  '@nanostores/i18n@1.2.1(nanostores@1.0.1)':
     dependencies:
       nanostores: 1.0.1
 
