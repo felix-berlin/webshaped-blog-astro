@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.9](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.8...v1.10.9) (2025-07-26)
+
+
+### Bug Fixes
+
+* **deps:** update vue monorepo to v3.5.18 ([#193](https://github.com/felix-berlin/webshaped-blog-astro/issues/193)) ([efc22d7](https://github.com/felix-berlin/webshaped-blog-astro/commit/efc22d7e5bdc94d3bd9259fcf5b360e551c68292))
+
 ## [1.10.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.7...v1.10.8) (2025-07-25)
 
 
