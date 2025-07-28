@@ -6,11 +6,12 @@ import "@styles/objects/_header.scss";
 // import "@pagefind/default-ui/css/ui.css";
 // import "@styles/components/_searchbar.scss";
 import MainNav from "@components/hero/MainNav.vue";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 // import { currentLanguage } from "@stores/store";
 import { updateCategoryPaths } from "@utils/helpers";
 import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
-import { GetMenuItemsDocument } from "@/gql/graphql.ts";
+
+import { GetMenuByIdDocument, GetMenuItemsDocument } from "@/gql/graphql.ts";
 
 interface HeaderProps {
   lang: "de" | "en";
@@ -19,31 +20,27 @@ interface HeaderProps {
 const { lang } = Astro.props as HeaderProps;
 
 const client = new Client({
-  url: WP_API,
+  exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     headers: {
       "Content-Type": "application/json",
     },
   },
-  exchanges: [cacheExchange, fetchExchange],
+  url: WP_API,
 });
 
 let mainMenuItems = null;
 
 if (lang === "de") {
-  mainMenuItems = await client
-    .query(GetMenuItemsDocument, { language: "DE", location: "PRIMARY_MENU" })
-    .toPromise();
+  mainMenuItems = await client.query(GetMenuByIdDocument, { id: "2" }).toPromise();
 } else if (lang === "en") {
-  mainMenuItems = await client
-    .query(GetMenuItemsDocument, { language: "EN", location: "PRIMARY_MENU" })
-    .toPromise();
+  mainMenuItems = await client.query(GetMenuByIdDocument, { id: "125" }).toPromise();
 }
 
-const menuItems = updateCategoryPaths(mainMenuItems?.data?.menuItems, lang);
+const menuItems = updateCategoryPaths(mainMenuItems?.data?.menu?.menuItems, lang);
 ---
 
-<header id="mainHeader" class="o-header">
-  <MainNav menuItems={menuItems} client:only="vue" />
+<header class="o-header" id="mainHeader">
+  <MainNav client:only="vue" menuItems={menuItems} />
   <!-- <LanguageSelect class="is-desktop" /> -->
 </header>

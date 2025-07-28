@@ -19447,6 +19447,35 @@ export type GetMenuItemsQuery = {
   } | null;
 };
 
+export type GetMenuByIdQueryVariables = Exact<{
+  id?: InputMaybe<Scalars["ID"]["input"]>;
+}>;
+
+export type GetMenuByIdQuery = {
+  __typename?: "RootQuery";
+  menu?: {
+    __typename?: "Menu";
+    menuItems?: {
+      __typename?: "MenuToMenuItemConnection";
+      nodes: Array<{
+        __typename?: "MenuItem";
+        label?: string | null;
+        order?: number | null;
+        path?: string | null;
+        childItems?: {
+          __typename?: "MenuItemToMenuItemConnection";
+          nodes: Array<{
+            __typename?: "MenuItem";
+            label?: string | null;
+            order?: number | null;
+            path?: string | null;
+          }>;
+        } | null;
+      }>;
+    } | null;
+  } | null;
+};
+
 export type PageFieldFragmentFragment = {
   __typename?: "Page";
   slug?: string | null;
@@ -23018,6 +23047,108 @@ export const GetMenuItemsDocument = {
     },
   ],
 } as unknown as DocumentNode<GetMenuItemsQuery, GetMenuItemsQueryVariables>;
+export const GetMenuByIdDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMenuById" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "id" } },
+          type: { kind: "NamedType", name: { kind: "Name", value: "ID" } },
+          defaultValue: { kind: "StringValue", value: "", block: false },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "menu" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "idType" },
+                value: { kind: "EnumValue", value: "DATABASE_ID" },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "id" },
+                value: { kind: "Variable", name: { kind: "Name", value: "id" } },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "menuItems" },
+                  arguments: [
+                    {
+                      kind: "Argument",
+                      name: { kind: "Name", value: "where" },
+                      value: {
+                        kind: "ObjectValue",
+                        fields: [
+                          {
+                            kind: "ObjectField",
+                            name: { kind: "Name", value: "parentDatabaseId" },
+                            value: { kind: "IntValue", value: "0" },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "nodes" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            { kind: "Field", name: { kind: "Name", value: "label" } },
+                            { kind: "Field", name: { kind: "Name", value: "order" } },
+                            { kind: "Field", name: { kind: "Name", value: "path" } },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "childItems" },
+                              selectionSet: {
+                                kind: "SelectionSet",
+                                selections: [
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "nodes" },
+                                    selectionSet: {
+                                      kind: "SelectionSet",
+                                      selections: [
+                                        { kind: "Field", name: { kind: "Name", value: "label" } },
+                                        { kind: "Field", name: { kind: "Name", value: "order" } },
+                                        { kind: "Field", name: { kind: "Name", value: "path" } },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMenuByIdQuery, GetMenuByIdQueryVariables>;
 export const GetPagesBySlugsDocument = {
   kind: "Document",
   definitions: [

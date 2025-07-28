@@ -4,31 +4,32 @@ import "@fontsource/source-sans-pro/400.css";
 import "@fontsource/source-sans-pro/400-italic.css";
 import "@fontsource/source-sans-pro/700.css";
 
+import type { SeoProps } from "@components/BaseHead.astro";
+
 import BaseHead from "@components/BaseHead.astro";
-import MainHeader from "@components/hero/MainHeader.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
+import MainHeader from "@components/hero/MainHeader.astro";
 import { getLangFromUrl } from "@utils/i18n/utils";
 
-import type { SeoProps } from "@components/BaseHead.astro";
 import type { Language } from "@/gql/graphql.ts";
+
+export interface DefaultLayoutProps {
+  bodyClasses?: Array<string> | string;
+  content: {
+    language: Language;
+    seo: SeoProps;
+    title: string;
+  };
+  contentClasses?: Array<string> | string;
+  translationsRoutes?: TranslationRoutes;
+}
 
 export type TranslationRoutes = { [key: string]: string };
 
-export interface DefaultLayoutProps {
-  content: {
-    title: string;
-    seo: SeoProps;
-    language: Language;
-  };
-  translationsRoutes?: TranslationRoutes;
-  contentClasses?: Array<string> | string;
-  bodyClasses?: Array<string> | string;
-}
-
 const {
-  content: { title, seo },
-  contentClasses,
   bodyClasses,
+  content: { seo, title },
+  contentClasses,
   translationsRoutes,
 } = Astro.props as DefaultLayoutProps;
 
@@ -36,9 +37,9 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <!-- TODO: Remove after lightmode is final: #9 -->
-<html lang={lang} class="dark">
+<html class="dark" lang={lang}>
   <!-- <Head> -->
-  <BaseHead title={title} seo={seo} lang={lang} translationsRoutes={translationsRoutes}>
+  <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes}>
     <Fragment slot="head">
       <slot name="head" />
     </Fragment>

@@ -1,30 +1,32 @@
 ---
-import SocialList from "@components/SocialList.vue";
-import Menu from "@components/Menu.vue";
 import GreenHosted from "@components/footer/GreenHosted.vue";
+import Menu from "@components/Menu.vue";
+import SocialList from "@components/SocialList.vue";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getSocialIconData } from "@utils/helpers";
-import { version } from "../../../package.json";
 import "@styles/objects/_footer.scss";
-import { useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
+import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { WP_API } from "astro:env/client";
 // import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
-import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
+
 import {
-  GetMenuItemsDocument,
   GetAllCategoriesDocument,
   GetAuthorDocument,
+  GetMenuItemsDocument,
 } from "@/gql/graphql.ts";
 
+import { version } from "../../../package.json";
+
 const client = new Client({
-  url: WP_API,
+  exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     headers: {
       "Content-Type": "application/json",
     },
   },
-  exchanges: [cacheExchange, fetchExchange],
+  url: WP_API,
 });
 
 const categoriesResponse = await client.query(GetAllCategoriesDocument, {}).toPromise();
@@ -54,10 +56,10 @@ const iconStyles = {
 };
 
 const additionalSoicalData = {
-  mastodon: {
+  github: {
     rel: "me",
   },
-  github: {
+  mastodon: {
     rel: "me",
   },
 };
@@ -71,19 +73,19 @@ const allSocials = {
 <footer class="o-footer">
   <SocialList
     class:list={["o-footer__social-list", "is-footer"]}
-    socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
     lang={lang}
+    socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
   />
 
   <div class="o-footer__end">
     <div class="o-footer__logo">
       <img
-        src="/assets/logo/web_shaped_logo_2023_whail_trans_white_outline_no-spacing.svg"
         alt="Web Shaped Logo"
-        width="150"
+        decoding="async"
         height="103"
         loading="lazy"
-        decoding="async"
+        src="/assets/logo/web_shaped_logo_2023_whail_trans_white_outline_no-spacing.svg"
+        width="150"
       />
     </div>
 
@@ -128,18 +130,18 @@ const allSocials = {
     </div>
     <div class="o-footer__infos">
       <div class="o-footer__credits">
-        <Copyright width="16" height="16" />
+        <Copyright height="16" width="16" />
         <span>
           2015 - {t("footer.copyright.now")} Felix Scholze
         </span>
       </div>
       <a
-        href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
         class="o-footer__version"
+        href="https://github.com/felix-berlin/webshaped-blog-astro/releases"
         target="_blank"
         title="Github Releases Seite"
       >
-        <GitCommit width="16" height="16" />
+        <GitCommit height="16" width="16" />
         <span>Website Version: {version}</span>
       </a>
 
