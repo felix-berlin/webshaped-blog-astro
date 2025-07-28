@@ -13,16 +13,16 @@ importers:
     dependencies:
       '@astrojs/node':
         specifier: ^9.3.0
-        version: 9.3.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 9.3.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       '@astrojs/rss':
         specifier: ^4.0.12
         version: 4.0.12
       '@astrojs/sitemap':
-        specifier: ^3.4.1
-        version: 3.4.1
+        specifier: ^3.4.2
+        version: 3.4.2
       '@astrojs/vue':
         specifier: ^5.1.0
-        version: 5.1.0(@types/node@24.1.0)(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(esbuild@0.25.8)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(vue@3.5.18(typescript@5.8.3))(yaml@2.7.1)
+        version: 5.1.0(@types/node@24.1.0)(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(esbuild@0.25.8)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(vue@3.5.18(typescript@5.8.3))(yaml@2.7.1)
       '@felix_berlin/sass-butler':
         specifier: ^3.1.0
         version: 3.1.0(sass@1.89.2)
@@ -33,14 +33,14 @@ importers:
         specifier: ^0.8.2
         version: 0.8.2
       '@iconify-json/lucide':
-        specifier: ^1.2.57
+        specifier: ^1.2.58
         version: 1.2.58
       '@iconify-json/tabler':
-        specifier: ^1.2.19
+        specifier: ^1.2.20
         version: 1.2.20
       '@nanostores/i18n':
-        specifier: ^1.0.1
-        version: 1.2.1(nanostores@1.0.1)
+        specifier: ^1.2.2
+        version: 1.2.2(nanostores@1.0.1)
       '@nanostores/persistent':
         specifier: ^1.1.0
         version: 1.1.0(nanostores@1.0.1)
@@ -51,11 +51,11 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0
       '@sentry/astro':
-        specifier: ^9.38.0
-        version: 9.42.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        specifier: ^9.42.1
+        version: 9.42.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       '@spotlightjs/astro':
         specifier: ^3.2.5
-        version: 3.2.5(@sentry/astro@9.42.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)))(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 3.2.5(@sentry/astro@9.42.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)))(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       '@urql/core':
         specifier: ^5.2.0
         version: 5.2.0(graphql@16.11.0)
@@ -66,23 +66,23 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3(@urql/core@5.2.0(graphql@16.11.0))(vue@3.5.18(typescript@5.8.3))
       '@vueuse/core':
-        specifier: ^13.5.0
-        version: 13.5.0(vue@3.5.18(typescript@5.8.3))
+        specifier: ^13.6.0
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
       astro:
-        specifier: ^5.11.0
-        version: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+        specifier: ^5.12.4
+        version: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       astro-breadcrumbs:
         specifier: ^3.3.1
-        version: 3.3.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 3.3.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       astro-capo:
         specifier: ^0.0.1
-        version: 0.0.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 0.0.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       astro-loading-indicator:
         specifier: ^0.7.0
-        version: 0.7.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 0.7.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       astro-matomo:
         specifier: ^1.9.0
-        version: 1.9.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+        version: 1.9.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       floating-vue:
         specifier: 5.2.2
         version: 5.2.2(vue@3.5.18(typescript@5.8.3))
@@ -102,10 +102,10 @@ importers:
         specifier: ^1.6.6
         version: 1.6.6
       tm-themes:
-        specifier: ^1.10.6
+        specifier: ^1.10.7
         version: 1.10.7
       vue:
-        specifier: ^3.5.17
+        specifier: ^3.5.18
         version: 3.5.18(typescript@5.8.3)
     devDependencies:
       '@0no-co/graphqlsp':
@@ -116,7 +116,7 @@ importers:
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.6.2)(typescript@5.8.3)
       '@codecov/astro-plugin':
         specifier: ^1.9.1
-        version: 1.9.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
+        version: 1.9.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
       '@faker-js/faker':
         specifier: ^9.9.0
         version: 9.9.0
@@ -172,14 +172,14 @@ importers:
         specifier: ^21.1.7
         version: 21.1.7
       '@types/node':
-        specifier: ^24.0.13
+        specifier: ^24.1.0
         version: 24.1.0
       '@vite-pwa/astro':
         specifier: ^1.1.0
-        version: 1.1.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
+        version: 1.1.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))
       '@vitejs/plugin-vue':
-        specifier: ^6.0.0
-        version: 6.0.0(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))
+        specifier: ^6.0.1
+        version: 6.0.1(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.10.4(@types/node@24.1.0)(typescript@5.8.3))(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
@@ -187,7 +187,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.10.4(@types/node@24.1.0)(typescript@5.8.3))(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
       '@vue/compiler-sfc':
-        specifier: ^3.5.17
+        specifier: ^3.5.18
         version: 3.5.18
       '@vue/devtools-api':
         specifier: ^7.7.7
@@ -199,10 +199,10 @@ importers:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       eslint:
-        specifier: ^9.31.0
+        specifier: ^9.32.0
         version: 9.32.0(jiti@2.4.2)
       eslint-config-prettier:
-        specifier: ^10.1.5
+        specifier: ^10.1.8
         version: 10.1.8(eslint@9.32.0(jiti@2.4.2))
       eslint-plugin-astro:
         specifier: ^1.3.1
@@ -259,7 +259,7 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       stylelint:
-        specifier: ^16.21.1
+        specifier: ^16.22.0
         version: 16.22.0(typescript@5.8.3)
       stylelint-config-prettier-scss:
         specifier: ^1.0.0
@@ -277,7 +277,7 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
       typescript-eslint:
-        specifier: ^8.36.0
+        specifier: ^8.38.0
         version: 8.38.0(eslint@9.32.0(jiti@2.4.2))(typescript@5.8.3)
       unplugin-icons:
         specifier: ^22.1.0
@@ -295,7 +295,7 @@ importers:
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.32.0(jiti@2.4.2))
       vue-tsc:
-        specifier: ^3.0.1
+        specifier: ^3.0.4
         version: 3.0.4(typescript@5.8.3)
 
 packages:
@@ -399,8 +399,8 @@ packages:
   '@astrojs/rss@4.0.12':
     resolution: {integrity: sha512-O5yyxHuDVb6DQ6VLOrbUVFSm+NpObulPxjs6XT9q3tC+RoKbN4HXMZLpv0LvXd1qdAjzVgJ1NFD+zKHJNDXikw==}
 
-  '@astrojs/sitemap@3.4.1':
-    resolution: {integrity: sha512-VjZvr1e4FH6NHyyHXOiQgLiw94LnCVY4v06wN/D0gZKchTMkg71GrAHJz81/huafcmavtLkIv26HnpfDq6/h/Q==}
+  '@astrojs/sitemap@3.4.2':
+    resolution: {integrity: sha512-wfN2dZzdkto6yaMtOFa/J9gc60YE3wl3rgSBoNJ+MU3lJVUMsDY9xf9uAVi8Mp/zEQKFDSJlQzBvqQUpw0Hf6g==}
 
   '@astrojs/telemetry@3.3.0':
     resolution: {integrity: sha512-UFBgfeldP06qu6khs/yY+q1cDAaArM2/7AEIqQ9Cuvf7B1hNLq0xDrZkct+QoIGyjq56y8IaE2I3CTvG99mlhQ==}
@@ -2181,8 +2181,8 @@ packages:
     resolution: {integrity: sha512-RuzCup9Ct91Y7V79xwCb146RaBRHZ7NBbrIUySumd1rpKqHL5OonaqrGIbug5hNwP/fRyxFMA6ISgw4FTtYFYg==}
     engines: {node: '>=18'}
 
-  '@nanostores/i18n@1.2.1':
-    resolution: {integrity: sha512-yKhK5/Fpa1vOHFH1NylwwIH55hv8LfP9k56Y9u7Hy63NaV9mQpQkvebirf4R3543s4ULJnLkQ+GxC9D6NtfTJw==}
+  '@nanostores/i18n@1.2.2':
+    resolution: {integrity: sha512-5LLxl95+ZI46MrM/Kn7YjORKsD7+Xy2tgjZ7/oDT/BGPEiaBM9lK89/afeK+BqaQL0Xd9Xaa5MPuuVSyWAo+/w==}
     engines: {node: ^20.0.0 || >=22.0.0}
     peerDependencies:
       nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
@@ -3087,9 +3087,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rolldown/pluginutils@1.0.0-beta.19':
-    resolution: {integrity: sha512-3FL3mnMbPu0muGOCaKAhhFEYmqv9eTfPSJRJmANrCwtgK8VuxpsZDGK+m0LYAGoyO8+0j5uRe4PeyPDK1yA/hA==}
-
   '@rolldown/pluginutils@1.0.0-beta.26':
     resolution: {integrity: sha512-r/5po89voz/QRPDmoErL10+hVuTAuz1SHvokx+yWBlOIPB5C41jC7QhLqq9kaebx/+EHyoV3z22/qBfX81Ns8A==}
 
@@ -3186,24 +3183,24 @@ packages:
     peerDependencies:
       semantic-release: '>=20.1.0'
 
-  '@sentry-internal/browser-utils@9.42.0':
-    resolution: {integrity: sha512-kHDPrLSlb9kMKKUNWVUwMbUjZN3o4aBUux9hRTf2HeDA4Uo8O7Ln4XAC7tMCJ+cB016Z2RnnqH3mLdZV7J72/w==}
+  '@sentry-internal/browser-utils@9.42.1':
+    resolution: {integrity: sha512-RWLpPDApHKWo5m4ig6M27b0vx3bLyPPU9Ra6FbwBhIdyb0ihd4wSddtNFA2VgLOePpurN+HU1Thcq+D3776GIA==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/feedback@9.42.0':
-    resolution: {integrity: sha512-7WisZVBKnsr+19CFReFnMHe/Lgd9xqn5CBJfBdRng4hyYSiw988Zdr5xwp2wh1ESM0fxqxy6kSe1NPztIbbiVw==}
+  '@sentry-internal/feedback@9.42.1':
+    resolution: {integrity: sha512-ocyN85ndnWRHMtS6kJpYbQiovvXT09UJLIzZfsyj/cIl/kBYaljDVoPHhSWMaMVUWQrP/Ut2Zuse9wnowDvXWg==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay-canvas@9.42.0':
-    resolution: {integrity: sha512-rvP2zjfR9x57u8fVFetkwXnZSXazJRLTFDbirFplggkCKeGNTDJmLBsejUNOkwGiXzcui0fuFEQElu2nF97nxw==}
+  '@sentry-internal/replay-canvas@9.42.1':
+    resolution: {integrity: sha512-z2Pm7vl5SaK1k/MhYV/CRkDYT32Y6q/CLlV3toKphAK1gZFmJ8FGjYE6DU2Zju2upb9ulgyoU8bLU5DLLZCsZA==}
     engines: {node: '>=18'}
 
-  '@sentry-internal/replay@9.42.0':
-    resolution: {integrity: sha512-teKxrVeT8JOYs9Hd4t0jI0X9NP2Ky6iVgTItN07mUD6yOS9se2ZXzmNzXevoqICX6WsnhHDeWY7krvmJ5QCVEg==}
+  '@sentry-internal/replay@9.42.1':
+    resolution: {integrity: sha512-IbKf4L4qxcupM3+FfKYcap4bM4Q6khSIc8X31btmUqPnDT/UuekN5CZmL7Xf42h5L7aMA8Oh8s97powY+hPLQQ==}
     engines: {node: '>=18'}
 
-  '@sentry/astro@9.42.0':
-    resolution: {integrity: sha512-drltWjek3CDyfyXcK/fsOLmGU/YTGDTb/kZ10i+D+Gml1uTSmT3oKo1J7HU10XSSiK/47ZJhwcv2waKL3x3U2g==}
+  '@sentry/astro@9.42.1':
+    resolution: {integrity: sha512-+BnlkYvDP4TDV/4W9XlvsJD4BjZeUPLmkzWZYQHebJf977YA3ApbYYKO2O4ElVDMR/uinhIsZagETi6leB/8iA==}
     engines: {node: '>=18.19.1'}
     peerDependencies:
       astro: '>=3.x || >=4.0.0-beta || >=5.x'
@@ -3212,8 +3209,8 @@ packages:
     resolution: {integrity: sha512-+uLqaCKeYmH/W2YUV1XHkFEtpHdx/aFjCQahPVsvXyqg13dfkR6jaygPL4DB5DJtUSmPFCUE3MEk9ZO5JlhJYg==}
     engines: {node: '>= 14'}
 
-  '@sentry/browser@9.42.0':
-    resolution: {integrity: sha512-85RgFSMDS24JD3nSqA4LpDlVGTxVGwYeqCwI6pRM0CH9pz6G+0OESRhTDccj+rv+kr8vcvWl/LUklJkoswH4kw==}
+  '@sentry/browser@9.42.1':
+    resolution: {integrity: sha512-iFlHpuHGK7pexHdmvmJeMlIIUFcGjGW12bwhPyIb8T7Ziu16B8yOjIv0EQgfxMyiyv9MWqG2Un7efXjXSlIzrg==}
     engines: {node: '>=18'}
 
   '@sentry/bundler-plugin-core@2.23.0':
@@ -3270,12 +3267,12 @@ packages:
     resolution: {integrity: sha512-6g7jpbefjHYs821Z+EBJ8r4Z7LT5h80YSWRJaylGS4nW5W5Z2KXzpdnyFarv37O7QjauzVC2E+PABmpkw5/JGA==}
     engines: {node: '>=14.18'}
 
-  '@sentry/core@9.42.0':
-    resolution: {integrity: sha512-AsfB2eklY09GGsCLC2r0pvh/h3tgr9Co3CB7XisEfzhoQH9RaEb0XeIVLyfo+503ktdlPTjH24j4Zpts4y0Jmg==}
+  '@sentry/core@9.42.1':
+    resolution: {integrity: sha512-9jWgjgZ8EvIYMTL5HzG8PYRo7+/vv3qwPabPVV2EfGPOjU65GFcT7N+oitg+0rAI/fTMsLaQXC77WmKzhRBSdw==}
     engines: {node: '>=18'}
 
-  '@sentry/node-core@9.42.0':
-    resolution: {integrity: sha512-j0zLLatut3tY+KdHqAn1t2lih+RnR2sDUJagq+swZZFgja0nsWybm3kzPN4n2aRB7yLvjU40n8oj8vi2qBK41g==}
+  '@sentry/node-core@9.42.1':
+    resolution: {integrity: sha512-Z5igPnqlap0u4nDHqp83If7/ZPCKuBSAtR2l71CNG2pISCD2JudKseSl3ZpGlZ8/tzyhIDCtb1yMTZ/SStLgRA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@opentelemetry/api': ^1.9.0
@@ -3290,8 +3287,8 @@ packages:
     resolution: {integrity: sha512-h10LJLDTRAzYgay60Oy7moMookqqSZSviCWkkmHZyaDn+4WURnPp5SKhhfrzPRQcXKrweiOwDSHBgn1tweDssg==}
     engines: {node: '>=14.18'}
 
-  '@sentry/node@9.42.0':
-    resolution: {integrity: sha512-SrfSTy570zk1ucRy5qSZ94eXj7E26ZAJ1jS7mJtUFLu2fwJt39qtbqfDncXneBJcKzLvXE6WSLVlH/WfwQ5lKg==}
+  '@sentry/node@9.42.1':
+    resolution: {integrity: sha512-6alU59CUp3NzRWt0zaHl3A1Rv9PeABhtj8cD9fdI5QYj5oFQnxbERY/Y/V9R+pNx3ejwCQRbd+SDApfYeQgejg==}
     engines: {node: '>=18'}
 
   '@sentry/opentelemetry@8.55.0':
@@ -3305,8 +3302,8 @@ packages:
       '@opentelemetry/sdk-trace-base': ^1.30.1
       '@opentelemetry/semantic-conventions': ^1.28.0
 
-  '@sentry/opentelemetry@9.42.0':
-    resolution: {integrity: sha512-RdF2Pps9XH+oQpb/yBzG4+RyrQc5eJ55zi+kzY1cG5asPxqKfgBrniy9Q2szy3YJpvN73T//aPrasXuCTgWohg==}
+  '@sentry/opentelemetry@9.42.1':
+    resolution: {integrity: sha512-SncdmGuBVMbCEEG8pC+alyNh5kwRfNkkNH4zf/Rl6pSp7wmNK+LKZQUZFQGl5LUBoNOxmoI8J1pLjW+9PueWTA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@opentelemetry/api': ^1.9.0
@@ -3650,8 +3647,8 @@ packages:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
 
-  '@vitejs/plugin-vue@6.0.0':
-    resolution: {integrity: sha512-iAliE72WsdhjzTOp2DtvKThq1VBC4REhwRcaA+zPAAph6I+OQhUXv+Xu2KS7ElxYtb7Zc/3R30Hwv1DxEo7NXQ==}
+  '@vitejs/plugin-vue@6.0.1':
+    resolution: {integrity: sha512-+MaE752hU0wfPFJEUAIxqw18+20euHHdxVtMvbFcOEpjEyfqXH/5DCoTHiVJ0J29EhTJdoTkjEv5YBKU9dnoTw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -3814,16 +3811,16 @@ packages:
   '@vue/test-utils@2.4.6':
     resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
 
-  '@vueuse/core@13.5.0':
-    resolution: {integrity: sha512-wV7z0eUpifKmvmN78UBZX8T7lMW53Nrk6JP5+6hbzrB9+cJ3jr//hUlhl9TZO/03bUkMK6gGkQpqOPWoabr72g==}
+  '@vueuse/core@13.6.0':
+    resolution: {integrity: sha512-DJbD5fV86muVmBgS9QQPddVX7d9hWYswzlf4bIyUD2dj8GC46R1uNClZhVAmsdVts4xb2jwp1PbpuiA50Qee1A==}
     peerDependencies:
       vue: ^3.5.0
 
-  '@vueuse/metadata@13.5.0':
-    resolution: {integrity: sha512-euhItU3b0SqXxSy8u1XHxUCdQ8M++bsRs+TYhOLDU/OykS7KvJnyIFfep0XM5WjIFry9uAPlVSjmVHiqeshmkw==}
+  '@vueuse/metadata@13.6.0':
+    resolution: {integrity: sha512-rnIH7JvU7NjrpexTsl2Iwv0V0yAx9cw7+clymjKuLSXG0QMcLD0LDgdNmXic+qL0SGvgSVPEpM9IDO/wqo1vkQ==}
 
-  '@vueuse/shared@13.5.0':
-    resolution: {integrity: sha512-K7GrQIxJ/ANtucxIXbQlUHdB0TPA8c+q5i+zbrjxuhJCnJ9GtBg75sBSnvmLSxHKPg2Yo8w62PWksl9kwH0Q8g==}
+  '@vueuse/shared@13.6.0':
+    resolution: {integrity: sha512-pDykCSoS2T3fsQrYqf9SyF0QXWHmcGPQ+qiOVjlYSzlWd9dgppB2bFSM1GgKKkt7uzn0BBMV3IbJsUfHG2+BCg==}
     peerDependencies:
       vue: ^3.5.0
 
@@ -4017,8 +4014,8 @@ packages:
     peerDependencies:
       astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
 
-  astro@5.12.3:
-    resolution: {integrity: sha512-fU1hNPMkccm+FuonGsY5DFkC2QyuLCju++8L2ubzBtYBDBf6bmfgmVM7A2dK+Hl+ZJCUNgepsClhBpczj+2LRw==}
+  astro@5.12.4:
+    resolution: {integrity: sha512-ns+/KpfWToKvVf2DJTj4EIa4U59/XVBXeeq6VZUr5DXe6OZJFs8NfJi+W20nRm5nduIeBZGRzaoxPFq9lm4WEg==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -9008,9 +9005,6 @@ packages:
       typescript: ^4.9.4 || ^5.0.2
       zod: ^3
 
-  zod@3.24.3:
-    resolution: {integrity: sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==}
-
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
@@ -9166,10 +9160,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@9.3.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
+  '@astrojs/node@9.3.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
     dependencies:
       '@astrojs/internal-helpers': 0.6.1
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       send: 1.2.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -9184,11 +9178,11 @@ snapshots:
       fast-xml-parser: 5.2.5
       kleur: 4.1.5
 
-  '@astrojs/sitemap@3.4.1':
+  '@astrojs/sitemap@3.4.2':
     dependencies:
       sitemap: 8.0.0
       stream-replace-string: 2.0.0
-      zod: 3.24.3
+      zod: 3.25.76
 
   '@astrojs/telemetry@3.3.0':
     dependencies:
@@ -9202,12 +9196,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/vue@5.1.0(@types/node@24.1.0)(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(esbuild@0.25.8)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(vue@3.5.18(typescript@5.8.3))(yaml@2.7.1)':
+  '@astrojs/vue@5.1.0(@types/node@24.1.0)(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(esbuild@0.25.8)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(vue@3.5.18(typescript@5.8.3))(yaml@2.7.1)':
     dependencies:
       '@vitejs/plugin-vue': 5.2.1(rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))
       '@vitejs/plugin-vue-jsx': 4.2.0(rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))
       '@vue/compiler-sfc': 3.5.18
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       vite: rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vite-plugin-vue-devtools: 7.7.6(rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(rollup@2.79.2)(vue@3.5.18(typescript@5.8.3))
       vue: 3.5.18(typescript@5.8.3)
@@ -10061,11 +10055,11 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@codecov/astro-plugin@1.9.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
+  '@codecov/astro-plugin@1.9.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))':
     dependencies:
       '@codecov/bundler-plugin-core': 1.9.1
       '@codecov/vite-plugin': 1.9.1(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       unplugin: 1.16.1
     transitivePeerDependencies:
       - vite
@@ -11351,7 +11345,7 @@ snapshots:
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
 
-  '@nanostores/i18n@1.2.1(nanostores@1.0.1)':
+  '@nanostores/i18n@1.2.2(nanostores@1.0.1)':
     dependencies:
       nanostores: 1.0.1
 
@@ -12145,7 +12139,7 @@ snapshots:
   '@playform/inline@0.1.2(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)':
     dependencies:
       '@playform/pipe': 0.1.3
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       beasties: 0.2.0
       deepmerge-ts: 7.1.5
     transitivePeerDependencies:
@@ -12309,8 +12303,6 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.0.0-beta.29':
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.19': {}
-
   '@rolldown/pluginutils@1.0.0-beta.26': {}
 
   '@rolldown/pluginutils@1.0.0-beta.29': {}
@@ -12466,44 +12458,44 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@sentry-internal/browser-utils@9.42.0':
+  '@sentry-internal/browser-utils@9.42.1':
     dependencies:
-      '@sentry/core': 9.42.0
+      '@sentry/core': 9.42.1
 
-  '@sentry-internal/feedback@9.42.0':
+  '@sentry-internal/feedback@9.42.1':
     dependencies:
-      '@sentry/core': 9.42.0
+      '@sentry/core': 9.42.1
 
-  '@sentry-internal/replay-canvas@9.42.0':
+  '@sentry-internal/replay-canvas@9.42.1':
     dependencies:
-      '@sentry-internal/replay': 9.42.0
-      '@sentry/core': 9.42.0
+      '@sentry-internal/replay': 9.42.1
+      '@sentry/core': 9.42.1
 
-  '@sentry-internal/replay@9.42.0':
+  '@sentry-internal/replay@9.42.1':
     dependencies:
-      '@sentry-internal/browser-utils': 9.42.0
-      '@sentry/core': 9.42.0
+      '@sentry-internal/browser-utils': 9.42.1
+      '@sentry/core': 9.42.1
 
-  '@sentry/astro@9.42.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
+  '@sentry/astro@9.42.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
     dependencies:
-      '@sentry/browser': 9.42.0
-      '@sentry/core': 9.42.0
-      '@sentry/node': 9.42.0
+      '@sentry/browser': 9.42.1
+      '@sentry/core': 9.42.1
+      '@sentry/node': 9.42.1
       '@sentry/vite-plugin': 2.23.0
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
     transitivePeerDependencies:
       - encoding
       - supports-color
 
   '@sentry/babel-plugin-component-annotate@2.23.0': {}
 
-  '@sentry/browser@9.42.0':
+  '@sentry/browser@9.42.1':
     dependencies:
-      '@sentry-internal/browser-utils': 9.42.0
-      '@sentry-internal/feedback': 9.42.0
-      '@sentry-internal/replay': 9.42.0
-      '@sentry-internal/replay-canvas': 9.42.0
-      '@sentry/core': 9.42.0
+      '@sentry-internal/browser-utils': 9.42.1
+      '@sentry-internal/feedback': 9.42.1
+      '@sentry-internal/replay': 9.42.1
+      '@sentry-internal/replay-canvas': 9.42.1
+      '@sentry/core': 9.42.1
 
   '@sentry/bundler-plugin-core@2.23.0':
     dependencies:
@@ -12561,9 +12553,9 @@ snapshots:
 
   '@sentry/core@8.55.0': {}
 
-  '@sentry/core@9.42.0': {}
+  '@sentry/core@9.42.1': {}
 
-  '@sentry/node-core@9.42.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)':
+  '@sentry/node-core@9.42.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/context-async-hooks': 1.30.1(@opentelemetry/api@1.9.0)
@@ -12572,8 +12564,8 @@ snapshots:
       '@opentelemetry/resources': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.36.0
-      '@sentry/core': 9.42.0
-      '@sentry/opentelemetry': 9.42.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
+      '@sentry/core': 9.42.1
+      '@sentry/opentelemetry': 9.42.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
       import-in-the-middle: 1.14.2
 
   '@sentry/node@8.55.0':
@@ -12616,7 +12608,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@sentry/node@9.42.0':
+  '@sentry/node@9.42.1':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/context-async-hooks': 1.30.1(@opentelemetry/api@1.9.0)
@@ -12648,9 +12640,9 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.36.0
       '@prisma/instrumentation': 6.11.1(@opentelemetry/api@1.9.0)
-      '@sentry/core': 9.42.0
-      '@sentry/node-core': 9.42.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
-      '@sentry/opentelemetry': 9.42.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
+      '@sentry/core': 9.42.1
+      '@sentry/node-core': 9.42.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
+      '@sentry/opentelemetry': 9.42.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)
       import-in-the-middle: 1.14.2
       minimatch: 9.0.5
     transitivePeerDependencies:
@@ -12666,14 +12658,14 @@ snapshots:
       '@opentelemetry/semantic-conventions': 1.36.0
       '@sentry/core': 8.55.0
 
-  '@sentry/opentelemetry@9.42.0(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)':
+  '@sentry/opentelemetry@9.42.1(@opentelemetry/api@1.9.0)(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.36.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/context-async-hooks': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/core': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.36.0
-      '@sentry/core': 9.42.0
+      '@sentry/core': 9.42.1
 
   '@sentry/vite-plugin@2.23.0':
     dependencies:
@@ -12727,11 +12719,11 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@spotlightjs/astro@3.2.5(@sentry/astro@9.42.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)))(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
+  '@spotlightjs/astro@3.2.5(@sentry/astro@9.42.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)))(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))':
     dependencies:
-      '@sentry/astro': 9.42.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
+      '@sentry/astro': 9.42.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))
       '@spotlightjs/spotlight': 3.0.1
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -13089,16 +13081,16 @@ snapshots:
       vue: 3.5.18(typescript@5.8.3)
       wonka: 6.3.5
 
-  '@vite-pwa/astro@1.1.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
+  '@vite-pwa/astro@1.1.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1))(vite-plugin-pwa@0.16.5(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0))':
     dependencies:
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       vite-plugin-pwa: 0.16.5(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(workbox-build@7.0.0(@types/babel__core@7.20.5))(workbox-window@7.3.0)
 
   '@vitejs/plugin-vue-jsx@4.2.0(rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       '@babel/core': 7.27.1
       '@babel/plugin-transform-typescript': 7.27.1(@babel/core@7.27.1)
-      '@rolldown/pluginutils': 1.0.0-beta.19
+      '@rolldown/pluginutils': 1.0.0-beta.29
       '@vue/babel-plugin-jsx': 1.4.0(@babel/core@7.27.1)
       vite: rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vue: 3.5.18(typescript@5.8.3)
@@ -13110,9 +13102,9 @@ snapshots:
       vite: rolldown-vite@7.0.8(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vue: 3.5.18(typescript@5.8.3)
 
-  '@vitejs/plugin-vue@6.0.0(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))':
+  '@vitejs/plugin-vue@6.0.1(rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1))(vue@3.5.18(typescript@5.8.3))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.19
+      '@rolldown/pluginutils': 1.0.0-beta.29
       vite: rolldown-vite@7.0.11(@types/node@24.1.0)(esbuild@0.25.8)(jiti@2.4.2)(sass@1.89.2)(terser@5.43.1)(yaml@2.7.1)
       vue: 3.5.18(typescript@5.8.3)
 
@@ -13397,16 +13389,16 @@ snapshots:
       js-beautify: 1.15.4
       vue-component-type-helpers: 2.2.10
 
-  '@vueuse/core@13.5.0(vue@3.5.18(typescript@5.8.3))':
+  '@vueuse/core@13.6.0(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       '@types/web-bluetooth': 0.0.21
-      '@vueuse/metadata': 13.5.0
-      '@vueuse/shared': 13.5.0(vue@3.5.18(typescript@5.8.3))
+      '@vueuse/metadata': 13.6.0
+      '@vueuse/shared': 13.6.0(vue@3.5.18(typescript@5.8.3))
       vue: 3.5.18(typescript@5.8.3)
 
-  '@vueuse/metadata@13.5.0': {}
+  '@vueuse/metadata@13.6.0': {}
 
-  '@vueuse/shared@13.5.0(vue@3.5.18(typescript@5.8.3))':
+  '@vueuse/shared@13.6.0(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       vue: 3.5.18(typescript@5.8.3)
 
@@ -13580,13 +13572,13 @@ snapshots:
 
   astral-regex@2.0.0: {}
 
-  astro-breadcrumbs@3.3.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-breadcrumbs@3.3.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
 
-  astro-capo@0.0.1(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-capo@0.0.1(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
       ultrahtml: 1.6.0
 
   astro-eslint-parser@1.2.2:
@@ -13606,15 +13598,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro-loading-indicator@0.7.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-loading-indicator@0.7.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
 
-  astro-matomo@1.9.0(astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
+  astro-matomo@1.9.0(astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)):
     dependencies:
-      astro: 5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
+      astro: 5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1)
 
-  astro@5.12.3(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1):
+  astro@5.12.4(@types/node@24.1.0)(jiti@2.4.2)(rollup@2.79.2)(sass@1.89.2)(terser@5.43.1)(typescript@5.8.3)(yaml@2.7.1):
     dependencies:
       '@astrojs/compiler': 2.12.2
       '@astrojs/internal-helpers': 0.6.1
@@ -19411,8 +19403,6 @@ snapshots:
     dependencies:
       typescript: 5.8.3
       zod: 3.25.76
-
-  zod@3.24.3: {}
 
   zod@3.25.76: {}
 
