@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.12](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.11...v1.10.12) (2025-07-28)
+
+
+### Bug Fixes
+
+* missing eng menu ([a26e4f5](https://github.com/felix-berlin/webshaped-blog-astro/commit/a26e4f5c5a0228b1c77c2de27d9678895e9e27f8))
+
 ## [1.10.11](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.10...v1.10.11) (2025-07-26)
 
 
