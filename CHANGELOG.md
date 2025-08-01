@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.13](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.12...v1.10.13) (2025-08-01)
+
+
+### Bug Fixes
+
+* **deps:** update astro monorepo ([#199](https://github.com/felix-berlin/webshaped-blog-astro/issues/199)) ([171e694](https://github.com/felix-berlin/webshaped-blog-astro/commit/171e694bd0270ea03369fe328d280963b12ca028))
+
 ## [1.10.12](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.11...v1.10.12) (2025-07-28)
 
 
