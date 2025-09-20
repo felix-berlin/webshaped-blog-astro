@@ -164,7 +164,7 @@ importers:
         version: 10.0.1(semantic-release@24.2.9(typescript@5.9.2))
       '@shikijs/transformers':
         specifier: ^3.7.0
-        version: 3.11.0
+        version: 3.13.0
       '@types/he':
         specifier: ^1.2.3
         version: 1.2.3
@@ -3473,6 +3473,9 @@ packages:
   '@shikijs/core@3.11.0':
     resolution: {integrity: sha512-oJwU+DxGqp6lUZpvtQgVOXNZcVsirN76tihOLBmwILkKuRuwHteApP8oTXmL4tF5vS5FbOY0+8seXmiCoslk4g==}
 
+  '@shikijs/core@3.13.0':
+    resolution: {integrity: sha512-3P8rGsg2Eh2qIHekwuQjzWhKI4jV97PhvYjYUzGqjvJfqdQPz+nMlfWahU24GZAyW1FxFI1sYjyhfh5CoLmIUA==}
+
   '@shikijs/engine-javascript@3.11.0':
     resolution: {integrity: sha512-6/ov6pxrSvew13k9ztIOnSBOytXeKs5kfIR7vbhdtVRg+KPzvp2HctYGeWkqv7V6YIoLicnig/QF3iajqyElZA==}
 
@@ -3485,11 +3488,14 @@ packages:
   '@shikijs/themes@3.11.0':
     resolution: {integrity: sha512-BhhWRzCTEk2CtWt4S4bgsOqPJRkapvxdsifAwqP+6mk5uxboAQchc0etiJ0iIasxnMsb764qGD24DK9albcU9Q==}
 
-  '@shikijs/transformers@3.11.0':
-    resolution: {integrity: sha512-fhSpVoq0FoCtKbBpzE3mXcIbr0b7ozFDSSWiVjWrQy+wrOfaFfwxgJqh8kY3Pbv/i+4pcuMIVismLD2MfO62eQ==}
+  '@shikijs/transformers@3.13.0':
+    resolution: {integrity: sha512-833lcuVzcRiG+fXvgslWsM2f4gHpjEgui1ipIknSizRuTgMkNZupiXE5/TVJ6eSYfhNBFhBZKkReKWO2GgYmqA==}
 
   '@shikijs/types@3.11.0':
     resolution: {integrity: sha512-RB7IMo2E7NZHyfkqAuaf4CofyY8bPzjWPjJRzn6SEak3b46fIQyG6Vx5fG/obqkfppQ+g8vEsiD7Uc6lqQt32Q==}
+
+  '@shikijs/types@3.13.0':
+    resolution: {integrity: sha512-oM9P+NCFri/mmQ8LoFGVfVyemm5Hi27330zuOBp0annwJdKH1kOLndw3zCtAVDehPLg9fKqoEx3Ht/wNZxolfw==}
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
@@ -13208,6 +13214,13 @@ snapshots:
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.5
 
+  '@shikijs/core@3.13.0':
+    dependencies:
+      '@shikijs/types': 3.13.0
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.4
+      hast-util-to-html: 9.0.5
+
   '@shikijs/engine-javascript@3.11.0':
     dependencies:
       '@shikijs/types': 3.11.0
@@ -13227,12 +13240,17 @@ snapshots:
     dependencies:
       '@shikijs/types': 3.11.0
 
-  '@shikijs/transformers@3.11.0':
+  '@shikijs/transformers@3.13.0':
     dependencies:
-      '@shikijs/core': 3.11.0
-      '@shikijs/types': 3.11.0
+      '@shikijs/core': 3.13.0
+      '@shikijs/types': 3.13.0
 
   '@shikijs/types@3.11.0':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.4
+
+  '@shikijs/types@3.13.0':
     dependencies:
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
