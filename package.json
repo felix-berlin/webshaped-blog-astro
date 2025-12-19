@@ -137,7 +137,7 @@
     "@astrojs/vue": "^5.1.0",
     "@felix_berlin/sass-butler": "^3.1.0",
     "@fontsource/source-sans-pro": "^5.2.5",
-    "@formkit/auto-animate": "^0.8.2",
+    "@formkit/auto-animate": "^0.9.0",
     "@iconify-json/lucide": "^1.2.58",
     "@iconify-json/tabler": "^1.2.20",
     "@nanostores/i18n": "^1.2.2",
