@@ -37,7 +37,7 @@ importers:
         version: 1.2.81
       '@iconify-json/tabler':
         specifier: ^1.2.20
-        version: 1.2.23
+        version: 1.2.24
       '@nanostores/i18n':
         specifier: ^1.2.2
         version: 1.2.2(nanostores@1.0.1)
@@ -1932,8 +1932,8 @@ packages:
   '@iconify-json/lucide@1.2.81':
     resolution: {integrity: sha512-6Kz/+SEuD5bkg0KImi0yFem9l6njKp4e1qF1LpQbgRfk7ngsJR/qjlB4y5rM8N1iKiDR/p19cqhmwZxyCWek+w==}
 
-  '@iconify-json/tabler@1.2.23':
-    resolution: {integrity: sha512-Knb8ykgMwB5uSoqrDv1xIdJYM03OP06OXjN6QvGXaTNtdHkW9ciKA+aftz6lwM2jwJA+bsUWeDzLBlPt2uJm4w==}
+  '@iconify-json/tabler@1.2.24':
+    resolution: {integrity: sha512-W1GIC36ckaQvr0fpQeyqC62HWyF3/r0yjJHtCByZmxA3qTMqLv0wJDdz/BffnmoCMulaBbxgjbTptFfKyn5e/g==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -4301,8 +4301,8 @@ packages:
     resolution: {integrity: sha512-bxxN2M3a4d1CRoQC//IqsR5XrLh0IJ8TCv2x6Y9N0nckNz/rTjZB3//GGscZziZOxmjP55rzxg/ze7usFI9FqQ==}
     hasBin: true
 
-  baseline-browser-mapping@2.9.10:
-    resolution: {integrity: sha512-2VIKvDx8Z1a9rTB2eCkdPE5nSe28XnA+qivGnWHoB40hMMt/h1hSz0960Zqsn6ZyxWXUie0EBdElKv8may20AA==}
+  baseline-browser-mapping@2.9.11:
+    resolution: {integrity: sha512-Sg0xJUNDU1sJNGdfGWhVHX0kkZ+HWcvmVymJbj6NSgZZmW/8S9Y2HQ5euytnIgakgxN6papOAWiwDo1ctFDcoQ==}
     hasBin: true
 
   beasties@0.2.0:
@@ -11727,7 +11727,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/tabler@1.2.23':
+  '@iconify-json/tabler@1.2.24':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -14511,7 +14511,7 @@ snapshots:
 
   baseline-browser-mapping@2.8.7: {}
 
-  baseline-browser-mapping@2.9.10: {}
+  baseline-browser-mapping@2.9.11: {}
 
   beasties@0.2.0:
     dependencies:
@@ -14605,7 +14605,7 @@ snapshots:
 
   browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.9.10
+      baseline-browser-mapping: 2.9.11
       caniuse-lite: 1.0.30001761
       electron-to-chromium: 1.5.267
       node-releases: 2.0.27
