@@ -79,7 +79,7 @@ importers:
         version: 0.0.1(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1))
       astro-loading-indicator:
         specifier: ^0.7.0
-        version: 0.7.0(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1))
+        version: 0.7.1(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1))
       astro-matomo:
         specifier: ^1.9.0
         version: 1.9.0(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1))
@@ -4215,8 +4215,8 @@ packages:
     resolution: {integrity: sha512-JepyLROIad6f44uyqMF6HKE2QbunNzp3mYKRcPoDGt0QkxXmH222FAFC64WTyQu2Kg8NNEXHTN/sWuUId9sSxw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  astro-loading-indicator@0.7.0:
-    resolution: {integrity: sha512-oNSUYbHq8Aaol0zcVuBzGz+qrqKsviOvKl1xaaKo3DLkEef7HCzHQAgTgWv4lB1iYFWa5GaieQvlxBO4KjzKZg==}
+  astro-loading-indicator@0.7.1:
+    resolution: {integrity: sha512-SH5igTvcj+rHoy7o7JO7jIuPxxkNarHl2Bu1H41/fAOa1uiYuLoQNkGhV/Xqe4Jc9wnUHidwXNExjPHoL1plNg==}
     peerDependencies:
       astro: ^4.0.0 || ^5.0.0
 
@@ -14343,7 +14343,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro-loading-indicator@0.7.0(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1)):
+  astro-loading-indicator@0.7.1(astro@5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1)):
     dependencies:
       astro: 5.15.9(@types/node@24.6.2)(jiti@2.4.2)(rollup@2.79.2)(sass@1.93.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1)
 
