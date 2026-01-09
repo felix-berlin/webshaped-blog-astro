@@ -119,7 +119,7 @@ importers:
         version: 1.9.1(astro@5.16.6(@types/node@25.0.3)(jiti@2.4.2)(rollup@2.79.2)(sass@1.97.2)(terser@5.44.1)(typescript@5.9.3)(yaml@2.7.1))(rolldown-vite@7.3.1(@types/node@25.0.3)(esbuild@0.25.12)(jiti@2.4.2)(sass@1.97.2)(terser@5.44.1)(yaml@2.7.1))
       '@faker-js/faker':
         specifier: ^10.1.0
-        version: 10.1.0
+        version: 10.2.0
       '@graphql-codegen/cli':
         specifier: ^6.1.0
         version: 6.1.0(@parcel/watcher@2.5.1)(@types/node@25.0.3)(crossws@0.3.5)(graphql-sock@1.0.1(graphql@16.12.0))(graphql@16.12.0)(typescript@5.9.3)
@@ -1632,8 +1632,8 @@ packages:
       '@exodus/crypto':
         optional: true
 
-  '@faker-js/faker@10.1.0':
-    resolution: {integrity: sha512-C3mrr3b5dRVlKPJdfrAXS8+dq+rq8Qm5SNRazca0JKgw1HQERFmrVb0towvMmw5uu8hHKNiQasMaR/tydf3Zsg==}
+  '@faker-js/faker@10.2.0':
+    resolution: {integrity: sha512-rTXwAsIxpCqzUnZvrxVh3L0QA0NzToqWBLAhV+zDV3MIIwiQhAZHMdPCIaj5n/yADu/tyk12wIPgL6YHGXJP+g==}
     engines: {node: ^20.19.0 || ^22.13.0 || ^23.5.0 || >=24.0.0, npm: '>=10'}
 
   '@fastify/busboy@2.1.1':
@@ -10869,7 +10869,7 @@ snapshots:
 
   '@exodus/bytes@1.6.0': {}
 
-  '@faker-js/faker@10.1.0': {}
+  '@faker-js/faker@10.2.0': {}
 
   '@fastify/busboy@2.1.1': {}
 
