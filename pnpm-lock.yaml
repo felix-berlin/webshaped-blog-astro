@@ -60,8 +60,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(graphql@16.12.0)
       '@urql/exchange-graphcache':
-        specifier: ^8.1.0
-        version: 8.1.0(@urql/core@6.0.1(graphql@16.12.0))(graphql@16.12.0)
+        specifier: ^9.0.0
+        version: 9.0.0(@urql/core@6.0.1(graphql@16.12.0))(graphql@16.12.0)
       '@urql/vue':
         specifier: ^2.0.0
         version: 2.0.0(@urql/core@6.0.1(graphql@16.12.0))(vue@3.5.27(typescript@5.9.3))
@@ -3843,8 +3843,8 @@ packages:
   '@urql/core@6.0.1':
     resolution: {integrity: sha512-FZDiQk6jxbj5hixf2rEPv0jI+IZz0EqqGW8mJBEug68/zHTtT+f34guZDmyjJZyiWbj0vL165LoMr/TkeDHaug==}
 
-  '@urql/exchange-graphcache@8.1.0':
-    resolution: {integrity: sha512-KxdDFcGAWhYOkpCz/NLNHb8SaWSxE2G1iv+jlFty2f/ZlCkD+FjtzwQuieGl7fk1MVR8DG1zLmxGNlwfCNksfQ==}
+  '@urql/exchange-graphcache@9.0.0':
+    resolution: {integrity: sha512-5ACktvMFdnD5JC6DaSUrlj345c1JIUi7PwgvmnkwVOWsCRt/Vo9946UaG+sg69ku8seESMBK4xkeI41M39Dd5A==}
     peerDependencies:
       '@urql/core': ^6.0.0
 
@@ -13606,7 +13606,7 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@urql/exchange-graphcache@8.1.0(@urql/core@6.0.1(graphql@16.12.0))(graphql@16.12.0)':
+  '@urql/exchange-graphcache@9.0.0(@urql/core@6.0.1(graphql@16.12.0))(graphql@16.12.0)':
     dependencies:
       '@0no-co/graphql.web': 1.2.0(graphql@16.12.0)
       '@urql/core': 6.0.1(graphql@16.12.0)
