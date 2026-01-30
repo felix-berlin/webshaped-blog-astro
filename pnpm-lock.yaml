@@ -34,7 +34,7 @@ importers:
         version: 0.9.0
       '@iconify-json/lucide':
         specifier: ^1.2.82
-        version: 1.2.86
+        version: 1.2.87
       '@iconify-json/tabler':
         specifier: ^1.2.25
         version: 1.2.26
@@ -2053,8 +2053,8 @@ packages:
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
 
-  '@iconify-json/lucide@1.2.86':
-    resolution: {integrity: sha512-W/Jz7/gGOkI9u43r+UHmQtZtcyw2YLvMwiHa01WV6V4DYltrPNXiD+bCa+djV8LZB1uwF8CiympOMIbgiQ74nA==}
+  '@iconify-json/lucide@1.2.87':
+    resolution: {integrity: sha512-wxYIAp0f8Uw0rJa6BMWMaRbiHk3yV4XczA38GKXFlqyZtTdmHM1QOF4NZw5xpMlRDzbh2MnB7wjteLeFnn/ciQ==}
 
   '@iconify-json/tabler@1.2.26':
     resolution: {integrity: sha512-92G+ZD70AZgeJf07JfQzH+isnai6DwPcMBuF/qL1F+xAxdXCJzGd3w2RmsRvOmB+w1ImmWEEDms50QivQIjd6g==}
@@ -3676,6 +3676,9 @@ packages:
 
   '@types/node@25.0.10':
     resolution: {integrity: sha512-zWW5KPngR/yvakJgGOmZ5vTBemDoSqF3AcV/LrO5u5wTWyEAVVh+IT39G4gtyAkh3CtTZs8aX/yRM82OfzHJRg==}
+
+  '@types/node@25.1.0':
+    resolution: {integrity: sha512-t7frlewr6+cbx+9Ohpl0NOTKXZNV9xHRmNOvql47BFJKcEG1CxtxlPEEe+gR9uhVWM4DwhnvTF110mIL4yP9RA==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -11522,7 +11525,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify-json/lucide@1.2.86':
+  '@iconify-json/lucide@1.2.87':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -13394,6 +13397,10 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
+  '@types/node@25.1.0':
+    dependencies:
+      undici-types: 7.16.0
+
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/pg-pool@2.0.6':
@@ -13418,7 +13425,7 @@ snapshots:
 
   '@types/resolve@1.17.1':
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 25.1.0
 
   '@types/sax@1.2.7':
     dependencies:
@@ -16351,7 +16358,7 @@ snapshots:
 
   jest-worker@26.6.2:
     dependencies:
-      '@types/node': 25.0.10
+      '@types/node': 25.1.0
       merge-stream: 2.0.0
       supports-color: 7.2.0
 
