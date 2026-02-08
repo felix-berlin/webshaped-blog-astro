@@ -59,7 +59,7 @@
     "copy:pagefind": "pnpm dlx shx cp -r dist/pagefind public/",
     "predev": "pnpm run gql:generate"
   },
-  "packageManager": "pnpm@10.28.2",
+  "packageManager": "pnpm@10.29.1",
   "pnpm": {
     "overrides": {
       "vite": "npm:rolldown-vite@latest"
