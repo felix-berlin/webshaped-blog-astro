@@ -37,7 +37,7 @@ importers:
         version: 1.2.96
       '@iconify-json/tabler':
         specifier: ^1.2.25
-        version: 1.2.29
+        version: 1.2.30
       '@nanostores/i18n':
         specifier: ^1.2.2
         version: 1.2.2(nanostores@1.1.1)
@@ -2018,8 +2018,8 @@ packages:
   '@iconify-json/lucide@1.2.96':
     resolution: {integrity: sha512-EICTusj67lvSmEaH/Lhe68ZyzcgfcPNpY00exAOkoo+z2fnLeNy31mdE3E/4/q8WjzZrICAZDxY3d6j7LzkgNA==}
 
-  '@iconify-json/tabler@1.2.29':
-    resolution: {integrity: sha512-PgozNurmUn6zFc8jV091sUZ8kMjLBJTUBXYpnQtZ6mhHmVW+ML6LZoHDw+TZM274IYMu0/85ikExPg+5a9cl3A==}
+  '@iconify-json/tabler@1.2.30':
+    resolution: {integrity: sha512-fhy+uBj3zwRpwWIKLc5qAaS9GB4XPvLW9/WhKqGbjNpNQeAnkcM3i3B5kylOmqlUmWwO0Pq/7qyiKqFmLyE73w==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -11495,7 +11495,7 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
 
-  '@iconify-json/tabler@1.2.29':
+  '@iconify-json/tabler@1.2.30':
     dependencies:
       '@iconify/types': 2.0.0
 
