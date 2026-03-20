@@ -78,7 +78,7 @@
     "@graphql-codegen/typescript-operations": "^5.0.7",
     "@graphql-eslint/eslint-plugin": "^4.4.0",
     "@nanostores/logger": "^1.0.0",
-    "@playform/inline": "0.1.2",
+    "@playform/inline": "0.1.4",
     "@playwright/test": "^1.57.0",
     "@prettier/plugin-oxc": "^0.1.3",
     "@semantic-release/changelog": "^6.0.3",
