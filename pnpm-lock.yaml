@@ -82,7 +82,7 @@ importers:
         version: 0.7.1(astro@5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2))
       astro-matomo:
         specifier: ^1.9.0
-        version: 1.9.0(astro@5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2))
+        version: 1.10.0(astro@5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2))
       floating-vue:
         specifier: 5.2.2
         version: 5.2.2(vue@3.5.30(typescript@5.9.3))
@@ -4219,10 +4219,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0 || ^5.0.0
 
-  astro-matomo@1.9.0:
-    resolution: {integrity: sha512-eOmhDHvqjrasJvhaKTSEZIMk9pW/3OcqYS6VVGOQBrEg33H1/Mk62sJuv2dxmsg3cNTDwm2rlZlw9r18KNgYnw==}
+  astro-matomo@1.10.0:
+    resolution: {integrity: sha512-SybGqcQmYOixzLaFnkKGYNcOHf0jYGgaxrCEtffHULkCDmeCdMa/adwN4pRL3SUMFshgm3/Eh9dkkgeiFJsiFg==}
     peerDependencies:
-      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+      astro: ^2.0.0-beta.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0
 
   astro@5.18.0:
     resolution: {integrity: sha512-CHiohwJIS4L0G6/IzE1Fx3dgWqXBCXus/od0eGUfxrZJD2um2pE7ehclMmgL/fXqbU7NfE1Ze2pq34h2QaA6iQ==}
@@ -13984,7 +13984,7 @@ snapshots:
     dependencies:
       astro: 5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2)
 
-  astro-matomo@1.9.0(astro@5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2)):
+  astro-matomo@1.10.0(astro@5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       astro: 5.18.0(@types/node@25.5.0)(jiti@2.6.1)(rollup@2.80.0)(sass@1.97.3)(terser@5.46.1)(typescript@5.9.3)(yaml@2.8.2)
 
