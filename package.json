@@ -118,7 +118,7 @@
     "sirv": "^3.0.2",
     "stylelint": "^16.26.1",
     "stylelint-config-prettier-scss": "^1.0.0",
-    "stylelint-config-recommended-scss": "^16.0.2",
+    "stylelint-config-recommended-scss": "^17.0.0",
     "stylelint-config-recommended-vue": "^1.6.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5.9.3",
