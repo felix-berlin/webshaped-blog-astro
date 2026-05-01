@@ -131,7 +131,7 @@
     "vue-tsc": "^3.2.1"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.1",
+    "@astrojs/node": "^10.0.0",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrojs/vue": "^5.1.3",
