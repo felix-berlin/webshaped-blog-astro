@@ -150,7 +150,7 @@
     "@urql/exchange-graphcache": "^9.0.0",
     "@urql/vue": "^2.0.0",
     "@vueuse/core": "^14.1.0",
-    "astro": "^5.16.6",
+    "astro": "^6.0.0",
     "astro-breadcrumbs": "^3.3.3",
     "astro-capo": "^0.0.1",
     "astro-loading-indicator": "^0.7.1",
