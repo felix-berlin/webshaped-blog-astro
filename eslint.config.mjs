@@ -25,6 +25,12 @@ export default defineConfig(
   ...pluginVueA11y.configs["flat/recommended"],
   perfectionist.configs["recommended-natural"],
   {
+    rules: {
+      "perfectionist/sort-imports": "off",
+      "perfectionist/sort-named-imports": "off",
+    },
+  },
+  {
     // files: ["**/*.ts", "**/*.js", "**/*.astro", "**/*.vue"],
     ignores: [
       "src/tests",
