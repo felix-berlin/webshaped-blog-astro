@@ -30,7 +30,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  hooks: { afterAllFileWrite: ["prettier --write"] },
+  hooks: { afterAllFileWrite: ["pnpm exec oxfmt ."] },
 };
 
 export default config;

@@ -6,7 +6,6 @@ export default {
     "stylelint-config-recommended-scss",
     "stylelint-config-recommended-vue",
     "stylelint-config-recommended-vue/scss",
-    "stylelint-config-prettier-scss",
   ],
   overrides: [
     {
