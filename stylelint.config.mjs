@@ -34,6 +34,8 @@ export default {
       },
     ],
     "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
+    "selector-no-qualifying-type": null,
     "function-no-unknown": null,
     "scss/at-extend-no-missing-placeholder": null,
   },
