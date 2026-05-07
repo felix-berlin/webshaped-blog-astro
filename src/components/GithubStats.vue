@@ -1,15 +1,9 @@
 <template>
-  <div
-    v-if="error"
-    class="c-github-stats-card c-post-card"
-  >
+  <div v-if="error" class="c-github-stats-card c-post-card">
     {{ error }}
   </div>
 
-  <div
-    v-if="!error"
-    class="c-github-stats-card c-post-card is-graph"
-  >
+  <div v-if="!error" class="c-github-stats-card c-post-card is-graph">
     <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
     <CodeLangGraph
       v-if="loading"
@@ -17,29 +11,13 @@
       :languages="skeletonLangDataMock"
       :show-tooltips="false"
     />
-    <CodeLangList
-      v-if="loading"
-      class="is-skeleton"
-      :languages="filteredLanguagePercentages"
-    />
+    <CodeLangList v-if="loading" class="is-skeleton" :languages="filteredLanguagePercentages" />
 
-    <Transition
-      name="fade"
-      mode="out-in"
-    >
-      <CodeLangGraph
-        v-if="!loading"
-        :languages="filteredLanguagePercentages"
-      />
+    <Transition name="fade" mode="out-in">
+      <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
     </Transition>
-    <Transition
-      name="fade"
-      mode="out-in"
-    >
-      <CodeLangList
-        v-if="!loading"
-        :languages="filteredLanguagePercentages"
-      />
+    <Transition name="fade" mode="out-in">
+      <CodeLangList v-if="!loading" :languages="filteredLanguagePercentages" />
     </Transition>
     <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
@@ -52,10 +30,7 @@
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
   </section> -->
-  <section
-    v-if="!error"
-    class="o-github-most-starred"
-  >
+  <section v-if="!error" class="o-github-most-starred">
     <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
     <div class="o-github-most-starred__list">
       <a
@@ -74,10 +49,7 @@
           {{ repo.mostUsedLanguage }}
         </div>
         <div class="o-github-most-starred__stars">
-          <StarIcon
-            width="16"
-            height="16"
-          /><span>{{ repo.stars }}</span>
+          <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
         </div>
       </a>
     </div>

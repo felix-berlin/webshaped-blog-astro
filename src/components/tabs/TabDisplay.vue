@@ -1,11 +1,7 @@
 <template>
   <TabsView>
     <TabItem :header="t('comments')">
-      <CommentsClient
-        id="comments"
-        :current-post-id="postId"
-        :author-id="authorId"
-      />
+      <CommentsClient id="comments" :current-post-id="postId" :author-id="authorId" />
     </TabItem>
     <TabItem header="Webmentions">
       <LoadWebmentions />

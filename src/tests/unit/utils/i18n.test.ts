@@ -1,5 +1,5 @@
-import { test, expect, describe } from "vitest";
 import { useTranslations } from "@utils/i18n/utils";
+import { test, expect, describe } from "vitest";
 
 describe("useTranslations i18n", () => {
   test("translation string", () => {

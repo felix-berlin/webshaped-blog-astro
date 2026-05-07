@@ -1,6 +1,6 @@
+import TabItem from "@components/tabs/TabItem.vue";
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
-import TabItem from "@components/tabs/TabItem.vue";
 
 describe("TabItem.vue", () => {
   const factory = (props = {}, provide = {}) => {

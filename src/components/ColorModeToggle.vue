@@ -1,25 +1,12 @@
 <template>
-  <button
-    type="button"
-    class="c-color-mode-toggle c-button c-button--icon"
-    @click="toggleMode()"
-  >
-    <Transition
-      name="fade"
-      mode="out-in"
-    >
+  <button type="button" class="c-color-mode-toggle c-button c-button--icon" @click="toggleMode()">
+    <Transition name="fade" mode="out-in">
       <template v-if="isDark">
-        <Moon
-          focusable="false"
-          :aria-label="t('color_mode_toggle.dark_label')"
-        />
+        <Moon focusable="false" :aria-label="t('color_mode_toggle.dark_label')" />
       </template>
 
       <template v-else-if="!isDark">
-        <Sun
-          focusable="false"
-          :aria-label="t('color_mode_toggle.light_label')"
-        />
+        <Sun focusable="false" :aria-label="t('color_mode_toggle.light_label')" />
       </template>
     </Transition>
   </button>

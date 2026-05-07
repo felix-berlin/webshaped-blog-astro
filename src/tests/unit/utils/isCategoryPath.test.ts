@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { isCategoryPath } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("isCategoryPath()", () => {
   it("returns true when path contains category", () => {

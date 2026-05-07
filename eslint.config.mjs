@@ -7,13 +7,14 @@ import jsxA11y from "eslint-plugin-jsx-a11y";
 import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
 import pluginVueA11y from "eslint-plugin-vuejs-accessibility";
+import { defineConfig } from "eslint/config";
 import url from "node:url";
 import tseslint from "typescript-eslint";
 import vueParser from "vue-eslint-parser";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

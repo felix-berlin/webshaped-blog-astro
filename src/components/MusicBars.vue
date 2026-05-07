@@ -1,13 +1,7 @@
 <template>
   <span class="o-music-bars">
-    <template
-      v-for="(bar, index) in 3"
-      :key="index"
-    >
-      <span
-        class="o-music-bars__bar"
-        :class="{ 'is-animated': props.animate }"
-      />
+    <template v-for="(bar, index) in 3" :key="index">
+      <span class="o-music-bars__bar" :class="{ 'is-animated': props.animate }" />
     </template>
   </span>
 </template>

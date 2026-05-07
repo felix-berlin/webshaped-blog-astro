@@ -1,9 +1,9 @@
-import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
-import { it, test, expect, describe, vi, beforeEach, afterEach } from "vitest";
-import { JSDOM } from "jsdom";
 // @ts-ignore: Unresolved import
 import MainNav from "@components/hero/MainNav.vue";
+import { mount } from "@vue/test-utils";
+import { JSDOM } from "jsdom";
+import { it, test, expect, describe, vi, beforeEach, afterEach } from "vitest";
+import { nextTick } from "vue";
 // import MenuNav from "@components/menu-nav/MenuNav.vue";
 
 beforeEach(() => {

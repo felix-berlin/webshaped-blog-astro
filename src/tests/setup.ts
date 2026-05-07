@@ -1,10 +1,7 @@
-import { afterAll, afterEach, beforeAll, vi } from "vitest";
-import { config } from "@vue/test-utils";
-import { server } from "./mocks/node.ts";
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
 import urql, { cacheExchange, fetchExchange } from "@urql/vue";
+import { config } from "@vue/test-utils";
 import { WP_API } from "astro:env/client";
-
 import {
   // Directives
   vTooltip,
@@ -14,6 +11,9 @@ import {
   Tooltip,
   Menu,
 } from "floating-vue";
+import { afterAll, afterEach, beforeAll, vi } from "vitest";
+
+import { server } from "./mocks/node.ts";
 
 vi.stubEnv("WP_API", "https://cms.webshaped.de/api");
 

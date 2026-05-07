@@ -8,10 +8,7 @@
       },
     ]"
   >
-    <article
-      :id="'comment-' + comment.id"
-      class="c-comment__item"
-    >
+    <article :id="'comment-' + comment.id" class="c-comment__item">
       <header class="c-comment__header">
         <img
           v-if="comment.author?.node?.avatar"
@@ -26,26 +23,16 @@
           loading="lazy"
           decoding="async"
           class="c-comment__author-image"
-        >
-        <div
-          v-else
-          class="c-comment__author-icon"
-        >
-          <User
-            width="86"
-            height="86"
-          />
+        />
+        <div v-else class="c-comment__author-icon">
+          <User width="86" height="86" />
         </div>
 
         <div class="c-comment__author-name-wrap">
           <h2 class="c-comment__author-name">
             {{ comment?.author?.node.name }}
           </h2>
-          <Verified
-            v-if="isAuthor"
-            width="18"
-            height="18"
-          />
+          <Verified v-if="isAuthor" width="18" height="18" />
         </div>
       </header>
       <main class="c-comment__content">
@@ -56,10 +43,7 @@
           >Reply to</a
         > -->
 
-        <div
-          class="c-comment__text"
-          v-html="comment.content"
-        />
+        <div class="c-comment__text" v-html="comment.content" />
 
         <footer class="c-comment__footer">
           <button
@@ -68,18 +52,11 @@
             class="c-comment__reply-button c-button c-button--icon"
             @click="toggleReplyCommentForm()"
           >
-            <span class="c-comment__reply-button-icon"><Reply
-              width="16"
-              height="16"
-            /> </span>
+            <span class="c-comment__reply-button-icon"><Reply width="16" height="16" /> </span>
             <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date
-            :date="comment.dateGmt!"
-            :lang="lang"
-            class="c-comment__date"
-          >
+          <Date :date="comment.dateGmt!" :lang="lang" class="c-comment__date">
             <template #before>
               {{ t("comment.date") }}
             </template>
@@ -95,10 +72,7 @@
       class="c-comment is-create-comment"
       :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
     >
-      <CreateComment
-        :current-post-id="currentPostId"
-        :reply-to-comment-id="comment?.commentId"
-      >
+      <CreateComment :current-post-id="currentPostId" :reply-to-comment-id="comment?.commentId">
         <template #beforeContent>
           <button
             type="button"

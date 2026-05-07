@@ -2,19 +2,13 @@
   <section class="c-comments">
     <h2>{{ t("comments.headline") }}</h2>
 
-    <CreateComment
-      :current-post-id="currentPostId"
-      :lang="lang"
-    />
+    <CreateComment :current-post-id="currentPostId" :lang="lang" />
 
     <p v-if="!comments.nodes?.length">
       {{ t("comments.no_comments") }}
     </p>
 
-    <template
-      v-for="comment in comments.nodes"
-      :key="comment.id"
-    >
+    <template v-for="comment in comments.nodes" :key="comment.id">
       <CommentItem
         :comment="comment"
         :depth="0"

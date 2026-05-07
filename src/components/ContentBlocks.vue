@@ -1,32 +1,11 @@
 <template>
-  <template
-    v-for="(block, index) in blocks"
-    :key="index"
-  >
-    <ParagraphBlock
-      v-if="block.name === 'core/paragraph'"
-      :block="block"
-    />
-    <ListBlock
-      v-if="block.name === 'core/list'"
-      :block="block"
-    />
-    <HeadlineBlock
-      v-if="block.name === 'core/heading'"
-      :block="block"
-    />
-    <CodeBlock
-      v-if="block.name === 'core/code'"
-      :block="block"
-    />
-    <FigureBlock
-      v-if="block.name === 'core/image'"
-      :block="block"
-    />
-    <ButtonBlock
-      v-if="block.name === 'core/buttons'"
-      :block="block"
-    />
+  <template v-for="(block, index) in blocks" :key="index">
+    <ParagraphBlock v-if="block.name === 'core/paragraph'" :block="block" />
+    <ListBlock v-if="block.name === 'core/list'" :block="block" />
+    <HeadlineBlock v-if="block.name === 'core/heading'" :block="block" />
+    <CodeBlock v-if="block.name === 'core/code'" :block="block" />
+    <FigureBlock v-if="block.name === 'core/image'" :block="block" />
+    <ButtonBlock v-if="block.name === 'core/buttons'" :block="block" />
     <!-- <div v-if="block.name === 'core/html'" v-html="block.originalContent" /> -->
   </template>
 </template>

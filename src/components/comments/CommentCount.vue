@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="props.isElement"
-    class="c-comment-count"
-  >
+  <component :is="props.isElement" class="c-comment-count">
     <span class="c-comment-count__icon">
       <MessageSquare />
     </span>

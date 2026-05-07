@@ -4,12 +4,12 @@
       :srcset="createSrcSet(props.srcSet, props.src, 'webp')"
       type="image/webp"
       :sizes="sizes ?? ''"
-    >
+    />
     <source
       :srcset="createSrcSet(props.srcSet, props.src, 'jpeg')"
       type="image/jpeg"
       :sizes="sizes ?? ''"
-    >
+    />
     <img
       :src="src"
       :alt="alt ?? ''"
@@ -19,7 +19,7 @@
       :loading="loading"
       :fetchpriority="fetchPriority"
       :sizes="sizes ?? ''"
-    >
+    />
   </picture>
 </template>
 

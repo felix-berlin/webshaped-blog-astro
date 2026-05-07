@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="getYearDiff(date!, Date.now()) >= showAfterYears"
-    class="c-post-older-than"
-  >
+  <div v-if="getYearDiff(date!, Date.now()) >= showAfterYears" class="c-post-older-than">
     <p class="c-post-older-than__text">
       {{
         t("post_older_than.text", {

@@ -6,10 +6,7 @@
       :placement="dropdownPlacement"
       :distance="10"
     >
-      <MusicBars
-        :animate="state.scrobbling"
-        class="c-scrobble-display__music-bar"
-      />
+      <MusicBars :animate="state.scrobbling" class="c-scrobble-display__music-bar" />
 
       <template #popper>
         <header class="c-scrobble-display__header">
@@ -22,15 +19,8 @@
             "
           />
 
-          <button
-            v-close-popper
-            class="c-scrobble-display__close"
-          >
-            <X
-              width="14"
-              height="14"
-              :aria-label="t('scrobble_display.close')"
-            />
+          <button v-close-popper class="c-scrobble-display__close">
+            <X width="14" height="14" :aria-label="t('scrobble_display.close')" />
           </button>
         </header>
         <p v-html="t('scrobble_display.text')" />
@@ -65,12 +55,9 @@
               loading="eager"
               width="64"
               height="64"
-            >
+            />
             <div class="c-scrobble-display__track">
-              <a
-                :href="track.url"
-                class="c-scrobble-display__track-link"
-              >{{ track.name }}</a>
+              <a :href="track.url" class="c-scrobble-display__track-link">{{ track.name }}</a>
               <MusicBars
                 v-if="track['@attr']?.nowplaying"
                 :animate="true"
@@ -85,16 +72,13 @@
         </div>
         <!-- </TransitionGroup> -->
         <footer>
-          <IconBrandLastfm
-            class="c-scrobble-display__scrobble"
-            width="25"
-            height="25"
-          />
+          <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
             t("scrobble_display.total_text", {
               total: state?.tracks?.recenttracks?.["@attr"]?.total,
             })
-          }}</span><br>
+          }}</span
+          ><br />
           <span
             v-html="
               t('scrobble_display.follow_me', {

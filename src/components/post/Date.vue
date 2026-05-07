@@ -2,10 +2,7 @@
   <div class="c-date">
     <slot name="before" />
 
-    <time
-      class="c-date"
-      v-text="formattedDate(date, props.lang?.locale ?? '')"
-    />
+    <time class="c-date" v-text="formattedDate(date, props.lang?.locale ?? '')" />
 
     <slot name="after" />
   </div>

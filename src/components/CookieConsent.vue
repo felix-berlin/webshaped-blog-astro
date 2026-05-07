@@ -6,28 +6,11 @@
       <p>{{ data.acceptAllCookies }}</p>
     </slot>
     <div>
-      <button
-        type="button"
-        @click="data.acceptAllCookies = false"
-      >
-        Reject all
-      </button>
-      <button
-        type="button"
-        @click="data.acceptAllCookies = true"
-      >
-        Accept all
-      </button>
-      <button
-        type="button"
-        @click="showOptions"
-      >
-        Options
-      </button>
+      <button type="button" @click="data.acceptAllCookies = false">Reject all</button>
+      <button type="button" @click="data.acceptAllCookies = true">Accept all</button>
+      <button type="button" @click="showOptions">Options</button>
     </div>
-    <div v-if="data.showOptions">
-      Options
-    </div>
+    <div v-if="data.showOptions">Options</div>
   </div>
 </template>
 

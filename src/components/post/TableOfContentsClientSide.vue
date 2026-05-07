@@ -1,9 +1,5 @@
 <template>
-  <nav
-    :id="props.id"
-    class="c-toc"
-    role="doc-toc"
-  />
+  <nav :id="props.id" class="c-toc" role="doc-toc" />
 </template>
 
 <script setup lang="ts">
@@ -29,9 +25,7 @@ const observer = ref<IntersectionObserver>();
 
 const createTocClientSide = () => {
   const toc = document.getElementById(props.id) as HTMLDivElement;
-  const matches = document.querySelectorAll(
-    `${props.target} h2, ${props.target} h3`,
-  );
+  const matches = document.querySelectorAll(`${props.target} h2, ${props.target} h3`);
 
   matches.forEach((value, index) => {
     if (props.setIndexIdToHeadlines) {

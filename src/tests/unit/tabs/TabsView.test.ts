@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { nextTick } from "vue";
-import { describe, beforeEach, expect, it } from "vitest";
 import TabsView from "@components/tabs/TabsView.vue";
+import { mount } from "@vue/test-utils";
+import { describe, beforeEach, expect, it } from "vitest";
+import { nextTick } from "vue";
 
 describe("TabsView.vue", () => {
   it("renders correctly", () => {

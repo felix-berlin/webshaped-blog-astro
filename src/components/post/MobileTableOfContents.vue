@@ -1,23 +1,13 @@
 <template>
-  <nav
-    v-if="pageWidth < 1024"
-    ref="mobileToc"
-    class="c-mobile-toc"
-  >
-    <details
-      ref="toggleButton"
-      class="c-mobile-toc__button-wrap"
-    >
+  <nav v-if="pageWidth < 1024" ref="mobileToc" class="c-mobile-toc">
+    <details ref="toggleButton" class="c-mobile-toc__button-wrap">
       <summary class="c-mobile-toc__button">
         <div class="c-mobile-toc__fake-button c-button">
           <span v-text="t('mobile_toc.button')" />
           <ChevronRight class="c-mobile-toc__fake-button-icon" />
         </div>
 
-        <span
-          class="c-mobile-toc__active-headline"
-          v-text="activeHeadlineText"
-        />
+        <span class="c-mobile-toc__active-headline" v-text="activeHeadlineText" />
       </summary>
       <TableOfContents
         class="c-mobile-toc__dropdown"

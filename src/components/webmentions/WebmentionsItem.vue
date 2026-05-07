@@ -1,8 +1,5 @@
 <template>
-  <article
-    :id="'webmention-' + mention['wm-id']"
-    class="c-webmention"
-  >
+  <article :id="'webmention-' + mention['wm-id']" class="c-webmention">
     <header class="c-webmention__header c-comment__header">
       <img
         :src="mention.author.photo"
@@ -16,15 +13,11 @@
         :loading="index < 3 ? 'edge' : 'lazy'"
         decoding="async"
         class="c-webmentions__author-image c-comment__author-image"
-      >
+      />
 
       <div class="c-comment__author-name-wrap">
         <h2 class="c-webmentions__author-name c-comment__author-name">
-          <a
-            :href="mention.author.url"
-            target="_blank"
-            class="c-webmentions__author-image-link"
-          >
+          <a :href="mention.author.url" target="_blank" class="c-webmentions__author-image-link">
             {{ mention.author.name }}
           </a>
         </h2>
@@ -32,10 +25,7 @@
     </header>
 
     <main class="c-webmention__content">
-      <div
-        class="c-webmentions__text c-comment__text"
-        v-text="mention.content.text"
-      />
+      <div class="c-webmentions__text c-comment__text" v-text="mention.content.text" />
 
       <footer class="c-webmention__footer c-comment__footer">
         <Date
@@ -59,10 +49,7 @@
           "
         >
           <KeepAlive>
-            <Component
-              :is="loadIcons(mention.url)"
-              class="c-webmention__source-icon"
-            />
+            <Component :is="loadIcons(mention.url)" class="c-webmention__source-icon" />
           </KeepAlive>
         </a>
       </footer>

@@ -1,9 +1,8 @@
-import { mount } from "@vue/test-utils";
-import { test, expect, describe } from "vitest";
-import Leaf from "virtual:icons/lucide/leaf";
-
 // @ts-ignore: Unresolved import
 import GreenHosted from "@components/footer/GreenHosted.vue";
+import { mount } from "@vue/test-utils";
+import Leaf from "virtual:icons/lucide/leaf";
+import { test, expect, describe } from "vitest";
 
 describe("GreenHosted.vue", () => {
   test("GreenHosted component renders correctly", () => {

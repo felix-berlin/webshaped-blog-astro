@@ -1,8 +1,5 @@
 <template>
-  <div
-    :id="id"
-    class="c-search"
-  />
+  <div :id="id" class="c-search" />
 </template>
 
 <script setup lang="ts">

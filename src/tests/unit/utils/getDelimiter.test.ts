@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { getDelimiter } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("getDelimiter()", () => {
   // Tests that the function returns the correct special character if found in the string

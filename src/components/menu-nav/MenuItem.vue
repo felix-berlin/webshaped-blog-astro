@@ -51,10 +51,7 @@
         :is-open="isOpen"
         :class="[`is-level-${depth} is-${submenuDirection}`, { 'is-open': isOpen }]"
       >
-        <template
-          v-for="(child, childItemIndex) in menuItem?.childItems?.nodes"
-          :key="child.label"
-        >
+        <template v-for="(child, childItemIndex) in menuItem?.childItems?.nodes" :key="child.label">
           <MenuItem
             :menu-item="child"
             :depth="depth + 1"

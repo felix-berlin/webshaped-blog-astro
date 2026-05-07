@@ -1,21 +1,12 @@
 <template>
   <section class="c-comments">
-    <div
-      id="createComment"
-      class="c-comment is-create-comment is-level-0 is-even"
-    >
-      <CreateComment
-        :current-post-id="currentPostId"
-        @comment-created="getComments"
-      />
+    <div id="createComment" class="c-comment is-create-comment is-level-0 is-even">
+      <CreateComment :current-post-id="currentPostId" @comment-created="getComments" />
     </div>
 
     <NoComments v-if="!hasComments" />
 
-    <div
-      v-auto-animate
-      class="c-comments__list"
-    >
+    <div v-auto-animate class="c-comments__list">
       <template v-if="hasComments">
         <CommentItem
           v-for="comment in cleanComments"
@@ -27,10 +18,7 @@
         />
       </template>
       <template v-if="!comments.fetching">
-        <CommentItemSkeleton
-          v-for="item in 5"
-          :key="item"
-        />
+        <CommentItemSkeleton v-for="item in 5" :key="item" />
       </template>
     </div>
 

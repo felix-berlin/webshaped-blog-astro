@@ -10,31 +10,15 @@
       :aria-expanded="flyoutIsOpen"
       @click="toggleFlyout"
     >
-      <Transition
-        name="fade"
-        mode="out-in"
-      >
-        <MenuIcon
-          v-if="!flyoutIsOpen"
-          class="c-main-nav__menu-icon is-mobile"
-        />
-        <CloseIcon
-          v-else
-          class="c-main-nav__menu-icon is-mobile"
-        />
+      <Transition name="fade" mode="out-in">
+        <MenuIcon v-if="!flyoutIsOpen" class="c-main-nav__menu-icon is-mobile" />
+        <CloseIcon v-else class="c-main-nav__menu-icon is-mobile" />
       </Transition>
     </button>
 
-    <Teleport
-      v-if="isMobile"
-      to="#mainHeader"
-    >
+    <Teleport v-if="isMobile" to="#mainHeader">
       <Transition name="fade">
-        <div
-          v-if="flyoutIsOpen"
-          class="c-main-nav__flyout"
-          :class="{ 'is-open': flyoutIsOpen }"
-        >
+        <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">
           <MenuNav
             :menu-items="menuItems.nodes"
             class="c-main-nav__menu"

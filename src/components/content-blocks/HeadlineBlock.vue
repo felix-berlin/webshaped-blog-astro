@@ -4,10 +4,7 @@
     :id="generateId()"
     :class="`c-blocks__heading c-blocks__heading--${headlineLevel}`"
   >
-    <span
-      v-if="isHtml(headline)"
-      v-html="headline"
-    />
+    <span v-if="isHtml(headline)" v-html="headline" />
 
     <template v-else>
       {{ he.decode(headline) }}

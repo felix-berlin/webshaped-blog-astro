@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="webmentionsCount > 0"
-      class="c-webmentions"
-    >
+    <div v-if="webmentionsCount > 0" class="c-webmentions">
       <WebmentionsItem
         v-for="(mention, index) in state.mentions"
         :key="mention['wm-id']"

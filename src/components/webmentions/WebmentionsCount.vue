@@ -1,8 +1,5 @@
 <template>
-  <component
-    :is="elementIs"
-    class="c-webmentions-count"
-  >
+  <component :is="elementIs" class="c-webmentions-count">
     <AtSign
       aria-label="Webmentions Anzahl"
       class="c-webmentions-count__icon"

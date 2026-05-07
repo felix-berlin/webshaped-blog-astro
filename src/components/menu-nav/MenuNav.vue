@@ -1,12 +1,6 @@
 <template>
-  <menu
-    class="c-menu u-list-reset"
-    role="menu"
-  >
-    <template
-      v-for="(item, index) in menuItems"
-      :key="item.label"
-    >
+  <menu class="c-menu u-list-reset" role="menu">
+    <template v-for="(item, index) in menuItems" :key="item.label">
       <MenuItem
         :menu-item="item"
         :depth="0"
@@ -15,10 +9,7 @@
         @submenu-state="emit('submenu-state', $event)"
         @menu-item-target-clicked="emit('menu-item-target-clicked', $event)"
       >
-        <template
-          v-if="item.childItems && item.childItems.nodes.length > 0"
-          #menuTitleIcon
-        >
+        <template v-if="item.childItems && item.childItems.nodes.length > 0" #menuTitleIcon>
           <ChevronDown class="c-main-nav__menu-icon is-mobile" />
         </template>
       </MenuItem>

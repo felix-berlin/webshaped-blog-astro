@@ -9,10 +9,7 @@
       :alt="attributes?.alt"
       class="c-blog__hero-image"
     />
-    <figcaption
-      v-if="attributes?.caption"
-      v-html="attributes?.caption"
-    />
+    <figcaption v-if="attributes?.caption" v-html="attributes?.caption" />
   </figure>
 </template>
 

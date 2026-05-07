@@ -5,11 +5,7 @@
     :class="cssClass"
     @click="triggerPwaInstall()"
   >
-    <Download
-      v-if="showIcon"
-      :width="iconSize"
-      :height="iconSize"
-    />
+    <Download v-if="showIcon" :width="iconSize" :height="iconSize" />
     <template v-if="showText">
       {{ t("install_app.button") }}
     </template>

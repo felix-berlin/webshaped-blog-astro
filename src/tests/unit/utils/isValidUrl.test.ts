@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { isValidUrl } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("isValidUrl()", () => {
   // Tests that the function correctly identifies a valid URL with the http protocol

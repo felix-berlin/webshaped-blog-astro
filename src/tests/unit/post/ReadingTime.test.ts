@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { test, expect } from "vitest";
 // @ts-ignore: Unresolved import
 import ReadingTime from "@components/post/ReadingTime.vue";
+import { mount } from "@vue/test-utils";
+import { test, expect } from "vitest";
 
 test("Viewing the reading time text", () => {
   const wrapper = mount(ReadingTime, {

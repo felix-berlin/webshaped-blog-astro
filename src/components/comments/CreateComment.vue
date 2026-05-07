@@ -2,11 +2,7 @@
   <article class="c-comment__item">
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User
-          v-if="!validEmail(commentForm.email)"
-          width="86"
-          height="86"
-        />
+        <User v-if="!validEmail(commentForm.email)" width="86" height="86" />
         <span v-else>{{ t("comment_form.gravatar_hint") }}</span>
       </div>
 
@@ -17,10 +13,7 @@
       </div>
     </header>
 
-    <main
-      v-auto-animate
-      class="c-comment__content is-comment-item"
-    >
+    <main v-auto-animate class="c-comment__content is-comment-item">
       <slot name="beforeContent" />
 
       <h2 class="c-comment__headline">
@@ -32,10 +25,7 @@
         type="danger"
         class="c-comment__big-alert c-alert--big-centered"
       >
-        <template
-          v-for="error in formResponses.errors"
-          :key="error"
-        >
+        <template v-for="error in formResponses.errors" :key="error">
           <XCircle class="c-comment__big-alert-icon" />
           <p class="c-comment__big-alert-text">
             {{ error.message }}
@@ -53,21 +43,13 @@
         </p>
       </Alert>
 
-      <form
-        v-if="!showDialog"
-        novalidate="true"
-        class="c-form"
-        @submit.prevent="checkForm"
-      >
+      <form v-if="!showDialog" novalidate="true" class="c-form" @submit.prevent="checkForm">
         <div
           v-auto-animate
           class="c-form__item is-vertical"
           :class="{ 'c-textarea--error': formErrors.comment.length }"
         >
-          <label
-            class="c-form__label"
-            for="comment"
-          >{{ t("comment_form.comment.label") }}</label>
+          <label class="c-form__label" for="comment">{{ t("comment_form.comment.label") }}</label>
 
           <textarea
             id="comment"
@@ -77,11 +59,7 @@
             rows="4"
             placeholder=" "
           />
-          <Alert
-            v-if="formErrors.comment.length"
-            type="danger"
-            class="c-alert--small"
-          >
+          <Alert v-if="formErrors.comment.length" type="danger" class="c-alert--small">
             {{ formErrors.comment }}
           </Alert>
         </div>
@@ -92,10 +70,7 @@
             class="c-form__item is-vertical"
             :class="{ 'has-error': formErrors.author.length }"
           >
-            <label
-              class="c-form__label c-label is-required"
-              for="author"
-            >{{
+            <label class="c-form__label c-label is-required" for="author">{{
               t("comment_form.name.label")
             }}</label>
 
@@ -106,12 +81,8 @@
               type="text"
               name="author"
               placeholder=" "
-            >
-            <Alert
-              v-if="formErrors.author.length"
-              type="danger"
-              class="c-alert--small"
-            >
+            />
+            <Alert v-if="formErrors.author.length" type="danger" class="c-alert--small">
               {{ formErrors.author }}
             </Alert>
           </div>
@@ -123,10 +94,8 @@
               'has-error': formErrors.email && formErrors.email.length,
             }"
           >
-            <label
-              class="c-form__label"
-              for="user-email"
-            >{{ t("comment_form.email.label") }}
+            <label class="c-form__label" for="user-email"
+              >{{ t("comment_form.email.label") }}
               <Info
                 v-tooltip="{
                   content: t('comment_form.email.tooltip'),
@@ -144,7 +113,7 @@
               type="email"
               name="user-email"
               placeholder=" "
-            >
+            />
             <Alert
               v-if="formErrors.email && formErrors.email.length"
               type="danger"
@@ -167,7 +136,7 @@
             type="checkbox"
             name="privacy"
             class="c-input c-input--checkbox"
-          >
+          />
           <label
             class="c-form__label c-label is-required"
             for="privacy"
@@ -194,17 +163,14 @@
             type="checkbox"
             name="saveUser"
             class="c-input c-input--checkbox c-switch"
-          >
+          />
           <label
             class="c-form__label c-label"
             for="saveUser"
             v-text="t('comment_form.save_user.label')"
           />
         </div>
-        <button
-          type="submit"
-          class="c-button c-button--primary"
-        >
+        <button type="submit" class="c-button c-button--primary">
           {{ t("comment_form.submit.button") }}
         </button>
       </form>

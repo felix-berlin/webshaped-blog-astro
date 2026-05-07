@@ -18,30 +18,17 @@
         {{ item.label }}
       </a>
 
-      <span
-        v-else
-        class="c-menu__link is-menu-title"
-      >
+      <span v-else class="c-menu__link is-menu-title">
         <span class="c-menu__link-title">{{ item.label }}</span>
 
-        <span
-          v-show="$slots.menuTitleIcon"
-          class="c-menu__link-icon"
-        >
+        <span v-show="$slots.menuTitleIcon" class="c-menu__link-icon">
           <slot name="menuTitleIcon" />
         </span>
       </span>
 
       <menu class="c-submenu u-list-reset">
-        <li
-          v-for="child in item?.childItems?.nodes"
-          :key="child.label!"
-          class="c-submenu__item"
-        >
-          <a
-            :href="child.path!"
-            class="c-submenu__link"
-          >{{ child.label }}</a>
+        <li v-for="child in item?.childItems?.nodes" :key="child.label!" class="c-submenu__item">
+          <a :href="child.path!" class="c-submenu__link">{{ child.label }}</a>
         </li>
       </menu>
     </li>

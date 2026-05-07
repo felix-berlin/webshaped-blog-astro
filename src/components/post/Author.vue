@@ -9,7 +9,7 @@
         :width="author.node.avatar.width || undefined"
         :height="author.node.avatar.height || undefined"
         loading="lazy"
-      >
+      />
 
       <ScrobbleDisplay
         :scrobble-api="scrobbleApi"

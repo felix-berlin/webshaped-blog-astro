@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { getSocialIconData } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("getSocialIconData", () => {
   // Tests that the function returns an object with social items and their urls

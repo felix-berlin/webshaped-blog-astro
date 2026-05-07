@@ -1,13 +1,6 @@
 <template>
-  <component
-    :is="htmlElement"
-    :id="tocId"
-    class="c-toc"
-  >
-    <template
-      v-for="headline in headings"
-      :key="headline"
-    >
+  <component :is="htmlElement" :id="tocId" class="c-toc">
+    <template v-for="headline in headings" :key="headline">
       <a
         :href="createHref(headline)"
         :class="[

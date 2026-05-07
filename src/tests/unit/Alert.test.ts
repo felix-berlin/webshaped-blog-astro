@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import Alert from "@components/Alert.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("Alert", () => {
   it("renders the correct type", () => {

@@ -26,7 +26,7 @@ const { badge, header } = defineProps<TabProps>();
 
 const selectedTabHeader = inject("selectedTabHeader") as Ref<string>;
 const tabProps = inject("tabProps") as Ref<
-  Array<{ header: string; tabId: string; tabpanelId: string; }>
+  Array<{ header: string; tabId: string; tabpanelId: string }>
 >;
 
 // Find the current tab's properties based on the header

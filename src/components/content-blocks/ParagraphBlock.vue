@@ -1,8 +1,5 @@
 <template>
-  <p
-    class="c-blocks__paragraph"
-    v-html="block.attributes.content"
-  />
+  <p class="c-blocks__paragraph" v-html="block.attributes.content" />
 </template>
 
 <script setup lang="ts">

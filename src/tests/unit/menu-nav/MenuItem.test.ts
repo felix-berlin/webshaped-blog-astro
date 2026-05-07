@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import MenuItem from "@components/menu-nav/MenuItem.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("MenuItem", () => {
   const twoMenuItem = {

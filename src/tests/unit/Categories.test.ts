@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import Categories from "@components/Categories.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("Categories.vue", () => {
   const wrapper = mount(Categories, {

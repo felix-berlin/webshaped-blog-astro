@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="c-searchbar c-button c-button--outline"
-    type="button"
-    @click="openSearch"
-  >
+  <button class="c-searchbar c-button c-button--outline" type="button" @click="openSearch">
     <SearchIcon class="c-searchbar__search-icon" />
     <span class="c-searchbar__label">{{ t("search") }}</span>
     <SquareSlash class="c-searchbar__slash-icon" />

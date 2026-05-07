@@ -1,13 +1,6 @@
 <template>
-  <article
-    v-for="(post, index) in posts"
-    :key="index"
-    class="c-post-card"
-  >
-    <a
-      class="c-post-card__link"
-      :href="postLink(post)"
-    >
+  <article v-for="(post, index) in posts" :key="index" class="c-post-card">
+    <a class="c-post-card__link" :href="postLink(post)">
       <h2 class="c-post-card__title">{{ post.title }}</h2>
 
       <!-- <Date
@@ -26,18 +19,11 @@
       :translations="post.translations"
     /> -->
 
-      <div
-        class="c-post-card__excerpt"
-        v-html="post.excerpt"
-      />
+      <div class="c-post-card__excerpt" v-html="post.excerpt" />
 
       <div class="c-post-card__read-more">
         <span>{{ t("blog.read_more") }}</span>
-        <ArrowRight
-          width="22"
-          height="22"
-          class="c-post-card__read-more-arrow"
-        />
+        <ArrowRight width="22" height="22" class="c-post-card__read-more-arrow" />
       </div>
     </a>
   </article>

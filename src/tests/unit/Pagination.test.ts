@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import Pagination from "@components/Pagination.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("Pagination", () => {
   it("renders the correct number of pages", () => {

@@ -1,8 +1,5 @@
 <template>
-  <nav
-    v-if="page.lastPage > 1"
-    class="c-pagination"
-  >
+  <nav v-if="page.lastPage > 1" class="c-pagination">
     <ul class="c-pagination__list u-list-reset">
       <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
         <component
@@ -30,10 +27,7 @@
         :key="index"
         :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
       >
-        <a
-          :href="`/${path}/${index}`"
-          class="c-pagination__link"
-        >{{ index }}</a>
+        <a :href="`/${path}/${index}`" class="c-pagination__link">{{ index }}</a>
       </li>
 
       <li :class="['c-pagination__item', { 'is-disabled': !page.url.next }]">

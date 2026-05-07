@@ -3,11 +3,7 @@
     <p class="c-date-modified__headline">
       {{ t("last_updated") }}
     </p>
-    <Date
-      :date="date!"
-      :lang="lang"
-      class="c-date-modified__date"
-    />
+    <Date :date="date!" :lang="lang" class="c-date-modified__date" />
   </div>
 </template>
 

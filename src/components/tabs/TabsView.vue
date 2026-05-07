@@ -1,17 +1,7 @@
 <template>
-  <div
-    ref="tabs"
-    v-auto-animate
-    class="c-tabs"
-  >
-    <div
-      class="c-tabs__header"
-      role="tablist"
-    >
-      <template
-        v-for="tab in tabsProps"
-        :key="tab.tabId"
-      >
+  <div ref="tabs" v-auto-animate class="c-tabs">
+    <div class="c-tabs__header" role="tablist">
+      <template v-for="tab in tabsProps" :key="tab.tabId">
         <button
           :id="tab.tabId"
           role="tab"
@@ -27,10 +17,7 @@
           @click="selectedTabHeader = tab.header"
         >
           {{ tab.header }}
-          <span
-            v-if="typeof tab?.badge !== 'undefined'"
-            class="c-tabs__header-badge"
-          >{{
+          <span v-if="typeof tab?.badge !== 'undefined'" class="c-tabs__header-badge">{{
             tab.badge
           }}</span>
         </button>

@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { capitalize } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("capitalize()", () => {
   // Tests that the function correctly capitalizes a string with only one character

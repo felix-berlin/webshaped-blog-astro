@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { updateCategoryPaths } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("updateCategoryPaths", () => {
   it("updates category paths in the main menu", () => {

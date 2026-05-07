@@ -1,8 +1,5 @@
 <template>
-  <details
-    :open="showContent"
-    class="c-block-details"
-  >
+  <details :open="showContent" class="c-block-details">
     <summary class="c-block-details__summary">
       {{ summary }}
     </summary>

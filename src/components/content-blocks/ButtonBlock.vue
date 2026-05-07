@@ -5,7 +5,8 @@
     :target="linkTarget"
     :rel="rel"
     class="c-button c-button--primary"
-  >{{ text }}</a>
+    >{{ text }}</a
+  >
 </template>
 
 <script setup lang="ts">
