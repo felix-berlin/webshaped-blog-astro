@@ -2,13 +2,19 @@
   <section class="c-comments">
     <h2>{{ t("comments.headline") }}</h2>
 
-    <CreateComment :current-post-id="currentPostId" :lang="lang" />
+    <CreateComment
+      :current-post-id="currentPostId"
+      :lang="lang"
+    />
 
     <p v-if="!comments.nodes?.length">
       {{ t("comments.no_comments") }}
     </p>
 
-    <template v-for="comment in comments.nodes" :key="comment.id">
+    <template
+      v-for="comment in comments.nodes"
+      :key="comment.id"
+    >
       <CommentItem
         :comment="comment"
         :depth="0"
@@ -24,19 +30,20 @@
 import CommentItem from "@components/comments/CommentItem.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useTranslations } from "@utils/i18n/utils";
+
 import type { Comment } from "@/gql/graphql.ts";
 
 export interface CommentsProps {
+  authorId: string;
   comments: {
     nodes?: [Comment];
   };
   currentPostId: number;
   id?: string;
-  authorId: string;
   lang: string;
 }
 
-const { comments, currentPostId, id, authorId, lang } = defineProps<CommentsProps>();
+const { authorId, comments, currentPostId, id, lang } = defineProps<CommentsProps>();
 const t = useTranslations(lang);
 </script>
 

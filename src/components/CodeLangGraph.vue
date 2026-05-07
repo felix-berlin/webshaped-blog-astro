@@ -11,7 +11,7 @@
       class="c-code-lang-graph__item"
       :class="`is-${language.toLowerCase()}`"
       :style="{ '--lang-percentage': percentage.toFixed(2) + '%' }"
-    ></li>
+    />
   </ul>
 </template>
 

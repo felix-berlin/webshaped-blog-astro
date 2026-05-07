@@ -9,12 +9,16 @@
       :alt="attributes?.alt"
       class="c-blog__hero-image"
     />
-    <figcaption v-if="attributes?.caption" v-html="attributes?.caption" />
+    <figcaption
+      v-if="attributes?.caption"
+      v-html="attributes?.caption"
+    />
   </figure>
 </template>
 
 <script setup lang="ts">
 import ImageResponsive from "@components/ImageResponsive.vue";
+
 import type { CoreImage } from "@/gql/graphql.ts";
 
 export interface FigureBlockProps {

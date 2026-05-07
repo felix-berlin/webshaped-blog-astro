@@ -17,9 +17,9 @@
 </template>
 
 <script setup lang="ts">
+import LanguageDropdown from "@components/LanguageDropdown.vue";
 // import InstallApp from "@components/InstallApp.vue";
 // import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";
-import LanguageDropdown from "@components/LanguageDropdown.vue";
 import RssLink from "@components/RssLink.vue";
 </script>

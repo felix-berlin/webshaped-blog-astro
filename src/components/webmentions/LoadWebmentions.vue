@@ -1,11 +1,17 @@
 <template>
-  <Transition name="fade" mode="in-out">
+  <Transition
+    name="fade"
+    mode="in-out"
+  >
     <Suspense>
       <Webmentions :current-url="true" />
 
       <template #fallback>
         <div class="c-webmentions">
-          <WebmentionSkeleton v-for="item in 6" :key="item" />
+          <WebmentionSkeleton
+            v-for="item in 6"
+            :key="item"
+          />
         </div>
       </template>
     </Suspense>

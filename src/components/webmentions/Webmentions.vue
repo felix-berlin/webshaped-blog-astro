@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="c-webmentions" v-if="webmentionsCount > 0">
+    <div
+      v-if="webmentionsCount > 0"
+      class="c-webmentions"
+    >
       <WebmentionsItem
         v-for="(mention, index) in state.mentions"
         :key="mention['wm-id']"
@@ -13,10 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, defineAsyncComponent } from "vue";
+import type { Webmention } from "@components/webmentions/WebmentionsItem.vue";
+
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
-import type { Webmention } from "@components/webmentions/WebmentionsItem.vue";
+import { defineAsyncComponent, onMounted, reactive } from "vue";
 
 const WebmentionsItem = defineAsyncComponent(
   () => import("@components/webmentions/WebmentionsItem.vue"),
@@ -33,15 +37,15 @@ const NoMentions = defineAsyncComponent(() => import("@components/webmentions/No
  */
 
 export interface WebmentionsProps {
-  target?: string;
   currentUrl?: boolean;
+  target?: string;
 }
 
 interface Webmentions {
   mentions: Webmention[];
 }
 
-const { target = "", currentUrl = false } = defineProps<WebmentionsProps>();
+const { currentUrl = false, target = "" } = defineProps<WebmentionsProps>();
 
 const state: Webmentions = reactive({
   mentions: [],

@@ -1,5 +1,8 @@
 <template>
-  <a href="/" class="c-logo">
+  <a
+    href="/"
+    class="c-logo"
+  >
     <img
       :src="src"
       alt="Web Shaped Logo"
@@ -7,7 +10,7 @@
       height="34"
       loading="eager"
       fetchpriority="high"
-    />
+    >
   </a>
 </template>
 

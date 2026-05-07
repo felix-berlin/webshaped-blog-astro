@@ -3,37 +3,40 @@
 import "@styles/components/_blocks.scss";
 import "@styles/plugins/shiki.scss";
 
+import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+
+import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
+import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
+import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
+import FigureBlock from "@components/content-blocks/FigureBlock.vue";
+import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
+import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
+import ListBlock from "@components/content-blocks/ListBlock.vue";
+import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
-import type { CoreHeading } from "@/gql/graphql.ts";
-import ListBlock from "@components/content-blocks/ListBlock.vue";
-import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
-import FigureBlock from "@components/content-blocks/FigureBlock.vue";
-import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
-import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
-import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
-import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
-import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { Code } from "astro/components";
+import { WP_API } from "astro:env/client";
 import he from "he";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
-import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
+
+import type { CoreHeading } from "@/gql/graphql.ts";
+
 import { GetAllPostsDocument } from "@/gql/graphql.ts";
-import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
 
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
   const client = new Client({
-    url: WP_API,
+    exchanges: [cacheExchange, fetchExchange],
     fetchOptions: {
       headers: {
         "Content-Type": "application/json",
       },
     },
-    exchanges: [cacheExchange, fetchExchange],
+    url: WP_API,
   });
 
   const postsResponse = await client.query(GetAllPostsDocument, { size: 90 }).toPromise();
@@ -48,8 +51,8 @@ export const getStaticPaths = (async () => {
   return posts.map((post) => {
     return {
       params: {
-        postSlug: post.slug,
         lang: post?.language?.slug,
+        postSlug: post.slug,
       },
       props: {
         post: post,
@@ -61,7 +64,7 @@ export const getStaticPaths = (async () => {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { postSlug, lang } = Astro.params as Params;
+const { lang, postSlug } = Astro.params as Params;
 const { post } = Astro.props;
 
 const isCoreHeading = (block: any): block is CoreHeading => {
@@ -111,8 +114,8 @@ const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
               code={he.decode(block.attributes?.content || "")}
               lang={block.attributes?.className}
               themes={{
-                light: materialThemeLighter,
                 dark: materialThemePalenight,
+                light: materialThemeLighter,
               }}
               wrap
             />

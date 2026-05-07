@@ -4,7 +4,10 @@
     :id="generateId()"
     :class="`c-blocks__heading c-blocks__heading--${headlineLevel}`"
   >
-    <span v-if="isHtml(headline)" v-html="headline" />
+    <span
+      v-if="isHtml(headline)"
+      v-html="headline"
+    />
 
     <template v-else>
       {{ he.decode(headline) }}
@@ -13,10 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { isHtml, getHtmlContent } from "@utils/helpers";
-import slugify from "slugify";
-import type { CoreHeading } from "@/gql/graphql.ts";
+import { getHtmlContent, isHtml } from "@utils/helpers";
 import he from "he";
+import slugify from "slugify";
+
+import type { CoreHeading } from "@/gql/graphql.ts";
 
 export interface HeadlineBlockProps {
   block: CoreHeading;

@@ -1,6 +1,9 @@
 <template>
   <div class="c-social-list">
-    <template v-for="(social, index) in socialItems" :key="social">
+    <template
+      v-for="(social, index) in socialItems"
+      :key="social"
+    >
       <a
         v-if="social?.url && social !== null"
         v-tooltip="{ content: index, placement: 'top' }"
@@ -29,37 +32,38 @@
 
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
-import type { Maybe } from "@/gql/graphql.ts";
 import { defineAsyncComponent } from "vue";
 
+import type { Maybe } from "@/gql/graphql.ts";
+
 export interface SocialItems {
-  url?: Maybe<string>;
-  target?: string;
-  label?: string;
   class?: string;
+  color?: string;
+  label?: string;
   rel?: string;
   size?: number;
-  color?: string;
+  target?: string;
+  url?: Maybe<string>;
 }
 
 export interface SocialListProps {
+  lang: string;
   socialItems: {
     facebook?: SocialItems;
+    github?: SocialItems;
     instagram?: SocialItems;
     linkedIn?: SocialItems;
+    mastodon?: SocialItems;
     mySpace?: SocialItems;
     pinterest?: SocialItems;
     soundCloud?: SocialItems;
     twitter?: SocialItems;
     wikipedia?: SocialItems;
     youTube?: SocialItems;
-    github?: SocialItems;
-    mastodon?: SocialItems;
   };
-  lang: string;
 }
 
-const { socialItems, lang } = defineProps<SocialListProps>();
+const { lang, socialItems } = defineProps<SocialListProps>();
 
 const t = useTranslations(lang);
 
@@ -71,22 +75,22 @@ const t = useTranslations(lang);
  */
 const returnComponent = (component: string) => {
   switch (component) {
-    case "github":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
     case "facebook":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
-    case "twitter":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
+    case "github":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
     case "instagram":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-instagram"));
-    case "youtube":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-youtube"));
     case "linkedIn":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-linkedin"));
     case "mastodon":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
     case "reddit":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
+    case "twitter":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
+    case "youtube":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-youtube"));
     default:
       return null;
   }

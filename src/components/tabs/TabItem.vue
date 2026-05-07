@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="selectedTabHeader === header"
+    :id="currentTab?.tabpanelId"
     class="c-tab"
     tabindex="0"
-    :id="currentTab?.tabpanelId"
     role="tabpanel"
     :hidden="selectedTabHeader !== header"
     :aria-labelledby="currentTab?.tabId"
@@ -13,19 +13,20 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from "vue";
 import type { Ref } from "vue";
 
+import { inject, ref } from "vue";
+
 export interface TabProps {
+  badge?: number | string;
   header: string;
-  badge?: string | number;
 }
 
-const { header, badge } = defineProps<TabProps>();
+const { badge, header } = defineProps<TabProps>();
 
 const selectedTabHeader = inject("selectedTabHeader") as Ref<string>;
 const tabProps = inject("tabProps") as Ref<
-  Array<{ tabId: string; tabpanelId: string; header: string }>
+  Array<{ header: string; tabId: string; tabpanelId: string; }>
 >;
 
 // Find the current tab's properties based on the header

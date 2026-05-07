@@ -1,7 +1,7 @@
 <template>
   <li>
-    <span v-html="block.attributes.content"></span>
-    <slot></slot>
+    <span v-html="block.attributes.content" />
+    <slot />
   </li>
 </template>
 

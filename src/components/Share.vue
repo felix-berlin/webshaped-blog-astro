@@ -16,27 +16,27 @@
 </template>
 
 <script setup lang="ts">
-import Share2 from "virtual:icons/lucide/share-2";
-import { onMounted, ref } from "vue";
-import { useShare } from "@vueuse/core";
-import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
+import { useShare } from "@vueuse/core";
+import Share2 from "virtual:icons/lucide/share-2";
+import { onMounted, ref } from "vue";
 
 export interface ShareProps {
-  title?: string;
-  text?: string;
-  url?: string | undefined;
   showButton?: boolean;
+  text?: string;
+  title?: string;
+  url?: string | undefined;
 }
 
-const { share, isSupported } = useShare();
+const { isSupported, share } = useShare();
 
 const props = withDefaults(defineProps<ShareProps>(), {
-  title: undefined,
-  text: undefined,
-  url: undefined,
   showButton: true,
+  text: undefined,
+  title: undefined,
+  url: undefined,
 });
 
 const lang = useStore(currentLanguage);
@@ -48,7 +48,7 @@ const startShare = (
   text: string | undefined,
   url: string | undefined,
 ) => {
-  share({ title, text, url });
+  share({ text, title, url });
 };
 
 onMounted(() => {

@@ -2,7 +2,10 @@
   <div class="c-date">
     <slot name="before" />
 
-    <time class="c-date" v-text="formattedDate(date, props.lang?.locale ?? '')" />
+    <time
+      class="c-date"
+      v-text="formattedDate(date, props.lang?.locale ?? '')"
+    />
 
     <slot name="after" />
   </div>
@@ -28,9 +31,9 @@ const formattedDate = (date: string, locale: string): string => {
   const dateToFormat = new Date(dumpSafariDateFormat);
 
   return dateToFormat.toLocaleString(formattedLocale, {
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 };
 </script>

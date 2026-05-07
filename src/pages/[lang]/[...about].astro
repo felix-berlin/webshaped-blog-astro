@@ -1,22 +1,23 @@
 ---
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { Image } from "astro:assets";
 import GithubStats from "@components/GithubStats.vue";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
-import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { Image } from "astro:assets";
 import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
+
+import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 
 const client = new Client({
-  url: WP_API,
+  exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     headers: {
       "Content-Type": "application/json",
     },
   },
-  exchanges: [cacheExchange, fetchExchange],
+  url: WP_API,
 });
 
 const pagesResponse = await client
@@ -63,13 +64,13 @@ const translationsRoutes = allPages.reduce<Record<string, string>>((acc, curr) =
     </div>
 
     <Image
-      src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
       alt="Felix Scholze portrait"
-      layout="constrained"
-      width="500"
-      height="500"
-      priority={true}
       class="o-developer-card__image c-post-card"
+      height="500"
+      layout="constrained"
+      priority={true}
+      src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
+      width="500"
     />
   </header>
 

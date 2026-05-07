@@ -11,9 +11,20 @@
     stroke-linejoin="round"
     class="c-circle-icon c-circle-icon--error"
   >
-    <circle class="c-circle-icon__circle" cx="12" cy="12" r="10" />
-    <path class="c-circle-icon__check" d="m15 9-6 6" />
-    <path class="c-circle-icon__check" d="m9 9 6 6" />
+    <circle
+      class="c-circle-icon__circle"
+      cx="12"
+      cy="12"
+      r="10"
+    />
+    <path
+      class="c-circle-icon__check"
+      d="m15 9-6 6"
+    />
+    <path
+      class="c-circle-icon__check"
+      d="m9 9 6 6"
+    />
   </svg>
 </template>
 

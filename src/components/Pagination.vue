@@ -1,5 +1,8 @@
 <template>
-  <nav v-if="page.lastPage > 1" class="c-pagination">
+  <nav
+    v-if="page.lastPage > 1"
+    class="c-pagination"
+  >
     <ul class="c-pagination__list u-list-reset">
       <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
         <component
@@ -27,7 +30,10 @@
         :key="index"
         :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
       >
-        <a :href="`/${path}/${index}`" class="c-pagination__link">{{ index }}</a>
+        <a
+          :href="`/${path}/${index}`"
+          class="c-pagination__link"
+        >{{ index }}</a>
       </li>
 
       <li :class="['c-pagination__item', { 'is-disabled': !page.url.next }]">
@@ -55,20 +61,22 @@
 </template>
 
 <script setup lang="ts">
-import ChevronLeft from "virtual:icons/lucide/chevron-left";
-import ChevronRight from "virtual:icons/lucide/chevron-right";
+import type { Page } from "astro/dist/@types/astro";
+
+import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
-import { useTranslations } from "@utils/i18n/utils";
-import type { Page } from "astro/dist/@types/astro";
+import ChevronLeft from "virtual:icons/lucide/chevron-left";
+import ChevronRight from "virtual:icons/lucide/chevron-right";
+
 import type { Language, Maybe } from "@/gql/graphql.ts";
-import { currentLanguage } from "@stores/store";
-import { useStore } from "@nanostores/vue";
 
 defineProps<{
+  lang: Maybe<Language>;
   page: Page;
   path: string;
-  lang: Maybe<Language>;
 }>();
 
 const lang = useStore(currentLanguage);

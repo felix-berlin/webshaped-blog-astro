@@ -6,7 +6,10 @@
       :placement="dropdownPlacement"
       :distance="10"
     >
-      <MusicBars :animate="state.scrobbling" class="c-scrobble-display__music-bar" />
+      <MusicBars
+        :animate="state.scrobbling"
+        class="c-scrobble-display__music-bar"
+      />
 
       <template #popper>
         <header class="c-scrobble-display__header">
@@ -19,8 +22,15 @@
             "
           />
 
-          <button v-close-popper class="c-scrobble-display__close">
-            <X width="14" height="14" :aria-label="t('scrobble_display.close')" />
+          <button
+            v-close-popper
+            class="c-scrobble-display__close"
+          >
+            <X
+              width="14"
+              height="14"
+              :aria-label="t('scrobble_display.close')"
+            />
           </button>
         </header>
         <p v-html="t('scrobble_display.text')" />
@@ -32,9 +42,9 @@
           class="c-scrobble-display__list"
         > -->
         <div
+          v-if="state?.tracks?.recenttracks?.track"
           v-auto-animate
           class="c-scrobble-display__list"
-          v-if="state?.tracks?.recenttracks?.track"
         >
           <div
             v-for="track in state.tracks.recenttracks.track"
@@ -55,9 +65,12 @@
               loading="eager"
               width="64"
               height="64"
-            />
+            >
             <div class="c-scrobble-display__track">
-              <a :href="track.url" class="c-scrobble-display__track-link">{{ track.name }}</a>
+              <a
+                :href="track.url"
+                class="c-scrobble-display__track-link"
+              >{{ track.name }}</a>
               <MusicBars
                 v-if="track['@attr']?.nowplaying"
                 :animate="true"
@@ -72,13 +85,16 @@
         </div>
         <!-- </TransitionGroup> -->
         <footer>
-          <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
+          <IconBrandLastfm
+            class="c-scrobble-display__scrobble"
+            width="25"
+            height="25"
+          />
           <span>{{
             t("scrobble_display.total_text", {
               total: state?.tracks?.recenttracks?.["@attr"]?.total,
             })
-          }}</span
-          ><br />
+          }}</span><br>
           <span
             v-html="
               t('scrobble_display.follow_me', {
@@ -93,19 +109,21 @@
 </template>
 
 <script setup lang="ts">
-import { watchEffect, onBeforeUnmount, onMounted, reactive, watch } from "vue";
-import MusicBars from "./MusicBars.vue";
 import X from "virtual:icons/lucide/x";
-import { useI18n } from "@/composables/useI18n";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
+import { onBeforeUnmount, onMounted, reactive, watch, watchEffect } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
+
+import MusicBars from "./MusicBars.vue";
 
 export interface ScrobbleDisplayProps {
-  numberOfDisplayedTracks?: number;
-  updateRate?: number;
   dropdownPlacement?: string;
-  idleIfInactive?: boolean;
   idleAfterCount?: number;
+  idleIfInactive?: boolean;
+  numberOfDisplayedTracks?: number;
   scrobbleApi: string;
+  updateRate?: number;
 }
 
 interface LastFmData {
@@ -117,32 +135,32 @@ interface LastFmData {
 }
 
 interface State {
+  idleAfterCount: number | undefined;
+  isDropdownShown: boolean;
+  scrobbling: boolean;
   tracks: {
     [key: string]: any;
   };
-  scrobbling: boolean;
   updateCount: number;
   updateIntervalId: NodeJS.Timer | undefined;
-  isDropdownShown: boolean;
-  idleAfterCount: number | undefined;
 }
 
 const {
-  numberOfDisplayedTracks = 5,
-  updateRate = 180_000, // check every 180 seconds (3 min)
   dropdownPlacement = "auto",
-  idleIfInactive = false,
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
+  idleIfInactive = false,
+  numberOfDisplayedTracks = 5,
   scrobbleApi = null,
+  updateRate = 180_000, // check every 180 seconds (3 min)
 } = defineProps<ScrobbleDisplayProps>();
 
 const state: State = reactive({
-  tracks: {},
+  idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
+  isDropdownShown: false,
   scrobbling: false,
+  tracks: {},
   updateCount: 0,
   updateIntervalId: undefined,
-  isDropdownShown: false,
-  idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
 });
 
 const { t } = useI18n();

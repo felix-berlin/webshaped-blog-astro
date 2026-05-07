@@ -1,10 +1,13 @@
 <template>
-  <div :id="id" class="c-search"></div>
+  <div
+    :id="id"
+    class="c-search"
+  />
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, nextTick } from "vue";
 import { PagefindUI } from "@pagefind/default-ui";
+import { nextTick, onMounted, onUnmounted } from "vue";
 
 export interface SearchProps {
   id: string;
@@ -27,10 +30,10 @@ if (import.meta.env.DEV) {
  */
 const initPagefind = async () => {
   new PagefindUI({
+    bundlePath,
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
-    bundlePath,
   });
 };
 

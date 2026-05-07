@@ -10,15 +10,31 @@
       :aria-expanded="flyoutIsOpen"
       @click="toggleFlyout"
     >
-      <Transition name="fade" mode="out-in">
-        <MenuIcon v-if="!flyoutIsOpen" class="c-main-nav__menu-icon is-mobile" />
-        <CloseIcon v-else class="c-main-nav__menu-icon is-mobile" />
+      <Transition
+        name="fade"
+        mode="out-in"
+      >
+        <MenuIcon
+          v-if="!flyoutIsOpen"
+          class="c-main-nav__menu-icon is-mobile"
+        />
+        <CloseIcon
+          v-else
+          class="c-main-nav__menu-icon is-mobile"
+        />
       </Transition>
     </button>
 
-    <Teleport v-if="isMobile" to="#mainHeader">
+    <Teleport
+      v-if="isMobile"
+      to="#mainHeader"
+    >
       <Transition name="fade">
-        <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">
+        <div
+          v-if="flyoutIsOpen"
+          class="c-main-nav__flyout"
+          :class="{ 'is-open': flyoutIsOpen }"
+        >
           <MenuNav
             :menu-items="menuItems.nodes"
             class="c-main-nav__menu"
@@ -45,17 +61,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import Logo from "@components/Logo.vue";
-import MenuIcon from "virtual:icons/lucide/menu";
-import CloseIcon from "virtual:icons/lucide/x";
-import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
-import { useI18n } from "@/composables/useI18n";
+import MenuNav from "@components/menu-nav/MenuNav.vue";
 import { useStore } from "@nanostores/vue";
 import { isMobileBreakpoint, windowWidth } from "@stores/store";
 import { useResizeObserver } from "@vueuse/core";
+import MenuIcon from "virtual:icons/lucide/menu";
+import CloseIcon from "virtual:icons/lucide/x";
+import { onMounted, ref } from "vue";
+
 import type { MenuToMenuItemConnection } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;

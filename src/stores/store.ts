@@ -1,9 +1,10 @@
-import { atom } from "nanostores";
-import { persistentAtom } from "@nanostores/persistent";
-import { getLangFromUrl } from "@utils/i18n/utils";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
-export type Language = "en" | "de";
+import { persistentAtom } from "@nanostores/persistent";
+import { getLangFromUrl } from "@utils/i18n/utils";
+import { atom } from "nanostores";
+
+export type Language = "de" | "en";
 
 export const currentLanguage = atom<string>("de");
 
@@ -36,7 +37,7 @@ export const translationRoutes = atom<TranslationRoutes | undefined>({});
 //   });
 // }
 
-export type LoadingStateValue = "empty" | "loading" | "loaded";
+export type LoadingStateValue = "empty" | "loaded" | "loading";
 export const loadingState = atom<LoadingStateValue>("empty");
 
 export type WebmentionsCount = number;
@@ -45,9 +46,6 @@ export const currentWebmentionsCount = atom<WebmentionsCount>(0);
 export type DarkMode = boolean;
 
 export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, {
-  encode(value) {
-    return JSON.stringify(value);
-  },
   decode(value) {
     try {
       return JSON.parse(value);
@@ -55,14 +53,17 @@ export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, {
       return value;
     }
   },
+  encode(value) {
+    return JSON.stringify(value);
+  },
 });
 
 export interface Guest {
   author?: string;
   email?: string;
-  url?: string;
   privacy?: boolean;
   saveUser?: boolean;
+  url?: string;
 }
 
 export const guest = persistentAtom<Guest>(
@@ -71,9 +72,6 @@ export const guest = persistentAtom<Guest>(
     saveUser: false,
   },
   {
-    encode(value) {
-      return JSON.stringify(value);
-    },
     decode(value) {
       try {
         return JSON.parse(value);
@@ -81,16 +79,19 @@ export const guest = persistentAtom<Guest>(
         return value;
       }
     },
+    encode(value) {
+      return JSON.stringify(value);
+    },
   },
 );
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: Array<string>;
+  prompt(): Promise<void>;
   readonly userChoice: Promise<{
     outcome: "accepted" | "dismissed";
     platform: string;
   }>;
-  prompt(): Promise<void>;
 }
 
 // FIXME: PWA is not working (manifest is not found ect.)

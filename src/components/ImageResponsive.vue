@@ -4,12 +4,12 @@
       :srcset="createSrcSet(props.srcSet, props.src, 'webp')"
       type="image/webp"
       :sizes="sizes ?? ''"
-    />
+    >
     <source
       :srcset="createSrcSet(props.srcSet, props.src, 'jpeg')"
       type="image/jpeg"
       :sizes="sizes ?? ''"
-    />
+    >
     <img
       :src="src"
       :alt="alt ?? ''"
@@ -19,22 +19,23 @@
       :loading="loading"
       :fetchpriority="fetchPriority"
       :sizes="sizes ?? ''"
-    />
+    >
   </picture>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+
 import type { Maybe } from "@/gql/graphql.ts";
 
 export interface ImageResponsiveProps {
+  aboveTheFold?: boolean;
+  alt?: Maybe<string>;
+  height?: Maybe<number>;
+  sizes?: Maybe<string>;
   src: Maybe<string>;
   srcSet?: Maybe<string>;
-  sizes?: Maybe<string>;
-  alt?: Maybe<string>;
   width?: Maybe<number>;
-  height?: Maybe<number>;
-  aboveTheFold?: boolean;
 }
 
 const props = defineProps<ImageResponsiveProps>();

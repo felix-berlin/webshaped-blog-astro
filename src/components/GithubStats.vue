@@ -1,7 +1,15 @@
 <template>
-  <div v-if="error" class="c-github-stats-card c-post-card">{{ error }}</div>
+  <div
+    v-if="error"
+    class="c-github-stats-card c-post-card"
+  >
+    {{ error }}
+  </div>
 
-  <div v-if="!error" class="c-github-stats-card c-post-card is-graph">
+  <div
+    v-if="!error"
+    class="c-github-stats-card c-post-card is-graph"
+  >
     <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
     <CodeLangGraph
       v-if="loading"
@@ -9,13 +17,29 @@
       :languages="skeletonLangDataMock"
       :show-tooltips="false"
     />
-    <CodeLangList v-if="loading" class="is-skeleton" :languages="filteredLanguagePercentages" />
+    <CodeLangList
+      v-if="loading"
+      class="is-skeleton"
+      :languages="filteredLanguagePercentages"
+    />
 
-    <Transition name="fade" mode="out-in">
-      <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
+    <Transition
+      name="fade"
+      mode="out-in"
+    >
+      <CodeLangGraph
+        v-if="!loading"
+        :languages="filteredLanguagePercentages"
+      />
     </Transition>
-    <Transition name="fade" mode="out-in">
-      <CodeLangList v-if="!loading" :languages="filteredLanguagePercentages" />
+    <Transition
+      name="fade"
+      mode="out-in"
+    >
+      <CodeLangList
+        v-if="!loading"
+        :languages="filteredLanguagePercentages"
+      />
     </Transition>
     <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
@@ -28,7 +52,10 @@
       {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
     </div>
   </section> -->
-  <section v-if="!error" class="o-github-most-starred">
+  <section
+    v-if="!error"
+    class="o-github-most-starred"
+  >
     <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
     <div class="o-github-most-starred__list">
       <a
@@ -47,7 +74,10 @@
           {{ repo.mostUsedLanguage }}
         </div>
         <div class="o-github-most-starred__stars">
-          <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
+          <StarIcon
+            width="16"
+            height="16"
+          /><span>{{ repo.stars }}</span>
         </div>
       </a>
     </div>
@@ -55,14 +85,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
+import StarIcon from "virtual:icons/lucide/star";
+import { computed, onMounted, ref } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
+
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
-import { useI18n } from "@/composables/useI18n";
-import StarIcon from "virtual:icons/lucide/star";
 
 const loading = ref(true);
-const error = ref<string | null>(null);
+const error = ref<null | string>(null);
 const languagePercentages = ref<{ language: string; percentage: number }[]>([]);
 const totalBytes = ref(0);
 const totalCommits = ref(0);
@@ -82,23 +114,23 @@ const formatLargeNumber = (number: number) => {
 };
 
 const skeletonLangDataMock = {
-  CSS: 38.02660312272305,
-  PHP: 26.015819330171375,
-  JavaScript: 12.950763290567174,
-  SCSS: 6.007951636810379,
-  TypeScript: 2.4874462437779257,
   Astro: 1.3031886346985595,
-  Vue: 0.7794710680480621,
-  HTML: 11.144375113868353,
-  Python: 0.04880883844321259,
-  Dart: 0.04141031945695539,
   Blade: 0.30380711613215317,
-  Shell: 0.034887325301050216,
-  PowerShell: 0.023458718736913076,
+  CSS: 38.02660312272305,
+  Dart: 0.04141031945695539,
+  HTML: 11.144375113868353,
+  JavaScript: 12.950763290567174,
   Less: 0.33225833142076827,
-  Sass: 0.47375250075956793,
+  PHP: 26.015819330171375,
+  PowerShell: 0.023458718736913076,
   Pug: 0.01238433214230767,
+  Python: 0.04880883844321259,
   Ruby: 0.009824591607767014,
+  Sass: 0.47375250075956793,
+  SCSS: 6.007951636810379,
+  Shell: 0.034887325301050216,
+  TypeScript: 2.4874462437779257,
+  Vue: 0.7794710680480621,
 };
 
 onMounted(() => {

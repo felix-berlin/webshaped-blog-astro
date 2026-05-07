@@ -10,13 +10,17 @@
       :block="listItem"
       class="c-blocks__list-item"
     >
-      <ListBlock v-if="listItem?.innerBlocks?.[0]" :block="listItem?.innerBlocks?.[0]"></ListBlock>
+      <ListBlock
+        v-if="listItem?.innerBlocks?.[0]"
+        :block="listItem?.innerBlocks?.[0]"
+      />
     </ListItemBlock>
   </component>
 </template>
 
 <script setup lang="ts">
 import ListItemBlock from "@components/content-blocks/ListItemBlock.vue";
+
 import type { CoreList } from "@/gql/graphql.ts";
 
 export interface ListBlockProps {

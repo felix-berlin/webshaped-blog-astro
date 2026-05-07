@@ -1,5 +1,8 @@
 <template>
-  <article :id="'webmention-' + mention['wm-id']" class="c-webmention">
+  <article
+    :id="'webmention-' + mention['wm-id']"
+    class="c-webmention"
+  >
     <header class="c-webmention__header c-comment__header">
       <img
         :src="mention.author.photo"
@@ -13,11 +16,15 @@
         :loading="index < 3 ? 'edge' : 'lazy'"
         decoding="async"
         class="c-webmentions__author-image c-comment__author-image"
-      />
+      >
 
       <div class="c-comment__author-name-wrap">
         <h2 class="c-webmentions__author-name c-comment__author-name">
-          <a :href="mention.author.url" target="_blank" class="c-webmentions__author-image-link">
+          <a
+            :href="mention.author.url"
+            target="_blank"
+            class="c-webmentions__author-image-link"
+          >
             {{ mention.author.name }}
           </a>
         </h2>
@@ -25,7 +32,10 @@
     </header>
 
     <main class="c-webmention__content">
-      <div class="c-webmentions__text c-comment__text" v-text="mention.content.text" />
+      <div
+        class="c-webmentions__text c-comment__text"
+        v-text="mention.content.text"
+      />
 
       <footer class="c-webmention__footer c-comment__footer">
         <Date
@@ -49,7 +59,10 @@
           "
         >
           <KeepAlive>
-            <Component :is="loadIcons(mention.url)" class="c-webmention__source-icon" />
+            <Component
+              :is="loadIcons(mention.url)"
+              class="c-webmention__source-icon"
+            />
           </KeepAlive>
         </a>
       </footer>
@@ -58,19 +71,19 @@
 </template>
 
 <script setup lang="ts">
+import Date from "@components/post/Date.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
-import Date from "@components/post/Date.vue";
-import { useTranslations } from "@utils/i18n/utils";
 import { getHostName } from "@utils/helpers";
-import { ref, onMounted, defineAsyncComponent } from "vue";
+import { useTranslations } from "@utils/i18n/utils";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 
 export interface Webmention {
   author: {
     name: string;
     photo: string;
-    url: string;
     type: string;
+    url: string;
   };
   content: {
     html: string;
@@ -89,11 +102,11 @@ export interface Webmention {
 }
 
 interface WebmentionsProps {
-  mention: Webmention;
   index: number;
+  mention: Webmention;
 }
 
-const { mention, index } = defineProps<WebmentionsProps>();
+const { index, mention } = defineProps<WebmentionsProps>();
 
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
@@ -108,16 +121,16 @@ const loadIcons = (url: string) => {
   const platform = getHostName(url, true);
 
   switch (platform) {
-    case "twitter":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
-    case "github":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
-    case "reddit":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
     case "facebook":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
+    case "github":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
     case "mastodon":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
+    case "reddit":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
+    case "twitter":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
     default:
       return defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
   }

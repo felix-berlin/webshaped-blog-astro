@@ -6,24 +6,41 @@
       <p>{{ data.acceptAllCookies }}</p>
     </slot>
     <div>
-      <button type="button" @click="data.acceptAllCookies = false">Reject all</button>
-      <button type="button" @click="data.acceptAllCookies = true">Accept all</button>
-      <button type="button" @click="showOptions">Options</button>
+      <button
+        type="button"
+        @click="data.acceptAllCookies = false"
+      >
+        Reject all
+      </button>
+      <button
+        type="button"
+        @click="data.acceptAllCookies = true"
+      >
+        Accept all
+      </button>
+      <button
+        type="button"
+        @click="showOptions"
+      >
+        Options
+      </button>
     </div>
-    <div v-if="data.showOptions">Options</div>
+    <div v-if="data.showOptions">
+      Options
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import Cookie from "virtual:icons/lucide/cookie";
-import { reactive, watchEffect, onBeforeUnmount, onBeforeMount, onMounted } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, reactive, watchEffect } from "vue";
 
 const data = reactive({
-  showOptions: false,
   acceptAllCookies: localStorage.getItem("acceptAllCookies")
     ? localStorage.getItem("acceptAllCookies")
     : false,
   isMounted: false,
+  showOptions: false,
 });
 
 const stop = watchEffect(() => {

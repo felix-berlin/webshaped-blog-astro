@@ -1,18 +1,19 @@
 import type { APIRoute } from "astro";
+
 import { WP_API } from "astro:env/client";
 import { WP_AUTH_REFRESH_TOKEN } from "astro:env/server";
 
 const fetchAPI = async (query: string, { variables } = { variables: {} }) => {
   const headers = {
-    "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: `Bearer ${WP_AUTH_REFRESH_TOKEN}`,
+    "Content-Type": "application/json",
   };
 
   return await fetch(WP_API, {
-    method: "POST",
-    headers,
     body: JSON.stringify({ query, variables }),
+    headers,
+    method: "POST",
   })
     .then(async (response) => {
       if (response.ok) {
@@ -35,17 +36,17 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await fetchAPI(query, { variables });
 
     return new Response(JSON.stringify(data), {
-      status: 200,
       headers: {
         "Content-Type": "application/json",
       },
+      status: 200,
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
       headers: {
         "Content-Type": "application/json",
       },
+      status: 500,
     });
   }
 };

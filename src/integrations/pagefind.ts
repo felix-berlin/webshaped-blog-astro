@@ -1,6 +1,7 @@
 import type { AstroIntegration } from "astro";
-import { fileURLToPath } from "node:url";
+
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createIndex, type PagefindServiceConfig } from "pagefind";
 import sirv from "sirv";
 
@@ -17,8 +18,40 @@ export interface PagefindOptions {
 export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIntegration {
   let outDir: string;
   return {
-    name: "pagefind",
     hooks: {
+      "astro:build:done": async ({ logger }) => {
+        if (!outDir) {
+          logger.warn(
+            "astro-pagefind couldn't reliably determine the output directory. Search index will not be built.",
+          );
+          return;
+        }
+
+        const { errors: createErrors, index } = await createIndex(indexConfig);
+        if (!index) {
+          logger.error("Pagefind failed to create index");
+          createErrors.forEach((e) => logger.error(e));
+          return;
+        }
+        const { errors: addErrors, page_count } = await index.addDirectory({ path: outDir });
+        if (addErrors.length) {
+          logger.error("Pagefind failed to index files");
+          addErrors.forEach((e) => logger.error(e));
+          return;
+        } else {
+          logger.info(`Pagefind indexed ${page_count} pages`);
+        }
+        const { errors: writeErrors, outputPath } = await index.writeFiles({
+          outputPath: path.join(outDir, "pagefind"),
+        });
+        if (writeErrors.length) {
+          logger.error("Pagefind failed to write index");
+          writeErrors.forEach((e) => logger.error(e));
+          return;
+        } else {
+          logger.info(`Pagefind wrote index to ${outputPath}`);
+        }
+      },
       "astro:config:setup": ({ config, logger }) => {
         // if (config.output === "server") {
         //   logger.warn(
@@ -35,7 +68,7 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           outDir = fileURLToPath(config.outDir);
         }
       },
-      "astro:server:setup": ({ server, logger }) => {
+      "astro:server:setup": ({ logger, server }) => {
         if (!outDir) {
           logger.warn(
             "astro-pagefind couldn't reliably determine the output directory. Search assets will not be served.",
@@ -55,39 +88,7 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           }
         });
       },
-      "astro:build:done": async ({ logger }) => {
-        if (!outDir) {
-          logger.warn(
-            "astro-pagefind couldn't reliably determine the output directory. Search index will not be built.",
-          );
-          return;
-        }
-
-        const { index, errors: createErrors } = await createIndex(indexConfig);
-        if (!index) {
-          logger.error("Pagefind failed to create index");
-          createErrors.forEach((e) => logger.error(e));
-          return;
-        }
-        const { page_count, errors: addErrors } = await index.addDirectory({ path: outDir });
-        if (addErrors.length) {
-          logger.error("Pagefind failed to index files");
-          addErrors.forEach((e) => logger.error(e));
-          return;
-        } else {
-          logger.info(`Pagefind indexed ${page_count} pages`);
-        }
-        const { outputPath, errors: writeErrors } = await index.writeFiles({
-          outputPath: path.join(outDir, "pagefind"),
-        });
-        if (writeErrors.length) {
-          logger.error("Pagefind failed to write index");
-          writeErrors.forEach((e) => logger.error(e));
-          return;
-        } else {
-          logger.info(`Pagefind wrote index to ${outputPath}`);
-        }
-      },
     },
+    name: "pagefind",
   };
 }

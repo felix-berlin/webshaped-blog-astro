@@ -2,4 +2,7 @@
   "i18n-ally.localesPaths": ["./src/content/i18n/*"],
   "i18n-ally.pathMatcher": "{locale}.json",
   "i18n-ally.sourceLanguage": "de",
+  "chat.tools.terminal.autoApprove": {
+    "./node_modules/.bin/eslint": true
+  }
 }

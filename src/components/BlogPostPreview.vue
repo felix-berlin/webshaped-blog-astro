@@ -1,6 +1,13 @@
 <template>
-  <article v-for="(post, index) in posts" :key="index" class="c-post-card">
-    <a class="c-post-card__link" :href="postLink(post)">
+  <article
+    v-for="(post, index) in posts"
+    :key="index"
+    class="c-post-card"
+  >
+    <a
+      class="c-post-card__link"
+      :href="postLink(post)"
+    >
       <h2 class="c-post-card__title">{{ post.title }}</h2>
 
       <!-- <Date
@@ -19,23 +26,31 @@
       :translations="post.translations"
     /> -->
 
-      <div class="c-post-card__excerpt" v-html="post.excerpt" />
+      <div
+        class="c-post-card__excerpt"
+        v-html="post.excerpt"
+      />
 
       <div class="c-post-card__read-more">
         <span>{{ t("blog.read_more") }}</span>
-        <ArrowRight width="22" height="22" class="c-post-card__read-more-arrow" />
+        <ArrowRight
+          width="22"
+          height="22"
+          class="c-post-card__read-more-arrow"
+        />
       </div>
     </a>
   </article>
 </template>
 
 <script setup lang="ts">
-import ArrowRight from "virtual:icons/lucide/arrow-right";
 // import Date from "@components/post/Date.vue";
 // import ReadingTime from "@components/post/ReadingTime.vue";
 // import CommentCount from "@components/comments/CommentCount.vue";
 // import HasTranslations from "./HasTranslations.vue";
 import { useTranslations } from "@utils/i18n/utils";
+import ArrowRight from "virtual:icons/lucide/arrow-right";
+
 import type { Post } from "@/gql/graphql.ts";
 
 export interface BlogPostPreviewProps {

@@ -3,8 +3,16 @@
     <Languages />
     <template #popper>
       <menu class="c-lang-dropdown u-list-reset">
-        <li class="c-lang-dropdown__item" v-for="(path, language) in routes" :key="language">
-          <a class="c-lang-dropdown__link" :class="{ 'is-active': lang === language }" :href="path">
+        <li
+          v-for="(path, language) in routes"
+          :key="language"
+          class="c-lang-dropdown__item"
+        >
+          <a
+            class="c-lang-dropdown__link"
+            :class="{ 'is-active': lang === language }"
+            :href="path"
+          >
             {{ languages[language] }}
           </a>
         </li>
@@ -14,9 +22,9 @@
 </template>
 
 <script setup lang="ts">
-import { languages } from "@utils/i18n/ui";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage, translationRoutes } from "@stores/store";
+import { languages } from "@utils/i18n/ui";
 import Languages from "virtual:icons/lucide/languages";
 
 // Reactive store values

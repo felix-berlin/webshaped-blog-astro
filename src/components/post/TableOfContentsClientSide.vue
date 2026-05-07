@@ -1,24 +1,28 @@
 <template>
-  <nav :id="props.id" class="c-toc" role="doc-toc" />
+  <nav
+    :id="props.id"
+    class="c-toc"
+    role="doc-toc"
+  />
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 
 export interface TableOfContentsClientSideProps {
-  id?: string;
-  target: string;
   h2Class?: string;
   h3Class?: string;
+  id?: string;
   setIndexIdToHeadlines?: boolean;
+  target: string;
 }
 
 const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {
-  id: "tableOfContents",
-  target: "",
   h2Class: "c-toc__h2",
   h3Class: "c-toc__h3",
+  id: "tableOfContents",
   setIndexIdToHeadlines: false,
+  target: "",
 });
 
 const observer = ref<IntersectionObserver>();
@@ -27,7 +31,7 @@ const createTocClientSide = () => {
   const toc = document.getElementById(props.id) as HTMLDivElement;
   const matches = document.querySelectorAll(
     `${props.target} h2, ${props.target} h3`,
-  ) as NodeListOf<HTMLElement>;
+  );
 
   matches.forEach((value, index) => {
     if (props.setIndexIdToHeadlines) {
@@ -36,9 +40,9 @@ const createTocClientSide = () => {
     }
 
     // Create all needed elements
-    const ul = document.createElement("ul") as HTMLUListElement;
-    const li = document.createElement("li") as HTMLLIElement;
-    const a = document.createElement("a") as HTMLAnchorElement;
+    const ul = document.createElement("ul");
+    const li = document.createElement("li");
+    const a = document.createElement("a");
 
     a.className = "c-toc__link";
     // a.classList.add('c-toc__link');
@@ -69,7 +73,7 @@ observer.value = new IntersectionObserver(
       if (entry.isIntersecting) {
         const headline = entry.target as HTMLElement;
         const toc = document.getElementById(props.id) as HTMLDivElement;
-        const tocLinks = toc.querySelectorAll("a") as NodeListOf<HTMLAnchorElement>;
+        const tocLinks = toc.querySelectorAll("a");
 
         tocLinks.forEach((link) => {
           link.classList.remove("c-toc__link--active");
@@ -80,8 +84,8 @@ observer.value = new IntersectionObserver(
     });
   },
   {
-    threshold: 0.75,
     rootMargin: "-10% 0px",
+    threshold: 0.75,
   },
 );
 
