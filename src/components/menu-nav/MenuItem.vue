@@ -16,8 +16,6 @@
       class="c-menu__link"
       :class="`is-level-${depth}`"
       @click="$emit('menu-item-target-clicked', depth, index, true)"
-      @mouseenter="$emit('menu-item-target-clicked', depth, index, true)"
-      @focus="$emit('menu-item-target-clicked', depth, index, true)"
     >
       {{ menuItem.label }}
     </a>
