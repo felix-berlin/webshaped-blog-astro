@@ -152,6 +152,7 @@ export default defineConfig({
     //   },
     // }),
     sentry({
+      telemetry: false,
       sourceMapsUploadOptions: {
         project: SENTRY_PROJECT_ID,
         authToken: SENTRY_AUTH_TOKEN,
@@ -169,6 +170,7 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
       uploadToken: CODECOV_TOKEN,
+      telemetry: false,
     }),
     (await import("@playform/inline")).default(),
   ],

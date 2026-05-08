@@ -1,7 +1,6 @@
 import * as Sentry from "@sentry/astro";
-import { loadEnv } from "vite";
 
-const { SENTRY_DSN } = loadEnv(process.env.NODE_ENV || "production", process.cwd(), "");
+const SENTRY_DSN = process.env.SENTRY_DSN || import.meta.env.SENTRY_DSN;
 const { version } = await import("./package.json");
 
 Sentry.init({
