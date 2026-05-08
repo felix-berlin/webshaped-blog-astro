@@ -152,10 +152,6 @@ export default defineConfig({
     //   },
     // }),
     sentry({
-      release: {
-        name: version,
-      },
-      dsn: SENTRY_DSN,
       sourceMapsUploadOptions: {
         project: SENTRY_PROJECT_ID,
         authToken: SENTRY_AUTH_TOKEN,
