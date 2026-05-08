@@ -85,6 +85,10 @@ Types in `src/gql/` are **auto-generated** — never edit them directly.
 
 Fragment masking is enabled — components can only access fields defined in their own fragment.
 
+### Important: `WP_API` Environment Variable
+
+The `pnpm gql:generate` command **requires `WP_API` to be set** in `.env` — it fetches the live WordPress GraphQL schema during codegen. Without it, regeneration will fail.
+
 ## i18n
 
 - Languages: `de` (default), `en`
@@ -117,6 +121,49 @@ Global SCSS entry: `src/styles/app.scss` (imported in `DefaultLayout`).
 Dark mode uses a `.dark` class on `<html>` — not CSS custom property theming.
 Sass utility library: `@felix_berlin/sass-butler` (imported as `@sass-butler/*`).
 
+## Feature Development Workflow
+
+### Adding a New Vue Component
+
+1. Create `.vue` file in `src/components/` (or relevant feature directory)
+2. Use Vue 3 composition API with TypeScript
+3. Import from path aliases (`@stores/*`, `@composables/*`, `@services/*`)
+4. Component automatically hydrates as an island when used in Astro files
+
+### Adding a New GraphQL Query
+
+1. Create query in `src/services/queries/` using the `graphql()` tag:
+
+   ```typescript
+   import { graphql } from "@services/api";
+
+   export const GetPostQuery = graphql(`
+     query GetPost($id: ID!) {
+       post(id: $id) {
+         ...PostFragment
+       }
+     }
+   `);
+   ```
+
+2. Run `pnpm gql:generate` to generate types
+3. Use in components via the generated types from `src/gql/`
+
+### Adding a New Route
+
+1. File-based routing: create `.astro` or `.vue` file in `src/pages/`
+2. For i18n routes: place in `src/pages/[lang]/` (de/en auto-handled)
+3. Use `getLangFromUrl()` in Astro components to detect language
+4. Use `useI18n()` in Vue components for translations
+
+### Adding New Translations
+
+1. Add key-value pairs to:
+   - `src/content/i18n/de-DE.json` (German)
+   - `src/content/i18n/en-US.json` (English)
+2. In Astro: `useTranslations(lang)('key')`
+3. In Vue: `useI18n()` composable returns reactive `t` function
+
 ## Non-Obvious Pitfalls
 
 - **`src/gql/` is fully auto-generated** — changes will be overwritten by `gql:generate`.
@@ -124,3 +171,14 @@ Sass utility library: `@felix_berlin/sass-butler` (imported as `@sass-butler/*`)
 - **Dark mode is class-based** (`.dark` on `<html>`), not CSS variables.
 - **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable without testing manifest issues.
 - **`pnpm build:strict` is the CI standard** — always type-check before considering a build complete.
+- **Astro 6 compatibility**: `@codecov/astro-plugin` and `@vite-pwa/astro` are not compatible — keep disabled or migrate to direct Vite plugins.
+
+## Troubleshooting
+
+**GraphQL codegen fails**: Ensure `WP_API` is set in `.env` and the endpoint is reachable.
+
+**Type errors in Vue components**: Run `vue-tsc --noEmit` to catch Vue-specific type issues. The `pnpm build:strict` command includes this check.
+
+**Dark mode not persisting**: Verify `isDarkMode` persistent atom uses `encode/decode` functions for SSR safety.
+
+**`predev` hook not running**: The hook auto-runs `gql:generate` before dev server starts. If it fails silently, check that `.env` has `WP_API` set.
