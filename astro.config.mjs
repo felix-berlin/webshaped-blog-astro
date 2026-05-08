@@ -172,7 +172,16 @@ export default defineConfig({
       uploadToken: CODECOV_TOKEN,
       telemetry: false,
     }),
-    (await import("@playform/inline")).default(),
+    (await import("@playform/inline")).default({
+      // Conservative Beasties setup to keep critical CSS benefits
+      // while avoiding destructive stylesheet rewrites.
+      Beasties: {
+        pruneSource: false,
+        mergeStylesheets: false,
+        preload: "swap",
+      },
+      Logger: 0,
+    }),
   ],
   env: {
     schema: {
