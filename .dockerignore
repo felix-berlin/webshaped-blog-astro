@@ -3,3 +3,9 @@ node_modules
 .gitignore
 *.md
 dist
+coverage
+test-results
+dev-dist
+tests
+src/tests
+.DS_Store
