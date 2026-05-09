@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.34](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.33...v1.10.34) (2026-05-09)
+
+
+### Bug Fixes
+
+* build error caused by sentry config ([f792f41](https://github.com/felix-berlin/webshaped-blog-astro/commit/f792f417663d96ac2125ff6268c9b28d13ba4140))
+* layout breaking critical css ([e444409](https://github.com/felix-berlin/webshaped-blog-astro/commit/e44440979ac6ec6ee42416dc29616a7847252f67))
+* **MenuItem:** single items on lower breakpoints closing whole menu on hover ([83f4ff5](https://github.com/felix-berlin/webshaped-blog-astro/commit/83f4ff52e1746118974b2538c22112453576818f))
+* missing route return values ([d70a945](https://github.com/felix-berlin/webshaped-blog-astro/commit/d70a945880b6ce90c0c6b6cd2ae970d2ccf64d3e))
+* **removeLocaleCode:** regex ([7f4483e](https://github.com/felix-berlin/webshaped-blog-astro/commit/7f4483eb8f09f7e347007d5f6a08ea3c7c8599c2))
+* stats endpoint ([b3df88f](https://github.com/felix-berlin/webshaped-blog-astro/commit/b3df88f30ef027f79b1ad239dcdc959438e800f7))
+
+
+### Performance Improvements
+
+* make docker image smaller ([68506c7](https://github.com/felix-berlin/webshaped-blog-astro/commit/68506c70a296af0d701a819f004d619454b032f4))
+
+# Changelog
+
+All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 ## [1.10.33](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.32...v1.10.33) (2026-01-30)
 
 
