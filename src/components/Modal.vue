@@ -15,29 +15,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, onUnmounted } from "vue";
-import X from "virtual:icons/lucide/x";
-import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
 import { useTranslations } from "@utils/i18n/utils";
+import X from "virtual:icons/lucide/x";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 export interface ModalProps {
-  uid: string;
-  open?: boolean;
-  showCloseButton?: boolean;
-  disableScroll?: boolean;
   closeOnClickOutside?: boolean;
-  transition?: string | "slide-fade-right" | "fade";
-  position?: "center" | "top" | "bottom";
+  disableScroll?: boolean;
+  open?: boolean;
+  position?: "bottom" | "center" | "top";
+  showCloseButton?: boolean;
+  transition?: "fade" | "slide-fade-right" | string;
+  uid: string;
 }
 
 const {
-  uid,
-  open = false,
-  showCloseButton = true,
-  disableScroll = false,
   closeOnClickOutside = true,
+  disableScroll = false,
+  open = false,
   position = "center",
+  showCloseButton = true,
+  uid,
 } = defineProps<ModalProps>();
 
 const modal = ref<HTMLDialogElement | null>(null);

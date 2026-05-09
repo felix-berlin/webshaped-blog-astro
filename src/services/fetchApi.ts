@@ -1,7 +1,8 @@
-import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import type { Variables } from "@urql/core";
+
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
+import { WP_API } from "astro:env/client";
 
 // Define a generic type for GraphQL variables
 // type Variables = Record<string, any>;
@@ -31,9 +32,9 @@ export const fetchAPI = async (query: string, { variables } = { variables: {} })
   };
 
   return await fetch(WP_API, {
-    method: "POST",
-    headers,
     body: JSON.stringify({ query, variables }),
+    headers,
+    method: "POST",
   })
     .then(async (response) => {
       if (response.ok) {
@@ -56,15 +57,15 @@ export const fetchApiWithAuth = async (
   { variables } = { variables: {} },
 ) => {
   const headers = {
-    "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: `Bearer ${authToken}`,
+    "Content-Type": "application/json",
   };
 
   return await fetch(WP_API, {
-    method: "POST",
-    headers,
     body: JSON.stringify({ query, variables }),
+    headers,
+    method: "POST",
   })
     .then(async (response) => {
       if (response.ok) {
@@ -86,13 +87,13 @@ export const gqlApi = async <T, V extends Variables>(
   variables: V,
 ): Promise<T> => {
   const client = new Client({
-    url: WP_API,
+    exchanges: [fetchExchange],
     fetchOptions: {
       headers: {
         "Content-Type": "application/json",
       },
     },
-    exchanges: [fetchExchange],
+    url: WP_API,
   });
 
   const result = await client.query<T, V>(query, variables).toPromise();
@@ -109,11 +110,11 @@ export const gqlApi = async <T, V extends Variables>(
 };
 
 export const client: InstanceType<typeof Client> = new Client({
-  url: WP_API,
+  exchanges: [fetchExchange],
   fetchOptions: {
     headers: {
       "Content-Type": "application/json",
     },
   },
-  exchanges: [fetchExchange],
+  url: WP_API,
 });

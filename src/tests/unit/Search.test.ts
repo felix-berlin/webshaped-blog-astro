@@ -1,8 +1,8 @@
+// @ts-ignore: Unresolved import
+import Search from "@components/Search.vue";
 import { mount } from "@vue/test-utils";
 import { JSDOM } from "jsdom";
 import { it, expect, describe } from "vitest";
-// @ts-ignore: Unresolved import
-import Search from "@components/Search.vue";
 
 describe("Search", async () => {
   it("Search component renders correctly", async () => {

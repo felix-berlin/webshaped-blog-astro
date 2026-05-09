@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { getHostName } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("getHostName()", () => {
   // Tests that the function returns the domain name when a valid URL is passed as an argument.

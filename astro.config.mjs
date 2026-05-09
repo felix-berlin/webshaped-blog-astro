@@ -1,18 +1,24 @@
-import { defineConfig, envField } from "astro/config";
-import vue from "@astrojs/vue";
-import { loadEnv } from "vite";
-import sitemap from "@astrojs/sitemap";
 import node from "@astrojs/node";
-import matomo from "astro-matomo";
-import Icons from "unplugin-icons/vite";
+import sitemap from "@astrojs/sitemap";
+import vue from "@astrojs/vue";
+import codecovAstroPlugin from "@codecov/astro-plugin";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
-import codecovAstroPlugin from "@codecov/astro-plugin";
-import { default as pagefind } from "./src/integrations/pagefind.ts";
-import { visualizer } from "rollup-plugin-visualizer";
-import { version } from "./package.json";
 import spotlightjs from "@spotlightjs/astro";
+import matomo from "astro-matomo";
+import { defineConfig, envField } from "astro/config";
+import { visualizer } from "rollup-plugin-visualizer";
+import Icons from "unplugin-icons/vite";
+import { loadEnv } from "vite";
 import graphqlLoader from "vite-plugin-graphql-loader";
+
+import { version } from "./package.json";
+import { default as pagefind } from "./src/integrations/pagefind.ts";
+
+const sassAliases = {
+  "@sass-butler/": new URL("./node_modules/@felix_berlin/sass-butler/", import.meta.url),
+  "@styles/": new URL("./src/styles/", import.meta.url),
+};
 
 const {
   WP_API,
@@ -146,10 +152,7 @@ export default defineConfig({
     //   },
     // }),
     sentry({
-      release: {
-        name: version,
-      },
-      dsn: SENTRY_DSN,
+      telemetry: false,
       sourceMapsUploadOptions: {
         project: SENTRY_PROJECT_ID,
         authToken: SENTRY_AUTH_TOKEN,
@@ -167,8 +170,18 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",
       uploadToken: CODECOV_TOKEN,
+      telemetry: false,
     }),
-    (await import("@playform/inline")).default(),
+    (await import("@playform/inline")).default({
+      // Conservative Beasties setup to keep critical CSS benefits
+      // while avoiding destructive stylesheet rewrites.
+      Beasties: {
+        pruneSource: false,
+        mergeStylesheets: false,
+        preload: "swap",
+      },
+      Logger: 0,
+    }),
   ],
   env: {
     schema: {
@@ -246,6 +259,24 @@ export default defineConfig({
 
     css: {
       preprocessorMaxWorkers: true,
+      transformer: "postcss",
+      preprocessorOptions: {
+        scss: {
+          importers: [
+            {
+              findFileUrl(url) {
+                for (const [prefix, base] of Object.entries(sassAliases)) {
+                  if (url.startsWith(prefix)) {
+                    return new URL(url.slice(prefix.length), base);
+                  }
+                }
+
+                return null;
+              },
+            },
+          ],
+        },
+      },
     },
 
     build: {

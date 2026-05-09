@@ -13,10 +13,10 @@
 import { useTranslations } from "@utils/i18n/utils";
 
 export interface ReadingTimeProps {
-  time: number | undefined;
   lang: string;
+  time: number | undefined;
 }
 
-const { time, lang } = defineProps<ReadingTimeProps>();
+const { lang, time } = defineProps<ReadingTimeProps>();
 const t = useTranslations(lang);
 </script>

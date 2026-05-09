@@ -55,20 +55,22 @@
 </template>
 
 <script setup lang="ts">
-import ChevronLeft from "virtual:icons/lucide/chevron-left";
-import ChevronRight from "virtual:icons/lucide/chevron-right";
+import type { Page } from "astro/dist/@types/astro";
+
+import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
-import { useTranslations } from "@utils/i18n/utils";
-import type { Page } from "astro/dist/@types/astro";
+import ChevronLeft from "virtual:icons/lucide/chevron-left";
+import ChevronRight from "virtual:icons/lucide/chevron-right";
+
 import type { Language, Maybe } from "@/gql/graphql.ts";
-import { currentLanguage } from "@stores/store";
-import { useStore } from "@nanostores/vue";
 
 defineProps<{
+  lang: Maybe<Language>;
   page: Page;
   path: string;
-  lang: Maybe<Language>;
 }>();
 
 const lang = useStore(currentLanguage);

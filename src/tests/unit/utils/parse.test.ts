@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { parse } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("parse()", () => {
   it("test_valid_json_string", () => {

@@ -27,7 +27,9 @@
       >
         <template v-for="error in formResponses.errors" :key="error">
           <XCircle class="c-comment__big-alert-icon" />
-          <p class="c-comment__big-alert-text">{{ error.message }}</p>
+          <p class="c-comment__big-alert-text">
+            {{ error.message }}
+          </p>
         </template>
       </Alert>
       <Alert
@@ -177,19 +179,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from "vue";
-import { mapStores } from "@nanostores/vue";
-import { guest } from "@stores/store";
 import Alert from "@components/Alert.vue";
-import User from "virtual:icons/lucide/user";
-import Info from "virtual:icons/lucide/info";
-import type { CreateCommentInput } from "@/gql/graphql.ts";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
-import { promiseTimeout } from "@vueuse/core";
-import { excludeObjectKeys } from "@utils/objectHelpers";
-import { useI18n } from "@/composables/useI18n";
+import { mapStores } from "@nanostores/vue";
+import { guest } from "@stores/store";
 import { useMutation } from "@urql/vue";
+import { excludeObjectKeys } from "@utils/objectHelpers";
+import { promiseTimeout } from "@vueuse/core";
+import Info from "virtual:icons/lucide/info";
+import User from "virtual:icons/lucide/user";
+import { onMounted, reactive, ref, watch } from "vue";
+
+import type { CreateCommentInput } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
@@ -204,38 +208,38 @@ const { guestUser } = mapStores({
 });
 
 interface CommentForm {
-  comment: string;
   author: string;
+  comment: string;
   email?: string;
   privacy: boolean;
   saveUser?: boolean;
 }
 
 interface FormErrors {
-  comment: string;
   author: string;
+  comment: string;
   email?: string;
   privacy: string;
 }
 
 const commentForm: CommentForm = reactive({
-  comment: "",
   author: "",
+  comment: "",
   email: "",
   privacy: false,
   saveUser: false,
 });
 
 const formErrors: FormErrors = reactive({
-  comment: "",
   author: "",
+  comment: "",
   email: "",
   privacy: "",
 });
 
 const formResponses = reactive({
-  success: false,
   errors: [],
+  success: false,
 });
 
 const showDialog = ref(false);
@@ -312,9 +316,9 @@ const create = async () => {
     .executeMutation({
       author: commentForm.author,
       authorEmail: commentForm.email,
+      commentOn: props.currentPostId,
       content: commentForm.comment,
       parent: props.replyToCommentId,
-      commentOn: props.currentPostId,
     })
     .then(
       async (response) => {

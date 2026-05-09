@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe, vi } from "vitest";
 // @ts-ignore: Unresolved import
 import PostOlderThan from "@components/post/PostOlderThan.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe, vi } from "vitest";
 
 describe("PostOlderThan", () => {
   it("displays the correct text when the post is older than the specified number of years", () => {

@@ -13,10 +13,10 @@
 </template>
 
 <script setup lang="ts">
-import { useTranslations } from "@utils/i18n/utils";
 import Share from "@components/Share.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
 import Heart from "virtual:icons/lucide/heart";
 import ThumbsUp from "virtual:icons/lucide/thumbs-up";
 

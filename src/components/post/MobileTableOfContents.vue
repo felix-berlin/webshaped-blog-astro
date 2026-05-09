@@ -22,14 +22,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, useTemplateRef } from "vue";
-import ChevronRight from "virtual:icons/lucide/chevron-right";
+import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
+
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
 import { windowWidth } from "@stores/store";
-import { useI18n } from "@/composables/useI18n";
-import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
 import { onClickOutside } from "@vueuse/core";
+import ChevronRight from "virtual:icons/lucide/chevron-right";
+import { onMounted, ref, useTemplateRef } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
 
 interface MobileTableOfContentsProps {
   headings: TableOfContentsProps["headings"];

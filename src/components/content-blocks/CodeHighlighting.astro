@@ -1,9 +1,10 @@
 ---
-import type { AcfCodeHighlighting } from "@/gql/graphql.ts";
 import { parse } from "@utils/helpers";
 import { Code } from "astro/components";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
+
+import type { AcfCodeHighlighting } from "@/gql/graphql.ts";
 
 interface GitHubRawDataProps {
   block: AcfCodeHighlighting;
@@ -12,7 +13,7 @@ interface GitHubRawDataProps {
 const { block } = Astro.props as GitHubRawDataProps;
 
 const blockAttrs = parse(block?.attributes?.data);
-const { language, use_custom_language, custom_language, code } = blockAttrs;
+const { code, custom_language, language, use_custom_language } = blockAttrs;
 
 const codeLang = use_custom_language ? custom_language : language;
 ---
@@ -22,8 +23,8 @@ const codeLang = use_custom_language ? custom_language : language;
     code={code}
     lang={codeLang}
     themes={{
-      light: materialThemeLighter,
       dark: materialThemePalenight,
+      light: materialThemeLighter,
     }}
     wrap
   />

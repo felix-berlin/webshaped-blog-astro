@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 export interface CheckCircleProps {
-  type?: "success" | "error";
+  type?: "error" | "success";
 }
 
 defineProps<CheckCircleProps>();

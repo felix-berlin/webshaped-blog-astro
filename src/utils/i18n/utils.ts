@@ -1,6 +1,8 @@
-import { localeStrings, defaultLang } from "./ui";
-import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+
+import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
+
+import { defaultLang, localeStrings } from "./ui";
 
 /**
  * Extracts the language code from the given URL's pathname.

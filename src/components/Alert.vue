@@ -10,15 +10,15 @@
 
 <script setup lang="ts">
 interface AlertProps {
-  element?: string;
-  type: "success" | "danger" | "warning" | "info";
   componentClass?: string;
+  element?: string;
+  type: "danger" | "info" | "success" | "warning";
 }
 
 const props = withDefaults(defineProps<AlertProps>(), {
+  componentClass: "c-alert",
   element: "div",
   type: "info",
-  componentClass: "c-alert",
 });
 </script>
 

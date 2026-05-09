@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { firstCategoryPage } from "@utils/helpers";
+import { it, expect, describe } from "vitest";
 
 describe("firstCategoryPage()", () => {
   it("returns the correct URL when given a valid category path and first page number", () => {

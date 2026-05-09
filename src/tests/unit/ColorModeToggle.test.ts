@@ -1,10 +1,10 @@
+// @ts-ignore: Unresolved import
+import ColorModeToggle from "@components/ColorModeToggle.vue";
+import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
+import { isDarkMode, language } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { JSDOM } from "jsdom";
 import { it, expect, describe, beforeAll, afterEach } from "vitest";
-// @ts-ignore: Unresolved import
-import ColorModeToggle from "@components/ColorModeToggle.vue";
-import { isDarkMode, language } from "@stores/store";
-import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 
 describe("ColorModeToggle", async () => {
   beforeAll(() => {

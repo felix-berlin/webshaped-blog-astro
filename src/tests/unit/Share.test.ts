@@ -1,10 +1,10 @@
-import { mount, flushPromises } from "@vue/test-utils";
-import { JSDOM } from "jsdom";
-import { test, expect, describe, vi, beforeAll, afterAll } from "vitest";
 // @ts-ignore: Unresolved import
 import Share from "@components/Share.vue";
-import { nextTick } from "vue";
+import { mount, flushPromises } from "@vue/test-utils";
+import { JSDOM } from "jsdom";
 import Share2 from "virtual:icons/lucide/share-2";
+import { test, expect, describe, vi, beforeAll, afterAll } from "vitest";
+import { nextTick } from "vue";
 
 const shareMock = vi.fn().mockResolvedValue({ state: "granted" });
 const permissionsMock = { query: shareMock };

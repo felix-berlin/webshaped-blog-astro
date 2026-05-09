@@ -21,13 +21,14 @@
 
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
+
 import type { Post } from "@/gql/graphql.ts";
 
 interface HasTranslationsProps {
-  translations: Post["translations"];
   lang: string;
+  translations: Post["translations"];
 }
 
-const { translations, lang } = defineProps<HasTranslationsProps>();
+const { lang, translations } = defineProps<HasTranslationsProps>();
 const t = useTranslations(lang);
 </script>

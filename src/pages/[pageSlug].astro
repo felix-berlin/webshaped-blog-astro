@@ -1,21 +1,23 @@
 ---
+import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import type { InferGetStaticParamsType, InferGetStaticPropsType, GetStaticPaths } from "astro";
-import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { WP_API } from "astro:env/client";
-import { Client, cacheExchange, fetchExchange } from "@urql/core";
+
+import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
   const client = new Client({
-    url: WP_API,
+    exchanges: [cacheExchange, fetchExchange],
     fetchOptions: {
       headers: {
         "Content-Type": "application/json",
       },
     },
-    exchanges: [cacheExchange, fetchExchange],
+    url: WP_API,
   });
 
   const pagesResponse = await client
@@ -27,7 +29,7 @@ export const getStaticPaths = (async () => {
   const pages = pagesResponse?.data?.pages?.nodes;
 
   if (!pages) {
-    return;
+    return [];
   }
 
   return pages.map((page) => {

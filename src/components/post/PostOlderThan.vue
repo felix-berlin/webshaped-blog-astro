@@ -12,18 +12,19 @@
 
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
+
 import type { Maybe } from "@/gql/graphql.ts";
 
 export interface PostOlderThanProps {
   date: Maybe<string>;
-  showAfterYears: number;
   lang: string;
+  showAfterYears: number;
 }
 
-const { date, showAfterYears, lang } = defineProps<PostOlderThanProps>();
+const { date, lang, showAfterYears } = defineProps<PostOlderThanProps>();
 const t = useTranslations(lang);
 
-const getYearDiff = (date1: string | number, date2: string | number) => {
+const getYearDiff = (date1: number | string, date2: number | string) => {
   return Math.abs(new Date(date2).getFullYear() - new Date(date1).getFullYear());
 };
 </script>

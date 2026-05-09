@@ -8,11 +8,12 @@
 <script setup lang="ts">
 // import LanguageSelect from "@components/LanguageSelect.vue";
 import MainNav from "@components/hero/MainNav.vue";
-import type { Language, MenuToMenuItemConnection, Maybe } from "@/gql/graphql.ts";
+
+import type { Language, Maybe, MenuToMenuItemConnection } from "@/gql/graphql.ts";
 
 export interface HeaderProps {
-  menuItems: MenuToMenuItemConnection;
   lang: Maybe<Language>;
+  menuItems: MenuToMenuItemConnection;
 }
 
 const props = defineProps<HeaderProps>();

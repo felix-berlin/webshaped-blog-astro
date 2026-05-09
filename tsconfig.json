@@ -4,6 +4,8 @@
   "exclude": ["dist", "node_modules", "src/tests/**/*.spec.ts", "src/tests/**/*.test.ts"],
   "compilerOptions": {
     "jsx": "preserve",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "@assets/*": ["src/assets/*"],

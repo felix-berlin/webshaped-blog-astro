@@ -15,16 +15,15 @@
             : { innerHTML: headline.content }
         "
         @click="emit('tocLinkClicked')"
-      >
-      </a>
+      />
     </template>
   </component>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { getHtmlContent, isHtml } from "@utils/helpers";
 import slugify from "slugify";
-import { isHtml, getHtmlContent } from "@utils/helpers";
+import { onMounted, onUnmounted, ref } from "vue";
 
 export interface TableOfContentsProps {
   headings: {
@@ -35,7 +34,7 @@ export interface TableOfContentsProps {
   tocId: string;
 }
 
-const { headings, tocId, htmlElement = "nav" } = defineProps<TableOfContentsProps>();
+const { headings, htmlElement = "nav", tocId } = defineProps<TableOfContentsProps>();
 
 const emit = defineEmits(["currentHeadline", "tocLinkClicked"]);
 
@@ -96,8 +95,8 @@ const handleIntersect = (entries: IntersectionObserverEntry[]): void => {
 
 onMounted(() => {
   observer.value = new IntersectionObserver(handleIntersect, {
-    threshold: 0,
     rootMargin: "0px 0px -60% 0px",
+    threshold: 0,
   });
   if (observer.value)
     document

@@ -25,16 +25,17 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+
 import type { Maybe } from "@/gql/graphql.ts";
 
 export interface ImageResponsiveProps {
+  aboveTheFold?: boolean;
+  alt?: Maybe<string>;
+  height?: Maybe<number>;
+  sizes?: Maybe<string>;
   src: Maybe<string>;
   srcSet?: Maybe<string>;
-  sizes?: Maybe<string>;
-  alt?: Maybe<string>;
   width?: Maybe<number>;
-  height?: Maybe<number>;
-  aboveTheFold?: boolean;
 }
 
 const props = defineProps<ImageResponsiveProps>();

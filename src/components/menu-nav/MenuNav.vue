@@ -9,7 +9,7 @@
         @submenu-state="emit('submenu-state', $event)"
         @menu-item-target-clicked="emit('menu-item-target-clicked', $event)"
       >
-        <template #menuTitleIcon v-if="item.childItems && item.childItems.nodes.length > 0">
+        <template v-if="item.childItems && item.childItems.nodes.length > 0" #menuTitleIcon>
           <ChevronDown class="c-main-nav__menu-icon is-mobile" />
         </template>
       </MenuItem>
@@ -19,8 +19,9 @@
 
 <script setup lang="ts">
 import MenuItem from "@components/menu-nav/MenuItem.vue";
-import type { MenuItem as MenuItemData } from "@/gql/graphql.ts";
 import ChevronDown from "virtual:icons/lucide/chevron-down";
+
+import type { MenuItem as MenuItemData } from "@/gql/graphql.ts";
 
 export interface MenuProps {
   menuItems: MenuItemData[];
@@ -29,8 +30,8 @@ export interface MenuProps {
 const { menuItems } = defineProps<MenuProps>();
 
 const emit = defineEmits<{
-  "submenu-state": [isOpen: boolean];
   "menu-item-target-clicked": [value: number];
+  "submenu-state": [isOpen: boolean];
 }>();
 </script>
 

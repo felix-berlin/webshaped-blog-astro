@@ -1,9 +1,9 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe, vi, beforeAll, afterAll, afterEach } from "vitest";
 // @ts-ignore: Unresolved import
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
+import { mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
+import { it, expect, describe, vi, beforeAll, afterAll, afterEach } from "vitest";
 
 const server = setupServer();
 

@@ -1,6 +1,6 @@
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import { excludeObjectKeys } from "@utils/objectHelpers";
+import { it, expect, describe } from "vitest";
 
 describe("excludeObjectKeys", () => {
   // Tests that the function returns the object unchanged if the exclude array is empty

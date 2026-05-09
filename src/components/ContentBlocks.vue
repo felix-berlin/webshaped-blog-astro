@@ -11,13 +11,14 @@
 </template>
 
 <script setup lang="ts">
-import type { EditorBlock } from "@/gql/graphql.ts";
-import ListBlock from "@components/content-blocks/ListBlock.vue";
-import CodeBlock from "@components/content-blocks/CodeBlock.vue";
 import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
+import CodeBlock from "@components/content-blocks/CodeBlock.vue";
 import FigureBlock from "@components/content-blocks/FigureBlock.vue";
 import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
+import ListBlock from "@components/content-blocks/ListBlock.vue";
 import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
+
+import type { EditorBlock } from "@/gql/graphql.ts";
 interface ContentBlocksProps {
   blocks: EditorBlock[];
 }

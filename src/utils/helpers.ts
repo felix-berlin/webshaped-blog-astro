@@ -1,9 +1,9 @@
 import type {
   Maybe,
   MenuItem,
+  RootQueryToMenuItemConnection,
   SeoUserSocial,
   SocialAdvanced,
-  RootQueryToMenuItemConnection,
 } from "@/gql/graphql.ts";
 
 /**
@@ -157,7 +157,7 @@ export const updateCategoryPaths = (
 export const getDelimiter = (
   str: string,
   specialChars: string[] = ["_", "-", "*"],
-): string | null => {
+): null | string => {
   if (!str || !Array.isArray(specialChars) || specialChars.some((char) => typeof char !== "string"))
     return null;
 
@@ -171,7 +171,7 @@ export const getDelimiter = (
  *
  * @return  {string}
  */
-export const capitalize = (str: string | null | undefined): string => {
+export const capitalize = (str: null | string | undefined): string => {
   if (str == null || typeof str === "undefined" || typeof str !== "string") {
     return "";
   }
@@ -239,8 +239,8 @@ type AdditionalData = {
 
 type SocialItems = {
   [key: string]: {
-    url: string;
     [key: string]: string;
+    url: string;
   };
 };
 
@@ -282,13 +282,9 @@ export const isWebWorkerSupported = () => {
   return typeof Worker !== "undefined";
 };
 
-export const removeLocaleCode = (category: string | null) => {
+export const removeLocaleCode = (category: null | string) => {
   if (!category) return "";
-  // Split the category string by the hyphen
-  const parts = category.split("-");
-
-  // Return the first part of the split string
-  return parts[0];
+  return category.replace(/-(de|en)$/, "");
 };
 
 /**
@@ -311,15 +307,15 @@ export const getWebmentionsUrl = (url: URL): string => {
 export function flatListToHierarchical<T extends Record<string, any>>(
   data: T[] = [],
   options: {
+    childrenKey?: string;
     idKey?: keyof T;
     parentKey?: keyof T;
-    childrenKey?: string;
   } = {},
 ): T[] {
-  const { idKey = "id", parentKey = "parentId", childrenKey = "children" } = options;
+  const { childrenKey = "children", idKey = "id", parentKey = "parentId" } = options;
 
   const tree: T[] = [];
-  const childrenOf: Record<string | number, T[]> = {};
+  const childrenOf: Record<number | string, T[]> = {};
 
   data.forEach((item) => {
     const newItem = { ...item };
@@ -349,10 +345,10 @@ export function flatListToHierarchical<T extends Record<string, any>>(
 export function paginatedFlatListToHierarchical<T extends Record<string, any>>(
   data: { node: T }[] = [],
   options: {
-    idKey?: keyof T;
-    parentKey?: keyof T;
     childrenKey?: string;
+    idKey?: keyof T;
     nodeKey?: string; // defaults to 'node'
+    parentKey?: keyof T;
   } = {},
 ): T[] {
   const { nodeKey = "node" } = options;

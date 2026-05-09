@@ -1,9 +1,9 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe, afterEach, beforeAll } from "vitest";
-import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 // @ts-ignore: Unresolved import
 import Logo from "@components/Logo.vue";
+import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 import { isDarkMode } from "@stores/store";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe, afterEach, beforeAll } from "vitest";
 
 describe.skip("Logo", () => {
   beforeAll(() => {

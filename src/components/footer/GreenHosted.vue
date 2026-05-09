@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import Leaf from "virtual:icons/lucide/leaf";
 import { useTranslations } from "@utils/i18n/utils";
+import Leaf from "virtual:icons/lucide/leaf";
 
 interface GreenHostedProps {
   lang: string;

@@ -10,8 +10,8 @@ export default (() => {
       if (id === "#") return;
 
       document.querySelector(String(id))?.scrollIntoView({
-        block: "start",
         behavior: "smooth",
+        block: "start",
         inline: "start",
       });
 

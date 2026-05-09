@@ -38,32 +38,33 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, defineAsyncComponent } from "vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
-import type { NodeWithAuthor, Post } from "@/gql/graphql.ts";
 import CreateComment from "@components/comments/CreateComment.vue";
-import RefreshCw from "virtual:icons/lucide/refresh-cw";
-import { useI18n } from "@/composables/useI18n";
 import { useQuery } from "@urql/vue";
-import { GetCommentsByIdDocument } from "@/gql/graphql.ts";
-import { paginatedFlatListToHierarchical } from "@/utils/helpers.ts";
+import RefreshCw from "virtual:icons/lucide/refresh-cw";
+import { computed, defineAsyncComponent, reactive } from "vue";
 
+import type { NodeWithAuthor, Post } from "@/gql/graphql.ts";
 import type {
   RootQueryToCommentConnectionEdge,
   RootQueryToCommentConnectionPageInfo,
 } from "@/gql/graphql.ts";
 
+import { useI18n } from "@/composables/useI18n";
+import { GetCommentsByIdDocument } from "@/gql/graphql.ts";
+import { paginatedFlatListToHierarchical } from "@/utils/helpers.ts";
+
 const CommentItem = defineAsyncComponent(() => import("@components/comments/CommentItem.vue"));
 const NoComments = defineAsyncComponent(() => import("@components/comments/NoComments.vue"));
 
 export interface CommentsProps {
+  authorId: NodeWithAuthor["authorId"];
   currentPostId: Post["id"];
   id: NodeWithAuthor["id"];
-  authorId: NodeWithAuthor["authorId"];
 }
 
 interface CommentsData {
-  comments: Array<RootQueryToCommentConnectionEdge> | [];
+  comments: [] | Array<RootQueryToCommentConnectionEdge>;
   pageInfo: RootQueryToCommentConnectionPageInfo;
   partLoading: boolean;
 }
@@ -77,15 +78,15 @@ const data = reactive<CommentsData>({
 });
 
 const queryVariables = reactive({
+  after: null, // Startcursor (für Pagination)
   contentId: props.currentPostId,
   first: 5, // Anzahl der Kommentare pro Seite
-  after: null, // Startcursor (für Pagination)
 });
 
 const comments = useQuery({
+  pause: true,
   query: GetCommentsByIdDocument,
   variables: queryVariables,
-  pause: true,
 });
 
 const commentsCount = computed(() => {
@@ -108,9 +109,9 @@ const cleanComments = computed(() => {
  */
 const hierarchicalComments = computed(() => {
   return paginatedFlatListToHierarchical(data.comments, {
+    childrenKey: "children",
     idKey: "id",
     parentKey: "parentId", // or "parentDatabaseId" if needed
-    childrenKey: "children",
   });
 });
 

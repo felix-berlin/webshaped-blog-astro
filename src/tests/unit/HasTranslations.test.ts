@@ -1,6 +1,6 @@
+import HasTranslations from "@components/HasTranslations.vue";
 import { mount } from "@vue/test-utils";
 import { describe, beforeEach, expect, it } from "vitest";
-import HasTranslations from "@components/HasTranslations.vue";
 
 describe("HasTranslations.vue", () => {
   let wrapper;

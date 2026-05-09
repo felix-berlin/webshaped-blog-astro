@@ -17,11 +17,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, onUnmounted } from "vue";
 import Modal from "@components/Modal.vue";
 import Search from "@components/Search.vue";
 import SearchIcon from "virtual:icons/lucide/search";
 import SquareSlash from "virtual:icons/lucide/square-slash";
+import { nextTick, onMounted, onUnmounted, ref } from "vue";
+
 import { useI18n } from "@/composables/useI18n";
 
 const searchId = "main-search";

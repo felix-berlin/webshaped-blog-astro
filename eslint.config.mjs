@@ -1,20 +1,20 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintPluginAstro from "eslint-plugin-astro";
+import graphqlPlugin from "@graphql-eslint/eslint-plugin";
+import tsEslintParser from "@typescript-eslint/parser";
 import astroEslintParser from "astro-eslint-parser";
+import eslintPluginAstro from "eslint-plugin-astro";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import perfectionist from "eslint-plugin-perfectionist";
 import pluginVue from "eslint-plugin-vue";
 import pluginVueA11y from "eslint-plugin-vuejs-accessibility";
-import tsEslintParser from "@typescript-eslint/parser";
-import vueParser from "vue-eslint-parser";
+import { defineConfig } from "eslint/config";
 import url from "node:url";
-import eslintConfigPrettier from "eslint-config-prettier";
-import graphqlPlugin from "@graphql-eslint/eslint-plugin";
-import perfectionist from "eslint-plugin-perfectionist";
+import tseslint from "typescript-eslint";
+import vueParser from "vue-eslint-parser";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -24,7 +24,12 @@ export default tseslint.config(
   ...pluginVue.configs["flat/recommended"],
   ...pluginVueA11y.configs["flat/recommended"],
   perfectionist.configs["recommended-natural"],
-  eslintConfigPrettier,
+  {
+    rules: {
+      "perfectionist/sort-imports": "off",
+      "perfectionist/sort-named-imports": "off",
+    },
+  },
   {
     // files: ["**/*.ts", "**/*.js", "**/*.astro", "**/*.vue"],
     ignores: [
@@ -77,6 +82,12 @@ export default tseslint.config(
         extraFileExtensions: [".astro"],
       },
     },
+    rules: {
+      // Workaround: @typescript-eslint/eslint-plugin@8.x crashes with ESLint v10
+      // on .astro files due to missing node.parent in astro-eslint-parser AST.
+      // Re-enable once typescript-eslint releases a fix.
+      "@typescript-eslint/no-misused-promises": "off",
+    },
   },
   {
     files: ["**/*.graphql"],
@@ -86,5 +97,9 @@ export default tseslint.config(
     plugins: {
       "@graphql-eslint": graphqlPlugin,
     },
+  },
+  {
+    files: ["**/*.graphql"],
+    ...tseslint.configs.disableTypeChecked,
   },
 );

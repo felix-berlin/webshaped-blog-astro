@@ -1,0 +1,6 @@
+allowBuilds:
+  "@parcel/watcher": true
+  "@sentry/cli": true
+  esbuild: true
+  msw: false
+  sharp: true

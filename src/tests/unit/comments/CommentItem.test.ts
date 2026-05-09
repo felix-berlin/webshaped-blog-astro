@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import CommentItem from "@components/comments/CommentItem.vue";
+import { mount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("CommentItem", () => {
   const comment = {

@@ -13,10 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { isHtml, getHtmlContent } from "@utils/helpers";
-import slugify from "slugify";
-import type { CoreHeading } from "@/gql/graphql.ts";
+import { getHtmlContent, isHtml } from "@utils/helpers";
 import he from "he";
+import slugify from "slugify";
+
+import type { CoreHeading } from "@/gql/graphql.ts";
 
 export interface HeadlineBlockProps {
   block: CoreHeading;

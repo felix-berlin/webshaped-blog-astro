@@ -14,15 +14,16 @@
 
 <script setup lang="ts">
 import { useStore } from "@nanostores/vue";
-import { currentWebmentionsCount, currentLanguage } from "@stores/store";
-import AtSign from "virtual:icons/lucide/at-sign";
+import { currentLanguage, currentWebmentionsCount } from "@stores/store";
 import { useTranslations } from "@utils/i18n/utils";
+import AtSign from "virtual:icons/lucide/at-sign";
+
 import type { Language, Maybe } from "@/gql/graphql.ts";
 
 interface WebmentionsCountProps {
   elementIs?: string;
-  lang: Maybe<Language>;
   href?: string;
+  lang: Maybe<Language>;
 }
 
 withDefaults(defineProps<WebmentionsCountProps>(), {

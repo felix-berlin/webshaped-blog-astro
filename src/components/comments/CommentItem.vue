@@ -101,23 +101,24 @@
 </template>
 
 <script setup lang="ts">
-import Date from "@components/post/Date.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
-import { computed, ref } from "vue";
-import { useTranslations } from "@utils/i18n/utils";
-import type { Comment } from "@/gql/graphql.ts";
-import { currentLanguage } from "@stores/store";
+import Date from "@components/post/Date.vue";
 import { useStore } from "@nanostores/vue";
-import User from "virtual:icons/lucide/user";
+import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
 import Reply from "virtual:icons/lucide/reply";
-import X from "virtual:icons/lucide/x";
+import User from "virtual:icons/lucide/user";
 import Verified from "virtual:icons/lucide/verified";
+import X from "virtual:icons/lucide/x";
+import { computed, ref } from "vue";
+
+import type { Comment } from "@/gql/graphql.ts";
 
 interface CommentItemProps {
-  comment: Comment;
-  depth: number;
   authorId?: string;
+  comment: Comment;
   currentPostId: string;
+  depth: number;
 }
 
 const props = defineProps<CommentItemProps>();

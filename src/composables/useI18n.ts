@@ -1,6 +1,6 @@
-import { useTranslations } from "@utils/i18n/utils";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
+import { useTranslations } from "@utils/i18n/utils";
 import { computed } from "vue";
 
 export function useI18n() {

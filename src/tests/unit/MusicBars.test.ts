@@ -1,7 +1,7 @@
-import { mount } from "@vue/test-utils";
-import { test, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import MusicBars from "@components/MusicBars.vue";
+import { mount } from "@vue/test-utils";
+import { test, expect, describe } from "vitest";
 
 describe("MusicBars.vue", () => {
   const wrapper = mount(MusicBars);

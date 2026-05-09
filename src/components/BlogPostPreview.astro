@@ -1,12 +1,12 @@
 ---
 export interface Props {
-  title: string;
   description: string;
   publishDate: string;
+  title: string;
   url: string;
 }
 
-const { title, description, publishDate, url } = Astro.props as Props;
+const { description, publishDate, title, url } = Astro.props;
 ---
 
 <article class="post-preview">

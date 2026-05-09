@@ -16,8 +16,6 @@
       class="c-menu__link"
       :class="`is-level-${depth}`"
       @click="$emit('menu-item-target-clicked', depth, index, true)"
-      @mouseenter="$emit('menu-item-target-clicked', depth, index, true)"
-      @focus="$emit('menu-item-target-clicked', depth, index, true)"
     >
       {{ menuItem.label }}
     </a>
@@ -68,19 +66,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, useTemplateRef } from "vue";
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
+import { nextTick, ref, useTemplateRef } from "vue";
+
 import type { MenuItem } from "@/gql/graphql.ts";
 
 export interface MenuItemProps {
-  menuItem: MenuItem;
   depth: number;
-  index: number;
   hasChild: boolean;
+  index: number;
+  menuItem: MenuItem;
 }
 
-const { menuItem, depth, index, hasChild } = defineProps<MenuItemProps>();
+const { depth, hasChild, index, menuItem } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
 const isCurrentPath = ref(false);
@@ -88,8 +87,8 @@ const submenu = useTemplateRef("submenu");
 const submenuDirection = ref("right");
 
 const emit = defineEmits<{
-  "submenu-state": [isOpen: boolean];
   "menu-item-target-clicked": [depth: number, index: number, value: boolean];
+  "submenu-state": [isOpen: boolean];
 }>();
 
 /**

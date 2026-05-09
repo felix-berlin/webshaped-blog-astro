@@ -1,18 +1,18 @@
 <template>
-  <slot></slot>
+  <slot />
 </template>
 
 <script setup lang="ts">
-import { translationRoutes, currentLanguage } from "@stores/store";
+import { currentLanguage, translationRoutes } from "@stores/store";
 
-const { localeRoutes, lang } = defineProps({
-  localeRoutes: {
-    type: Object,
-    default: () => ({}),
-  },
+const { lang, localeRoutes } = defineProps({
   lang: {
-    type: String,
     required: true,
+    type: String,
+  },
+  localeRoutes: {
+    default: () => ({}),
+    type: Object,
   },
 });
 

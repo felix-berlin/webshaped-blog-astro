@@ -28,9 +28,9 @@ const formattedDate = (date: string, locale: string): string => {
   const dateToFormat = new Date(dumpSafariDateFormat);
 
   return dateToFormat.toLocaleString(formattedLocale, {
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 };
 </script>

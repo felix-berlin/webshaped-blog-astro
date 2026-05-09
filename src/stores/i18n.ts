@@ -1,6 +1,6 @@
-import { atom } from "nanostores";
+import { browser, createI18n, localeFrom } from "@nanostores/i18n";
 import { persistentAtom } from "@nanostores/persistent";
-import { localeFrom, browser, createI18n } from "@nanostores/i18n";
+import { atom } from "nanostores";
 
 export const localeSettings = persistentAtom<string>("locale");
 

@@ -58,19 +58,19 @@
 </template>
 
 <script setup lang="ts">
+import Date from "@components/post/Date.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
-import Date from "@components/post/Date.vue";
-import { useTranslations } from "@utils/i18n/utils";
 import { getHostName } from "@utils/helpers";
-import { ref, onMounted, defineAsyncComponent } from "vue";
+import { useTranslations } from "@utils/i18n/utils";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 
 export interface Webmention {
   author: {
     name: string;
     photo: string;
-    url: string;
     type: string;
+    url: string;
   };
   content: {
     html: string;
@@ -89,11 +89,11 @@ export interface Webmention {
 }
 
 interface WebmentionsProps {
-  mention: Webmention;
   index: number;
+  mention: Webmention;
 }
 
-const { mention, index } = defineProps<WebmentionsProps>();
+const { index, mention } = defineProps<WebmentionsProps>();
 
 const lang = useStore(currentLanguage);
 const t = useTranslations(lang.value);
@@ -108,16 +108,16 @@ const loadIcons = (url: string) => {
   const platform = getHostName(url, true);
 
   switch (platform) {
-    case "twitter":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
-    case "github":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
-    case "reddit":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
     case "facebook":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
+    case "github":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
     case "mastodon":
       return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
+    case "reddit":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
+    case "twitter":
+      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
     default:
       return defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
   }

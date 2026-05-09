@@ -18,5 +18,5 @@ export interface ButtonBlockProps {
 
 const props = defineProps<ButtonBlockProps>();
 
-const { text, type, url, textAlign, title, linkTarget, rel } = props.block?.attributes;
+const { linkTarget, rel, text, textAlign, title, type, url } = props.block?.attributes;
 </script>

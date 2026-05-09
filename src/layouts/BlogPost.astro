@@ -4,26 +4,28 @@ import "@styles/components/_blog.scss";
 import "@styles/components/_blog-sidebar.scss";
 import "@styles/components/post/_post-footer.scss";
 
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import DateModified from "@components/post/DateModified.vue";
-import ReadingTime from "@components/post/ReadingTime.vue";
-import TableOfContents from "@components/post/TableOfContents.vue";
-import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
-import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+
 import Categories from "@components/Categories.vue";
+import HasTranslations from "@components/HasTranslations.vue";
+import ImageResponsive from "@components/ImageResponsive.vue";
 // import Author from "@components/post/Author.vue";
 import Author from "@components/post/Author.astro";
+import DateModified from "@components/post/DateModified.vue";
+import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
 // import Matomo from "@components/Matomo.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
-import { Breadcrumbs } from "astro-breadcrumbs";
-import ImageResponsive from "@components/ImageResponsive.vue";
+import ReadingTime from "@components/post/ReadingTime.vue";
+import TableOfContents from "@components/post/TableOfContents.vue";
+import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { categoryPathBuilder, getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import { Breadcrumbs } from "astro-breadcrumbs";
 import ChevronRight from "~icons/lucide/chevron-right";
-import HasTranslations from "@components/HasTranslations.vue";
-import { getLangFromUrl, useTranslations, categoryPathBuilder } from "@utils/i18n/utils";
+
 import type { CoreHeading } from "@/gql/graphql.ts";
-import type { Post, MediaSize, RootQueryToCategoryConnection } from "@/gql/graphql.ts";
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+import type { MediaSize, Post, RootQueryToCategoryConnection } from "@/gql/graphql.ts";
 
 export interface BlogPost {
   content: Post;
@@ -32,20 +34,20 @@ export interface BlogPost {
 
 const {
   content: {
-    title,
-    slug,
-    dateGmt,
-    modifiedGmt,
-    featuredImage,
-    seo,
-    language,
-    comments,
-    commentCount,
-    postId,
-    id,
-    content,
-    categories,
     author,
+    categories,
+    commentCount,
+    comments,
+    content,
+    dateGmt,
+    featuredImage,
+    id,
+    language,
+    modifiedGmt,
+    postId,
+    seo,
+    slug,
+    title,
     translations,
   },
   headings,
@@ -58,8 +60,8 @@ const t = useTranslations(lang);
 const createBreadcrumbItems = () => {
   const items = [
     {
-      text: lang === "de" ? "Start" : "Home",
       href: "/",
+      text: lang === "de" ? "Start" : "Home",
     },
   ];
 
@@ -68,14 +70,14 @@ const createBreadcrumbItems = () => {
     const childCategory = parentCategory?.children?.edges;
 
     items.push({
-      text: parentCategory?.name || "",
       href: categoryPathBuilder(parentCategory?.slug || "", lang),
+      text: parentCategory?.name || "",
     });
 
     if (childCategory?.length) {
       items.push({
-        text: childCategory[0].node.name!,
         href: categoryPathBuilder(childCategory[0].node.slug || "", lang),
+        text: childCategory[0].node.name!,
       });
     }
   }
@@ -108,19 +110,19 @@ const translationsRoutes = {
 ---
 
 <DefaultLayout
-  content={{ title, seo, language }}
+  content={{ language, seo, title }}
   contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
   <!-- LastFM API -->
-  <link rel="preconnect" href="//last-fm.kasimir.dev" slot="head" />
+  <link href="//last-fm.kasimir.dev" rel="preconnect" slot="head" />
   <!-- Gravatar -->
-  <link rel="preconnect" href="//secure.gravatar.com" slot="head" />
+  <link href="//secure.gravatar.com" rel="preconnect" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
-  <MobileTableOfContents headings={parsedHeadings} client:only="vue" />
+  <MobileTableOfContents client:only="vue" headings={parsedHeadings} />
 
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
-    <ChevronRight slot="separator" width="20" height="20" />
+    <ChevronRight height="20" slot="separator" width="20" />
   </Breadcrumbs>
 
   <header class={`c-blog__header ${featuredImage ? "has-featured-image" : ""}`}>
@@ -129,19 +131,19 @@ const translationsRoutes = {
     {
       featuredImage?.node.mediaItemUrl && (
         <ImageResponsive
+          aboveTheFold={true}
+          alt={featuredImage?.node.altText}
+          class:list="c-blog__hero-image"
+          height={featuredImage?.node.mediaDetails?.height}
           src={featuredImage?.node.mediaItemUrl}
           srcSet={featuredImage?.node.srcSet}
           width={featuredImage?.node.mediaDetails?.width}
-          height={featuredImage?.node.mediaDetails?.height}
-          alt={featuredImage?.node.altText}
-          aboveTheFold={true}
-          class:list="c-blog__hero-image"
         />
       )
     }
   </header>
   <article class="c-blog__post e-content">
-    <PostOlderThan date={modifiedGmt || ""} showAfterYears={4} lang={lang} />
+    <PostOlderThan date={modifiedGmt || ""} lang={lang} showAfterYears={4} />
 
     <slot />
   </article>
@@ -149,11 +151,11 @@ const translationsRoutes = {
   <footer class="c-post-footer">
     <section class="c-blog__info-bar u-glas-background">
       <DateModified date={modifiedGmt || undefined} lang={lang} />
-      <ReadingTime time={seo?.readingTime || undefined} lang={lang} />
+      <ReadingTime lang={lang} time={seo?.readingTime || undefined} />
       <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
-      <HasTranslations translations={translations} lang={lang} />
+      <HasTranslations lang={lang} translations={translations} />
     </section>
-    <TabDisplay postId={id} authorId={author?.node.id} client:only="vue" />
+    <TabDisplay authorId={author?.node.id} client:only="vue" postId={id} />
   </footer>
 
   <aside class="c-blog-sidebar">
@@ -163,7 +165,7 @@ const translationsRoutes = {
         {t("blog.table_of_contents")}
       </h2>
       <!-- <TableOfContentsClientSide target=".c-blog__content" client:only="vue" /> -->
-      <TableOfContents headings={parsedHeadings} tocId="tableOfContents" client:load />
+      <TableOfContents client:load headings={parsedHeadings} tocId="tableOfContents" />
     </div>
   </aside>
 </DefaultLayout>

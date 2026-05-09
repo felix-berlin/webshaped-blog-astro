@@ -1,9 +1,9 @@
 <template>
   <button
+    v-tooltip="{ content: t('install_app.not_ready.tooltip'), disabled: installReady }"
     class="c-install-button c-button"
     :class="cssClass"
     @click="triggerPwaInstall()"
-    v-tooltip="{ content: t('install_app.not_ready.tooltip'), disabled: installReady }"
   >
     <Download v-if="showIcon" :width="iconSize" :height="iconSize" />
     <template v-if="showText">
@@ -13,23 +13,24 @@
 </template>
 
 <script setup lang="ts">
-import { installPrompt, pwaReadyToInstall, triggerPwaInstall } from "@stores/store";
 import { useStore } from "@nanostores/vue";
-import { useI18n } from "@/composables/useI18n";
+import { installPrompt, pwaReadyToInstall, triggerPwaInstall } from "@stores/store";
 import Download from "virtual:icons/lucide/download";
 
+import { useI18n } from "@/composables/useI18n";
+
 export interface InstallAppProps {
+  cssClass?: Array<string> | object | string;
+  iconSize?: number;
   showIcon?: boolean;
   showText?: boolean;
-  iconSize?: number;
-  cssClass?: object | string | Array<string>;
 }
 
 const {
+  cssClass = "",
+  iconSize = 16,
   showIcon = false,
   showText = true,
-  iconSize = 16,
-  cssClass = "",
 } = defineProps<InstallAppProps>();
 
 useStore(installPrompt);

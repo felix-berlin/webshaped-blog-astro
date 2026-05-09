@@ -6,7 +6,6 @@ export default {
     "stylelint-config-recommended-scss",
     "stylelint-config-recommended-vue",
     "stylelint-config-recommended-vue/scss",
-    "stylelint-config-prettier-scss",
   ],
   overrides: [
     {
@@ -35,6 +34,8 @@ export default {
       },
     ],
     "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
+    "selector-no-qualifying-type": null,
     "function-no-unknown": null,
     "scss/at-extend-no-missing-placeholder": null,
   },

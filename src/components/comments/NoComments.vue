@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { currentLanguage } from "@stores/store";
 import { useStore } from "@nanostores/vue";
+import { currentLanguage } from "@stores/store";
 import { useTranslations } from "@utils/i18n/utils";
 import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 

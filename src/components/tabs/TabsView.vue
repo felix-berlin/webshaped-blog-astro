@@ -3,9 +3,9 @@
     <div class="c-tabs__header" role="tablist">
       <template v-for="tab in tabsProps" :key="tab.tabId">
         <button
+          :id="tab.tabId"
           role="tab"
           type="button"
-          :id="tab.tabId"
           :aria-selected="selectedTabHeader === tab.header"
           :aria-controls="tab.tabpanelId"
           :tabindex="selectedTabHeader === tab.header ? 0 : -1"
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, useSlots } from "vue";
+import { provide, ref, useSlots } from "vue";
 
 const tabsSlots = useSlots();
 

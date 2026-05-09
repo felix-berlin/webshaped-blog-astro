@@ -45,17 +45,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import Logo from "@components/Logo.vue";
-import MenuIcon from "virtual:icons/lucide/menu";
-import CloseIcon from "virtual:icons/lucide/x";
-import MenuNav from "@components/menu-nav/MenuNav.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
-import { useI18n } from "@/composables/useI18n";
+import MenuNav from "@components/menu-nav/MenuNav.vue";
 import { useStore } from "@nanostores/vue";
 import { isMobileBreakpoint, windowWidth } from "@stores/store";
 import { useResizeObserver } from "@vueuse/core";
+import MenuIcon from "virtual:icons/lucide/menu";
+import CloseIcon from "virtual:icons/lucide/x";
+import { onMounted, ref } from "vue";
+
 import type { MenuToMenuItemConnection } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface MainNavProps {
   menuItems: MenuToMenuItemConnection;

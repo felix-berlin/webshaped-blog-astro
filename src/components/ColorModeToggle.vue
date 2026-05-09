@@ -13,10 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import Moon from "virtual:icons/lucide/moon";
-import Sun from "virtual:icons/lucide/sun";
 import { useStore } from "@nanostores/vue";
 import { isDarkMode } from "@stores/store";
+import Moon from "virtual:icons/lucide/moon";
+import Sun from "virtual:icons/lucide/sun";
+
 import { useI18n } from "@/composables/useI18n";
 
 const isDark = useStore(isDarkMode);

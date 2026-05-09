@@ -1,7 +1,7 @@
-import { shallowMount } from "@vue/test-utils";
-import { it, expect, describe } from "vitest";
 // @ts-ignore: Unresolved import
 import MainHeader from "@components/hero/MainHeader.vue";
+import { shallowMount } from "@vue/test-utils";
+import { it, expect, describe } from "vitest";
 
 describe("MainHeader", () => {
   it("renders the MainNav component", () => {

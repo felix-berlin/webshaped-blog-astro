@@ -1,57 +1,58 @@
 ---
-import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
-import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
-// import { pwaInfo } from "virtual:pwa-info";
-import { ClientRouter } from "astro:transitions";
+import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+
 // import SetColorMode from "@components/SetColorMode.astro";
 import StoreSetter from "@components/StoreSetter.vue";
-import { createLocalizedUrl } from "@utils/i18n/utils.ts";
+import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
+import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl } from "@utils/helpers.ts";
+import { createLocalizedUrl } from "@utils/i18n/utils.ts";
 import { Head } from "astro-capo";
 import LoadingIndicator from "astro-loading-indicator/component";
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+// import { pwaInfo } from "virtual:pwa-info";
+import { ClientRouter } from "astro:transitions";
+
+export interface Props {
+  lang: "de" | "en";
+  seo: Seo;
+  title: Title;
+  translationsRoutes: TranslationRoutes;
+}
+
+export interface Seo {
+  canonical?: string;
+  metaDesc?: string;
+  metaRobotsNofollow?: string;
+  metaRobotsNoindex?: string;
+  opengraphAuthor?: string;
+  opengraphDescription?: string;
+  opengraphImage?: {
+    sourceUrl: string;
+  };
+  opengraphModifiedTime?: string;
+  opengraphPublishedTime?: string;
+  opengraphPublisher?: string;
+  opengraphSiteName?: string;
+  opengraphTitle?: string;
+  opengraphType?: string;
+  opengraphUrl?: string;
+  readingTime?: number;
+  title: string;
+  twitterDescription?: string;
+  twitterTitle?: string;
+}
+
+export interface SeoProps {
+  lang: "de" | "en";
+  seo: Seo;
+  title: Title;
+}
 
 export interface Title {
   title: string;
 }
 
-export interface Seo {
-  title: string;
-  opengraphAuthor?: string;
-  opengraphDescription?: string;
-  opengraphPublisher?: string;
-  opengraphTitle?: string;
-  opengraphType?: string;
-  opengraphUrl?: string;
-  readingTime?: number;
-  opengraphSiteName?: string;
-  twitterDescription?: string;
-  twitterTitle?: string;
-  metaRobotsNofollow?: string;
-  metaRobotsNoindex?: string;
-  canonical?: string;
-  metaDesc?: string;
-  opengraphPublishedTime?: string;
-  opengraphModifiedTime?: string;
-  opengraphImage?: {
-    sourceUrl: string;
-  };
-}
-
-export interface SeoProps {
-  title: Title;
-  seo: Seo;
-  lang: "de" | "en";
-}
-
-export interface Props {
-  title: Title;
-  seo: Seo;
-  lang: "de" | "en";
-  translationsRoutes: TranslationRoutes;
-}
-
-const { title, seo, translationsRoutes, lang } = Astro.props;
+const { lang, seo, title, translationsRoutes } = Astro.props;
 const translations = translationsRoutes || {};
 const isTaxonomy = translations?.taxonomy === "category";
 
@@ -86,89 +87,89 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <!-- Global Metadata -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
 
   <!-- Locale -->
   {
     Object.entries(fullTranslationRoutes).map(([key, value]) => {
-      return <link rel="alternate" hreflang={key} href={value} />;
+      return <link href={value} hreflang={key} rel="alternate" />;
     })
   }
   {
     Object.keys(fullTranslationRoutes).length > 1 && (
-      <link rel="alternate" hreflang="x-default" href={fullTranslationRoutes["de"]} />
+      <link href={fullTranslationRoutes["de"]} hreflang="x-default" rel="alternate" />
     )
   }
 
   <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#303956" />
-  <link rel="sitemap" href="/sitemap-index.xml" />
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta name="theme-color" content="#ffffff" />
-  <meta name="generator" content={Astro.generator} />
+  <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+  <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
+  <link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+  <link color="#303956" href="/safari-pinned-tab.svg" rel="mask-icon" />
+  <link href="/sitemap-index.xml" rel="sitemap" />
+  <meta content="#ffffff" name="msapplication-TileColor" />
+  <meta content="#ffffff" name="theme-color" />
+  <meta content={Astro.generator} name="generator" />
 
-  <link rel="canonical" href={seo?.canonical || Astro.url} />
+  <link href={seo?.canonical || Astro.url} rel="canonical" />
 
   <!-- Primary Meta Tags -->
   <title set:text={seo?.title ? seo.title : title} />
 
-  {seo?.title && <meta name="title" content={seo.title} />}
-  {seo?.metaDesc && <meta name="description" content={seo.metaDesc} />}
+  {seo?.title && <meta content={seo.title} name="title" />}
+  {seo?.metaDesc && <meta content={seo.metaDesc} name="description" />}
 
   <!-- Open Graph / Facebook -->
-  {seo?.opengraphType && <meta property="og:type" content={seo.opengraphType} />}
-  {seo?.opengraphUrl && <meta property="og:url" content={seo.opengraphUrl} />}
-  {seo?.opengraphTitle && <meta property="og:title" content={seo.opengraphTitle} />}
+  {seo?.opengraphType && <meta content={seo.opengraphType} property="og:type" />}
+  {seo?.opengraphUrl && <meta content={seo.opengraphUrl} property="og:url" />}
+  {seo?.opengraphTitle && <meta content={seo.opengraphTitle} property="og:title" />}
   {
     seo?.opengraphDescription && (
-      <meta property="og:description" content={seo.opengraphDescription} />
+      <meta content={seo.opengraphDescription} property="og:description" />
     )
   }
   {
     seo?.opengraphImage?.sourceUrl && (
-      <meta property="og:image" content={seo.opengraphImage.sourceUrl} />
+      <meta content={seo.opengraphImage.sourceUrl} property="og:image" />
     )
   }
 
   <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  {seo?.opengraphUrl && <meta property="twitter:url" content={seo.opengraphUrl} />}
-  {seo?.twitterTitle && <meta property="twitter:title" content={seo.twitterTitle} />}
+  <meta content="summary_large_image" property="twitter:card" />
+  {seo?.opengraphUrl && <meta content={seo.opengraphUrl} property="twitter:url" />}
+  {seo?.twitterTitle && <meta content={seo.twitterTitle} property="twitter:title" />}
 
   {
     seo?.twitterDescription && (
-      <meta property="twitter:description" content={seo.twitterDescription} />
+      <meta content={seo.twitterDescription} property="twitter:description" />
     )
   }
   {
     seo?.opengraphImage?.sourceUrl && (
-      <meta property="twitter:image" content={seo.opengraphImage.sourceUrl} />
+      <meta content={seo.opengraphImage.sourceUrl} property="twitter:image" />
     )
   }
 
   <!-- RSS auto discovery -->
   <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="Web Shaped"
     href={new URL(`${lang}/rss.xml`, Astro.site)}
+    rel="alternate"
+    title="Web Shaped"
+    type="application/rss+xml"
   />
 
   <!-- Webmention -->
-  <link rel="webmention" href={`${webmentionUrl}/webmention`} />
-  <link rel="pingback" href={`${webmentionUrl}/xmlrpc`} />
-  <link rel="preconnect" href="//webmention.io" />
+  <link href={`${webmentionUrl}/webmention`} rel="webmention" />
+  <link href={`${webmentionUrl}/xmlrpc`} rel="pingback" />
+  <link href="//webmention.io" rel="preconnect" />
 
-  <link rel="preconnect" href="//cms.webshaped.de" />
-  <link rel="preconnect" href="//analytics.webshaped.de" />
+  <link href="//cms.webshaped.de" rel="preconnect" />
+  <link href="//analytics.webshaped.de" rel="preconnect" />
 
   <!-- Preloads -->
-  <link rel="preload" href={SourceSansPro400} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={SourceSansPro700} as="font" type="font/woff2" crossorigin />
+  <link as="font" crossorigin href={SourceSansPro400} rel="preload" type="font/woff2" />
+  <link as="font" crossorigin href={SourceSansPro700} rel="preload" type="font/woff2" />
 
   <slot name="head" />
 </Head>
-<StoreSetter locale-routes={fullTranslationRoutes} lang={lang} client:only="vue" />
+<StoreSetter client:only="vue" lang={lang} locale-routes={fullTranslationRoutes} />

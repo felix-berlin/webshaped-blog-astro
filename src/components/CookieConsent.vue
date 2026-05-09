@@ -16,14 +16,14 @@
 
 <script setup lang="ts">
 import Cookie from "virtual:icons/lucide/cookie";
-import { reactive, watchEffect, onBeforeUnmount, onBeforeMount, onMounted } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, reactive, watchEffect } from "vue";
 
 const data = reactive({
-  showOptions: false,
   acceptAllCookies: localStorage.getItem("acceptAllCookies")
     ? localStorage.getItem("acceptAllCookies")
     : false,
   isMounted: false,
+  showOptions: false,
 });
 
 const stop = watchEffect(() => {
