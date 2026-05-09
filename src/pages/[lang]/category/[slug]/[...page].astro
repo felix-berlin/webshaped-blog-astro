@@ -1,22 +1,17 @@
 ---
-import "@styles/objects/_category.scss";
-import "@styles/objects/_blog-listing.scss";
-import "@styles/components/_blog-posts.scss";
-import type {
-  GetStaticPaths,
-  InferGetStaticParamsType,
-  InferGetStaticPropsType,
-  PaginateFunction,
-} from "astro";
+import '@styles/objects/_category.scss';
+import '@styles/objects/_blog-listing.scss';
+import '@styles/components/_blog-posts.scss';
+import type { GetStaticPaths, GetStaticPathsResult, Page, PaginateFunction } from 'astro';
 
-import BlogPostPreview from "@components/BlogPostPreview.vue";
-import Pagination from "@components/Pagination.vue";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
-import { removeLocaleCode } from "@utils/helpers";
-import { WP_API } from "astro:env/client";
+import BlogPostPreview from '@components/BlogPostPreview.vue';
+import Pagination from '@components/Pagination.vue';
+import DefaultLayout from '@layouts/DefaultLayout.astro';
+import { cacheExchange, Client, fetchExchange } from '@urql/core';
+import { removeLocaleCode } from '@utils/helpers';
+import { WP_API } from 'astro:env/client';
 
-import { GetAllPostPreviewsByCategoryDocument } from "@/gql/graphql.ts";
+import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
 
 export const prerender = true;
 
@@ -29,7 +24,7 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
     exchanges: [cacheExchange, fetchExchange],
     fetchOptions: {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     },
     url: WP_API,
@@ -43,7 +38,7 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
   /**
    * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
    */
-  return postPreviews?.nodes.flatMap((category) => {
+  const routes: GetStaticPathsResult = postPreviews?.nodes.flatMap((category: any) => {
     const { seo } = category;
     const categoriesDe = category.posts?.nodes;
     const categoriesEn = category.translations;
@@ -76,7 +71,7 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
 
     // TODO: make slug the same as in german
     const englishPaths =
-      categoriesEn?.flatMap((translation) => {
+      categoriesEn?.flatMap((translation: any) => {
         const { seo } = translation;
         const categoriesEnPosts = translation?.posts?.nodes;
 
@@ -107,33 +102,54 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
 
     return [...germanPaths, ...englishPaths];
   });
+
+  const uniqueRoutes = new Map<string, (typeof routes extends Array<infer Item> ? Item : never)>();
+
+  for (const route of routes ?? []) {
+    const routeKey = `${route.params.lang}/${route.params.slug}/${route.params.page ?? '1'}`;
+
+    if (!uniqueRoutes.has(routeKey)) {
+      uniqueRoutes.set(routeKey, route);
+    }
+  }
+
+  return [...uniqueRoutes.values()];
 }) satisfies GetStaticPaths;
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+interface CategoryPageProps {
+  availableLanguages: string[];
+  content: {
+    title: string | null;
+  };
+  page: Page;
+}
 
-const { availableLanguages, content, page, seo } = Astro.props;
-const { lang, slug } = Astro.params as Params;
+const { availableLanguages, content, page } = Astro.props as unknown as CategoryPageProps;
+const { lang, slug } = Astro.params as { lang: string; slug: string };
 
 const path = `${lang}/category/${slug}`;
 const posts = page.data;
+const pageSuffix = page.currentPage === 1 ? '' : `/${page.currentPage}`;
 
-const translationsRoutes = availableLanguages.reduce((acc, language) => {
-  acc[language] = `${Astro.url.origin}/${language}/category/${slug}/${page.currentPage}`;
-  return acc;
-}, {});
+const translationsRoutes = availableLanguages.reduce<Record<string, string>>(
+  (acc, language: string) => {
+    acc[language] = `${Astro.url.origin}/${language}/category/${slug}${pageSuffix}`;
+    return acc;
+  },
+  {},
+);
 ---
 
 <DefaultLayout
   content={content}
-  contentClasses="o-category"
-  translationsRoutes={{ taxonomy: "category", ...translationsRoutes }}
+  contentClasses='o-category'
+  translationsRoutes={{ taxonomy: 'category', ...translationsRoutes }}
 >
-  <header class="o-category__header">
-    <h1 class="o-category__headline">{content.title}</h1>
+  <header class='o-category__header'>
+    <h1 class='o-category__headline'>{content.title}</h1>
   </header>
-  <section class="c-blog-posts">
+  <section class='c-blog-posts'>
     <BlogPostPreview posts={posts} />
   </section>
-  <Pagination lang={content.language} page={page} path={path} />
+  <Pagination page={page} path={path} />
 </DefaultLayout>

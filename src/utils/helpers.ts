@@ -134,11 +134,13 @@ export const updateCategoryPaths = (
 
       // In german locale, /de is missing in the path
       if (lang === "de") {
-        childItem.path = `/de${firstCategoryPage(childItem?.path || null)}`;
+        const categorySlug = childItem?.path?.split("/").filter(Boolean).pop() || "";
+        childItem.path = `/de/category/${removeLocaleCode(categorySlug)}`;
       }
       // In english locale, categories are postfixed with "-en", we need to remove it
       if (lang === "en") {
-        childItem.path = firstCategoryPage(removeLocaleCode(childItem?.path || null));
+        const categorySlug = childItem?.path?.split("/").filter(Boolean).pop() || "";
+        childItem.path = `/en/category/${removeLocaleCode(categorySlug)}`;
       }
     });
   });
@@ -284,11 +286,8 @@ export const isWebWorkerSupported = () => {
 
 export const removeLocaleCode = (category: null | string) => {
   if (!category) return "";
-  // Split the category string by the hyphen
-  const parts = category.split("-");
 
-  // Return the first part of the split string
-  return parts[0];
+  return category.replace(/-(de|en)$/, "");
 };
 
 /**
