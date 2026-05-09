@@ -4,7 +4,7 @@
       <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
         <component
           :is="1 === page.currentPage ? 'span' : 'a'"
-          :href="getPageHref(1)"
+          :href="`/${path}/${page.start}`"
           :aria-label="t('pagination.first')"
           class="c-pagination__link"
         >
@@ -27,9 +27,7 @@
         :key="index"
         :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
       >
-        <a :href="getPageHref(index)" class="c-pagination__link">
-          {{ index }}
-        </a>
+        <a :href="`/${path}/${index}`" class="c-pagination__link">{{ index }}</a>
       </li>
 
       <li :class="['c-pagination__item', { 'is-disabled': !page.url.next }]">
@@ -45,7 +43,7 @@
       <li :class="['c-pagination__item', { 'is-disabled': page.lastPage === page.currentPage }]">
         <component
           :is="page.lastPage === page.currentPage ? 'span' : 'a'"
-          :href="getPageHref(page.lastPage)"
+          :href="`/${path}/${page.lastPage}`"
           :aria-label="t('pagination.last')"
           class="c-pagination__link"
         >
@@ -57,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Page } from "astro";
+import type { Page } from "astro/dist/@types/astro";
 
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
@@ -67,29 +65,16 @@ import ChevronLast from "virtual:icons/lucide/chevron-last";
 import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 
-defineOptions({
-  name: "BlogPagination",
-});
+import type { Language, Maybe } from "@/gql/graphql.ts";
 
-const { page, path } = defineProps<{
+defineProps<{
+  lang: Maybe<Language>;
   page: Page;
   path: string;
 }>();
 
-const currentLang = useStore(currentLanguage);
-const t = useTranslations(currentLang.value as "de" | "en");
-
-const getPageHref = (index: number) => {
-  if (index === page.currentPage) {
-    return page.url.current;
-  }
-
-  if (index === 1) {
-    return page.url.first ?? page.url.current;
-  }
-
-  return `/${path}/${index}`;
-};
+const lang = useStore(currentLanguage);
+const t = useTranslations(lang.value);
 </script>
 
 <style lang="scss">

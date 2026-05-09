@@ -72,7 +72,7 @@ export default defineConfig({
     clientPrerender: true,
   },
   redirects: {
-    "/category/web-analytics": "/de/category/matomo",
+    "/category/web-analytics": "/de/category/matomo/1",
   },
   integrations: [
     pagefind(),
