@@ -284,11 +284,7 @@ export const isWebWorkerSupported = () => {
 
 export const removeLocaleCode = (category: null | string) => {
   if (!category) return "";
-  // Split the category string by the hyphen
-  const parts = category.split("-");
-
-  // Return the first part of the split string
-  return parts[0];
+  return category.replace(/-(de|en)$/, "");
 };
 
 /**
