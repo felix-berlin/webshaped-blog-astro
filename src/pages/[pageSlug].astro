@@ -29,7 +29,7 @@ export const getStaticPaths = (async () => {
   const pages = pagesResponse?.data?.pages?.nodes;
 
   if (!pages) {
-    return;
+    return [];
   }
 
   return pages.map((page) => {

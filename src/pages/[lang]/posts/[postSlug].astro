@@ -45,7 +45,7 @@ export const getStaticPaths = (async () => {
   const posts = postsResponse?.data?.posts?.nodes.filter((post) => post?.slug);
 
   if (!posts) {
-    return;
+    return [];
   }
 
   return posts.map((post) => {
