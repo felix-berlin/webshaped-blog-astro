@@ -33,8 +33,26 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Setup environment 🔧
+        env:
+          PROD_SECRETS: ${{ secrets.PROD_SECRETS }}
+          DEV_SECRETS: ${{ secrets.DEV_SECRETS }}
         run: |
-          cp ./.env.pipeline ./.env || true
+          case "${GITHUB_REF}" in
+            refs/heads/main|refs/tags/v*)
+              if [[ -n "${PROD_SECRETS}" ]]; then
+                printf '%s\n' "${PROD_SECRETS}" > .env
+              else
+                cp ./.env.pipeline ./.env || true
+              fi
+              ;;
+            *)
+              if [[ -n "${DEV_SECRETS}" ]]; then
+                printf '%s\n' "${DEV_SECRETS}" > .env
+              else
+                cp ./.env.pipeline ./.env || true
+              fi
+              ;;
+          esac
           echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
       - name: Make smoke test script executable 🔨
