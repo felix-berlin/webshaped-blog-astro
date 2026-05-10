@@ -1,15 +1,18 @@
 services:
   proxy:
-    image: fholzer/nginx-brotli:v1.30.0
+    build:
+      context: .
+      dockerfile: docker/nginx.Dockerfile
     container_name: webshaped-blog-astro-proxy
     depends_on:
       app:
         condition: service_healthy
     ports:
       - "${HOST_PORT:-80}:80"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf.d/webshaped.conf:/etc/nginx/conf.d/webshaped.conf:ro
+    # Optional: Uncomment volumes below to override nginx configs locally during development
+    # volumes:
+    #   - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    #   - ./nginx/conf.d/webshaped.conf:/etc/nginx/conf.d/webshaped.conf:ro
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
       interval: 10s
