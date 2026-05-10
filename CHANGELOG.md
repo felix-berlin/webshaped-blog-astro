@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.34...v1.11.0) (2026-05-10)
+
+
+### Bug Fixes
+
+* export smoke-test host port for docker compose ([6700b21](https://github.com/felix-berlin/webshaped-blog-astro/commit/6700b21a861dcc34ea34dbcf1aa14eaac742a6b7))
+* handle case where post previews are not an array in getStaticPaths ([a89ee97](https://github.com/felix-berlin/webshaped-blog-astro/commit/a89ee97a1e146d9ff7b075ee10e907decfb2dacc))
+* lang switch links ([4e049d3](https://github.com/felix-berlin/webshaped-blog-astro/commit/4e049d32d872a98e1dbeb7521b44a0fd7463bf28))
+* make nginx Dockerfile validation independent of Compose DNS ([4cda939](https://github.com/felix-berlin/webshaped-blog-astro/commit/4cda939007d7032d5dec50ce5f22da3fea22041e))
+* run nginx config test via compose exec ([5f7f20a](https://github.com/felix-berlin/webshaped-blog-astro/commit/5f7f20a36999c43d1085c00750024b26f65bcd97))
+* stabilize proxy startup and nginx smoke validation ([32c1139](https://github.com/felix-berlin/webshaped-blog-astro/commit/32c1139c28a5593c02574eafa0f97e6ab6338e9e))
+
+
+### Features
+
+* embed nginx configs in Docker image with override capability for dev ([e982d48](https://github.com/felix-berlin/webshaped-blog-astro/commit/e982d488a79b9ba4c00bace1aa887af30825e664))
+* **proxy:** add nginx reverse proxy with legacy redirects, www canonicalization, gzip & Brotli compression, CI smoke test, and docs update ([dda685e](https://github.com/felix-berlin/webshaped-blog-astro/commit/dda685e49a42796320cd4411e217324bee224b4c))
+
 ## [1.10.34](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.33...v1.10.34) (2026-05-09)
 
 
