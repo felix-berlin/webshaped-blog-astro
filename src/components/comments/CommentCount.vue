@@ -11,7 +11,7 @@
 import MessageSquare from "virtual:icons/lucide/message-square";
 
 interface CommentCountProps {
-  commentTotal: null | number;
+  commentTotal?: null | number;
   href?: string;
   isElement?: string;
 }

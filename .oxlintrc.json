@@ -1,14 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": [
-    "typescript",
-    "jsx-a11y",
-    "vue"
-  ],
-  "jsPlugins": [
-    "eslint-plugin-astro",
-    "eslint-plugin-perfectionist"
-  ],
+  "plugins": ["typescript", "jsx-a11y", "vue"],
+  "jsPlugins": ["eslint-plugin-astro", "eslint-plugin-perfectionist"],
   "categories": {
     "correctness": "off"
   },
@@ -124,15 +117,7 @@
     "jsx-a11y/interactive-supports-focus": [
       "error",
       {
-        "tabbable": [
-          "button",
-          "checkbox",
-          "link",
-          "searchbox",
-          "spinbutton",
-          "switch",
-          "textbox"
-        ]
+        "tabbable": ["button", "checkbox", "link", "searchbox", "spinbutton", "switch", "textbox"]
       }
     ],
     "jsx-a11y/label-has-associated-control": "error",
@@ -145,9 +130,7 @@
       "error",
       {
         "tags": [],
-        "roles": [
-          "tabpanel"
-        ],
+        "roles": ["tabpanel"],
         "allowExpressionValues": true
       }
     ],
@@ -156,14 +139,7 @@
       "error",
       {
         "allowExpressionValues": true,
-        "handlers": [
-          "onClick",
-          "onMouseDown",
-          "onMouseUp",
-          "onKeyPress",
-          "onKeyDown",
-          "onKeyUp"
-        ]
+        "handlers": ["onClick", "onMouseDown", "onMouseUp", "onKeyPress", "onKeyDown", "onKeyUp"]
       }
     ],
     "jsx-a11y/role-has-required-aria-props": "error",
@@ -345,12 +321,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.ts",
-        "**/*.tsx",
-        "**/*.mts",
-        "**/*.cts"
-      ],
+      "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "rules": {
         "constructor-super": "off",
         "getter-return": "off",
@@ -375,10 +346,7 @@
       }
     },
     {
-      "files": [
-        "*.astro",
-        "**/*.astro"
-      ],
+      "files": ["*.astro", "**/*.astro"],
       "globals": {
         "Fragment": "readonly"
       },
@@ -388,10 +356,7 @@
       }
     },
     {
-      "files": [
-        "*.vue",
-        "**/*.vue"
-      ],
+      "files": ["*.vue", "**/*.vue"],
       "globals": {
         "AudioWorkletGlobalScope": "readonly",
         "AudioWorkletProcessor": "readonly",

@@ -106,27 +106,44 @@ export interface ScrobbleDisplayProps {
   idleAfterCount?: number;
   idleIfInactive?: boolean;
   numberOfDisplayedTracks?: number;
-  scrobbleApi: string;
+  scrobbleApi?: string;
   updateRate?: number;
 }
 
 interface LastFmData {
   recenttracks: {
-    track: {
-      [x: string]: { nowplaying: boolean };
-    }[];
+    "@attr"?: {
+      total?: string;
+      user?: string;
+    };
+    track: LastFmTrack[];
   };
+}
+
+interface LastFmTrack {
+  "@attr"?: {
+    nowplaying?: string;
+  };
+  album: {
+    "#text": string;
+  };
+  artist: {
+    "#text": string;
+  };
+  image: Array<{
+    "#text": string;
+  }>;
+  name: string;
+  url: string;
 }
 
 interface State {
   idleAfterCount: number | undefined;
   isDropdownShown: boolean;
   scrobbling: boolean;
-  tracks: {
-    [key: string]: any;
-  };
+  tracks: Partial<LastFmData>;
   updateCount: number;
-  updateIntervalId: NodeJS.Timer | undefined;
+  updateIntervalId: ReturnType<typeof setInterval> | undefined;
 }
 
 const {
@@ -134,7 +151,7 @@ const {
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
   idleIfInactive = false,
   numberOfDisplayedTracks = 5,
-  scrobbleApi = null,
+  scrobbleApi = "",
   updateRate = 180_000, // check every 180 seconds (3 min)
 } = defineProps<ScrobbleDisplayProps>();
 
@@ -190,8 +207,7 @@ const checkIfPlaying = async (): Promise<void> => {
     state.updateCount++;
 
     state.scrobbling = !!data.recenttracks.track.find(
-      (track: { [x: string]: { nowplaying: boolean } }) =>
-        "@attr" in track && track["@attr"].nowplaying,
+      (track) => !!track["@attr"]?.nowplaying,
     );
   });
 };
@@ -217,7 +233,7 @@ const startScrobbleUpdates = (immediately: boolean): void => {
  * @return  {void}
  */
 const stopScrobbleUpdates = (): void => {
-  if (typeof state.updateIntervalId !== "undefined" && typeof state.updateIntervalId === "number")
+  if (typeof state.updateIntervalId !== "undefined")
     clearInterval(state.updateIntervalId);
 };
 

@@ -4,6 +4,9 @@ import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 
 import { defaultLang, localeStrings } from "./ui";
 
+type TranslationKey = keyof (typeof localeStrings)[typeof defaultLang];
+type TranslationValue = number | string;
+
 /**
  * Extracts the language code from the given URL's pathname.
  *
@@ -33,7 +36,13 @@ export const getLangFromUrl = (url: URL) => {
  *
  * @return  {string}  The translated string, with variables replaced and plural form applied if applicable.
  */
-export const useTranslations = (lang: keyof typeof localeStrings): Function => {
+export const useTranslations =
+  (lang: keyof typeof localeStrings) =>
+  (
+    key: TranslationKey,
+    varsToReplace?: Record<string, TranslationValue>,
+    plural?: number,
+  ): string => {
   const shortLang = lang?.includes("_") ? (lang.split("_")[0] as keyof typeof localeStrings) : lang;
 
   /**
@@ -47,11 +56,6 @@ export const useTranslations = (lang: keyof typeof localeStrings): Function => {
    *
    * @return  {string}                     return the translated string
    */
-  return function t(
-    key: keyof (typeof localeStrings)[typeof defaultLang],
-    varsToReplace?: object,
-    plural?: number,
-  ) {
     let translationStr = localeStrings[shortLang][key] || localeStrings[defaultLang][key];
 
     // If the translation string ends with "--plural", execute the plural form function and store the result in the translation string.
@@ -65,14 +69,13 @@ export const useTranslations = (lang: keyof typeof localeStrings): Function => {
 
       translationStr = translationStr
         .toString()
-        .replace(regex, (matched: string, offset: number) => {
-          return varsToReplace[offset as keyof typeof varsToReplace];
+        .replace(regex, (_matched: string, variableName: string) => {
+          return String(varsToReplace[variableName] ?? "");
         });
     }
 
     return translationStr || key;
   };
-};
 
 /**
  * Selects the correct plural based on the language and the plural object supplied.

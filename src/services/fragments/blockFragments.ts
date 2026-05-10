@@ -47,7 +47,7 @@ export const CoreCode = graphql(`
   }
 `);
 
-const CoreImage = graphql(`
+export const CoreImage = graphql(`
   fragment CoreImage on CoreImage {
     name
     attributes {
@@ -78,7 +78,7 @@ const CoreImage = graphql(`
   }
 `);
 
-const CoreButton = graphql(`
+export const CoreButton = graphql(`
   fragment CoreButton on CoreButton {
     name
     attributes {
@@ -93,7 +93,7 @@ const CoreButton = graphql(`
   }
 `);
 
-const CoreButtons = graphql(`
+export const CoreButtons = graphql(`
   fragment CoreButtons on CoreButtons {
     name
     attributes {
@@ -105,7 +105,7 @@ const CoreButtons = graphql(`
   }
 `);
 
-const AcfGithubRawData = graphql(`
+export const AcfGithubRawData = graphql(`
   fragment AcfGithubRawData on AcfGithubRawData {
     name
     githubRawData {
@@ -115,7 +115,7 @@ const AcfGithubRawData = graphql(`
   }
 `);
 
-const AcfCodeHighlighting = graphql(`
+export const AcfCodeHighlighting = graphql(`
   fragment AcfCodeHighlighting on AcfCodeHighlighting {
     name
     attributes {
@@ -124,7 +124,7 @@ const AcfCodeHighlighting = graphql(`
   }
 `);
 
-export const CoreDetails = (allInnerBlocks: string) =>
+export const CoreDetails = (_allInnerBlocks: string) =>
   graphql(`
     fragment CoreDetails on CoreDetails {
       name
