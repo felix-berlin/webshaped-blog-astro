@@ -1,0 +1,50 @@
+name: Docker Smoke Test
+
+on:
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "compose.yaml"
+      - "scripts/docker-smoke-test.sh"
+      - ".github/workflows/docker-smoke-test.yml"
+      - ".env.pipeline"
+  push:
+    branches:
+      - main
+      - beta
+    paths:
+      - "Dockerfile"
+      - "compose.yaml"
+      - "scripts/docker-smoke-test.sh"
+      - ".github/workflows/docker-smoke-test.yml"
+      - ".env.pipeline"
+  workflow_dispatch:
+
+jobs:
+  docker-smoke-test:
+    name: Docker Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout ✅
+        uses: actions/checkout@v6
+
+      - name: Setup environment 🔧
+        run: |
+          cp ./.env.pipeline ./.env || true
+          echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+      - name: Make smoke test script executable 🔨
+        run: chmod +x ./scripts/docker-smoke-test.sh
+
+      - name: Run Docker Smoke Test 🐳
+        run: ./scripts/docker-smoke-test.sh
+
+      - name: Upload Docker logs on failure 📋
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-smoke-test-logs
+          retention-days: 7
+          if-no-files-found: ignore
