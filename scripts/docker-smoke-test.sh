@@ -8,6 +8,7 @@ set -euo pipefail
 PROJECT_NAME="webshaped-blog-astro-smoke"
 COMPOSE_FILE="compose.yaml"
 HOST_PORT="${HOST_PORT:-8080}"
+export HOST_PORT
 BASE_URL="http://127.0.0.1:${HOST_PORT}"
 APP_CONTAINER_NAME="webshaped-blog-astro"
 TIMEOUT=30
