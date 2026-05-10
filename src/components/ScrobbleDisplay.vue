@@ -206,9 +206,7 @@ const checkIfPlaying = async (): Promise<void> => {
     state.tracks = data;
     state.updateCount++;
 
-    state.scrobbling = !!data.recenttracks.track.find(
-      (track) => !!track["@attr"]?.nowplaying,
-    );
+    state.scrobbling = !!data.recenttracks.track.find((track) => !!track["@attr"]?.nowplaying);
   });
 };
 
@@ -233,8 +231,7 @@ const startScrobbleUpdates = (immediately: boolean): void => {
  * @return  {void}
  */
 const stopScrobbleUpdates = (): void => {
-  if (typeof state.updateIntervalId !== "undefined")
-    clearInterval(state.updateIntervalId);
+  if (typeof state.updateIntervalId !== "undefined") clearInterval(state.updateIntervalId);
 };
 
 onMounted(async () => {

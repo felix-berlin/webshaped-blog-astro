@@ -43,19 +43,21 @@ export const useTranslations =
     varsToReplace?: Record<string, TranslationValue>,
     plural?: number,
   ): string => {
-  const shortLang = lang?.includes("_") ? (lang.split("_")[0] as keyof typeof localeStrings) : lang;
+    const shortLang = lang?.includes("_")
+      ? (lang.split("_")[0] as keyof typeof localeStrings)
+      : lang;
 
-  /**
-   * Looks up the translation string using the language key.
-   * If variables are present, they are searched for and replaced within the string.
-   * If the string should have a plural object, this will be analyzed before swapping the translation variables.
-   *
-   * @param   {string}  key             locale key
-   * @param   {object}  varsToReplace      object with variables to replace
-   * @param   {number}  plural             plural form in numbers
-   *
-   * @return  {string}                     return the translated string
-   */
+    /**
+     * Looks up the translation string using the language key.
+     * If variables are present, they are searched for and replaced within the string.
+     * If the string should have a plural object, this will be analyzed before swapping the translation variables.
+     *
+     * @param   {string}  key             locale key
+     * @param   {object}  varsToReplace      object with variables to replace
+     * @param   {number}  plural             plural form in numbers
+     *
+     * @return  {string}                     return the translated string
+     */
     let translationStr = localeStrings[shortLang][key] || localeStrings[defaultLang][key];
 
     // If the translation string ends with "--plural", execute the plural form function and store the result in the translation string.
