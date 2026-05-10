@@ -20,6 +20,10 @@ echo "===================="
 
 echo ""
 
+compose() {
+  docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" "$@"
+}
+
 # Step 2.5: Validate nginx config syntax
 echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
 if ! compose exec proxy nginx -t; then
@@ -28,10 +32,6 @@ if ! compose exec proxy nginx -t; then
 fi
 echo "✅ nginx config syntax is valid"
 echo ""
-
-compose() {
-  docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" "$@"
-}
 
 remove_existing_app_container() {
   if docker ps -a --format '{{.Names}}' | grep -q "^${APP_CONTAINER_NAME}$"; then
