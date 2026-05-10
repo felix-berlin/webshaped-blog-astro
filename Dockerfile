@@ -11,10 +11,13 @@ FROM deps AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM deps AS build
+ARG BUILD_ENV_HASH=unset
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . /app
 RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
-  set -a && . /run/secrets/build_env && set +a && pnpm run build
+  echo "build env hash: ${BUILD_ENV_HASH}" >/dev/null \
+  && set -a && . /run/secrets/build_env && set +a \
+  && pnpm run build
 
 FROM node:lts-slim AS runtime
 WORKDIR /app

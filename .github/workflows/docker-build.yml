@@ -62,6 +62,30 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare build env secret
+        id: build_env
+        env:
+          PROD_SECRETS: ${{ secrets.PROD_SECRETS }}
+          DEV_SECRETS: ${{ secrets.DEV_SECRETS }}
+        run: |
+          case "${GITHUB_REF}" in
+            refs/heads/main|refs/tags/v*)
+              BUILD_ENV="${PROD_SECRETS}"
+              ;;
+            *)
+              BUILD_ENV="${DEV_SECRETS}"
+              ;;
+          esac
+
+          if [[ -z "${BUILD_ENV}" ]]; then
+            echo "Selected build secret is empty" >&2
+            exit 1
+          fi
+
+          printf '%s' "${BUILD_ENV}" > .build.env
+          BUILD_ENV_HASH=$(printf '%s' "${BUILD_ENV}" | sha256sum | cut -d' ' -f1)
+          echo "build_env_hash=${BUILD_ENV_HASH}" >> "$GITHUB_OUTPUT"
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -77,12 +101,14 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_app.outputs.tags }}
           labels: ${{ steps.meta_app.outputs.labels }}
-          secrets: |
-            "build_env=${{ github.ref == 'refs/heads/main' || (startsWith(github.ref, 'refs/tags/v') && !contains(github.ref, '-')) && secrets.PROD_SECRETS || secrets.DEV_SECRETS }}"
+          secret-files: |
+            build_env=.build.env
+          build-args: |
+            BUILD_ENV_HASH=${{ steps.build_env.outputs.build_env_hash }}
           cache-from: |
-            type=registry,ref=ghcr.io/${{ github.repository }}:latest
-            type=registry,ref=ghcr.io/${{ github.repository }}:beta
-          cache-to: type=inline
+            type=gha,scope=app
+          cache-to: |
+            type=gha,mode=max,scope=app
 
       - name: Build and push proxy image
         uses: docker/build-push-action@v7
@@ -94,9 +120,13 @@ jobs:
           tags: ${{ steps.meta_proxy.outputs.tags }}
           labels: ${{ steps.meta_proxy.outputs.labels }}
           cache-from: |
-            type=registry,ref=ghcr.io/${{ github.repository }}-proxy:latest
-            type=registry,ref=ghcr.io/${{ github.repository }}-proxy:beta
-          cache-to: type=inline
+            type=gha,scope=proxy
+          cache-to: |
+            type=gha,mode=max,scope=proxy
+
+      - name: Cleanup build env secret
+        if: always()
+        run: rm -f .build.env
 
       # - name: Build Docker image
       #   id: build
