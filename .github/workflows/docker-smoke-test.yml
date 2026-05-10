@@ -53,6 +53,8 @@ jobs:
               fi
               ;;
           esac
+          cp .env .build.env || true
+          echo "BUILD_ENV_FILE=.build.env" >> $GITHUB_ENV
           echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
       - name: Make smoke test script executable 🔨

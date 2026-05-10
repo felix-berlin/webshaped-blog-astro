@@ -13,7 +13,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 FROM deps AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . /app
-RUN pnpm run build
+RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
+  set -a && . /run/secrets/build_env && set +a && pnpm run build
 
 FROM node:lts-slim AS runtime
 WORKDIR /app
