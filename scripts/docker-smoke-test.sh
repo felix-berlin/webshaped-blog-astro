@@ -24,15 +24,6 @@ compose() {
   docker compose -p "${PROJECT_NAME}" -f "${COMPOSE_FILE}" "$@"
 }
 
-# Step 2.5: Validate nginx config syntax
-echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
-if ! compose exec proxy nginx -t; then
-  echo "❌ nginx config test failed"
-  exit 1
-fi
-echo "✅ nginx config syntax is valid"
-echo ""
-
 remove_existing_app_container() {
   if docker ps -a --format '{{.Names}}' | grep -q "^${APP_CONTAINER_NAME}$"; then
     echo "ℹ️  Removing existing ${APP_CONTAINER_NAME} container"
@@ -150,6 +141,15 @@ else
   exit 1
 fi
 
+echo ""
+
+# Step 2.5: Validate nginx config syntax
+echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
+if ! compose run --rm --no-deps -T proxy nginx -t; then
+  echo "❌ nginx config test failed"
+  exit 1
+fi
+echo "✅ nginx config syntax is valid"
 echo ""
 
 # Step 2: Wait for proxy to be ready
