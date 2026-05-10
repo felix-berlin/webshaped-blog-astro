@@ -25,11 +25,26 @@ jobs:
           fetch-depth: 0
 
       - name: Docker meta
-        id: meta
+        id: meta_app
         uses: docker/metadata-action@v5
         with:
           images: |
             ghcr.io/${{ github.repository }}
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Docker meta (proxy)
+        id: meta_proxy
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ghcr.io/${{ github.repository }}-proxy
           tags: |
             type=schedule
             type=ref,event=branch
@@ -65,19 +80,34 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push
+      - name: Build and push app image
         uses: docker/build-push-action@v7
         with:
           context: .
+          dockerfile: Dockerfile
           # platforms: linux/amd64,linux/arm64
           platforms: linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta_app.outputs.tags }}
+          labels: ${{ steps.meta_app.outputs.labels }}
           cache-from: |
-            type=registry,ref=${{ steps.meta.outputs.tags }}
             type=registry,ref=ghcr.io/${{ github.repository }}:latest
             type=registry,ref=ghcr.io/${{ github.repository }}:beta
+          cache-to: type=inline
+
+      - name: Build and push proxy image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          dockerfile: docker/nginx.Dockerfile
+          # platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_proxy.outputs.tags }}
+          labels: ${{ steps.meta_proxy.outputs.labels }}
+          cache-from: |
+            type=registry,ref=ghcr.io/${{ github.repository }}-proxy:latest
+            type=registry,ref=ghcr.io/${{ github.repository }}-proxy:beta
           cache-to: type=inline
 
       # - name: Build Docker image
