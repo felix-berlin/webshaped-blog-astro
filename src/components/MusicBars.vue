@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 interface MusicBarsProps {
-  animate: boolean;
+  animate?: boolean;
 }
 
 const props = withDefaults(defineProps<MusicBarsProps>(), {

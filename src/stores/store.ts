@@ -1,7 +1,6 @@
 import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
 
 import { persistentAtom } from "@nanostores/persistent";
-import { getLangFromUrl } from "@utils/i18n/utils";
 import { atom } from "nanostores";
 
 export type Language = "de" | "en";

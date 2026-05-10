@@ -67,11 +67,21 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { lang, postSlug } = Astro.params as Params;
 const { post } = Astro.props;
 
-const isCoreHeading = (block: any): block is CoreHeading => {
+const isCoreHeading = (block: unknown): block is CoreHeading => {
+  if (!block || typeof block !== "object") {
+    return false;
+  }
+
+  const headingBlock = block as {
+    attributes?: {
+      level?: number;
+    };
+    name?: string;
+  };
+
   return (
-    block &&
-    block.name === "core/heading" &&
-    (block.attributes?.level === 2 || block.attributes?.level === 3)
+    headingBlock.name === "core/heading" &&
+    (headingBlock.attributes?.level === 2 || headingBlock.attributes?.level === 3)
   );
 };
 

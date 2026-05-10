@@ -1,7 +1,7 @@
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import type { Variables } from "@urql/core";
 
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
+import { Client, fetchExchange } from "@urql/core";
 import { WP_API } from "astro:env/client";
 
 // Define a generic type for GraphQL variables

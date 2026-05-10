@@ -64,7 +64,7 @@ const taxonomyRoutes = isTaxonomy ? (({ taxonomy, ...rest }) => rest)(translatio
 // Create localized URLs excluding the taxonomy
 const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>((acc, [key, value]) => {
   if (key && key !== "undefined") {
-    acc[key] = createLocalizedUrl(Astro.url.href, key, translations);
+    acc[key] = createLocalizedUrl(Astro.url.pathname, key, translations);
   }
   return acc;
 }, {} as TranslationRoutes);

@@ -1,6 +1,6 @@
 import { graphql } from "@/gql";
 
-const CategoryFields = graphql(`
+export const CategoryFields = graphql(`
   fragment CategoryFields on Category {
     count
     name

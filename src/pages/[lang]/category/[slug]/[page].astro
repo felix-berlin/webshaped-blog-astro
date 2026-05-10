@@ -1,22 +1,22 @@
 ---
-import "@styles/objects/_category.scss";
-import "@styles/objects/_blog-listing.scss";
-import "@styles/components/_blog-posts.scss";
+import '@styles/objects/_category.scss';
+import '@styles/objects/_blog-listing.scss';
+import '@styles/components/_blog-posts.scss';
 import type {
   GetStaticPaths,
   InferGetStaticParamsType,
   InferGetStaticPropsType,
   PaginateFunction,
-} from "astro";
+} from 'astro';
 
-import BlogPostPreview from "@components/BlogPostPreview.vue";
-import Pagination from "@components/Pagination.vue";
-import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
-import { removeLocaleCode } from "@utils/helpers";
-import { WP_API } from "astro:env/client";
+import BlogPostPreview from '@components/BlogPostPreview.vue';
+import Pagination from '@components/Pagination.vue';
+import DefaultLayout from '@layouts/DefaultLayout.astro';
+import { cacheExchange, Client, fetchExchange } from '@urql/core';
+import { removeLocaleCode } from '@utils/helpers';
+import { WP_API } from 'astro:env/client';
 
-import { GetAllPostPreviewsByCategoryDocument } from "@/gql/graphql.ts";
+import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
 
 export const prerender = true;
 
@@ -29,21 +29,24 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
     exchanges: [cacheExchange, fetchExchange],
     fetchOptions: {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     },
     url: WP_API,
   });
 
   const postsResponse = await client.query(GetAllPostPreviewsByCategoryDocument, {}).toPromise();
-
   const postPreviews = postsResponse?.data?.categories;
   const pageCount = 6;
 
   /**
    * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
    */
-  return postPreviews?.nodes.flatMap((category) => {
+  if (!Array.isArray(postPreviews?.nodes)) {
+    return [];
+  }
+
+  return postPreviews.nodes.flatMap((category) => {
     const { seo } = category;
     const categoriesDe = category.posts?.nodes;
     const categoriesEn = category.translations;
@@ -126,13 +129,13 @@ const translationsRoutes = availableLanguages.reduce((acc, language) => {
 
 <DefaultLayout
   content={content}
-  contentClasses="o-category"
-  translationsRoutes={{ taxonomy: "category", ...translationsRoutes }}
+  contentClasses='o-category'
+  translationsRoutes={{ taxonomy: 'category', ...translationsRoutes }}
 >
-  <header class="o-category__header">
-    <h1 class="o-category__headline">{content.title}</h1>
+  <header class='o-category__header'>
+    <h1 class='o-category__headline'>{content.title}</h1>
   </header>
-  <section class="c-blog-posts">
+  <section class='c-blog-posts'>
     <BlogPostPreview posts={posts} />
   </section>
   <Pagination lang={content.language} page={page} path={path} />

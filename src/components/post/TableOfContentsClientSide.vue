@@ -10,7 +10,7 @@ export interface TableOfContentsClientSideProps {
   h3Class?: string;
   id?: string;
   setIndexIdToHeadlines?: boolean;
-  target: string;
+  target?: string;
 }
 
 const props = withDefaults(defineProps<TableOfContentsClientSideProps>(), {

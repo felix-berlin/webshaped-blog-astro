@@ -12,7 +12,7 @@
 interface AlertProps {
   componentClass?: string;
   element?: string;
-  type: "danger" | "info" | "success" | "warning";
+  type?: "danger" | "info" | "success" | "warning";
 }
 
 const props = withDefaults(defineProps<AlertProps>(), {

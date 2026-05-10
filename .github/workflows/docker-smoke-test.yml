@@ -1,0 +1,71 @@
+name: Docker Smoke Test
+
+on:
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "compose.yaml"
+      - "nginx/**"
+      - "scripts/docker-smoke-test.sh"
+      - ".github/workflows/docker-smoke-test.yml"
+      - ".env.pipeline"
+  push:
+    branches:
+      - main
+      - beta
+    paths:
+      - "Dockerfile"
+      - "compose.yaml"
+      - "nginx/**"
+      - "scripts/docker-smoke-test.sh"
+      - ".github/workflows/docker-smoke-test.yml"
+      - ".env.pipeline"
+  workflow_dispatch:
+
+jobs:
+  docker-smoke-test:
+    name: Docker Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout ✅
+        uses: actions/checkout@v6
+
+      - name: Setup environment 🔧
+        env:
+          PROD_SECRETS: ${{ secrets.PROD_SECRETS }}
+          DEV_SECRETS: ${{ secrets.DEV_SECRETS }}
+        run: |
+          case "${GITHUB_REF}" in
+            refs/heads/main|refs/tags/v*)
+              if [[ -n "${PROD_SECRETS}" ]]; then
+                printf '%s\n' "${PROD_SECRETS}" > .env
+              else
+                cp ./.env.pipeline ./.env || true
+              fi
+              ;;
+            *)
+              if [[ -n "${DEV_SECRETS}" ]]; then
+                printf '%s\n' "${DEV_SECRETS}" > .env
+              else
+                cp ./.env.pipeline ./.env || true
+              fi
+              ;;
+          esac
+          echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+
+      - name: Make smoke test script executable 🔨
+        run: chmod +x ./scripts/docker-smoke-test.sh
+
+      - name: Run Docker Smoke Test 🐳
+        run: ./scripts/docker-smoke-test.sh
+
+      - name: Upload Docker logs on failure 📋
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-smoke-test-logs
+          path: docker-smoke-test-compose.log
+          retention-days: 7
+          if-no-files-found: ignore

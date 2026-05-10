@@ -15,6 +15,7 @@ The `.env.runtime` file signals to Astro that the actual value will be available
 
 ### Docker
 
-- `docker-compose -f compose.yaml up` to start the project
-- `docker-compose -f compose.yaml build` to build the project
-- `docker-compose -f compose.yaml pull` to pull the latest images
+- `docker compose -f compose.yaml up` starts the full stack with Nginx in front of the Astro app
+- `HOST_PORT=8080 docker compose -f compose.yaml up --build` starts the stack on `http://localhost:8080` when port `80` should stay free
+- `docker compose -f compose.yaml build` builds the app image used by the stack
+- `docker compose -f compose.yaml pull` pulls the latest remote images such as the pinned Brotli-enabled Nginx image

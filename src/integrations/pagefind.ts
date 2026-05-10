@@ -52,7 +52,7 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           logger.info(`Pagefind wrote index to ${outputPath}`);
         }
       },
-      "astro:config:setup": ({ config, logger }) => {
+      "astro:config:setup": ({ config }) => {
         // if (config.output === "server") {
         //   logger.warn(
         //     "Output type `server` does not produce static *.html pages in its output and thus will not work with astro-pagefind integration.",

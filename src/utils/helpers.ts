@@ -41,7 +41,7 @@ export const parse = (str: Maybe<string>) => {
   try {
     return JSON.parse(str);
   } catch (error) {
-    throw new Error(`Failed to parse JSON string: ${error}`);
+    throw new Error(`Failed to parse JSON string: ${error}`, { cause: error });
   }
 };
 
@@ -228,7 +228,7 @@ export const isValidUrl = (url: string): boolean => {
   try {
     new URL(url);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
@@ -304,7 +304,7 @@ export const getWebmentionsUrl = (url: URL): string => {
  * WPGraphQL API: Convert a flat list of items to a hierarchical structure
  * @see: https://www.wpgraphql.com/docs/hierarchical-data#converting-flat-lists-to-hierarchical
  */
-export function flatListToHierarchical<T extends Record<string, any>>(
+export function flatListToHierarchical<T extends Record<string, unknown>>(
   data: T[] = [],
   options: {
     childrenKey?: string;
@@ -342,8 +342,8 @@ export function flatListToHierarchical<T extends Record<string, any>>(
  * @param data - Array of edges with { node: {...} }
  * @param options - Keys for id, parent, children, and node accessor
  */
-export function paginatedFlatListToHierarchical<T extends Record<string, any>>(
-  data: { node: T }[] = [],
+export function paginatedFlatListToHierarchical<T extends Record<string, unknown>>(
+  data: Array<Record<string, T>> = [],
   options: {
     childrenKey?: string;
     idKey?: keyof T;
