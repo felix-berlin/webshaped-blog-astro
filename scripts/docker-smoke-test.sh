@@ -147,8 +147,19 @@ echo ""
 # Step 2.5: Validate nginx config syntax
 echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
 if ! compose exec -T proxy nginx -t; then
-  echo "❌ nginx config test failed"
-  exit 1
+  echo "⚠️  Could not exec into running proxy container. Trying fallback check via one-off proxy container..."
+  echo ""
+  echo "📋 Docker Compose services:"
+  compose ps || true
+  echo ""
+
+  if ! compose run --rm --no-deps --entrypoint nginx proxy -t; then
+    echo "❌ nginx config test failed"
+    echo ""
+    echo "📋 Docker Compose logs:"
+    compose logs --no-color || true
+    exit 1
+  fi
 fi
 echo "✅ nginx config syntax is valid"
 echo ""

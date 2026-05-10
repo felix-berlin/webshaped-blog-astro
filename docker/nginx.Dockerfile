@@ -11,5 +11,3 @@ RUN cp /etc/nginx/conf.d/webshaped.conf /tmp/webshaped.conf \
 	&& nginx -t \
 	&& mv /tmp/webshaped.conf /etc/nginx/conf.d/webshaped.conf
 
-# Default command (inherited from base image)
-CMD ["nginx", "-g", "daemon off;"]
