@@ -145,7 +145,7 @@ echo ""
 
 # Step 2.5: Validate nginx config syntax
 echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
-if ! compose run --rm --no-deps -T proxy nginx -t; then
+if ! compose exec -T proxy nginx -t; then
   echo "❌ nginx config test failed"
   exit 1
 fi
