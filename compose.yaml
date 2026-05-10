@@ -1,11 +1,29 @@
 services:
+  proxy:
+    image: fholzer/nginx-brotli:v1.30.0
+    container_name: webshaped-blog-astro-proxy
+    depends_on:
+      app:
+        condition: service_healthy
+    ports:
+      - "${HOST_PORT:-80}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/webshaped.conf:/etc/nginx/conf.d/webshaped.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: webshaped-blog-astro
-    ports:
-      - "4321:4321"
+    expose:
+      - "4321"
     env_file:
       - .env
     environment:

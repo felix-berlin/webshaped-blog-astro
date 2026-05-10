@@ -5,6 +5,7 @@ on:
     paths:
       - "Dockerfile"
       - "compose.yaml"
+      - "nginx/**"
       - "scripts/docker-smoke-test.sh"
       - ".github/workflows/docker-smoke-test.yml"
       - ".env.pipeline"
@@ -15,6 +16,7 @@ on:
     paths:
       - "Dockerfile"
       - "compose.yaml"
+      - "nginx/**"
       - "scripts/docker-smoke-test.sh"
       - ".github/workflows/docker-smoke-test.yml"
       - ".env.pipeline"
@@ -46,5 +48,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: docker-smoke-test-logs
+          path: docker-smoke-test-compose.log
           retention-days: 7
           if-no-files-found: ignore

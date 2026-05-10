@@ -1,0 +1,8 @@
+webshaped-blog-astro-proxy  | 172.18.0.1 - - [10/May/2026:11:58:44 +0000] "GET / HTTP/1.1" 200 60296 "-" "curl/7.81.0"
+webshaped-blog-astro-proxy  | 172.18.0.1 - - [10/May/2026:11:58:44 +0000] "GET / HTTP/1.1" 200 60296 "-" "curl/7.81.0"
+webshaped-blog-astro-proxy  | 172.18.0.1 - - [10/May/2026:11:58:44 +0000] "GET /?utm_source=smoke HTTP/1.1" 301 162 "-" "curl/7.81.0"
+webshaped-blog-astro-proxy  | 172.18.0.1 - - [10/May/2026:11:58:44 +0000] "GET /stockfoto-sammlung/?ref=legacy HTTP/1.1" 301 162 "-" "curl/7.81.0"
+webshaped-blog-astro        | 11:58:39 [@astrojs/node] Server listening on 
+webshaped-blog-astro        |   local: http://localhost:4321 	
+webshaped-blog-astro        |   network: http://172.18.0.2:4321
+webshaped-blog-astro        | 
