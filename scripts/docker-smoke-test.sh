@@ -17,6 +17,16 @@ COMPOSE_LOG_FILE="./docker-smoke-test-compose.log"
 
 echo "🐳 Docker Smoke Test"
 echo "===================="
+
+echo ""
+
+# Step 2.5: Validate nginx config syntax
+echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
+if ! compose exec proxy nginx -t; then
+  echo "❌ nginx config test failed"
+  exit 1
+fi
+echo "✅ nginx config syntax is valid"
 echo ""
 
 compose() {
