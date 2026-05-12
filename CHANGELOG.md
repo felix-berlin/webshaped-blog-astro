@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.0...v1.11.1) (2026-05-12)
+
+
+### Bug Fixes
+
+* build proxy on main ([5f76141](https://github.com/felix-berlin/webshaped-blog-astro/commit/5f761417431de32c6a4426ffd0bef1988bfb7a68))
+* correct docker build-push action parameter from dockerfile to file ([7a47b9f](https://github.com/felix-berlin/webshaped-blog-astro/commit/7a47b9f73d68c52dd92a35830a6add19907c30a4))
+* docker build pipeline ([16de9fd](https://github.com/felix-berlin/webshaped-blog-astro/commit/16de9fdd74e293d4587e1609f6a496788958c4d7))
+* enable multi-architecture builds for amd64 + arm64 ([e511ee3](https://github.com/felix-berlin/webshaped-blog-astro/commit/e511ee3caffdad6dafa7b6a4dbd0a34ef3df9098))
+* use secrets instead of env vars ([698c426](https://github.com/felix-berlin/webshaped-blog-astro/commit/698c4267eed16cba1b836a342945f74b437a8d2f))
+
+
+### Performance Improvements
+
+* improve pipeline caching ([0263886](https://github.com/felix-berlin/webshaped-blog-astro/commit/0263886a59c5271ae022566bfeccefc0be4ae112))
+
 # [1.11.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.10.34...v1.11.0) (2026-05-10)
 
 
