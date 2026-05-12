@@ -2,13 +2,6 @@ name: Docker Smoke Test
 
 on:
   pull_request:
-    paths:
-      - "Dockerfile"
-      - "compose.yaml"
-      - "nginx/**"
-      - "scripts/docker-smoke-test.sh"
-      - ".github/workflows/docker-smoke-test.yml"
-      - ".env.pipeline"
   push:
     branches:
       - main
