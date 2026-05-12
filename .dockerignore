@@ -9,3 +9,6 @@ dev-dist
 tests
 src/tests
 .DS_Store
+.env
+.env.*
+.build.env

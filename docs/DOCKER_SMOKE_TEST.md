@@ -18,12 +18,42 @@ Der Smoke Test prüft folgende Punkte:
 
 ## Lokal ausführen
 
+### 1) Umgebung vorbereiten
+
+Der Smoke Test braucht Build- und Runtime-Variablen.
+
+Option A (empfohlen): bestehende lokale `.env` nutzen.
+
+Option B (schneller Smoke-Test mit Testwerten):
+
 ```bash
-# Lokalen Smoke Test starten (z.B. auf Port 8080)
-HOST_PORT=8080 ./scripts/docker-smoke-test.sh
+cp .env.pipeline .env
 ```
 
-Das Skript startet Proxy und App, prüft alle Redirects und Kompressionen und räumt nach Abschluss automatisch auf.
+### 2) Smoke Test starten
+
+```bash
+# Standard
+./scripts/docker-smoke-test.sh
+```
+
+```bash
+# Alternativer Host-Port (z. B. falls 80/8080 belegt ist)
+HOST_PORT=5432 ./scripts/docker-smoke-test.sh
+```
+
+```bash
+# Separates Build-Env-File erzwingen (BuildKit Secret für Dockerfile)
+BUILD_ENV_FILE=.env.pipeline HOST_PORT=8080 ./scripts/docker-smoke-test.sh
+```
+
+Bei älteren Docker-Setups kann es nötig sein, BuildKit explizit zu aktivieren:
+
+```bash
+DOCKER_BUILDKIT=1 ./scripts/docker-smoke-test.sh
+```
+
+Das Skript baut App und Proxy, prüft Redirects, Kompression und 404-Verhalten und räumt den Stack nach Abschluss automatisch auf.
 
 ## Logs analysieren
 
@@ -31,10 +61,17 @@ Das Skript startet Proxy und App, prüft alle Redirects und Kompressionen und r�
 docker compose -f compose.yaml logs
 ```
 
+Bei Fehlern schreibt das Skript automatisch eine Sammeldatei:
+
+```text
+./docker-smoke-test-compose.log
+```
+
 ## Hinweise
 
 - Docker und curl müssen installiert sein
-- `.env.pipeline` muss für Build-Umgebungen existieren
+- Für lokale Läufe muss `.env` vorhanden sein (oder aus `.env.pipeline` erzeugt werden)
+- `BUILD_ENV_FILE` steuert die Secret-Datei für den App-Build (Default: `.env`)
 
 ## Exit Codes
 

@@ -24,6 +24,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      secrets:
+        - build_env
     container_name: webshaped-blog-astro
     expose:
       - "4321"
@@ -38,3 +40,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+
+secrets:
+  build_env:
+    file: ${BUILD_ENV_FILE:-.env}
