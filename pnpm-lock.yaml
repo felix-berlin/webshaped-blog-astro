@@ -161,7 +161,7 @@ importers:
         version: 1.2.3
       '@types/jsdom':
         specifier: ^28.0.1
-        version: 28.0.1
+        version: 28.0.3
       '@types/node':
         specifier: ^25.6.2
         version: 25.6.2
@@ -3722,8 +3722,8 @@ packages:
   '@types/he@1.2.3':
     resolution: {integrity: sha512-q67/qwlxblDzEDvzHhVkwc1gzVWxaNxeyHUBF4xElrvjL11O+Ytze+1fGpBHlr/H9myiBUaUXNnNPmBHxxfAcA==}
 
-  '@types/jsdom@28.0.1':
-    resolution: {integrity: sha512-GJq2QE4TAZ5ajSoCasn5DOFm8u1mI3tIFvM5tIq3W5U/RTB6gsHwc6Yhpl91X9VSDOUVblgXmG+2+sSvFQrdlw==}
+  '@types/jsdom@28.0.3':
+    resolution: {integrity: sha512-/HQ2uFoetFTXuye8vzIcHw2z6Fwi7Hi/qcgC+RoS9NCyewiqxhVGqlG+ViGB6lkax481R6dmhf1I7lIGlzJStQ==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -3743,8 +3743,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@24.12.2':
-    resolution: {integrity: sha512-A1sre26ke7HDIuY/M23nd9gfB+nrmhtYyMINbjI1zHJxYteKR6qSMX56FsmjMcDb3SMcjJg5BiRRgOCC/yBD0g==}
+  '@types/node@24.12.4':
+    resolution: {integrity: sha512-GUUEShf+PBCGW2KaXwcIt3Yk+e3pkKwWKb9GSyM9WQVE+ep2jzmHdGsHzu4wgcZy5fN9FBdVzjpBQsYlpfpgLA==}
 
   '@types/node@25.0.3':
     resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==}
@@ -7632,8 +7632,8 @@ packages:
     resolution: {integrity: sha512-vZ7rfeehZui7wQs438JXBckYLkIIdfHOXsaVEUMyS5fHo1483l1bMdo0EDSWYclY0yZKFOipDy4KHuKs6ssvdg==}
     engines: {node: '>=8.0.0'}
 
-  smob@1.6.1:
-    resolution: {integrity: sha512-KAkBqZl3c2GvNgNhcoyJae1aKldDW0LO279wF9bk1PnluRTETKBq0WyzRXxEhoQLk56yHaOY4JCBEKDuJIET5g==}
+  smob@1.6.2:
+    resolution: {integrity: sha512-RQsvleCbF8cVHEv+xuDGaA4pOizFqJ0GgjtMSRo6oP8pnN7WsigHgVGey6aILRBKv4W2YOMHLqbKdnB6hpB9fw==}
     engines: {node: '>=20.0.0'}
 
   smol-toml@1.6.1:
@@ -12183,7 +12183,7 @@ snapshots:
   '@rollup/plugin-terser@1.0.0(rollup@4.60.3)':
     dependencies:
       serialize-javascript: 7.0.5
-      smob: 1.6.1
+      smob: 1.6.2
       terser: 5.47.1
     optionalDependencies:
       rollup: 4.60.3
@@ -12736,11 +12736,11 @@ snapshots:
 
   '@types/he@1.2.3': {}
 
-  '@types/jsdom@28.0.1':
+  '@types/jsdom@28.0.3':
     dependencies:
       '@types/node': 25.6.2
       '@types/tough-cookie': 4.0.5
-      parse5: 7.3.0
+      parse5: 8.0.1
       undici-types: 7.25.0
 
   '@types/json-schema@7.0.15': {}
@@ -12763,7 +12763,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@24.12.2':
+  '@types/node@24.12.4':
     dependencies:
       undici-types: 7.16.0
 
@@ -17354,7 +17354,7 @@ snapshots:
 
   sitemap@9.0.1:
     dependencies:
-      '@types/node': 24.12.2
+      '@types/node': 24.12.4
       '@types/sax': 1.2.7
       arg: 5.0.2
       sax: 1.6.0
@@ -17385,7 +17385,7 @@ snapshots:
 
   slugify@1.6.9: {}
 
-  smob@1.6.1: {}
+  smob@1.6.2: {}
 
   smol-toml@1.6.1: {}
 
