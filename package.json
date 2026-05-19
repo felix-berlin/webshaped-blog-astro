@@ -128,7 +128,7 @@
     "graphql-config": "^5.1.6",
     "jsdom": "^29.1.1",
     "msw": "^2.14.5",
-    "oxfmt": "^0.48.0",
+    "oxfmt": "^0.51.0",
     "oxlint": "^1.63.0",
     "postcss-html": "^1.8.1",
     "postcss-preset-env": "^11.2.1",
