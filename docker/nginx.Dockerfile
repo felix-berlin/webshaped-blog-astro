@@ -1,4 +1,4 @@
-FROM fholzer/nginx-brotli:v1.30.0
+FROM fholzer/nginx-brotli:v1.31.0
 
 # Copy nginx configuration files into the image
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
