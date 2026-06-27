@@ -4,7 +4,21 @@ import { currentWebmentionsCount } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
-import { it, expect, describe, beforeAll, afterAll, afterEach } from "vitest";
+import { it, expect, describe, beforeAll, afterAll, afterEach, vi } from "vitest";
+import { defineComponent } from "vue";
+
+vi.mock("@components/webmentions/WebmentionsItem.vue", () => {
+  const component = defineComponent({
+    name: "WebmentionsItem",
+    template: "<div class='webmentions-item-stub'></div>",
+  });
+  return {
+    default: component,
+    __isTeleport: false,
+    __isKeepAlive: false,
+    __esModule: true,
+  };
+});
 
 const server = setupServer(
   http.get("https://webmention.io/api/mentions.jf2", () => {

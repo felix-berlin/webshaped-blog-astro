@@ -4,6 +4,10 @@ import { mount, flushPromises } from "@vue/test-utils";
 import { it, expect, describe, vi, beforeEach } from "vitest";
 import { nextTick } from "vue";
 
+vi.mock("@pagefind/default-ui", () => ({
+  PagefindUI: vi.fn(),
+}));
+
 beforeEach(() => {
   window.HTMLDialogElement.prototype.showModal = vi.fn();
   window.HTMLDialogElement.prototype.close = vi.fn();
