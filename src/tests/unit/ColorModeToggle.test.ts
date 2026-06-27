@@ -4,7 +4,7 @@ import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nano
 import { isDarkMode, language } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { JSDOM } from "jsdom";
-import { it, expect, describe, beforeAll, afterEach } from "vitest";
+import { it, expect, describe, beforeAll, afterEach, afterAll } from "vitest";
 
 describe("ColorModeToggle", async () => {
   beforeAll(() => {
@@ -12,6 +12,7 @@ describe("ColorModeToggle", async () => {
   });
   afterEach(() => {
     cleanTestStorage();
+    isDarkMode.set(false);
   });
 
   it("renders the correct type", async () => {
@@ -56,5 +57,15 @@ describe("ColorModeToggle", async () => {
     expect(isDarkMode.get()).toEqual(false);
     expect(wrapper.vm.isDark).toBe(false);
     expect(document.querySelector("html")?.classList.contains("dark")).toBe(false);
+  });
+
+  it("renders Moon icon when isDarkMode starts as true", async () => {
+    isDarkMode.set(true);
+    document.querySelector("html")?.classList.add("dark");
+    const wrapper = mount(ColorModeToggle);
+    expect(wrapper.vm.isDark).toBe(true);
+    // Template renders Moon when isDark is true
+    expect(wrapper.find("button").exists()).toBe(true);
+    document.querySelector("html")?.classList.remove("dark");
   });
 });

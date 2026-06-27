@@ -35,4 +35,13 @@ describe("useTranslations i18n", () => {
 
     expect(result).toBe(expected);
   });
+
+  test("replaces null variable with empty string via ?? operator (covers line 75)", () => {
+    const locale = "en_US";
+    const t = useTranslations(locale);
+    // album is null → varsToReplace["album"] = null → null ?? "" = ""
+    const result = t("scrobble_display.album_cover.alt", { album: null as any, artist: "TestArtist" });
+    expect(result).toContain("TestArtist");
+    expect(result).not.toContain("null");
+  });
 });

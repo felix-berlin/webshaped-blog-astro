@@ -57,4 +57,19 @@ describe("MenuNav.vue", () => {
     await menuItem.vm.$emit("menu-item-target-clicked", 1);
     expect(wrapper.emitted("menu-item-target-clicked")).toBeTruthy();
   });
+
+  it("handles item with null childItems (covers ?? [] branch)", () => {
+    const nullChildItems = [
+      {
+        label: "Home",
+        order: 1,
+        path: "/",
+        childItems: null,
+      },
+    ];
+    const wrapper = mount(MenuNav, {
+      props: { menuItems: nullChildItems as any },
+    });
+    expect(wrapper.find("menu.c-menu").exists()).toBe(true);
+  });
 });

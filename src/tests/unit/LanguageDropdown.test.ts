@@ -34,4 +34,33 @@ describe("LanguageDropdown.vue", () => {
     const items = wrapper.findAll(".c-lang-dropdown__item");
     expect(items.length).toBe(0);
   });
+
+  it("renders language menu items when VDropdown popper slot is rendered (covers lines 6-11)", () => {
+    const wrapper = mount(LanguageDropdown, {
+      global: {
+        stubs: {
+          VDropdown: {
+            template: '<div><slot /><slot name="popper" /></div>',
+          },
+        },
+      },
+    });
+    const items = wrapper.findAll(".c-lang-dropdown__item");
+    expect(items.length).toBeGreaterThan(0);
+  });
+
+  it("active language link has is-active class when lang matches", () => {
+    currentLanguage.set("de");
+    const wrapper = mount(LanguageDropdown, {
+      global: {
+        stubs: {
+          VDropdown: {
+            template: '<div><slot /><slot name="popper" /></div>',
+          },
+        },
+      },
+    });
+    const activeLink = wrapper.find(".c-lang-dropdown__link.is-active");
+    expect(activeLink.exists()).toBe(true);
+  });
 });

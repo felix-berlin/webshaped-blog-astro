@@ -65,4 +65,29 @@ describe("ListBlock.vue", () => {
     expect(wrapper.find("ul").exists()).toBe(true);
     expect(wrapper.findAll("li")).toHaveLength(0);
   });
+
+  it("renders nested ListBlock when listItem has innerBlocks", () => {
+    const block = {
+      name: "core/list",
+      attributes: { ordered: false },
+      innerBlocks: [
+        {
+          attributes: { content: "Parent item" },
+          innerBlocks: [
+            {
+              name: "core/list",
+              attributes: { ordered: false },
+              innerBlocks: [
+                { attributes: { content: "Nested item" }, innerBlocks: [] },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const wrapper = mount(ListBlock, {
+      props: { block: block as any },
+    });
+    expect(wrapper.findComponent({ name: "ListBlock" }).exists()).toBe(true);
+  });
 });

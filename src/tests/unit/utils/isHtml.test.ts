@@ -1,6 +1,6 @@
 // @ts-ignore: Unresolved import
 import { isHtml } from "@utils/helpers";
-import { it, expect, describe } from "vitest";
+import { it, expect, describe, afterEach, beforeEach } from "vitest";
 
 describe("isHtml()", () => {
   it("test_html_tag_present", () => {
@@ -31,5 +31,17 @@ describe("isHtml()", () => {
   it("test_invalid_html_tags", () => {
     const str = "<div><span>test</div></span>";
     expect(isHtml(str)).toBe(true);
+  });
+
+  it("uses regex fallback when DOMParser is not defined (covers lines 27-28)", () => {
+    const OriginalDOMParser = globalThis.DOMParser;
+    // @ts-ignore
+    delete globalThis.DOMParser;
+    try {
+      expect(isHtml("<p>test</p>")).toBe(true);
+      expect(isHtml("not html text")).toBe(false);
+    } finally {
+      globalThis.DOMParser = OriginalDOMParser;
+    }
   });
 });

@@ -140,6 +140,19 @@ describe("flatListToHierarchical()", () => {
     const level2 = (level1.children as Array<Record<string, unknown>>)[0];
     expect((level2.children as unknown[]).length).toBe(1);
   });
+
+  it("handles child appearing before parent (covers line 330 || [] false branch)", () => {
+    const data = [
+      { id: "2", parentId: "1" },
+      { id: "1", parentId: null },
+    ];
+
+    const result = flatListToHierarchical(data);
+
+    expect(result).toHaveLength(1);
+    expect((result[0] as Record<string, unknown>).id).toBe("1");
+    expect((result[0] as Record<string, unknown>).children as unknown[]).toHaveLength(1);
+  });
 });
 
 describe("paginatedFlatListToHierarchical()", () => {

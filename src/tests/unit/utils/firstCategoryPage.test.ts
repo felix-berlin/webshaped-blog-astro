@@ -39,4 +39,11 @@ describe("firstCategoryPage()", () => {
     const expectedUrl = "/electronics/1";
     expect(firstCategoryPage(categoryPath)).toBe(expectedUrl);
   });
+
+  it("strips leading slash from firstPage when it starts with /", () => {
+    const categoryPath = "/electronics";
+    const firstPage = "/2";
+    const expectedUrl = "/electronics/2";
+    expect(firstCategoryPage(categoryPath, firstPage)).toBe(expectedUrl);
+  });
 });

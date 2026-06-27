@@ -102,4 +102,14 @@ describe("Share.vue", () => {
 
     expect(wrapper.findComponent(Share2).exists()).toBe(true);
   });
+
+  test("does not render Share2 component when showButton is false", () => {
+    const wrapper = mount(Share, {
+      props: {
+        showButton: false,
+      },
+    });
+
+    expect(wrapper.findComponent(Share2).exists()).toBe(false);
+  });
 });
