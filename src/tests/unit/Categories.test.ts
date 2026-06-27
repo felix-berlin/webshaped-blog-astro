@@ -51,4 +51,20 @@ describe("Categories.vue", () => {
     const categoryList = emptyWrapper.find(".c-categories");
     expect(categoryList.exists()).toBe(false);
   });
+
+  it("renders comma separator between multiple categories", () => {
+    const multiWrapper = mount(Categories, {
+      props: {
+        lang: "en",
+        categories: {
+          edges: [
+            { node: { name: "JavaScript", id: "1", slug: "javascript" } },
+            { node: { name: "PHP", id: "2", slug: "php" } },
+            { node: { name: "CSS", id: "3", slug: "css" } },
+          ],
+        } as any,
+      },
+    });
+    expect(multiWrapper.find(".c-categories__item-wrap").text()).toContain(",");
+  });
 });

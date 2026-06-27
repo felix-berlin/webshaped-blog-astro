@@ -45,11 +45,27 @@ config.global.plugins = [
 ];
 
 class ResizeObserverMock {
+  callback: ResizeObserverCallback;
   observe = vi.fn();
   unobserve = vi.fn();
   disconnect = vi.fn();
+  constructor(callback: ResizeObserverCallback) {
+    this.callback = callback;
+    (globalThis as any).__lastResizeObserver = this;
+  }
 }
 vi.stubGlobal("ResizeObserver", ResizeObserverMock);
+
+class IntersectionObserverMock {
+  callback: IntersectionObserverCallback;
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  constructor(callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {
+    this.callback = callback;
+  }
+}
+vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
 
 beforeAll(() => {
   server.listen();

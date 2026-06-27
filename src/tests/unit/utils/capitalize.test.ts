@@ -38,4 +38,15 @@ describe("capitalize()", () => {
     const result = capitalize(123);
     expect(result).toBe("");
   });
+
+  // Tests that a string starting with a non-letter character is returned unchanged (first char)
+  it("should return string unchanged when first char is not a letter", () => {
+    const result = capitalize("1abc");
+    expect(result).toBe("1abc");
+  });
+
+  it("should return string starting with special char unchanged", () => {
+    const result = capitalize("!hello");
+    expect(result).toBe("!hello");
+  });
 });

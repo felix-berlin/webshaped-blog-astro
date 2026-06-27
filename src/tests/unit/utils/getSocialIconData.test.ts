@@ -105,4 +105,21 @@ describe("getSocialIconData", () => {
 
     expect(result).toEqual({});
   });
+
+  // Tests that __typename is stripped from socials when present (urql cache artifact)
+  it("should strip __typename when present in socials", () => {
+    const socials = {
+      __typename: "UserSocials",
+      facebook: "https://www.facebook.com",
+      twitter: "https://www.twitter.com",
+    };
+    const iconStyles = { color: "blue" };
+    const additionalData = {};
+
+    const result = getSocialIconData(socials, iconStyles, additionalData);
+
+    expect(result).not.toHaveProperty("__typename");
+    expect(result).toHaveProperty("facebook");
+    expect(result).toHaveProperty("twitter");
+  });
 });
