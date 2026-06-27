@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.1...v1.11.2) (2026-06-27)
+
+
+### Bug Fixes
+
+* **tests:** resolve 5 unhandled errors in CI test run ([8a92adb](https://github.com/felix-berlin/webshaped-blog-astro/commit/8a92adbbf5f2f59afc652361578b110af12f7ec9))
+
 ## [1.11.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.0...v1.11.1) (2026-05-12)
 
 
