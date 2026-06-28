@@ -141,7 +141,7 @@
     "stylelint-config-recommended-scss": "^17.0.1",
     "stylelint-config-recommended-vue": "^1.6.1",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "unplugin-icons": "^23.0.1",
     "vite": "^8.0.11",
     "vite-plugin-graphql-loader": "^5.0.1",
