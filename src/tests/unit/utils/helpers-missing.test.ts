@@ -173,10 +173,7 @@ describe("paginatedFlatListToHierarchical()", () => {
   });
 
   it("supports custom nodeKey option", () => {
-    const data = [
-      { item: { id: "1", parentId: null } },
-      { item: { id: "2", parentId: "1" } },
-    ];
+    const data = [{ item: { id: "1", parentId: null } }, { item: { id: "2", parentId: "1" } }];
 
     const result = paginatedFlatListToHierarchical(data, { nodeKey: "item" });
 

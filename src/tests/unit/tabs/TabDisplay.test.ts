@@ -15,7 +15,10 @@ vi.mock("@components/comments/CommentsClient.vue", () => {
   };
 });
 vi.mock("@components/webmentions/LoadWebmentions.vue", () => {
-  const component = defineComponent({ name: "LoadWebmentions", template: "<div>webmentions</div>" });
+  const component = defineComponent({
+    name: "LoadWebmentions",
+    template: "<div>webmentions</div>",
+  });
   return {
     default: component,
     __isTeleport: false,

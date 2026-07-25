@@ -168,9 +168,7 @@ describe("SocialList.vue", () => {
       props: { socialItems, lang: "en" },
     });
     expect(wrapper.find(".c-social-list__link").exists()).toBe(true);
-    expect(wrapper.find(".c-social-list__link").attributes("href")).toBe(
-      "https://github.com/user",
-    );
+    expect(wrapper.find(".c-social-list__link").attributes("href")).toBe("https://github.com/user");
   });
 
   it("renders link when no size prop is provided (uses default 24)", () => {

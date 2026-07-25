@@ -1,3 +1,4 @@
+import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 import {
   currentLanguage,
   isDarkMode,
@@ -8,7 +9,6 @@ import {
   windowWidth,
   translationRoutes,
 } from "@stores/store";
-import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 import { it, expect, describe, beforeAll, afterEach } from "vitest";
 
 describe("store atoms", () => {

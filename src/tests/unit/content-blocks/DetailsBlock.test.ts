@@ -43,9 +43,7 @@ describe("DetailsBlock.vue", () => {
   it("renders ContentBlocks when innerBlocks is not empty", () => {
     const block = {
       attributes: { showContent: false, summary: "With content" },
-      innerBlocks: [
-        { name: "core/paragraph", attributes: { content: "Hello" }, innerBlocks: [] },
-      ],
+      innerBlocks: [{ name: "core/paragraph", attributes: { content: "Hello" }, innerBlocks: [] }],
     };
     const wrapper = mount(DetailsBlock, { props: { block: block as any } });
     expect(wrapper.findComponent({ name: "ContentBlocks" }).exists()).toBe(true);

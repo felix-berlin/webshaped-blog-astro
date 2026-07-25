@@ -40,7 +40,10 @@ describe("useTranslations i18n", () => {
     const locale = "en_US";
     const t = useTranslations(locale);
     // album is null → varsToReplace["album"] = null → null ?? "" = ""
-    const result = t("scrobble_display.album_cover.alt", { album: null as any, artist: "TestArtist" });
+    const result = t("scrobble_display.album_cover.alt", {
+      album: null as any,
+      artist: "TestArtist",
+    });
     expect(result).toContain("TestArtist");
     expect(result).not.toContain("null");
   });
