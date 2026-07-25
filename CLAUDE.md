@@ -5,8 +5,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev                  # Start dev server (runs gql:generate first via predev hook)
-pnpm build                # Production build
+pnpm dev                  # Start dev server (requires infisical login; runs gql:generate first via predev hook)
+pnpm build                # Production build (no secrets injection — see Secrets section)
+pnpm build:local          # Production build with secrets injected via infisical run
 pnpm build:strict         # Build + full type check (astro check + tsc + vue-tsc) — CI standard
 pnpm typechecking         # Type-check without building
 
@@ -38,6 +39,33 @@ Copy `.env.example` to both `.env` and `.env.runtime`. The `.env.runtime` file e
 | `SITE_URL`              | Site base URL (used by sitemap)                              |
 | `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo                              |
 | `GITHUB_TOKEN`          | GitHub API access (server-side, required)                    |
+
+## Secrets
+
+Secrets are managed via [Infisical](https://infisical.com) (self-hosted at `https://infisical.kasimir.dev`, project `web-shaped`). Run `npx infisical login` once before local development.
+
+- `pnpm dev`, `pnpm gql:generate`, `pnpm gql:generate:watch` — inject secrets automatically via `infisical run --`.
+- `pnpm build:local` — same, for testing a production build locally with real secrets.
+- `pnpm build` (plain) — does **not** inject secrets; this is what runs inside the Docker build (see below).
+
+### CI (GitHub Actions)
+
+`unit-test.yml` and `docker-build.yml` fetch secrets directly from Infisical via GitHub OIDC (no GitHub Secrets needed for app-level vars — `Infisical/secrets-action`). Environment selection: `main`/tag pushes → `prod`, everything else → `dev` (matches `.infisical.json`'s `gitBranchToEnvironmentMapping`).
+
+`docker-build.yml` fetches secrets into the runner's env, then writes them into `.build.env`, which is handed to `docker buildx build` as a BuildKit secret file (`secret-files: build_env=.build.env`) — Docker itself never talks to Infisical directly, since BuildKit has no equivalent of GitHub's OIDC token exchange.
+
+### Local/self-hosted deployment (`compose.yaml`)
+
+`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret, `env_file: .env` for the running container) — it doesn't call Infisical itself. Generate the file it expects with:
+
+```bash
+infisical export --format=dotenv --env=prod > .env
+docker compose up --build
+```
+
+### GitHub Secrets `PROD_SECRETS` / `DEV_SECRETS` (legacy)
+
+These predate the Infisical integration and are no longer referenced by `docker-build.yml`. Do not delete them until the Infisical-based pipeline has run successfully at least once — keep as a rollback path in the meantime.
 
 ## Architecture
 
