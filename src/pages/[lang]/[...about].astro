@@ -1,26 +1,15 @@
 ---
 import GithubStats from "@components/GithubStats.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
-import { WP_API } from "astro:env/client";
+import { wpGraphqlClient } from "@services/wpGraphqlClient";
 
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
-});
-
-const pagesResponse = await client
+const pagesResponse = await wpGraphqlClient
   .query(GetPagesBySlugsDocument, {
     slugs: ["ueber-mich"],
   })

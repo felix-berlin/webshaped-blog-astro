@@ -28,15 +28,16 @@ To run a single unit test file: `pnpm test:unit src/tests/unit/path/to/file.test
 
 Copy `.env.example` to both `.env` and `.env.runtime`. The `.env.runtime` file enables [Astro runtime environment variables](https://docs.astro.build/en/guides/integrations-guide/node/#runtime-environment-variables) for SSR.
 
-| Variable                | Description                             |
-| ----------------------- | --------------------------------------- |
+| Variable                | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
 | `WP_API`                | WordPress GraphQL endpoint URL (required for `gql:generate`) |
-| `WP_REST_API`           | WordPress REST API URL                  |
-| `WP_AUTH_REFRESH_TOKEN` | Server-side GraphQL auth token (secret) |
-| `LAST_FM_SCROBBLER_API` | Music scrobbling API URL                |
-| `SITE_URL`              | Site base URL (used by sitemap)         |
-| `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo         |
-| `GITHUB_TOKEN`          | GitHub API access (server-side, required) |
+| `WP_REST_API`           | WordPress REST API URL                                       |
+| `WP_AUTH_USER`          | WP Application Password username (server-side secret)        |
+| `WP_AUTH_PASS`          | WP Application Password value (server-side secret)           |
+| `LAST_FM_SCROBBLER_API` | Music scrobbling API URL                                     |
+| `SITE_URL`              | Site base URL (used by sitemap)                              |
+| `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo                              |
+| `GITHUB_TOKEN`          | GitHub API access (server-side, required)                    |
 
 ## Architecture
 

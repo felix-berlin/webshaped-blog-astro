@@ -4,25 +4,14 @@ import "@styles/objects/_blog-listing.scss";
 import "@styles/objects/_index.scss";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl } from "@utils/i18n/utils";
-import { WP_API } from "astro:env/client";
+import { wpGraphqlClient } from "@services/wpGraphqlClient";
 
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
 
 export const prerender = true;
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
-});
-
-const pagesResponse = await client
+const pagesResponse = await wpGraphqlClient
   .query(GetPagesBySlugsDocument, {
     slugs: ["startseite"],
   })
@@ -36,7 +25,7 @@ const translationsRoutes = {
   [translations?.[0]?.language?.slug]: "/" + translations?.[0]?.language?.slug,
 };
 
-const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
+const postsResponse = await wpGraphqlClient.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
 
 const posts = postsResponse?.data?.posts;
 ---
