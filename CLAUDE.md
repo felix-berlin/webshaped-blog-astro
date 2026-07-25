@@ -69,7 +69,7 @@ These predate the Infisical integration and are no longer referenced by `docker-
 
 ## Architecture
 
-Personal blog frontend: **Astro 6 (SSR)** + **Vue 3 islands**, backed by a **WordPress GraphQL API**.
+Personal blog frontend: **Astro 7 (SSR)** + **Vue 3 islands**, backed by a **WordPress GraphQL API**.
 
 ### Astro vs Vue
 
@@ -161,6 +161,6 @@ Persistent atoms use encode/decode functions for SSR safety — maintain this pa
 - **`src/gql/` is fully auto-generated** — changes will be overwritten by `gql:generate`.
 - **`pnpm gql:generate` requires `WP_API`** — codegen fetches the live schema; will fail without it.
 - **Dark mode is class-based** (`.dark` on `<html>`), not CSS variables.
-- **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable; `@vite-pwa/astro` is not compatible with Astro 6.
+- **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable; `@vite-pwa/astro`'s peer range tops out at Astro 5, still incompatible on Astro 7.
 - **`pnpm build:strict` is the CI standard** — always type-check before considering a build complete.
 - **`@codecov/astro-plugin`** is not compatible with `@vite-pwa/astro` — keep PWA disabled or migrate to direct Vite plugins.
