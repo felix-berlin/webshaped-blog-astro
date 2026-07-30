@@ -61,7 +61,7 @@
     "predev": "pnpm run gql:generate"
   },
   "dependencies": {
-    "@astrojs/node": "^10.1.0",
+    "@astrojs/node": "^11.0.0",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/vue": "^6.0.1",
