@@ -8,8 +8,13 @@ export const GET = async (context) => {
 
   const postsResponse = await wpQuery(GetAllPostsDocument, { size: 90 });
 
-  // Filter posts by language
-  const filteredPosts = postsResponse.posts.nodes.filter((post) => post.language.slug === lang);
+  // Filter posts by language. wpQuery guarantees `data`, not the shape below:
+  // WPGraphQL returns `posts: null` when a plugin deactivation unregisters the
+  // post type, and drafts routinely lack a language relation. An empty feed makes
+  // readers retry; a 500 makes them back off for hours.
+  const filteredPosts = (postsResponse.posts?.nodes ?? []).filter(
+    (post) => post?.language?.slug === lang,
+  );
 
   // Map the posts to the RSS items format
   const items = filteredPosts.map((post) => ({

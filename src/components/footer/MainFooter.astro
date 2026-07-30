@@ -5,7 +5,7 @@ import SocialList from "@components/SocialList.vue";
 import { getSocialIconData } from "@utils/helpers";
 import "@styles/objects/_footer.scss";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
-import { wpQuery } from "@services/wpGraphqlClient";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 // import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
@@ -18,20 +18,20 @@ import {
 
 import { version } from "../../../package.json";
 
-const categoriesResponse = await wpQuery(GetAllCategoriesDocument, {});
+const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
 
-const categories = categoriesResponse.categories;
+const categories = categoriesResponse?.categories;
 
-const footerMenuItemsResponse = await wpQuery(GetMenuItemsDocument, {
+const footerMenuItemsResponse = await wpQueryChrome(GetMenuItemsDocument, {
   language: "DE",
   location: "SECONDARY_MENU",
 });
 
-const footerMenuItems = footerMenuItemsResponse.menuItems;
+const footerMenuItems = footerMenuItemsResponse?.menuItems;
 
-const authorResponse = await wpQuery(GetAuthorDocument, {});
+const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
 
-const author = authorResponse.user;
+const author = authorResponse?.user;
 
 interface MainFooterProps {
   lang: "de" | "en";

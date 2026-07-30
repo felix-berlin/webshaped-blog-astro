@@ -8,9 +8,9 @@ import "@styles/objects/_header.scss";
 import MainNav from "@components/hero/MainNav.vue";
 // import { currentLanguage } from "@stores/store";
 import { updateCategoryPaths } from "@utils/helpers";
-import { wpQuery } from "@services/wpGraphqlClient";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 
-import { GetMenuByIdDocument, GetMenuItemsDocument } from "@/gql/graphql.ts";
+import { GetMenuByIdDocument } from "@/gql/graphql.ts";
 
 interface HeaderProps {
   lang: "de" | "en";
@@ -18,13 +18,15 @@ interface HeaderProps {
 
 const { lang } = Astro.props as HeaderProps;
 
-let mainMenuItems = null;
+// WP menu IDs are per language and have no queryable relation to the locale.
+const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
+const menuId = MENU_ID_BY_LANG[lang];
 
-if (lang === "de") {
-  mainMenuItems = await wpQuery(GetMenuByIdDocument, { id: "2" });
-} else if (lang === "en") {
-  mainMenuItems = await wpQuery(GetMenuByIdDocument, { id: "125" });
-}
+// An unknown lang (crawler on /fr/…) used to render an empty nav with HTTP 200 and
+// no log line — indistinguishable from WordPress returning an empty menu.
+if (!menuId) console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
+
+const mainMenuItems = menuId ? await wpQueryChrome(GetMenuByIdDocument, { id: menuId }) : null;
 
 const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems, lang);
 ---
