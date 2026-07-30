@@ -2,20 +2,18 @@
 import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
-  const pagesResponse = await wpGraphqlClient
-    .query(GetPagesBySlugsDocument, {
-      slugs: ["datenschutz", "impressum"],
-    })
-    .toPromise();
+  const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+    slugs: ["datenschutz", "impressum"],
+  });
 
-  const pages = pagesResponse?.data?.pages?.nodes;
+  const pages = pagesResponse.pages?.nodes;
 
   if (!pages) {
     return [];

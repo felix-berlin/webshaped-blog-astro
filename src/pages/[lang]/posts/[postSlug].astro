@@ -17,7 +17,7 @@ import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
 import BlogPost from "@layouts/BlogPost.astro";
 import { Code } from "astro/components";
 import he from "he";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
@@ -28,10 +28,10 @@ import { GetAllPostsDocument } from "@/gql/graphql.ts";
 export const prerender = true;
 
 export const getStaticPaths = (async () => {
-  const postsResponse = await wpGraphqlClient.query(GetAllPostsDocument, { size: 90 }).toPromise();
+  const postsResponse = await wpQuery(GetAllPostsDocument, { size: 90 });
 
   // Posts without slugs happen mostly on draft posts
-  const posts = postsResponse?.data?.posts?.nodes.filter((post) => post?.slug);
+  const posts = postsResponse.posts?.nodes.filter((post) => post?.slug);
 
   if (!posts) {
     return [];

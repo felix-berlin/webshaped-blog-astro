@@ -8,7 +8,7 @@ import "@styles/objects/_header.scss";
 import MainNav from "@components/hero/MainNav.vue";
 // import { currentLanguage } from "@stores/store";
 import { updateCategoryPaths } from "@utils/helpers";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetMenuByIdDocument, GetMenuItemsDocument } from "@/gql/graphql.ts";
 
@@ -21,12 +21,12 @@ const { lang } = Astro.props as HeaderProps;
 let mainMenuItems = null;
 
 if (lang === "de") {
-  mainMenuItems = await wpGraphqlClient.query(GetMenuByIdDocument, { id: "2" }).toPromise();
+  mainMenuItems = await wpQuery(GetMenuByIdDocument, { id: "2" });
 } else if (lang === "en") {
-  mainMenuItems = await wpGraphqlClient.query(GetMenuByIdDocument, { id: "125" }).toPromise();
+  mainMenuItems = await wpQuery(GetMenuByIdDocument, { id: "125" });
 }
 
-const menuItems = updateCategoryPaths(mainMenuItems?.data?.menu?.menuItems, lang);
+const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems, lang);
 ---
 
 <header class="o-header" id="mainHeader">

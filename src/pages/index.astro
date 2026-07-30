@@ -5,19 +5,17 @@ import "@styles/objects/_index.scss";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { getLangFromUrl } from "@utils/i18n/utils";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
 
 export const prerender = true;
 
-const pagesResponse = await wpGraphqlClient
-  .query(GetPagesBySlugsDocument, {
-    slugs: ["startseite"],
-  })
-  .toPromise();
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["startseite"],
+});
 
-const indexDe = pagesResponse?.data?.pages?.nodes[0];
+const indexDe = pagesResponse.pages?.nodes[0];
 const translations = indexDe?.translations;
 const lang = getLangFromUrl(Astro.url);
 const translationsRoutes = {
@@ -25,9 +23,9 @@ const translationsRoutes = {
   [translations?.[0]?.language?.slug]: "/" + translations?.[0]?.language?.slug,
 };
 
-const postsResponse = await wpGraphqlClient.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
+const postsResponse = await wpQuery(GetPostsPreviewDocument, { first: 6 });
 
-const posts = postsResponse?.data?.posts;
+const posts = postsResponse.posts;
 ---
 
 <DefaultLayout content={indexDe} contentClasses="o-index" translationsRoutes={translationsRoutes}>

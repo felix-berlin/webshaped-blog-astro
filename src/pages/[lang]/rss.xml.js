@@ -1,17 +1,15 @@
 import rss from "@astrojs/rss";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetAllPostsDocument } from "@/gql/graphql.ts";
 
 export const GET = async (context) => {
   const lang = context.params.lang;
 
-  const postsResponse = await wpGraphqlClient.query(GetAllPostsDocument, { size: 90 }).toPromise();
+  const postsResponse = await wpQuery(GetAllPostsDocument, { size: 90 });
 
   // Filter posts by language
-  const filteredPosts = postsResponse.data.posts.nodes.filter(
-    (post) => post.language.slug === lang,
-  );
+  const filteredPosts = postsResponse.posts.nodes.filter((post) => post.language.slug === lang);
 
   // Map the posts to the RSS items format
   const items = filteredPosts.map((post) => ({

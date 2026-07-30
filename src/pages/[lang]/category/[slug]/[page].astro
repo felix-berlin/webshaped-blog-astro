@@ -13,7 +13,7 @@ import BlogPostPreview from '@components/BlogPostPreview.vue';
 import Pagination from '@components/Pagination.vue';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
 import { removeLocaleCode } from '@utils/helpers';
-import { wpGraphqlClient } from '@services/wpGraphqlClient';
+import { wpQuery } from '@services/wpGraphqlClient';
 
 import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
 
@@ -24,10 +24,8 @@ interface Paginate {
 }
 
 export const getStaticPaths = (async ({ paginate }: Paginate) => {
-  const postsResponse = await wpGraphqlClient
-    .query(GetAllPostPreviewsByCategoryDocument, {})
-    .toPromise();
-  const postPreviews = postsResponse?.data?.categories;
+  const postsResponse = await wpQuery(GetAllPostPreviewsByCategoryDocument, {});
+  const postPreviews = postsResponse.categories;
   const pageCount = 6;
 
   /**

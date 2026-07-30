@@ -5,19 +5,15 @@ import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
-import { wpGraphqlClient } from "@services/wpGraphqlClient";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 
-const pagesResponse = await wpGraphqlClient
-  .query(GetPagesBySlugsDocument, {
-    slugs: ["ueber-mich"],
-  })
-  .toPromise();
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["ueber-mich"],
+});
 
-if (!pagesResponse) return Astro.redirect("/404");
-
-const pagesData = pagesResponse?.data?.pages?.nodes?.[0];
+const pagesData = pagesResponse.pages?.nodes?.[0];
 
 if (!pagesData) return Astro.redirect("/404");
 
