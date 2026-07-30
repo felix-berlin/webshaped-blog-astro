@@ -7,10 +7,11 @@ allowBuilds:
   sharp: true
 minimumReleaseAgeExclude:
   - '@infisical/cli@0.43.114'
-  - '@playwright/test@1.62.0'
+  - '@playwright/test@1.62.0 || 1.62.1'
   - '@vue/devtools-api@8.2.1'
   - '@vue/devtools-kit@8.2.1'
   - '@vue/devtools-shared@8.2.1'
-  - playwright-core@1.62.0
-  - playwright@1.62.0
+  - playwright-core@1.62.0 || 1.62.1
+  - playwright@1.62.0 || 1.62.1
   - sass@1.102.0
+  - vite@8.2.0
