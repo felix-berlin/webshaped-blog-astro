@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm dev                  # Start dev server (requires infisical login; runs gql:generate first via predev hook)
+pnpm agent                # Launch Claude Code sandboxed behind the Infisical agent proxy (see Agent Proxy — not usable yet)
 pnpm build                # Production build (no secrets injection — see Secrets section)
 pnpm build:local          # Production build with secrets injected via infisical run
 pnpm build:strict         # Build + full type check (astro check + tsc + vue-tsc) — CI standard
@@ -56,12 +57,52 @@ Secrets are managed via [Infisical](https://infisical.com) (self-hosted at `http
 
 ### Local/self-hosted deployment (`compose.yaml`)
 
-`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret, `env_file: .env` for the running container) — it doesn't call Infisical itself. Generate the file it expects with:
+`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret, `env_file: .env` for the running container) — it doesn't call Infisical itself. It brings up two containers: `app` (Node adapter on 4321, `expose`d only) behind `proxy` (nginx on `${HOST_PORT:-80}`), each with a healthcheck.
+
+**The two env files are not interchangeable.** The Dockerfile `source`s the build secret in a shell, so values need `%q` quoting; Compose's `env_file` parses literally and would keep those backslashes. `WP_AUTH_PASS` is a WordPress Application Password with spaces, so getting this wrong truncates it at the first space. `scripts/write-build-env.sh` writes both formats and fails loudly on any empty required var:
 
 ```bash
-infisical export --format=dotenv --env=prod > .env
-docker compose up --build
+infisical run --env=prod -- scripts/write-build-env.sh .build.env quoted   # sourced by the Dockerfile
+infisical run --env=prod -- scripts/write-build-env.sh .env raw            # parsed by env_file
+BUILD_ENV_FILE=.build.env docker compose up --build
 ```
+
+Verify, then tear down — both files hold real production secrets:
+
+```bash
+docker compose ps                      # both services should report (healthy)
+curl -f http://localhost:${HOST_PORT:-80}/
+docker compose logs app | grep -i "error\|unauthenticated"
+docker compose down && rm -f .env .build.env
+```
+
+Notes:
+
+- A successful build prerenders 19 pages and runs Pagefind; the WordPress credentials are needed **at build time** for that, not just at runtime.
+- Missing or empty required vars fail the build inside Docker with Astro's `EnvInvalidVariables` — that is the env schema working, not a bug.
+- `docker-build.yml` passes `BUILD_ENV_HASH` to bust the build cache when only secret *values* change. Compose does not, so add `--no-cache` locally if you rotate a credential without touching a file.
+
+### Agent Proxy (AI agents)
+
+`pnpm agent` runs Claude Code behind the Infisical agent proxy: the agent gets **placeholder** credentials in its environment, the proxy swaps in the real values as requests leave, and a bubblewrap sandbox keeps the agent out of `~/.ssh`, `~/.infisical`, and the keyring. A leaked agent context then leaks nothing usable. `run` brokers as the logged-in user — no machine identity involved.
+
+Proxied services configured in `dev` at path `/` (verified working):
+
+| Service     | Host pattern               | Mechanism                                         |
+| ----------- | -------------------------- | ------------------------------------------------- |
+| `github`    | `api.github.com`           | Secret substitution, placeholder `GITHUB_TOKEN`   |
+| `wordpress` | `cms.webshaped.de/graphql` | Header rewrite, Basic Auth `WP_AUTH_USER`/`_PASS` |
+| `sentry`    | `sentry.io`                | Header rewrite, Bearer `SENTRY_AUTH_TOKEN`        |
+
+The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `astro.config.mjs` declares them `optional: false` — the real credential comes from the proxy, Astro just needs the schema satisfied.
+
+**Requires CLI ≥ 0.43.115** (sandboxed `run` mode). The `@infisical/cli` devDependency is still 0.43.114 — bump it once npm publishes.
+
+Known limits on WSL2:
+
+- **No network isolation** — a private network namespace is unavailable, so `run` falls back to shared networking. Routing through the proxy is advisory: a tool that ignores `HTTP_PROXY` reaches the network directly. Credential protections are unaffected.
+- **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
+- **No Infisical token inside the sandbox** (deliberate), so `pnpm dev`, `pnpm gql:generate`, and `pnpm build:local` cannot run there — they all shell out to `infisical run`.
 
 ### GitHub Secrets `PROD_SECRETS` / `DEV_SECRETS` (legacy)
 
