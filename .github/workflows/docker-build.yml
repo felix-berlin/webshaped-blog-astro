@@ -70,14 +70,11 @@ jobs:
         env:
           WP_API: ${{ env.WP_API }}
           WP_REST_API: ${{ env.WP_REST_API }}
-          WP_AUTH_USER: ${{ env.WP_AUTH_USER }}
-          WP_AUTH_PASS: ${{ env.WP_AUTH_PASS }}
           LAST_FM_SCROBBLER_API: ${{ env.LAST_FM_SCROBBLER_API }}
           ENABLE_ANALYTICS: ${{ env.ENABLE_ANALYTICS }}
           SENTRY_DSN: ${{ env.SENTRY_DSN }}
           SENTRY_PROJECT_ID: ${{ env.SENTRY_PROJECT_ID }}
           SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
           SITE_URL: ${{ env.SITE_URL }}
           CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}
         run: |
@@ -91,17 +88,22 @@ jobs:
           cat <<EOF > .build.env
           WP_API=${WP_API}
           WP_REST_API=${WP_REST_API}
-          WP_AUTH_USER=${WP_AUTH_USER}
-          WP_AUTH_PASS=${WP_AUTH_PASS}
           LAST_FM_SCROBBLER_API=${LAST_FM_SCROBBLER_API}
           ENABLE_ANALYTICS=${ENABLE_ANALYTICS}
           SENTRY_DSN=${SENTRY_DSN}
           SENTRY_PROJECT_ID=${SENTRY_PROJECT_ID}
           SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
-          GITHUB_TOKEN=${GITHUB_TOKEN}
           SITE_URL=${SITE_URL}
           CODECOV_TOKEN=${CODECOV_TOKEN}
           EOF
+
+          # BuildKit's cache key for a --mount=type=secret RUN step ignores the
+          # secret's content by design (so secret rotation alone doesn't bust
+          # unrelated caches). Without this, a secret-only rotation (e.g.
+          # WP_AUTH_PASS) would silently reuse a cached layer built with the
+          # old value. Hash the actual secret content and feed it through
+          # BUILD_ENV_HASH so the cache only invalidates when secrets change.
+          echo "hash=$(sha256sum .build.env | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -118,6 +120,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_app.outputs.tags }}
           labels: ${{ steps.meta_app.outputs.labels }}
+          build-args: |
+            BUILD_ENV_HASH=${{ steps.build_env.outputs.hash }}
           secret-files: |
             build_env=.build.env
           cache-from: |

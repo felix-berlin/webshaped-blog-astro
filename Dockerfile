@@ -26,8 +26,8 @@ ENV NODE_ENV=production
 # Install curl for health checks
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist /app/dist
+COPY --from=prod-deps --chown=node:node /app/node_modules /app/node_modules
+COPY --from=build --chown=node:node /app/dist /app/dist
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
@@ -36,4 +36,5 @@ EXPOSE 4321
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
   CMD curl -f http://localhost:4321/ || exit 1
 
+USER node
 CMD ["node", "./dist/server/entry.mjs"]
