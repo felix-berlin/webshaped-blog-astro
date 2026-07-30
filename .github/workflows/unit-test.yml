@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   VITEST_CI: true
 
@@ -17,7 +21,14 @@ jobs:
       - name: Checkout ✅
         uses: actions/checkout@v7
 
-      - run: cp ./.env.pipeline ./.env
+      - name: Fetch secrets from Infisical 🔐
+        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
+        with:
+          method: "oidc"
+          identity-id: "5f0ad8b7-0224-48ca-b233-abbd59f2eb68"
+          project-slug: "web-shaped"
+          env-slug: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+          domain: "https://infisical.kasimir.dev"
 
       - name: Setup pnpm 🛠️
         uses: pnpm/action-setup@v6
@@ -41,10 +52,10 @@ jobs:
         with:
           directory: ./tests/unit/coverage
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/test-results-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ env.CODECOV_TOKEN }}

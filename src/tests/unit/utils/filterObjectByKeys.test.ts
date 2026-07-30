@@ -17,7 +17,10 @@ describe("filterObjectByKeys()", () => {
 
   it("returns empty object when no keys match", () => {
     const object = { a: 1, b: 2 };
-    const result = filterObjectByKeys(object, ["x" as keyof typeof object, "y" as keyof typeof object]);
+    const result = filterObjectByKeys(object, [
+      "x" as keyof typeof object,
+      "y" as keyof typeof object,
+    ]);
     expect(result).toEqual({});
   });
 

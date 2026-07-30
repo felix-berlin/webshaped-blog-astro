@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 import { loadEnv } from "vite";
 
-const { WP_API, WP_AUTH_REFRESH_TOKEN } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
+const { WP_API, WP_AUTH_PASS, WP_AUTH_USER } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 
 const config: CodegenConfig = {
   documents: ["src/**/*.{graphql,js,ts,jsx,tsx}", "!src/gql/**/*", "!src/services/github/**/*"],
@@ -27,7 +27,7 @@ const config: CodegenConfig = {
     {
       [WP_API]: {
         headers: {
-          Authorization: `Bearer ${WP_AUTH_REFRESH_TOKEN}`,
+          Authorization: `Basic ${Buffer.from(`${WP_AUTH_USER}:${WP_AUTH_PASS}`).toString("base64")}`,
         },
       },
     },

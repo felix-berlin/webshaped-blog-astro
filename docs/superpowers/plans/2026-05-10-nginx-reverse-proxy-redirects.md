@@ -30,6 +30,7 @@
 ## Task 1: Make the smoke test fail on missing proxy behavior
 
 **Files:**
+
 - Modify: `scripts/docker-smoke-test.sh`
 - Modify: `.github/workflows/docker-smoke-test.yml`
 
@@ -201,6 +202,7 @@ git commit -m "test: add proxy smoke test expectations"
 ## Task 2: Add the Nginx proxy service and configuration
 
 **Files:**
+
 - Create: `nginx/nginx.conf`
 - Create: `nginx/conf.d/webshaped.conf`
 - Modify: `compose.yaml`
@@ -384,6 +386,7 @@ git commit -m "feat: add nginx reverse proxy for legacy redirects"
 ## Task 3: Update repository documentation for the proxy entrypoint
 
 **Files:**
+
 - Modify: `README.md`
 - Modify: `docs/DOCKER_SMOKE_TEST.md`
 
@@ -404,7 +407,7 @@ Replace the current Docker bullet list with this content:
 
 Apply these content changes:
 
-```md
+````md
 ## Was wird getestet?
 
 Der Smoke Test fuehrt die folgenden Ueberpruefungen durch:
@@ -423,9 +426,11 @@ Der Smoke Test fuehrt die folgenden Ueberpruefungen durch:
 ```bash
 HOST_PORT=8080 ./scripts/docker-smoke-test.sh
 ```
+````
 
 Das Skript baut den Stack, startet `proxy` und `app`, prueft Redirects und Kompression und raeumt die Compose-Ressourcen danach automatisch auf.
-```
+
+````
 
 - [ ] **Step 3: Inspect the documentation diff for scope control**
 
@@ -433,7 +438,7 @@ Run:
 
 ```bash
 git --no-pager diff -- README.md docs/DOCKER_SMOKE_TEST.md
-```
+````
 
 Expected: PASS and show only documentation changes for the new proxy entrypoint, local port override, and smoke-test checks.
 
@@ -447,6 +452,7 @@ git commit -m "docs: describe nginx proxy docker flow"
 ## Task 4: Final verification before handoff
 
 **Files:**
+
 - Verify only, no new files
 
 - [ ] **Step 1: Re-run the full smoke test after docs are in place**

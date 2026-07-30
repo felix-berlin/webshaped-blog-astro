@@ -35,3 +35,5 @@ pnpm-debug.log*
 /playwright/.cache/
 stats.html
 docker-smoke-test-compose.log
+
+.claude/settings.local.json

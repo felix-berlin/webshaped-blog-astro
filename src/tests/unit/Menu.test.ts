@@ -7,9 +7,7 @@ const makeMenuItems = (items: any[]) => ({ nodes: items });
 
 describe("Menu.vue", () => {
   it("renders a link for items without child items", () => {
-    const menuItems = makeMenuItems([
-      { label: "Home", path: "/", childItems: { nodes: [] } },
-    ]);
+    const menuItems = makeMenuItems([{ label: "Home", path: "/", childItems: { nodes: [] } }]);
     const wrapper = mount(Menu, { props: { menuItems: menuItems as any } });
     const link = wrapper.find("a.c-menu__link");
     expect(link.exists()).toBe(true);
@@ -67,9 +65,7 @@ describe("Menu.vue", () => {
   });
 
   it("does not add has-child class to items without children", () => {
-    const menuItems = makeMenuItems([
-      { label: "Home", path: "/", childItems: { nodes: [] } },
-    ]);
+    const menuItems = makeMenuItems([{ label: "Home", path: "/", childItems: { nodes: [] } }]);
     const wrapper = mount(Menu, { props: { menuItems: menuItems as any } });
     expect(wrapper.find("li.c-menu__item").classes()).not.toContain("has-child");
   });

@@ -153,7 +153,7 @@ describe("TableOfContents.vue", () => {
       props: { headings, tocId: "toc" },
       attachTo: document.body,
     });
-    const observerInstance = (wrapper.vm.observer as any);
+    const observerInstance = wrapper.vm.observer as any;
     expect(observerInstance?.observe).toHaveBeenCalled();
     wrapper.unmount();
     document.body.innerHTML = "";

@@ -192,7 +192,12 @@ export default defineConfig({
         optional: false,
         url: true,
       }),
-      WP_AUTH_REFRESH_TOKEN: envField.string({
+      WP_AUTH_USER: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      WP_AUTH_PASS: envField.string({
         context: "server",
         access: "secret",
         optional: true,

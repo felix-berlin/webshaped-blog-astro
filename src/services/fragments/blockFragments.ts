@@ -31,7 +31,6 @@ export const CoreHeading = graphql(`
       align
       content
       level
-      textAlign
     }
   }
 `);
@@ -85,7 +84,6 @@ export const CoreButton = graphql(`
       text
       type
       url
-      textAlign
       title
       linkTarget
       rel
