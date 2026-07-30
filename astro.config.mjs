@@ -192,15 +192,17 @@ export default defineConfig({
         optional: false,
         url: true,
       }),
+      // Required, not optional: WPGraphQL rejects unauthenticated requests, so an
+      // unset credential silently degrades every query to a 401 instead of failing.
       WP_AUTH_USER: envField.string({
         context: "server",
         access: "secret",
-        optional: true,
+        optional: false,
       }),
       WP_AUTH_PASS: envField.string({
         context: "server",
         access: "secret",
-        optional: true,
+        optional: false,
       }),
       LAST_FM_SCROBBLER_API: envField.string({
         context: "client",
