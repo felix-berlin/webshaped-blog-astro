@@ -25,7 +25,7 @@ jobs:
         uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
         with:
           method: "oidc"
-          identity-id: "5f0ad8b7-0224-48ca-b233-abbd59f2eb68"
+          identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
           project-slug: "web-shaped"
           env-slug: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
           domain: "https://infisical.kasimir.dev"
