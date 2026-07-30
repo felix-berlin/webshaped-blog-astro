@@ -15,7 +15,7 @@ const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
 
 const pagesData = pagesResponse.pages?.nodes?.[0];
 
-if (!pagesData) return Astro.redirect("/404");
+if (!pagesData) return Astro.rewrite("/404");
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -27,7 +27,7 @@ const allPages = [...(pagesData?.translations ?? []), ...(pagesData ? [pagesData
 // Find the page with the matching slug
 const page = allPages.find((item) => item?.slug === about);
 
-if (!page) return Astro.redirect("/404");
+if (!page) return Astro.rewrite("/404");
 
 const translationsRoutes = allPages.reduce<Record<string, string>>((acc, curr) => {
   const langSlug = curr?.language?.slug;
