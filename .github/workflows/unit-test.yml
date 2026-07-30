@@ -42,12 +42,12 @@ jobs:
       - name: Install dependencies 🛠️
         run: pnpm i
 
-      - name: Run Vitest (with coverage report) 🧪
-        run: pnpm run test:unit:coverage
+      - name: Run Vitest (with coverage and JUnit report) 🧪
+        run: pnpm run test:unit:ci
         env:
           SITE_URL: "http://localhost:4321"
 
-      - name: Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5.5.5
         with:
           directory: ./tests/unit/coverage
@@ -56,6 +56,9 @@ jobs:
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
+        uses: codecov/codecov-action@v5.5.5
         with:
-          token: ${{ env.CODECOV_TOKEN }}
+          report_type: test_results
+          files: ./test-report.junit.xml
+        env:
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}

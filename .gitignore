@@ -6,6 +6,7 @@ public/pagefind
 
 # test output
 coverage
+test-report.junit.xml
 
 # dependencies
 node_modules/
