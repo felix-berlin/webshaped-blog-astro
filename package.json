@@ -80,7 +80,7 @@
     "@urql/exchange-graphcache": "^9.0.0",
     "@urql/vue": "^2.1.0",
     "@vueuse/core": "^14.3.0",
-    "astro": "^6.3.1",
+    "astro": "^7.0.0",
     "astro-breadcrumbs": "^3.4.0",
     "astro-capo": "^0.0.1",
     "astro-loading-indicator": "^0.8.0",
