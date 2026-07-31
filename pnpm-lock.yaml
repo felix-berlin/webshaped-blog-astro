@@ -65,6 +65,9 @@ importers:
       '@urql/vue':
         specifier: ^2.1.1
         version: 2.1.1(@urql/core@6.0.3(graphql@16.14.2))(vue@3.5.40(typescript@5.9.3))
+      '@varlock/infisical-plugin':
+        specifier: ^2.1.0
+        version: 2.1.0(varlock@1.14.1)
       '@vueuse/core':
         specifier: ^14.4.0
         version: 14.4.0(vue@3.5.40(typescript@5.9.3))
@@ -104,6 +107,9 @@ importers:
       tm-themes:
         specifier: ^1.12.2
         version: 1.12.2
+      varlock:
+        specifier: ^1.14.1
+        version: 1.14.1
       vue:
         specifier: ^3.5.40
         version: 3.5.40(typescript@5.9.3)
@@ -171,6 +177,9 @@ importers:
       '@types/node':
         specifier: ^26.1.2
         version: 26.1.2
+      '@varlock/astro-integration':
+        specifier: ^1.3.0
+        version: 1.3.0(astro@7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.62.2)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))(varlock@1.14.1)
       '@vitejs/plugin-vue':
         specifier: ^6.0.8
         version: 6.0.8(vite@8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))
@@ -3845,6 +3854,23 @@ packages:
     peerDependencies:
       '@urql/core': ^6.0.0
       vue: ^3.2.0
+
+  '@varlock/astro-integration@1.3.0':
+    resolution: {integrity: sha512-V26Z55Xb5MAL0ZXFoqsaCXdW1liHDW7huO+rURGyAoD3a3zwdd50lqEeZNWGjJyzPHZf/nK0LROc1bHeHcydqQ==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@varlock/cloudflare-integration': ^1.4.0
+      astro: '>=4'
+      varlock: ^1.14.0
+    peerDependenciesMeta:
+      '@varlock/cloudflare-integration':
+        optional: true
+
+  '@varlock/infisical-plugin@2.1.0':
+    resolution: {integrity: sha512-1muQg+Efnmx8/DZek/rflSfFudRhuQdNS4gd+yZ8HUIg7KIZeRYJ5KugPirlocWTYQuVm6mzhTlCuAKHr6PjKQ==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      varlock: ^1.11.0
 
   '@vitejs/plugin-vue-jsx@5.1.5':
     resolution: {integrity: sha512-jIAsvHOEtWpslLOI2MeElGFxH7M8pM83BU/Tor4RLyiwH0FM4nUW3xdvbw20EeU9wc5IspQwMq225K3CMnJEpA==}
@@ -8148,6 +8174,11 @@ packages:
 
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
+
+  varlock@1.14.1:
+    resolution: {integrity: sha512-7KT7yhhqnNsliBRir2q0Lj2jk1wFHCRHH2YNaN5vWupgdqYWdKDGGAfd2DbKr9MqAhlG3o8ap5J4QzsQWrOCqQ==}
+    engines: {bun: '>=1.3.3', node: '>=22.3.0'}
+    hasBin: true
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -12576,6 +12607,15 @@ snapshots:
       '@urql/core': 6.0.3(graphql@16.14.2)
       vue: 3.5.40(typescript@5.9.3)
       wonka: 6.3.6
+
+  '@varlock/astro-integration@1.3.0(astro@7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.62.2)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))(varlock@1.14.1)':
+    dependencies:
+      astro: 7.1.6(@emnapi/core@2.0.0-alpha.3)(@emnapi/runtime@2.0.0-alpha.3)(@types/node@26.1.2)(jiti@2.7.0)(rollup@4.62.2)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0)
+      varlock: 1.14.1
+
+  '@varlock/infisical-plugin@2.1.0(varlock@1.14.1)':
+    dependencies:
+      varlock: 1.14.1
 
   '@vitejs/plugin-vue-jsx@5.1.5(supports-color@10.2.2)(vite@8.2.0(@types/node@26.1.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.102.0)(terser@5.49.0)(yaml@2.9.0))(vue@3.5.40(typescript@5.9.3))':
     dependencies:
@@ -17302,6 +17342,8 @@ snapshots:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  varlock@1.14.1: {}
 
   vary@1.1.2: {}
 

@@ -1,6 +1,5 @@
 import { Client, fetchExchange, type AnyVariables, type TypedDocumentNode } from "@urql/core";
-import { WP_API } from "astro:env/client";
-import { WP_AUTH_PASS, WP_AUTH_USER } from "astro:env/server";
+import { ENV } from "varlock/env";
 
 /**
  * Shared, authenticated urql Client for server-side WPGraphQL requests.
@@ -20,11 +19,11 @@ export const wpGraphqlClient = new Client({
   exchanges: [fetchExchange],
   fetchOptions: {
     headers: {
-      Authorization: `Basic ${Buffer.from(`${WP_AUTH_USER}:${WP_AUTH_PASS}`).toString("base64")}`,
+      Authorization: `Basic ${Buffer.from(`${ENV.WP_AUTH_USER}:${ENV.WP_AUTH_PASS}`).toString("base64")}`,
       "Content-Type": "application/json",
     },
   },
-  url: WP_API,
+  url: ENV.WP_API,
 });
 
 /** Operation name from the document, so a failure names the query that failed. */

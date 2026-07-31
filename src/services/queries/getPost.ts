@@ -1,4 +1,4 @@
-// import { SHOW_TEST_DATA } from "astro:env/client";
+// import { ENV } from "varlock/env";
 import { graphql } from "@/gql";
 
 // TODO: add condition for test data

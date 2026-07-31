@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
-import { LAST_FM_SCROBBLER_API } from "astro:env/client";
+import { ENV } from "varlock/env";
 
 import type { Language, Maybe, NodeWithAuthorToUserConnectionEdge } from "@/gql/graphql.ts";
 
@@ -41,7 +41,7 @@ export interface AuthorProps {
 
 defineProps<AuthorProps>();
 
-const scrobbleApi = LAST_FM_SCROBBLER_API;
+const scrobbleApi = ENV.LAST_FM_SCROBBLER_API;
 </script>
 
 <style lang="scss">

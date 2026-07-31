@@ -1,4 +1,3 @@
-import { WP_API } from "astro:env/client";
 import { http, HttpResponse } from "msw";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -6,11 +5,16 @@ import { GetAuthorDocument, GetMenuByIdDocument } from "@/gql/graphql.ts";
 
 import { server } from "../../mocks/node.ts";
 
-// astro:env/server throws outside a server runtime, so stub it before the module
-// under test resolves its imports.
-vi.mock("astro:env/server", () => ({
-  WP_AUTH_PASS: "app pass word",
-  WP_AUTH_USER: "wp-user",
+const WP_API = "https://cms.webshaped.test/graphql";
+
+// varlock resolves ENV from a loaded .env.schema, which vitest does not run under.
+// Stub it before the module under test resolves its imports.
+vi.mock("varlock/env", () => ({
+  ENV: {
+    WP_API,
+    WP_AUTH_PASS: "app pass word",
+    WP_AUTH_USER: "wp-user",
+  },
 }));
 
 const { wpQuery, wpQueryChrome } = await import("@services/wpGraphqlClient");

@@ -5,7 +5,7 @@ import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import SocialList from "@components/SocialList.vue";
 import { getSocialIconData } from "@utils/helpers";
 import { useTranslations } from "@utils/i18n/utils";
-import { LAST_FM_SCROBBLER_API } from "astro:env/client";
+import { ENV } from "varlock/env";
 
 import type { Language, Maybe, NodeWithAuthorToUserConnectionEdge } from "@/gql/graphql.ts";
 
@@ -16,7 +16,7 @@ export interface AuthorProps {
 
 const { author, lang } = Astro.props as AuthorProps;
 const t = useTranslations(lang);
-const scrobbleApi = LAST_FM_SCROBBLER_API;
+const scrobbleApi = ENV.LAST_FM_SCROBBLER_API;
 
 const iconStyles = {
   size: 20,

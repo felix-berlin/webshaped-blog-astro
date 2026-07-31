@@ -28,6 +28,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf 
 
 COPY --from=prod-deps --chown=node:node /app/node_modules /app/node_modules
 COPY --from=build --chown=node:node /app/dist /app/dist
+# Sensitive values are deliberately not baked into the bundle, so the server
+# resolves them at boot. varlock needs its declaration file to do that; the file
+# holds no values, the values come from the container environment.
+COPY --chown=node:node .env.schema /app/.env.schema
+# @generateTypes runs on every varlock invocation, including the entrypoint. Ship
+# the file the build already produced so it finds it current — and owned by node,
+# so a regeneration would not die on EACCES either.
+COPY --from=build --chown=node:node /app/env.d.ts /app/env.d.ts
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
@@ -37,4 +45,7 @@ HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
   CMD curl -f http://localhost:4321/ || exit 1
 
 USER node
+# varlock validates the environment at boot and fails fast on a missing or
+# malformed value, rather than letting the server start and 500 on first request.
+ENTRYPOINT ["./node_modules/.bin/varlock", "run", "--"]
 CMD ["node", "./dist/server/entry.mjs"]
