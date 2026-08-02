@@ -79,12 +79,17 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 
 ### Guard against plaintext secret reads
 
-`.claude/hooks/no-plaintext-secrets.py` runs as a `PreToolUse` hook on Bash, Read, Grep and Glob, and **denies** two ways of putting credentials verbatim into the agent transcript:
+`.claude/hooks/no-plaintext-secrets.py` runs as a `PreToolUse` hook on Bash, Read, Grep and Glob, and **denies** three ways of putting credentials verbatim into the agent transcript:
 
 - **Infisical reads** — `infisical secrets`, `infisical export`, `--plain`. `infisical run -- <cmd>` and `infisical secrets agent-proxy …` stay allowed, so nothing in the workflow above is affected.
+- **varlock reads** — `varlock reveal`, `varlock printenv`, `varlock run -- printenv|env`, and any mention of the `__VARLOCK_ENV` blob. Normal use (`varlock run -- astro dev`, `pnpm env:load`, `varlock encrypt`) is untouched.
 - **Dotenv files** — reading `.env`, `.env.runtime`, `.build.env` and friends. Only content-printing commands are blocked (`cat`, `head`, `grep`, `source`, …); `rm -f .env`, `ls -la .env` and `printf … > .env` are routine and stay allowed. `.env.schema` and `.env.test` hold no real values and remain readable — the schema is where variable names belong.
 
-Judged per shell segment, so `head .env.schema && rm -f .env` is not mistaken for a leak. It is pattern matching, not a sandbox: `grep -r secret .` still reaches `.env` without naming it. It stops the accidental read, not a determined one.
+Judged per shell segment, so `head .env.schema && rm -f .env` is not mistaken for a leak.
+
+**This is a speed bump, not a boundary.** `varlock run -- node -e "console.log(process.env.WP_AUTH_PASS)"` still works and cannot be blocked without breaking the wrapper every script depends on. A recursive `grep` reaches `.env` without naming it. Device-local encryption protects the credential at rest, not against code running as you. Real isolation needs the agent proxy — see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
+
+The varlock rules were added on 2026-08-02, a day after the migration: moving config resolution from the Infisical CLI to varlock moved the reading side with it, and the guard kept watching the old tool. **When the tooling changes, re-check what the guard still covers.**
 
 Written after exactly that leak on 2026-07-31 (twice — Infisical values, then a failed redaction of a dotenv dump); a note in this file did not prevent it, a hook does. Checks: `.claude/hooks/no-plaintext-secrets.test.sh`.
 

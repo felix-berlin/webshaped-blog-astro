@@ -119,6 +119,69 @@ in `~/.varlock/`.
 `varlock reveal <ITEM>` prints a decrypted value on purpose — keep it out of
 shared terminals and agent sessions. `varlock lock` re-arms the presence check.
 
+## Agent isolation
+
+An AI agent working in this repo runs as you. That single fact decides what each
+layer is worth:
+
+| Layer | Stops | Does not stop |
+| --------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ |
+| Device-local encryption (`env:encrypt`) | Stolen disk, stray copy, accidental commit | Anything running as your user — the TPM unseals for it |
+| `.claude/hooks/no-plaintext-secrets.py` | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
+| Agent proxy | The agent ever holding a real credential | The agent *using* it against a routed host |
+
+Only the third is a boundary. The first two reduce accidents, which is worth
+having — both leaks that prompted this setup were accidents — but neither
+contains a determined agent.
+
+### Infisical agent proxy (`pnpm agent`) — in use
+
+The agent gets **placeholder** credentials; the proxy substitutes the real value
+on the wire as the request leaves, and a bubblewrap sandbox keeps it out of
+`~/.ssh`, `~/.infisical` and the keyring. Services are configured in the
+Infisical UI. Details and the verification run are in `CLAUDE.md`.
+
+Worth adding to the script if you want the network rule to bite:
+
+```bash
+--unmatched-host block          # allowlist instead of advisory routing
+--allow-host example.com        # single exception
+--log-file ./agent-proxy.log    # keep the activity log
+```
+
+### varlock proxy — the alternative
+
+varlock has an equivalent (`varlock proxy run -- claude`) driven by the schema
+rather than a UI:
+
+```env-spec
+# @proxyConfig={egress="strict"}
+
+# @sensitive @proxy(domain="cms.webshaped.de")
+WP_AUTH_PASS=infisical()
+```
+
+`varlock proxy rules` prints the effective policy, `varlock proxy audit` the
+request log. Reloads requested from inside the agent are refused by design.
+
+| | Infisical proxy | varlock proxy |
+| ------------------ | ----------------------- | -------------------------------------- |
+| Status here | verified 2026-08-02 | not tried |
+| Rules live in | Infisical UI | `.env.schema`, versioned with the repo |
+| Sandbox on WSL2 | bubblewrap, **shared network namespace** | `--sandbox=docker`, own network |
+
+**The sandbox row is the deciding one.** On WSL2 a private network namespace is
+unavailable, so bubblewrap falls back to shared networking and proxy routing
+becomes advisory — a tool that ignores `HTTP_PROXY` reaches the network directly.
+The placeholder protection still holds; the network boundary does not.
+varlock's `--sandbox=docker` puts the child on an internal network whose only
+egress is the proxy, which is the only option here that draws a real line. It
+needs a container image with the agent CLI in it.
+
+Recommendation: stay on the Infisical proxy while it is the tested one, and move
+only if the missing network isolation becomes a concrete problem — then with the
+Docker sandbox, not without.
+
 ## Troubleshooting
 
 | Symptom | Cause |
