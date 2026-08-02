@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm dev                  # Start dev server (runs gql:generate first via predev hook)
-pnpm agent                # Launch Claude Code sandboxed behind the Infisical agent proxy (see Agent Proxy — not usable yet)
+pnpm agent                # Launch Claude Code sandboxed behind the Infisical agent proxy (see Agent Proxy)
 pnpm build                # Production build
 pnpm build:strict         # Type check (astro check + tsc + vue-tsc) + build — CI standard
 pnpm typechecking         # Type-check without building
@@ -133,9 +133,13 @@ Proxied services configured in `dev` at path `/` (verified working):
 | `wordpress` | `cms.webshaped.de/graphql` | Header rewrite, Basic Auth `WP_AUTH_USER`/`_PASS` |
 | `sentry`    | `sentry.io`                | Header rewrite, Bearer `SENTRY_AUTH_TOKEN`        |
 
-The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `astro.config.mjs` declares them `optional: false` — the real credential comes from the proxy, Astro just needs the schema satisfied.
+The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `.env.schema` marks them `@required` — the real credential comes from the proxy, varlock just needs the schema satisfied.
 
-**Requires CLI ≥ 0.43.115** (sandboxed `run` mode). As of 2026-07-31 the `@infisical/cli` devDependency is still 0.43.114 — bump it once npm publishes, and drop this paragraph plus the "not usable yet" note at the top of this file together.
+**Verified end to end on 2026-08-02** with CLI 0.43.116 (the sandboxed `run` mode needs ≥ 0.43.115). Inside the sandbox, `GITHUB_TOKEN` is a 40-character placeholder; a request carrying it to `api.github.com` came back `200`, and a `POST` to the WPGraphQL endpoint returned real data rather than the maintenance page. The real values never entered the agent's environment.
+
+One gap: the CLI warns `cannot report proxied-service usage … needs the Report Usage permission on proxied services` (403). Harmless — only the service's last-used timestamp stops updating — but grant that permission if you rely on it for auditing.
+
+Useful flags beyond what `pnpm agent` sets: `--unmatched-host block` turns the proxy from advisory into an allowlist, `--allow-host` opens a single exception, and `--log-file` keeps the activity log somewhere you can read it afterwards.
 
 Known limits on WSL2:
 

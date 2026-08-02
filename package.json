@@ -111,7 +111,7 @@
     "@graphql-codegen/schema-ast": "^6.1.0",
     "@graphql-codegen/typescript": "^6.1.0",
     "@graphql-codegen/typescript-operations": "^6.1.2",
-    "@infisical/cli": "^0.43.114",
+    "@infisical/cli": "^0.43.116",
     "@nanostores/logger": "^1.1.0",
     "@playform/inline": "0.1.4",
     "@playwright/test": "^1.62.1",
