@@ -36,6 +36,20 @@ SANDBOX = re.compile(r"infisical\s+secrets\s+agent-proxy")
 READS = re.compile(r"infisical(?:\s+\S+)*?\s+(secrets|export)(\s|$)")
 PLAIN = re.compile(r"infisical(?:\s+\S+)*\s--plain(\s|$)")
 
+# varlock replaced the Infisical CLI as the way values are resolved, which moved
+# the reading side with it. `reveal` and `printenv` exist to print decrypted
+# values; `run -- printenv`/`env` dumps everything varlock just injected; and the
+# blob holds the whole resolved config in one variable.
+VARLOCK_READS = re.compile(r"varlock(?:\s+\S+)*?\s+(reveal|printenv)(\s|$)")
+VARLOCK_RUN_DUMP = re.compile(r"varlock(?:\s+\S+)*\s+run\b[^|;&]*?--\s+(printenv|env)(\s|$)")
+VARLOCK_BLOB = re.compile(r"__VARLOCK_ENV")
+
+VARLOCK_HINT = (
+    "Use 'pnpm env:load' for a redacted view, or 'varlock run -- <command>' to "
+    "consume the values without printing them. If you genuinely need to see one, "
+    "read it yourself outside the agent session."
+)
+
 # `.env`, `.env.runtime`, `.build.env` — but not `.environment` or `prod.envrc`.
 ENV_FILE = re.compile(r"^(\.env(\.[\w-]+)?|[\w.-]+\.env)$")
 # Files that ship in the repo and hold no real values — readable on purpose.
@@ -110,6 +124,15 @@ def check_bash(command: str) -> None:
 
     if PLAIN.search(command):
         deny(f"Blocked: '--plain' makes Infisical print raw secret values. {RUN_HINT}")
+
+    if VARLOCK_READS.search(command):
+        deny(f"Blocked: this prints decrypted config values. {VARLOCK_HINT}")
+
+    if VARLOCK_RUN_DUMP.search(command):
+        deny(f"Blocked: this dumps every value varlock injected. {VARLOCK_HINT}")
+
+    if VARLOCK_BLOB.search(command):
+        deny(f"Blocked: the varlock env blob holds the whole resolved config. {VARLOCK_HINT}")
 
     leaked = set()
 
