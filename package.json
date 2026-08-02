@@ -48,6 +48,7 @@
     "lint": "pnpm run lint:js && pnpm run lint:style",
     "env:load": "varlock load",
     "env:scan": "varlock scan",
+    "env:encrypt": "varlock encrypt --file .env.local",
     "test:unit": "APP_ENV=test varlock run -- vitest",
     "test:unit:coverage": "APP_ENV=test varlock run -- vitest run --coverage",
     "test:unit:update": "APP_ENV=test varlock run -- vitest --update",

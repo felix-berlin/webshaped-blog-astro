@@ -13,6 +13,7 @@ pnpm typechecking         # Type-check without building
 
 pnpm env:load             # Show the resolved config, secrets redacted — start here when a var misbehaves
 pnpm env:scan             # Scan the repo for secret values committed in plaintext
+pnpm env:encrypt          # Encrypt .env.local at rest (interactive, needs a real TTY)
 
 pnpm lint                 # oxlint (JS/TS) + stylelint (SCSS)
 pnpm format               # oxfmt formatter
@@ -61,46 +62,16 @@ Values live in [Infisical](https://infisical.com) (self-hosted at `https://infis
 
 varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_SECRET` are set and falls back to **OIDC** via `identityId` when they are empty (verified 2026-07-31). That is what lets the same `.env.schema` serve both:
 
-| Where | Identity | Method |
-| ---------------- | -------------------------- | -------------------------------------------- |
-| GitHub Actions | `github-actions-web-shaped` | OIDC — needs `permissions: id-token: write` |
-| Workstation | `local-dev-web-shaped` | Universal Auth via `.env.local` (gitignored) |
+| Where          | Identity                    | Method                                       |
+| -------------- | --------------------------- | -------------------------------------------- |
+| GitHub Actions | `github-actions-web-shaped` | OIDC — needs `permissions: id-token: write`  |
+| Workstation    | `local-dev-web-shaped`      | Universal Auth via `.env.local` (gitignored) |
 
 **CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
 
-### Workstation setup: encrypt the credential at rest
+**Setting up a workstation is documented in [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)** — creating the machine identity, storing its credential encrypted at rest via `pnpm env:encrypt`, and a troubleshooting table. None of it is required: without `.env.local`, prefix any command with `infisical run --env=dev --` and everything works, because an existing environment variable beats the resolver.
 
-The `local-dev-web-shaped` identity's Universal Auth pair goes in `.env.local`, which is gitignored. Do **not** leave it in plaintext — varlock's `varlock()` resolver encrypts it with a device-bound key, which is its documented answer to holding a secret-zero on a developer machine.
-
-1. In Infisical, add the identity to the `web-shaped` project as **Viewer** (varlock only reads), then create a Client Secret under its Universal Auth method. `INFISICAL_CLIENT_ID` is the **Client ID shown inside that auth method** — not the identity ID on the details panel; the two look alike and only one of them works.
-2. Write the pair into `.env.local`:
-
-   ```bash
-   INFISICAL_CLIENT_ID=…
-   INFISICAL_CLIENT_SECRET=…
-   ```
-
-3. Encrypt it **in your own terminal** — the file mode is an interactive multi-select and needs a real TTY, so it hangs under any wrapper that pipes stdin:
-
-   ```bash
-   pnpm exec varlock encrypt --file .env.local
-   ```
-
-   The value turns into `varlock("local:…")`. The non-interactive alternative is `echo "$SECRET" | pnpm exec varlock encrypt`, which prints a line to paste in yourself.
-
-Verified 2026-08-02 on this machine: varlock reports `Using windows-tpm backend (hardware-backed)`. WSL2 has no `/dev/tpm*` of its own — varlock bridges to the Windows host daemon, so the key is TPM-sealed rather than falling back to a file in `~/.varlock/`. A decrypt round-trip through `varlock load` was confirmed end to end.
-
-This protects the credential at rest — a stolen disk or a stray copy is unreadable elsewhere. It does **not** protect against code already running as your user, which can ask the TPM to unseal exactly as varlock does.
-
-`varlock reveal <ITEM>` prints a decrypted value on purpose; keep it out of shared terminals and agent sessions. `varlock lock` re-arms the presence check.
-
-Without `.env.local` at all, nothing breaks — prefix commands with `infisical run --env=dev --` instead, since an existing environment variable beats the resolver.
-
-Without that file, prefix commands with the user login instead — the resolved values land in the environment, which beats the resolver:
-
-```bash
-infisical run --env=dev -- pnpm dev
-```
+`.env.local` holds a real credential even though varlock encrypts it — it stays gitignored and unreadable to agents.
 
 `APP_ENV` selects both the Infisical environment and which `.env.[env]` file loads: `dev` (default), `prod`, or `test`. `test` resolves entirely from the committed `.env.test`, so unit tests never touch Infisical.
 
