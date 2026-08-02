@@ -68,12 +68,33 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 
 **CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
 
-For the workstation, put the `Local` identity's Universal Auth pair in `.env.local`:
+### Workstation setup: encrypt the credential at rest
 
-```bash
-INFISICAL_CLIENT_ID=…
-INFISICAL_CLIENT_SECRET=…
-```
+The `Local` identity's Universal Auth pair goes in `.env.local`, which is gitignored. Do **not** leave it in plaintext — varlock's `varlock()` resolver encrypts it with a device-bound key, which is its documented answer to holding a secret-zero on a developer machine.
+
+1. In Infisical, add the `Local` identity to the `web-shaped` project (read role) and create a Client Secret under its Universal Auth method.
+2. Write the pair into `.env.local`:
+
+   ```bash
+   INFISICAL_CLIENT_ID=…
+   INFISICAL_CLIENT_SECRET=…
+   ```
+
+3. Encrypt it **in your own terminal** — the file mode is an interactive multi-select and needs a real TTY, so it hangs under any wrapper that pipes stdin:
+
+   ```bash
+   pnpm exec varlock encrypt --file .env.local
+   ```
+
+   The value turns into `varlock("local:…")`. The non-interactive alternative is `echo "$SECRET" | pnpm exec varlock encrypt`, which prints a line to paste in yourself.
+
+Verified 2026-08-02 on this machine: varlock reports `Using windows-tpm backend (hardware-backed)`. WSL2 has no `/dev/tpm*` of its own — varlock bridges to the Windows host daemon, so the key is TPM-sealed rather than falling back to a file in `~/.varlock/`. A decrypt round-trip through `varlock load` was confirmed end to end.
+
+This protects the credential at rest — a stolen disk or a stray copy is unreadable elsewhere. It does **not** protect against code already running as your user, which can ask the TPM to unseal exactly as varlock does.
+
+`varlock reveal <ITEM>` prints a decrypted value on purpose; keep it out of shared terminals and agent sessions. `varlock lock` re-arms the presence check.
+
+Without `.env.local` at all, nothing breaks — prefix commands with `infisical run --env=dev --` instead, since an existing environment variable beats the resolver.
 
 Without that file, prefix commands with the user login instead — the resolved values land in the environment, which beats the resolver:
 
