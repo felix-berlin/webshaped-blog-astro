@@ -64,15 +64,15 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 | Where | Identity | Method |
 | ---------------- | -------------------------- | -------------------------------------------- |
 | GitHub Actions | `github-actions-web-shaped` | OIDC — needs `permissions: id-token: write` |
-| Workstation | `Local` | Universal Auth via `.env.local` (gitignored) |
+| Workstation | `local-dev-web-shaped` | Universal Auth via `.env.local` (gitignored) |
 
 **CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
 
 ### Workstation setup: encrypt the credential at rest
 
-The `Local` identity's Universal Auth pair goes in `.env.local`, which is gitignored. Do **not** leave it in plaintext — varlock's `varlock()` resolver encrypts it with a device-bound key, which is its documented answer to holding a secret-zero on a developer machine.
+The `local-dev-web-shaped` identity's Universal Auth pair goes in `.env.local`, which is gitignored. Do **not** leave it in plaintext — varlock's `varlock()` resolver encrypts it with a device-bound key, which is its documented answer to holding a secret-zero on a developer machine.
 
-1. In Infisical, add the `Local` identity to the `web-shaped` project (read role) and create a Client Secret under its Universal Auth method.
+1. In Infisical, add the identity to the `web-shaped` project as **Viewer** (varlock only reads), then create a Client Secret under its Universal Auth method. `INFISICAL_CLIENT_ID` is the **Client ID shown inside that auth method** — not the identity ID on the details panel; the two look alike and only one of them works.
 2. Write the pair into `.env.local`:
 
    ```bash
