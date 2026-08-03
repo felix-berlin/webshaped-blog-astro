@@ -86,15 +86,19 @@ drops it — verified 2026-08-02 — so it survives problem 1 but not problem 2)
 An AI agent working in this repo runs as you. That single fact decides what each
 layer is worth:
 
-| Layer                                   | Stops                                    | Does not stop                                  |
-| --------------------------------------- | ---------------------------------------- | ---------------------------------------------- |
-| `.gitignore`                            | The credential reaching the repo         | Anything reading the working tree              |
-| `.claude/hooks/no-plaintext-secrets.py` | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
-| Agent proxy                             | The agent ever holding a real credential | The agent _using_ it against a routed host     |
+| Layer                                     | Stops                                    | Does not stop                                  |
+| ----------------------------------------- | ---------------------------------------- | ---------------------------------------------- |
+| `.gitignore`                              | The credential reaching the repo         | Anything reading the working tree              |
+| `.claude/hooks/no-plaintext-secrets.py`   | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
+| `.claude/hooks/warn-unsandboxed-agent.py` | Nothing — it's a nudge                   | Any session that proceeds despite the warning  |
+| Agent proxy                               | The agent ever holding a real credential | The agent _using_ it against a routed host     |
 
-Only the third is a boundary. The first two reduce accidents, which is worth
-having — both leaks that prompted this setup were accidents — but neither
-contains a determined agent.
+Only the fourth is a boundary. The first three reduce accidents, which is worth
+having — every leak that prompted this setup was an accident — but none
+contains a determined agent, and `pnpm agent` isn't even mandatory: nothing
+stops a session from starting unsandboxed in the first place. See [Warning when
+a session isn't sandboxed](../CLAUDE.md#warning-when-a-session-isnt-sandboxed)
+in `CLAUDE.md` for what the `SessionStart` hook actually does and doesn't do.
 
 ### Why `.env.local` is empty on this project
 

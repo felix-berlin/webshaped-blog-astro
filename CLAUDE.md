@@ -153,6 +153,14 @@ Known limits on WSL2:
 - **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
 - **Do not put an Infisical credential in `.env.local`.** The sandbox blocks `~/.infisical` and the keyring, so a user login is unreachable inside it — but the project directory is readable by design. A machine-identity credential sitting in `.env.local` is therefore fully available in there. This is exactly why the workstation setup no longer uses one: measured 2026-08-02, with `INFISICAL_CLIENT_ID`/`_SECRET` in `.env.local`, the sandbox could read the file and varlock resolved all 19 items with real values, bypassing the placeholders entirely. `infisical login` has no equivalent hole — nothing sits in the project directory to read. See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation) for the full history.
 
+### Warning when a session isn't sandboxed
+
+Nothing forces `pnpm agent` to be used. `claude` is a native binary, not a shell script, so a `.zshrc` alias only catches terminal launches — it does nothing for the VS Code extension, which almost certainly starts the process directly. Enforcement has to live somewhere the harness itself reads regardless of launch path.
+
+`.claude/hooks/warn-unsandboxed-agent.py` runs as a `SessionStart` hook and checks for `OPENCLAW_PROXY_URL`, an environment variable that exists only inside the agent-proxy sandbox (confirmed absent in a plain session, present under `infisical secrets agent-proxy run` — 2026-08-03). If it's missing, the hook injects a warning into context telling the agent this session is unsandboxed and to say so before touching credentials or anything the proxy exists to isolate.
+
+**This can only inform, not enforce.** A `SessionStart` hook fires before the turn that could observe it, so its effect can't be proven from inside a running session — pipe-tested instead (`echo '{}' | .claude/hooks/warn-unsandboxed-agent.py`, with and without the marker set). It takes effect on the _next_ session start, resume, or clear, not the one already running when the hook is added. And it's a nudge the agent can act on, not a gate the harness enforces — nothing here stops a session from proceeding unsandboxed if the agent (or the user) decides that's fine for the task at hand. Checks: `.claude/hooks/warn-unsandboxed-agent.test.sh`.
+
 ### GitHub Secrets `PROD_SECRETS` / `DEV_SECRETS` (legacy)
 
 These predate the Infisical integration and are no longer referenced by `docker-build.yml`. Do not delete them until the Infisical-based pipeline has run successfully at least once — keep as a rollback path in the meantime.
