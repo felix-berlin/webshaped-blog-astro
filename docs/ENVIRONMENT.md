@@ -29,11 +29,11 @@ and the `infisical()` resolver never fires.
 
 `APP_ENV` picks both the Infisical environment and which `.env.[env]` file loads:
 
-| `APP_ENV` | Source of values | Used by |
-| --------- | ------------------------------------ | ----------------------- |
-| `dev` (default) | Infisical `dev` | local work |
-| `prod` | Infisical `prod` | release builds |
-| `test` | committed `.env.test`, all fake | `pnpm test:unit` |
+| `APP_ENV`       | Source of values                | Used by          |
+| --------------- | ------------------------------- | ---------------- |
+| `dev` (default) | Infisical `dev`                 | local work       |
+| `prod`          | Infisical `prod`                | release builds   |
+| `test`          | committed `.env.test`, all fake | `pnpm test:unit` |
 
 ## Optional: run without the `infisical run` wrapper
 
@@ -44,7 +44,7 @@ laptop has none.
 ### 1. Create the identity
 
 Infisical → **Organization Access Control** → **Machine Identities** tab →
-*Create identity*.
+_Create identity_.
 
 - Name: `local-dev-web-shaped`
 - Organization role: `member`
@@ -54,7 +54,7 @@ Infisical → **Organization Access Control** → **Machine Identities** tab →
 ### 2. Grant it project access
 
 Infisical → **Project Access Control** (project `web-shaped`) → **Machine
-Identities** tab → *Add Machine Identity to Project*.
+Identities** tab → _Add Machine Identity to Project_.
 
 - Project role: **Viewer**. varlock only reads; `Member` would also grant write.
 
@@ -67,7 +67,7 @@ Open the identity → **Universal Auth** → create a Client Secret. It is shown
 once.
 
 > **The Client ID is not the identity ID.** The details panel shows an identity
-> ID; the Client ID lives *inside* the Universal Auth method. Both are UUIDs and
+> ID; the Client ID lives _inside_ the Universal Auth method. Both are UUIDs and
 > look identical. Using the wrong one gives `401 Invalid credentials`.
 
 ### 4. Store it
@@ -84,10 +84,15 @@ refuses to read it. Keep it that way — it holds a long-lived credential in
 plaintext.
 
 > varlock can encrypt this at rest with a device-bound key (`varlock encrypt
-> --file .env.local`). It is deliberately not used here: it defeats passive file
-> reads, but decryption is silent on this machine, so it adds nothing against
-> anything that can run varlock. If you turn it on, `pnpm env:scan` stops
-> reporting the file.
+> --file .env.local`). It is deliberately not used here, for a reason worth
+> knowing: measured on 2026-08-02, the Windows Hello gate fires for an
+> **interactive** decrypt but not for a non-interactive one. A non-TTY process —
+> which is what an agent or a script is — decrypted all 19 items silently, while
+> `pnpm dev` in a terminal prompts every session. So the gate inconveniences the
+> human and waves the agent through, which is backwards from what it looks like.
+>
+> If you turn encryption on anyway, expect that prompt, and note that
+> `pnpm env:scan` then stops reporting the file.
 
 ### 5. Verify
 
@@ -103,11 +108,11 @@ Auth worked. Then `pnpm dev` runs unwrapped.
 An AI agent working in this repo runs as you. That single fact decides what each
 layer is worth:
 
-| Layer | Stops | Does not stop |
+| Layer                                   | Stops                                    | Does not stop                                  |
 | --------------------------------------- | ---------------------------------------- | ---------------------------------------------- |
-| `.gitignore` | The credential reaching the repo | Anything reading the working tree |
+| `.gitignore`                            | The credential reaching the repo         | Anything reading the working tree              |
 | `.claude/hooks/no-plaintext-secrets.py` | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
-| Agent proxy | The agent ever holding a real credential | The agent *using* it against a routed host |
+| Agent proxy                             | The agent ever holding a real credential | The agent _using_ it against a routed host     |
 
 Only the third is a boundary. The first two reduce accidents, which is worth
 having — both leaks that prompted this setup were accidents — but neither
@@ -143,11 +148,11 @@ WP_AUTH_PASS=infisical()
 `varlock proxy rules` prints the effective policy, `varlock proxy audit` the
 request log. Reloads requested from inside the agent are refused by design.
 
-| | Infisical proxy | varlock proxy |
-| ------------------ | ----------------------- | -------------------------------------- |
-| Status here | verified 2026-08-02 | not tried |
-| Rules live in | Infisical UI | `.env.schema`, versioned with the repo |
-| Sandbox on WSL2 | bubblewrap, **shared network namespace** | `--sandbox=docker`, own network |
+|                 | Infisical proxy                          | varlock proxy                          |
+| --------------- | ---------------------------------------- | -------------------------------------- |
+| Status here     | verified 2026-08-02                      | not tried                              |
+| Rules live in   | Infisical UI                             | `.env.schema`, versioned with the repo |
+| Sandbox on WSL2 | bubblewrap, **shared network namespace** | `--sandbox=docker`, own network        |
 
 **The sandbox row is the deciding one.** On WSL2 a private network namespace is
 unavailable, so bubblewrap falls back to shared networking and proxy routing
@@ -163,12 +168,12 @@ Docker sandbox, not without.
 
 ## Troubleshooting
 
-| Symptom | Cause |
-| --------------------------------------------------- | ---------------------------------------------------------------------- |
-| `401 Invalid credentials` on `/universal-auth/login` | Identity ID used instead of the Client ID, or the secret was rotated |
-| `OIDC auth configured but no token available` | `.env.local` missing or its variables empty, so varlock fell back to OIDC — expected on a laptop |
-| `varlock ENV not initialized` | Command ran outside `varlock run --`; every script that touches config needs it |
-| Auth method locked out | Three failed logins lock it for 300 s. Infisical → identity → auth method → *Reset All Lockouts* |
+| Symptom                                              | Cause                                                                                            |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `401 Invalid credentials` on `/universal-auth/login` | Identity ID used instead of the Client ID, or the secret was rotated                             |
+| `OIDC auth configured but no token available`        | `.env.local` missing or its variables empty, so varlock fell back to OIDC — expected on a laptop |
+| `varlock ENV not initialized`                        | Command ran outside `varlock run --`; every script that touches config needs it                  |
+| Auth method locked out                               | Three failed logins lock it for 300 s. Infisical → identity → auth method → _Reset All Lockouts_ |
 
 `pnpm env:load` is the first thing to run when a variable misbehaves — it shows
 each item's resolved value (redacted) **and where it came from**.

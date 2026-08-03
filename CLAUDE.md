@@ -70,7 +70,7 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 
 **Setting up a workstation is documented in [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)** — creating the machine identity, storing its credential, and a troubleshooting table. None of it is required: without `.env.local`, prefix any command with `infisical run --env=dev --` and everything works, because an existing environment variable beats the resolver.
 
-`.env.local` holds a long-lived credential in plaintext. It is gitignored (`.env.local`, `.env.*.local`) and the guard hook refuses to read it. varlock's device-local encryption is deliberately not used — it only defeats passive file reads, and decryption is silent on this machine anyway.
+`.env.local` holds a long-lived credential in plaintext. It is gitignored (`.env.local`, `.env.*.local`) and the guard hook refuses to read it. varlock's device-local encryption is deliberately not used — it only defeats passive file reads, and its Windows Hello gate fires for interactive decrypts while letting non-interactive ones (scripts, agents) through silently.
 
 `APP_ENV` selects both the Infisical environment and which `.env.[env]` file loads: `dev` (default), `prod`, or `test`. `test` resolves entirely from the committed `.env.test`, so unit tests never touch Infisical.
 
