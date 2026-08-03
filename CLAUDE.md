@@ -13,7 +13,6 @@ pnpm typechecking         # Type-check without building
 
 pnpm env:load             # Show the resolved config, secrets redacted — start here when a var misbehaves
 pnpm env:scan             # Scan the repo for secret values committed in plaintext
-pnpm env:encrypt          # Encrypt .env.local at rest (interactive, needs a real TTY)
 
 pnpm lint                 # oxlint (JS/TS) + stylelint (SCSS)
 pnpm format               # oxfmt formatter
@@ -69,9 +68,9 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 
 **CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
 
-**Setting up a workstation is documented in [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)** — creating the machine identity, storing its credential encrypted at rest via `pnpm env:encrypt`, and a troubleshooting table. None of it is required: without `.env.local`, prefix any command with `infisical run --env=dev --` and everything works, because an existing environment variable beats the resolver.
+**Setting up a workstation is documented in [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)** — creating the machine identity, storing its credential, and a troubleshooting table. None of it is required: without `.env.local`, prefix any command with `infisical run --env=dev --` and everything works, because an existing environment variable beats the resolver.
 
-`.env.local` holds a real credential even though varlock encrypts it — it stays gitignored and unreadable to agents.
+`.env.local` holds a long-lived credential in plaintext. It is gitignored (`.env.local`, `.env.*.local`) and the guard hook refuses to read it. varlock's device-local encryption is deliberately not used — it only defeats passive file reads, and decryption is silent on this machine anyway.
 
 `APP_ENV` selects both the Infisical environment and which `.env.[env]` file loads: `dev` (default), `prod`, or `test`. `test` resolves entirely from the committed `.env.test`, so unit tests never touch Infisical.
 
@@ -87,7 +86,7 @@ varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_
 
 Judged per shell segment, so `head .env.schema && rm -f .env` is not mistaken for a leak.
 
-**This is a speed bump, not a boundary.** `varlock run -- node -e "console.log(process.env.WP_AUTH_PASS)"` still works and cannot be blocked without breaking the wrapper every script depends on. A recursive `grep` reaches `.env` without naming it. Device-local encryption protects the credential at rest, not against code running as you. Real isolation needs the agent proxy — see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
+**This is a speed bump, not a boundary.** `varlock run -- node -e "console.log(process.env.WP_AUTH_PASS)"` still works and cannot be blocked without breaking the wrapper every script depends on. A recursive `grep` reaches `.env` without naming it. Real isolation needs the agent proxy — see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
 
 The varlock rules were added on 2026-08-02, a day after the migration: moving config resolution from the Infisical CLI to varlock moved the reading side with it, and the guard kept watching the old tool. **When the tooling changes, re-check what the guard still covers.**
 

@@ -70,29 +70,24 @@ once.
 > ID; the Client ID lives *inside* the Universal Auth method. Both are UUIDs and
 > look identical. Using the wrong one gives `401 Invalid credentials`.
 
-### 4. Store it encrypted
+### 4. Store it
 
-Put the pair in `.env.local` (gitignored):
+Put the pair in `.env.local`:
 
 ```bash
 INFISICAL_CLIENT_ID=…
 INFISICAL_CLIENT_SECRET=…
 ```
 
-Then encrypt it at rest:
+The file is gitignored (`.env.local` and `.env.*.local`), and the guard hook
+refuses to read it. Keep it that way — it holds a long-lived credential in
+plaintext.
 
-```bash
-pnpm env:encrypt
-```
-
-The secret becomes `varlock("local:…")`, sealed to this device. **Run this in a
-real terminal** — it is an interactive multi-select and hangs when stdin is
-piped, so it will not work through an agent or a CI wrapper. The non-interactive
-alternative encrypts a single value and prints a line for you to paste:
-
-```bash
-echo "$SECRET" | pnpm exec varlock encrypt
-```
+> varlock can encrypt this at rest with a device-bound key (`varlock encrypt
+> --file .env.local`). It is deliberately not used here: it defeats passive file
+> reads, but decryption is silent on this machine, so it adds nothing against
+> anything that can run varlock. If you turn it on, `pnpm env:scan` stops
+> reporting the file.
 
 ### 5. Verify
 
@@ -103,37 +98,14 @@ pnpm env:load     # no `infisical run` in front of it
 Every item should resolve, with sensitive values redacted. That proves Universal
 Auth worked. Then `pnpm dev` runs unwrapped.
 
-## What the encryption does and does not protect
-
-Verified 2026-08-02 on WSL2: varlock reports `Using windows-tpm backend
-(hardware-backed)`. WSL2 exposes no `/dev/tpm*`, so varlock bridges to the
-Windows host daemon and the key is TPM-sealed rather than falling back to a file
-in `~/.varlock/`.
-
-- **Protects at rest.** A stolen disk, a stray copy, an accidental commit — all
-  unreadable on any other device.
-- **Does not protect against code running as you.** It can ask the TPM to unseal
-  exactly as varlock does. This is a safeguard against leakage, not against local
-  compromise.
-
-`varlock reveal <ITEM>` prints a decrypted value on purpose — keep it out of
-shared terminals and agent sessions.
-
-**Decryption is silent here.** varlock documents a biometric gate (`varlock lock`
-re-arms it, Windows Hello prompts on the next decrypt), but measured on this
-machine on 2026-08-02 it does not engage: `varlock lock` answers *"No encryption
-daemon is running — nothing to lock"*, and a following `varlock load` resolved
-all 19 items with no prompt. Treat encryption here as protecting the file, not
-as gating access to the value.
-
 ## Agent isolation
 
 An AI agent working in this repo runs as you. That single fact decides what each
 layer is worth:
 
 | Layer | Stops | Does not stop |
-| --------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ |
-| Device-local encryption (`env:encrypt`) | Stolen disk, stray copy, accidental commit, **any passive file read** | Anything that *runs* varlock — the TPM unseals silently, no prompt |
+| --------------------------------------- | ---------------------------------------- | ---------------------------------------------- |
+| `.gitignore` | The credential reaching the repo | Anything reading the working tree |
 | `.claude/hooks/no-plaintext-secrets.py` | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
 | Agent proxy | The agent ever holding a real credential | The agent *using* it against a routed host |
 
@@ -196,7 +168,6 @@ Docker sandbox, not without.
 | `401 Invalid credentials` on `/universal-auth/login` | Identity ID used instead of the Client ID, or the secret was rotated |
 | `OIDC auth configured but no token available` | `.env.local` missing or its variables empty, so varlock fell back to OIDC — expected on a laptop |
 | `varlock ENV not initialized` | Command ran outside `varlock run --`; every script that touches config needs it |
-| `pnpm env:encrypt` hangs | Not attached to a real TTY |
 | Auth method locked out | Three failed logins lock it for 300 s. Infisical → identity → auth method → *Reset All Lockouts* |
 
 `pnpm env:load` is the first thing to run when a variable misbehaves — it shows
