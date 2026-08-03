@@ -117,7 +117,14 @@ in `~/.varlock/`.
   compromise.
 
 `varlock reveal <ITEM>` prints a decrypted value on purpose — keep it out of
-shared terminals and agent sessions. `varlock lock` re-arms the presence check.
+shared terminals and agent sessions.
+
+**Decryption is silent here.** varlock documents a biometric gate (`varlock lock`
+re-arms it, Windows Hello prompts on the next decrypt), but measured on this
+machine on 2026-08-02 it does not engage: `varlock lock` answers *"No encryption
+daemon is running — nothing to lock"*, and a following `varlock load` resolved
+all 19 items with no prompt. Treat encryption here as protecting the file, not
+as gating access to the value.
 
 ## Agent isolation
 
@@ -126,7 +133,7 @@ layer is worth:
 
 | Layer | Stops | Does not stop |
 | --------------------------------------- | ------------------------------------------------- | ------------------------------------------------------ |
-| Device-local encryption (`env:encrypt`) | Stolen disk, stray copy, accidental commit | Anything running as your user — the TPM unseals for it |
+| Device-local encryption (`env:encrypt`) | Stolen disk, stray copy, accidental commit, **any passive file read** | Anything that *runs* varlock — the TPM unseals silently, no prompt |
 | `.claude/hooks/no-plaintext-secrets.py` | The accidental read, named leak commands | `varlock run -- <program that prints a value>` |
 | Agent proxy | The agent ever holding a real credential | The agent *using* it against a routed host |
 
