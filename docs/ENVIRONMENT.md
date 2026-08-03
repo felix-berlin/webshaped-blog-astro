@@ -118,6 +118,33 @@ Only the third is a boundary. The first two reduce accidents, which is worth
 having — both leaks that prompted this setup were accidents — but neither
 contains a determined agent.
 
+### `.env.local` cancels the proxy out
+
+`pnpm agent` gives the agent placeholder credentials — but only if it cannot get
+the real ones another way. It can:
+
+| Where the credential lives | Reachable inside the sandbox? |
+| ---------------------------- | ------------------------------------------- |
+| `~/.infisical` + keyring (`infisical login`) | no — the sandbox denies those paths |
+| Shell environment | no — the env scrub drops it (verified) |
+| `.env.local` in the project | **yes** — the working directory is readable |
+
+Measured 2026-08-02: inside the sandbox, `.env.local` was readable and
+`varlock load` resolved all 19 items with real values. The placeholder mechanism
+was bypassed completely, because the agent could just authenticate to Infisical
+itself.
+
+So the convenient local setup and the isolated agent session are in direct
+tension. Pick one:
+
+- **Move the pair to the shell environment** — keeps `pnpm dev` unwrapped, and
+  the scrub keeps it out of the sandbox. Put it in a `chmod 600` file outside the
+  repo, sourced from your shell profile. Cost: every process you start from that
+  shell inherits it.
+- **Go back to `infisical login`** — nothing on disk, keyring is blocked inside
+  the sandbox, but every command needs the `infisical run --env=dev --` prefix.
+- **Delete `.env.local` before `pnpm agent`** — works, relies on remembering.
+
 ### Infisical agent proxy (`pnpm agent`) — in use
 
 The agent gets **placeholder** credentials; the proxy substitutes the real value

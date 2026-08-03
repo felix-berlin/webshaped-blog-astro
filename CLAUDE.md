@@ -149,7 +149,7 @@ Known limits on WSL2:
 
 - **No network isolation** — a private network namespace is unavailable, so `run` falls back to shared networking. Routing through the proxy is advisory: a tool that ignores `HTTP_PROXY` reaches the network directly. Credential protections are unaffected.
 - **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
-- **No Infisical token inside the sandbox** (deliberate), so `pnpm dev` and `pnpm gql:generate` cannot resolve values there — varlock reaches Infisical, which the sandbox blocks. Reading `.env.schema` still tells an agent everything about the shape of the config, which is the point.
+- **`.env.local` defeats the sandbox.** The sandbox blocks `~/.infisical` and the keyring, so a user login is unreachable inside it — but the project directory is readable by design, and a machine-identity credential sitting in `.env.local` is therefore fully available. Measured 2026-08-02: inside the sandbox `.env.local` was readable and varlock resolved all 19 items, real values included, bypassing the placeholders entirely. Keep that credential in the shell environment instead (the env scrub drops it, verified) or delete `.env.local` before running `pnpm agent`. See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
 
 ### GitHub Secrets `PROD_SECRETS` / `DEV_SECRETS` (legacy)
 
