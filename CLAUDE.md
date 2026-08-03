@@ -7,9 +7,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm dev                  # Start dev server (runs gql:generate first via predev hook)
 pnpm agent                # Launch Claude Code sandboxed behind the Infisical agent proxy (see Agent Proxy)
-pnpm build                # Production build
-pnpm build:strict         # Type check (astro check + tsc + vue-tsc) + build — CI standard
-pnpm typechecking         # Type-check without building
+pnpm build                # Production build — needs `infisical run --env=dev --` in front when run standalone; Docker/CI supply values another way
+pnpm build:strict         # Type check (secret-free, APP_ENV=test) + build — CI standard
+pnpm typechecking         # Type-check without building — secret-free, runs under APP_ENV=test
 
 pnpm env:load             # Show the resolved config, secrets redacted — start here when a var misbehaves
 pnpm env:scan             # Scan the repo for secret values committed in plaintext
@@ -25,6 +25,8 @@ pnpm gql:generate         # Regenerate GraphQL types from live WordPress schema
 ```
 
 **Always use `pnpm`** — a `preinstall` hook blocks npm/yarn.
+
+`dev`, `gql:generate`, `gql:generate:watch`, `preview`, `env:load` and `env:scan` need one `infisical login` on this machine — they already run through `infisical run --env=dev --`, so no prefix, no separate setup.
 
 To run a single unit test file: `pnpm test:unit src/tests/unit/path/to/file.test.ts`
 
@@ -59,18 +61,18 @@ Values live in [Infisical](https://infisical.com) (self-hosted at `https://infis
 
 ### Two auth paths, one schema
 
-varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_SECRET` are set and falls back to **OIDC** via `identityId` when they are empty (verified 2026-07-31). That is what lets the same `.env.schema` serve both:
+varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_SECRET` are set and falls back to **OIDC** via `identityId` when they are empty (verified 2026-07-31). That is what lets the same `.env.schema` serve both CI and a workstation without a code change.
 
-| Where          | Identity                    | Method                                       |
-| -------------- | --------------------------- | -------------------------------------------- |
-| GitHub Actions | `github-actions-web-shaped` | OIDC — needs `permissions: id-token: write`  |
-| Workstation    | `local-dev-web-shaped`      | Universal Auth via `.env.local` (gitignored) |
+| Where          | Identity                       | Method                                                                 |
+| -------------- | ------------------------------ | ---------------------------------------------------------------------- |
+| GitHub Actions | `github-actions-web-shaped`    | OIDC — needs `permissions: id-token: write`                            |
+| Workstation    | your `infisical login` session | `infisical run --env=dev --` prefix, baked into the local-only scripts |
 
 **CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
 
-**Setting up a workstation is documented in [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md)** — creating the machine identity, storing its credential, and a troubleshooting table. None of it is required: without `.env.local`, prefix any command with `infisical run --env=dev --` and everything works, because an existing environment variable beats the resolver.
+**Workstation setup is one command: `infisical login`.** `dev`, `gql:generate`, `gql:generate:watch`, `preview`, `env:load` and `env:scan` already run through `infisical run --env=dev --`, so there is no prefix to type. `build` and `typechecking` stay bare — `build` because Docker/CI supply values through the environment directly, `typechecking` because it runs under `APP_ENV=test` and needs no real secret at all.
 
-`.env.local` holds a long-lived credential in plaintext. It is gitignored (`.env.local`, `.env.*.local`) and the guard hook refuses to read it. varlock's device-local encryption is deliberately not used — it only defeats passive file reads, and its Windows Hello gate fires for interactive decrypts while letting non-interactive ones (scripts, agents) through silently.
+A local **machine identity with Universal Auth was tried and dropped** (see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md) for the history). Two independent problems, not one: its credential in `.env.local` was readable from inside the `pnpm agent` sandbox — defeating the placeholder mechanism the proxy exists for — and separately, decrypting it re-triggered a Windows Hello prompt on every interactive command. Plain `infisical login` has neither failure mode: the sandbox denies `~/.infisical` and the keyring outright, and there is nothing to decrypt.
 
 `APP_ENV` selects both the Infisical environment and which `.env.[env]` file loads: `dev` (default), `prod`, or `test`. `test` resolves entirely from the committed `.env.test`, so unit tests never touch Infisical.
 
@@ -149,7 +151,7 @@ Known limits on WSL2:
 
 - **No network isolation** — a private network namespace is unavailable, so `run` falls back to shared networking. Routing through the proxy is advisory: a tool that ignores `HTTP_PROXY` reaches the network directly. Credential protections are unaffected.
 - **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
-- **`.env.local` defeats the sandbox.** The sandbox blocks `~/.infisical` and the keyring, so a user login is unreachable inside it — but the project directory is readable by design, and a machine-identity credential sitting in `.env.local` is therefore fully available. Measured 2026-08-02: inside the sandbox `.env.local` was readable and varlock resolved all 19 items, real values included, bypassing the placeholders entirely. Keep that credential in the shell environment instead (the env scrub drops it, verified) or delete `.env.local` before running `pnpm agent`. See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
+- **Do not put an Infisical credential in `.env.local`.** The sandbox blocks `~/.infisical` and the keyring, so a user login is unreachable inside it — but the project directory is readable by design. A machine-identity credential sitting in `.env.local` is therefore fully available in there. This is exactly why the workstation setup no longer uses one: measured 2026-08-02, with `INFISICAL_CLIENT_ID`/`_SECRET` in `.env.local`, the sandbox could read the file and varlock resolved all 19 items with real values, bypassing the placeholders entirely. `infisical login` has no equivalent hole — nothing sits in the project directory to read. See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation) for the full history.
 
 ### GitHub Secrets `PROD_SECRETS` / `DEV_SECRETS` (legacy)
 

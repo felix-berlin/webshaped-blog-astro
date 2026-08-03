@@ -8,11 +8,16 @@ misbehaves. The conceptual side (why the schema looks the way it does) lives in
 
 ```bash
 pnpm install
-infisical run --env=dev -- pnpm dev     # works immediately, no setup
+infisical login          # once
+pnpm dev                 # works — no prefix, no .env.local, no machine identity
 ```
 
-That is enough. Everything below buys you `pnpm dev` without the wrapper, plus a
-one-hour credential cache. It is optional.
+The local-only scripts (`dev`, `gql:generate`, `gql:generate:watch`, `preview`,
+`env:load`, `env:scan`) already run through `infisical run --env=dev --`, so
+`infisical login` is the entire setup. `build` and `typechecking` stay bare —
+`build` because Docker/CI supply values another way, `typechecking` because it
+runs under `APP_ENV=test` and needs no real secret at all. For a standalone local
+production build, prefix it yourself: `infisical run --env=dev -- pnpm build`.
 
 ## How values are resolved
 
@@ -25,7 +30,13 @@ at run time, in this order — **later wins**:
 
 `process.env` beating everything is the load-bearing rule. It is why CI and the
 Docker build never talk to Infisical: their values arrive through the environment
-and the `infisical()` resolver never fires.
+and the `infisical()` resolver never fires. It is also why `infisical run
+--env=dev -- <command>` works locally without any file on disk: the values it
+injects land in `process.env`, ahead of `.env.local` in the chain.
+
+`.env.local` is deliberately empty on a workstation — see [Why not a local
+machine identity](#why-not-a-local-machine-identity) below for why that is a
+decision, not an oversight.
 
 `APP_ENV` picks both the Infisical environment and which `.env.[env]` file loads:
 
@@ -35,73 +46,40 @@ and the `infisical()` resolver never fires.
 | `prod`          | Infisical `prod`                | release builds   |
 | `test`          | committed `.env.test`, all fake | `pnpm test:unit` |
 
-## Optional: run without the `infisical run` wrapper
+## Why not a local machine identity
 
-varlock authenticates to Infisical itself if you give it a machine identity. On a
-workstation that means **Universal Auth** — OIDC needs a token issuer, and a
-laptop has none.
+varlock can authenticate to Infisical itself if you give it a machine identity —
+**Universal Auth** on a workstation, since OIDC needs a token issuer and a
+laptop has none. This project tried that (`local-dev-web-shaped`, Client
+ID/Secret in `.env.local`) and reverted it. Not a style preference — two
+independent, measured failures:
 
-### 1. Create the identity
+1. **It defeats the agent sandbox.** `pnpm agent` isolates the agent by handing
+   it placeholder credentials; the sandbox separately denies it `~/.infisical`
+   and the keyring, so a user login stays out of reach in there. But the project
+   directory is readable by design, and a credential in `.env.local` lives in
+   the project directory. Measured 2026-08-02: inside the sandbox, `.env.local`
+   was readable and `varlock load` resolved all 19 items with real values — the
+   agent could just authenticate to Infisical itself, bypassing the placeholder
+   mechanism entirely.
+2. **Decrypting it re-prompts for Windows Hello on every interactive command.**
+   `@initInfisical()`'s own arguments (`clientId`, `clientSecret`) have to
+   resolve before the plugin can even initialize — regardless of whether the
+   _other_ items it would fetch are already satisfied by `process.env`. With the
+   credential encrypted at rest, that meant a TPM decrypt, and a biometric
+   prompt, on every single `pnpm dev`. (The opposite case is also worth
+   knowing, since it's counterintuitive: a **non-interactive** decrypt — what an
+   agent or a script does — went through silently, no prompt at all. The gate
+   protects the human at the keyboard, not the thing it looks like it protects
+   against.)
 
-Infisical → **Organization Access Control** → **Machine Identities** tab →
-_Create identity_.
+`infisical login` has neither hole: nothing sits in the project directory for
+the sandbox to read, and there is nothing to decrypt.
 
-- Name: `local-dev-web-shaped`
-- Organization role: `member`
-- Universal Auth is attached automatically — nothing to add
-- Turn **Delete protection off**: this credential should be cheap to throw away
-
-### 2. Grant it project access
-
-Infisical → **Project Access Control** (project `web-shaped`) → **Machine
-Identities** tab → _Add Machine Identity to Project_.
-
-- Project role: **Viewer**. varlock only reads; `Member` would also grant write.
-
-Organization and project are two separate steps, in that order. An identity that
-exists only at organization level will not appear in the project picker.
-
-### 3. Create the credential
-
-Open the identity → **Universal Auth** → create a Client Secret. It is shown
-once.
-
-> **The Client ID is not the identity ID.** The details panel shows an identity
-> ID; the Client ID lives _inside_ the Universal Auth method. Both are UUIDs and
-> look identical. Using the wrong one gives `401 Invalid credentials`.
-
-### 4. Store it
-
-Put the pair in `.env.local`:
-
-```bash
-INFISICAL_CLIENT_ID=…
-INFISICAL_CLIENT_SECRET=…
-```
-
-The file is gitignored (`.env.local` and `.env.*.local`), and the guard hook
-refuses to read it. Keep it that way — it holds a long-lived credential in
-plaintext.
-
-> varlock can encrypt this at rest with a device-bound key (`varlock encrypt
-> --file .env.local`). It is deliberately not used here, for a reason worth
-> knowing: measured on 2026-08-02, the Windows Hello gate fires for an
-> **interactive** decrypt but not for a non-interactive one. A non-TTY process —
-> which is what an agent or a script is — decrypted all 19 items silently, while
-> `pnpm dev` in a terminal prompts every session. So the gate inconveniences the
-> human and waves the agent through, which is backwards from what it looks like.
->
-> If you turn encryption on anyway, expect that prompt, and note that
-> `pnpm env:scan` then stops reporting the file.
-
-### 5. Verify
-
-```bash
-pnpm env:load     # no `infisical run` in front of it
-```
-
-Every item should resolve, with sensitive values redacted. That proves Universal
-Auth worked. Then `pnpm dev` runs unwrapped.
+If you want the convenience back and are fine re-accepting problem 1, run
+`pnpm agent` only from a checkout where `.env.local` doesn't exist, or move the
+credential to the shell environment instead of a file (the sandbox's env scrub
+drops it — verified 2026-08-02 — so it survives problem 1 but not problem 2).
 
 ## Agent isolation
 
@@ -118,32 +96,13 @@ Only the third is a boundary. The first two reduce accidents, which is worth
 having — both leaks that prompted this setup were accidents — but neither
 contains a determined agent.
 
-### `.env.local` cancels the proxy out
+### Why `.env.local` is empty on this project
 
-`pnpm agent` gives the agent placeholder credentials — but only if it cannot get
-the real ones another way. It can:
-
-| Where the credential lives | Reachable inside the sandbox? |
-| ---------------------------- | ------------------------------------------- |
-| `~/.infisical` + keyring (`infisical login`) | no — the sandbox denies those paths |
-| Shell environment | no — the env scrub drops it (verified) |
-| `.env.local` in the project | **yes** — the working directory is readable |
-
-Measured 2026-08-02: inside the sandbox, `.env.local` was readable and
-`varlock load` resolved all 19 items with real values. The placeholder mechanism
-was bypassed completely, because the agent could just authenticate to Infisical
-itself.
-
-So the convenient local setup and the isolated agent session are in direct
-tension. Pick one:
-
-- **Move the pair to the shell environment** — keeps `pnpm dev` unwrapped, and
-  the scrub keeps it out of the sandbox. Put it in a `chmod 600` file outside the
-  repo, sourced from your shell profile. Cost: every process you start from that
-  shell inherits it.
-- **Go back to `infisical login`** — nothing on disk, keyring is blocked inside
-  the sandbox, but every command needs the `infisical run --env=dev --` prefix.
-- **Delete `.env.local` before `pnpm agent`** — works, relies on remembering.
+Covered in full under [Why not a local machine
+identity](#why-not-a-local-machine-identity): a credential placed there is
+readable from inside the `pnpm agent` sandbox, which defeats the placeholder
+mechanism this section relies on. `infisical login` has no such hole — nothing
+sits in the project directory for the sandbox to find.
 
 ### Infisical agent proxy (`pnpm agent`) — in use
 
@@ -195,12 +154,13 @@ Docker sandbox, not without.
 
 ## Troubleshooting
 
-| Symptom                                              | Cause                                                                                            |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `401 Invalid credentials` on `/universal-auth/login` | Identity ID used instead of the Client ID, or the secret was rotated                             |
-| `OIDC auth configured but no token available`        | `.env.local` missing or its variables empty, so varlock fell back to OIDC — expected on a laptop |
-| `varlock ENV not initialized`                        | Command ran outside `varlock run --`; every script that touches config needs it                  |
-| Auth method locked out                               | Three failed logins lock it for 300 s. Infisical → identity → auth method → _Reset All Lockouts_ |
+| Symptom                                                          | Cause                                                                                                                                                                         |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SchemaError: infisical(): Infisical authentication is required` | Ran a bare `varlock`/`pnpm exec varlock` command, or a script not wrapped with `infisical run --`. Use the `pnpm` script, or run `infisical login` first and prefix manually. |
+| `OIDC auth configured but no token available`                    | Same root cause as above — no client credentials and no OIDC issuer, which is the normal state on a laptop. Not a bug; there is no local machine identity to fall back to.    |
+| `varlock ENV not initialized`                                    | Command ran outside `varlock run --`; every script that touches config needs it                                                                                               |
+| CI's `github-actions-web-shaped` identity locked out             | Three failed logins lock an auth method for 300 s. Infisical → identity → auth method → _Reset All Lockouts_                                                                  |
+| Values unresolved inside `pnpm agent`                            | Expected — the sandbox blocks `~/.infisical` and the keyring on purpose. See [Why not a local machine identity](#why-not-a-local-machine-identity).                           |
 
 `pnpm env:load` is the first thing to run when a variable misbehaves — it shows
 each item's resolved value (redacted) **and where it came from**.
