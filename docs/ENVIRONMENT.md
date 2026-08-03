@@ -136,21 +136,26 @@ request log. Reloads requested from inside the agent are refused by design.
 
 |                 | Infisical proxy                          | varlock proxy                          |
 | --------------- | ---------------------------------------- | -------------------------------------- |
-| Status here     | verified 2026-08-02                      | not tried                              |
+| Status here     | verified 2026-08-03 — real network fence | not tried                              |
 | Rules live in   | Infisical UI                             | `.env.schema`, versioned with the repo |
-| Sandbox on WSL2 | bubblewrap, **shared network namespace** | `--sandbox=docker`, own network        |
+| Sandbox on WSL2 | bubblewrap, egress fenced (see below)    | `--sandbox=docker`, own network        |
 
-**The sandbox row is the deciding one.** On WSL2 a private network namespace is
-unavailable, so bubblewrap falls back to shared networking and proxy routing
-becomes advisory — a tool that ignores `HTTP_PROXY` reaches the network directly.
-The placeholder protection still holds; the network boundary does not.
-varlock's `--sandbox=docker` puts the child on an internal network whose only
-egress is the proxy, which is the only option here that draws a real line. It
-needs a container image with the agent CLI in it.
+**Correction to an earlier version of this doc**, which claimed the WSL2
+sandbox has "no network isolation" and that proxy routing is merely advisory. Not
+measured when written — it was an assumption about bubblewrap needing a private
+network namespace. Verified 2026-08-03 instead: inside the sandbox, unsetting
+`HTTP_PROXY`/`HTTPS_PROXY` and connecting directly failed both by hostname
+(`curl`: `Couldn't resolve host`) and by a bare IP literal with no DNS involved
+(`Failed to connect to host`). This matches Infisical's own documentation —
+"Direct connections fail, including connections straight to an IP with no
+hostname involved" — and it holds on this machine regardless of whether a true
+network namespace is present. A tool that ignores the proxy variables fails
+loudly rather than quietly going direct.
 
-Recommendation: stay on the Infisical proxy while it is the tested one, and move
-only if the missing network isolation becomes a concrete problem — then with the
-Docker sandbox, not without.
+Recommendation unchanged, now on firmer ground: stay on the Infisical proxy. It
+already has a measured network fence; varlock's Docker sandbox remains an
+option for stronger container-level isolation, but it is not a fix for a gap
+that turned out not to exist here.
 
 ## Troubleshooting
 
