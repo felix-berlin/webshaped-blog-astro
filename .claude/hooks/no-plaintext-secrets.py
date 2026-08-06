@@ -32,7 +32,7 @@ import os
 import re
 import sys
 
-SANDBOX = re.compile(r"infisical\s+secrets\s+agent-proxy")
+SANDBOX = re.compile(r"^\s*infisical\s+secrets\s+agent-proxy\b")
 READS = re.compile(r"infisical(?:\s+\S+)*?\s+(secrets|export)(\s|$)")
 PLAIN = re.compile(r"infisical(?:\s+\S+)*\s--plain(\s|$)")
 
@@ -97,18 +97,21 @@ def is_secret_env(path: str) -> bool:
 
 
 def check_bash(command: str) -> None:
-    if SANDBOX.search(command):
-        return
-
-    if READS.search(command):
-        deny(f"Blocked: this prints Infisical secret values into the transcript. {RUN_HINT}")
-
-    if PLAIN.search(command):
-        deny(f"Blocked: '--plain' makes Infisical print raw secret values. {RUN_HINT}")
-
     leaked = set()
 
+    # Judged per segment, same as the dotenv scan below — or a legitimate-looking
+    # launcher invocation chained with `&&`/`;`/`|` ahead of a real leak exempted
+    # the whole command instead of just itself.
     for segment in SEGMENT.split(command):
+        if SANDBOX.search(segment):
+            continue
+
+        if READS.search(segment):
+            deny(f"Blocked: this prints Infisical secret values into the transcript. {RUN_HINT}")
+
+        if PLAIN.search(segment):
+            deny(f"Blocked: '--plain' makes Infisical print raw secret values. {RUN_HINT}")
+
         # Naming an env file is fine — rm, ls, cp, test all reveal nothing.
         if not PRINTERS.search(segment):
             continue

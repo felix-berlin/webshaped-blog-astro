@@ -42,6 +42,12 @@ expect deny Bash "$(bash_cmd 'npx infisical export --format=dotenv')" "infisical
 expect deny Bash "$(bash_cmd 'infisical secrets get WP_AUTH_PASS --plain')" "--plain"
 expect allow Bash "$(bash_cmd 'infisical run -- pnpm dev')" "infisical run (injects, never prints)"
 expect allow Bash "$(bash_cmd 'infisical secrets agent-proxy --set-env FOO=x')" "agent-proxy launcher"
+expect allow Bash "$(bash_cmd '  infisical secrets agent-proxy run -e dev -- claude')" "agent-proxy launcher, leading whitespace"
+
+# --- The launcher exemption must not swallow a chained leak -----------------
+expect deny Bash "$(bash_cmd 'cat .env; infisical secrets agent-proxy foo')" "leak, then a smuggled launcher"
+expect deny Bash "$(bash_cmd 'infisical secrets agent-proxy foo && infisical secrets get WP_AUTH_PASS --plain')" "launcher, then a smuggled leak"
+expect deny Bash "$(bash_cmd 'infisical secrets agent-proxy foo && cat .env')" "launcher, then a smuggled cat .env"
 
 # --- Dotenv files: printed contents -----------------------------------------
 expect deny Bash "$(bash_cmd 'cat .env')" "cat .env"
