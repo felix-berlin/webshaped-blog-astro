@@ -2,9 +2,8 @@
 #
 # Write the build-time env file consumed by Dockerfile's `--mount=type=secret`.
 #
-# Reads the values from the current environment — put there by `varlock run --`,
-# which resolves them from .env.schema — and writes them %q-quoted, because the
-# Dockerfile
+# Reads the values from the current environment (Infisical's secrets-action puts
+# them there via $GITHUB_ENV) and writes them %q-quoted, because the Dockerfile
 # `source`s the file: an unquoted WordPress Application Password (space-separated
 # groups) would otherwise truncate at the first space and try to execute the rest.
 #
@@ -18,9 +17,8 @@ set -euo pipefail
 OUT="${1:-.build.env}"
 FORMAT="${2:-quoted}"
 
-# Every var .env.schema marks `@required`. An empty one fails the build inside
-# Docker with a far less obvious message than this.
-# Keep in sync when adding a required var to .env.schema.
+# Every var the Astro env schema declares `optional: false`. An empty one fails
+# the build inside Docker with a far less obvious message than this.
 REQUIRED=(
   WP_API
   WP_REST_API
@@ -57,13 +55,7 @@ case "$FORMAT" in
 esac
 
 : >"$OUT"
-chmod 600 "$OUT"
 for var in "${REQUIRED[@]}" "${OPTIONAL[@]}"; do
-  # Skip empties: the Dockerfile `source`s this file, so writing SENTRY_DSN=''
-  # *exports* it as an empty string, which is not the same as unset. An optional
-  # item then still runs its validator — and `@type=url` fails on "" — which is
-  # exactly the build failure this script exists to pre-empt.
-  [[ -n "${!var:-}" ]] || continue
   # shellcheck disable=SC2059 # VALUE_FMT is a controlled format specifier
-  printf "%s=${VALUE_FMT}\n" "$var" "${!var}" >>"$OUT"
+  printf "%s=${VALUE_FMT}\n" "$var" "${!var:-}" >>"$OUT"
 done

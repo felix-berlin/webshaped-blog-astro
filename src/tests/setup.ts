@@ -15,8 +15,9 @@ import { afterAll, afterEach, beforeAll, vi } from "vitest";
 import { server } from "./mocks/node.ts";
 
 // Fixed endpoint for the MSW handlers. Deliberately not read from the real
-// config: tests must not depend on which environment varlock resolved, and the
-// old vi.stubEnv ran after the import, so it never took effect anyway.
+// config: tests must not depend on which environment Infisical resolved, and a
+// vi.stubEnv here would run after astro:env/client is already imported, so it
+// never takes effect anyway.
 const WP_API = "https://cms.webshaped.test/graphql";
 
 config.global.components = {

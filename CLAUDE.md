@@ -5,14 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev                  # Start dev server (runs gql:generate first via predev hook)
+pnpm dev                  # Start dev server (requires infisical login; runs gql:generate first via predev hook)
 pnpm agent                # Launch Claude Code sandboxed behind the Infisical agent proxy (see Agent Proxy)
-pnpm build                # Production build — needs `infisical run --env=dev --` in front when run standalone; Docker/CI supply values another way
-pnpm build:strict         # Type check (secret-free, APP_ENV=test) + build — CI standard
-pnpm typechecking         # Type-check without building — secret-free, runs under APP_ENV=test
-
-pnpm env:load             # Show the resolved config, secrets redacted — start here when a var misbehaves
-pnpm env:scan             # Scan the repo for secret values committed in plaintext
+pnpm build                # Production build (no secrets injection — see Secrets section)
+pnpm build:local          # Production build with secrets injected via infisical run
+pnpm build:strict         # Build + full type check (astro check + tsc + vue-tsc) — CI standard
+pnpm typechecking         # Type-check without building
 
 pnpm lint                 # oxlint (JS/TS) + stylelint (SCSS)
 pnpm format               # oxfmt formatter
@@ -26,77 +24,47 @@ pnpm gql:generate         # Regenerate GraphQL types from live WordPress schema
 
 **Always use `pnpm`** — a `preinstall` hook blocks npm/yarn.
 
-`dev`, `gql:generate`, `gql:generate:watch`, `preview`, `env:load` and `env:scan` need one `infisical login` on this machine — they already run through `infisical run --env=dev --`, so no prefix, no separate setup.
-
 To run a single unit test file: `pnpm test:unit src/tests/unit/path/to/file.test.ts`
 
 ## Environment Setup
 
-**`.env.schema` is the single source of truth.** It declares every variable —
-type, required-ness, and whether the value may reach the browser — and holds no
-values. Read it instead of this table; a table in a doc goes stale, a schema that
-fails the build does not. There is no `.env.example` and no `envField` block in
-`astro.config.mjs` any more; both were replaced by it.
+Copy `.env.example` to both `.env` and `.env.runtime`. The `.env.runtime` file enables [Astro runtime environment variables](https://docs.astro.build/en/guides/integrations-guide/node/#runtime-environment-variables) for SSR.
 
-Config is managed by [varlock](https://varlock.dev) via the `@env-spec` DSL:
-
-- **Access in code**: `import { ENV } from "varlock/env"` — never `process.env`,
-  never `astro:env`. `ENV.FOO` is typed from the generated `env.d.ts`.
-- **Sensitivity is opt-out**: `@defaultSensitive=true`, so a new variable is
-  secret until someone writes `@sensitive=false` on it. Only non-sensitive items
-  reach the client bundle, so the dangerous direction requires a deliberate,
-  reviewable line.
-- **Booleans are real booleans** — `@type=boolean` coerces, so no `=== "true"`.
-- **Adding a variable**: add it to `.env.schema`, add the value in Infisical.
-  Nothing else; `env.d.ts` regenerates on the next varlock run.
-
-`env.d.ts` is generated and gitignored. `.env.test` is committed and deliberately
-fake — it lets the unit suite run with no credentials at all.
+| Variable                | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| `WP_API`                | WordPress GraphQL endpoint URL (required for `gql:generate`) |
+| `WP_REST_API`           | WordPress REST API URL                                       |
+| `WP_AUTH_USER`          | WP Application Password username (server-side secret)        |
+| `WP_AUTH_PASS`          | WP Application Password value (server-side secret)           |
+| `LAST_FM_SCROBBLER_API` | Music scrobbling API URL                                     |
+| `SITE_URL`              | Site base URL (used by sitemap)                              |
+| `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo                              |
+| `GITHUB_TOKEN`          | GitHub API access (server-side, required)                    |
 
 ## Secrets
 
-Values live in [Infisical](https://infisical.com) (self-hosted at `https://infisical.kasimir.dev`, project `web-shaped`). varlock fetches them via `@initInfisical()` in `.env.schema` and injects them into the child process — every script is wrapped in `varlock run --`, so there is no longer a "with secrets" and a "without secrets" variant of the build.
+Secrets are managed via [Infisical](https://infisical.com) (self-hosted at `https://infisical.kasimir.dev`, project `web-shaped`). Run `infisical login` once before local development.
 
-**Precedence: an existing environment variable always wins over the `infisical()` resolver.** That is what makes the same schema work everywhere — CI and Docker supply values through the environment and never reach Infisical, while a workstation resolves them live.
-
-### Two auth paths, one schema
-
-varlock prefers **Universal Auth** when `INFISICAL_CLIENT_ID`/`INFISICAL_CLIENT_SECRET` are set and falls back to **OIDC** via `identityId` when they are empty (verified 2026-07-31). That is what lets the same `.env.schema` serve both CI and a workstation without a code change.
-
-| Where          | Identity                       | Method                                                                 |
-| -------------- | ------------------------------ | ---------------------------------------------------------------------- |
-| GitHub Actions | `github-actions-web-shaped`    | OIDC — needs `permissions: id-token: write`                            |
-| Workstation    | your `infisical login` session | `infisical run --env=dev --` prefix, baked into the local-only scripts |
-
-**CI needs no credentials at all.** `docker-build.yml` and `docker-smoke-test.yml` therefore have no `Infisical/secrets-action` step; they run `pnpm exec varlock run -- scripts/write-build-env.sh`, and varlock authenticates itself. `APP_ENV` (set from the branch/tag in the workflow) picks the Infisical environment. `unit-test.yml` deliberately keeps the action — it only needs `CODECOV_TOKEN`, and the tests themselves run off `.env.test` with no secrets.
-
-**Workstation setup is one command: `infisical login`.** `dev`, `gql:generate`, `gql:generate:watch`, `preview`, `env:load` and `env:scan` already run through `infisical run --env=dev --`, so there is no prefix to type. `build` and `typechecking` stay bare — `build` because Docker/CI supply values through the environment directly, `typechecking` because it runs under `APP_ENV=test` and needs no real secret at all.
-
-A local **machine identity with Universal Auth was tried and dropped** (see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md) for the history). Two independent problems, not one: its credential in `.env.local` was readable from inside the `pnpm agent` sandbox — defeating the placeholder mechanism the proxy exists for — and separately, decrypting it re-triggered a Windows Hello prompt on every interactive command. Plain `infisical login` has neither failure mode: the sandbox denies `~/.infisical` and the keyring outright, and there is nothing to decrypt.
-
-`APP_ENV` selects both the Infisical environment and which `.env.[env]` file loads: `dev` (default), `prod`, or `test`. `test` resolves entirely from the committed `.env.test`, so unit tests never touch Infisical.
-
-`pnpm env:scan` only means something when it runs against **real** values — it works by searching the repo for the resolved secrets. Run it under `APP_ENV=test` and it just finds the fakes in `.env.test` and reports 5 hits; that is the scanner working, not a leak.
+- `pnpm dev`, `pnpm gql:generate`, `pnpm gql:generate:watch` — inject secrets automatically via `infisical run --`.
+- `pnpm build:local` — same, for testing a production build locally with real secrets.
+- `pnpm build` (plain) — does **not** inject secrets; this is what runs inside the Docker build (see below).
 
 ### Guard against plaintext secret reads
 
-`.claude/hooks/no-plaintext-secrets.py` runs as a `PreToolUse` hook on Bash, Read, Grep and Glob, and **denies** three ways of putting credentials verbatim into the agent transcript:
+`.claude/hooks/no-plaintext-secrets.py` runs as a `PreToolUse` hook on Bash, Read, Grep and Glob, and **denies** two ways of putting credentials verbatim into the agent transcript:
 
 - **Infisical reads** — `infisical secrets`, `infisical export`, `--plain`. `infisical run -- <cmd>` and `infisical secrets agent-proxy …` stay allowed, so nothing in the workflow above is affected.
-- **varlock reads** — `varlock reveal`, `varlock printenv`, `varlock run -- printenv|env`, and any mention of the `__VARLOCK_ENV` blob. Normal use (`varlock run -- astro dev`, `pnpm env:load`, `varlock encrypt`) is untouched.
-- **Dotenv files** — reading `.env`, `.env.runtime`, `.build.env` and friends. Only content-printing commands are blocked (`cat`, `head`, `grep`, `source`, …); `rm -f .env`, `ls -la .env` and `printf … > .env` are routine and stay allowed. `.env.schema` and `.env.test` hold no real values and remain readable — the schema is where variable names belong.
+- **Dotenv files** — reading `.env`, `.env.runtime`, `.build.env` and friends. Only content-printing commands are blocked (`cat`, `head`, `grep`, `source`, …); `rm -f .env`, `ls -la .env` and `printf … > .env` are routine and stay allowed. `.env.example` and friends hold no real values and remain readable.
 
-Judged per shell segment, so `head .env.schema && rm -f .env` is not mistaken for a leak.
+Judged per shell segment, so `head .env.example && rm -f .env` is not mistaken for a leak.
 
-**This is a speed bump, not a boundary.** `varlock run -- node -e "console.log(process.env.WP_AUTH_PASS)"` still works and cannot be blocked without breaking the wrapper every script depends on. A recursive `grep` reaches `.env` without naming it. Real isolation needs the agent proxy — see [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation).
-
-The varlock rules were added on 2026-08-02, a day after the migration: moving config resolution from the Infisical CLI to varlock moved the reading side with it, and the guard kept watching the old tool. **When the tooling changes, re-check what the guard still covers.**
+**This is a speed bump, not a boundary.** A recursive `grep` reaches `.env` without naming it. Real isolation needs the agent proxy — see the Agent Proxy section below.
 
 Written after exactly that leak on 2026-07-31 (twice — Infisical values, then a failed redaction of a dotenv dump); a note in this file did not prevent it, a hook does. Checks: `.claude/hooks/no-plaintext-secrets.test.sh`.
 
 ### CI (GitHub Actions)
 
-`unit-test.yml` and `docker-build.yml` fetch secrets directly from Infisical via GitHub OIDC (no GitHub Secrets needed for app-level vars — `Infisical/secrets-action`). Environment selection: `main`/tag pushes → `prod`, everything else → `dev`. The branch half matches `.infisical.json`'s `gitBranchToEnvironmentMapping`; the tag rule exists only in the workflows.
+`unit-test.yml` and `docker-build.yml` fetch secrets directly from Infisical via GitHub OIDC (no GitHub Secrets needed for app-level vars — `Infisical/secrets-action`). Environment selection: `main`/tag pushes → `prod`, everything else → `dev` (matches `.infisical.json`'s `gitBranchToEnvironmentMapping`).
 
 `docker-build.yml` fetches secrets into the runner's env, then writes them into `.build.env`, which is handed to `docker buildx build` as a BuildKit secret file (`secret-files: build_env=.build.env`) — Docker itself never talks to Infisical directly, since BuildKit has no equivalent of GitHub's OIDC token exchange.
 
@@ -139,7 +107,7 @@ Proxied services configured in `dev` at path `/` (verified working):
 | `wordpress` | `cms.webshaped.de/graphql` | Header rewrite, Basic Auth `WP_AUTH_USER`/`_PASS` |
 | `sentry`    | `sentry.io`                | Header rewrite, Bearer `SENTRY_AUTH_TOKEN`        |
 
-The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `.env.schema` marks them `@required` — the real credential comes from the proxy, varlock just needs the schema satisfied.
+The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `astro.config.mjs` declares them `optional: false` — the real credential comes from the proxy, Astro just needs the schema satisfied.
 
 **Verified end to end on 2026-08-02** with CLI 0.43.116 (the sandboxed `run` mode needs ≥ 0.43.115). Inside the sandbox, `GITHUB_TOKEN` is a 40-character placeholder; a request carrying it to `api.github.com` came back `200`, and a `POST` to the WPGraphQL endpoint returned real data rather than the maintenance page. The real values never entered the agent's environment.
 
@@ -151,7 +119,7 @@ Known limits on WSL2:
 
 - **Network egress is actually fenced, not merely advisory** (corrects an earlier, untested claim in this file). Verified 2026-08-03: inside the sandbox, unsetting `HTTP_PROXY`/`HTTPS_PROXY` and connecting directly — both via hostname and via a bare IP literal with no DNS involved — failed both times (`curl`: `Couldn't resolve host`, then `Failed to connect to host`). This matches Infisical's own documented design: DNS is deliberately unavailable inside the sandbox, and direct connections fail even to a raw IP. A tool that ignores the proxy variables fails loudly instead of quietly going direct.
 - **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
-- **Do not put an Infisical credential in `.env.local`.** The sandbox blocks `~/.infisical` and the keyring, so a user login is unreachable inside it — but the project directory is readable by design. A machine-identity credential sitting in `.env.local` is therefore fully available in there. This is exactly why the workstation setup no longer uses one: measured 2026-08-02, with `INFISICAL_CLIENT_ID`/`_SECRET` in `.env.local`, the sandbox could read the file and varlock resolved all 19 items with real values, bypassing the placeholders entirely. `infisical login` has no equivalent hole — nothing sits in the project directory to read. See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md#agent-isolation) for the full history.
+- **No Infisical token inside the sandbox** (deliberate) — it blocks `~/.infisical` and the keyring, so `pnpm dev`, `pnpm gql:generate`, and `pnpm build:local` cannot run there; they all shell out to `infisical run`.
 
 ### Warning when a session isn't sandboxed
 

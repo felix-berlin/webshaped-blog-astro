@@ -30,30 +30,37 @@ jobs:
       - name: Checkout ✅
         uses: actions/checkout@v7
 
-      # varlock resolves the secrets itself via OIDC (see .env.schema), so there is
-      # no separate fetch step and no credentials in this workflow.
-      - name: Setup pnpm 🛠️
-        uses: pnpm/action-setup@v6
-
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v6
+      - name: Fetch secrets from Infisical 🔐
+        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
         with:
-          node-version: "lts/*"
-          cache: "pnpm"
-
-      - name: Install dependencies 🛠️
-        run: pnpm install --frozen-lockfile
+          method: "oidc"
+          identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
+          project-slug: "web-shaped"
+          env-slug: ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) && 'prod' || 'dev' }}
+          domain: "https://infisical.kasimir.dev"
 
       - name: Setup environment 🔧
         env:
-          APP_ENV: ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) && 'prod' || 'dev' }}
+          WP_API: ${{ env.WP_API }}
+          WP_REST_API: ${{ env.WP_REST_API }}
+          WP_AUTH_USER: ${{ env.WP_AUTH_USER }}
+          WP_AUTH_PASS: ${{ env.WP_AUTH_PASS }}
+          LAST_FM_SCROBBLER_API: ${{ env.LAST_FM_SCROBBLER_API }}
+          ENABLE_ANALYTICS: ${{ env.ENABLE_ANALYTICS }}
+          SENTRY_DSN: ${{ env.SENTRY_DSN }}
+          SENTRY_PROJECT_ID: ${{ env.SENTRY_PROJECT_ID }}
+          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+          SENTRY_ENVIRONMENT: ${{ env.SENTRY_ENVIRONMENT }}
+          SITE_URL: ${{ env.SITE_URL }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}
         run: |
           set -e
 
           # .build.env is sourced by the Dockerfile (needs %q); .env is read by
           # Compose's env_file, which parses values literally (needs raw).
-          pnpm exec varlock run -- ./scripts/write-build-env.sh .build.env quoted
-          pnpm exec varlock run -- ./scripts/write-build-env.sh .env raw
+          ./scripts/write-build-env.sh .build.env quoted
+          ./scripts/write-build-env.sh .env raw
 
           echo "BUILD_ENV_FILE=.build.env" >> $GITHUB_ENV
           echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV

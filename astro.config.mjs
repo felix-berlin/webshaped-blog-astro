@@ -5,12 +5,11 @@ import codecovAstroPlugin from "@codecov/astro-plugin";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 import spotlightjs from "@spotlightjs/astro";
-import varlockAstroIntegration from "@varlock/astro-integration";
 import matomo from "astro-matomo";
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import { visualizer } from "rollup-plugin-visualizer";
 import Icons from "unplugin-icons/vite";
-import { ENV } from "varlock/env";
+import { loadEnv } from "vite";
 import graphqlLoader from "vite-plugin-graphql-loader";
 
 import { version } from "./package.json";
@@ -21,8 +20,6 @@ const sassAliases = {
   "@styles/": new URL("./src/styles/", import.meta.url),
 };
 
-// Values come from varlock, validated against .env.schema before this runs —
-// booleans arrive as real booleans, so no string comparisons here.
 const {
   WP_API,
   SENTRY_DSN,
@@ -33,13 +30,13 @@ const {
   ENABLE_ANALYTICS,
   PWA_DEBUG,
   BUNDLE_ANALYZER_OPEN,
-} = ENV;
+} = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 // console.log("TEST", new URL(WP_API).host);
 
 const apiHost = new URL(WP_API).host;
 
 const visualizerPlugin = visualizer({
-  open: BUNDLE_ANALYZER_OPEN,
+  open: BUNDLE_ANALYZER_OPEN === "true",
   template: "treemap",
   gzipSize: true,
   brotliSize: true,
@@ -78,7 +75,6 @@ export default defineConfig({
     "/category/web-analytics": "/de/category/matomo/1",
   },
   integrations: [
-    varlockAstroIntegration(),
     pagefind(),
     vue({
       appEntrypoint: "/src/pages/_app",
@@ -148,7 +144,7 @@ export default defineConfig({
     //     globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
     //   },
     //   devOptions: {
-    //     enabled: PWA_DEBUG,
+    //     enabled: PWA_DEBUG === "true",
     //     navigateFallbackAllowlist: [/^\/$/],
     //   },
     //   experimental: {
@@ -187,6 +183,72 @@ export default defineConfig({
       Logger: 0,
     }),
   ],
+  env: {
+    schema: {
+      WP_API: envField.string({ context: "client", access: "public", optional: false, url: true }),
+      WP_REST_API: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+        url: true,
+      }),
+      // Required, not optional: WPGraphQL rejects unauthenticated requests, so an
+      // unset credential silently degrades every query to a 401 instead of failing.
+      WP_AUTH_USER: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+      WP_AUTH_PASS: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+      LAST_FM_SCROBBLER_API: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+        url: true,
+      }),
+      ENABLE_ANALYTICS: envField.boolean({ context: "client", access: "public", default: false }),
+      SENTRY_DSN: envField.string({
+        context: "server",
+        access: "public",
+        optional: true,
+        url: true,
+      }),
+      SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
+      SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+      SENTRY_ENVIRONMENT: envField.string({ context: "server", access: "public", optional: true }),
+      GITHUB_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
+      }),
+      SITE_URL: envField.string({
+        context: "client",
+        access: "public",
+        optional: false,
+        url: true,
+      }),
+      CODECOV_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
+      PWA_DEBUG: envField.boolean({ context: "server", access: "public", default: false }),
+      BUNDLE_ANALYZER_OPEN: envField.boolean({
+        context: "server",
+        access: "public",
+        default: false,
+      }),
+      SHOW_TEST_DATA: envField.boolean({
+        context: "client",
+        access: "public",
+        default: false,
+      }),
+    },
+  },
   vite: {
     plugins: [
       Icons({
@@ -198,7 +260,7 @@ export default defineConfig({
           }
         },
       }), // chooses the compiler automatically
-      BUNDLE_ANALYZER_OPEN ? visualizerPlugin : null,
+      BUNDLE_ANALYZER_OPEN === "true" ? visualizerPlugin : null,
       graphqlLoader({ sourceMapOptions: { hires: true } }),
     ],
 

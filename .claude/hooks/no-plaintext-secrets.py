@@ -36,28 +36,10 @@ SANDBOX = re.compile(r"infisical\s+secrets\s+agent-proxy")
 READS = re.compile(r"infisical(?:\s+\S+)*?\s+(secrets|export)(\s|$)")
 PLAIN = re.compile(r"infisical(?:\s+\S+)*\s--plain(\s|$)")
 
-# varlock replaced the Infisical CLI as the way values are resolved, which moved
-# the reading side with it. `reveal` and `printenv` exist to print decrypted
-# values; `run -- printenv`/`env` dumps everything varlock just injected; and the
-# blob holds the whole resolved config in one variable.
-VARLOCK_READS = re.compile(r"varlock(?:\s+\S+)*?\s+(reveal|printenv)(\s|$)")
-VARLOCK_RUN_DUMP = re.compile(r"varlock(?:\s+\S+)*\s+run\b[^|;&]*?--\s+(printenv|env)(\s|$)")
-VARLOCK_BLOB = re.compile(r"__VARLOCK_ENV")
-
-VARLOCK_HINT = (
-    "Use 'pnpm env:load' for a redacted view, or 'varlock run -- <command>' to "
-    "consume the values without printing them. If you genuinely need to see one, "
-    "read it yourself outside the agent session."
-)
-
 # `.env`, `.env.runtime`, `.build.env` — but not `.environment` or `prod.envrc`.
 ENV_FILE = re.compile(r"^(\.env(\.[\w-]+)?|[\w.-]+\.env)$")
 # Files that ship in the repo and hold no real values — readable on purpose.
-# `.env.schema` is varlock's declaration file and is the whole point of the setup:
-# agents read the schema, humans hold the secrets. Blocking it defeats the tool.
-# `.env.test` is committed and deliberately fake, so the unit suite needs no
-# credentials — if that ever stops being true, drop `test` from this list.
-ENV_PLACEHOLDER = re.compile(r"\.(schema|test|example|sample|template|dist)$|^example\.env$")
+ENV_PLACEHOLDER = re.compile(r"\.(example|sample|template|dist)$|^example\.env$")
 
 # Commands that write file contents to stdout, plus `source`/`.`, which loads the
 # values into a shell where a later `echo` in the same command can print them.
@@ -88,9 +70,8 @@ RUN_HINT = (
 )
 ENV_HINT = (
     "Dotenv files hold the same plaintext credentials as Infisical. Read "
-    "'.env.schema' for the variable names and types, run 'pnpm env:load' for a "
-    "redacted view of the resolved values, or use 'varlock run -- <command>' to "
-    "consume them without printing them."
+    "'.env.example' for the variable names, or use 'infisical run -- <command>' "
+    "to consume them without printing them."
 )
 
 
@@ -124,15 +105,6 @@ def check_bash(command: str) -> None:
 
     if PLAIN.search(command):
         deny(f"Blocked: '--plain' makes Infisical print raw secret values. {RUN_HINT}")
-
-    if VARLOCK_READS.search(command):
-        deny(f"Blocked: this prints decrypted config values. {VARLOCK_HINT}")
-
-    if VARLOCK_RUN_DUMP.search(command):
-        deny(f"Blocked: this dumps every value varlock injected. {VARLOCK_HINT}")
-
-    if VARLOCK_BLOB.search(command):
-        deny(f"Blocked: the varlock env blob holds the whole resolved config. {VARLOCK_HINT}")
 
     leaked = set()
 

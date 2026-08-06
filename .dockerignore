@@ -12,6 +12,3 @@ src/tests
 .env
 .env.*
 .build.env
-# …but the build needs varlock's declaration file, which holds no values.
-# Values still come from the BuildKit secret sourced in the Dockerfile.
-!.env.schema

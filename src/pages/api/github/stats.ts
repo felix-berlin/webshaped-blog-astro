@@ -3,7 +3,7 @@ import type { OperationResult } from "@urql/core";
 import GhRepos from "@services/github/GhRepos.graphql";
 import GhSingleRepo from "@services/github/GhSingleRepo.graphql";
 import { cacheExchange, Client, fetchExchange } from "@urql/core";
-import { ENV } from "varlock/env";
+import { GITHUB_TOKEN } from "astro:env/server";
 
 // --- Types ---
 type RepoNode = {
@@ -64,7 +64,7 @@ const client = new Client({
   exchanges: [cacheExchange, fetchExchange],
   fetchOptions: {
     headers: {
-      Authorization: `Bearer ${ENV.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
     },
   },
   preferGetMethod: false,

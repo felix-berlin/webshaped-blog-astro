@@ -26,19 +26,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      # varlock resolves the secrets itself via OIDC (see .env.schema), so there is
-      # no separate fetch step and no credentials in this workflow.
-      - name: Setup pnpm 🛠️
-        uses: pnpm/action-setup@v6
-
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v6
+      - name: Fetch secrets from Infisical 🔐
+        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
         with:
-          node-version: "lts/*"
-          cache: "pnpm"
-
-      - name: Install dependencies 🛠️
-        run: pnpm install --frozen-lockfile
+          method: "oidc"
+          identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
+          project-slug: "web-shaped"
+          env-slug: ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) && 'prod' || 'dev' }}
+          domain: "https://infisical.kasimir.dev"
 
       - name: Docker meta (app)
         id: meta_app
@@ -72,16 +67,26 @@ jobs:
 
       - name: Prepare build env secret
         id: build_env
+        # Values come from Infisical via $GITHUB_ENV; restate them so the script
+        # sees them and so the required-var list stays visible here.
         env:
-          # Selects the Infisical environment varlock authenticates against.
-          APP_ENV: ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')) && 'prod' || 'dev' }}
+          WP_API: ${{ env.WP_API }}
+          WP_REST_API: ${{ env.WP_REST_API }}
+          WP_AUTH_USER: ${{ env.WP_AUTH_USER }}
+          WP_AUTH_PASS: ${{ env.WP_AUTH_PASS }}
+          LAST_FM_SCROBBLER_API: ${{ env.LAST_FM_SCROBBLER_API }}
+          ENABLE_ANALYTICS: ${{ env.ENABLE_ANALYTICS }}
+          SENTRY_DSN: ${{ env.SENTRY_DSN }}
+          SENTRY_PROJECT_ID: ${{ env.SENTRY_PROJECT_ID }}
+          SENTRY_AUTH_TOKEN: ${{ env.SENTRY_AUTH_TOKEN }}
+          SENTRY_ENVIRONMENT: ${{ env.SENTRY_ENVIRONMENT }}
+          SITE_URL: ${{ env.SITE_URL }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}
         run: |
           set -e
 
-          # varlock authenticates via OIDC, resolves and validates every value in
-          # .env.schema, and injects them for the script. A missing or malformed
-          # value fails here rather than inside the Docker build.
-          pnpm exec varlock run -- ./scripts/write-build-env.sh .build.env
+          ./scripts/write-build-env.sh .build.env
 
           # BuildKit's cache key for a --mount=type=secret RUN step ignores the
           # secret's content by design (so secret rotation alone doesn't bust

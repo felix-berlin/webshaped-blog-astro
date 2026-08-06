@@ -43,20 +43,6 @@ expect deny Bash "$(bash_cmd 'infisical secrets get WP_AUTH_PASS --plain')" "--p
 expect allow Bash "$(bash_cmd 'infisical run -- pnpm dev')" "infisical run (injects, never prints)"
 expect allow Bash "$(bash_cmd 'infisical secrets agent-proxy --set-env FOO=x')" "agent-proxy launcher"
 
-# --- varlock: the reading side moved here with the migration ----------------
-expect deny Bash "$(bash_cmd 'varlock reveal WP_AUTH_PASS')" "varlock reveal"
-expect deny Bash "$(bash_cmd 'pnpm exec varlock printenv WP_AUTH_PASS')" "varlock printenv"
-expect deny Bash "$(bash_cmd 'varlock run -- printenv')" "run -- printenv dumps everything"
-expect deny Bash "$(bash_cmd 'varlock run -- env')" "run -- env dumps everything"
-expect deny Bash "$(bash_cmd 'varlock run --inject blob -- sh -c "echo \$__VARLOCK_ENV"')" "the env blob"
-
-# --- varlock: normal use must keep working ----------------------------------
-expect allow Bash "$(bash_cmd 'varlock run -- astro dev')" "run -- astro dev"
-expect allow Bash "$(bash_cmd 'APP_ENV=test varlock run -- vitest')" "run -- vitest"
-expect allow Bash "$(bash_cmd 'pnpm exec varlock run -- ./scripts/write-build-env.sh .build.env')" "run -- build-env script"
-expect allow Bash "$(bash_cmd 'pnpm env:load')" "env:load is redacted"
-expect allow Bash "$(bash_cmd 'varlock encrypt --file .env.local')" "encrypting is not reading"
-
 # --- Dotenv files: printed contents -----------------------------------------
 expect deny Bash "$(bash_cmd 'cat .env')" "cat .env"
 expect deny Bash "$(bash_cmd 'head -5 .env.runtime')" "head .env.runtime"
@@ -80,10 +66,7 @@ expect deny Bash "$(bash_cmd 'cat .env | grep WP_AUTH')" "piped into another com
 # --- Placeholders stay readable ---------------------------------------------
 expect allow Bash "$(bash_cmd 'cat .env.example')" "cat .env.example"
 expect allow Read "$(read_path '.env.example')" "Read .env.example"
-expect allow Bash "$(bash_cmd 'cat .env.schema')" "cat .env.schema (varlock declaration)"
-expect allow Read "$(read_path '.env.schema')" "Read .env.schema"
 expect deny Read "$(read_path '.env.local')" "Read .env.local (real values)"
-expect allow Read "$(read_path '.env.test')" "Read .env.test (committed fakes)"
 expect deny Read "$(read_path '.env.runtime')" "Read .env.runtime"
 expect allow Read "$(read_path 'src/services/wpGraphqlClient.ts')" "Read ordinary source"
 expect allow Bash "$(bash_cmd 'cat docs/environment.md')" "unrelated file"
