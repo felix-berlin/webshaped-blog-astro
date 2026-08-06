@@ -55,6 +55,7 @@ case "$FORMAT" in
 esac
 
 : >"$OUT"
+chmod 600 "$OUT"
 for var in "${REQUIRED[@]}" "${OPTIONAL[@]}"; do
   # shellcheck disable=SC2059 # VALUE_FMT is a controlled format specifier
   printf "%s=${VALUE_FMT}\n" "$var" "${!var:-}" >>"$OUT"
