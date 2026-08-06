@@ -40,6 +40,7 @@
     "start": "astro dev",
     "build": "astro build",
     "build:local": "infisical run -- pnpm run build",
+    "docker:local": "infisical run --env=dev -- bash -c 'scripts/write-build-env.sh .build.env quoted && docker compose -f compose.yaml -f compose.local.yaml up --build; rm -f .build.env'",
     "build:server": "export $(cat .env) && astro build",
     "build:strict": "astro check && tsc --noEmit && vue-tsc --noEmit && astro build",
     "preview": "export $(cat .env) && astro preview",
