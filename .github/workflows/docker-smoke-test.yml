@@ -13,6 +13,8 @@ on:
       - "scripts/docker-smoke-test.sh"
       - "scripts/write-build-env.sh"
       - ".github/workflows/docker-smoke-test.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
   workflow_dispatch:
 
 # id-token: write is required for Infisical's OIDC auth.

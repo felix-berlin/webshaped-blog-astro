@@ -77,3 +77,13 @@ Matches the existing convention already used in `Dockerfile`. A lockfile that's 
 - A second, unmodified push that re-triggers `docker-smoke-test.yml` shows cache hits in the Docker build output (layers reported as cached rather than rebuilt).
 - `docker-build.yml`'s `build-app` and `build-proxy` jobs start concurrently (visible in the Actions run graph) rather than one waiting on the other.
 - `unit-test.yml` and `release.yml` still pass with `--frozen-lockfile`, confirming the current lockfile is in sync with `package.json`.
+
+## Addendum: Tag Builds Can Never Reuse Their Own Cache (2026-08-07)
+
+Observed in the `v1.12.0-beta.2` and `v1.12.0-beta.3` release builds: `docker-build.yml`'s `build-app` job imports a GHA cache manifest but every `RUN pnpm install` layer still re-executes in full (confirmed via job logs — no `CACHED` skip, full download activity both times).
+
+**Root cause:** per GitHub's own cache documentation, "tags only have access to caches created in default branch." `docker-build.yml` triggers exclusively on `push: tags: v*.*.*` and never runs on `main` (this repo's default branch), so no default-branch-scoped cache for `scope=app`/`scope=proxy` has ever existed. Each version tag is a distinct, one-time git ref; a cache written while building `v1.12.0-beta.1` is scoped to that ref and is invisible to the `v1.12.0-beta.2` build on a different ref. This is a structural limitation of GitHub Actions' cache scoping, not a configuration mistake in the `cache-from`/`cache-to` syntax — the original assessment that `docker-build.yml`'s caching was "already correctly set up" was accurate about the syntax but missed that the trigger strategy makes it unable to ever pay off across releases.
+
+**Fix:** `docker-smoke-test.yml` already triggers on `push` to `main` and, after this design's changes, uses the same `x-bake` cache scopes (`scope=app`/`scope=proxy`) as `docker-build.yml`. Runs on `main` therefore already seed a default-branch-scoped cache that tag-triggered release builds can fall back to. Its `paths:` filter was missing `package.json` and `pnpm-lock.yaml`, so a dependency-only change landing on `main` would not refresh that cache. Added both to the trigger paths.
+
+This relies on `docker-smoke-test.yml` actually running on `main` reasonably often (i.e., changes land on `main` before a beta tag is cut) — it does not guarantee a warm cache for every release, only that one exists whenever `main` has been touched since the last relevant dependency or Docker-config change.
