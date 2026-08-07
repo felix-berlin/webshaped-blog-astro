@@ -1,6 +1,6 @@
-import type { TranslationRoutes } from "@/types/i18n";
-
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
+
+import type { TranslationRoutes } from "@/types/i18n";
 
 import { defaultLang, localeStrings } from "./ui";
 

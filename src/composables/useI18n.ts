@@ -6,7 +6,7 @@ import { computed } from "vue";
 export function useI18n() {
   const lang = useStore(currentLanguage);
 
-  const t = computed(() => useTranslations(lang.value));
+  const t = computed(() => useTranslations(lang.value as "de" | "en"));
 
   return { t };
 }
