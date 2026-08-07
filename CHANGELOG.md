@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.5](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.4...v1.12.0-beta.5) (2026-08-07)
+
+
+### Bug Fixes
+
+* **ci:** stop double-running the Docker smoke test on the beta branch ([926fed0](https://github.com/felix-berlin/webshaped-blog-astro/commit/926fed01ee09ab13b96b93b9dcc51925995cffa9))
+
 # [1.12.0-beta.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.3...v1.12.0-beta.4) (2026-08-07)
 
 
