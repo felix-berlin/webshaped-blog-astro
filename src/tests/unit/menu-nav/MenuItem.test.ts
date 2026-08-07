@@ -225,9 +225,7 @@ describe("MenuItem", () => {
             label: "Product 1",
             path: "/product-1",
             childItems: {
-              nodes: [
-                { label: "Sub 1", path: "/sub-1", childItems: null },
-              ],
+              nodes: [{ label: "Sub 1", path: "/sub-1", childItems: null }],
             },
           },
         ],

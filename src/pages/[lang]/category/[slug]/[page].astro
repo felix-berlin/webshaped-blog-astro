@@ -12,9 +12,8 @@ import type {
 import BlogPostPreview from '@components/BlogPostPreview.vue';
 import Pagination from '@components/Pagination.vue';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
-import { cacheExchange, Client, fetchExchange } from '@urql/core';
 import { removeLocaleCode } from '@utils/helpers';
-import { WP_API } from 'astro:env/client';
+import { wpQuery } from '@services/wpGraphqlClient';
 
 import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
 
@@ -25,18 +24,8 @@ interface Paginate {
 }
 
 export const getStaticPaths = (async ({ paginate }: Paginate) => {
-  const client = new Client({
-    exchanges: [cacheExchange, fetchExchange],
-    fetchOptions: {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-    url: WP_API,
-  });
-
-  const postsResponse = await client.query(GetAllPostPreviewsByCategoryDocument, {}).toPromise();
-  const postPreviews = postsResponse?.data?.categories;
+  const postsResponse = await wpQuery(GetAllPostPreviewsByCategoryDocument, {});
+  const postPreviews = postsResponse.categories;
   const pageCount = 6;
 
   /**

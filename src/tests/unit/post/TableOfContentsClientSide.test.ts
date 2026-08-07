@@ -95,7 +95,7 @@ describe("TableOfContentsClientSide.vue", () => {
     const tocLink = toc.querySelector('a[href="#section-1"]') as HTMLAnchorElement;
 
     const mockEntry = { isIntersecting: true, target: h2 };
-    const observerInstance = (wrapper.vm.observer as any);
+    const observerInstance = wrapper.vm.observer as any;
     // The IntersectionObserverMock stores the callback as .callback
     if (observerInstance && observerInstance.callback) {
       observerInstance.callback([mockEntry]);
@@ -118,7 +118,7 @@ describe("TableOfContentsClientSide.vue", () => {
       attachTo: document.body,
     });
     await wrapper.vm.$nextTick();
-    const observerInstance = (wrapper.vm.observer as any);
+    const observerInstance = wrapper.vm.observer as any;
     // observe() should have been called for the heading elements
     expect(observerInstance?.observe).toHaveBeenCalled();
     wrapper.unmount();
@@ -140,7 +140,7 @@ describe("TableOfContentsClientSide.vue", () => {
     const tocLink = toc.querySelector('a[href="#section-1"]') as HTMLAnchorElement;
 
     const mockEntry = { isIntersecting: false, target: h2 };
-    const observerInstance = (wrapper.vm.observer as any);
+    const observerInstance = wrapper.vm.observer as any;
     if (observerInstance && observerInstance.callback) {
       observerInstance.callback([mockEntry]);
     }

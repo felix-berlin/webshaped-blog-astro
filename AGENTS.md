@@ -26,14 +26,15 @@ pnpm gql:generate     # Regenerate GraphQL types from schema
 
 Copy `.env.example` to `.env` and `.env.runtime`. Required variables:
 
-| Variable                | Description                             |
-| ----------------------- | --------------------------------------- |
-| `WP_API`                | WordPress GraphQL endpoint URL          |
-| `WP_REST_API`           | WordPress REST API URL                  |
-| `WP_AUTH_REFRESH_TOKEN` | Server-side GraphQL auth token (secret) |
-| `LAST_FM_SCROBBLER_API` | Music scrobbling API URL                |
-| `SITE_URL`              | Site base URL (used by sitemap)         |
-| `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo         |
+| Variable                | Description                            |
+| ----------------------- | -------------------------------------- |
+| `WP_API`                | WordPress GraphQL endpoint URL         |
+| `WP_REST_API`           | WordPress REST API URL                 |
+| `WP_AUTH_USER`          | WP Application Password username       |
+| `WP_AUTH_PASS`          | WP Application Password value (secret) |
+| `LAST_FM_SCROBBLER_API` | Music scrobbling API URL               |
+| `SITE_URL`              | Site base URL (used by sitemap)        |
+| `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo        |
 
 `.env.runtime` enables [Astro runtime environment variables](https://docs.astro.build/en/guides/integrations-guide/node/#runtime-environment-variables) for SSR.
 

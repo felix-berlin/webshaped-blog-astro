@@ -113,10 +113,7 @@ describe("updateCategoryPaths", () => {
         {
           label: "Menu",
           childItems: {
-            nodes: [
-              { path: null },
-              { path: "/category/javascript" },
-            ],
+            nodes: [{ path: null }, { path: "/category/javascript" }],
           },
         },
       ],

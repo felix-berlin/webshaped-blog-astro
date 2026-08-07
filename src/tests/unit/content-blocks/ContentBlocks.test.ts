@@ -54,9 +54,7 @@ describe("ContentBlocks.vue", () => {
   });
 
   it("renders ButtonBlock for core/buttons", () => {
-    const blocks = [
-      { name: "core/buttons", attributes: {}, innerBlocks: [] },
-    ];
+    const blocks = [{ name: "core/buttons", attributes: {}, innerBlocks: [] }];
     const wrapper = mount(ContentBlocks, { props: { blocks: blocks as any } });
     expect(wrapper.findComponent({ name: "ButtonBlock" }).exists()).toBe(true);
   });

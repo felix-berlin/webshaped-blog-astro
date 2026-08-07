@@ -1,8 +1,9 @@
-import { useI18n } from "@/composables/useI18n";
 import { currentLanguage } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe, beforeEach } from "vitest";
 import { defineComponent } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
 
 describe("useI18n", () => {
   beforeEach(() => {

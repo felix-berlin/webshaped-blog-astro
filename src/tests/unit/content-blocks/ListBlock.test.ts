@@ -77,9 +77,7 @@ describe("ListBlock.vue", () => {
             {
               name: "core/list",
               attributes: { ordered: false },
-              innerBlocks: [
-                { attributes: { content: "Nested item" }, innerBlocks: [] },
-              ],
+              innerBlocks: [{ attributes: { content: "Nested item" }, innerBlocks: [] }],
             },
           ],
         },

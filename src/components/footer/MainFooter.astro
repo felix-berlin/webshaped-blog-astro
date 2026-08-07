@@ -2,11 +2,10 @@
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import Menu from "@components/Menu.vue";
 import SocialList from "@components/SocialList.vue";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getSocialIconData } from "@utils/helpers";
 import "@styles/objects/_footer.scss";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
-import { WP_API } from "astro:env/client";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 // import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
@@ -19,29 +18,20 @@ import {
 
 import { version } from "../../../package.json";
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
+const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
+
+const categories = categoriesResponse?.categories;
+
+const footerMenuItemsResponse = await wpQueryChrome(GetMenuItemsDocument, {
+  language: "DE",
+  location: "SECONDARY_MENU",
 });
 
-const categoriesResponse = await client.query(GetAllCategoriesDocument, {}).toPromise();
+const footerMenuItems = footerMenuItemsResponse?.menuItems;
 
-const categories = categoriesResponse?.data?.categories;
+const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
 
-const footerMenuItemsResponse = await client
-  .query(GetMenuItemsDocument, { language: "DE", location: "SECONDARY_MENU" })
-  .toPromise();
-
-const footerMenuItems = footerMenuItemsResponse?.data?.menuItems;
-
-const authorResponse = await client.query(GetAuthorDocument, {}).toPromise();
-
-const author = authorResponse.data?.user;
+const author = authorResponse?.user;
 
 interface MainFooterProps {
   lang: "de" | "en";

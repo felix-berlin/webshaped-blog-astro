@@ -1,27 +1,19 @@
 import rss from "@astrojs/rss";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
-import { WP_API } from "astro:env/client";
+import { wpQuery } from "@services/wpGraphqlClient";
 
 import { GetAllPostsDocument } from "@/gql/graphql.ts";
 
 export const GET = async (context) => {
   const lang = context.params.lang;
 
-  const client = new Client({
-    exchanges: [cacheExchange, fetchExchange],
-    fetchOptions: {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-    url: WP_API,
-  });
+  const postsResponse = await wpQuery(GetAllPostsDocument, { size: 90 });
 
-  const postsResponse = await client.query(GetAllPostsDocument, { size: 90 }).toPromise();
-
-  // Filter posts by language
-  const filteredPosts = postsResponse.data.posts.nodes.filter(
-    (post) => post.language.slug === lang,
+  // Filter posts by language. wpQuery guarantees `data`, not the shape below:
+  // WPGraphQL returns `posts: null` when a plugin deactivation unregisters the
+  // post type, and drafts routinely lack a language relation. An empty feed makes
+  // readers retry; a 500 makes them back off for hours.
+  const filteredPosts = (postsResponse.posts?.nodes ?? []).filter(
+    (post) => post?.language?.slug === lang,
   );
 
   // Map the posts to the RSS items format

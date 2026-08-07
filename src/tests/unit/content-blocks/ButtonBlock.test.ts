@@ -11,7 +11,6 @@ const mockBlock = {
     title: "Button title",
     linkTarget: "_blank",
     rel: "noopener",
-    textAlign: "center",
     type: "button",
   },
 };

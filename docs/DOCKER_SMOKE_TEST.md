@@ -1,4 +1,3 @@
-
 # Docker Smoke Test (Proxy Stack)
 
 Automatisierter Smoke Test für das Docker-Setup mit Nginx-Proxy vor der Astro-App. Läuft bei jedem PR und prüft die wichtigsten Funktionen des produktionsnahen Stacks.
