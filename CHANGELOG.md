@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.3...v1.12.0-beta.4) (2026-08-07)
+
+
+### Bug Fixes
+
+* **ci:** let lockfile changes on main refresh the release build cache ([ba05ef3](https://github.com/felix-berlin/webshaped-blog-astro/commit/ba05ef3f63b4f9bf2095b217e1fa53286f2e8909))
+
 # [1.12.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.2...v1.12.0-beta.3) (2026-08-07)
 
 
