@@ -14,8 +14,10 @@ vi.mock("astro:env/server", () => ({
   WP_AUTH_USER: "wp-user",
 }));
 vi.mock("astro:env/client", () => ({ WP_API }));
+vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
 
 const { wpQuery, wpQueryChrome } = await import("@services/wpGraphqlClient");
+const { captureException } = await import("@sentry/astro");
 
 afterEach(() => {
   vi.restoreAllMocks();
@@ -132,6 +134,15 @@ describe("wpQueryChrome", () => {
 
     await expect(wpQueryChrome(GetAuthorDocument, {})).resolves.toBeNull();
     expect(consoleError).toHaveBeenCalledWith(expect.stringContaining("chrome query failed"));
+  });
+
+  it("reports the failure to Sentry instead of only logging it", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    server.use(http.all(WP_API, () => HttpResponse.json({ data: null })));
+
+    await wpQueryChrome(GetAuthorDocument, {});
+
+    expect(captureException).toHaveBeenCalledWith(expect.any(Error));
   });
 
   it("passes data through when the query succeeds", async () => {
