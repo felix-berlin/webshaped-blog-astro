@@ -19,14 +19,11 @@ Der Smoke Test prüft folgende Punkte:
 
 ### 1) Umgebung vorbereiten
 
-Der Smoke Test braucht Build- und Runtime-Variablen.
-
-Option A (empfohlen): bestehende lokale `.env` nutzen.
-
-Option B (schneller Smoke-Test mit Testwerten):
+Der Smoke Test braucht Build- und Runtime-Variablen. Erzeuge `.env` (und `.build.env`) über Infisical, siehe CLAUDE.md ("Secrets"):
 
 ```bash
-cp .env.pipeline .env
+infisical run --env=dev -- scripts/write-build-env.sh .build.env quoted
+infisical run --env=dev -- scripts/write-build-env.sh .env raw
 ```
 
 ### 2) Smoke Test starten
@@ -43,7 +40,7 @@ HOST_PORT=5432 ./scripts/docker-smoke-test.sh
 
 ```bash
 # Separates Build-Env-File erzwingen (BuildKit Secret für Dockerfile)
-BUILD_ENV_FILE=.env.pipeline HOST_PORT=8080 ./scripts/docker-smoke-test.sh
+BUILD_ENV_FILE=.build.env HOST_PORT=8080 ./scripts/docker-smoke-test.sh
 ```
 
 Bei älteren Docker-Setups kann es nötig sein, BuildKit explizit zu aktivieren:
@@ -69,8 +66,8 @@ Bei Fehlern schreibt das Skript automatisch eine Sammeldatei:
 ## Hinweise
 
 - Docker und curl müssen installiert sein
-- Für lokale Läufe muss `.env` vorhanden sein (oder aus `.env.pipeline` erzeugt werden)
-- `BUILD_ENV_FILE` steuert die Secret-Datei für den App-Build (Default: `.env`)
+- Für lokale Läufe muss `.env` vorhanden sein (per `infisical run` erzeugt, siehe oben)
+- `BUILD_ENV_FILE` steuert die Secret-Datei für den App-Build (Default: `.build.env`)
 
 ## Exit Codes
 

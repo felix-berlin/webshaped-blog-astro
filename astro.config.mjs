@@ -193,8 +193,10 @@ export default defineConfig({
         optional: false,
         url: true,
       }),
-      // Required, not optional: WPGraphQL rejects unauthenticated requests, so an
-      // unset credential silently degrades every query to a 401 instead of failing.
+      // Required, not optional: cms.webshaped.de runs behind a maintenance-mode
+      // plugin that serves an HTML holding page to unauthenticated requests (see
+      // src/services/wpGraphqlClient.ts), so an unset credential silently degrades
+      // every query instead of failing loudly.
       WP_AUTH_USER: envField.string({
         context: "server",
         access: "secret",

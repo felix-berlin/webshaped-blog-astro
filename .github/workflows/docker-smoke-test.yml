@@ -59,7 +59,8 @@ jobs:
           set -e
 
           # .build.env is sourced by the Dockerfile (needs %q); .env is read by
-          # Compose's env_file, which parses values literally (needs raw).
+          # Compose's own variable-substitution loader, which parses values
+          # literally (needs raw).
           ./scripts/write-build-env.sh .build.env quoted
           ./scripts/write-build-env.sh .env raw
 
