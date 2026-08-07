@@ -337,6 +337,38 @@ export function flatListToHierarchical<T extends Record<string, unknown>>(
   return tree;
 }
 
+// WP menu IDs are per language and have no queryable relation to the locale.
+const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
+
+/**
+ * Resolve the WP menu ID for a locale.
+ *
+ * An unknown lang (crawler on /fr/…) used to render an empty nav with HTTP 200 and
+ * no log line — indistinguishable from WordPress returning an empty menu.
+ */
+export const resolveMenuId = (lang: string): string | undefined => {
+  const menuId = MENU_ID_BY_LANG[lang];
+
+  if (!menuId) console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
+
+  return menuId;
+};
+
+type LanguageTagged = { language?: null | { slug?: null | string } };
+
+/**
+ * Filter a WPGraphQL posts response down to one language.
+ *
+ * `posts` can be `null` (post type unregistered) and individual posts can lack a
+ * `language` relation (drafts) — both must degrade to "not included" rather than throw,
+ * so a feed/listing renders empty instead of 500ing on a WordPress data gap.
+ */
+export const filterPostsByLanguage = <T extends LanguageTagged>(
+  postsResponse: null | undefined | { posts?: null | { nodes?: (null | T)[] | null } },
+  lang: string,
+): T[] =>
+  (postsResponse?.posts?.nodes ?? []).filter((post): post is T => post?.language?.slug === lang);
+
 /**
  * Convert a paginated (edges/nodes) flat list to a hierarchical structure.
  * @param data - Array of edges with { node: {...} }
