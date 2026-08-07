@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - beta
     paths:
       - "Dockerfile"
       - "compose.yaml"
