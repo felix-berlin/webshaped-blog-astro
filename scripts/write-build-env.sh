@@ -9,8 +9,8 @@
 #
 # Usage: scripts/write-build-env.sh [output-file] [quoted|raw]
 #
-# Use `raw` for a file handed to Docker Compose's `env_file:`, which parses values
-# literally and would keep the backslashes %q adds.
+# Use `raw` for a file handed to Docker Compose's own .env variable-substitution,
+# which parses values literally and would keep the backslashes %q adds.
 
 set -euo pipefail
 
@@ -42,6 +42,14 @@ for var in "${REQUIRED[@]}"; do
   if [[ -z "${!var:-}" ]]; then
     echo "$var is empty — Infisical fetch likely failed or the secret is missing in this environment" >&2
     exit 1
+  fi
+done
+
+# Optional vars empty is a valid state (e.g. Sentry disabled), not fatal — but
+# silent means "why isn't Sentry reporting errors" has no lead without this line.
+for var in "${OPTIONAL[@]}"; do
+  if [[ -z "${!var:-}" ]]; then
+    echo "note: $var is empty (optional)" >&2
   fi
 done
 
