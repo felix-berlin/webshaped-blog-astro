@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2026-08-07)
+
+
+### Bug Fixes
+
+* **nginx:** stop base image's default.conf from shadowing our vhost ([9f386fb](https://github.com/felix-berlin/webshaped-blog-astro/commit/9f386fbb6e4ad68443e907d2a3f9818422a471ca))
+
+
+### Features
+
+* **ci:** publish a floating :beta Docker tag for pre-release builds ([cc456cb](https://github.com/felix-berlin/webshaped-blog-astro/commit/cc456cb58f2e0791a90ee64fb124f8250ce05654))
+
 # [1.12.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.2...v1.12.0-beta.1) (2026-08-07)
 
 
