@@ -12,6 +12,7 @@ import MainHeader from "@components/hero/MainHeader.astro";
 import { getLangFromUrl } from "@utils/i18n/utils";
 
 import type { Language } from "@/gql/graphql.ts";
+import type { TranslationRoutes } from "@/types/i18n";
 
 export interface DefaultLayoutProps {
   bodyClasses?: Array<string> | string;
@@ -23,8 +24,6 @@ export interface DefaultLayoutProps {
   contentClasses?: Array<string> | string;
   translationsRoutes?: TranslationRoutes;
 }
-
-export type TranslationRoutes = { [key: string]: string };
 
 const {
   bodyClasses,

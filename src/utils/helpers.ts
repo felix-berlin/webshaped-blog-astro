@@ -1,10 +1,10 @@
-import type {
-  Maybe,
-  MenuItem,
-  RootQueryToMenuItemConnection,
-  SeoUserSocial,
-  SocialAdvanced,
-} from "@/gql/graphql.ts";
+import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
+
+type Maybe<T> = T | null | undefined;
+type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
+type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
+type SeoUserSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
+type SocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
 /**
  * Checks if the given string is HTML
@@ -119,15 +119,12 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
  * Update category paths in the main menu
  *
  */
-export const updateCategoryPaths = (
-  mainMenuItems: RootQueryToMenuItemConnection,
-  lang: "de" | "en",
-) => {
+export const updateCategoryPaths = (mainMenuItems: MenuItemsConnection, lang: "de" | "en") => {
   mainMenuItems?.nodes.forEach((item: MenuItem) => {
     if (!item?.childItems) return;
 
     // Loop through the child items (menu item) of the main menu
-    item.childItems.nodes.forEach((childItem: MenuItem) => {
+    item.childItems.nodes.forEach((childItem) => {
       if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
         return;
       }
@@ -239,8 +236,8 @@ type AdditionalData = {
 
 type SocialItems = {
   [key: string]: {
-    [key: string]: string;
     url: string;
+    [key: string]: unknown;
   };
 };
 
@@ -259,10 +256,11 @@ export const getSocialIconData = (
 
   // If urql cache is used, the __typename is added to the object
   // and we need to remove it to avoid errors
-  if (socials?.__typename) {
+  const socialsRecord = socials as Record<string, unknown>;
+  if (socialsRecord.__typename) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { __typename, ...rest } = socials;
-    socials = rest;
+    const { __typename, ...rest } = socialsRecord;
+    socials = rest as SeoUserSocial | SocialAdvanced;
   }
 
   for (const [key, value] of Object.entries(socials)) {
@@ -318,19 +316,19 @@ export function flatListToHierarchical<T extends Record<string, unknown>>(
   const childrenOf: Record<number | string, T[]> = {};
 
   data.forEach((item) => {
-    const newItem = { ...item };
-    const id = newItem[idKey];
+    const newItem: Record<string, unknown> = { ...item };
+    const id = newItem[idKey as string] as number | string;
     // parentId can be undefined or null, treat as 0 (root)
-    const parentId = newItem[parentKey] ?? 0;
+    const parentId = (newItem[parentKey as string] as number | string | undefined) ?? 0;
 
     childrenOf[id] = childrenOf[id] || [];
     newItem[childrenKey] = childrenOf[id];
 
     if (parentId && parentId !== 0) {
       childrenOf[parentId] = childrenOf[parentId] || [];
-      childrenOf[parentId].push(newItem);
+      childrenOf[parentId].push(newItem as unknown as T);
     } else {
-      tree.push(newItem);
+      tree.push(newItem as unknown as T);
     }
   });
 
@@ -349,7 +347,8 @@ const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
 export const resolveMenuId = (lang: string): string | undefined => {
   const menuId = MENU_ID_BY_LANG[lang];
 
-  if (!menuId) console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
+  if (!menuId)
+    console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
 
   return menuId;
 };

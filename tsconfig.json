@@ -1,7 +1,15 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "src/tests/**/*.spec.ts", "src/tests/**/*.test.ts"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "dev-dist",
+    "coverage",
+    "**/coverage/**",
+    "src/tests/**/*.spec.ts",
+    "src/tests/**/*.test.ts"
+  ],
   "compilerOptions": {
     "jsx": "preserve",
     "moduleResolution": "bundler",

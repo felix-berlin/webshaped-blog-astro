@@ -1,4 +1,4 @@
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+import type { TranslationRoutes } from "@/types/i18n";
 
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 
@@ -58,12 +58,14 @@ export const useTranslations =
      *
      * @return  {string}                     return the translated string
      */
-    let translationStr = localeStrings[shortLang][key] || localeStrings[defaultLang][key];
+    const rawTranslation: Record<string, string> | string =
+      localeStrings[shortLang][key] || localeStrings[defaultLang][key];
 
     // If the translation string ends with "--plural", execute the plural form function and store the result in the translation string.
-    if (key.endsWith("--plural") && plural !== undefined) {
-      translationStr = pluralFormFor(translationStr, plural, shortLang);
-    }
+    let translationStr: string =
+      key.endsWith("--plural") && plural !== undefined
+        ? pluralFormFor(rawTranslation, plural, shortLang)
+        : (rawTranslation as string);
 
     // If there is a filled object with variables to replace, replace them.
     if (varsToReplace !== undefined && Object.keys(varsToReplace).length !== 0) {
@@ -88,11 +90,17 @@ export const useTranslations =
  *
  * @return  {string}                     return the plural string
  */
-const pluralFormFor = (translationString: string, count: number, locale: string): string => {
+const pluralFormFor = (
+  translationForms: Record<string, string> | string,
+  count: number,
+  locale: string,
+): string => {
+  if (typeof translationForms === "string") return translationForms;
+
   const pluralRules = new Intl.PluralRules(locale);
   const matchingForm = pluralRules.select(count);
 
-  return translationString[matchingForm as keyof typeof translationString] as string;
+  return translationForms[matchingForm] ?? "";
 };
 
 /**
@@ -126,7 +134,7 @@ export function createLocalizedUrl(
 
   // Append the translated or original last part
   const translatedLastPart = lastPart && translations[lang] ? translations[lang] : lastPart;
-  updatedUrlParts.push(translatedLastPart);
+  if (translatedLastPart !== undefined) updatedUrlParts.push(translatedLastPart);
 
   return updatedUrlParts.join("/");
 }
