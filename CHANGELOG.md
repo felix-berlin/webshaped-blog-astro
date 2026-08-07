@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.2...v1.12.0-beta.3) (2026-08-07)
+
+
+### Performance Improvements
+
+* **ci:** add GHA layer cache to the Docker smoke test build ([570bb9b](https://github.com/felix-berlin/webshaped-blog-astro/commit/570bb9bf3be52984ed8b3953b5557821a48c34fa))
+* **ci:** build app and proxy images in parallel ([869385c](https://github.com/felix-berlin/webshaped-blog-astro/commit/869385cfe076dec9e26ebd6989dca10e0dd77f9c))
+
 # [1.12.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.1...v1.12.0-beta.2) (2026-08-07)
 
 
