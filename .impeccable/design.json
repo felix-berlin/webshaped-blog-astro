@@ -4,32 +4,192 @@
   "title": "Design System: webshaped blog",
   "extensions": {
     "colorMeta": {
-      "night-navy": { "role": "primary", "displayName": "Night Navy", "canonical": "#303956", "tonalRamp": ["#0b0e15", "#1e2335", "#272e46", "#303956", "#394466", "#556497", "#707faf", "#919cc1"] },
-      "coral-accent": { "role": "secondary", "displayName": "Coral Accent", "canonical": "#ed3c63", "tonalRamp": ["#5c0e1e", "#8f1730", "#c2264a", "#ed3c63", "#f16d8a", "#f594a8", "#f9bac6", "#fde0e5"] },
-      "amber-accent": { "role": "secondary", "displayName": "Amber Accent", "canonical": "#e88923", "tonalRamp": ["#4d2c05", "#7a4708", "#a9630f", "#e88923", "#eea55a", "#f2bc84", "#f6d3ad", "#fbe9d6"] },
-      "gold-accent": { "role": "neutral", "displayName": "Gold Accent", "canonical": "#e8a023", "tonalRamp": ["#4d3305", "#7a5208", "#a9720f", "#e8a023", "#eeb85a", "#f2cb84", "#f6ddad", "#fbf0d6"] },
-      "sky-blue": { "role": "neutral", "displayName": "Sky Blue", "canonical": "#24b4e9", "tonalRamp": ["#072e3d", "#0b4a61", "#128aa8", "#24b4e9", "#5cc8ee", "#8bdaf4", "#b8e9f8", "#e2f6fc"] },
-      "periwinkle": { "role": "neutral", "displayName": "Periwinkle", "canonical": "#b0bada", "tonalRamp": ["#1e2335", "#303956", "#556497", "#b0bada", "#c3ccdf", "#d6dce8", "#e6eaf2", "#f4f6fa"] },
-      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#eeeeee", "tonalRamp": ["#1a1a1a", "#333333", "#666666", "#999999", "#cccccc", "#e0e0e0", "#eeeeee", "#f8f8f8"] },
-      "danger": { "role": "neutral", "displayName": "Danger", "canonical": "#f33b1d", "tonalRamp": ["#4d1204", "#7a1d08", "#a9290f", "#f33b1d", "#f66a52", "#f99485", "#fbbbb1", "#fde2dd"] },
-      "success": { "role": "neutral", "displayName": "Success", "canonical": "#35a672", "tonalRamp": ["#0c2e1f", "#134a32", "#207a53", "#35a672", "#5fbd8e", "#8ad0ab", "#b6e2c8", "#e2f4e8"] }
+      "night-navy": {
+        "role": "primary",
+        "displayName": "Night Navy",
+        "canonical": "#303956",
+        "tonalRamp": [
+          "#0b0e15",
+          "#1e2335",
+          "#272e46",
+          "#303956",
+          "#394466",
+          "#556497",
+          "#707faf",
+          "#919cc1"
+        ]
+      },
+      "coral-accent": {
+        "role": "secondary",
+        "displayName": "Coral Accent",
+        "canonical": "#ed3c63",
+        "tonalRamp": [
+          "#5c0e1e",
+          "#8f1730",
+          "#c2264a",
+          "#ed3c63",
+          "#f16d8a",
+          "#f594a8",
+          "#f9bac6",
+          "#fde0e5"
+        ]
+      },
+      "amber-accent": {
+        "role": "secondary",
+        "displayName": "Amber Accent",
+        "canonical": "#e88923",
+        "tonalRamp": [
+          "#4d2c05",
+          "#7a4708",
+          "#a9630f",
+          "#e88923",
+          "#eea55a",
+          "#f2bc84",
+          "#f6d3ad",
+          "#fbe9d6"
+        ]
+      },
+      "gold-accent": {
+        "role": "neutral",
+        "displayName": "Gold Accent",
+        "canonical": "#e8a023",
+        "tonalRamp": [
+          "#4d3305",
+          "#7a5208",
+          "#a9720f",
+          "#e8a023",
+          "#eeb85a",
+          "#f2cb84",
+          "#f6ddad",
+          "#fbf0d6"
+        ]
+      },
+      "sky-blue": {
+        "role": "neutral",
+        "displayName": "Sky Blue",
+        "canonical": "#24b4e9",
+        "tonalRamp": [
+          "#072e3d",
+          "#0b4a61",
+          "#128aa8",
+          "#24b4e9",
+          "#5cc8ee",
+          "#8bdaf4",
+          "#b8e9f8",
+          "#e2f6fc"
+        ]
+      },
+      "periwinkle": {
+        "role": "neutral",
+        "displayName": "Periwinkle",
+        "canonical": "#b0bada",
+        "tonalRamp": [
+          "#1e2335",
+          "#303956",
+          "#556497",
+          "#b0bada",
+          "#c3ccdf",
+          "#d6dce8",
+          "#e6eaf2",
+          "#f4f6fa"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#eeeeee",
+        "tonalRamp": [
+          "#1a1a1a",
+          "#333333",
+          "#666666",
+          "#999999",
+          "#cccccc",
+          "#e0e0e0",
+          "#eeeeee",
+          "#f8f8f8"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger",
+        "canonical": "#f33b1d",
+        "tonalRamp": [
+          "#4d1204",
+          "#7a1d08",
+          "#a9290f",
+          "#f33b1d",
+          "#f66a52",
+          "#f99485",
+          "#fbbbb1",
+          "#fde2dd"
+        ]
+      },
+      "success": {
+        "role": "neutral",
+        "displayName": "Success",
+        "canonical": "#35a672",
+        "tonalRamp": [
+          "#0c2e1f",
+          "#134a32",
+          "#207a53",
+          "#35a672",
+          "#5fbd8e",
+          "#8ad0ab",
+          "#b6e2c8",
+          "#e2f4e8"
+        ]
+      }
     },
     "typographyMeta": {
       "display": { "displayName": "Display", "purpose": "Page-level h1 headings." },
-      "headline": { "displayName": "Headline", "purpose": "Section headings and post-card titles." },
-      "body": { "displayName": "Body", "purpose": "Article and paragraph copy, 65-75ch max width." },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and post-card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Article and paragraph copy, 65-75ch max width."
+      },
       "label": { "displayName": "Label", "purpose": "Form labels and small UI copy." }
     },
     "shadows": [
-      { "name": "ambient-icon-glow", "value": "drop-shadow(0 0 4px rgba(238,238,238,0.35))", "purpose": "Soft glow under icon-button SVGs, swaps to accent color on hover." },
-      { "name": "outline-hover-glow", "value": "0 0 15px 1px rgba(255,180,51,0.5)", "purpose": "One-off hover accent on outline buttons, paired with a blur+hue-rotate backdrop-filter." },
-      { "name": "focus-ring", "value": "0 0 0 3px rgba(255,180,51,0.3)", "purpose": "Input focus ring, paired with an accent-colored border and outline." }
+      {
+        "name": "ambient-icon-glow",
+        "value": "drop-shadow(0 0 4px rgba(238,238,238,0.35))",
+        "purpose": "Soft glow under icon-button SVGs, swaps to accent color on hover."
+      },
+      {
+        "name": "outline-hover-glow",
+        "value": "0 0 15px 1px rgba(255,180,51,0.5)",
+        "purpose": "One-off hover accent on outline buttons, paired with a blur+hue-rotate backdrop-filter."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px rgba(255,180,51,0.3)",
+        "purpose": "Input focus ring, paired with an accent-colored border and outline."
+      }
     ],
     "motion": [
-      { "name": "ease-standard", "value": "ease-in-out", "purpose": "Default 0.2s transition for buttons and general state changes." },
-      { "name": "ease-card-hover", "value": "cubic-bezier(0.65, 0.05, 0.36, 1)", "purpose": "0.3s post-card hover transition (title color, arrow reveal)." },
-      { "name": "ease-modal-enter", "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "purpose": "0.4s 3D slide-in-from-top entrance for the native dialog modal." },
-      { "name": "ease-checkbox-spring", "value": "cubic-bezier(0.2, 0.85, 0.32, 1.2)", "purpose": "Checked-state transform on custom checkbox/switch inputs; the system's one spring-like easing." }
+      {
+        "name": "ease-standard",
+        "value": "ease-in-out",
+        "purpose": "Default 0.2s transition for buttons and general state changes."
+      },
+      {
+        "name": "ease-card-hover",
+        "value": "cubic-bezier(0.65, 0.05, 0.36, 1)",
+        "purpose": "0.3s post-card hover transition (title color, arrow reveal)."
+      },
+      {
+        "name": "ease-modal-enter",
+        "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "purpose": "0.4s 3D slide-in-from-top entrance for the native dialog modal."
+      },
+      {
+        "name": "ease-checkbox-spring",
+        "value": "cubic-bezier(0.2, 0.85, 0.32, 1.2)",
+        "purpose": "Checked-state transform on custom checkbox/switch inputs; the system's one spring-like easing."
+      }
     ],
     "breakpoints": [
       { "name": "xxs", "value": "376px" },
@@ -93,9 +253,21 @@
       "Single sans-serif family (Source Sans Pro) carries the entire type system."
     ],
     "rules": [
-      { "name": "The One Accent Rule", "body": "Only one hot accent color is live at a time — amber in light mode, coral in dark mode. They never appear together on the same render; the .dark class swap on <html> is the single source of truth for which one is active.", "section": "colors" },
-      { "name": "The One Family Rule", "body": "No second typeface is introduced for contrast; every weight and size step comes from Source Sans Pro's own range.", "section": "typography" },
-      { "name": "The No-Stack Rule", "body": "Never stack multiple box-shadows to fake elevation tiers (card < modal < tooltip). If something needs to feel above the page, use blur/tint or motion, not a heavier shadow.", "section": "elevation" }
+      {
+        "name": "The One Accent Rule",
+        "body": "Only one hot accent color is live at a time — amber in light mode, coral in dark mode. They never appear together on the same render; the .dark class swap on <html> is the single source of truth for which one is active.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "No second typeface is introduced for contrast; every weight and size step comes from Source Sans Pro's own range.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Stack Rule",
+        "body": "Never stack multiple box-shadows to fake elevation tiers (card < modal < tooltip). If something needs to feel above the page, use blur/tint or motion, not a heavier shadow.",
+        "section": "elevation"
+      }
     ],
     "dos": [
       "Do keep the halftone dot-grid background and diagonal gradient glows on every page — they are the system's signature, not decoration to be dropped on busy pages.",

@@ -15,6 +15,6 @@ minimumReleaseAgeExclude:
   - playwright@1.62.0 || 1.62.1
   - sass@1.102.0
   - vite@8.2.0 || 8.2.1
-  - '@astrojs/node@11.1.0'
-  - '@astrojs/vue@7.0.2'
+  - "@astrojs/node@11.1.0"
+  - "@astrojs/vue@7.0.2"
   - astro@7.2.0

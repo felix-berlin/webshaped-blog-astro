@@ -38,15 +38,15 @@ services:
       dockerfile: Dockerfile
       secrets: [build_env]
       x-bake:
-        cache-from: [type=gha,scope=app]
-        cache-to: [type=gha,mode=max,scope=app]
+        cache-from: [type=gha, scope=app]
+        cache-to: [type=gha, mode=max, scope=app]
   proxy:
     build:
       context: .
       dockerfile: docker/nginx.Dockerfile
       x-bake:
-        cache-from: [type=gha,scope=proxy]
-        cache-to: [type=gha,mode=max,scope=proxy]
+        cache-from: [type=gha, scope=proxy]
+        cache-to: [type=gha, mode=max, scope=proxy]
 ```
 
 In `docker-smoke-test.yml`, set `COMPOSE_BAKE=true` in the environment before the existing `./scripts/docker-smoke-test.sh` invocation. Docker Compose v2's native Buildx Bake integration then honors the `x-bake` cache settings when `compose up --build` runs — the smoke test script itself is unchanged.

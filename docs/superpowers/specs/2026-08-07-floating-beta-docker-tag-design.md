@@ -48,7 +48,7 @@ Both images get the same treatment so `:beta` stays consistent between app and p
 
 ## Risks And Constraints
 
-- `:beta` always points at the *last* pushed beta build, regardless of version — by design (per user request), but means it's not reproducible the way a pinned tag is. Fine for a beta/staging channel, not a substitute for pinned tags in prod.
+- `:beta` always points at the _last_ pushed beta build, regardless of version — by design (per user request), but means it's not reproducible the way a pinned tag is. Fine for a beta/staging channel, not a substitute for pinned tags in prod.
 - No change to the workflow trigger — publishing a new beta still requires pushing a `vX.Y.Z-beta.N` git tag, same as today.
 
 ## Success Criteria
