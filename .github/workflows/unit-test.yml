@@ -40,7 +40,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies 🛠️
-        run: pnpm i
+        run: pnpm i --frozen-lockfile
 
       - name: Run Vitest (with coverage and JUnit report) 🧪
         run: pnpm run test:unit:ci
