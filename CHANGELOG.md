@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.5...v1.12.0-beta.6) (2026-08-07)
+
+
+### Bug Fixes
+
+* correct env/docs drift found in PR [#626](https://github.com/felix-berlin/webshaped-blog-astro/issues/626) review ([2d15a05](https://github.com/felix-berlin/webshaped-blog-astro/commit/2d15a05fc7ec9f38932812f415159313d8ac61e1))
+* **wp-graphql-client:** report chrome-query failures to Sentry, add timeout, unexport raw client ([c830462](https://github.com/felix-berlin/webshaped-blog-astro/commit/c830462aa8d077c3d9c72fc4ac698733266bcee9))
+
 # [1.12.0-beta.5](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.4...v1.12.0-beta.5) (2026-08-07)
 
 
