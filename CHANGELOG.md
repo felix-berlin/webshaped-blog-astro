@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.6...v1.12.0-beta.7) (2026-08-07)
+
+
+### Bug Fixes
+
+* **codegen:** silence tsc on generated graphql.ts, fix remaining type errors ([05a9eea](https://github.com/felix-berlin/webshaped-blog-astro/commit/05a9eea9130cb0911617c9146c8e0f90c6063d2a))
+* **types:** resolve remaining astro check / vue-tsc errors across the app ([9c82ae0](https://github.com/felix-berlin/webshaped-blog-astro/commit/9c82ae0b198204a0f0cf86d4da9fcc83163c7e64))
+* **types:** resolve type errors in helpers/i18n and share TranslationRoutes ([7a1afef](https://github.com/felix-berlin/webshaped-blog-astro/commit/7a1afef7311394a22c1667ece066b350d72bde16))
+
 # [1.12.0-beta.6](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.5...v1.12.0-beta.6) (2026-08-07)
 
 
