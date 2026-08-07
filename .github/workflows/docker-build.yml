@@ -49,6 +49,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+            type=raw,value=beta,enable=${{ contains(github.ref_name, '-beta.') }}
 
       - name: Verify app Dockerfile exists
         run: |
@@ -148,6 +149,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             type=sha
+            type=raw,value=beta,enable=${{ contains(github.ref_name, '-beta.') }}
 
       - name: Verify proxy Dockerfile exists
         run: |
