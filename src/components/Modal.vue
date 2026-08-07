@@ -44,7 +44,7 @@ const modal = ref<HTMLDialogElement | null>(null);
 const emit = defineEmits(["close", "open"]);
 const isVisible = ref(open);
 const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const t = useTranslations(lang.value as "de" | "en");
 /**
  * Open the modal
  *

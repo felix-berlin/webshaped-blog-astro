@@ -20,7 +20,7 @@
       <Transition name="fade">
         <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">
           <MenuNav
-            :menu-items="menuItems.nodes"
+            :menu-items="menuItems?.nodes ?? []"
             class="c-main-nav__menu"
             :class="{ 'is-open': flyoutIsOpen }"
             @submenu-state="submenuIsOpen = $event"
@@ -34,7 +34,7 @@
 
     <MenuNav
       v-else
-      :menu-items="menuItems.nodes"
+      :menu-items="menuItems?.nodes ?? []"
       class="c-main-nav__menu"
       :class="{ 'is-open': submenuIsOpen }"
       @submenu-state="submenuIsOpen = $event"
@@ -55,12 +55,12 @@ import MenuIcon from "virtual:icons/lucide/menu";
 import CloseIcon from "virtual:icons/lucide/x";
 import { onMounted, ref } from "vue";
 
-import type { MenuToMenuItemConnection } from "@/gql/graphql.ts";
+import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
 
 import { useI18n } from "@/composables/useI18n";
 
 export interface MainNavProps {
-  menuItems: MenuToMenuItemConnection;
+  menuItems: NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
 }
 
 const { menuItems } = defineProps<MainNavProps>();

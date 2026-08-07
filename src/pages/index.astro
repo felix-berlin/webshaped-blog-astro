@@ -3,11 +3,14 @@ import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
 import "@styles/objects/_index.scss";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
+import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { getLangFromUrl } from "@utils/i18n/utils";
 import { wpQuery } from "@services/wpGraphqlClient";
 
+import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
 
 export const prerender = true;
 
@@ -15,12 +18,13 @@ const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
   slugs: ["startseite"],
 });
 
-const indexDe = pagesResponse.pages?.nodes[0];
-const translations = indexDe?.translations;
+const indexDeRaw = pagesResponse.pages?.nodes[0];
+const indexDe = useFragment(PageFieldFragment, indexDeRaw);
+const translations = indexDeRaw?.translations?.map((translation) => useFragment(PageFieldFragment, translation));
 const lang = getLangFromUrl(Astro.url);
 const translationsRoutes = {
   [lang]: "/",
-  [translations?.[0]?.language?.slug]: "/" + translations?.[0]?.language?.slug,
+  [translations?.[0]?.language?.slug ?? ""]: "/" + translations?.[0]?.language?.slug,
 };
 
 const postsResponse = await wpQuery(GetPostsPreviewDocument, { first: 6 });
@@ -33,6 +37,6 @@ const posts = postsResponse.posts;
     <h1 class="o-index__headline">{indexDe?.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts?.nodes} />
+    <BlogPostPreview posts={(posts?.nodes ?? []) as unknown as BlogPostPreviewProps["posts"]} />
   </section>
 </DefaultLayout>

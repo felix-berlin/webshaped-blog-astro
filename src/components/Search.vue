@@ -3,11 +3,20 @@
 </template>
 
 <script setup lang="ts">
+// `@pagefind/default-ui` ships no type declarations for this build.
+// @ts-expect-error -- untyped third-party module, no .d.ts available
 import { PagefindUI } from "@pagefind/default-ui";
 import { nextTick, onMounted, onUnmounted } from "vue";
 
 export interface SearchProps {
   id: string;
+}
+
+interface PagefindUIOptions {
+  bundlePath?: string;
+  element?: string;
+  resetStyles?: boolean;
+  showImages?: boolean;
 }
 
 const { id } = defineProps<SearchProps>();
@@ -26,12 +35,13 @@ if (import.meta.env.DEV) {
  *
  */
 const initPagefind = async () => {
-  new PagefindUI({
+  const options: PagefindUIOptions = {
     bundlePath,
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
-  });
+  };
+  new PagefindUI(options);
 };
 
 /**

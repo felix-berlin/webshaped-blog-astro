@@ -4,21 +4,21 @@
       {{ summary }}
     </summary>
     <template v-if="block.innerBlocks?.length">
-      <ContentBlocks :blocks="block.innerBlocks" />
+      <ContentBlocks :blocks="block.innerBlocks as ContentBlocksProps['blocks']" />
     </template>
   </details>
 </template>
 
 <script setup lang="ts">
-import ContentBlocks from "@components/ContentBlocks.vue";
+import ContentBlocks, { type ContentBlocksProps } from "@components/ContentBlocks.vue";
 
-import type { CoreDetails } from "@/gql/graphql.ts";
+import type { CoreDetailsFragment } from "@/gql/graphql.ts";
 
-export interface FigureBlockProps {
-  block: CoreDetails;
+export interface DetailsBlockProps {
+  block: CoreDetailsFragment;
 }
 
-const props = defineProps<FigureBlockProps>();
+const props = defineProps<DetailsBlockProps>();
 
-const { showContent, summary } = props.block.attributes;
+const { showContent, summary } = props.block.attributes ?? {};
 </script>

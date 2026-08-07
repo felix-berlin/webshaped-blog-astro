@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { useStore } from "@nanostores/vue";
-import { installPrompt, pwaReadyToInstall, triggerPwaInstall } from "@stores/store";
+import { installPrompt, pwaReadyToInstall } from "@stores/store";
 import Download from "virtual:icons/lucide/download";
 
 import { useI18n } from "@/composables/useI18n";
@@ -33,9 +33,23 @@ const {
   showText = true,
 } = defineProps<InstallAppProps>();
 
-useStore(installPrompt);
+const prompt = useStore(installPrompt);
 const installReady = useStore(pwaReadyToInstall);
 const { t } = useI18n();
+
+/**
+ * Triggers the PWA install prompt and resets the stored prompt state once it has been shown.
+ *
+ * @return  {Promise<void>}
+ */
+const triggerPwaInstall = async (): Promise<void> => {
+  const event = prompt.value;
+  if (!event) return;
+
+  await event.prompt();
+  installPrompt.set(null);
+  pwaReadyToInstall.set(false);
+};
 </script>
 
 <style scoped></style>

@@ -38,7 +38,7 @@
         >
           <div
             v-for="track in state.tracks.recenttracks.track"
-            :key="track"
+            :key="track.url"
             class="c-scrobble-display__track-item"
             :class="{ 'is-playing': track['@attr']?.nowplaying }"
           >
@@ -75,7 +75,7 @@
           <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
             t("scrobble_display.total_text", {
-              total: state?.tracks?.recenttracks?.["@attr"]?.total,
+              total: state?.tracks?.recenttracks?.["@attr"]?.total ?? "",
             })
           }}</span
           ><br />

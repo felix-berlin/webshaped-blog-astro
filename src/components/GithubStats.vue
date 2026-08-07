@@ -70,7 +70,16 @@ const error = ref<null | string>(null);
 const languagePercentages = ref<{ language: string; percentage: number }[]>([]);
 const totalBytes = ref(0);
 const totalCommits = ref(0);
-const mostStarredRepos = ref([]);
+
+interface GithubRepoSummary {
+  description: string;
+  mostUsedLanguage: string;
+  name: string;
+  stars: number;
+  url: string;
+}
+
+const mostStarredRepos = ref<GithubRepoSummary[]>([]);
 const { t } = useI18n();
 
 const filteredLanguagePercentages = computed(() => {

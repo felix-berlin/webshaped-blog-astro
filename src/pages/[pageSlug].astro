@@ -4,7 +4,9 @@ import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType 
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
 
+import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
 
 export const prerender = true;
 
@@ -20,12 +22,13 @@ export const getStaticPaths = (async () => {
   }
 
   return pages.map((page) => {
+    const unmaskedPage = useFragment(PageFieldFragment, page);
     return {
       params: {
-        pageSlug: page.slug,
+        pageSlug: unmaskedPage.slug ?? undefined,
       },
       props: {
-        page: page,
+        page: unmaskedPage,
       },
     };
   });

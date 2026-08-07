@@ -3,15 +3,17 @@
 import "@styles/components/_blocks.scss";
 import "@styles/plugins/shiki.scss";
 
-import type { GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import type { CodeLanguage, GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
 import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
 import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
 import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
+import type { DetailsBlockProps } from "@components/content-blocks/DetailsBlock.vue";
 import FigureBlock from "@components/content-blocks/FigureBlock.vue";
 import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
 import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
 import ListBlock from "@components/content-blocks/ListBlock.vue";
+import type { ListBlockProps } from "@components/content-blocks/ListBlock.vue";
 import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
 // Components
 import BlogPost from "@layouts/BlogPost.astro";
@@ -21,9 +23,23 @@ import { wpQuery } from "@services/wpGraphqlClient";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
-import type { CoreHeading } from "@/gql/graphql.ts";
-
+import { useFragment } from "@/gql";
+import type {
+  CoreButtonsFragment,
+  CoreHeadingFragment,
+  CoreImageFragment,
+  CoreParagraphFragment,
+} from "@/gql/graphql.ts";
 import { GetAllPostsDocument } from "@/gql/graphql.ts";
+import {
+  CoreButtons,
+  CoreCode,
+  CoreDetails,
+  CoreHeading,
+  CoreImage,
+  CoreList,
+  CoreParagraph,
+} from "@services/fragments/blockFragments";
 
 export const prerender = true;
 
@@ -40,8 +56,8 @@ export const getStaticPaths = (async () => {
   return posts.map((post) => {
     return {
       params: {
-        lang: post?.language?.slug,
-        postSlug: post.slug,
+        lang: post?.language?.slug ?? undefined,
+        postSlug: post.slug ?? undefined,
       },
       props: {
         post: post,
@@ -56,7 +72,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { lang, postSlug } = Astro.params as Params;
 const { post } = Astro.props;
 
-const isCoreHeading = (block: unknown): block is CoreHeading => {
+const isCoreHeading = (block: unknown): block is CoreHeadingFragment => {
   if (!block || typeof block !== "object") {
     return false;
   }
@@ -74,7 +90,7 @@ const isCoreHeading = (block: unknown): block is CoreHeading => {
   );
 };
 
-const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
+const headings = post?.editorBlocks?.filter(isCoreHeading) as unknown as CoreHeadingFragment[];
 ---
 
 <BlogPost content={post} headings={headings}>
@@ -83,22 +99,24 @@ const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
       if (!block) return null;
 
       if (block.name === "core/paragraph") {
-        return <ParagraphBlock block={block} />;
+        return <ParagraphBlock block={useFragment(CoreParagraph, block as never) as CoreParagraphFragment} />;
       }
       if (block.name === "core/heading") {
-        return <HeadlineBlock block={block} />;
+        return <HeadlineBlock block={useFragment(CoreHeading, block as never) as CoreHeadingFragment} />;
       }
       if (block.name === "core/image") {
-        return <FigureBlock block={block} />;
+        return <FigureBlock block={useFragment(CoreImage, block as never) as CoreImageFragment} />;
       }
       if (block.name === "core/buttons") {
-        return <ButtonsBlock block={block} />;
+        return <ButtonsBlock block={useFragment(CoreButtons, block as never) as CoreButtonsFragment} />;
       }
       if (block.name === "core/list") {
-        return <ListBlock block={block} />;
+        return <ListBlock block={useFragment(CoreList, block as never) as unknown as ListBlockProps["block"]} />;
       }
       if (block.name === "core/details") {
-        return <DetailsBlock block={block} />;
+        return (
+          <DetailsBlock block={useFragment(CoreDetails(""), block as never) as unknown as DetailsBlockProps["block"]} />
+        );
       }
       if (block.name === "acf/github-raw-data") {
         return <GitHubRawData block={block} />;
@@ -107,21 +125,23 @@ const headings = post?.editorBlocks?.filter(isCoreHeading) as CoreHeading[];
         return <CodeHighlighting block={block} />;
       }
       if (block.name === "core/code") {
+        const codeBlock = useFragment(CoreCode, block as never);
         return (
           <div class="c-blocks__code">
             <Code
-              code={he.decode(block.attributes?.content || "")}
-              lang={block.attributes?.className}
+              code={he.decode(codeBlock.attributes?.content || "")}
+              lang={(codeBlock.attributes?.className ?? undefined) as CodeLanguage | undefined}
               themes={{
-                dark: materialThemePalenight,
-                light: materialThemeLighter,
+                dark: { ...materialThemePalenight, type: materialThemePalenight.type as "dark" },
+                light: { ...materialThemeLighter, type: materialThemeLighter.type as "light" },
               }}
               wrap
             />
           </div>
         );
       } else {
-        return <Fragment set:html={block.originalContent} />;
+        const rawBlock = block as unknown as { originalContent?: string | null };
+        return <Fragment set:html={rawBlock.originalContent} />;
       }
     })
   }

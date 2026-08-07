@@ -184,6 +184,7 @@ import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
+import type { CombinedError } from "@urql/vue";
 import { useMutation } from "@urql/vue";
 import { excludeObjectKeys } from "@utils/objectHelpers";
 import { promiseTimeout } from "@vueuse/core";
@@ -191,14 +192,14 @@ import Info from "virtual:icons/lucide/info";
 import User from "virtual:icons/lucide/user";
 import { onMounted, reactive, ref, watch } from "vue";
 
-import type { CreateCommentInput } from "@/gql/graphql.ts";
+import type { CreateCommentMutationVariables } from "@/gql/graphql.ts";
 
 import { useI18n } from "@/composables/useI18n";
 import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: string;
-  replyToCommentId?: CreateCommentInput["parent"] | number;
+  replyToCommentId?: CreateCommentMutationVariables["parent"];
 }
 
 const props = defineProps<Props>();
@@ -237,7 +238,7 @@ const formErrors: FormErrors = reactive({
   privacy: "",
 });
 
-const formResponses = reactive({
+const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
   errors: [],
   success: false,
 });
@@ -260,15 +261,15 @@ const resetCommentForm = () => {
 
 // reset formErrors function
 const resetFormErrors = () => {
-  Object.keys(formErrors).forEach((value) => (formErrors[value as keyof CommentForm] = ""));
+  Object.keys(formErrors).forEach((value) => (formErrors[value as keyof FormErrors] = ""));
 };
 
 /**
  * checks if the given form data is valid
  *
- * @return  {void}
+ * @return  {Promise<void>}
  */
-const checkForm = async (): void => {
+const checkForm = async (): Promise<void> => {
   if (commentForm.comment.length <= 1) {
     formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
@@ -316,7 +317,7 @@ const create = async () => {
     .executeMutation({
       author: commentForm.author,
       authorEmail: commentForm.email,
-      commentOn: props.currentPostId,
+      commentOn: Number(props.currentPostId),
       content: commentForm.comment,
       parent: props.replyToCommentId,
     })
@@ -325,8 +326,7 @@ const create = async () => {
         const { data, error } = response;
 
         if (commentForm.saveUser) {
-          console.log("save user", excludeObjectKeys(commentForm, ["comment"]));
-          guest.set(excludeObjectKeys(commentForm, ["comment"]));
+          guest.set(excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]));
         }
 
         if (!commentForm.saveUser) {
@@ -334,7 +334,7 @@ const create = async () => {
         }
 
         if (data) {
-          formResponses.success = data.createComment?.success;
+          formResponses.success = data.createComment?.success ?? false;
           showDialog.value = true;
 
           await promiseTimeout(3000);
@@ -349,7 +349,7 @@ const create = async () => {
         }
 
         if (error) {
-          formResponses.errors = errors;
+          formResponses.errors = [error];
           showDialog.value = true;
 
           await promiseTimeout(3000);

@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<ShareProps>(), {
 
 const lang = useStore(currentLanguage);
 const currentUrl = ref(props.url);
-const t = useTranslations(lang.value);
+const t = useTranslations(lang.value as "de" | "en");
 
 const startShare = (
   title: string | undefined,

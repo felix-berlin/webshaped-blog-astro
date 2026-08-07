@@ -31,8 +31,6 @@
 import { useTranslations } from "@utils/i18n/utils";
 import { defineAsyncComponent } from "vue";
 
-import type { Maybe } from "@/gql/graphql.ts";
-
 export interface SocialItems {
   class?: string;
   color?: string;
@@ -40,7 +38,7 @@ export interface SocialItems {
   rel?: string;
   size?: number;
   target?: string;
-  url?: Maybe<string>;
+  url?: null | string;
 }
 
 export interface SocialListProps {
@@ -62,7 +60,7 @@ export interface SocialListProps {
 
 const { lang, socialItems } = defineProps<SocialListProps>();
 
-const t = useTranslations(lang);
+const t = useTranslations(lang as "de" | "en");
 
 /**
  * Dynamically load the icon component for the given platform

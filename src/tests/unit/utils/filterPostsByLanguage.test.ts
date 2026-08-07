@@ -12,7 +12,10 @@ describe("filterPostsByLanguage()", () => {
   });
 
   it("skips posts with no language relation instead of throwing", () => {
-    const posts = [{ language: null, title: "No Lang" }, { language: { slug: "de" }, title: "Hallo" }];
+    const posts = [
+      { language: null, title: "No Lang" },
+      { language: { slug: "de" }, title: "Hallo" },
+    ];
 
     expect(filterPostsByLanguage({ posts: { nodes: posts } }, "de")).toEqual([
       { language: { slug: "de" }, title: "Hallo" },

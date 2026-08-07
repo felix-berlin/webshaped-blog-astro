@@ -16,8 +16,6 @@ import { useStore } from "@nanostores/vue";
 import { currentLanguage, currentWebmentionsCount } from "@stores/store";
 import { defineAsyncComponent } from "vue";
 
-import type { NodeWithAuthor } from "@/gql/graphql.ts";
-
 import { useI18n } from "@/composables/useI18n";
 
 const CommentsClient = defineAsyncComponent(
@@ -28,7 +26,7 @@ const LoadWebmentions = defineAsyncComponent(
 );
 
 export interface TabDisplayProps {
-  authorId: NodeWithAuthor["authorId"];
+  authorId: string | undefined;
   postId: string;
 }
 

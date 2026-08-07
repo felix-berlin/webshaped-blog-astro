@@ -14,9 +14,15 @@ import {
   GetAllCategoriesDocument,
   GetAuthorDocument,
   GetMenuItemsDocument,
+  type GetAuthorQuery,
 } from "@/gql/graphql.ts";
+import { useFragment } from "@/gql";
+import { CategoryFields } from "@services/queries/getCategory";
 
 import { version } from "../../../package.json";
+
+type AuthorSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
+type AuthorSocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
 const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
 
@@ -57,7 +63,7 @@ const additionalSoicalData = {
 const allSocials = {
   ...author?.seo?.social,
   ...author?.socialAdvanced,
-};
+} as AuthorSocial | AuthorSocialAdvanced;
 ---
 
 <footer class="o-footer">
@@ -87,12 +93,13 @@ const allSocials = {
         {
           categories &&
             categories.nodes
+              .map((category) => useFragment(CategoryFields, category))
               .filter((category) => category.language?.slug === lang)
               .map((category) => (
                 <li class="c-menu__item">
                   <a
                     class="c-menu__link"
-                    href={categoryPathBuilder(category.slug, category.language?.slug)}
+                    href={categoryPathBuilder(category.slug ?? "", category.language?.slug ?? lang)}
                   >
                     {category.name}
                   </a>
@@ -105,7 +112,7 @@ const allSocials = {
       <h3 class="o-footer__headline">
         {t("footer.headline.other")}
       </h3>
-      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems} />
+      <Menu class:list={"o-footer__menu c-menu--footer"} menuItems={footerMenuItems ?? { nodes: [] }} />
     </div>
     <div class="o-footer__quote">
       <figure>

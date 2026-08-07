@@ -21,10 +21,15 @@
 import MenuItem from "@components/menu-nav/MenuItem.vue";
 import ChevronDown from "virtual:icons/lucide/chevron-down";
 
-import type { MenuItem as MenuItemData } from "@/gql/graphql.ts";
+export interface MenuNode {
+  childItems?: null | { nodes: MenuNode[] };
+  label: null | string;
+  order?: null | number;
+  path: null | string;
+}
 
 export interface MenuProps {
-  menuItems: MenuItemData[];
+  menuItems: MenuNode[];
 }
 
 const { menuItems } = defineProps<MenuProps>();

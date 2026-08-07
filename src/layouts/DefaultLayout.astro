@@ -4,21 +4,21 @@ import "@fontsource/source-sans-pro/400.css";
 import "@fontsource/source-sans-pro/400-italic.css";
 import "@fontsource/source-sans-pro/700.css";
 
-import type { SeoProps } from "@components/BaseHead.astro";
+import type { Seo } from "@components/BaseHead.astro";
 
 import BaseHead from "@components/BaseHead.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import { getLangFromUrl } from "@utils/i18n/utils";
 
-import type { Language } from "@/gql/graphql.ts";
 import type { TranslationRoutes } from "@/types/i18n";
 
 export interface DefaultLayoutProps {
   bodyClasses?: Array<string> | string;
   content: {
-    language: Language;
-    seo: SeoProps;
+    // language isn't consumed here — each page passes its own query's shape.
+    language: unknown;
+    seo: Seo;
     title: string;
   };
   contentClasses?: Array<string> | string;
@@ -38,7 +38,7 @@ const lang = getLangFromUrl(Astro.url);
 <!-- TODO: Remove after lightmode is final: #9 -->
 <html class="dark" lang={lang}>
   <!-- <Head> -->
-  <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes}>
+  <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes ?? {}}>
     <Fragment slot="head">
       <slot name="head" />
     </Fragment>

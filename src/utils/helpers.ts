@@ -1,8 +1,8 @@
 import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
 
-type Maybe<T> = T | null | undefined;
-type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
+type Maybe<T> = null | T | undefined;
 type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
+type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
 type SeoUserSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
 type SocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
@@ -236,8 +236,8 @@ type AdditionalData = {
 
 type SocialItems = {
   [key: string]: {
-    url: string;
     [key: string]: unknown;
+    url: string;
   };
 };
 

@@ -17,15 +17,15 @@ import { getHtmlContent, isHtml } from "@utils/helpers";
 import he from "he";
 import slugify from "slugify";
 
-import type { CoreHeading } from "@/gql/graphql.ts";
+import type { CoreHeadingFragment } from "@/gql/graphql.ts";
 
 export interface HeadlineBlockProps {
-  block: CoreHeading;
+  block: CoreHeadingFragment;
 }
 
 const { block } = defineProps<HeadlineBlockProps>();
 
-const headline = block.attributes?.content;
+const headline = block.attributes?.content ?? "";
 const headlineLevel = block.attributes?.level;
 
 /**

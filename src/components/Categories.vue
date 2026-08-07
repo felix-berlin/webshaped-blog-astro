@@ -4,8 +4,8 @@
       {{ t("categories") }}
     </p>
     <div class="c-categories__item-wrap">
-      <template v-for="(category, index) in categories.edges" :key="category.node.id">
-        <a :href="categoryPathBuilder(category?.node?.slug, lang)" class="c-categories__link">
+      <template v-for="(category, index) in categories.edges" :key="category.node.slug">
+        <a :href="categoryPathBuilder(category?.node?.slug ?? '', lang)" class="c-categories__link">
           {{ category.node.name }}
         </a>
         <template v-if="index !== categories.edges.length - 1"> , </template>
@@ -17,13 +17,16 @@
 <script setup lang="ts">
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 
-import type { RootQueryToCategoryConnection } from "@/gql/graphql.ts";
+import type { GetAllPostsQuery } from "@/gql/graphql.ts";
+
+type CategoriesConnection = PostNode["categories"];
+type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 
 interface Props {
-  categories: RootQueryToCategoryConnection;
+  categories: CategoriesConnection;
   lang: string;
 }
 
 const { categories, lang } = defineProps<Props>();
-const t = useTranslations(lang);
+const t = useTranslations(lang as "de" | "en");
 </script>

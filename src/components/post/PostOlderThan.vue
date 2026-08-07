@@ -11,13 +11,12 @@
 </template>
 
 <script setup lang="ts">
+import type { localeStrings } from "@i18n/ui";
 import { useTranslations } from "@utils/i18n/utils";
 
-import type { Maybe } from "@/gql/graphql.ts";
-
 export interface PostOlderThanProps {
-  date: Maybe<string>;
-  lang: string;
+  date: null | string | undefined;
+  lang: keyof typeof localeStrings;
   showAfterYears: number;
 }
 

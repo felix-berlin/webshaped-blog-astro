@@ -29,13 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
 import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+import { useI18n } from "@/composables/useI18n";
+
+const { t } = useI18n();
 </script>
 
 <style lang="scss">

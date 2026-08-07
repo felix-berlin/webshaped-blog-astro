@@ -7,12 +7,19 @@ import { getSocialIconData } from "@utils/helpers";
 import { useTranslations } from "@utils/i18n/utils";
 import { LAST_FM_SCROBBLER_API } from "astro:env/client";
 
-import type { Language, Maybe, NodeWithAuthorToUserConnectionEdge } from "@/gql/graphql.ts";
+import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
 export interface AuthorProps {
-  author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
-  lang: string;
+  author: NodeWithAuthorToUserConnectionEdge | undefined;
+  lang: "de" | "en";
 }
+
+type AuthorNode = NonNullable<NodeWithAuthorToUserConnectionEdge>["node"];
+type AuthorSocial = NonNullable<NonNullable<AuthorNode["seo"]>["social"]>;
+type AuthorSocialAdvanced = NonNullable<AuthorNode["socialAdvanced"]>;
+type NodeWithAuthorToUserConnectionEdge = NonNullable<
+  GetAllPostsQuery["posts"]
+>["nodes"][number]["author"];
 
 const { author, lang } = Astro.props as AuthorProps;
 const t = useTranslations(lang);
@@ -35,7 +42,7 @@ const additionalSoicalData = {
 const allSocials = {
   ...author?.node?.seo?.social,
   ...author?.node?.socialAdvanced,
-};
+} as AuthorSocial | AuthorSocialAdvanced;
 ---
 
 <div class="c-author u-glas-background u-rounded" itemscope itemtype="http://schema.org/Person">

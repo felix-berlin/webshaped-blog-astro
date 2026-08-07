@@ -9,11 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Language, Maybe } from "@/gql/graphql.ts";
-
 export interface DateProps {
   date: string;
-  lang: Maybe<Language>;
+  lang: null | undefined | { locale?: null | string };
 }
 
 const props = defineProps<DateProps>();

@@ -3,17 +3,19 @@ import { Code } from "astro/components";
 import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
 import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
-import type { WithAcfGithubRawData } from "@/gql/graphql.ts";
+import type { AcfGithubRawDataFragment } from "@/gql/graphql.ts";
 
 interface GitHubRawDataProps {
-  block: WithAcfGithubRawData;
+  block: AcfGithubRawDataFragment;
 }
 
 const { block } = Astro.props as GitHubRawDataProps;
 
-const { codeLanguage, githubRawUrl } = block.githubRawData;
+const { codeLanguage, githubRawUrl } = block.githubRawData ?? {};
 
 async function getContent() {
+  if (!githubRawUrl) return "";
+
   const response = await fetch(githubRawUrl);
   const content = await response.text();
   return content;
@@ -25,10 +27,13 @@ const content = await getContent();
 <div class="c-blocks__code">
   <Code
     code={content}
-    lang={codeLanguage}
+    lang={
+      /* astro/shiki's CodeLanguage union isn't publicly exported; CMS supplies an arbitrary string */
+      (codeLanguage ?? undefined) as unknown as Exclude<Parameters<typeof Code>[0], undefined>["lang"]
+    }
     themes={{
-      dark: materialThemePalenight,
-      light: materialThemeLighter,
+      dark: { ...materialThemePalenight, type: materialThemePalenight.type as "dark" },
+      light: { ...materialThemeLighter, type: materialThemeLighter.type as "light" },
     }}
     wrap
   />

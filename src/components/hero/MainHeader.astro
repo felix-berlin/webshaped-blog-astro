@@ -22,7 +22,7 @@ const menuId = resolveMenuId(lang);
 
 const mainMenuItems = menuId ? await wpQueryChrome(GetMenuByIdDocument, { id: menuId }) : null;
 
-const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems, lang);
+const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems ?? null, lang);
 ---
 
 <header class="o-header" id="mainHeader">
