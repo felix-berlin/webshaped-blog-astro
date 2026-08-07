@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.2...v1.12.0) (2026-08-07)
+
+
+### Bug Fixes
+
+* **build:** remove dead imports of two SCSS partials deleted as empty ([53612ba](https://github.com/felix-berlin/webshaped-blog-astro/commit/53612baf9f6be7123cdac036a3a6707454813dd2))
+* **ci:** let lockfile changes on main refresh the release build cache ([ba05ef3](https://github.com/felix-berlin/webshaped-blog-astro/commit/ba05ef3f63b4f9bf2095b217e1fa53286f2e8909))
+* **ci:** stop double-running the Docker smoke test on the beta branch ([926fed0](https://github.com/felix-berlin/webshaped-blog-astro/commit/926fed01ee09ab13b96b93b9dcc51925995cffa9))
+* **codegen:** silence tsc on generated graphql.ts, fix remaining type errors ([05a9eea](https://github.com/felix-berlin/webshaped-blog-astro/commit/05a9eea9130cb0911617c9146c8e0f90c6063d2a))
+* correct env/docs drift found in PR [#626](https://github.com/felix-berlin/webshaped-blog-astro/issues/626) review ([2d15a05](https://github.com/felix-berlin/webshaped-blog-astro/commit/2d15a05fc7ec9f38932812f415159313d8ac61e1))
+* **env:** remove the local machine identity, back to infisical login ([576e462](https://github.com/felix-berlin/webshaped-blog-astro/commit/576e4623eaffc4316401788acd3d1b4c3a0be07a))
+* **env:** require WP_AUTH credentials at build time ([66fc438](https://github.com/felix-berlin/webshaped-blog-astro/commit/66fc438e6af90f2364f1a88072e5989345875407))
+* **env:** restore chmod 600 on the generated build-env file ([8e714df](https://github.com/felix-berlin/webshaped-blog-astro/commit/8e714df33a3efb0c4d067a43a37361dce19b4997))
+* **gql:** handle WordPress schema drift (textAlign field removed/renamed) ([1c241e9](https://github.com/felix-berlin/webshaped-blog-astro/commit/1c241e9308e361fde449e0f436b19b4f6fb76e09))
+* **nginx:** stop base image's default.conf from shadowing our vhost ([9f386fb](https://github.com/felix-berlin/webshaped-blog-astro/commit/9f386fbb6e4ad68443e907d2a3f9818422a471ca))
+* **routing:** answer unknown pages with 404 instead of a 302 ([82b8f6f](https://github.com/felix-berlin/webshaped-blog-astro/commit/82b8f6fd88ba55714ce84238caf382ba1309c304))
+* **security:** close per-command bypass in no-plaintext-secrets guard ([f082c0b](https://github.com/felix-berlin/webshaped-blog-astro/commit/f082c0b503125ebb7cf01fb63a20cfb6ccb0bde4))
+* **services:** keep partial WPGraphQL data and degrade page chrome ([7a64e01](https://github.com/felix-berlin/webshaped-blog-astro/commit/7a64e014c611c563a33345c3c81347c4445196d8))
+* **tooling:** close the varlock read paths the guard missed ([455bf8e](https://github.com/felix-berlin/webshaped-blog-astro/commit/455bf8ef0c9c4e8c317be7033a6b1430325275a4))
+* **tooling:** use the documented agent-proxy CA marker, drop stray reference ([57a19d7](https://github.com/felix-berlin/webshaped-blog-astro/commit/57a19d7573caaef92166a33ea6ec97064cfb4581))
+* **types:** resolve remaining astro check / vue-tsc errors across the app ([9c82ae0](https://github.com/felix-berlin/webshaped-blog-astro/commit/9c82ae0b198204a0f0cf86d4da9fcc83163c7e64))
+* **types:** resolve type errors in helpers/i18n and share TranslationRoutes ([7a1afef](https://github.com/felix-berlin/webshaped-blog-astro/commit/7a1afef7311394a22c1667ece066b350d72bde16))
+* update minimum release age exclusions in pnpm-workspace.yaml ([6830091](https://github.com/felix-berlin/webshaped-blog-astro/commit/6830091a516a63fb0f6e6e9573c750ddadc44a23))
+* **wp-graphql-client:** report chrome-query failures to Sentry, add timeout, unexport raw client ([c830462](https://github.com/felix-berlin/webshaped-blog-astro/commit/c830462aa8d077c3d9c72fc4ac698733266bcee9))
+
+
+### Features
+
+* add design system configuration for webshaped blog ([88b117c](https://github.com/felix-berlin/webshaped-blog-astro/commit/88b117c01bec0039edd98d0da2bcb7daace08529))
+* **auth:** switch WordPress GraphQL auth to Basic Auth (Application Passwords) ([c301391](https://github.com/felix-berlin/webshaped-blog-astro/commit/c301391c73124ef99c64bc77ad653e29526078ba))
+* **ci:** publish a floating :beta Docker tag for pre-release builds ([cc456cb](https://github.com/felix-berlin/webshaped-blog-astro/commit/cc456cb58f2e0791a90ee64fb124f8250ce05654))
+* **env:** make varlock the single source of truth for configuration ([a4595b4](https://github.com/felix-berlin/webshaped-blog-astro/commit/a4595b461b9ec0887e961df6b5b13a6f6d85e033))
+* **infra:** migrate secrets management to Infisical ([14a8113](https://github.com/felix-berlin/webshaped-blog-astro/commit/14a8113c148f6a409551000e8d8fbfd9f5bc007a))
+* **tooling:** run Claude Code behind the Infisical agent proxy ([bedc808](https://github.com/felix-berlin/webshaped-blog-astro/commit/bedc80813baa4289475f747b12ebb4a2a24b3f14))
+* **tooling:** warn at session start when the agent isn't sandboxed ([0c3d690](https://github.com/felix-berlin/webshaped-blog-astro/commit/0c3d690144a2c3dd0539d1f8d816041d18264274))
+
+
+### Performance Improvements
+
+* **ci:** add GHA layer cache to the Docker smoke test build ([570bb9b](https://github.com/felix-berlin/webshaped-blog-astro/commit/570bb9bf3be52984ed8b3953b5557821a48c34fa))
+* **ci:** build app and proxy images in parallel ([869385c](https://github.com/felix-berlin/webshaped-blog-astro/commit/869385cfe076dec9e26ebd6989dca10e0dd77f9c))
+* **docker:** shrink runtime image, pin base digest, drop file-based runtime secrets ([7bc5fea](https://github.com/felix-berlin/webshaped-blog-astro/commit/7bc5feac2d4f746cbf90b38dd3fd241dd2bdec21))
+
+
+### Reverts
+
+* **env:** drop varlock, restore Infisical-only configuration ([0bf89b9](https://github.com/felix-berlin/webshaped-blog-astro/commit/0bf89b99125b78eabdfef0d4d1c39385265ed803))
+
 # [1.12.0-beta.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.7...v1.12.0-beta.8) (2026-08-07)
 
 
