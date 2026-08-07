@@ -23,7 +23,3 @@ const { lang } = defineProps<GreenHostedProps>();
 
 const t = useTranslations(lang);
 </script>
-
-<style lang="scss">
-@use "@styles/components/green-hosted";
-</style>
