@@ -55,26 +55,23 @@
 </template>
 
 <script setup lang="ts">
-import type { Page } from "astro/dist/@types/astro";
+import type { Page } from "astro";
 
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
 import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 
-import type { Language, Maybe } from "@/gql/graphql.ts";
+import type { LanguageCodeEnum } from "@/gql/graphql.ts";
 
 defineProps<{
-  lang: Maybe<Language>;
+  lang: null | { code: LanguageCodeEnum | null; locale: null | string; slug: null | string };
   page: Page;
   path: string;
 }>();
 
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
 </script>
 
 <style lang="scss">

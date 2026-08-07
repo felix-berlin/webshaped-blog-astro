@@ -10,7 +10,7 @@
         "
         width="100"
         height="100"
-        :loading="index < 3 ? 'edge' : 'lazy'"
+        :loading="index < 3 ? 'eager' : 'lazy'"
         decoding="async"
         class="c-webmentions__author-image c-comment__author-image"
       />
@@ -31,7 +31,7 @@
         <Date
           class="c-webmentions__date c-comment__date"
           :date="mention.published"
-          :lang="lang?.locale"
+          :lang="{ locale: lang }"
         >
           <template #before>
             {{ t("webmention.posted_on") }}
@@ -62,8 +62,9 @@ import Date from "@components/post/Date.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
 import { getHostName } from "@utils/helpers";
-import { useTranslations } from "@utils/i18n/utils";
-import { defineAsyncComponent, onMounted, ref } from "vue";
+import { defineAsyncComponent } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface Webmention {
   author: {
@@ -96,8 +97,7 @@ interface WebmentionsProps {
 const { index, mention } = defineProps<WebmentionsProps>();
 
 const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
-const icon = ref(null);
+const { t } = useI18n();
 
 /**
  * Load icons for the different social media platforms
@@ -122,11 +122,6 @@ const loadIcons = (url: string) => {
       return defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
   }
 };
-
-// Load the icon when the component is mounted
-onMounted(() => {
-  icon.value = loadIcons(mention.url);
-});
 </script>
 
 <style scoped></style>

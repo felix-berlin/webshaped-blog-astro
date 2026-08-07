@@ -10,7 +10,7 @@
       <template v-if="hasComments">
         <CommentItem
           v-for="comment in cleanComments"
-          :key="comment.node.id"
+          :key="useFragment(CommentFieldsFragmentDoc, comment.node).id"
           :comment="comment.node"
           :depth="0"
           :author-id="authorId!"
@@ -27,11 +27,7 @@
       class="c-comments__load-more-button c-button c-button--outline"
       @click="getComments()"
     >
-      <RefreshCw
-        width="20"
-        height="20"
-        :class="['c-comments__loading-icon', { 'is-loading': comments.fetching.value }]"
-      />
+      <RefreshCw width="20" height="20" :class="loadingIconClass" />
       <span>{{ t("comments.load_more.button") }}</span>
     </button>
   </section>
@@ -44,30 +40,31 @@ import { useQuery } from "@urql/vue";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
 import { computed, defineAsyncComponent, reactive } from "vue";
 
-import type { NodeWithAuthor, Post } from "@/gql/graphql.ts";
-import type {
-  RootQueryToCommentConnectionEdge,
-  RootQueryToCommentConnectionPageInfo,
-} from "@/gql/graphql.ts";
+import type { GetCommentsByIdQuery, GetCommentsByIdQueryVariables } from "@/gql/graphql.ts";
 
 import { useI18n } from "@/composables/useI18n";
-import { GetCommentsByIdDocument } from "@/gql/graphql.ts";
-import { paginatedFlatListToHierarchical } from "@/utils/helpers.ts";
+import { useFragment } from "@/gql/fragment-masking";
+import { CommentFieldsFragmentDoc, GetCommentsByIdDocument } from "@/gql/graphql.ts";
 
 const CommentItem = defineAsyncComponent(() => import("@components/comments/CommentItem.vue"));
 const NoComments = defineAsyncComponent(() => import("@components/comments/NoComments.vue"));
 
 export interface CommentsProps {
-  authorId: NodeWithAuthor["authorId"];
-  currentPostId: Post["id"];
-  id: NodeWithAuthor["id"];
+  authorId?: string;
+  currentPostId: string;
+  id?: string;
 }
 
+type CommentEdge = CommentsResult["edges"][number];
+type CommentPageInfo = CommentsResult["pageInfo"];
+
 interface CommentsData {
-  comments: [] | Array<RootQueryToCommentConnectionEdge>;
-  pageInfo: RootQueryToCommentConnectionPageInfo;
+  comments: Array<CommentEdge>;
+  pageInfo: Partial<CommentPageInfo>;
   partLoading: boolean;
 }
+
+type CommentsResult = NonNullable<GetCommentsByIdQuery["comments"]>;
 
 const props = defineProps<CommentsProps>();
 
@@ -77,7 +74,7 @@ const data = reactive<CommentsData>({
   partLoading: false,
 });
 
-const queryVariables = reactive({
+const queryVariables = reactive<GetCommentsByIdQueryVariables>({
   after: null, // Startcursor (für Pagination)
   contentId: props.currentPostId,
   first: 5, // Anzahl der Kommentare pro Seite
@@ -97,22 +94,16 @@ const hasComments = computed(() => {
   return !!commentsCount.value;
 });
 
-const cleanComments = computed(() => {
-  return data.comments.filter((comment) => comment.node.parentId === null);
-});
+const loadingIconClass = computed(() =>
+  ["c-comments__loading-icon", comments.fetching.value ? "is-loading" : ""]
+    .filter(Boolean)
+    .join(" "),
+);
 
-/**
- * TODO: Remove replies from GetCommentsById and use this function
- * This change need adjustments in CommentItem.vue
- *
- * @return  {[type]}  [return description]
- */
-const hierarchicalComments = computed(() => {
-  return paginatedFlatListToHierarchical(data.comments, {
-    childrenKey: "children",
-    idKey: "id",
-    parentKey: "parentId", // or "parentDatabaseId" if needed
-  });
+const cleanComments = computed(() => {
+  return data.comments.filter(
+    (edge) => useFragment(CommentFieldsFragmentDoc, edge.node).parentId === null,
+  );
 });
 
 const { t } = useI18n();
@@ -144,7 +135,7 @@ const getComments = () => {
       data.comments = [...data.comments, ...newEdges];
     }
 
-    data.pageInfo = pageInfo;
+    if (pageInfo) data.pageInfo = pageInfo;
   });
 };
 

@@ -78,7 +78,7 @@ describe("WebmentionsItem.vue", () => {
       props: { mention, index: 0 },
     });
     const img = wrapper.find("img");
-    expect(img.attributes("loading")).toBe("edge");
+    expect(img.attributes("loading")).toBe("eager");
   });
 
   it("uses lazy loading for mentions after index 3", () => {

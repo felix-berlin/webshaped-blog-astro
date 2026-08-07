@@ -18,6 +18,7 @@ html {
   background-size: cover;
   background-image: base.$background-image-light;
   background-color: var(--color-background-doc, #{butler-fn.hex-to-rgb(colors.$white, 100%)});
+
   &[class~="dark"] {
     --color-background-doc: #{butler-fn.hex-to-rgb(colors.$blue-dark, 100%)};
     --accent-color: var(--red-light);

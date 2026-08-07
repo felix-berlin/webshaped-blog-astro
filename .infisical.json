@@ -1,0 +1,8 @@
+{
+  "workspaceId": "15cc4eb8-b1bc-4e3a-8b83-fba9c17e976a",
+  "defaultEnvironment": "",
+  "gitBranchToEnvironmentMapping": {
+    "main": "prod",
+    ".*": "dev"
+  }
+}

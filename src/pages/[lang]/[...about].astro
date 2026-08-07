@@ -1,48 +1,38 @@
 ---
 import GithubStats from "@components/GithubStats.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
-import { WP_API } from "astro:env/client";
+import { wpQuery } from "@services/wpGraphqlClient";
 
+import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["ueber-mich"],
 });
 
-const pagesResponse = await client
-  .query(GetPagesBySlugsDocument, {
-    slugs: ["ueber-mich"],
-  })
-  .toPromise();
+const pagesDataRaw = pagesResponse.pages?.nodes?.[0];
 
-if (!pagesResponse) return Astro.redirect("/404");
+if (!pagesDataRaw) return Astro.rewrite("/404");
 
-const pagesData = pagesResponse?.data?.pages?.nodes?.[0];
-
-if (!pagesData) return Astro.redirect("/404");
+const pagesData = useFragment(PageFieldFragment, pagesDataRaw);
+const translations = pagesDataRaw.translations?.map((translation) => useFragment(PageFieldFragment, translation));
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { about } = Astro.params;
 
 // Combine main page and translations into one array
-const allPages = [...(pagesData?.translations ?? []), ...(pagesData ? [pagesData] : [])];
+const allPages = [...(translations ?? []), ...(pagesData ? [pagesData] : [])];
 
 // Find the page with the matching slug
 const page = allPages.find((item) => item?.slug === about);
 
-if (!page) return Astro.redirect("/404");
+if (!page) return Astro.rewrite("/404");
 
 const translationsRoutes = allPages.reduce<Record<string, string>>((acc, curr) => {
   const langSlug = curr?.language?.slug;

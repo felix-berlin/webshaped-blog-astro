@@ -32,12 +32,15 @@
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import { LAST_FM_SCROBBLER_API } from "astro:env/client";
 
-import type { Language, Maybe, NodeWithAuthorToUserConnectionEdge } from "@/gql/graphql.ts";
+import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
 export interface AuthorProps {
-  author: Maybe<NodeWithAuthorToUserConnectionEdge> | undefined;
-  lang: Maybe<Language>;
+  author: PostAuthor | undefined;
+  lang: null | string | undefined;
 }
+type PostAuthor = PostNode["author"];
+
+type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 
 defineProps<AuthorProps>();
 

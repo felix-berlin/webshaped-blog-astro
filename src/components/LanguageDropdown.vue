@@ -5,7 +5,7 @@
       <menu class="c-lang-dropdown u-list-reset">
         <li v-for="(path, language) in routes" :key="language" class="c-lang-dropdown__item">
           <a class="c-lang-dropdown__link" :class="{ 'is-active': lang === language }" :href="path">
-            {{ languages[language] }}
+            {{ languages[language as keyof typeof languages] }}
           </a>
         </li>
       </menu>

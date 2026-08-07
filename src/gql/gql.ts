@@ -16,10 +16,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 type Documents = {
     "\n  fragment CoreParagraph on CoreParagraph {\n    name\n    attributes {\n      content\n      align\n    }\n  }\n": typeof types.CoreParagraphFragmentDoc,
     "\n  fragment CoreList on CoreList {\n    name\n    innerBlocks {\n      name\n      ... on CoreListItem {\n        attributes {\n          content\n        }\n      }\n    }\n  }\n": typeof types.CoreListFragmentDoc,
-    "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n      textAlign\n    }\n  }\n": typeof types.CoreHeadingFragmentDoc,
+    "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n    }\n  }\n": typeof types.CoreHeadingFragmentDoc,
     "\n  fragment CoreCode on CoreCode {\n    name\n    attributes {\n      content\n      align\n      className\n    }\n  }\n": typeof types.CoreCodeFragmentDoc,
     "\n  fragment CoreImage on CoreImage {\n    name\n    attributes {\n      align\n      alt\n      aspectRatio\n      caption\n      height\n      id\n      sizeSlug\n      src\n      title\n      width\n    }\n    mediaDetails {\n      sizes {\n        sourceUrl\n        file\n        fileSize\n        height\n        mimeType\n        name\n        width\n      }\n      height\n      width\n    }\n  }\n": typeof types.CoreImageFragmentDoc,
-    "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      textAlign\n      title\n      linkTarget\n      rel\n    }\n  }\n": typeof types.CoreButtonFragmentDoc,
+    "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      title\n      linkTarget\n      rel\n    }\n  }\n": typeof types.CoreButtonFragmentDoc,
     "\n  fragment CoreButtons on CoreButtons {\n    name\n    attributes {\n      align\n    }\n    innerBlocks {\n      ...CoreButton\n    }\n  }\n": typeof types.CoreButtonsFragmentDoc,
     "\n  fragment AcfGithubRawData on AcfGithubRawData {\n    name\n    githubRawData {\n      codeLanguage\n      githubRawUrl\n    }\n  }\n": typeof types.AcfGithubRawDataFragmentDoc,
     "\n  fragment AcfCodeHighlighting on AcfCodeHighlighting {\n    name\n    attributes {\n      data\n    }\n  }\n": typeof types.AcfCodeHighlightingFragmentDoc,
@@ -44,10 +44,10 @@ type Documents = {
 const documents: Documents = {
     "\n  fragment CoreParagraph on CoreParagraph {\n    name\n    attributes {\n      content\n      align\n    }\n  }\n": types.CoreParagraphFragmentDoc,
     "\n  fragment CoreList on CoreList {\n    name\n    innerBlocks {\n      name\n      ... on CoreListItem {\n        attributes {\n          content\n        }\n      }\n    }\n  }\n": types.CoreListFragmentDoc,
-    "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n      textAlign\n    }\n  }\n": types.CoreHeadingFragmentDoc,
+    "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n    }\n  }\n": types.CoreHeadingFragmentDoc,
     "\n  fragment CoreCode on CoreCode {\n    name\n    attributes {\n      content\n      align\n      className\n    }\n  }\n": types.CoreCodeFragmentDoc,
     "\n  fragment CoreImage on CoreImage {\n    name\n    attributes {\n      align\n      alt\n      aspectRatio\n      caption\n      height\n      id\n      sizeSlug\n      src\n      title\n      width\n    }\n    mediaDetails {\n      sizes {\n        sourceUrl\n        file\n        fileSize\n        height\n        mimeType\n        name\n        width\n      }\n      height\n      width\n    }\n  }\n": types.CoreImageFragmentDoc,
-    "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      textAlign\n      title\n      linkTarget\n      rel\n    }\n  }\n": types.CoreButtonFragmentDoc,
+    "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      title\n      linkTarget\n      rel\n    }\n  }\n": types.CoreButtonFragmentDoc,
     "\n  fragment CoreButtons on CoreButtons {\n    name\n    attributes {\n      align\n    }\n    innerBlocks {\n      ...CoreButton\n    }\n  }\n": types.CoreButtonsFragmentDoc,
     "\n  fragment AcfGithubRawData on AcfGithubRawData {\n    name\n    githubRawData {\n      codeLanguage\n      githubRawUrl\n    }\n  }\n": types.AcfGithubRawDataFragmentDoc,
     "\n  fragment AcfCodeHighlighting on AcfCodeHighlighting {\n    name\n    attributes {\n      data\n    }\n  }\n": types.AcfCodeHighlightingFragmentDoc,
@@ -95,7 +95,7 @@ export function graphql(source: "\n  fragment CoreList on CoreList {\n    name\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n      textAlign\n    }\n  }\n"): (typeof documents)["\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n      textAlign\n    }\n  }\n"];
+export function graphql(source: "\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n    }\n  }\n"): (typeof documents)["\n  fragment CoreHeading on CoreHeading {\n    name\n    attributes {\n      align\n      content\n      level\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -107,7 +107,7 @@ export function graphql(source: "\n  fragment CoreImage on CoreImage {\n    name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      textAlign\n      title\n      linkTarget\n      rel\n    }\n  }\n"): (typeof documents)["\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      textAlign\n      title\n      linkTarget\n      rel\n    }\n  }\n"];
+export function graphql(source: "\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      title\n      linkTarget\n      rel\n    }\n  }\n"): (typeof documents)["\n  fragment CoreButton on CoreButton {\n    name\n    attributes {\n      text\n      type\n      url\n      title\n      linkTarget\n      rel\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

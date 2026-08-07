@@ -6,12 +6,11 @@ import "@styles/objects/_header.scss";
 // import "@pagefind/default-ui/css/ui.css";
 // import "@styles/components/_searchbar.scss";
 import MainNav from "@components/hero/MainNav.vue";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 // import { currentLanguage } from "@stores/store";
-import { updateCategoryPaths } from "@utils/helpers";
-import { WP_API } from "astro:env/client";
+import { resolveMenuId, updateCategoryPaths } from "@utils/helpers";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 
-import { GetMenuByIdDocument, GetMenuItemsDocument } from "@/gql/graphql.ts";
+import { GetMenuByIdDocument } from "@/gql/graphql.ts";
 
 interface HeaderProps {
   lang: "de" | "en";
@@ -19,25 +18,11 @@ interface HeaderProps {
 
 const { lang } = Astro.props as HeaderProps;
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
-});
+const menuId = resolveMenuId(lang);
 
-let mainMenuItems = null;
+const mainMenuItems = menuId ? await wpQueryChrome(GetMenuByIdDocument, { id: menuId }) : null;
 
-if (lang === "de") {
-  mainMenuItems = await client.query(GetMenuByIdDocument, { id: "2" }).toPromise();
-} else if (lang === "en") {
-  mainMenuItems = await client.query(GetMenuByIdDocument, { id: "125" }).toPromise();
-}
-
-const menuItems = updateCategoryPaths(mainMenuItems?.data?.menu?.menuItems, lang);
+const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems ?? null, lang);
 ---
 
 <header class="o-header" id="mainHeader">

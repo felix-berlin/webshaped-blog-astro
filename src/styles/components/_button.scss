@@ -84,6 +84,7 @@
 
   &--like-link {
     padding: 0;
+
     @extend .u-button-reset;
 
     @include mx.icon-center() {

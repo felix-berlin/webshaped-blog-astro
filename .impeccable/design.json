@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-06T00:00:00.000Z",
+  "title": "Design System: webshaped blog",
+  "extensions": {
+    "colorMeta": {
+      "night-navy": {
+        "role": "primary",
+        "displayName": "Night Navy",
+        "canonical": "#303956",
+        "tonalRamp": [
+          "#0b0e15",
+          "#1e2335",
+          "#272e46",
+          "#303956",
+          "#394466",
+          "#556497",
+          "#707faf",
+          "#919cc1"
+        ]
+      },
+      "coral-accent": {
+        "role": "secondary",
+        "displayName": "Coral Accent",
+        "canonical": "#ed3c63",
+        "tonalRamp": [
+          "#5c0e1e",
+          "#8f1730",
+          "#c2264a",
+          "#ed3c63",
+          "#f16d8a",
+          "#f594a8",
+          "#f9bac6",
+          "#fde0e5"
+        ]
+      },
+      "amber-accent": {
+        "role": "secondary",
+        "displayName": "Amber Accent",
+        "canonical": "#e88923",
+        "tonalRamp": [
+          "#4d2c05",
+          "#7a4708",
+          "#a9630f",
+          "#e88923",
+          "#eea55a",
+          "#f2bc84",
+          "#f6d3ad",
+          "#fbe9d6"
+        ]
+      },
+      "gold-accent": {
+        "role": "neutral",
+        "displayName": "Gold Accent",
+        "canonical": "#e8a023",
+        "tonalRamp": [
+          "#4d3305",
+          "#7a5208",
+          "#a9720f",
+          "#e8a023",
+          "#eeb85a",
+          "#f2cb84",
+          "#f6ddad",
+          "#fbf0d6"
+        ]
+      },
+      "sky-blue": {
+        "role": "neutral",
+        "displayName": "Sky Blue",
+        "canonical": "#24b4e9",
+        "tonalRamp": [
+          "#072e3d",
+          "#0b4a61",
+          "#128aa8",
+          "#24b4e9",
+          "#5cc8ee",
+          "#8bdaf4",
+          "#b8e9f8",
+          "#e2f6fc"
+        ]
+      },
+      "periwinkle": {
+        "role": "neutral",
+        "displayName": "Periwinkle",
+        "canonical": "#b0bada",
+        "tonalRamp": [
+          "#1e2335",
+          "#303956",
+          "#556497",
+          "#b0bada",
+          "#c3ccdf",
+          "#d6dce8",
+          "#e6eaf2",
+          "#f4f6fa"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#eeeeee",
+        "tonalRamp": [
+          "#1a1a1a",
+          "#333333",
+          "#666666",
+          "#999999",
+          "#cccccc",
+          "#e0e0e0",
+          "#eeeeee",
+          "#f8f8f8"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger",
+        "canonical": "#f33b1d",
+        "tonalRamp": [
+          "#4d1204",
+          "#7a1d08",
+          "#a9290f",
+          "#f33b1d",
+          "#f66a52",
+          "#f99485",
+          "#fbbbb1",
+          "#fde2dd"
+        ]
+      },
+      "success": {
+        "role": "neutral",
+        "displayName": "Success",
+        "canonical": "#35a672",
+        "tonalRamp": [
+          "#0c2e1f",
+          "#134a32",
+          "#207a53",
+          "#35a672",
+          "#5fbd8e",
+          "#8ad0ab",
+          "#b6e2c8",
+          "#e2f4e8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page-level h1 headings." },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and post-card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Article and paragraph copy, 65-75ch max width."
+      },
+      "label": { "displayName": "Label", "purpose": "Form labels and small UI copy." }
+    },
+    "shadows": [
+      {
+        "name": "ambient-icon-glow",
+        "value": "drop-shadow(0 0 4px rgba(238,238,238,0.35))",
+        "purpose": "Soft glow under icon-button SVGs, swaps to accent color on hover."
+      },
+      {
+        "name": "outline-hover-glow",
+        "value": "0 0 15px 1px rgba(255,180,51,0.5)",
+        "purpose": "One-off hover accent on outline buttons, paired with a blur+hue-rotate backdrop-filter."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px rgba(255,180,51,0.3)",
+        "purpose": "Input focus ring, paired with an accent-colored border and outline."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "ease-in-out",
+        "purpose": "Default 0.2s transition for buttons and general state changes."
+      },
+      {
+        "name": "ease-card-hover",
+        "value": "cubic-bezier(0.65, 0.05, 0.36, 1)",
+        "purpose": "0.3s post-card hover transition (title color, arrow reveal)."
+      },
+      {
+        "name": "ease-modal-enter",
+        "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        "purpose": "0.4s 3D slide-in-from-top entrance for the native dialog modal."
+      },
+      {
+        "name": "ease-checkbox-spring",
+        "value": "cubic-bezier(0.2, 0.85, 0.32, 1.2)",
+        "purpose": "Checked-state transform on custom checkbox/switch inputs; the system's one spring-like easing."
+      }
+    ],
+    "breakpoints": [
+      { "name": "xxs", "value": "376px" },
+      { "name": "xs", "value": "569px" },
+      { "name": "sm", "value": "769px" },
+      { "name": "md", "value": "1025px" },
+      { "name": "lg", "value": "1261px" },
+      { "name": "xlg", "value": "1441px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid accent-colored call-to-action button.",
+      "html": "<button class=\"ds-btn-primary\">Read more</button>",
+      "css": ".ds-btn-primary { background-color: #e88923; color: #eeeeee; border: none; border-radius: 3px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s ease-in-out; } .ds-btn-primary:hover { background-color: #d97d1a; } .ds-btn-primary:focus-visible { outline: 2px solid #e88923; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Transparent button with accent border, glowing hover state.",
+      "html": "<button class=\"ds-btn-outline\">Subscribe</button>",
+      "css": ".ds-btn-outline { background-color: transparent; color: #eeeeee; border: 1px solid #e88923; border-radius: 3px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s ease-in-out; } .ds-btn-outline:hover { box-shadow: 0 0 15px 1px rgba(255,180,51,0.5); backdrop-filter: blur(3px) hue-rotate(21deg); } .ds-btn-outline:focus-visible { outline: 2px solid #e88923; }"
+    },
+    {
+      "name": "Post Card",
+      "kind": "card",
+      "refersTo": "post-card",
+      "description": "Translucent tinted card for a blog post preview, with reveal-on-hover arrow.",
+      "html": "<a class=\"ds-post-card\" href=\"#\"><h2 class=\"ds-post-card__title\">Post title</h2><p class=\"ds-post-card__excerpt\">A short excerpt of the article content goes here.</p><span class=\"ds-post-card__read-more\">Read more <span class=\"ds-post-card__arrow\">&rarr;</span></span></a>",
+      "css": ".ds-post-card { display: flex; flex-direction: column; gap: 1.2rem; padding: 2rem; background-color: rgba(36,180,233,0.08); border-radius: 3px; text-decoration: none; color: inherit; position: relative; } .ds-post-card__title { margin: 0; font-family: 'Source Sans Pro', sans-serif; font-weight: 700; font-size: 1.5rem; transition: color 0.3s cubic-bezier(0.65,0.05,0.36,1); } .ds-post-card__excerpt { margin: 0; font-size: 1.1rem; line-height: 1.6; } .ds-post-card__read-more { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 0.25rem; margin-top: auto; } .ds-post-card__arrow { opacity: 0; transition: all 0.2s ease-in-out; } .ds-post-card:hover .ds-post-card__title { color: #ed3c63; } .ds-post-card:hover .ds-post-card__arrow { opacity: 1; transform: translateX(0.15rem); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Bordered text field with a soft accent focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Your name\" />",
+      "css": ".ds-input { font-size: 1rem; background-color: #ffffff; border: 1px solid #384263; border-radius: 3px; padding: 0.55rem; box-shadow: 0 0 0 1px transparent; transition: border-color 200ms, box-shadow 200ms; } .ds-input:focus { border-color: #e88923; box-shadow: 0 0 0 3px rgba(255,180,51,0.3); outline: 1px solid #e88923; }"
+    },
+    {
+      "name": "Modal",
+      "kind": "custom",
+      "refersTo": "modal",
+      "description": "Native dialog with blurred backdrop and a 3D fly-in entrance.",
+      "html": "<dialog class=\"ds-modal\" open><p>Modal content goes here.</p></dialog>",
+      "css": ".ds-modal { border-radius: 3px; border: none; background-color: #eeeeee; padding: 2rem; animation: ds-modal-in 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both; } .ds-modal::backdrop { background-color: rgba(0,0,0,0.3); backdrop-filter: blur(4px); } @keyframes ds-modal-in { 0% { transform: translateZ(-1400px) translateY(-800px); opacity: 0; } 100% { transform: translateZ(0) translateY(0); opacity: 1; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sunset Halftone",
+    "overview": "The blog reads as a printed halftone sheet lit from behind by a sunset. Every page sits on a fine dot-grid texture (a tiled SVG halftone pattern, not a flat color), with two soft diagonal gradient glows — warm amber-to-coral in light mode, navy-to-coral in dark mode — washing across the top and bottom of the viewport behind the content. The UI itself stays deliberately quiet and near-flat (3px corners, thin borders, translucent tints) so the textured background and the accent color do the visual work, not the chrome. The system explicitly rejects glossy card-heavy SaaS staging: no drop shadows stacked for hierarchy, no rounded-pill everything, no neutral-gray flatness. Depth and mood come from texture and color wash, not elevation.",
+    "keyCharacteristics": [
+      "Halftone dot-grid background texture on every page, both themes.",
+      "Diagonal warm-gradient glow blobs behind main content, theme-aware.",
+      "Near-flat geometry: a single 3px radius used everywhere, never fully rounded.",
+      "One accent color per theme: amber/gold in light mode, coral-red in dark mode.",
+      "Single sans-serif family (Source Sans Pro) carries the entire type system."
+    ],
+    "rules": [
+      {
+        "name": "The One Accent Rule",
+        "body": "Only one hot accent color is live at a time — amber in light mode, coral in dark mode. They never appear together on the same render; the .dark class swap on <html> is the single source of truth for which one is active.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "No second typeface is introduced for contrast; every weight and size step comes from Source Sans Pro's own range.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Stack Rule",
+        "body": "Never stack multiple box-shadows to fake elevation tiers (card < modal < tooltip). If something needs to feel above the page, use blur/tint or motion, not a heavier shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the halftone dot-grid background and diagonal gradient glows on every page — they are the system's signature, not decoration to be dropped on busy pages.",
+      "Do use exactly one accent color at a time (amber in light mode, coral in dark mode), driven only by the .dark class on <html>.",
+      "Do use the 3px radius (base.$border-radius) on every rounded surface — buttons, inputs, cards, modal, nav shell. Never introduce a second radius scale.",
+      "Do convey depth through translucent tint + blur (backdrop-filter) or through motion (the modal's 3D entrance), not through stacked box-shadows.",
+      "Do respect the motion / no-motion feature toggle already wired through sass-butler's feature() mixin — every hover/transition effect must have a static fallback for prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't stack multiple box-shadows to simulate elevation tiers (card < modal < tooltip); this system does not have an elevation ladder.",
+      "Don't introduce a second typeface for \"contrast\" — hierarchy comes from weight and size within Source Sans Pro only.",
+      "Don't use pure #fff as a large-surface background; the system's near-white is Paper (#eeeeee).",
+      "Don't show both accent colors (amber and coral) at once on the same render — only one is ever \"live,\" matching the current theme.",
+      "Don't round corners beyond 3px, and don't leave any interactive surface (button, input, card) with square corners either — the 3px radius is a fixed, uniform choice, not a per-component decision."
+    ]
+  }
+}

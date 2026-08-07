@@ -10,10 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import type { CoreCodeBlock } from "@/gql/graphql.ts";
+import type { CoreCodeFragment } from "@/gql/graphql.ts";
 
 export interface CodeBlockProps {
-  block: CoreCodeBlock;
+  block: CoreCodeFragment;
 }
 
 defineProps<CodeBlockProps>();

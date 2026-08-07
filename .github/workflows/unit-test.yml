@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   VITEST_CI: true
 
@@ -17,7 +21,14 @@ jobs:
       - name: Checkout ✅
         uses: actions/checkout@v7
 
-      - run: cp ./.env.pipeline ./.env
+      - name: Fetch secrets from Infisical 🔐
+        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
+        with:
+          method: "oidc"
+          identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
+          project-slug: "web-shaped"
+          env-slug: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+          domain: "https://infisical.kasimir.dev"
 
       - name: Setup pnpm 🛠️
         uses: pnpm/action-setup@v6
@@ -29,22 +40,25 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies 🛠️
-        run: pnpm i
+        run: pnpm i --frozen-lockfile
 
-      - name: Run Vitest (with coverage report) 🧪
-        run: pnpm run test:unit:coverage
+      - name: Run Vitest (with coverage and JUnit report) 🧪
+        run: pnpm run test:unit:ci
         env:
           SITE_URL: "http://localhost:4321"
 
-      - name: Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5.5.5
         with:
           directory: ./tests/unit/coverage
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
+        uses: codecov/codecov-action@v5.5.5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          report_type: test_results
+          files: ./test-report.junit.xml
+        env:
+          CODECOV_TOKEN: ${{ env.CODECOV_TOKEN }}

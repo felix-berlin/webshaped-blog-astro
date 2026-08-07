@@ -15,7 +15,7 @@
           :src="comment.author.node.avatar.url!"
           :alt="
             t('comment.author.image.alt', {
-              author: comment.author.node.name,
+              author: comment.author.node.name ?? '',
             })
           "
           :width="comment.author.node.avatar.width!"
@@ -56,7 +56,7 @@
             <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date :date="comment.dateGmt!" :lang="lang" class="c-comment__date">
+          <Date :date="comment.dateGmt!" :lang="{ locale: lang }" class="c-comment__date">
             <template #before>
               {{ t("comment.date") }}
             </template>
@@ -72,7 +72,7 @@
       class="c-comment is-create-comment"
       :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
     >
-      <CreateComment :current-post-id="currentPostId" :reply-to-comment-id="comment?.commentId">
+      <CreateComment :current-post-id="currentPostId" :reply-to-comment-id="comment?.id">
         <template #beforeContent>
           <button
             type="button"
@@ -89,7 +89,7 @@
     <template v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0">
       <CommentItem
         v-for="reply in comment.replies.nodes"
-        :key="reply.id"
+        :key="useFragment(CommentFieldsFragmentDoc, reply).id"
         v-auto-animate
         :comment="reply"
         :depth="depth + 1"
@@ -105,27 +105,45 @@ import CreateComment from "@components/comments/CreateComment.vue";
 import Date from "@components/post/Date.vue";
 import { useStore } from "@nanostores/vue";
 import { currentLanguage } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
 import Reply from "virtual:icons/lucide/reply";
 import User from "virtual:icons/lucide/user";
 import Verified from "virtual:icons/lucide/verified";
 import X from "virtual:icons/lucide/x";
 import { computed, ref } from "vue";
 
-import type { Comment } from "@/gql/graphql.ts";
+import type { CommentFieldsFragment } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
+import { useFragment } from "@/gql/fragment-masking";
+import { CommentFieldsFragmentDoc } from "@/gql/graphql.ts";
+
+/**
+ * A comment node as returned by GetCommentsById: the fields spread via the
+ * CommentFields fragment (masked) plus the sibling `replies` field, which
+ * recurses to the same shape.
+ */
+export interface CommentNode {
+  " $fragmentRefs"?: { CommentFieldsFragment: CommentFieldsFragment };
+  replies?: null | { nodes?: Array<CommentNode> | null };
+}
 
 interface CommentItemProps {
   authorId?: string;
-  comment: Comment;
+  comment: CommentNode;
   currentPostId: string;
   depth: number;
 }
 
 const props = defineProps<CommentItemProps>();
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value);
+const { t } = useI18n();
+const langStore = useStore(currentLanguage);
+const lang = computed(() => langStore.value as "de" | "en");
+const comment = computed(() => ({
+  ...useFragment(CommentFieldsFragmentDoc, props.comment),
+  replies: props.comment.replies,
+}));
 const replyToCommentForm = ref(false);
-const isAuthor = computed(() => props?.comment?.author?.node.id === props.authorId);
+const isAuthor = computed(() => comment.value.author?.node.id === props.authorId);
 
 /**
  * Methods

@@ -1,12 +1,12 @@
 <template>
   <picture v-if="src">
     <source
-      :srcset="createSrcSet(props.srcSet, props.src, 'webp')"
+      :srcset="createSrcSet(props.srcSet, props.src, 'webp') ?? undefined"
       type="image/webp"
       :sizes="sizes ?? ''"
     />
     <source
-      :srcset="createSrcSet(props.srcSet, props.src, 'jpeg')"
+      :srcset="createSrcSet(props.srcSet, props.src, 'jpeg') ?? undefined"
       type="image/jpeg"
       :sizes="sizes ?? ''"
     />
@@ -26,8 +26,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import type { Maybe } from "@/gql/graphql.ts";
-
 export interface ImageResponsiveProps {
   aboveTheFold?: boolean;
   alt?: Maybe<string>;
@@ -38,9 +36,11 @@ export interface ImageResponsiveProps {
   width?: Maybe<number>;
 }
 
+type Maybe<T> = null | T | undefined;
+
 const props = defineProps<ImageResponsiveProps>();
 
-const createSrcSet = (srcSet: string, src: string, format: string) => {
+const createSrcSet = (srcSet: Maybe<string>, src: Maybe<string>, format: string) => {
   // if src contains gif or svg return without jpg
   if (src?.match(/\.gif|\.svg$/)) {
     return srcSet;
@@ -56,8 +56,8 @@ const createSrcSet = (srcSet: string, src: string, format: string) => {
     .join(", ");
 };
 
-const loading = ref("lazy");
-const fetchPriority = ref("auto");
+const loading = ref<"eager" | "lazy">("lazy");
+const fetchPriority = ref<"auto" | "high" | "low">("auto");
 
 if (props.aboveTheFold) {
   loading.value = "eager";

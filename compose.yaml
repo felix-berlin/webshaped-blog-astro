@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: docker/nginx.Dockerfile
+      x-bake:
+        cache-from: [type=gha, scope=proxy]
+        cache-to: [type=gha, mode=max, scope=proxy]
     container_name: webshaped-blog-astro-proxy
     depends_on:
       app:
@@ -26,16 +29,35 @@ services:
       dockerfile: Dockerfile
       secrets:
         - build_env
+      x-bake:
+        cache-from: [type=gha, scope=app]
+        cache-to: [type=gha, mode=max, scope=app]
     container_name: webshaped-blog-astro
     expose:
       - "4321"
-    env_file:
-      - .env
     environment:
       HOST: 0.0.0.0
       PORT: 4321
+      WP_API: ${WP_API:?}
+      WP_REST_API: ${WP_REST_API:?}
+      WP_AUTH_USER: ${WP_AUTH_USER:?}
+      WP_AUTH_PASS: ${WP_AUTH_PASS:?}
+      LAST_FM_SCROBBLER_API: ${LAST_FM_SCROBBLER_API:?}
+      SITE_URL: ${SITE_URL:?}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:?}
+      ENABLE_ANALYTICS: ${ENABLE_ANALYTICS:-false}
+      SENTRY_DSN: ${SENTRY_DSN:-}
+      SENTRY_PROJECT_ID: ${SENTRY_PROJECT_ID:-}
+      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:-}
+      SENTRY_ENVIRONMENT: ${SENTRY_ENVIRONMENT:-}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4321/"]
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -43,4 +65,4 @@ services:
 
 secrets:
   build_env:
-    file: ${BUILD_ENV_FILE:-.env}
+    file: ${BUILD_ENV_FILE:-.build.env}

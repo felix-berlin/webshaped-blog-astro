@@ -48,6 +48,7 @@ export default defineConfig({
   adapter: node({
     mode: "standalone",
   }),
+  session: false,
   site: SITE_URL,
   trailingSlash: "never",
   markdown: {
@@ -192,10 +193,19 @@ export default defineConfig({
         optional: false,
         url: true,
       }),
-      WP_AUTH_REFRESH_TOKEN: envField.string({
+      // Required, not optional: cms.webshaped.de runs behind a maintenance-mode
+      // plugin that serves an HTML holding page to unauthenticated requests (see
+      // src/services/wpGraphqlClient.ts), so an unset credential silently degrades
+      // every query instead of failing loudly.
+      WP_AUTH_USER: envField.string({
         context: "server",
         access: "secret",
-        optional: true,
+        optional: false,
+      }),
+      WP_AUTH_PASS: envField.string({
+        context: "server",
+        access: "secret",
+        optional: false,
       }),
       LAST_FM_SCROBBLER_API: envField.string({
         context: "client",

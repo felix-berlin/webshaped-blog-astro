@@ -11,7 +11,7 @@
       <a
         :href="`/${translation?.language?.slug}/posts/${translation?.slug}`"
         class="c-has-translation__link"
-        :aria-label="t('blog.read_in_lang', { lang: translation?.language?.name })"
+        :aria-label="t('blog.read_in_lang', { lang: translation?.language?.name ?? '' })"
       >
         {{ translation?.language?.name }}
       </a>
@@ -22,13 +22,15 @@
 <script setup lang="ts">
 import { useTranslations } from "@utils/i18n/utils";
 
-import type { Post } from "@/gql/graphql.ts";
+import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
 interface HasTranslationsProps {
   lang: string;
-  translations: Post["translations"];
+  translations: PostNode["translations"];
 }
 
+type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
+
 const { lang, translations } = defineProps<HasTranslationsProps>();
-const t = useTranslations(lang);
+const t = useTranslations(lang as "de" | "en");
 </script>

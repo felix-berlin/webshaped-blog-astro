@@ -10,13 +10,17 @@
 </template>
 
 <script setup lang="ts">
-import type { CoreButton } from "@/gql/graphql.ts";
+import type { CoreButtonFragment } from "@/gql/graphql.ts";
 
 export interface ButtonBlockProps {
-  block: CoreButton;
+  block: CoreButtonFragment;
 }
 
 const props = defineProps<ButtonBlockProps>();
 
-const { linkTarget, rel, text, textAlign, title, type, url } = props.block.attributes;
+const linkTarget = props.block.attributes?.linkTarget ?? undefined;
+const rel = props.block.attributes?.rel ?? undefined;
+const text = props.block.attributes?.text ?? undefined;
+const title = props.block.attributes?.title ?? undefined;
+const url = props.block.attributes?.url ?? undefined;
 </script>

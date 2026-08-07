@@ -36,11 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import type { RootQueryToMenuItemConnection } from "@/gql/graphql";
+import type { GetMenuItemsQuery } from "@/gql/graphql";
 
 export interface MenuProps {
-  menuItems: RootQueryToMenuItemConnection;
+  menuItems: MenuItemConnection;
 }
+
+type MenuItemConnection = NonNullable<GetMenuItemsQuery["menuItems"]>;
 
 const props = defineProps<MenuProps>();
 </script>

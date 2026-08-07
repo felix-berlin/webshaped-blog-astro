@@ -16,10 +16,10 @@
 <script setup lang="ts">
 import ImageResponsive from "@components/ImageResponsive.vue";
 
-import type { CoreImage } from "@/gql/graphql.ts";
+import type { CoreImageFragment } from "@/gql/graphql.ts";
 
 export interface FigureBlockProps {
-  block: CoreImage;
+  block: CoreImageFragment;
 }
 
 const props = defineProps<FigureBlockProps>();

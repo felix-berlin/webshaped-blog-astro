@@ -7,7 +7,7 @@ describe("HeadlineBlock.vue", () => {
   it("renders an h2 element for level 2", () => {
     const block = {
       name: "core/heading",
-      attributes: { content: "My Heading", level: 2, align: null, textAlign: null },
+      attributes: { content: "My Heading", level: 2, align: null },
     };
     const wrapper = mount(HeadlineBlock, {
       props: { block: block as any },
@@ -18,7 +18,7 @@ describe("HeadlineBlock.vue", () => {
   it("renders an h3 element for level 3", () => {
     const block = {
       name: "core/heading",
-      attributes: { content: "Sub Heading", level: 3, align: null, textAlign: null },
+      attributes: { content: "Sub Heading", level: 3, align: null },
     };
     const wrapper = mount(HeadlineBlock, {
       props: { block: block as any },
@@ -29,7 +29,7 @@ describe("HeadlineBlock.vue", () => {
   it("renders plain text content", () => {
     const block = {
       name: "core/heading",
-      attributes: { content: "Plain Heading", level: 2, align: null, textAlign: null },
+      attributes: { content: "Plain Heading", level: 2, align: null },
     };
     const wrapper = mount(HeadlineBlock, {
       props: { block: block as any },
@@ -44,7 +44,6 @@ describe("HeadlineBlock.vue", () => {
         content: "<em>Formatted Heading</em>",
         level: 2,
         align: null,
-        textAlign: null,
       },
     };
     const wrapper = mount(HeadlineBlock, {
@@ -57,7 +56,7 @@ describe("HeadlineBlock.vue", () => {
   it("adds an id attribute from plain text content", () => {
     const block = {
       name: "core/heading",
-      attributes: { content: "My Cool Heading", level: 2, align: null, textAlign: null },
+      attributes: { content: "My Cool Heading", level: 2, align: null },
     };
     const wrapper = mount(HeadlineBlock, {
       props: { block: block as any },
@@ -69,7 +68,7 @@ describe("HeadlineBlock.vue", () => {
   it("adds heading level class", () => {
     const block = {
       name: "core/heading",
-      attributes: { content: "Heading", level: 2, align: null, textAlign: null },
+      attributes: { content: "Heading", level: 2, align: null },
     };
     const wrapper = mount(HeadlineBlock, {
       props: { block: block as any },

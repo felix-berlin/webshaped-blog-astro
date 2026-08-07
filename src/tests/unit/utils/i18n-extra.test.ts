@@ -54,7 +54,11 @@ describe("createLocalizedUrl()", () => {
 
   it("returns URL with same slug when no translation available", () => {
     const translations = { en: undefined, de: "ueber-mich" } as Record<string, string | undefined>;
-    const result = createLocalizedUrl("/de/pages/ueber-mich", "en", translations as Record<string, string>);
+    const result = createLocalizedUrl(
+      "/de/pages/ueber-mich",
+      "en",
+      translations as Record<string, string>,
+    );
     expect(result).toContain("/en/pages/");
   });
 

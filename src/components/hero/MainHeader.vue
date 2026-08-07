@@ -9,11 +9,11 @@
 // import LanguageSelect from "@components/LanguageSelect.vue";
 import MainNav from "@components/hero/MainNav.vue";
 
-import type { Language, Maybe, MenuToMenuItemConnection } from "@/gql/graphql.ts";
+import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
 
 export interface HeaderProps {
-  lang: Maybe<Language>;
-  menuItems: MenuToMenuItemConnection;
+  lang: null | string | undefined;
+  menuItems: NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
 }
 
 const props = defineProps<HeaderProps>();

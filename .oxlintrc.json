@@ -26,6 +26,7 @@
     "**/node_modules/",
     "**/__snapshots__/",
     "src/types/generated/",
+    "src/gql/",
     "**/*.config.{mjs,cjs,ts,js}",
     "**/*.test.ts"
   ],

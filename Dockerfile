@@ -1,4 +1,4 @@
-FROM node:lts-slim AS base
+FROM node:lts-slim@sha256:3638d9a6fe4030bd716be989438248074489337ba3275657f93595428be4fc03 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -19,21 +19,19 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
-FROM node:lts-slim AS runtime
+FROM node:lts-slim@sha256:3638d9a6fe4030bd716be989438248074489337ba3275657f93595428be4fc03 AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Install curl for health checks
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
-
-COPY --from=prod-deps /app/node_modules /app/node_modules
-COPY --from=build /app/dist /app/dist
+COPY --from=prod-deps --chown=node:node /app/node_modules /app/node_modules
+COPY --from=build --chown=node:node /app/dist /app/dist
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD curl -f http://localhost:4321/ || exit 1
+  CMD ["node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 
+USER node
 CMD ["node", "./dist/server/entry.mjs"]

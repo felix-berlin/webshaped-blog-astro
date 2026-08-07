@@ -1,44 +1,34 @@
 ---
 import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
-import "@styles/objects/_index.scss";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
+import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
 import { getLangFromUrl } from "@utils/i18n/utils";
-import { WP_API } from "astro:env/client";
+import { wpQuery } from "@services/wpGraphqlClient";
 
+import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
 
 export const prerender = true;
 
-const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
-  fetchOptions: {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  },
-  url: WP_API,
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["startseite"],
 });
 
-const pagesResponse = await client
-  .query(GetPagesBySlugsDocument, {
-    slugs: ["startseite"],
-  })
-  .toPromise();
-
-const indexDe = pagesResponse?.data?.pages?.nodes[0];
-const translations = indexDe?.translations;
+const indexDeRaw = pagesResponse.pages?.nodes[0];
+const indexDe = useFragment(PageFieldFragment, indexDeRaw);
+const translations = indexDeRaw?.translations?.map((translation) => useFragment(PageFieldFragment, translation));
 const lang = getLangFromUrl(Astro.url);
 const translationsRoutes = {
   [lang]: "/",
-  [translations?.[0]?.language?.slug]: "/" + translations?.[0]?.language?.slug,
+  [translations?.[0]?.language?.slug ?? ""]: "/" + translations?.[0]?.language?.slug,
 };
 
-const postsResponse = await client.query(GetPostsPreviewDocument, { first: 6 }).toPromise();
+const postsResponse = await wpQuery(GetPostsPreviewDocument, { first: 6 });
 
-const posts = postsResponse?.data?.posts;
+const posts = postsResponse.posts;
 ---
 
 <DefaultLayout content={indexDe} contentClasses="o-index" translationsRoutes={translationsRoutes}>
@@ -46,6 +36,6 @@ const posts = postsResponse?.data?.posts;
     <h1 class="o-index__headline">{indexDe?.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts?.nodes} />
+    <BlogPostPreview posts={(posts?.nodes ?? []) as unknown as BlogPostPreviewProps["posts"]} />
   </section>
 </DefaultLayout>

@@ -1,10 +1,10 @@
-import type {
-  Maybe,
-  MenuItem,
-  RootQueryToMenuItemConnection,
-  SeoUserSocial,
-  SocialAdvanced,
-} from "@/gql/graphql.ts";
+import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
+
+type Maybe<T> = null | T | undefined;
+type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
+type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
+type SeoUserSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
+type SocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
 /**
  * Checks if the given string is HTML
@@ -119,15 +119,12 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
  * Update category paths in the main menu
  *
  */
-export const updateCategoryPaths = (
-  mainMenuItems: RootQueryToMenuItemConnection,
-  lang: "de" | "en",
-) => {
+export const updateCategoryPaths = (mainMenuItems: MenuItemsConnection, lang: "de" | "en") => {
   mainMenuItems?.nodes.forEach((item: MenuItem) => {
     if (!item?.childItems) return;
 
     // Loop through the child items (menu item) of the main menu
-    item.childItems.nodes.forEach((childItem: MenuItem) => {
+    item.childItems.nodes.forEach((childItem) => {
       if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
         return;
       }
@@ -239,7 +236,7 @@ type AdditionalData = {
 
 type SocialItems = {
   [key: string]: {
-    [key: string]: string;
+    [key: string]: unknown;
     url: string;
   };
 };
@@ -259,10 +256,11 @@ export const getSocialIconData = (
 
   // If urql cache is used, the __typename is added to the object
   // and we need to remove it to avoid errors
-  if (socials?.__typename) {
+  const socialsRecord = socials as Record<string, unknown>;
+  if (socialsRecord.__typename) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { __typename, ...rest } = socials;
-    socials = rest;
+    const { __typename, ...rest } = socialsRecord;
+    socials = rest as SeoUserSocial | SocialAdvanced;
   }
 
   for (const [key, value] of Object.entries(socials)) {
@@ -318,24 +316,57 @@ export function flatListToHierarchical<T extends Record<string, unknown>>(
   const childrenOf: Record<number | string, T[]> = {};
 
   data.forEach((item) => {
-    const newItem = { ...item };
-    const id = newItem[idKey];
+    const newItem: Record<string, unknown> = { ...item };
+    const id = newItem[idKey as string] as number | string;
     // parentId can be undefined or null, treat as 0 (root)
-    const parentId = newItem[parentKey] ?? 0;
+    const parentId = (newItem[parentKey as string] as number | string | undefined) ?? 0;
 
     childrenOf[id] = childrenOf[id] || [];
     newItem[childrenKey] = childrenOf[id];
 
     if (parentId && parentId !== 0) {
       childrenOf[parentId] = childrenOf[parentId] || [];
-      childrenOf[parentId].push(newItem);
+      childrenOf[parentId].push(newItem as unknown as T);
     } else {
-      tree.push(newItem);
+      tree.push(newItem as unknown as T);
     }
   });
 
   return tree;
 }
+
+// WP menu IDs are per language and have no queryable relation to the locale.
+const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
+
+/**
+ * Resolve the WP menu ID for a locale.
+ *
+ * An unknown lang (crawler on /fr/…) used to render an empty nav with HTTP 200 and
+ * no log line — indistinguishable from WordPress returning an empty menu.
+ */
+export const resolveMenuId = (lang: string): string | undefined => {
+  const menuId = MENU_ID_BY_LANG[lang];
+
+  if (!menuId)
+    console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
+
+  return menuId;
+};
+
+type LanguageTagged = { language?: null | { slug?: null | string } };
+
+/**
+ * Filter a WPGraphQL posts response down to one language.
+ *
+ * `posts` can be `null` (post type unregistered) and individual posts can lack a
+ * `language` relation (drafts) — both must degrade to "not included" rather than throw,
+ * so a feed/listing renders empty instead of 500ing on a WordPress data gap.
+ */
+export const filterPostsByLanguage = <T extends LanguageTagged>(
+  postsResponse: null | undefined | { posts?: null | { nodes?: (null | T)[] | null } },
+  lang: string,
+): T[] =>
+  (postsResponse?.posts?.nodes ?? []).filter((post): post is T => post?.language?.slug === lang);
 
 /**
  * Convert a paginated (edges/nodes) flat list to a hierarchical structure.

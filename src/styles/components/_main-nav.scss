@@ -82,8 +82,7 @@
 
         flex-wrap: wrap;
         justify-content: center;
-        row-gap: 1.5rem;
-        column-gap: var(--gap-button-bar);
+        gap: 1.5rem var(--gap-button-bar);
 
         .c-main-nav__buttons {
           --column-gap-buttons: var(--gap-button-bar);

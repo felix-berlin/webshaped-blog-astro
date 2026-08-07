@@ -37,16 +37,18 @@
 import { useTranslations } from "@utils/i18n/utils";
 import ArrowRight from "virtual:icons/lucide/arrow-right";
 
-import type { Post } from "@/gql/graphql.ts";
+import type { GetPostsPreviewQuery } from "@/gql/graphql.ts";
 
 export interface BlogPostPreviewProps {
-  posts: Array<Post>;
+  posts: Array<PostPreview>;
 }
 
-const { posts } = defineProps<BlogPostPreviewProps>();
-const t = useTranslations(posts[0]?.language?.locale);
+type PostPreview = NonNullable<GetPostsPreviewQuery["posts"]>["nodes"][number];
 
-const postLink = (post: Post): string => {
+const { posts } = defineProps<BlogPostPreviewProps>();
+const t = useTranslations(posts[0]?.language?.locale as "de" | "en");
+
+const postLink = (post: PostPreview): string => {
   return `/${post?.language?.slug}/posts/${post.slug}`;
 };
 </script>

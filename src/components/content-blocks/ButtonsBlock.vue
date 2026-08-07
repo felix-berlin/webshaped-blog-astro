@@ -1,23 +1,34 @@
 <template>
   <div class="c-buttons">
     <ButtonBlock
-      v-for="button in block.innerBlocks"
-      :key="button?.attributes.text"
+      v-for="(button, index) in buttons"
+      :key="button.attributes?.text ?? index"
       :block="button"
     />
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 import ButtonBlock from "@components/content-blocks/ButtonBlock.vue";
+import { useFragment } from "@/gql";
+import { CoreButton } from "@services/fragments/blockFragments";
 
-import type { CoreButtons } from "@/gql/graphql.ts";
+import type { CoreButtonsFragment } from "@/gql/graphql.ts";
 
-export interface ButtonBlockProps {
-  block: CoreButtons;
+export interface ButtonsBlockProps {
+  block: CoreButtonsFragment;
 }
 
-const { block } = defineProps<ButtonBlockProps>();
+const { block } = defineProps<ButtonsBlockProps>();
+
+const buttons = computed(() =>
+  useFragment(
+    CoreButton,
+    (block.innerBlocks ?? []).filter((innerBlock): innerBlock is NonNullable<typeof innerBlock> => innerBlock != null),
+  ),
+);
 </script>
 
 <style scoped lang="scss">

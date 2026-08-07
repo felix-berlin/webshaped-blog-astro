@@ -4,7 +4,7 @@ import "@styles/components/_blog.scss";
 import "@styles/components/_blog-sidebar.scss";
 import "@styles/components/post/_post-footer.scss";
 
-import type { TranslationRoutes } from "@layouts/DefaultLayout.astro";
+import type { TranslationRoutes } from "@/types/i18n";
 
 import Categories from "@components/Categories.vue";
 import HasTranslations from "@components/HasTranslations.vue";
@@ -24,13 +24,19 @@ import { categoryPathBuilder, getLangFromUrl, useTranslations } from "@utils/i18
 import { Breadcrumbs } from "astro-breadcrumbs";
 import ChevronRight from "~icons/lucide/chevron-right";
 
-import type { CoreHeading } from "@/gql/graphql.ts";
-import type { MediaSize, Post, RootQueryToCategoryConnection } from "@/gql/graphql.ts";
+import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
 
 export interface BlogPost {
   content: Post;
   headings?: CoreHeading[];
 }
+
+type CoreHeading = CoreHeadingFragment;
+type MediaSize = NonNullable<
+  NonNullable<NonNullable<Post["featuredImage"]>["node"]["mediaDetails"]>["sizes"]
+>[number];
+type Post = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
+type RootQueryToCategoryConnection = Post["categories"];
 
 const {
   content: {
@@ -66,7 +72,10 @@ const createBreadcrumbItems = () => {
   ];
 
   if (categories?.edges?.length) {
-    const parentCategory = categories?.edges?.find((edge) => edge.node.parent === null)?.node;
+    const parentCategory = categories?.edges?.find(
+      (edge: NonNullable<RootQueryToCategoryConnection>["edges"][number]) =>
+        edge.node.parent === null,
+    )?.node;
     const childCategory = parentCategory?.children?.edges;
 
     items.push({
@@ -105,7 +114,7 @@ const parsedHeadings: ParsedHeading[] =
 
 const translationsRoutes = {
   [lang]: slug,
-  [translations?.[0]?.language?.slug]: translations?.[0]?.slug,
+  [translations?.[0]?.language?.slug ?? ""]: translations?.[0]?.slug,
 };
 ---
 

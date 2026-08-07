@@ -12,3 +12,12 @@ src/tests
 .env
 .env.*
 .build.env
+
+# dev tooling, not needed in build context
+.claude
+.serena
+.opencode
+.vscode
+.github
+docs
+openspec

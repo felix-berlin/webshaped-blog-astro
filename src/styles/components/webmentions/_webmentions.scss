@@ -7,8 +7,7 @@
 .c-webmentions {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 15px;
-  row-gap: 4rem;
+  gap: 4rem 15px;
   container-type: inline-size;
   container-name: webmentions;
 }
