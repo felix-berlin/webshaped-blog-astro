@@ -64,6 +64,9 @@ jobs:
 
           echo "BUILD_ENV_FILE=.build.env" >> $GITHUB_ENV
           echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
+          # Enables Compose's native Buildx Bake integration, which honors the
+          # x-bake cache-from/cache-to hints on each service in compose.yaml.
+          echo "COMPOSE_BAKE=true" >> $GITHUB_ENV
 
       - name: Make smoke test script executable 🔨
         run: chmod +x ./scripts/docker-smoke-test.sh
