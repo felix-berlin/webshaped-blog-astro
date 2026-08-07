@@ -11,7 +11,7 @@
   grid-template: var(--template-grid, " breadcrumbs " " header " " sidebar " " article " "footer ");
   grid-template-columns: var(--columns-grid, 1fr);
   column-gap: 25px;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 
   @include mx.breakpoint("md") {
     --template-grid: " breadcrumbs breadcrumbs " " header header " " article sidebar "

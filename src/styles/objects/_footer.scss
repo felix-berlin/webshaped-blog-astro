@@ -56,8 +56,7 @@
   &__infos {
     grid-area: infos;
     display: flex;
-    column-gap: 30px;
-    row-gap: 0.7rem;
+    gap: 0.7rem 30px;
     flex-wrap: wrap;
     color: var(--white);
   }

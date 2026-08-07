@@ -5,8 +5,7 @@
   position: absolute;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 2rem;
-  row-gap: 1rem;
+  gap: 1rem 2rem;
   background-color: var(--element-background);
   border-radius: base.$border-radius;
   padding: 1rem;

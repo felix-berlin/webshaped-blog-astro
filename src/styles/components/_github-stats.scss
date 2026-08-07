@@ -2,7 +2,7 @@
 
 /// https://github.com/ozh/github-colors
 $langs: (
-  css: #663399,
+  css: #639,
   php: #4f5d95,
   javascript: #f1e05a,
   html: #e34c26,
@@ -55,8 +55,7 @@ $langs: (
 .c-code-lang-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  row-gap: 0.35rem;
-  column-gap: 1.7rem;
+  gap: 0.35rem 1.7rem;
   padding-inline-start: 1rem;
 
   &__item {
@@ -79,6 +78,7 @@ $langs: (
     &:first-child {
       flex: 0 1 content;
     }
+
     &:last-child {
       flex: 1 0;
       font-size: 1.5rem;
@@ -95,12 +95,7 @@ $langs: (
 
   &__item {
     display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-template-areas:
-      "title title"
-      "description description"
-      "lang stars";
-    grid-template-rows: auto 1fr auto;
+    grid-template: "title title" auto "description description" 1fr "lang stars" auto / max-content 1fr;
     gap: 0.75rem;
     transition: all 0.2s ease-in-out;
 
@@ -154,7 +149,7 @@ $langs: (
   }
 
   .c-code-lang-graph__item {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgb(0 0 0 / 20%);
   }
 
   .c-code-lang-list__item {
