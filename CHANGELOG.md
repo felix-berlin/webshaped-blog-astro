@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0-beta.8](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.7...v1.12.0-beta.8) (2026-08-07)
+
+
+### Bug Fixes
+
+* **build:** remove dead imports of two SCSS partials deleted as empty ([53612ba](https://github.com/felix-berlin/webshaped-blog-astro/commit/53612baf9f6be7123cdac036a3a6707454813dd2))
+
 # [1.12.0-beta.7](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0-beta.6...v1.12.0-beta.7) (2026-08-07)
 
 
