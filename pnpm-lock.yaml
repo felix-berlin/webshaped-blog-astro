@@ -140,7 +140,7 @@ importers:
         version: 6.1.5(graphql@16.14.2)
       '@infisical/cli':
         specifier: ^0.43.116
-        version: 0.43.116
+        version: 0.43.121
       '@nanostores/logger':
         specifier: ^1.1.0
         version: 1.1.0(nanostores@1.4.2)
@@ -2134,8 +2134,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@infisical/cli@0.43.116':
-    resolution: {integrity: sha512-RV2vOPrCfML7c2Qnw84N/nxn31f7gMEjw32Bv7ZrNfuXDOB1H3DtW3PAC6APXcjEEDRgSczr4MxH1k4HkuZt6w==}
+  '@infisical/cli@0.43.121':
+    resolution: {integrity: sha512-CXRCNhf1AfisSTO4esbOHc3iPIoOG+nn0XGdC2sca8pE/1jAGXMH7Q/TLofbMBhmxFMbQ7ct1CSOVz++YrH90g==}
     hasBin: true
 
   '@inquirer/ansi@2.0.7':
@@ -10875,7 +10875,7 @@ snapshots:
   '@img/sharp-win32-x64@0.35.3':
     optional: true
 
-  '@infisical/cli@0.43.116':
+  '@infisical/cli@0.43.121':
     dependencies:
       tar: 7.5.22
       yauzl: 3.4.0
