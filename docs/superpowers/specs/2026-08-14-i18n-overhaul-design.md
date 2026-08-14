@@ -152,7 +152,14 @@ for this content model.
   signature changes.
 - E2E (Playwright, `tests/e2e/`): click the language switcher on the
   homepage and on a subpage, verify both URL and content change — not
-  testable before, since the switcher didn't render at all.
+  testable before, since the switcher didn't render at all. Built with the
+  Playwright MCP agents rather than hand-written: `playwright-test-planner`
+  drafts the scenario list (switcher on homepage, switcher on a subpage,
+  `/` redirect, unknown-locale 404) against the running dev server,
+  `playwright-test-generator` turns each approved plan item into a spec
+  file under `tests/e2e/`, and `playwright-test-healer` is the go-to when
+  a generated or existing i18n test starts failing during implementation,
+  instead of debugging Playwright failures by hand.
 - No new test framework needed; everything fits the existing
   Vitest/Playwright setup.
 
