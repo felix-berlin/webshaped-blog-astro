@@ -75,6 +75,11 @@ export default defineConfig({
   redirects: {
     "/category/web-analytics": "/de/category/matomo/1",
   },
+  i18n: {
+    locales: ["de", "en"],
+    defaultLocale: "de",
+    routing: "manual",
+  },
   integrations: [
     pagefind(),
     vue({
