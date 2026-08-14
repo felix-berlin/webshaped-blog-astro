@@ -4,6 +4,11 @@ import { coverageConfigDefaults } from "vitest/config";
 
 export default getViteConfig({
   test: {
+    // No `reporters` set on purpose: Vitest 4.1+ auto-selects the minimal "agent"
+    // reporter (failures only) when run from an AI coding agent (via std-env
+    // detection) and falls back to the normal verbose reporter for humans.
+    // Setting `reporters` explicitly here would disable that auto-detection.
+    // `pnpm run test:ci` overrides this via --reporter CLI flags for CI runs.
     include: ["src/tests/unit/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     globals: true,
     environment: "jsdom",
