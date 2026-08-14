@@ -1,7 +1,7 @@
 // @ts-ignore: Unresolved import
 import ColorModeToggle from "@components/ColorModeToggle.vue";
 import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
-import { isDarkMode, language } from "@stores/store";
+import { isDarkMode } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { JSDOM } from "jsdom";
 import { it, expect, describe, beforeAll, afterEach, afterAll } from "vitest";
@@ -24,7 +24,7 @@ describe("ColorModeToggle", async () => {
     global.document = dom.window.document;
 
     // Mount the component
-    const wrapper = mount(ColorModeToggle);
+    const wrapper = mount(ColorModeToggle, { props: { lang: "de" } });
 
     // Test that the button toggles the color mode
     const button = wrapper.find("button");
@@ -41,12 +41,7 @@ describe("ColorModeToggle", async () => {
     setTestStorageKey("darkMode", "false");
     setTestStorageKey("language", "{code: 'EN', locale: 'de_DE'}");
     const wrapper = mount(ColorModeToggle, {
-      props: {
-        lang: {
-          locale: "de_DE",
-          id: "de",
-        },
-      },
+      props: { lang: "de" },
     });
     const button = wrapper.find("button");
     await button.trigger("click");
@@ -62,7 +57,7 @@ describe("ColorModeToggle", async () => {
   it("renders Moon icon when isDarkMode starts as true", async () => {
     isDarkMode.set(true);
     document.querySelector("html")?.classList.add("dark");
-    const wrapper = mount(ColorModeToggle);
+    const wrapper = mount(ColorModeToggle, { props: { lang: "de" } });
     expect(wrapper.vm.isDark).toBe(true);
     // Template renders Moon when isDark is true
     expect(wrapper.find("button").exists()).toBe(true);

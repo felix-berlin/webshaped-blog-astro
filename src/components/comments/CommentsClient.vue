@@ -4,7 +4,7 @@
       <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="getComments" />
     </div>
 
-    <NoComments v-if="!hasComments" />
+    <NoComments v-if="!hasComments" :lang="lang" />
 
     <div v-auto-animate class="c-comments__list">
       <template v-if="hasComments">

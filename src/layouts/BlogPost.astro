@@ -129,7 +129,7 @@ const translationsRoutes = {
   <!-- Gravatar -->
   <link href="//secure.gravatar.com" rel="preconnect" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
-  <MobileTableOfContents client:only="vue" headings={parsedHeadings} />
+  <MobileTableOfContents client:only="vue" headings={parsedHeadings} lang={lang} />
 
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
     <ChevronRight height="20" slot="separator" width="20" />

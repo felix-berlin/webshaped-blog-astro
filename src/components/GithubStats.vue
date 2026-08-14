@@ -80,7 +80,8 @@ interface GithubRepoSummary {
 }
 
 const mostStarredRepos = ref<GithubRepoSummary[]>([]);
-const { t } = useI18n();
+const props = defineProps<{ lang: "de" | "en" }>();
+const { t } = useI18n(() => props.lang);
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(

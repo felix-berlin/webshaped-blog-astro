@@ -22,15 +22,13 @@ import { useI18n } from "@/composables/useI18n";
 interface WebmentionsCountProps {
   elementIs?: string;
   href?: string;
-  lang: string;
+  lang: "de" | "en";
 }
 
-withDefaults(defineProps<WebmentionsCountProps>(), {
-  elementIs: "div",
-});
+const { elementIs = "div", lang } = defineProps<WebmentionsCountProps>();
 
 const count = useStore(currentWebmentionsCount);
-const { t } = useI18n();
+const { t } = useI18n(() => lang);
 </script>
 
 <style scoped></style>

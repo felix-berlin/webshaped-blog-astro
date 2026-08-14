@@ -65,5 +65,5 @@ const translationsRoutes = allPages.reduce<Record<string, string>>((acc, curr) =
     />
   </header>
 
-  <GithubStats client:only="vue" />
+  <GithubStats client:only="vue" lang={lang} />
 </DefaultLayout>
