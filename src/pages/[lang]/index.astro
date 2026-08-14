@@ -1,0 +1,53 @@
+---
+import "@styles/components/_blog-posts.scss";
+import "@styles/objects/_blog-listing.scss";
+import BlogPostPreview from "@components/BlogPostPreview.vue";
+import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { wpQuery } from "@services/wpGraphqlClient";
+
+import type { LanguageCodeEnum } from "@/gql/graphql.ts";
+import { useFragment } from "@/gql";
+import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
+import type { TranslationRoutes } from "@/types/i18n";
+import { defaultLang } from "@utils/i18n/ui";
+
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["startseite"],
+});
+
+const indexPageRaw = pagesResponse.pages?.nodes[0];
+const indexPage = indexPageRaw ? useFragment(PageFieldFragment, indexPageRaw) : undefined;
+const translations =
+  indexPageRaw?.translations?.map((translation) => useFragment(PageFieldFragment, translation)) ?? [];
+const allPages = [indexPage, ...translations].filter((page) => page !== undefined);
+
+const page = allPages.find((candidate) => candidate?.language?.slug === lang);
+
+if (!page) return Astro.rewrite("/404");
+
+const translationsRoutes = allPages.reduce<TranslationRoutes>((acc, candidate) => {
+  const langSlug = candidate?.language?.slug;
+  if (langSlug) acc[langSlug] = `/${langSlug}`;
+  return acc;
+}, {});
+
+const languageCode: LanguageCodeEnum = lang === "en" ? "EN" : "DE";
+const postsResponse = await wpQuery(GetPostsPreviewDocument, {
+  first: 6,
+  languages: [languageCode],
+});
+const posts = postsResponse.posts?.nodes ?? [];
+---
+
+<DefaultLayout content={page} contentClasses="o-index" translationsRoutes={translationsRoutes}>
+  <header class="o-index__header">
+    <h1 class="o-index__headline">{page?.title}</h1>
+  </header>
+  <section class="c-blog-posts">
+    <BlogPostPreview posts={posts as unknown as BlogPostPreviewProps["posts"]} />
+  </section>
+</DefaultLayout>
