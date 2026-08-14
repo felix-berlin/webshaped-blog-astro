@@ -29,21 +29,21 @@ const mention = {
 describe("WebmentionsItem.vue", () => {
   it("renders the webmention article", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     expect(wrapper.find(".c-webmention").exists()).toBe(true);
   });
 
   it("sets the correct id on the article", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     expect(wrapper.find("article").attributes("id")).toBe("webmention-123");
   });
 
   it("renders author image with correct src", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     const img = wrapper.find(".c-webmentions__author-image");
     expect(img.attributes("src")).toBe("https://example.com/photo.jpg");
@@ -51,7 +51,7 @@ describe("WebmentionsItem.vue", () => {
 
   it("renders author name with link", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     const link = wrapper.find(".c-webmentions__author-image-link");
     expect(link.text()).toBe("Jane Doe");
@@ -60,14 +60,14 @@ describe("WebmentionsItem.vue", () => {
 
   it("renders content text", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     expect(wrapper.find(".c-webmentions__text").text()).toBe("Great post!");
   });
 
   it("renders source link", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     const sourceLink = wrapper.find(".c-webmention__source");
     expect(sourceLink.attributes("href")).toBe("https://mastodon.social/@user/123");
@@ -75,7 +75,7 @@ describe("WebmentionsItem.vue", () => {
 
   it("uses eager loading for first 3 mentions (index < 3)", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 0 },
+      props: { mention, index: 0, lang: "de" },
     });
     const img = wrapper.find("img");
     expect(img.attributes("loading")).toBe("eager");
@@ -83,7 +83,7 @@ describe("WebmentionsItem.vue", () => {
 
   it("uses lazy loading for mentions after index 3", () => {
     const wrapper = mount(WebmentionsItem, {
-      props: { mention, index: 5 },
+      props: { mention, index: 5, lang: "de" },
     });
     const img = wrapper.find("img");
     expect(img.attributes("loading")).toBe("lazy");
@@ -95,7 +95,7 @@ describe("WebmentionsItem.vue", () => {
       url: "https://facebook.com/user/post",
     };
     const wrapper = mount(WebmentionsItem, {
-      props: { mention: facebookMention, index: 0 },
+      props: { mention: facebookMention, index: 0, lang: "de" },
     });
     expect(wrapper.exists()).toBe(true);
   });
@@ -106,7 +106,7 @@ describe("WebmentionsItem.vue", () => {
       url: "https://github.com/user",
     };
     const wrapper = mount(WebmentionsItem, {
-      props: { mention: githubMention, index: 0 },
+      props: { mention: githubMention, index: 0, lang: "de" },
     });
     expect(wrapper.exists()).toBe(true);
   });
@@ -117,7 +117,7 @@ describe("WebmentionsItem.vue", () => {
       url: "https://reddit.com/r/programming",
     };
     const wrapper = mount(WebmentionsItem, {
-      props: { mention: redditMention, index: 0 },
+      props: { mention: redditMention, index: 0, lang: "de" },
     });
     expect(wrapper.exists()).toBe(true);
   });
@@ -128,7 +128,7 @@ describe("WebmentionsItem.vue", () => {
       url: "https://twitter.com/user/status/123",
     };
     const wrapper = mount(WebmentionsItem, {
-      props: { mention: twitterMention, index: 0 },
+      props: { mention: twitterMention, index: 0, lang: "de" },
     });
     expect(wrapper.exists()).toBe(true);
   });
@@ -139,7 +139,7 @@ describe("WebmentionsItem.vue", () => {
       url: "https://some-other-site.com/post",
     };
     const wrapper = mount(WebmentionsItem, {
-      props: { mention: unknownMention, index: 0 },
+      props: { mention: unknownMention, index: 0, lang: "de" },
     });
     expect(wrapper.exists()).toBe(true);
   });

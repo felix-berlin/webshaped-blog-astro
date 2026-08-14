@@ -37,7 +37,7 @@ describe("Webmentions.vue", () => {
   it("renders wrapper div", () => {
     currentWebmentionsCount.set(0);
     const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     expect(wrapper.find("div").exists()).toBe(true);
   });
@@ -45,7 +45,7 @@ describe("Webmentions.vue", () => {
   it("shows NoMentions when webmentionsCount is 0", async () => {
     currentWebmentionsCount.set(0);
     const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     await wrapper.vm.$nextTick();
     const noMentions = wrapper.findComponent({ name: "NoMentions" });
@@ -56,7 +56,7 @@ describe("Webmentions.vue", () => {
   it("hides webmentions list when count is 0", () => {
     currentWebmentionsCount.set(0);
     const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     expect(wrapper.find(".c-webmentions").exists()).toBe(false);
   });
@@ -64,7 +64,7 @@ describe("Webmentions.vue", () => {
   it("shows webmentions list when count > 0", () => {
     currentWebmentionsCount.set(3);
     const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     expect(wrapper.find(".c-webmentions").exists()).toBe(true);
   });
@@ -79,7 +79,7 @@ describe("Webmentions.vue", () => {
     );
     currentWebmentionsCount.set(0);
     mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     // Just verify it mounts without errors
   });
@@ -87,7 +87,7 @@ describe("Webmentions.vue", () => {
   it("uses window.location.href as target when currentUrl=true", async () => {
     currentWebmentionsCount.set(0);
     const wrapper = mount(Webmentions, {
-      props: { currentUrl: true },
+      props: { currentUrl: true, lang: "de" },
     });
     expect(wrapper.vm.currentUrl).toBe(true);
   });
@@ -100,7 +100,7 @@ describe("Webmentions.vue", () => {
     );
     currentWebmentionsCount.set(0);
     const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post" },
+      props: { target: "https://example.com/post", lang: "de" },
     });
     await new Promise((r) => setTimeout(r, 50));
     expect(currentWebmentionsCount.get()).toBe(2);

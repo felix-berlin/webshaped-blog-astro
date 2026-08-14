@@ -6,9 +6,10 @@
         :key="mention['wm-id']"
         :mention="mention"
         :index="index"
+        :lang="props.lang"
       />
     </div>
-    <NoMentions v-if="webmentionsCount === 0" />
+    <NoMentions v-if="webmentionsCount === 0" :lang="props.lang" />
   </div>
 </template>
 
@@ -35,6 +36,7 @@ const NoMentions = defineAsyncComponent(() => import("@components/webmentions/No
 
 export interface WebmentionsProps {
   currentUrl?: boolean;
+  lang: "de" | "en";
   target?: string;
 }
 
@@ -42,7 +44,8 @@ interface Webmentions {
   mentions: Webmention[];
 }
 
-const { currentUrl = false, target = "" } = defineProps<WebmentionsProps>();
+const props = defineProps<WebmentionsProps>();
+const { currentUrl = false, target = "" } = props;
 
 const state: Webmentions = reactive({
   mentions: [],

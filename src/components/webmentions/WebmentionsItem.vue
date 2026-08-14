@@ -59,8 +59,6 @@
 
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
 import { getHostName } from "@utils/helpers";
 import { defineAsyncComponent } from "vue";
 
@@ -91,13 +89,12 @@ export interface Webmention {
 
 interface WebmentionsProps {
   index: number;
+  lang: "de" | "en";
   mention: Webmention;
 }
 
-const { index, mention } = defineProps<WebmentionsProps>();
-
-const lang = useStore(currentLanguage);
-const { t } = useI18n();
+const { index, lang, mention } = defineProps<WebmentionsProps>();
+const { t } = useI18n(() => lang);
 
 /**
  * Load icons for the different social media platforms

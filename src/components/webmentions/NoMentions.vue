@@ -3,7 +3,7 @@
     <div class="c-no-mentions__text-wrap">
       <p class="c-no-mentions__text is-one" v-html="t('webmentions.no_webmentions')" />
       <p class="c-no-mentions__text is-two" v-html="t('webmentions.your_chance')" />
-      <Share class="c-no-mentions__share-button c-button c-button--primary">
+      <Share :lang="lang" class="c-no-mentions__share-button c-button c-button--primary">
         <span class="c-no-mentions__share-button-text">{{ t("share_this_post") }}</span>
       </Share>
     </div>
@@ -19,7 +19,8 @@ import ThumbsUp from "virtual:icons/lucide/thumbs-up";
 
 import { useI18n } from "@/composables/useI18n";
 
-const { t } = useI18n();
+const { lang } = defineProps<{ lang: "de" | "en" }>();
+const { t } = useI18n(() => lang);
 </script>
 
 <style lang="scss">
