@@ -38,9 +38,6 @@ importers:
       '@iconify-json/tabler':
         specifier: ^1.2.38
         version: 1.2.38
-      '@nanostores/i18n':
-        specifier: ^1.3.3
-        version: 1.3.3(nanostores@1.4.2)
       '@nanostores/persistent':
         specifier: ^1.3.5
         version: 1.3.5(nanostores@1.4.2)
@@ -2325,12 +2322,6 @@ packages:
   '@mswjs/interceptors@0.41.9':
     resolution: {integrity: sha512-VVPPgHyQ6ShqnrmDWuxjmUIsO9gWyOZFmuOfLd9LfBGQJwZfy0gvv9pbHSJuoFNIYC7ZDX9aoFwowjcdSC4E8w==}
     engines: {node: '>=18'}
-
-  '@nanostores/i18n@1.3.3':
-    resolution: {integrity: sha512-hwuTKJ+DKCOuszmmOuNfDeA8j86WJWLLzjzE1BYm+mabMcD5JYDnTd0wPMwgGJ+U//ApRaxviRvOtvk50F+RCg==}
-    engines: {node: ^20.0.0 || >=22.0.0}
-    peerDependencies:
-      nanostores: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^1.0.0
 
   '@nanostores/logger@1.1.0':
     resolution: {integrity: sha512-p+wBEP5SNQFreL3DWwbITOC8mNUZxDNN3rz/7gDQeyrfuL3pqXOilRnr9wtYbt+FFVQ6U72fB3DtOOzFmLmB7w==}
@@ -11097,10 +11088,6 @@ snapshots:
       is-node-process: 1.2.0
       outvariant: 1.4.3
       strict-event-emitter: 0.5.1
-
-  '@nanostores/i18n@1.3.3(nanostores@1.4.2)':
-    dependencies:
-      nanostores: 1.4.2
 
   '@nanostores/logger@1.1.0(nanostores@1.4.2)':
     dependencies:

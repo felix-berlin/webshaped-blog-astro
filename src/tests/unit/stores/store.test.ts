@@ -1,13 +1,11 @@
 import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 import {
-  currentLanguage,
   isDarkMode,
   guest,
   loadingState,
   currentWebmentionsCount,
   isMobileBreakpoint,
   windowWidth,
-  translationRoutes,
 } from "@stores/store";
 import { it, expect, describe, beforeAll, afterEach } from "vitest";
 
@@ -18,17 +16,6 @@ describe("store atoms", () => {
 
   afterEach(() => {
     cleanTestStorage();
-  });
-
-  describe("currentLanguage", () => {
-    it("has default value of 'de'", () => {
-      expect(currentLanguage.get()).toBe("de");
-    });
-
-    it("can be updated to 'en'", () => {
-      currentLanguage.set("en");
-      expect(currentLanguage.get()).toBe("en");
-    });
   });
 
   describe("loadingState", () => {
@@ -77,17 +64,6 @@ describe("store atoms", () => {
     it("can be updated", () => {
       windowWidth.set(1024);
       expect(windowWidth.get()).toBe(1024);
-    });
-  });
-
-  describe("translationRoutes", () => {
-    it("has default value of empty object", () => {
-      expect(translationRoutes.get()).toEqual({});
-    });
-
-    it("can be updated with route map", () => {
-      translationRoutes.set({ de: "/de/ueber-mich", en: "/en/about" });
-      expect(translationRoutes.get()).toEqual({ de: "/de/ueber-mich", en: "/en/about" });
     });
   });
 

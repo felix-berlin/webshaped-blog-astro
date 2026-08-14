@@ -2,8 +2,6 @@
 import type { TranslationRoutes } from "@/types/i18n";
 
 // import SetColorMode from "@components/SetColorMode.astro";
-// @ts-expect-error - StoreSetter.vue's runtime (object-based) defineProps confuses vue-tsc's default-export inference
-import StoreSetter from "@components/StoreSetter.vue";
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl } from "@utils/helpers.ts";
@@ -173,4 +171,3 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <slot name="head" />
 </Head>
-<StoreSetter client:only="vue" lang={lang} locale-routes={fullTranslationRoutes} />
