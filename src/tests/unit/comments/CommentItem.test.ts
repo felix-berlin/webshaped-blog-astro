@@ -21,10 +21,7 @@ describe("CommentItem", () => {
       comment,
       depth: 0,
       currentPostId: 1,
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      lang: "de",
     },
   });
 
@@ -69,10 +66,7 @@ describe("CommentItem", () => {
         currentUser: {
           id: 1,
         },
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "de",
       },
     });
     expect(wrapper.vm.isAuthor).toBe(false);
@@ -100,10 +94,7 @@ describe("CommentItem", () => {
           id: 1,
         },
         authorId: 1,
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "de",
       },
     });
     expect(wrapper.vm.isAuthor).toBe(true);
@@ -121,6 +112,7 @@ describe("CommentItem", () => {
         comment: deepComment as any,
         depth: 5,
         currentPostId: "1",
+        lang: "de",
       },
     });
     expect(wrapper.find(".c-comment__reply-button").exists()).toBe(false);
@@ -143,6 +135,7 @@ describe("CommentItem", () => {
         comment: comment as any,
         depth: 0,
         currentPostId: "1",
+        lang: "de",
       },
     });
     expect(wrapper.find(".c-comment__author-icon").exists()).toBe(true);
@@ -169,6 +162,7 @@ describe("CommentItem", () => {
         comment: comment as any,
         depth: 0,
         currentPostId: "1",
+        lang: "de",
       },
     });
     expect(wrapper.find(".c-comment__author-image").exists()).toBe(true);
@@ -190,6 +184,7 @@ describe("CommentItem", () => {
         comment: commentWithId as any,
         depth: 0,
         currentPostId: "1",
+        lang: "de",
       },
     });
     await localWrapper.find(".c-comment__reply-button").trigger("click");
@@ -215,7 +210,7 @@ describe("CommentItem", () => {
         comment: commentWithId as any,
         depth: 1, // odd → isOdd(1) = true → 'is-even'
         currentPostId: "1",
-        lang: { locale: "en_US", id: "en" },
+        lang: "de",
       },
     });
     await localWrapper.find(".c-comment__reply-button").trigger("click");
@@ -249,6 +244,7 @@ describe("CommentItem", () => {
         comment: comment as any,
         depth: 0,
         currentPostId: "1",
+        lang: "de",
       },
     });
     const nestedComment = wrapper.findAllComponents({ name: "CommentItem" });

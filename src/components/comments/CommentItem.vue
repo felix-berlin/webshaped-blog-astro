@@ -56,7 +56,7 @@
             <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date :date="comment.dateGmt!" :lang="{ locale: lang }" class="c-comment__date">
+          <Date :date="comment.dateGmt!" :lang="{ locale: props.lang }" class="c-comment__date">
             <template #before>
               {{ t("comment.date") }}
             </template>
@@ -72,7 +72,11 @@
       class="c-comment is-create-comment"
       :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
     >
-      <CreateComment :current-post-id="currentPostId" :reply-to-comment-id="comment?.id">
+      <CreateComment
+        :current-post-id="currentPostId"
+        :reply-to-comment-id="comment?.id"
+        :lang="props.lang"
+      >
         <template #beforeContent>
           <button
             type="button"
@@ -95,6 +99,7 @@
         :depth="depth + 1"
         :author-id="authorId"
         :current-post-id="currentPostId"
+        :lang="props.lang"
       />
     </template>
   </div>
@@ -103,8 +108,6 @@
 <script setup lang="ts">
 import CreateComment from "@components/comments/CreateComment.vue";
 import Date from "@components/post/Date.vue";
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
 import Reply from "virtual:icons/lucide/reply";
 import User from "virtual:icons/lucide/user";
 import Verified from "virtual:icons/lucide/verified";
@@ -132,12 +135,11 @@ interface CommentItemProps {
   comment: CommentNode;
   currentPostId: string;
   depth: number;
+  lang: "de" | "en";
 }
 
 const props = defineProps<CommentItemProps>();
-const { t } = useI18n();
-const langStore = useStore(currentLanguage);
-const lang = computed(() => langStore.value as "de" | "en");
+const { t } = useI18n(() => props.lang);
 const comment = computed(() => ({
   ...useFragment(CommentFieldsFragmentDoc, props.comment),
   replies: props.comment.replies,

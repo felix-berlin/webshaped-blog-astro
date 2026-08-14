@@ -40,11 +40,11 @@ export interface CommentsProps {
   };
   currentPostId: string;
   id?: string;
-  lang: string;
+  lang: "de" | "en";
 }
 
 const { authorId, comments, currentPostId, id, lang } = defineProps<CommentsProps>();
-const t = useTranslations(lang as "de" | "en");
+const t = useTranslations(lang);
 </script>
 
 <style lang="scss">

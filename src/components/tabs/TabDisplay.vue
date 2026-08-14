@@ -1,10 +1,10 @@
 <template>
   <TabsView>
     <TabItem :header="t('comments')">
-      <CommentsClient id="comments" :current-post-id="postId" :author-id="authorId" />
+      <CommentsClient id="comments" :current-post-id="postId" :author-id="authorId" :lang="lang" />
     </TabItem>
     <TabItem header="Webmentions">
-      <LoadWebmentions />
+      <LoadWebmentions :lang="lang" />
     </TabItem>
   </TabsView>
 </template>
@@ -13,7 +13,7 @@
 import TabItem from "@components/tabs/TabItem.vue";
 import TabsView from "@components/tabs/TabsView.vue";
 import { useStore } from "@nanostores/vue";
-import { currentLanguage, currentWebmentionsCount } from "@stores/store";
+import { currentWebmentionsCount } from "@stores/store";
 import { defineAsyncComponent } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
@@ -27,11 +27,12 @@ const LoadWebmentions = defineAsyncComponent(
 
 export interface TabDisplayProps {
   authorId: string | undefined;
+  lang: "de" | "en";
   postId: string;
 }
 
-defineProps<TabDisplayProps>();
+const props = defineProps<TabDisplayProps>();
 
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 const WebmentionCount = useStore(currentWebmentionsCount);
 </script>
