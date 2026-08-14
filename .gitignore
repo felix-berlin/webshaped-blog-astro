@@ -40,3 +40,6 @@ stats.html
 docker-smoke-test-compose.log
 
 .claude/settings.local.json
+
+# git worktrees used for isolated plan execution
+.worktrees/
