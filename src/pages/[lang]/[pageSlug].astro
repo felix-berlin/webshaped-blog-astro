@@ -1,0 +1,39 @@
+---
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { wpQuery } from "@services/wpGraphqlClient";
+
+import { useFragment } from "@/gql";
+import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
+import type { TranslationRoutes } from "@/types/i18n";
+
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["datenschutz", "impressum"],
+});
+
+const { pageSlug } = Astro.params;
+
+const allPages = (pagesResponse.pages?.nodes ?? []).flatMap((node) => {
+  const page = useFragment(PageFieldFragment, node);
+  const translations =
+    node.translations?.map((translation) => useFragment(PageFieldFragment, translation)) ?? [];
+  return [page, ...translations];
+});
+
+const page = allPages.find((candidate) => candidate?.slug === pageSlug);
+
+if (!page) return Astro.rewrite("/404");
+
+const translationsRoutes = allPages.reduce<TranslationRoutes>((acc, candidate) => {
+  const langSlug = candidate?.language?.slug;
+  if (langSlug && candidate?.slug) acc[langSlug] = candidate.slug;
+  return acc;
+}, {});
+---
+
+<DefaultLayout content={page} translationsRoutes={translationsRoutes}>
+  <div>
+    <h1>{page?.title}</h1>
+    <article set:html={page.content} />
+  </div>
+</DefaultLayout>
