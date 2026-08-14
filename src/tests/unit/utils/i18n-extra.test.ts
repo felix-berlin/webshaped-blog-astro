@@ -1,27 +1,5 @@
-import { getLangFromUrl, categoryPathBuilder, createLocalizedUrl } from "@utils/i18n/utils";
+import { categoryPathBuilder, createLocalizedUrl } from "@utils/i18n/utils";
 import { it, expect, describe } from "vitest";
-
-describe("getLangFromUrl()", () => {
-  it("returns 'de' for German URL", () => {
-    const url = new URL("https://webshaped.de/de/posts/some-post");
-    expect(getLangFromUrl(url)).toBe("de");
-  });
-
-  it("returns 'en' for English URL", () => {
-    const url = new URL("https://webshaped.de/en/posts/some-post");
-    expect(getLangFromUrl(url)).toBe("en");
-  });
-
-  it("returns default language 'de' when no known lang in URL", () => {
-    const url = new URL("https://webshaped.de/unknown/posts");
-    expect(getLangFromUrl(url)).toBe("de");
-  });
-
-  it("returns default language 'de' for root URL", () => {
-    const url = new URL("https://webshaped.de/");
-    expect(getLangFromUrl(url)).toBe("de");
-  });
-});
 
 describe("categoryPathBuilder()", () => {
   it("builds a correct category path for German", () => {

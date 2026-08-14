@@ -1,7 +1,8 @@
 ---
 import GithubStats from "@components/GithubStats.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import { useTranslations } from "@utils/i18n/utils";
+import { defaultLang } from "@utils/i18n/ui";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
@@ -22,7 +23,7 @@ if (!pagesDataRaw) return Astro.rewrite("/404");
 const pagesData = useFragment(PageFieldFragment, pagesDataRaw);
 const translations = pagesDataRaw.translations?.map((translation) => useFragment(PageFieldFragment, translation));
 
-const lang = getLangFromUrl(Astro.url);
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);
 const { about } = Astro.params;
 

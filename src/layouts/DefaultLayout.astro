@@ -9,7 +9,7 @@ import type { Seo } from "@components/BaseHead.astro";
 import BaseHead from "@components/BaseHead.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
-import { getLangFromUrl } from "@utils/i18n/utils";
+import { defaultLang } from "@utils/i18n/ui";
 
 import type { TranslationRoutes } from "@/types/i18n";
 
@@ -32,7 +32,7 @@ const {
   translationsRoutes,
 } = Astro.props as DefaultLayoutProps;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 ---
 
 <!-- TODO: Remove after lightmode is final: #9 -->

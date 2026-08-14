@@ -8,20 +8,6 @@ type TranslationKey = keyof (typeof localeStrings)[typeof defaultLang];
 type TranslationValue = number | string;
 
 /**
- * Extracts the language code from the given URL's pathname.
- *
- * @param url - The URL object from which to extract the language code.
- * @returns The extracted language code if it exists in `localeStrings`, otherwise returns `defaultLang`.
- */
-export const getLangFromUrl = (url: URL) => {
-  const [, lang] = url.pathname.split("/");
-
-  if (lang in localeStrings) return lang as keyof typeof localeStrings;
-
-  return defaultLang;
-};
-
-/**
  * Custom hook to use translations based on the provided language.
  *
  * @param   {keyof typeof localeStrings}  lang  The language key to use for translations.

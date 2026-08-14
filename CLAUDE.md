@@ -156,7 +156,7 @@ Do not add client-side state or interactivity to `.astro` components — create 
 | `src/composables/` | Vue composables (e.g., `useI18n`)                                   |
 | `src/services/`    | GraphQL queries/mutations + fetch utilities                         |
 | `src/gql/`         | **Auto-generated — never edit manually**                            |
-| `src/utils/i18n/`  | Translation helpers (`getLangFromUrl`, `useTranslations`)           |
+| `src/utils/i18n/`  | Translation helpers (`useTranslations`)                              |
 | `src/styles/`      | Global SCSS (ITCSS: base, components, objects, utilities)           |
 | `src/content/`     | Astro content collections — only locale JSON files                  |
 | `src/tests/`       | Unit tests (`unit/`), E2E tests (`e2e/`), MSW mocks                 |
@@ -195,7 +195,7 @@ Fragment masking is enabled — components can only access fields defined in the
 - Languages: `de` (default), `en`
 - URL structure: `/de/...` and `/en/...`
 - Locale files: `src/content/i18n/de-DE.json` and `en-US.json`
-- In Astro: `getLangFromUrl(url)` + `useTranslations(lang)` from `@i18n/utils`
+- In Astro: `Astro.currentLocale` (from `astro:i18n`, configured in `astro.config.mjs`) + `useTranslations(lang)` from `@i18n/utils`
 - In Vue: `useI18n()` composable from `@composables/useI18n`
 
 ## State Management

@@ -20,7 +20,8 @@ import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { categoryPathBuilder, getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import ChevronRight from "~icons/lucide/chevron-right";
 
@@ -60,7 +61,7 @@ const {
 } = Astro.props as BlogPost;
 
 const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
-const lang = getLangFromUrl(Astro.url);
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);
 
 const createBreadcrumbItems = () => {
