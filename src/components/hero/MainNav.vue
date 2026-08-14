@@ -20,27 +20,27 @@
       <Transition name="fade">
         <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">
           <MenuNav
-            :menu-items="menuItems?.nodes ?? []"
+            :menu-items="props.menuItems?.nodes ?? []"
             class="c-main-nav__menu"
             :class="{ 'is-open': flyoutIsOpen }"
             @submenu-state="submenuIsOpen = $event"
             @menu-item-target-clicked="toggleFlyout"
           />
 
-          <ButtonBar />
+          <ButtonBar :lang="props.lang" :translations-routes="props.translationsRoutes" />
         </div>
       </Transition>
     </Teleport>
 
     <MenuNav
       v-else
-      :menu-items="menuItems?.nodes ?? []"
+      :menu-items="props.menuItems?.nodes ?? []"
       class="c-main-nav__menu"
       :class="{ 'is-open': submenuIsOpen }"
       @submenu-state="submenuIsOpen = $event"
     />
 
-    <ButtonBar v-if="!isMobile" />
+    <ButtonBar v-if="!isMobile" :lang="props.lang" :translations-routes="props.translationsRoutes" />
   </nav>
 </template>
 
@@ -59,16 +59,20 @@ import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
 
 import { useI18n } from "@/composables/useI18n";
 
+import type { TranslationRoutes } from "@/types/i18n";
+
 export interface MainNavProps {
+  lang: "de" | "en";
   menuItems: NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
+  translationsRoutes: TranslationRoutes;
 }
 
-const { menuItems } = defineProps<MainNavProps>();
+const props = defineProps<MainNavProps>();
 
 const isMobile = useStore(isMobileBreakpoint);
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 
 /**
  * Toggle the flyout menu

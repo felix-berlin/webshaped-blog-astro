@@ -26,10 +26,7 @@ describe("MainHeader", () => {
     const wrapper = shallowMount(MainHeader, {
       props: {
         menuItems,
-        lang: {
-          locale: "de_DE",
-          id: "de",
-        },
+        lang: "de",
       },
     });
 

@@ -11,12 +11,14 @@ import { resolveMenuId, updateCategoryPaths } from "@utils/helpers";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
 
 import { GetMenuByIdDocument } from "@/gql/graphql.ts";
+import type { TranslationRoutes } from "@/types/i18n";
 
 interface HeaderProps {
   lang: "de" | "en";
+  translationsRoutes: TranslationRoutes;
 }
 
-const { lang } = Astro.props as HeaderProps;
+const { lang, translationsRoutes } = Astro.props as HeaderProps;
 
 const menuId = resolveMenuId(lang);
 
@@ -26,6 +28,5 @@ const menuItems = updateCategoryPaths(mainMenuItems?.menu?.menuItems ?? null, la
 ---
 
 <header class="o-header" id="mainHeader">
-  <MainNav client:only="vue" menuItems={menuItems} />
-  <!-- <LanguageSelect class="is-desktop" /> -->
+  <MainNav client:only="vue" menuItems={menuItems} lang={lang} translationsRoutes={translationsRoutes} />
 </header>

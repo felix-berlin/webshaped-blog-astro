@@ -7,6 +7,7 @@
 
   <Modal
     :uid="searchId"
+    :lang="props.lang"
     :open="searchVisible"
     position="top"
     :disable-scroll="true"
@@ -25,9 +26,10 @@ import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
 
+const props = defineProps<{ lang: "de" | "en" }>();
 const searchId = "main-search";
 const searchVisible = ref(false);
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 
 /**
  * Open the search modal

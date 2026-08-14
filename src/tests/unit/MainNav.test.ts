@@ -50,10 +50,8 @@ describe("MainNav", () => {
     const wrapper = mount(MainNav, {
       props: {
         menuItems: menuItems,
-        lang: {
-          locale: "de_DE",
-          id: "de",
-        },
+        lang: "de",
+        translationsRoutes: { de: "/de", en: "/en" },
       },
     });
 
@@ -64,10 +62,8 @@ describe("MainNav", () => {
     const wrapper = mount(MainNav, {
       props: {
         menuItems: menuItems,
-        lang: {
-          locale: "de_DE",
-          id: "de",
-        },
+        lang: "de",
+        translationsRoutes: { de: "/de", en: "/en" },
       },
       global: {
         mocks: {
@@ -82,7 +78,7 @@ describe("MainNav", () => {
   it("renders mobile toggle button when isMobile is true", async () => {
     isMobileBreakpoint.set(true);
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -94,7 +90,7 @@ describe("MainNav", () => {
   it("shows mobile flyout with MenuNav when isMobile=true and flyout is open", async () => {
     isMobileBreakpoint.set(true);
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -107,7 +103,7 @@ describe("MainNav", () => {
 
   it("ResizeObserver callback updates isMobileBreakpoint", async () => {
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -122,7 +118,7 @@ describe("MainNav", () => {
   it("ResizeObserver callback closes flyout when not mobile", async () => {
     isMobileBreakpoint.set(true);
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -140,7 +136,7 @@ describe("MainNav", () => {
   it("submenu-state event from desktop MenuNav updates submenuIsOpen (covers line 40)", async () => {
     isMobileBreakpoint.set(false);
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -154,7 +150,7 @@ describe("MainNav", () => {
   it("submenu-state event from mobile flyout MenuNav updates submenuIsOpen (covers line 26)", async () => {
     isMobileBreakpoint.set(true);
     const wrapper = mount(MainNav, {
-      props: { menuItems: menuItems as any },
+      props: { menuItems: menuItems as any, lang: "de", translationsRoutes: { de: "/de", en: "/en" } },
       attachTo: document.body,
     });
     await nextTick();
@@ -185,10 +181,8 @@ describe("MainNav", () => {
     const wrapper = mount(MainNav, {
       props: {
         menuItems: menuItems,
-        lang: {
-          locale: "de_DE",
-          id: "de",
-        },
+        lang: "de",
+        translationsRoutes: { de: "/de", en: "/en" },
       },
     });
 

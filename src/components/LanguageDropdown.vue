@@ -14,14 +14,15 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "@nanostores/vue";
-import { currentLanguage, translationRoutes } from "@stores/store";
 import { languages } from "@utils/i18n/ui";
 import Languages from "virtual:icons/lucide/languages";
 
-// Reactive store values
-const lang = useStore(currentLanguage);
-const routes = useStore(translationRoutes);
+import type { TranslationRoutes } from "@/types/i18n";
+
+defineProps<{
+  lang: "de" | "en";
+  routes: TranslationRoutes;
+}>();
 </script>
 
 <style lang="scss">

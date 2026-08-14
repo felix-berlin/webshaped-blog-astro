@@ -45,7 +45,7 @@ const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
   </BaseHead>
 
   <body class="o-body" class:list={bodyClasses}>
-    <MainHeader lang={lang} transition:persist />
+    <MainHeader lang={lang} translationsRoutes={translationsRoutes ?? {}} transition:persist />
     <main class="o-content" class:list={contentClasses}>
       <slot />
     </main>
