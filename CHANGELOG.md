@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0...v1.12.1-beta.1) (2026-08-15)
+
+
+### Bug Fixes
+
+* guard apiHost/image domains against missing WP_API ([a5ae095](https://github.com/felix-berlin/webshaped-blog-astro/commit/a5ae0956b39bae2f4e638f96dae34c69a4eaf871))
+
 # [1.12.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.2...v1.12.0) (2026-08-07)
 
 
