@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.1-beta.1...v1.12.1-beta.2) (2026-08-15)
+
+
+### Bug Fixes
+
+* correct privacy checkbox link to point at Datenschutz, not Impressum ([1c530a4](https://github.com/felix-berlin/webshaped-blog-astro/commit/1c530a4e8ac93249bac362588fa25b566cdeeea5))
+
 ## [1.12.1-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0...v1.12.1-beta.1) (2026-08-15)
 
 
