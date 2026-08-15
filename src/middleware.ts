@@ -1,12 +1,28 @@
-import { defineMiddleware } from "astro:middleware";
 import { notFound, redirectToDefaultLocale, requestHasLocale } from "astro:i18n";
+import { defineMiddleware } from "astro:middleware";
 
-// Only paths that look like a locale attempt (exactly two lowercase letters
-// as the first segment) are treated as "must resolve to a configured
-// locale or 404". Every other path (/api/*, /404, /sitemap-index.xml,
-// /robots.txt, static assets) is left alone — none of them are 2 lowercase
-// letters, so this can't shadow them.
-export const isLocaleShapedPath = (pathname: string): boolean => /^\/[a-z]{2}(\/|$)/.test(pathname);
+// Top-level segments that are real, non-locale routes and must never be
+// treated as a locale attempt, even though they don't carry a file extension.
+// - "api"      -> src/pages/api/**
+// - "404"      -> src/pages/404.astro
+// - "category" -> legacy top-level redirect in astro.config.mjs
+//                 ("/category/web-analytics" -> "/de/category/matomo/1")
+const NON_LOCALE_TOP_LEVEL_SEGMENTS = new Set(["404", "api", "category"]);
+
+// A path is "locale-shaped" (must resolve to a configured locale or 404)
+// unless its first segment is an explicitly allowlisted non-locale route, or
+// its last segment carries a file extension (build output under /_astro/,
+// pagefind's index under /pagefind/, files under /assets/, and top-level
+// static files like /robots.txt or /sitemap-index.xml all have one).
+export const isLocaleShapedPath = (pathname: string): boolean => {
+  const segments = pathname.split("/").filter(Boolean);
+  const [firstSegment] = segments;
+  if (!firstSegment) return false;
+  if (NON_LOCALE_TOP_LEVEL_SEGMENTS.has(firstSegment)) return false;
+
+  const lastSegment = segments[segments.length - 1];
+  return !lastSegment.includes(".");
+};
 
 export const onRequest = defineMiddleware((context, next) => {
   const { pathname } = context.url;
