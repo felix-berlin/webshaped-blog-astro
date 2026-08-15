@@ -5,7 +5,6 @@ import type { TranslationRoutes } from "@/types/i18n";
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl } from "@utils/helpers.ts";
-import { createLocalizedUrl } from "@utils/i18n/utils.ts";
 import { Head } from "astro-capo";
 import LoadingIndicator from "astro-loading-indicator/component";
 // import { pwaInfo } from "virtual:pwa-info";
@@ -52,24 +51,6 @@ export interface Title {
 }
 
 const { lang, seo, title, translationsRoutes } = Astro.props;
-const translations = translationsRoutes || {};
-const isTaxonomy = translations?.taxonomy === "category";
-
-// Separate taxonomy routes if applicable
-// Remove the taxonomy key from translations, this was just for identification
-// and not needed in the final routes
-const taxonomyRoutes = isTaxonomy ? (({ taxonomy, ...rest }) => rest)(translations) : {};
-
-// Create localized URLs excluding the taxonomy
-const otherRoutes = Object.entries(translations).reduce<TranslationRoutes>((acc, [key, value]) => {
-  if (key && key !== "undefined") {
-    acc[key] = createLocalizedUrl(Astro.url.pathname, key, translations);
-  }
-  return acc;
-}, {} as TranslationRoutes);
-
-// Determine the full translation routes
-const fullTranslationRoutes = isTaxonomy ? taxonomyRoutes : otherRoutes;
 
 const webmentionUrl = getWebmentionsUrl(Astro.url);
 ---
@@ -90,13 +71,13 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <!-- Locale -->
   {
-    Object.entries(fullTranslationRoutes).map(([key, value]) => {
+    Object.entries(translationsRoutes).map(([key, value]) => {
       return <link href={value} hreflang={key} rel="alternate" />;
     })
   }
   {
-    Object.keys(fullTranslationRoutes).length > 1 && (
-      <link href={fullTranslationRoutes["de"]} hreflang="x-default" rel="alternate" />
+    Object.keys(translationsRoutes).length > 1 && (
+      <link href={translationsRoutes["de"]} hreflang="x-default" rel="alternate" />
     )
   }
 

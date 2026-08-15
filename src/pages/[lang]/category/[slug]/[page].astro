@@ -18,6 +18,7 @@ import { wpQuery } from '@services/wpGraphqlClient';
 
 import type { LanguageCodeEnum } from '@/gql/graphql.ts';
 import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
+import type { TranslationRoutes } from '@/types/i18n';
 
 export const prerender = true;
 
@@ -112,17 +113,13 @@ const { lang, slug } = Astro.params as Params;
 const path = `${lang}/category/${slug}`;
 const posts = page.data;
 
-const translationsRoutes = availableLanguages.reduce<Record<string, string>>((acc, language) => {
-  acc[language] = `${Astro.url.origin}/${language}/category/${slug}/${page.currentPage}`;
+const translationsRoutes = availableLanguages.reduce<TranslationRoutes>((acc, language) => {
+  acc[language as 'de' | 'en'] = `/${language}/category/${slug}/${page.currentPage}`;
   return acc;
 }, {});
 ---
 
-<DefaultLayout
-  content={content}
-  contentClasses='o-category'
-  translationsRoutes={{ taxonomy: 'category', ...translationsRoutes }}
->
+<DefaultLayout content={content} contentClasses='o-category' translationsRoutes={translationsRoutes}>
   <header class='o-category__header'>
     <h1 class='o-category__headline'>{content.title}</h1>
   </header>

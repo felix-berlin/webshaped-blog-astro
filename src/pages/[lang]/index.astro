@@ -30,7 +30,7 @@ const page = allPages.find((candidate) => candidate?.language?.slug === lang);
 if (!page) return Astro.rewrite("/404");
 
 const translationsRoutes = allPages.reduce<TranslationRoutes>((acc, candidate) => {
-  const langSlug = candidate?.language?.slug;
+  const langSlug = candidate?.language?.slug as "de" | "en" | undefined;
   if (langSlug) acc[langSlug] = `/${langSlug}`;
   return acc;
 }, {});

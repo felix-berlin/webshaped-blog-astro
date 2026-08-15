@@ -1,7 +1,5 @@
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 
-import type { TranslationRoutes } from "@/types/i18n";
-
 import { defaultLang, localeStrings } from "./ui";
 
 type TranslationKey = keyof (typeof localeStrings)[typeof defaultLang];
@@ -100,27 +98,3 @@ const pluralFormFor = (
 export const categoryPathBuilder = (categorySlug: string, lang: string) => {
   return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug))}`;
 };
-
-/**
- * This function creates a localized URL based on slug.
- * @param url - A string (href) that represents the URL to be localized.
- * @param lang  - A string that represents the language code (e.g., "de" or "en").
- * @param translations - An object containing translation routes for different languages.
- */
-export function createLocalizedUrl(
-  url: string,
-  lang: string,
-  translations: TranslationRoutes,
-): string {
-  const urlParts = url.split("/");
-  const lastPart = urlParts.pop(); // Remove the last part of the URL
-
-  // Replace the language segment (e.g., /de/ or /en/) in the URL
-  const updatedUrlParts = urlParts.map((part) => (part === "de" || part === "en" ? lang : part));
-
-  // Append the translated or original last part
-  const translatedLastPart = lastPart && translations[lang] ? translations[lang] : lastPart;
-  if (translatedLastPart !== undefined) updatedUrlParts.push(translatedLastPart);
-
-  return updatedUrlParts.join("/");
-}
