@@ -199,8 +199,14 @@ echo ""
 
 echo "  3a. Testing root response for webshaped.de"
 IFS='|' read -r root_status root_headers _ <<< "$(run_request root / --header 'Host: webshaped.de')"
-assert_status "${root_status}" "200" "Root returns HTTP 200"
-assert_header_contains "${root_headers}" "content-type" "text/html" "Root returns HTML"
+assert_status "${root_status}" "302" "Root redirects to the default locale"
+assert_header_equals "${root_headers}" "location" "/de" "Root redirect location is /de"
+
+echo ""
+echo "  3a2. Testing default-locale homepage response"
+IFS='|' read -r home_status home_headers _ <<< "$(run_request home /de --header 'Host: webshaped.de')"
+assert_status "${home_status}" "200" "Homepage (/de) returns HTTP 200"
+assert_header_contains "${home_headers}" "content-type" "text/html" "Homepage (/de) returns HTML"
 
 echo ""
 echo "  3b. Testing www redirect"
@@ -216,13 +222,13 @@ assert_header_equals "${legacy_headers}" "location" "/de/posts/stockfoto-sammlun
 
 echo ""
 echo "  3d. Testing Brotli encoding"
-IFS='|' read -r br_status br_headers _ <<< "$(run_request br / --header 'Host: webshaped.de' --header 'Accept-Encoding: br')"
+IFS='|' read -r br_status br_headers _ <<< "$(run_request br /de --header 'Host: webshaped.de' --header 'Accept-Encoding: br')"
 assert_status "${br_status}" "200" "Brotli request returns HTTP 200"
 assert_header_equals "${br_headers}" "content-encoding" "br" "Brotli encoding is enabled"
 
 echo ""
 echo "  3e. Testing gzip encoding"
-IFS='|' read -r gzip_status gzip_headers _ <<< "$(run_request gzip / --header 'Host: webshaped.de' --header 'Accept-Encoding: gzip')"
+IFS='|' read -r gzip_status gzip_headers _ <<< "$(run_request gzip /de --header 'Host: webshaped.de' --header 'Accept-Encoding: gzip')"
 assert_status "${gzip_status}" "200" "gzip request returns HTTP 200"
 assert_header_equals "${gzip_headers}" "content-encoding" "gzip" "gzip encoding is enabled"
 assert_header_contains "${gzip_headers}" "vary" "Accept-Encoding" "gzip response varies on Accept-Encoding"

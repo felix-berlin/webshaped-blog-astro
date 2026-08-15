@@ -8,7 +8,7 @@ Der Smoke Test prüft folgende Punkte:
 
 1. **Compose Build/Start** – Startet App und Nginx-Proxy via `docker compose -f compose.yaml up`
 2. **Proxy Health Check** – Überprüft den öffentlichen HTTP-Endpoint des Proxys
-3. **Root Response via Proxy** – Holt die Startseite über den Proxy
+3. **Root Response via Proxy** – Prüft, dass `/` auf `/de` weiterleitet und die Startseite (`/de`) über den Proxy lädt
 4. **Host Redirect** – Prüft Weiterleitung von www.webshaped.de → webshaped.de
 5. **Legacy Redirect** – Prüft Weiterleitung alter Post-URLs auf `/de/posts/...`
 6. **Brotli & Gzip Compression** – Stellt sicher, dass beide Kompressionsarten aktiv sind
