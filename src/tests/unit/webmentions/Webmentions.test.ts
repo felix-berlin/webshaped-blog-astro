@@ -1,7 +1,7 @@
 // @ts-ignore: Unresolved import
 import Webmentions from "@components/webmentions/Webmentions.vue";
 import { currentWebmentionsCount } from "@stores/store";
-import { mount } from "@vue/test-utils";
+import { flushPromises, mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { it, expect, describe, beforeAll, afterAll, afterEach, vi } from "vitest";
@@ -30,6 +30,13 @@ beforeAll(() => server.listen());
 afterEach(() => {
   server.resetHandlers();
   currentWebmentionsCount.set(0);
+});
+// ponytail: several mounts above leave Webmentions.vue's unawaited onMounted
+// fetch() pending; without this it can resolve after this file's module env
+// is torn down and crash an unrelated later test file. Same fix as
+// ScrobbleDisplay.test.ts.
+afterEach(async () => {
+  await flushPromises();
 });
 afterAll(() => server.close());
 
