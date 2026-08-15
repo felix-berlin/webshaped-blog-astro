@@ -27,6 +27,7 @@ describe("isLocaleShapedPath", () => {
     expect(isLocaleShapedPath("/pagefind/pagefind.js")).toBe(false);
     expect(isLocaleShapedPath("/assets/logo/logo.svg")).toBe(false);
     expect(isLocaleShapedPath("/category/web-analytics")).toBe(false);
+    expect(isLocaleShapedPath("/_image")).toBe(false);
     expect(isLocaleShapedPath("/")).toBe(false);
   });
 });
