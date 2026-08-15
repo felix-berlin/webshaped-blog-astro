@@ -27,6 +27,7 @@ describe("MainHeader", () => {
       props: {
         menuItems,
         lang: "de",
+        translationsRoutes: { de: "/de", en: "/en" },
       },
     });
 
