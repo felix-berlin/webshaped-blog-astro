@@ -12,7 +12,7 @@
     (
       "base": $base-color,
       "lighten": color.adjust($base-color, $lightness: $lighten-percent * 1%),
-      "darken": color.adjust($base-color, $lightness: -$darken-percent * 1%),
+      "darken": color.adjust($base-color, $lightness: $darken-percent * -1%),
     )
   );
 
@@ -38,9 +38,9 @@
   $dark-shades: map.merge(
     $dark-shades,
     (
-      "base": color.adjust($base-color, $lightness: -$darken-percent * 1%),
+      "base": color.adjust($base-color, $lightness: $darken-percent * -1%),
       "lighten": color.adjust($base-color, $lightness: $lighten-percent * 1%),
-      "darken": color.adjust($base-color, $lightness: -$darken-percent * 2%),
+      "darken": color.adjust($base-color, $lightness: $darken-percent * -2%),
     )
   );
 

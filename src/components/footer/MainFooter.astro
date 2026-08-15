@@ -46,7 +46,6 @@ const footerMenuItems = footerMenuItemsResponse?.menuItems
   ? {
       nodes: footerMenuItemsResponse.menuItems.nodes.map((item) => ({
         ...item,
-        path: item.path ? `/${lang}${item.path}` : item.path,
         childItems: item.childItems
           ? {
               nodes: item.childItems.nodes.map((child) => ({
@@ -55,6 +54,7 @@ const footerMenuItems = footerMenuItemsResponse?.menuItems
               })),
             }
           : item.childItems,
+        path: item.path ? `/${lang}${item.path}` : item.path,
       })),
     }
   : footerMenuItemsResponse?.menuItems;
