@@ -8,7 +8,8 @@
     "coverage",
     "**/coverage/**",
     "src/tests/**/*.spec.ts",
-    "src/tests/**/*.test.ts"
+    "src/tests/**/*.test.ts",
+    "astro.config.mjs"
   ],
   "compilerOptions": {
     "jsx": "preserve",
