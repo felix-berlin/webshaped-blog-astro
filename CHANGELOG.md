@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.1-beta.2...v1.13.0-beta.1) (2026-08-15)
+
+
+### Bug Fixes
+
+* **ci:** fix Playwright webServer command for CI and agent-mode daemon ([4044bb2](https://github.com/felix-berlin/webshaped-blog-astro/commit/4044bb2a52d54de8c95ee472e1350ef822084934))
+* **ci:** update Docker smoke test for the / -> /de redirect, fix Playwright trigger scope ([0a83697](https://github.com/felix-berlin/webshaped-blog-astro/commit/0a83697533399808077c2b06a26ca3dfc066992d))
+* convert postId to string for TabDisplay component ([5f9f818](https://github.com/felix-berlin/webshaped-blog-astro/commit/5f9f8183b6c401c12d8ba0f6f950d7516bfcafd6))
+* exclude astro.config.mjs from TypeScript compilation ([5de91d8](https://github.com/felix-berlin/webshaped-blog-astro/commit/5de91d80858ce23712ce2bddbc0d5141fad36ecf))
+* **i18n:** 404 unconfigured locale segments, not just two-letter ones ([6d702c8](https://github.com/felix-berlin/webshaped-blog-astro/commit/6d702c804d487264bdddb5929a08fbed7869c9e6))
+* **i18n:** about-page routing collision, translationsRoutes cross-contamination, header/footer staleness ([e938757](https://github.com/felix-berlin/webshaped-blog-astro/commit/e93875726d3b57bb487e3cbc179251273e844690))
+* **i18n:** allowlist Astro's /_image endpoint in the locale middleware ([b31e587](https://github.com/felix-berlin/webshaped-blog-astro/commit/b31e5872b0e359ecf05c4e59348d15569f851bb0))
+* **i18n:** flush pending fetch promises in Webmentions.test.ts ([bf33c20](https://github.com/felix-berlin/webshaped-blog-astro/commit/bf33c20f54ace28a9b4e1b85a074cc1a7a0ff60a))
+* **i18n:** footer legal-page links missing lang prefix and wrong-language menu ([441d48b](https://github.com/felix-berlin/webshaped-blog-astro/commit/441d48bd50e430fdf3d530d3282a0c59c0326b90))
+* **i18n:** give legal pages real per-language routes ([f3da268](https://github.com/felix-berlin/webshaped-blog-astro/commit/f3da268c8b42e85e538eaba900e1b3435deae4f2))
+* **i18n:** give the homepage a real per-language route ([3168c0f](https://github.com/felix-berlin/webshaped-blog-astro/commit/3168c0fda33c95b1c697b1b34f83390110f1c41f))
+* **i18n:** make updateCategoryPaths non-mutating ([0fe70fa](https://github.com/felix-berlin/webshaped-blog-astro/commit/0fe70faf89e4c474ecf7c11b959182c81e6f4330))
+* **i18n:** standardize translationsRoutes on absolute paths, remove createLocalizedUrl ([95f7efe](https://github.com/felix-berlin/webshaped-blog-astro/commit/95f7efe3e0b94e994d25b4714e49c616abcfdc4b))
+* **i18n:** thread lang prop through header island tree, re-enable language switcher ([775ba12](https://github.com/felix-berlin/webshaped-blog-astro/commit/775ba12770c2808da610cd40c78255e9837ca521))
+* **i18n:** thread lang prop through post/comments island tree ([e045f36](https://github.com/felix-berlin/webshaped-blog-astro/commit/e045f366a1c9e18d28ad561edb9503610aefe221))
+* **i18n:** thread lang prop through webmentions/share island tree ([c13735f](https://github.com/felix-berlin/webshaped-blog-astro/commit/c13735f73cdaa7b3f1eec36d2c419b62b9e1ef74))
+* **i18n:** thread lang through remaining useI18n call sites ([bc41d8c](https://github.com/felix-berlin/webshaped-blog-astro/commit/bc41d8c567ad11d7f8fbf7ea070335354d1505d5))
+* **i18n:** use relative paths in E2E specs instead of a hardcoded port ([e7ab504](https://github.com/felix-berlin/webshaped-blog-astro/commit/e7ab5046fd61b470307d3fa32888ebae22b89d64))
+* restrict lang prop to specific language options ([ccd9504](https://github.com/felix-berlin/webshaped-blog-astro/commit/ccd950495717fab959b260d40e12f0effe5349cb))
+* update bundlePath for development environment and enhance HTML file indexing ([e08d34d](https://github.com/felix-berlin/webshaped-blog-astro/commit/e08d34d216faa3fae3741e6eb2bb427e66422cad))
+* update privacy link to include language parameter ([3af7323](https://github.com/felix-berlin/webshaped-blog-astro/commit/3af73238b9585dc9291f9e36c2561994e105e231))
+
+
+### Features
+
+* add translationsRoutes prop to MainNav in MainHeader component ([15d8f97](https://github.com/felix-berlin/webshaped-blog-astro/commit/15d8f979507c402862ea36578d5bd14332d12a37))
+* add workflow_dispatch trigger to CI and test workflows ([8012b9e](https://github.com/felix-berlin/webshaped-blog-astro/commit/8012b9e04d3f923e9341a8b7855b6ba6b0e9e224))
+* **i18n:** configure astro:i18n manual routing and locale middleware ([cf982cc](https://github.com/felix-berlin/webshaped-blog-astro/commit/cf982cc7570a621a9baad8eefcb31a07a5c8432b))
+
+
+### Reverts
+
+* restore transition:persist on MainHeader/MainFooter ([b7f00bd](https://github.com/felix-berlin/webshaped-blog-astro/commit/b7f00bd0167be2ff73cc0eec3056282b6885f1e5))
+
+## [1.12.1-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.1-beta.1...v1.12.1-beta.2) (2026-08-15)
+
+
+### Bug Fixes
+
+* correct privacy checkbox link to point at Datenschutz, not Impressum ([1c530a4](https://github.com/felix-berlin/webshaped-blog-astro/commit/1c530a4e8ac93249bac362588fa25b566cdeeea5))
+
+## [1.12.1-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.0...v1.12.1-beta.1) (2026-08-15)
+
+
+### Bug Fixes
+
+* guard apiHost/image domains against missing WP_API ([a5ae095](https://github.com/felix-berlin/webshaped-blog-astro/commit/a5ae0956b39bae2f4e638f96dae34c69a4eaf871))
+
 # [1.12.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.11.2...v1.12.0) (2026-08-07)
 
 

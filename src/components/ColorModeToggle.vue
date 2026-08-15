@@ -20,8 +20,9 @@ import Sun from "virtual:icons/lucide/sun";
 
 import { useI18n } from "@/composables/useI18n";
 
+const { lang } = defineProps<{ lang: "de" | "en" }>();
 const isDark = useStore(isDarkMode);
-const { t } = useI18n();
+const { t } = useI18n(() => lang);
 
 /**
  * Toggle the color mode.

@@ -24,11 +24,11 @@
 </template>
 
 <script setup lang="ts">
+import type { CommentNode } from "@components/comments/CommentItem.vue";
+
 import CommentItem from "@components/comments/CommentItem.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useTranslations } from "@utils/i18n/utils";
-
-import type { CommentNode } from "@components/comments/CommentItem.vue";
 
 import { useFragment } from "@/gql/fragment-masking";
 import { CommentFieldsFragmentDoc } from "@/gql/graphql.ts";
@@ -40,11 +40,11 @@ export interface CommentsProps {
   };
   currentPostId: string;
   id?: string;
-  lang: string;
+  lang: "de" | "en";
 }
 
 const { authorId, comments, currentPostId, id, lang } = defineProps<CommentsProps>();
-const t = useTranslations(lang as "de" | "en");
+const t = useTranslations(lang);
 </script>
 
 <style lang="scss">

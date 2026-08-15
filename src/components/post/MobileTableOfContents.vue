@@ -35,11 +35,12 @@ import { useI18n } from "@/composables/useI18n";
 
 interface MobileTableOfContentsProps {
   headings: TableOfContentsProps["headings"];
+  lang: "de" | "en";
 }
 
-const { t } = useI18n();
 const pageWidth = useStore(windowWidth);
 const props = defineProps<MobileTableOfContentsProps>();
+const { t } = useI18n(() => props.lang);
 const toggleButton = useTemplateRef("toggleButton");
 const activeHeadlineText = ref("");
 const mobileToc = useTemplateRef("mobileToc");

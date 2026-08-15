@@ -142,7 +142,7 @@
             for="privacy"
             v-html="
               t('comment_form.privacy.label', {
-                link: '/impressum',
+                link: `/${props.lang}/datenschutz`,
               })
             "
           />
@@ -179,12 +179,13 @@
 </template>
 
 <script setup lang="ts">
+import type { CombinedError } from "@urql/vue";
+
 import Alert from "@components/Alert.vue";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
-import type { CombinedError } from "@urql/vue";
 import { useMutation } from "@urql/vue";
 import { excludeObjectKeys } from "@utils/objectHelpers";
 import { promiseTimeout } from "@vueuse/core";
@@ -199,6 +200,7 @@ import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: string;
+  lang: "de" | "en";
   replyToCommentId?: CreateCommentMutationVariables["parent"];
 }
 
@@ -244,7 +246,7 @@ const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
 });
 
 const showDialog = ref(false);
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 
 const emit = defineEmits(["commentCreated", "comment-created"]);
 
@@ -326,7 +328,9 @@ const create = async () => {
         const { data, error } = response;
 
         if (commentForm.saveUser) {
-          guest.set(excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]));
+          guest.set(
+            excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]),
+          );
         }
 
         if (!commentForm.saveUser) {

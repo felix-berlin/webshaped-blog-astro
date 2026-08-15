@@ -20,7 +20,8 @@ import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
-import { categoryPathBuilder, getLangFromUrl, useTranslations } from "@utils/i18n/utils";
+import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import ChevronRight from "~icons/lucide/chevron-right";
 
@@ -47,7 +48,6 @@ const {
     content,
     dateGmt,
     featuredImage,
-    id,
     language,
     modifiedGmt,
     postId,
@@ -60,7 +60,7 @@ const {
 } = Astro.props as BlogPost;
 
 const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
-const lang = getLangFromUrl(Astro.url);
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);
 
 const createBreadcrumbItems = () => {
@@ -112,9 +112,13 @@ const parsedHeadings: ParsedHeading[] =
     })
     .filter((h): h is ParsedHeading => !!h) || [];
 
-const translationsRoutes = {
-  [lang]: slug,
-  [translations?.[0]?.language?.slug ?? ""]: translations?.[0]?.slug,
+const translationSlug = translations?.[0]?.language?.slug;
+const translationPostSlug = translations?.[0]?.slug;
+const translationsRoutes: TranslationRoutes = {
+  [lang]: `/${lang}/posts/${slug}`,
+  ...(translationSlug && translationPostSlug
+    ? { [translationSlug]: `/${translationSlug}/posts/${translationPostSlug}` }
+    : {}),
 };
 ---
 
@@ -128,7 +132,7 @@ const translationsRoutes = {
   <!-- Gravatar -->
   <link href="//secure.gravatar.com" rel="preconnect" slot="head" />
   <!-- <script src="@utils/smooth-scroll-anchor.ts" slot="head"></script> -->
-  <MobileTableOfContents client:only="vue" headings={parsedHeadings} />
+  <MobileTableOfContents client:only="vue" headings={parsedHeadings} lang={lang} />
 
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
     <ChevronRight height="20" slot="separator" width="20" />
@@ -164,7 +168,7 @@ const translationsRoutes = {
       <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
       <HasTranslations lang={lang} translations={translations} />
     </section>
-    <TabDisplay authorId={author?.node.id} client:only="vue" postId={id} />
+    <TabDisplay authorId={author?.node.id} client:only="vue" lang={lang} postId={String(postId)} />
   </footer>
 
   <aside class="c-blog-sidebar">

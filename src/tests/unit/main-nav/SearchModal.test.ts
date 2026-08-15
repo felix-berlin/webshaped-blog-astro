@@ -15,29 +15,29 @@ beforeEach(() => {
 
 describe("SearchModal.vue", () => {
   it("renders the search button", () => {
-    const wrapper = mount(SearchModal);
+    const wrapper = mount(SearchModal, { props: { lang: "de" } });
     expect(wrapper.find("button.c-searchbar").exists()).toBe(true);
   });
 
   it("renders Modal component", () => {
-    const wrapper = mount(SearchModal);
+    const wrapper = mount(SearchModal, { props: { lang: "de" } });
     expect(wrapper.findComponent({ name: "Modal" }).exists()).toBe(true);
   });
 
   it("renders Search component inside modal", () => {
-    const wrapper = mount(SearchModal);
+    const wrapper = mount(SearchModal, { props: { lang: "de" } });
     expect(wrapper.findComponent({ name: "Search" }).exists()).toBe(true);
   });
 
   it("opens search when button is clicked", async () => {
-    const wrapper = mount(SearchModal);
+    const wrapper = mount(SearchModal, { props: { lang: "de" } });
     expect(wrapper.vm.searchVisible).toBe(false);
     await wrapper.find("button.c-searchbar").trigger("click");
     expect(wrapper.vm.searchVisible).toBe(true);
   });
 
   it("closes search when modal emits close", async () => {
-    const wrapper = mount(SearchModal);
+    const wrapper = mount(SearchModal, { props: { lang: "de" } });
     wrapper.vm.searchVisible = true;
     await wrapper.vm.$nextTick();
     const modal = wrapper.findComponent({ name: "Modal" });
@@ -46,7 +46,7 @@ describe("SearchModal.vue", () => {
   });
 
   it("opens search on '/' keydown", async () => {
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     expect(wrapper.vm.searchVisible).toBe(false);
     const event = new KeyboardEvent("keydown", { key: "/" });
     window.dispatchEvent(event);
@@ -56,7 +56,7 @@ describe("SearchModal.vue", () => {
   });
 
   it("opens search on '.' keydown", async () => {
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     wrapper.vm.searchVisible = false;
     const event = new KeyboardEvent("keydown", { key: "." });
     window.dispatchEvent(event);
@@ -66,7 +66,7 @@ describe("SearchModal.vue", () => {
   });
 
   it("does not open search when INPUT is focused on keydown", async () => {
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     const input = document.createElement("input");
     document.body.appendChild(input);
     input.focus();
@@ -79,7 +79,7 @@ describe("SearchModal.vue", () => {
   });
 
   it("does not open search for other keys", async () => {
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     const event = new KeyboardEvent("keydown", { key: "a" });
     window.dispatchEvent(event);
     await wrapper.vm.$nextTick();
@@ -88,7 +88,7 @@ describe("SearchModal.vue", () => {
   });
 
   it("cleans up event listener on unmount", () => {
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     expect(() => wrapper.unmount()).not.toThrow();
   });
 
@@ -96,7 +96,7 @@ describe("SearchModal.vue", () => {
     const input = document.createElement("input");
     input.id = "main-search-input";
     document.body.appendChild(input);
-    const wrapper = mount(SearchModal, { attachTo: document.body });
+    const wrapper = mount(SearchModal, { props: { lang: "de" }, attachTo: document.body });
     await wrapper.find("button.c-searchbar").trigger("click");
     await nextTick();
     await flushPromises();

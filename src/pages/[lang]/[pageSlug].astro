@@ -1,0 +1,98 @@
+---
+import GithubStats from "@components/GithubStats.vue";
+import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { wpQuery } from "@services/wpGraphqlClient";
+import { useTranslations } from "@utils/i18n/utils";
+import "@styles/components/_post-card.scss";
+import "@styles/objects/_developer-card.scss";
+import { Image } from "astro:assets";
+
+import { useFragment } from "@/gql";
+import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
+import { PageFieldFragment } from "@services/queries/getPage";
+import type { TranslationRoutes } from "@/types/i18n";
+import { defaultLang } from "@utils/i18n/ui";
+
+// "ueber-mich" (German canonical slug) gets the special developer-card
+// layout with live GitHub stats instead of generic WP page content — see
+// isAboutPage below. Merged into this catch-all route because Astro's
+// route priority (dynamic single-segment beats rest params) means a
+// separate [...about].astro under the same [lang]/ parent would never be
+// reached: [pageSlug] always wins the match first.
+const ABOUT_CANONICAL_SLUG = "ueber-mich";
+
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
+  slugs: ["datenschutz", "impressum", ABOUT_CANONICAL_SLUG],
+});
+
+const { pageSlug } = Astro.params;
+const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+
+const allPages = (pagesResponse.pages?.nodes ?? []).flatMap((node) => {
+  const page = useFragment(PageFieldFragment, node);
+  const translations =
+    node.translations?.map((translation) => useFragment(PageFieldFragment, translation)) ?? [];
+  // Tag every entry (main + translations) with the German slug we queried
+  // by, so we can tell which WP page group a match belongs to regardless
+  // of which language's slug the URL actually matched.
+  return [page, ...translations].map((entry) => ({ ...entry, canonicalSlug: page.slug }));
+});
+
+const page = allPages.find(
+  (candidate) => candidate?.slug === pageSlug && candidate?.language?.slug === lang,
+);
+
+if (!page) return Astro.rewrite("/404");
+
+// Scoped to this page's own group (matched by canonicalSlug) — allPages
+// contains every fetched page's translations combined, and reducing over
+// all of them unscoped would let the last-processed page's language links
+// silently overwrite this page's own.
+const translationsRoutes = allPages
+  .filter((candidate) => candidate.canonicalSlug === page.canonicalSlug)
+  .reduce<TranslationRoutes>((acc, candidate) => {
+    const langSlug = candidate?.language?.slug as "de" | "en" | undefined;
+    if (langSlug && candidate?.slug) acc[langSlug] = `/${langSlug}/${candidate.slug}`;
+    return acc;
+  }, {});
+
+const isAboutPage = page.canonicalSlug === ABOUT_CANONICAL_SLUG;
+const t = useTranslations(lang);
+---
+
+<DefaultLayout
+  content={page}
+  contentClasses={isAboutPage ? "o-index" : undefined}
+  translationsRoutes={translationsRoutes}
+>
+  {
+    isAboutPage ? (
+      <Fragment>
+        <header class="o-developer-card">
+          <div class="o-developer-card__text-wrapper">
+            <h1 class="o-developer-card__headline c-post-card">{t("dev_card.headline")}</h1>
+
+            <p class="o-developer-card__text c-post-card">{t("dev_card.header_text")}</p>
+          </div>
+
+          <Image
+            alt="Felix Scholze portrait"
+            class="o-developer-card__image c-post-card"
+            height="500"
+            layout="constrained"
+            priority={true}
+            src="https://cms.webshaped.de/wp-content/uploads/felix-scholze_portait_no-background.png"
+            width="500"
+          />
+        </header>
+
+        <GithubStats client:only="vue" lang={lang} />
+      </Fragment>
+    ) : (
+      <div>
+        <h1>{page?.title}</h1>
+        <article set:html={page.content} />
+      </div>
+    )
+  }
+</DefaultLayout>

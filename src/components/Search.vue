@@ -24,7 +24,7 @@ const { id } = defineProps<SearchProps>();
 let bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
 
 if (import.meta.env.DEV) {
-  bundlePath = "/dist/pagefind/";
+  bundlePath = "/pagefind/";
   console.warn(
     "If there are no search results, make sure you have run `npm run build` and that the `dist/pagefind` folder exists.",
   );

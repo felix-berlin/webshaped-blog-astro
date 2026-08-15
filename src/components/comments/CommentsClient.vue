@@ -1,10 +1,10 @@
 <template>
   <section class="c-comments">
     <div id="createComment" class="c-comment is-create-comment is-level-0 is-even">
-      <CreateComment :current-post-id="currentPostId" @comment-created="getComments" />
+      <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="getComments" />
     </div>
 
-    <NoComments v-if="!hasComments" />
+    <NoComments v-if="!hasComments" :lang="lang" />
 
     <div v-auto-animate class="c-comments__list">
       <template v-if="hasComments">
@@ -15,6 +15,7 @@
           :depth="0"
           :author-id="authorId!"
           :current-post-id="currentPostId"
+          :lang="lang"
         />
       </template>
       <template v-if="!comments.fetching">
@@ -53,6 +54,7 @@ export interface CommentsProps {
   authorId?: string;
   currentPostId: string;
   id?: string;
+  lang: "de" | "en";
 }
 
 type CommentEdge = CommentsResult["edges"][number];
@@ -106,7 +108,7 @@ const cleanComments = computed(() => {
   );
 });
 
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 
 /**
  * Get comments by post id

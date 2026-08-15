@@ -118,29 +118,53 @@ export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): 
 /**
  * Update category paths in the main menu
  *
+ * Returns a new menu structure rather than mutating `mainMenuItems` in
+ * place — mutating the input here previously meant that if the same
+ * object ever got processed more than once (observed intermittently in
+ * dev, cleared by a hard reload — a Vite/Astro dev-server module-caching
+ * quirk, not reproducible against a production build), each extra pass
+ * prepended another "/de" and appended another "/1" on top of the last.
+ * Returning fresh objects makes repeat processing safe regardless of the
+ * exact cause.
  */
-export const updateCategoryPaths = (mainMenuItems: MenuItemsConnection, lang: "de" | "en") => {
-  mainMenuItems?.nodes.forEach((item: MenuItem) => {
-    if (!item?.childItems) return;
+export const updateCategoryPaths = (
+  mainMenuItems: MenuItemsConnection,
+  lang: "de" | "en",
+): MenuItemsConnection => {
+  if (!mainMenuItems) return mainMenuItems;
 
-    // Loop through the child items (menu item) of the main menu
-    item.childItems.nodes.forEach((childItem) => {
-      if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
-        return;
-      }
+  return {
+    ...mainMenuItems,
+    nodes: mainMenuItems.nodes.map((item: MenuItem) => {
+      if (!item?.childItems) return item;
 
-      // In german locale, /de is missing in the path
-      if (lang === "de") {
-        childItem.path = `/de${firstCategoryPage(childItem?.path || null)}`;
-      }
-      // In english locale, categories are postfixed with "-en", we need to remove it
-      if (lang === "en") {
-        childItem.path = firstCategoryPage(removeLocaleCode(childItem?.path || null));
-      }
-    });
-  });
+      return {
+        ...item,
+        childItems: {
+          ...item.childItems,
+          nodes: item.childItems.nodes.map((childItem) => {
+            if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
+              return childItem;
+            }
 
-  return mainMenuItems;
+            // In german locale, /de is missing in the path
+            if (lang === "de") {
+              return { ...childItem, path: `/de${firstCategoryPage(childItem?.path || null)}` };
+            }
+            // In english locale, categories are postfixed with "-en", we need to remove it
+            if (lang === "en") {
+              return {
+                ...childItem,
+                path: firstCategoryPage(removeLocaleCode(childItem?.path || null)),
+              };
+            }
+
+            return childItem;
+          }),
+        },
+      };
+    }),
+  };
 };
 
 /**

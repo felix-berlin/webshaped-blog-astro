@@ -33,7 +33,7 @@ const {
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 // console.log("TEST", new URL(WP_API).host);
 
-const apiHost = new URL(WP_API).host;
+const apiHost = WP_API ? new URL(WP_API).host : undefined;
 
 const visualizerPlugin = visualizer({
   open: BUNDLE_ANALYZER_OPEN === "true",
@@ -61,19 +61,24 @@ export default defineConfig({
     // },
   },
   image: {
-    domains: [apiHost],
+    ...(apiHost && { domains: [apiHost] }),
     remotePatterns: [{ protocol: "https" }],
     responsiveStyles: true,
   },
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: "viewport",
+    defaultStrategy: "hover",
   },
   experimental: {
     clientPrerender: true,
   },
   redirects: {
     "/category/web-analytics": "/de/category/matomo/1",
+  },
+  i18n: {
+    locales: ["de", "en"],
+    defaultLocale: "de",
+    routing: "manual",
   },
   integrations: [
     pagefind(),

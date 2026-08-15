@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import type { localeStrings } from "@i18n/ui";
+
 import { useTranslations } from "@utils/i18n/utils";
 
 export interface ReadingTimeProps {
