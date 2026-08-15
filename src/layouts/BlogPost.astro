@@ -113,9 +113,13 @@ const parsedHeadings: ParsedHeading[] =
     })
     .filter((h): h is ParsedHeading => !!h) || [];
 
-const translationsRoutes = {
-  [lang]: slug,
-  [translations?.[0]?.language?.slug ?? ""]: translations?.[0]?.slug,
+const translationSlug = translations?.[0]?.language?.slug;
+const translationPostSlug = translations?.[0]?.slug;
+const translationsRoutes: TranslationRoutes = {
+  [lang]: `/${lang}/posts/${slug}`,
+  ...(translationSlug && translationPostSlug
+    ? { [translationSlug]: `/${translationSlug}/posts/${translationPostSlug}` }
+    : {}),
 };
 ---
 
