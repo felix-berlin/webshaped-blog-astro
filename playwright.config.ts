@@ -96,7 +96,19 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "pnpm dev",
+    // `pnpm dev`'s predev hook runs gql:generate via `infisical run --`,
+    // which tries an interactive CLI login and hangs in CI. CI already
+    // injects real secrets as plain env vars (Infisical/secrets-action, see
+    // the Playwright workflow) and src/gql/ is committed, so `astro dev`
+    // alone is enough there; locally, secrets only exist via `infisical
+    // run --`, so `pnpm dev` is still required.
+    // ASTRO_DEV_BACKGROUND=0 is required in both cases: Astro 7 auto-detects
+    // AI coding agents and CI-like non-TTY environments and daemonizes
+    // itself, exiting the launching command immediately instead of staying
+    // in the foreground the way Playwright's webServer expects.
+    command: process.env.CI
+      ? "ASTRO_DEV_BACKGROUND=0 pnpm exec astro dev"
+      : "ASTRO_DEV_BACKGROUND=0 pnpm dev",
     url: "http://localhost:4321",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

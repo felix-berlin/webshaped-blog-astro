@@ -153,7 +153,10 @@ export const updateCategoryPaths = (
             }
             // In english locale, categories are postfixed with "-en", we need to remove it
             if (lang === "en") {
-              return { ...childItem, path: firstCategoryPage(removeLocaleCode(childItem?.path || null)) };
+              return {
+                ...childItem,
+                path: firstCategoryPage(removeLocaleCode(childItem?.path || null)),
+              };
             }
 
             return childItem;
