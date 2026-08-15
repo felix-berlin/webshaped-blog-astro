@@ -57,7 +57,6 @@
 <script setup lang="ts">
 import type { Page } from "astro";
 
-import { useI18n } from "@/composables/useI18n";
 import { defaultLang } from "@utils/i18n/ui";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
@@ -65,6 +64,8 @@ import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
 
 import type { LanguageCodeEnum } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 const props = defineProps<{
   lang: null | { code: LanguageCodeEnum | null; locale: null | string; slug: null | string };

@@ -40,7 +40,11 @@
       @submenu-state="submenuIsOpen = $event"
     />
 
-    <ButtonBar v-if="!isMobile" :lang="props.lang" :translations-routes="props.translationsRoutes" />
+    <ButtonBar
+      v-if="!isMobile"
+      :lang="props.lang"
+      :translations-routes="props.translationsRoutes"
+    />
   </nav>
 </template>
 
@@ -56,10 +60,9 @@ import CloseIcon from "virtual:icons/lucide/x";
 import { onMounted, ref } from "vue";
 
 import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
+import type { TranslationRoutes } from "@/types/i18n";
 
 import { useI18n } from "@/composables/useI18n";
-
-import type { TranslationRoutes } from "@/types/i18n";
 
 export interface MainNavProps {
   lang: "de" | "en";

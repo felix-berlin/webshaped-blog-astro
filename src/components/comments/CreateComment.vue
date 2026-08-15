@@ -179,12 +179,13 @@
 </template>
 
 <script setup lang="ts">
+import type { CombinedError } from "@urql/vue";
+
 import Alert from "@components/Alert.vue";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
 import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
-import type { CombinedError } from "@urql/vue";
 import { useMutation } from "@urql/vue";
 import { excludeObjectKeys } from "@utils/objectHelpers";
 import { promiseTimeout } from "@vueuse/core";
@@ -327,7 +328,9 @@ const create = async () => {
         const { data, error } = response;
 
         if (commentForm.saveUser) {
-          guest.set(excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]));
+          guest.set(
+            excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]),
+          );
         }
 
         if (!commentForm.saveUser) {
