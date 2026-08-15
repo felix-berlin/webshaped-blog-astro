@@ -6,10 +6,10 @@
         :key="mention['wm-id']"
         :mention="mention"
         :index="index"
-        :lang="props.lang"
+        :lang="lang"
       />
     </div>
-    <NoMentions v-if="webmentionsCount === 0" :lang="props.lang" />
+    <NoMentions v-if="webmentionsCount === 0" :lang="lang" />
   </div>
 </template>
 
@@ -44,8 +44,7 @@ interface Webmentions {
   mentions: Webmention[];
 }
 
-const props = defineProps<WebmentionsProps>();
-const { currentUrl = false, target = "" } = props;
+const { currentUrl = false, lang, target = "" } = defineProps<WebmentionsProps>();
 
 const state: Webmentions = reactive({
   mentions: [],
