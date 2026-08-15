@@ -66,11 +66,11 @@
 </template>
 
 <script setup lang="ts">
+import type { MenuNode } from "@components/menu-nav/MenuNav.vue";
+
 import MenuSubmenu from "@components/menu-nav/MenuSubmenu.vue";
 import { onClickOutside } from "@vueuse/core";
 import { nextTick, ref, useTemplateRef } from "vue";
-
-import type { MenuNode } from "@components/menu-nav/MenuNav.vue";
 
 export interface MenuItemProps {
   depth: number;

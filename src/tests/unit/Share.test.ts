@@ -50,10 +50,7 @@ describe("Share.vue", () => {
         title: "Test Title",
         text: "Test Text",
         url: "https://example.com",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "en",
       },
     });
 
@@ -79,6 +76,7 @@ describe("Share.vue", () => {
       props: {
         title: "Test Title",
         text: "Test Text",
+        lang: "de",
         // Don't provide url
       },
     });
@@ -97,6 +95,7 @@ describe("Share.vue", () => {
     const wrapper = mount(Share, {
       props: {
         showButton: true,
+        lang: "de",
       },
     });
 
@@ -107,6 +106,7 @@ describe("Share.vue", () => {
     const wrapper = mount(Share, {
       props: {
         showButton: false,
+        lang: "de",
       },
     });
 

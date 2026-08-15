@@ -33,7 +33,8 @@ import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
 import { useI18n } from "@/composables/useI18n";
 
-const { t } = useI18n();
+const { lang } = defineProps<{ lang: "de" | "en" }>();
+const { t } = useI18n(() => lang);
 </script>
 
 <style lang="scss">

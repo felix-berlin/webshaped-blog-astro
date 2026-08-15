@@ -13,13 +13,14 @@ describe("Modal", () => {
   });
 
   it("renders correctly", () => {
-    const wrapper = mount(Modal);
+    const wrapper = mount(Modal, { props: { lang: "de" } });
     expect(wrapper.html()).toMatchSnapshot();
   });
 
   it('hides close button when "showCloseButton" prop is false', () => {
     const wrapper = mount(Modal, {
       props: {
+        lang: "de",
         showCloseButton: false,
       },
     });
@@ -31,6 +32,7 @@ describe("Modal", () => {
     const wrapper = mount(Modal, {
       props: {
         uid: "test",
+        lang: "de",
         open: true,
       },
     });
@@ -45,6 +47,7 @@ describe("Modal", () => {
     const wrapper = mount(Modal, {
       props: {
         uid: "test",
+        lang: "de",
         open: false,
       },
     });
@@ -59,6 +62,7 @@ describe("Modal", () => {
     const wrapper = mount(Modal, {
       props: {
         uid: "test",
+        lang: "de",
       },
     });
 
@@ -70,6 +74,7 @@ describe("Modal", () => {
     const wrapper = mount(Modal, {
       props: {
         uid: "test",
+        lang: "de",
         disableScroll: true,
       },
     });
@@ -84,6 +89,7 @@ describe("Modal", () => {
     const wrapper = mount(Modal, {
       props: {
         uid: "test",
+        lang: "de",
         closeOnClickOutside: true,
       },
       attachTo: document.body,
@@ -100,7 +106,7 @@ describe("Modal", () => {
 
   it("opens the modal when open prop changes to true via watch", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", open: false },
+      props: { uid: "test", lang: "de", open: false },
     });
     expect(wrapper.vm.isVisible).toBe(false);
     await wrapper.setProps({ open: true });
@@ -110,7 +116,7 @@ describe("Modal", () => {
 
   it("closes the modal when open prop changes to false via watch", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", open: true },
+      props: { uid: "test", lang: "de", open: true },
     });
     expect(wrapper.vm.isVisible).toBe(true);
     await wrapper.setProps({ open: false });
@@ -120,7 +126,7 @@ describe("Modal", () => {
 
   it("removes event listeners on unmount", () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", closeOnClickOutside: true },
+      props: { uid: "test", lang: "de", closeOnClickOutside: true },
       attachTo: document.body,
     });
     // Should not throw
@@ -129,7 +135,7 @@ describe("Modal", () => {
 
   it("does not close on click when closeOnClickOutside is false", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", closeOnClickOutside: false },
+      props: { uid: "test", lang: "de", closeOnClickOutside: false },
       attachTo: document.body,
     });
     await wrapper.vm.openModal();
@@ -146,7 +152,7 @@ describe("Modal", () => {
 
   it("removes u-disable-scroll class on close when disableScroll is true", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", disableScroll: true },
+      props: { uid: "test", lang: "de", disableScroll: true },
     });
     await wrapper.vm.openModal();
     expect(document.body.classList.contains("u-disable-scroll")).toBe(true);
@@ -156,7 +162,7 @@ describe("Modal", () => {
 
   it("emits open event when modal opens", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test" },
+      props: { uid: "test", lang: "de" },
     });
     await wrapper.vm.openModal();
     expect(wrapper.emitted("open")).toBeTruthy();
@@ -164,7 +170,7 @@ describe("Modal", () => {
 
   it("emits close event when modal closes", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test" },
+      props: { uid: "test", lang: "de" },
     });
     await wrapper.vm.closeModal();
     expect(wrapper.emitted("close")).toBeTruthy();
@@ -172,7 +178,7 @@ describe("Modal", () => {
 
   it("does not close when click target is inside the modal (not the backdrop)", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test", closeOnClickOutside: true },
+      props: { uid: "test", lang: "de", closeOnClickOutside: true },
       attachTo: document.body,
       slots: { default: "<span class='inner'>content</span>" },
     });
@@ -190,7 +196,7 @@ describe("Modal", () => {
 
   it("closes modal when native dialog close event fires", async () => {
     const wrapper = mount(Modal, {
-      props: { uid: "test" },
+      props: { uid: "test", lang: "de" },
       attachTo: document.body,
     });
     await wrapper.vm.openModal();

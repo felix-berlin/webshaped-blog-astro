@@ -33,6 +33,7 @@ describe("TabDisplay.vue", () => {
       props: {
         postId: "123",
         authorId: "author-1",
+        lang: "de",
       },
     });
     expect(wrapper.exists()).toBe(true);
@@ -43,6 +44,7 @@ describe("TabDisplay.vue", () => {
       props: {
         postId: "123",
         authorId: "author-1",
+        lang: "de",
       },
     });
     expect(wrapper.findComponent({ name: "TabsView" }).exists()).toBe(true);
@@ -53,6 +55,7 @@ describe("TabDisplay.vue", () => {
       props: {
         postId: "123",
         authorId: "author-1",
+        lang: "de",
       },
     });
     const tabItems = wrapper.findAllComponents({ name: "TabItem" });
@@ -64,6 +67,7 @@ describe("TabDisplay.vue", () => {
       props: {
         postId: "123",
         authorId: "author-1",
+        lang: "de",
       },
     });
     const tabItems = wrapper.findAllComponents({ name: "TabItem" });
@@ -72,7 +76,7 @@ describe("TabDisplay.vue", () => {
 
   it("async component factories resolve on flushPromises (covers CommentsClient factory)", async () => {
     const wrapper = mount(TabDisplay, {
-      props: { postId: "123", authorId: "author-1" },
+      props: { postId: "123", authorId: "author-1", lang: "de" },
     });
     // flushPromises triggers the CommentsClient defineAsyncComponent factory
     await flushPromises();
@@ -81,7 +85,7 @@ describe("TabDisplay.vue", () => {
 
   it("clicking Webmentions tab triggers LoadWebmentions factory (covers lines 7, 27)", async () => {
     const wrapper = mount(TabDisplay, {
-      props: { postId: "123", authorId: "author-1" },
+      props: { postId: "123", authorId: "author-1", lang: "de" },
     });
 
     const buttons = wrapper.findAll("button");

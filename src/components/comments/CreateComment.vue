@@ -142,7 +142,7 @@
             for="privacy"
             v-html="
               t('comment_form.privacy.label', {
-                link: '/datenschutz',
+                link: `/${props.lang}/datenschutz`,
               })
             "
           />
@@ -200,6 +200,7 @@ import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: string;
+  lang: "de" | "en";
   replyToCommentId?: CreateCommentMutationVariables["parent"];
 }
 
@@ -245,7 +246,7 @@ const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
 });
 
 const showDialog = ref(false);
-const { t } = useI18n();
+const { t } = useI18n(() => props.lang);
 
 const emit = defineEmits(["commentCreated", "comment-created"]);
 

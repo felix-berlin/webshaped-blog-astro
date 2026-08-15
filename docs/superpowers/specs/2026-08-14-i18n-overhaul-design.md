@@ -94,14 +94,14 @@ for this content model.
 
 ### Routing layer
 
-| File | Change |
-|---|---|
-| `astro.config.mjs` | Add `i18n` config as above. |
-| `src/middleware.ts` **(new)** | Central locale handling: `pathHasLocale` detects `/de/...` \| `/en/...`. Bare `/` → `redirectToDefaultLocale` (302). Unknown locale segment → `notFound()`. |
-| `src/pages/index.astro` | Becomes a thin redirect stub (`/` → `/de`) — no more hardcoded `"startseite"` fetch happening at the bare root. |
-| `src/pages/[lang]/index.astro` **(new)** | The actual homepage, consistent with `[lang]/[...about].astro`: reads the `"startseite"` WP page via its `translation` field per the resolved language, the way `[...about].astro` already does for `"ueber-mich"`. |
-| `src/pages/[pageSlug].astro` → `src/pages/[lang]/[pageSlug].astro` | Datenschutz/Impressum get the same translation-aware treatment as `[...about].astro`, including the `Astro.rewrite("/404")` fallback when a slug has no translation in the requested language. |
-| `src/utils/i18n/utils.ts` | `getLangFromUrl`/`createLocalizedUrl` replaced by `astro:i18n` helpers (`getRelativeLocaleUrl`, `getLocaleByPath`) where a direct equivalent exists. `useTranslations`/`pluralFormFor` (string lookup, not a routing concern) are unchanged. |
+| File                                                               | Change                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `astro.config.mjs`                                                 | Add `i18n` config as above.                                                                                                                                                                                                                  |
+| `src/middleware.ts` **(new)**                                      | Central locale handling: `pathHasLocale` detects `/de/...` \| `/en/...`. Bare `/` → `redirectToDefaultLocale` (302). Unknown locale segment → `notFound()`.                                                                                  |
+| `src/pages/index.astro`                                            | Becomes a thin redirect stub (`/` → `/de`) — no more hardcoded `"startseite"` fetch happening at the bare root.                                                                                                                              |
+| `src/pages/[lang]/index.astro` **(new)**                           | The actual homepage, consistent with `[lang]/[...about].astro`: reads the `"startseite"` WP page via its `translation` field per the resolved language, the way `[...about].astro` already does for `"ueber-mich"`.                          |
+| `src/pages/[pageSlug].astro` → `src/pages/[lang]/[pageSlug].astro` | Datenschutz/Impressum get the same translation-aware treatment as `[...about].astro`, including the `Astro.rewrite("/404")` fallback when a slug has no translation in the requested language.                                               |
+| `src/utils/i18n/utils.ts`                                          | `getLangFromUrl`/`createLocalizedUrl` replaced by `astro:i18n` helpers (`getRelativeLocaleUrl`, `getLocaleByPath`) where a direct equivalent exists. `useTranslations`/`pluralFormFor` (string lookup, not a routing concern) are unchanged. |
 
 ### State layer
 

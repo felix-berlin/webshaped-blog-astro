@@ -14,7 +14,6 @@ export const GET = async (context) => {
   // Map the posts to the RSS items format
   const items = filteredPosts.map((post) => ({
     description: post.excerpt,
-    // TODO: syncronize with createLocalizedUrl()
     link: `${context.site}/${post.language.slug}/posts/${post.slug}`,
     pubDate: post.dateGmt,
     title: post.title,

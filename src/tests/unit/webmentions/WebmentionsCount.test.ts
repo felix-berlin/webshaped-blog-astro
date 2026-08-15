@@ -1,12 +1,11 @@
 // @ts-ignore: Unresolved import
 import WebmentionsCount from "@components/webmentions/WebmentionsCount.vue";
-import { currentLanguage, currentWebmentionsCount } from "@stores/store";
+import { currentWebmentionsCount } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe, beforeEach } from "vitest";
 
 describe("WebmentionsCount.vue", () => {
   beforeEach(() => {
-    currentLanguage.set("en");
     currentWebmentionsCount.set(0);
   });
 

@@ -22,6 +22,7 @@ import { useI18n } from "@/composables/useI18n";
 export interface InstallAppProps {
   cssClass?: Array<string> | object | string;
   iconSize?: number;
+  lang: "de" | "en";
   showIcon?: boolean;
   showText?: boolean;
 }
@@ -29,13 +30,14 @@ export interface InstallAppProps {
 const {
   cssClass = "",
   iconSize = 16,
+  lang,
   showIcon = false,
   showText = true,
 } = defineProps<InstallAppProps>();
 
 const prompt = useStore(installPrompt);
 const installReady = useStore(pwaReadyToInstall);
-const { t } = useI18n();
+const { t } = useI18n(() => lang);
 
 /**
  * Triggers the PWA install prompt and resets the stored prompt state once it has been shown.

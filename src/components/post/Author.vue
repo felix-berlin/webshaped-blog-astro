@@ -14,6 +14,7 @@
       <ScrobbleDisplay
         :scrobble-api="scrobbleApi"
         :idle-after-count="1"
+        :lang="lang"
         class="c-author__scrobble"
       />
     </div>
@@ -36,7 +37,7 @@ import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
 export interface AuthorProps {
   author: PostAuthor | undefined;
-  lang: null | string | undefined;
+  lang: "de" | "en";
 }
 type PostAuthor = PostNode["author"];
 

@@ -37,22 +37,22 @@ afterAll(() => server.close());
 
 describe("GithubStats.vue", () => {
   it("renders without error", () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     expect(wrapper.exists()).toBe(true);
   });
 
   it("shows loading skeleton initially", () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     expect(wrapper.find(".is-skeleton").exists()).toBe(true);
   });
 
   it("shows the stats card container", () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     expect(wrapper.find(".c-github-stats-card").exists()).toBe(true);
   });
 
   it("loads and displays data after fetch", async () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     expect(wrapper.vm.loading).toBe(true);
     await new Promise((r) => setTimeout(r, 50));
     await nextTick();
@@ -66,7 +66,7 @@ describe("GithubStats.vue", () => {
         return new HttpResponse(null, { status: 500, statusText: "Internal Server Error" });
       }),
     );
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     await new Promise((r) => setTimeout(r, 50));
     await nextTick();
     expect(wrapper.vm.error).toBeTruthy();
@@ -74,14 +74,14 @@ describe("GithubStats.vue", () => {
   });
 
   it("shows most starred repos after loading", async () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     await new Promise((r) => setTimeout(r, 50));
     await nextTick();
     expect(wrapper.vm.mostStarredRepos[0].name).toBe("awesome-repo");
   });
 
   it("formatLargeNumber formats numbers with dot separators", () => {
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     expect((wrapper.vm as any).formatLargeNumber(1234567)).toBe("1.234.567");
     expect((wrapper.vm as any).formatLargeNumber(1000)).toBe("1.000");
     expect((wrapper.vm as any).formatLargeNumber(999)).toBe("999");
@@ -99,7 +99,7 @@ describe("GithubStats.vue", () => {
         });
       }),
     );
-    const wrapper = mount(GithubStats);
+    const wrapper = mount(GithubStats, { props: { lang: "de" } });
     await new Promise((r) => setTimeout(r, 50));
     await nextTick();
     const filtered = wrapper.vm.filteredLanguagePercentages;

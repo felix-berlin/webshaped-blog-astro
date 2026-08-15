@@ -34,6 +34,13 @@ const server = setupServer(mockHandler);
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
+// ponytail: several tests below mount without unmounting, leaving the
+// component's onMounted fetch() promise pending; without this the promise
+// resolves after the test file's module env is torn down and crashes an
+// unrelated later test file. Flushing here settles it while still alive.
+afterEach(async () => {
+  await flushPromises();
+});
 afterAll(() => server.close());
 
 describe("ScrobbleDisplay", () => {
@@ -42,10 +49,7 @@ describe("ScrobbleDisplay", () => {
       props: {
         numberOfDisplayedTracks: 2,
         scrobbleApi: "https://last-fm.kasimir.dev",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        lang: "de",
       },
     });
 
@@ -59,6 +63,7 @@ describe("ScrobbleDisplay", () => {
   it("unmounts without errors (covers onBeforeUnmount/stopScrobbleUpdates)", async () => {
     const wrapper = mount(ScrobbleDisplay, {
       props: {
+        lang: "de",
         numberOfDisplayedTracks: 2,
         scrobbleApi: "https://last-fm.kasimir.dev",
       },
@@ -70,6 +75,7 @@ describe("ScrobbleDisplay", () => {
   it("stopScrobbleUpdates clears interval when updateIntervalId is set", async () => {
     const wrapper = mount(ScrobbleDisplay, {
       props: {
+        lang: "de",
         numberOfDisplayedTracks: 2,
         scrobbleApi: "https://last-fm.kasimir.dev",
         updateRate: 100,
@@ -85,6 +91,7 @@ describe("ScrobbleDisplay", () => {
   it("watcher fires when isDropdownShown toggles (covers lines 181-184)", async () => {
     const wrapper = mount(ScrobbleDisplay, {
       props: {
+        lang: "de",
         numberOfDisplayedTracks: 2,
         scrobbleApi: "https://last-fm.kasimir.dev",
         updateRate: 60_000,
@@ -109,6 +116,7 @@ describe("ScrobbleDisplay", () => {
   it("stopScrobbleUpdates does nothing when updateIntervalId is undefined (covers line 234 false branch)", async () => {
     const wrapper = mount(ScrobbleDisplay, {
       props: {
+        lang: "de",
         scrobbleApi: "https://last-fm.kasimir.dev",
         updateRate: 60_000,
       },
@@ -128,6 +136,7 @@ describe("ScrobbleDisplay", () => {
   it("watchEffect calls stopScrobbleUpdates when idleAfterCount is reached (covers line 174)", async () => {
     const wrapper = mount(ScrobbleDisplay, {
       props: {
+        lang: "de",
         scrobbleApi: "https://last-fm.kasimir.dev",
         idleAfterCount: 1, // state.idleAfterCount = 2
         updateRate: 50,

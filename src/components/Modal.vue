@@ -15,15 +15,15 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "@nanostores/vue";
-import { currentLanguage } from "@stores/store";
-import { useTranslations } from "@utils/i18n/utils";
 import X from "virtual:icons/lucide/x";
 import { onMounted, onUnmounted, ref, watch } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface ModalProps {
   closeOnClickOutside?: boolean;
   disableScroll?: boolean;
+  lang: "de" | "en";
   open?: boolean;
   position?: "bottom" | "center" | "top";
   showCloseButton?: boolean;
@@ -34,17 +34,17 @@ export interface ModalProps {
 const {
   closeOnClickOutside = true,
   disableScroll = false,
+  lang,
   open = false,
   position = "center",
   showCloseButton = true,
   uid,
 } = defineProps<ModalProps>();
+const { t } = useI18n(() => lang);
 
 const modal = ref<HTMLDialogElement | null>(null);
 const emit = defineEmits(["close", "open"]);
 const isVisible = ref(open);
-const lang = useStore(currentLanguage);
-const t = useTranslations(lang.value as "de" | "en");
 /**
  * Open the modal
  *

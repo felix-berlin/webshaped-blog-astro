@@ -15,9 +15,9 @@ minimumReleaseAgeExclude:
   - playwright@1.62.0 || 1.62.1
   - sass@1.102.0
   - vite@8.2.0 || 8.2.1
-  - '@astrojs/node@11.1.0 || 11.1.2'
+  - "@astrojs/node@11.1.0 || 11.1.2"
   - "@astrojs/vue@7.0.2"
   - astro@7.2.0 || 7.2.2
   - rollup-plugin-visualizer@7.1.1
-  - '@faker-js/faker@10.6.0'
+  - "@faker-js/faker@10.6.0"
   - tm-themes@1.12.6

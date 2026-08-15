@@ -8,8 +8,9 @@
 </template>
 
 <script setup lang="ts">
-import Date from "@components/post/Date.vue";
 import type { localeStrings } from "@i18n/ui";
+
+import Date from "@components/post/Date.vue";
 import { useTranslations } from "@utils/i18n/utils";
 export interface DateModifiedProps {
   date: string | undefined;

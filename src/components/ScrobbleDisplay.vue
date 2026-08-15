@@ -105,6 +105,7 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleAfterCount?: number;
   idleIfInactive?: boolean;
+  lang: "de" | "en";
   numberOfDisplayedTracks?: number;
   scrobbleApi?: string;
   updateRate?: number;
@@ -150,6 +151,7 @@ const {
   dropdownPlacement = "auto",
   idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
   idleIfInactive = false,
+  lang,
   numberOfDisplayedTracks = 5,
   scrobbleApi = "",
   updateRate = 180_000, // check every 180 seconds (3 min)
@@ -164,7 +166,7 @@ const state: State = reactive({
   updateIntervalId: undefined,
 });
 
-const { t } = useI18n();
+const { t } = useI18n(() => lang);
 
 const stop = watchEffect(() => {
   /**

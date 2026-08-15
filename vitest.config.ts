@@ -39,8 +39,6 @@ export default getViteConfig({
         "src/services/api.ts",
         // PWA service worker registration (requires virtual:pwa-register)
         "src/services/pwa.ts",
-        // Uses browser localeFrom API not available in jsdom
-        "src/stores/i18n.ts",
         // All Astro server-side routes (require Astro server context)
         "src/pages/**",
         // Test files themselves should not be measured

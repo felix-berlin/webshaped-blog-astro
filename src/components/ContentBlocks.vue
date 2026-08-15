@@ -11,10 +11,7 @@
     />
     <CodeBlock v-if="block.name === 'core/code'" :block="block as CodeBlockProps['block']" />
     <FigureBlock v-if="block.name === 'core/image'" :block="block as FigureBlockProps['block']" />
-    <ButtonBlock
-      v-if="block.name === 'core/buttons'"
-      :block="block as ButtonBlockProps['block']"
-    />
+    <ButtonBlock v-if="block.name === 'core/buttons'" :block="block as ButtonBlockProps['block']" />
     <!-- <div v-if="block.name === 'core/html'" v-html="block.originalContent" /> -->
   </template>
 </template>
