@@ -48,7 +48,6 @@ const {
     content,
     dateGmt,
     featuredImage,
-    id,
     language,
     modifiedGmt,
     postId,
@@ -169,7 +168,7 @@ const translationsRoutes: TranslationRoutes = {
       <Categories categories={categories as RootQueryToCategoryConnection} lang={lang} />
       <HasTranslations lang={lang} translations={translations} />
     </section>
-    <TabDisplay authorId={author?.node.id} client:only="vue" lang={lang} postId={id} />
+    <TabDisplay authorId={author?.node.id} client:only="vue" lang={lang} postId={String(postId)} />
   </footer>
 
   <aside class="c-blog-sidebar">
