@@ -24,26 +24,44 @@ import { version } from "../../../package.json";
 type AuthorSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
 type AuthorSocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
-const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
-
-const categories = categoriesResponse?.categories;
-
-const footerMenuItemsResponse = await wpQueryChrome(GetMenuItemsDocument, {
-  language: "DE",
-  location: "SECONDARY_MENU",
-});
-
-const footerMenuItems = footerMenuItemsResponse?.menuItems;
-
-const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
-
-const author = authorResponse?.user;
-
 interface MainFooterProps {
   lang: "de" | "en";
 }
 
 const { lang } = Astro.props as MainFooterProps;
+
+const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
+
+const categories = categoriesResponse?.categories;
+
+const footerMenuItemsResponse = await wpQueryChrome(GetMenuItemsDocument, {
+  language: lang.toUpperCase() as "DE" | "EN",
+  location: "SECONDARY_MENU",
+});
+
+// WP menu paths (e.g. "/impressum") don't know about the [lang]-prefixed
+// routing scheme (src/pages/[lang]/[pageSlug].astro) — prefix them here,
+// mirroring how updateCategoryPaths() prefixes header category links.
+const footerMenuItems = footerMenuItemsResponse?.menuItems
+  ? {
+      nodes: footerMenuItemsResponse.menuItems.nodes.map((item) => ({
+        ...item,
+        path: item.path ? `/${lang}${item.path}` : item.path,
+        childItems: item.childItems
+          ? {
+              nodes: item.childItems.nodes.map((child) => ({
+                ...child,
+                path: child.path ? `/${lang}${child.path}` : child.path,
+              })),
+            }
+          : item.childItems,
+      })),
+    }
+  : footerMenuItemsResponse?.menuItems;
+
+const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
+
+const author = authorResponse?.user;
 
 const t = useTranslations(lang);
 const iconStyles = {
