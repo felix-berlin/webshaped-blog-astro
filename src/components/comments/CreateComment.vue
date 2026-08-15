@@ -142,7 +142,7 @@
             for="privacy"
             v-html="
               t('comment_form.privacy.label', {
-                link: '/datenschutz',
+                link: `/${props.lang}/datenschutz`,
               })
             "
           />
