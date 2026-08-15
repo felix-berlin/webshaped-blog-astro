@@ -12,7 +12,7 @@ import MainNav from "@components/hero/MainNav.vue";
 import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
 
 export interface HeaderProps {
-  lang: null | string | undefined;
+  lang: "de" | "en";
   menuItems: NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
 }
 
