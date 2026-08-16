@@ -16,16 +16,16 @@ describe("computeConstrainedSize", () => {
     [undefined, undefined],
     [0, 1500],
     [1000, 0],
-  ])("falls back to a fixed 400px height and reports it when dimensions are missing (%o, %o)", (
-    rawWidth,
-    rawHeight,
-  ) => {
-    captureExceptionMock.mockClear();
+  ])(
+    "falls back to a fixed 400px height and reports it when dimensions are missing (%o, %o)",
+    (rawWidth, rawHeight) => {
+      captureExceptionMock.mockClear();
 
-    const result = computeConstrainedSize(800, rawWidth, rawHeight, "test-context");
+      const result = computeConstrainedSize(800, rawWidth, rawHeight, "test-context");
 
-    expect(result).toEqual({ height: 400, width: 800 });
-    expect(captureExceptionMock).toHaveBeenCalledOnce();
-    expect(captureExceptionMock.mock.calls[0][0].message).toContain("test-context");
-  });
+      expect(result).toEqual({ height: 400, width: 800 });
+      expect(captureExceptionMock).toHaveBeenCalledOnce();
+      expect(captureExceptionMock.mock.calls[0][0].message).toContain("test-context");
+    },
+  );
 });
