@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0-beta.2...v1.15.0-beta.3) (2026-08-16)
+
+
+### Bug Fixes
+
+* **nginx:** attach security headers to server-level redirects too ([b7a99db](https://github.com/felix-berlin/webshaped-blog-astro/commit/b7a99dbbbf20b2e4cebc851fccc3ce61b7b59ed2))
+
 # [1.15.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0-beta.1...v1.15.0-beta.2) (2026-08-16)
 
 
