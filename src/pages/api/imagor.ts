@@ -1,8 +1,8 @@
 import type { APIRoute } from "astro";
 
+import { captureException } from "@sentry/astro";
 import { buildImagorPath, signImagorPath } from "@utils/imagor";
 import { RESPONSIVE_WIDTHS } from "@utils/imagorClient";
-import { captureException } from "@sentry/astro";
 
 // This endpoint is a signing oracle: anyone can ask it to sign a fetch of a
 // `src` (imagor does the actual fetch). SSRF and host restriction are

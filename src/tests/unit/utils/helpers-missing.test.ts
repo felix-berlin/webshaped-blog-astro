@@ -6,6 +6,7 @@ import {
   getWebmentionsUrl,
   flatListToHierarchical,
   paginatedFlatListToHierarchical,
+  toSiteOrigin,
 } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
 
@@ -152,6 +153,40 @@ describe("flatListToHierarchical()", () => {
     expect(result).toHaveLength(1);
     expect((result[0] as Record<string, unknown>).id).toBe("1");
     expect((result[0] as Record<string, unknown>).children as unknown[]).toHaveLength(1);
+  });
+});
+
+describe("toSiteOrigin()", () => {
+  it("rewrites scheme and host to the site origin, keeping the path", () => {
+    expect(toSiteOrigin("http://cms.webshaped.de/de/posts/foo", "https://webshaped.de")).toBe(
+      "https://webshaped.de/de/posts/foo",
+    );
+  });
+
+  it("preserves query string and hash", () => {
+    expect(
+      toSiteOrigin("https://cms.webshaped.de/de?foo=bar#section", "https://webshaped.de"),
+    ).toBe("https://webshaped.de/de?foo=bar#section");
+  });
+
+  it("returns the input unchanged when it is not a valid URL", () => {
+    expect(toSiteOrigin("not-a-url", "https://webshaped.de")).toBe("not-a-url");
+  });
+
+  it("returns an empty string unchanged", () => {
+    expect(toSiteOrigin("", "https://webshaped.de")).toBe("");
+  });
+
+  it("returns a schemeless URL unchanged (not parseable by URL())", () => {
+    expect(toSiteOrigin("cms.webshaped.de/de/posts/foo", "https://webshaped.de")).toBe(
+      "cms.webshaped.de/de/posts/foo",
+    );
+  });
+
+  it("rewrites an origin-only URL to the site root", () => {
+    expect(toSiteOrigin("https://cms.webshaped.de", "https://webshaped.de")).toBe(
+      "https://webshaped.de/",
+    );
   });
 });
 

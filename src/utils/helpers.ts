@@ -235,6 +235,41 @@ export const getHostName = (url: string, hostnameOnly = false): string => {
 };
 
 /**
+ * Rewrite a URL's scheme and host to the public site's origin, keeping its
+ * path/query/hash. WordPress's Yoast SEO fields (canonical, opengraphUrl)
+ * reflect the WP install's own configured URL (http, cms.webshaped.de)
+ * rather than the public frontend that actually serves the page.
+ *
+ * @param   {string}  url - The absolute URL to rewrite.
+ * @param   {string}  siteOrigin - The public site's origin, e.g. "https://webshaped.de".
+ *
+ * @return  {string} The URL with its origin replaced by siteOrigin.
+ */
+export const toSiteOrigin = (url: string, siteOrigin: string): string => {
+  if (!isValidUrl(url)) {
+    // An empty/absent value is a normal "nothing configured" case, already
+    // guarded by callers — only a non-empty-but-unparseable string is a real
+    // WordPress data problem worth surfacing (the exact bug class this
+    // function exists to fix in the first place).
+    if (url) console.error(`toSiteOrigin: received unparseable URL, passing through unchanged: ${url}`);
+    return url;
+  }
+  const parsed = new URL(url);
+  return new URL(`${parsed.pathname}${parsed.search}${parsed.hash}`, siteOrigin).toString();
+};
+
+/**
+ * Serialize a value as JSON for a `<script type="application/ld+json">` body.
+ * `JSON.stringify` doesn't escape "<", so a "</script" inside CMS-sourced
+ * content (a post title, author name, …) would terminate the tag early.
+ *
+ * @param   {unknown}  data
+ *
+ * @return  {string}
+ */
+export const toJsonLd = (data: unknown): string => JSON.stringify(data).replace(/</g, "\\u003c");
+
+/**
  * Check if the given string is a valid URL
  *
  * @param   {string}   url
