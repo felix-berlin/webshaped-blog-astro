@@ -8,7 +8,6 @@ import type { TranslationRoutes } from "@/types/i18n";
 
 import Categories from "@components/Categories.vue";
 import HasTranslations from "@components/HasTranslations.vue";
-import ImageResponsive from "@components/ImageResponsive.vue";
 // import Author from "@components/post/Author.vue";
 import Author from "@components/post/Author.astro";
 import DateModified from "@components/post/DateModified.vue";
@@ -23,6 +22,7 @@ import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
+import { Picture } from "astro:assets";
 import ChevronRight from "~icons/lucide/chevron-right";
 
 import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
@@ -60,6 +60,16 @@ const {
 } = Astro.props as BlogPost;
 
 const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
+
+// `layout="constrained"` wants the intended render width, not the raw WP
+// pixel size — Astro derives `sizes` straight from it. Height is scaled to
+// match, so we don't distort images that aren't 2:1.
+const heroRawWidth = Number(featuredImage?.node.mediaDetails?.width) || 0;
+const heroRawHeight = Number(featuredImage?.node.mediaDetails?.height) || 0;
+const heroWidth = 1120;
+const heroHeight =
+  heroRawWidth && heroRawHeight ? Math.round(heroWidth * (heroRawHeight / heroRawWidth)) : 400;
+
 const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);
 
@@ -143,14 +153,17 @@ const translationsRoutes: TranslationRoutes = {
 
     {
       featuredImage?.node.mediaItemUrl && (
-        <ImageResponsive
-          aboveTheFold={true}
-          alt={featuredImage?.node.altText}
-          class:list="c-blog__hero-image"
-          height={featuredImage?.node.mediaDetails?.height}
-          src={featuredImage?.node.mediaItemUrl}
-          srcSet={featuredImage?.node.srcSet}
-          width={featuredImage?.node.mediaDetails?.width}
+        <Picture
+          alt={featuredImage?.node.altText ?? ""}
+          class="c-blog__hero-image"
+          fallbackFormat="webp"
+          fetchpriority="high"
+          formats={["avif", "webp"]}
+          height={heroHeight}
+          layout="constrained"
+          loading="eager"
+          src={featuredImage.node.mediaItemUrl}
+          width={heroWidth}
         />
       )
     }

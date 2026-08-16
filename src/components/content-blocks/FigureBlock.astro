@@ -1,0 +1,41 @@
+---
+import { Picture } from "astro:assets";
+
+import type { CoreImageFragment } from "@/gql/graphql.ts";
+
+export interface FigureBlockProps {
+  block: CoreImageFragment;
+}
+
+const { block } = Astro.props as FigureBlockProps;
+
+const attributes = block.attributes;
+const mediaDetails = block.mediaDetails;
+
+// `layout="constrained"` wants the intended render width, not the raw WP
+// pixel size — Astro derives `sizes` straight from it. Height is scaled to
+// match, so we don't distort images that aren't 2:1.
+const rawWidth = Number(mediaDetails?.width) || 0;
+const rawHeight = Number(mediaDetails?.height) || 0;
+const width = 800;
+const height = rawWidth && rawHeight ? Math.round(width * (rawHeight / rawWidth)) : 400;
+---
+
+<figure class="c-blocks__image">
+  {
+    attributes?.src && (
+      <Picture
+        alt={attributes?.alt ?? ""}
+        class="c-blog__hero-image"
+        fallbackFormat="webp"
+        formats={["avif", "webp"]}
+        height={height}
+        layout="constrained"
+        loading="lazy"
+        src={attributes.src}
+        width={width}
+      />
+    )
+  }
+  {attributes?.caption && <figcaption set:html={attributes.caption} />}
+</figure>

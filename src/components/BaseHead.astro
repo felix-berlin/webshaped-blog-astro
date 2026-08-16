@@ -8,6 +8,7 @@ import { getWebmentionsUrl } from "@utils/helpers.ts";
 import { Head } from "astro-capo";
 import LoadingIndicator from "astro-loading-indicator/component";
 // import { pwaInfo } from "virtual:pwa-info";
+import { IMAGOR_HOST } from "astro:env/server";
 import { ClientRouter } from "astro:transitions";
 
 export interface Props {
@@ -145,6 +146,7 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <link href="//cms.webshaped.de" rel="preconnect" />
   <link href="//analytics.webshaped.de" rel="preconnect" />
+  <link href={IMAGOR_HOST} rel="preconnect" />
 
   <!-- Preloads -->
   <link as="font" crossorigin href={SourceSansPro400} rel="preload" type="font/woff2" />

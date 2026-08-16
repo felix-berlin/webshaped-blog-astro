@@ -50,13 +50,12 @@ const allSocials = {
     {
       author?.node?.avatar?.url && (
         <img
-          alt="`Foto des Author: ${author?.node.firstName} ${author?.node.lastName}`"
+          alt={`Foto des Author: ${author?.node.firstName} ${author?.node.lastName}`}
           class="c-author__image"
           height={author.node.avatar.height}
           itemprop="image"
           loading="eager"
           src={author.node.avatar.url}
-          src="path/to/author/image.jpg"
           width={author.node.avatar.width}
         />
       )
