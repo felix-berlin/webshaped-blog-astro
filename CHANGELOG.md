@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-beta.4](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0-beta.3...v1.15.0-beta.4) (2026-08-16)
+
+
+### Bug Fixes
+
+* **i18n:** force hard navigation on the language switcher links ([eaac034](https://github.com/felix-berlin/webshaped-blog-astro/commit/eaac0340ab9b8ff43a45fdd3ce66a188393e6ae1))
+
 # [1.15.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0-beta.2...v1.15.0-beta.3) (2026-08-16)
 
 
