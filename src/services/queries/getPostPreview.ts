@@ -51,6 +51,7 @@ export const GetPostsPreview = graphql(`
         }
         seo {
           readingTime
+          metaRobotsNoindex
         }
       }
     }
@@ -63,6 +64,7 @@ export const GetAllPostPreviewsByCategory = graphql(`
     $field: PostObjectsConnectionOrderbyEnum = DATE
     $order: OrderEnum = DESC
     $stati: [PostStatusEnum] = [PUBLISH]
+    $first: Int = 10000
   ) {
     categories(where: { exclude: $exclude }) {
       nodes {
@@ -90,7 +92,7 @@ export const GetAllPostPreviewsByCategory = graphql(`
             }
           }
         }
-        posts(where: { orderby: { field: $field, order: $order }, stati: $stati }) {
+        posts(first: $first, where: { orderby: { field: $field, order: $order }, stati: $stati }) {
           nodes {
             title
             excerpt
@@ -106,7 +108,10 @@ export const GetAllPostPreviewsByCategory = graphql(`
         translations {
           name
           slug
-          posts(where: { orderby: { field: $field, order: $order }, stati: $stati }) {
+          posts(
+            first: $first
+            where: { orderby: { field: $field, order: $order }, stati: $stati }
+          ) {
             nodes {
               title
               excerpt

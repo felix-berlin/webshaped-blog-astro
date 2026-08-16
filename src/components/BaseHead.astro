@@ -4,10 +4,10 @@ import type { TranslationRoutes } from "@/types/i18n";
 // import SetColorMode from "@components/SetColorMode.astro";
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
-import { getWebmentionsUrl } from "@utils/helpers.ts";
-import { Head } from "astro-capo";
+import { getWebmentionsUrl, toSiteOrigin } from "@utils/helpers.ts";
 import LoadingIndicator from "astro-loading-indicator/component";
 // import { pwaInfo } from "virtual:pwa-info";
+import { SITE_URL } from "astro:env/client";
 import { IMAGOR_HOST } from "astro:env/server";
 import { ClientRouter } from "astro:transitions";
 
@@ -54,9 +54,18 @@ export interface Title {
 const { lang, seo, title, translationsRoutes } = Astro.props;
 
 const webmentionUrl = getWebmentionsUrl(Astro.url);
+const canonicalUrl = toSiteOrigin(seo?.canonical || Astro.url.href, SITE_URL);
+const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL) : undefined;
 ---
 
-<Head>
+<head>
+  <!-- Global Metadata — charset/viewport must come first (previously
+       enforced by astro-capo's head reordering; now manual since capo was
+       silently dropping the ClientRouter script during its string-based
+       head reordering, breaking view transitions entirely). -->
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
   <!-- TODO: Enable after lightmode is final: #9 -->
   <!-- <SetColorMode /> -->
   <ClientRouter />
@@ -66,19 +75,23 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
   <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
   <!-- <script src="/src/services/pwa.ts"></script> -->
 
-  <!-- Global Metadata -->
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-
   <!-- Locale -->
   {
     Object.entries(translationsRoutes).map(([key, value]) => {
-      return <link href={value} hreflang={key} rel="alternate" />;
+      return <link href={new URL(value, SITE_URL).toString()} hreflang={key} rel="alternate" />;
     })
   }
   {
-    Object.keys(translationsRoutes).length > 1 && (
-      <link href={translationsRoutes["de"]} hreflang="x-default" rel="alternate" />
+    // x-default should be present even for single-language pages (most
+    // posts have no translation) — it's what a crawler falls back to when
+    // no other hreflang matches, not just a marker for genuinely
+    // multilingual pages.
+    Object.keys(translationsRoutes).length > 0 && (
+      <link
+        href={new URL(translationsRoutes["de"] || Object.values(translationsRoutes)[0], SITE_URL).toString()}
+        hreflang="x-default"
+        rel="alternate"
+      />
     )
   }
 
@@ -92,7 +105,7 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
   <meta content="#ffffff" name="theme-color" />
   <meta content={Astro.generator} name="generator" />
 
-  <link href={seo?.canonical || Astro.url} rel="canonical" />
+  <link href={canonicalUrl} rel="canonical" />
 
   <!-- Primary Meta Tags -->
   <title set:text={seo?.title ? seo.title : title} />
@@ -102,7 +115,7 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <!-- Open Graph / Facebook -->
   {seo?.opengraphType && <meta content={seo.opengraphType} property="og:type" />}
-  {seo?.opengraphUrl && <meta content={seo.opengraphUrl} property="og:url" />}
+  {opengraphUrl && <meta content={opengraphUrl} property="og:url" />}
   {seo?.opengraphTitle && <meta content={seo.opengraphTitle} property="og:title" />}
   {
     seo?.opengraphDescription && (
@@ -117,7 +130,7 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
 
   <!-- Twitter -->
   <meta content="summary_large_image" property="twitter:card" />
-  {seo?.opengraphUrl && <meta content={seo.opengraphUrl} property="twitter:url" />}
+  {opengraphUrl && <meta content={opengraphUrl} property="twitter:url" />}
   {seo?.twitterTitle && <meta content={seo.twitterTitle} property="twitter:title" />}
 
   {
@@ -153,4 +166,4 @@ const webmentionUrl = getWebmentionsUrl(Astro.url);
   <link as="font" crossorigin href={SourceSansPro700} rel="preload" type="font/woff2" />
 
   <slot name="head" />
-</Head>
+</head>

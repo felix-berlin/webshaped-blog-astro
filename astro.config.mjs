@@ -1,5 +1,4 @@
 import node from "@astrojs/node";
-import sitemap from "@astrojs/sitemap";
 import vue from "@astrojs/vue";
 import codecovAstroPlugin from "@codecov/astro-plugin";
 // import AstroPWA from "@vite-pwa/astro";
@@ -92,18 +91,11 @@ export default defineConfig({
       //   launchEditor: "code",
       // },
     }),
-    sitemap({
-      lastmod: new Date(),
-      i18n: {
-        defaultLocale: "de",
-        // All urls that don't contain `de` or `en` after `https://webshaped.de/` will be treated as default locale, i.e. `de`
-        locales: {
-          de: "de-DE",
-          // The `defaultLocale` value must present in `locales` keys
-          en: "en-US",
-        },
-      },
-    }),
+    // The sitemap is served dynamically by src/pages/sitemap-index.xml.ts instead
+    // of @astrojs/sitemap: the integration only scans prerendered build
+    // output, so it can never see the SSR-only routes (homepage, legal
+    // pages) and can only stamp every URL with the build timestamp rather
+    // than each post's real modified date.
     matomo({
       enabled: ENABLE_ANALYTICS,
       host: "https://analytics.webshaped.de/",

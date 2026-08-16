@@ -5,7 +5,7 @@ import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import SocialList from "@components/SocialList.vue";
 import { getSocialIconData } from "@utils/helpers";
 import { useTranslations } from "@utils/i18n/utils";
-import { LAST_FM_SCROBBLER_API } from "astro:env/client";
+import { LAST_FM_SCROBBLER_API, SITE_URL } from "astro:env/client";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
@@ -45,7 +45,12 @@ const allSocials = {
 } as AuthorSocial | AuthorSocialAdvanced;
 ---
 
-<div class="c-author u-glas-background u-rounded" itemscope itemtype="http://schema.org/Person">
+<div
+  class="c-author u-glas-background u-rounded"
+  itemid={`${SITE_URL}/#person`}
+  itemscope
+  itemtype="http://schema.org/Person"
+>
   <div class="c-author__image-wrap">
     {
       author?.node?.avatar?.url && (

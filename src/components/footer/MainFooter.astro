@@ -12,7 +12,6 @@ import GitCommit from "~icons/lucide/git-commit";
 
 import {
   GetAllCategoriesDocument,
-  GetAuthorDocument,
   GetMenuItemsDocument,
   type GetAuthorQuery,
 } from "@/gql/graphql.ts";
@@ -25,10 +24,11 @@ type AuthorSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>[
 type AuthorSocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
 
 interface MainFooterProps {
+  author: GetAuthorQuery["user"] | null | undefined;
   lang: "de" | "en";
 }
 
-const { lang } = Astro.props as MainFooterProps;
+const { author, lang } = Astro.props as MainFooterProps;
 
 const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
 
@@ -58,10 +58,6 @@ const footerMenuItems = footerMenuItemsResponse?.menuItems
       })),
     }
   : footerMenuItemsResponse?.menuItems;
-
-const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
-
-const author = authorResponse?.user;
 
 const t = useTranslations(lang);
 const iconStyles = {

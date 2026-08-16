@@ -8,7 +8,16 @@
           :key="language"
           class="c-lang-dropdown__item"
         >
-          <a class="c-lang-dropdown__link" :class="{ 'is-active': lang === language }" :href="path">
+          <!-- data-astro-reload: force a full page load instead of
+               ClientRouter's soft navigation, whose URL only updates once
+               the destination's SSR response lands — the homepage's extra
+               WP GraphQL query made that lag enough to break the switcher. -->
+          <a
+            class="c-lang-dropdown__link"
+            :class="{ 'is-active': lang === language }"
+            data-astro-reload
+            :href="path"
+          >
             {{ languages[language] }}
           </a>
         </li>

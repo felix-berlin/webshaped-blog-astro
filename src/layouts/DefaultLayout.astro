@@ -9,8 +9,12 @@ import type { Seo } from "@components/BaseHead.astro";
 import BaseHead from "@components/BaseHead.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 import { defaultLang } from "@utils/i18n/ui";
+import { toJsonLd } from "@utils/helpers";
+import { SITE_URL } from "astro:env/client";
 
+import { GetAuthorDocument } from "@/gql/graphql.ts";
 import type { TranslationRoutes } from "@/types/i18n";
 
 export interface DefaultLayoutProps {
@@ -33,6 +37,41 @@ const {
 } = Astro.props as DefaultLayoutProps;
 
 const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+
+// Fetched once here (rather than in MainFooter, which also needs it) so the
+// Person/WebSite entity graph and the footer social links share one request.
+const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
+const author = authorResponse?.user;
+
+const sameAs = [author?.socialAdvanced?.github, author?.socialAdvanced?.mastodon].filter(
+  (url): url is string => Boolean(url),
+);
+
+// Felix Scholze / "Software-Entwickler & Designer" is already the site's
+// public identity — repeated verbatim in every page's <title> and meta
+// description — so this isn't new/invented content, just the same claim
+// made machine-readable.
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": `${SITE_URL}/#person`,
+      "@type": "Person",
+      jobTitle: "Software-Entwickler & Designer",
+      name: "Felix Scholze",
+      ...(sameAs.length ? { sameAs } : {}),
+      url: SITE_URL,
+    },
+    {
+      "@id": `${SITE_URL}/#website`,
+      "@type": "WebSite",
+      inLanguage: lang,
+      name: "Web Shaped",
+      publisher: { "@id": `${SITE_URL}/#person` },
+      url: SITE_URL,
+    },
+  ],
+};
 ---
 
 <!-- TODO: Remove after lightmode is final: #9 -->
@@ -40,6 +79,7 @@ const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
   <!-- <Head> -->
   <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes ?? {}}>
     <Fragment slot="head">
+      <script is:inline type="application/ld+json" set:html={toJsonLd(siteSchema)} />
       <slot name="head" />
     </Fragment>
   </BaseHead>
@@ -50,6 +90,6 @@ const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
       <slot />
     </main>
 
-    <MainFooter lang={lang} transition:persist />
+    <MainFooter author={author} lang={lang} transition:persist />
   </body>
 </html>

@@ -38,6 +38,16 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
     return [];
   }
 
+  // WPGraphQL links category translations bidirectionally: both the German
+  // original and its English counterpart appear as their own top-level node
+  // in `postPreviews.nodes`, AND each one's `translations` array points back
+  // at the other. Without deduping by the (lang, slug) the URL actually uses,
+  // every cross-language pair got built twice — once from its own node, once
+  // again via the sibling's `translations` traversal — which Astro's build
+  // then rejects as a route conflict (and, for the node's own English slug,
+  // built the wrong un-stripped "-en" URL as an extra, unwanted route).
+  const seenRoutes = new Set<string>();
+
   return postPreviews.nodes.flatMap((category) => {
     const { seo } = category;
     const categoriesDe = category.posts?.nodes;
@@ -53,21 +63,31 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
 
     if (!hasDeCategories) return [];
 
-    const germanPaths = paginate(categoriesDe, {
-      pageSize: pageCount,
-      params: {
-        lang: category.language?.slug as string,
-        slug: category.slug as string,
-      },
-      props: {
-        availableLanguages: availableLanguages,
-        content: {
-          language: category.language,
-          seo,
-          title: category.name,
-        },
-      },
-    });
+    const ownLang = category.language?.slug;
+    const ownSlug = removeLocaleCode(category.slug ?? null);
+    const ownRouteKey = ownLang && ownSlug ? `${ownLang}:${ownSlug}` : null;
+
+    const germanPaths =
+      ownRouteKey && !seenRoutes.has(ownRouteKey)
+        ? (() => {
+            seenRoutes.add(ownRouteKey);
+            return paginate(categoriesDe, {
+              pageSize: pageCount,
+              params: {
+                lang: ownLang as string,
+                slug: ownSlug,
+              },
+              props: {
+                availableLanguages: availableLanguages,
+                content: {
+                  language: category.language,
+                  seo,
+                  title: category.name,
+                },
+              },
+            });
+          })()
+        : [];
 
     // TODO: make slug the same as in german
     const englishPaths =
@@ -76,18 +96,24 @@ export const getStaticPaths = (async ({ paginate }: Paginate) => {
         const categoriesEnPosts = translation?.posts?.nodes;
 
         const hasEnCategories = Array.isArray(categoriesEnPosts) && categoriesEnPosts.length;
+        const translationLang = translation?.language?.slug;
 
-        if (hasEnCategories && translation?.language?.slug) {
-          availableLanguages.push(translation.language.slug);
+        if (hasEnCategories && translationLang) {
+          availableLanguages.push(translationLang);
         }
 
         if (!hasEnCategories) return [];
 
+        const translationSlug = removeLocaleCode(translation?.slug ?? null);
+        const routeKey = translationLang && translationSlug ? `${translationLang}:${translationSlug}` : null;
+        if (!routeKey || seenRoutes.has(routeKey)) return [];
+        seenRoutes.add(routeKey);
+
         return paginate(categoriesEnPosts, {
           pageSize: pageCount,
           params: {
-            lang: translation?.language?.slug as string,
-            slug: removeLocaleCode(translation?.slug ?? null),
+            lang: translationLang as string,
+            slug: translationSlug,
           },
           props: {
             availableLanguages: availableLanguages,
