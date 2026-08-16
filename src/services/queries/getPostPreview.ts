@@ -51,6 +51,7 @@ export const GetPostsPreview = graphql(`
         }
         seo {
           readingTime
+          metaRobotsNoindex
         }
       }
     }

@@ -10,6 +10,14 @@ export const CategoryFields = graphql(`
       slug
       locale
     }
+    translations {
+      slug
+      language {
+        code
+        slug
+        locale
+      }
+    }
   }
 `);
 
