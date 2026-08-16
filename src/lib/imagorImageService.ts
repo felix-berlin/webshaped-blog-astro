@@ -3,16 +3,15 @@ import type { ExternalImageService, ImageTransform } from "astro";
 import { buildImagorPath, signImagorPath } from "@utils/imagor";
 import { baseService } from "astro/assets";
 
-type UnresolvedSrcSetValue = {
-  transform: ImageTransform;
-  descriptor?: string;
-  attributes?: Record<string, unknown>;
-};
-
 type ImagorImageTransform = ImageTransform & {
   densities?: Array<number | string>;
-  filters?: string[];
-  formats?: string[];
+  filters?: Astro.ImagorProcessingFilter[];
+};
+
+type UnresolvedSrcSetValue = {
+  attributes?: Record<string, unknown>;
+  descriptor?: string;
+  transform: ImageTransform;
 };
 
 function getImagorURLForTransform(options: ImagorImageTransform): string {
@@ -43,10 +42,11 @@ const imagorImageService: ExternalImageService = {
       return [];
     }
 
-    const targetFormats =
-      options.formats && options.formats.length > 0 ? options.formats : [options.format ?? "webp"];
-    // Use the last format in the list as the fallback (e.g., webp for ["avif", "webp"])
-    const fallbackFormat = targetFormats[targetFormats.length - 1];
+    // Astro's <Picture> calls getImage/getSrcSet once per entry in its own
+    // `formats` prop, each time with a single `options.format` already set —
+    // it does its own format loop upstream, so this service must not loop
+    // over formats itself (that previously produced one <source> per format
+    // but stripped every format's own base-width candidate from its srcset).
     const baseWidth = options.width ?? 1;
     const baseHeight = options.height ?? 1;
     const aspectRatio = baseWidth / baseHeight;
@@ -71,26 +71,10 @@ const imagorImageService: ExternalImageService = {
             },
           );
 
-    return sizes.flatMap(({ descriptor, height, width }) =>
-      targetFormats
-        .map((format) => {
-          // Skip the fallback format at the base size (that goes in the <img> tag via getURL)
-          if (format === fallbackFormat && width === baseWidth && height === baseHeight) {
-            return null;
-          }
-
-          return {
-            descriptor,
-            transform: {
-              ...options,
-              format,
-              height,
-              width,
-            },
-          };
-        })
-        .filter(Boolean),
-    ) as UnresolvedSrcSetValue[];
+    return sizes.map(({ descriptor, height, width }) => ({
+      descriptor,
+      transform: { ...options, height, width },
+    }));
   },
   getURL(options: ImagorImageTransform) {
     return getImagorURLForTransform(options);

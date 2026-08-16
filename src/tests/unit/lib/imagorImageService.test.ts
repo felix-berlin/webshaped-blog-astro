@@ -71,7 +71,7 @@ describe("imagorImageService.getURL", () => {
     expect(signImagorPathMock).not.toHaveBeenCalled();
   });
 
-  it("skips the fallback format at 1x density (reserved for img tag), includes other formats and densities", () => {
+  it("emits one entry per density, inheriting the transform's own format (Astro's <Picture> loops formats itself)", () => {
     const srcSet = imagorImageService.getSrcSet(
       {
         src: "https://cms.berliner-schnauze.wtf/foo.png",
@@ -79,12 +79,11 @@ describe("imagorImageService.getURL", () => {
         height: 66,
         format: "avif",
         densities: [1, 2],
-        formats: ["avif", "webp"],
       },
       {} as never,
     );
 
-    expect(srcSet).toHaveLength(3);
+    expect(srcSet).toHaveLength(2);
     expect(
       srcSet.map(
         (entry: {
@@ -100,7 +99,32 @@ describe("imagorImageService.getURL", () => {
     ).toEqual([
       { descriptor: "1x", format: "avif", width: 48, height: 66 },
       { descriptor: "2x", format: "avif", width: 96, height: 132 },
-      { descriptor: "2x", format: "webp", width: 96, height: 132 },
+    ]);
+  });
+
+  it("emits one entry per width breakpoint, including the base width (no skip/dedup)", () => {
+    const srcSet = imagorImageService.getSrcSet(
+      {
+        src: "https://cms.berliner-schnauze.wtf/foo.png",
+        width: 800,
+        height: 400,
+        format: "webp",
+        widths: [800, 1600],
+      },
+      {} as never,
+    );
+
+    expect(
+      srcSet.map(
+        (entry: { descriptor?: string; transform: { width?: number; height?: number } }) => ({
+          descriptor: entry.descriptor,
+          width: entry.transform.width,
+          height: entry.transform.height,
+        }),
+      ),
+    ).toEqual([
+      { descriptor: "800w", width: 800, height: 400 },
+      { descriptor: "1600w", width: 1600, height: 800 },
     ]);
   });
 });
