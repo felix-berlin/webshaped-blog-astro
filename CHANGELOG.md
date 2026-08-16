@@ -43,6 +43,8 @@ All notable changes to this project will be documented in this file. See [Conven
 
 * restore transition:persist on MainHeader/MainFooter ([b7f00bd](https://github.com/felix-berlin/webshaped-blog-astro/commit/b7f00bd0167be2ff73cc0eec3056282b6885f1e5))
 
+# [1.13.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.13.0-beta.1...v1.13.0-beta.2) (2026-08-16)
+
 # [1.13.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.1-beta.2...v1.13.0-beta.1) (2026-08-15)
 
 
