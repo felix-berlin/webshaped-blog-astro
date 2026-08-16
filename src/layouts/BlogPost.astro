@@ -24,6 +24,7 @@ import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import { Picture } from "astro:assets";
+import { SITE_URL } from "astro:env/client";
 import ChevronRight from "~icons/lucide/chevron-right";
 
 import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
@@ -124,6 +125,29 @@ const translationsRoutes: TranslationRoutes = {
     ? { [translationSlug]: `/${translationSlug}/posts/${translationPostSlug}` }
     : {}),
 };
+
+// WPGraphQL's *Gmt fields serialize without a timezone suffix even though
+// they're already UTC — append "Z" so they parse as valid ISO 8601 instants.
+const toIsoUtc = (value: null | string | undefined) =>
+  value && !value.endsWith("Z") ? `${value}Z` : (value ?? undefined);
+
+const authorName = `${author?.node.firstName ?? ""} ${author?.node.lastName ?? ""}`.trim();
+const datePublished = toIsoUtc(dateGmt);
+const postPath = translationsRoutes[lang] ?? `/${lang}/posts/${slug}`;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  author: authorName ? { "@type": "Person", name: authorName } : undefined,
+  dateModified: toIsoUtc(modifiedGmt) ?? datePublished,
+  datePublished,
+  headline: title,
+  image: featuredImage?.node.mediaItemUrl,
+  mainEntityOfPage: {
+    "@id": new URL(postPath, SITE_URL).toString(),
+    "@type": "WebPage",
+  },
+};
 ---
 
 <DefaultLayout
@@ -131,6 +155,7 @@ const translationsRoutes: TranslationRoutes = {
   contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
   <!-- LastFM API -->
   <link href="//last-fm.kasimir.dev" rel="preconnect" slot="head" />
   <!-- Gravatar -->
@@ -148,7 +173,7 @@ const translationsRoutes: TranslationRoutes = {
     {
       featuredImage?.node.mediaItemUrl && (
         <Picture
-          alt={featuredImage?.node.altText ?? ""}
+          alt={featuredImage?.node.altText || title}
           class="c-blog__hero-image"
           fallbackFormat="webp"
           fetchpriority="high"
