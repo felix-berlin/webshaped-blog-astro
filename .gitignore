@@ -36,6 +36,7 @@ pnpm-debug.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+.playwright-mcp/
 stats.html
 docker-smoke-test-compose.log
 
