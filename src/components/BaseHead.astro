@@ -5,7 +5,6 @@ import type { TranslationRoutes } from "@/types/i18n";
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl, toSiteOrigin } from "@utils/helpers.ts";
-import { Head } from "astro-capo";
 import LoadingIndicator from "astro-loading-indicator/component";
 // import { pwaInfo } from "virtual:pwa-info";
 import { SITE_URL } from "astro:env/client";
@@ -59,7 +58,14 @@ const canonicalUrl = toSiteOrigin(seo?.canonical || Astro.url.href, SITE_URL);
 const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL) : undefined;
 ---
 
-<Head>
+<head>
+  <!-- Global Metadata — charset/viewport must come first (previously
+       enforced by astro-capo's head reordering; now manual since capo was
+       silently dropping the ClientRouter script during its string-based
+       head reordering, breaking view transitions entirely). -->
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
   <!-- TODO: Enable after lightmode is final: #9 -->
   <!-- <SetColorMode /> -->
   <ClientRouter />
@@ -68,10 +74,6 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
   <!-- FIXME: PWA is not working (manifest is not found ect.) -->
   <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
   <!-- <script src="/src/services/pwa.ts"></script> -->
-
-  <!-- Global Metadata -->
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
 
   <!-- Locale -->
   {
@@ -164,4 +166,4 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
   <link as="font" crossorigin href={SourceSansPro700} rel="preload" type="font/woff2" />
 
   <slot name="head" />
-</Head>
+</head>
