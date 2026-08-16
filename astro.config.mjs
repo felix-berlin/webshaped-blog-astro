@@ -30,6 +30,7 @@ const {
   ENABLE_ANALYTICS,
   PWA_DEBUG,
   BUNDLE_ANALYZER_OPEN,
+  IMAGOR_HOST,
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
 // console.log("TEST", new URL(WP_API).host);
 
@@ -64,6 +65,9 @@ export default defineConfig({
     ...(apiHost && { domains: [apiHost] }),
     remotePatterns: [{ protocol: "https" }],
     responsiveStyles: true,
+    service: {
+      entrypoint: "./src/lib/imagorImageService.ts",
+    },
   },
   prefetch: {
     prefetchAll: true,
@@ -254,6 +258,14 @@ export default defineConfig({
         context: "client",
         access: "public",
         default: false,
+      }),
+      IMAGOR_HOST: envField.string({
+        context: "server",
+        access: "public",
+      }),
+      IMAGOR_SECRET: envField.string({
+        context: "server",
+        access: "secret",
       }),
     },
   },
