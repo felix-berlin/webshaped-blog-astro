@@ -11,6 +11,7 @@ import MainFooter from "@components/footer/MainFooter.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
 import { defaultLang } from "@utils/i18n/ui";
+import { toJsonLd } from "@utils/helpers";
 import { SITE_URL } from "astro:env/client";
 
 import { GetAuthorDocument } from "@/gql/graphql.ts";
@@ -78,7 +79,7 @@ const siteSchema = {
   <!-- <Head> -->
   <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes ?? {}}>
     <Fragment slot="head">
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(siteSchema)} />
+      <script is:inline type="application/ld+json" set:html={toJsonLd(siteSchema)} />
       <slot name="head" />
     </Fragment>
   </BaseHead>

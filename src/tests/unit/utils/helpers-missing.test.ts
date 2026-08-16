@@ -176,6 +176,18 @@ describe("toSiteOrigin()", () => {
   it("returns an empty string unchanged", () => {
     expect(toSiteOrigin("", "https://webshaped.de")).toBe("");
   });
+
+  it("returns a schemeless URL unchanged (not parseable by URL())", () => {
+    expect(toSiteOrigin("cms.webshaped.de/de/posts/foo", "https://webshaped.de")).toBe(
+      "cms.webshaped.de/de/posts/foo",
+    );
+  });
+
+  it("rewrites an origin-only URL to the site root", () => {
+    expect(toSiteOrigin("https://cms.webshaped.de", "https://webshaped.de")).toBe(
+      "https://webshaped.de/",
+    );
+  });
 });
 
 describe("paginatedFlatListToHierarchical()", () => {

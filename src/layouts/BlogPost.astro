@@ -20,6 +20,7 @@ import TableOfContentsClientSide from "@components/post/TableOfContentsClientSid
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { computeConstrainedSize } from "@utils/constrainedImageSize";
+import { toJsonLd } from "@utils/helpers";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
@@ -155,7 +156,7 @@ const articleSchema = {
   contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
+  <script is:inline type="application/ld+json" set:html={toJsonLd(articleSchema)} slot="head" />
   <!-- LastFM API -->
   <link href="//last-fm.kasimir.dev" rel="preconnect" slot="head" />
   <!-- Gravatar -->
