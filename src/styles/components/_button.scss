@@ -57,6 +57,10 @@
   &--icon {
     --color-button: var(--blue-light);
 
+    // WCAG 2.5.5/2.5.8 minimum tap-target size — the icon itself stays its
+    // visual size, icon-center() keeps it centered in the larger box.
+    min-width: 44px;
+    min-height: 44px;
     transition: all 0.1s cubic-bezier(0.4, 0, 1, 1);
 
     @extend .u-button-reset;
