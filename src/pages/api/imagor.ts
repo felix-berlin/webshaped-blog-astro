@@ -1,107 +1,89 @@
 import type { APIRoute } from "astro";
 
 import { buildImagorPath, signImagorPath } from "@utils/imagor";
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
+import { RESPONSIVE_WIDTHS } from "@utils/imagorClient";
+import { captureException } from "@sentry/astro";
 
-// This endpoint is a public signing oracle: anyone can ask it to sign a
-// fetch of an arbitrary `src` (imagor does the actual fetch). Block
-// non-https and private/loopback/link-local targets so it can't be used to
-// probe or hit internal network services (SSRF). No per-domain allowlist —
-// by decision, since the current callers (WP avatars, last.fm covers) are
-// operator-controlled hosts. This can't fully rule out DNS rebinding on a
-// hostname it doesn't recognize; genuinely untrusted, attacker-supplied
-// URLs (e.g. webmention author photos) must not be routed through here —
-// render those with their original, unproxied src instead.
-const MAX_DIMENSION = 2000;
-// `format` is interpolated into imagor's filter pipeline string
-// (`filters:format(x)`) — allowlist it so an unauthenticated caller can't
-// inject extra filters.
+// This endpoint is a signing oracle: anyone can ask it to sign a fetch of a
+// `src` (imagor does the actual fetch). SSRF and host restriction are
+// enforced by imagor's own HTTP loader config (HTTP_LOADER_ALLOWED_SOURCES,
+// HTTP_LOADER_BLOCK_PRIVATE_NETWORKS / _LOOPBACK_NETWORKS /
+// _LINK_LOCAL_NETWORKS, HTTP_LOADER_HTTPS_ONLY) — that's the right place for
+// it: it runs immediately before the actual fetch, not at sign time, so it
+// isn't subject to the DNS-rebinding TOCTOU gap a check here would have.
+// Duplicating an allowlist here would also drift from imagor's own (it also
+// allows upload.wikimedia.org and m.media-amazon.com for embedded post
+// images, not just our own WP media host).
+//
+// What's validated here instead is specific to *this* endpoint: `format` is
+// interpolated into imagor's filter pipeline string that we build ourselves
+// (`filters:format(x)`), so an unauthenticated caller must not be able to
+// inject extra filters through it. `width` is restricted to the exact
+// breakpoints FigureBlock.vue actually requests (imagorClient.ts's
+// RESPONSIVE_WIDTHS, plus its fixed 800px <img> base width) rather than any
+// positive integer — this is what actually bounds this endpoint from being
+// used to mint an unbounded number of distinct signed (w, h, format) cache
+// entries against the imagor host, which a request-count SSRF/allowlist
+// check would not have prevented anyway. `height` is derived by the caller
+// from the real image's aspect ratio, so it isn't restricted to a fixed set
+// — it's bounded by imagor's own VIPS_MAX_HEIGHT (5000) instead, since
+// there's no reason for us to be stricter than what imagor already enforces.
+//
+// Genuinely untrusted, attacker-supplied URLs (e.g. webmention author
+// photos) must never be routed through here regardless — render those with
+// their original, unproxied src instead.
+const ALLOWED_WIDTHS = new Set([...RESPONSIVE_WIDTHS, 800]);
+const MAX_HEIGHT = 5000;
 const ALLOWED_FORMATS = new Set(["avif", "jpeg", "png", "webp"]);
 
-function isPrivateIPv4(ip: string): boolean {
-  const parts = ip.split(".").map(Number);
-  if (parts.length !== 4 || parts.some((part) => Number.isNaN(part))) return true;
-  const [a, b] = parts;
-  return (
-    a === 0 ||
-    a === 10 ||
-    a === 127 ||
-    (a === 169 && b === 254) ||
-    (a === 172 && b >= 16 && b <= 31) ||
-    (a === 192 && b === 168) ||
-    (a === 100 && b >= 64 && b <= 127) || // carrier-grade NAT
-    a >= 224 // multicast (224-239) + reserved (240-255)
-  );
-}
-
-function isPrivateIPv6(ip: string): boolean {
-  const normalized = ip.toLowerCase();
-  if (normalized === "::1" || normalized === "::") return true;
-  if (
-    normalized.startsWith("fe80:") ||
-    normalized.startsWith("fc") ||
-    normalized.startsWith("fd") ||
-    normalized.startsWith("ff") // multicast
-  ) {
-    return true;
-  }
-  const mapped =
-    /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(normalized) ?? /^::(\d+\.\d+\.\d+\.\d+)$/.exec(normalized);
-  return mapped ? isPrivateIPv4(mapped[1]) : false;
-}
-
-async function resolvesToPrivateAddress(hostname: string): Promise<boolean> {
-  const literalKind = isIP(hostname);
-  if (literalKind === 4) return isPrivateIPv4(hostname);
-  if (literalKind === 6) return isPrivateIPv6(hostname);
-
-  try {
-    // Check every resolved address, not just the first — a multi-A-record
-    // host could put a public IP first and a private one second.
-    const results = await lookup(hostname, { all: true });
-    return results.some(({ address, family }) =>
-      family === 4 ? isPrivateIPv4(address) : isPrivateIPv6(address),
-    );
-  } catch {
-    // Unresolvable — block rather than let imagor try and fail differently.
-    return true;
-  }
+function reject(reason: string, detail: string): Response {
+  const message = `/api/imagor rejected (${reason}): ${detail}`;
+  console.warn(message);
+  // A rejection here means either a hostile probe or (for the one first-party
+  // caller, FigureBlock.vue) our own code/data producing an out-of-contract
+  // request — worth an alert either way, not just container logs.
+  captureException(new Error(message));
+  return new Response("Invalid imagor parameters", { status: 400 });
 }
 
 export const GET: APIRoute = async ({ url }) => {
   const src = url.searchParams.get("src");
   const width = Number(url.searchParams.get("w"));
   const height = Number(url.searchParams.get("h"));
-  const format = url.searchParams.get("format") ?? undefined;
+  const format = url.searchParams.get("format") || undefined;
 
-  if (
-    !src ||
-    !Number.isFinite(width) ||
-    !Number.isFinite(height) ||
-    width <= 0 ||
-    height <= 0 ||
-    (format && !ALLOWED_FORMATS.has(format))
-  ) {
-    return new Response("Invalid imagor parameters", { status: 400 });
+  if (!src) return reject("missing src", "no src parameter");
+  if (!ALLOWED_WIDTHS.has(width)) {
+    return reject("disallowed width", `w=${url.searchParams.get("w")}`);
+  }
+  if (!Number.isInteger(height) || height <= 0 || height > MAX_HEIGHT) {
+    return reject("invalid height", `h=${url.searchParams.get("h")}`);
+  }
+  if (format && !ALLOWED_FORMATS.has(format)) {
+    return reject("disallowed format", format);
   }
 
   let upstream: URL;
   try {
     upstream = new URL(src);
   } catch {
-    return new Response("Invalid imagor parameters", { status: 400 });
+    return reject("unparseable src", src);
   }
 
-  if (upstream.protocol !== "https:" || (await resolvesToPrivateAddress(upstream.hostname))) {
-    return new Response("Invalid imagor parameters", { status: 400 });
+  if (upstream.protocol !== "https:") {
+    return reject("non-https src", src);
   }
 
-  const path = buildImagorPath(src, {
-    format,
-    height: Math.min(height, MAX_DIMENSION),
-    width: Math.min(width, MAX_DIMENSION),
+  const path = buildImagorPath(src, { format, height, width });
+
+  return new Response(null, {
+    headers: {
+      // Short-lived, not `immutable`: the signature depends on IMAGOR_SECRET,
+      // so rotating it (or changing IMAGOR_HOST) must not leave clients
+      // following a stale cached redirect for longer than this.
+      "Cache-Control": "public, max-age=86400",
+      Location: signImagorPath(path),
+    },
+    status: 302,
   });
-
-  return Response.redirect(signImagorPath(path), 302);
 };
