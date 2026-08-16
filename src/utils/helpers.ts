@@ -235,6 +235,23 @@ export const getHostName = (url: string, hostnameOnly = false): string => {
 };
 
 /**
+ * Rewrite a URL's scheme and host to the public site's origin, keeping its
+ * path/query/hash. WordPress's Yoast SEO fields (canonical, opengraphUrl)
+ * reflect the WP install's own configured URL (http, cms.webshaped.de)
+ * rather than the public frontend that actually serves the page.
+ *
+ * @param   {string}  url - The absolute URL to rewrite.
+ * @param   {string}  siteOrigin - The public site's origin, e.g. "https://webshaped.de".
+ *
+ * @return  {string} The URL with its origin replaced by siteOrigin.
+ */
+export const toSiteOrigin = (url: string, siteOrigin: string): string => {
+  if (!isValidUrl(url)) return url;
+  const parsed = new URL(url);
+  return new URL(`${parsed.pathname}${parsed.search}${parsed.hash}`, siteOrigin).toString();
+};
+
+/**
  * Check if the given string is a valid URL
  *
  * @param   {string}   url
