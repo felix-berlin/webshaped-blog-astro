@@ -36,7 +36,7 @@
   "type": "module",
   "scripts": {
     "dev": "infisical run -- astro dev",
-    "agent": "infisical secrets agent-proxy run -e dev --set-env WP_AUTH_USER=x --set-env WP_AUTH_PASS=x -- claude",
+    "agent": "infisical secrets agent-proxy run -e dev --set-env WP_AUTH_USER=x --set-env WP_AUTH_PASS=x --set-env IMAGOR_SECRET=x -- claude",
     "start": "astro dev",
     "build": "astro build",
     "build:local": "infisical run -- pnpm run build",
