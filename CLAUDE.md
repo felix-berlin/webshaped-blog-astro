@@ -40,6 +40,8 @@ Copy `.env.example` to both `.env` and `.env.runtime`. The `.env.runtime` file e
 | `SITE_URL`              | Site base URL (used by sitemap)                              |
 | `ENABLE_ANALYTICS`      | `true`/`false` to enable Matomo                              |
 | `GITHUB_TOKEN`          | GitHub API access (server-side, required)                    |
+| `IMAGOR_HOST`           | Imagor image-proxy base URL (public)                         |
+| `IMAGOR_SECRET`         | HMAC signing secret for imagor URLs (server-side secret)     |
 
 ## Secrets
 
@@ -155,6 +157,7 @@ Do not add client-side state or interactivity to `.astro` components — create 
 | `src/stores/`      | Nanostores atoms (`store.ts`)                                       |
 | `src/composables/` | Vue composables (e.g., `useI18n`)                                   |
 | `src/services/`    | GraphQL queries/mutations + fetch utilities                         |
+| `src/lib/`         | Server-only service clients (e.g. imagor image-proxy signing)       |
 | `src/gql/`         | **Auto-generated — never edit manually**                            |
 | `src/utils/i18n/`  | Translation helpers (`useTranslations`)                             |
 | `src/styles/`      | Global SCSS (ITCSS: base, components, objects, utilities)           |
@@ -230,3 +233,4 @@ Persistent atoms use encode/decode functions for SSR safety — maintain this pa
 - **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable; `@vite-pwa/astro`'s peer range tops out at Astro 5, still incompatible on Astro 7.
 - **`pnpm build:strict` is the CI standard** — always type-check before considering a build complete.
 - **`@codecov/astro-plugin`** is not compatible with `@vite-pwa/astro` — keep PWA disabled or migrate to direct Vite plugins.
+- **Imagor (`src/pages/api/imagor.ts`) is for operator-controlled image sources only** (WordPress avatars, Last.fm covers) — it blocks non-HTTPS and private/loopback IPs but can't fully rule out DNS rebinding on unrecognized hostnames. Never route genuinely untrusted, attacker-supplied URLs (e.g. webmention author photos) through it; render those with their original, unproxied `src` instead.
