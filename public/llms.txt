@@ -1,0 +1,11 @@
+# Felix Scholze — webshaped.de
+
+> Personal blog covering software development, web technology, and related topics. Content is served from a WordPress backend via GraphQL and rendered with Astro (SSR) and Vue islands.
+
+- Available in German (`/de/`, default) and English (`/en/`).
+- Blog posts are dynamically served pages, not static files, so this list covers site sections rather than individual articles.
+
+## Site
+
+- [Homepage](https://webshaped.de/): Latest posts and site overview.
+- [RSS Feed](https://webshaped.de/rss/): Full post feed for syndication.

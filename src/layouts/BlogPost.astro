@@ -8,7 +8,6 @@ import type { TranslationRoutes } from "@/types/i18n";
 
 import Categories from "@components/Categories.vue";
 import HasTranslations from "@components/HasTranslations.vue";
-import ImageResponsive from "@components/ImageResponsive.vue";
 // import Author from "@components/post/Author.vue";
 import Author from "@components/post/Author.astro";
 import DateModified from "@components/post/DateModified.vue";
@@ -20,9 +19,11 @@ import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { computeConstrainedSize } from "@utils/constrainedImageSize";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
+import { Picture } from "astro:assets";
 import ChevronRight from "~icons/lucide/chevron-right";
 
 import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
@@ -33,9 +34,6 @@ export interface BlogPost {
 }
 
 type CoreHeading = CoreHeadingFragment;
-type MediaSize = NonNullable<
-  NonNullable<NonNullable<Post["featuredImage"]>["node"]["mediaDetails"]>["sizes"]
->[number];
 type Post = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 type RootQueryToCategoryConnection = Post["categories"];
 
@@ -59,7 +57,13 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
+const { height: heroHeight, width: heroWidth } = computeConstrainedSize(
+  1120,
+  featuredImage?.node.mediaDetails?.width,
+  featuredImage?.node.mediaDetails?.height,
+  "BlogPost.astro",
+);
+
 const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);
 
@@ -143,14 +147,17 @@ const translationsRoutes: TranslationRoutes = {
 
     {
       featuredImage?.node.mediaItemUrl && (
-        <ImageResponsive
-          aboveTheFold={true}
-          alt={featuredImage?.node.altText}
-          class:list="c-blog__hero-image"
-          height={featuredImage?.node.mediaDetails?.height}
-          src={featuredImage?.node.mediaItemUrl}
-          srcSet={featuredImage?.node.srcSet}
-          width={featuredImage?.node.mediaDetails?.width}
+        <Picture
+          alt={featuredImage?.node.altText ?? ""}
+          class="c-blog__hero-image"
+          fallbackFormat="webp"
+          fetchpriority="high"
+          formats={["avif", "webp"]}
+          height={heroHeight}
+          layout="constrained"
+          loading="eager"
+          src={featuredImage.node.mediaItemUrl}
+          width={heroWidth}
         />
       )
     }

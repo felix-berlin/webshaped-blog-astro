@@ -1,0 +1,41 @@
+---
+import { Picture } from "astro:assets";
+
+import type { CoreImageFragment } from "@/gql/graphql.ts";
+import { computeConstrainedSize } from "@utils/constrainedImageSize";
+
+export interface FigureBlockProps {
+  block: CoreImageFragment;
+}
+
+const { block } = Astro.props as FigureBlockProps;
+
+const attributes = block.attributes;
+const mediaDetails = block.mediaDetails;
+
+const { height, width } = computeConstrainedSize(
+  800,
+  mediaDetails?.width,
+  mediaDetails?.height,
+  "FigureBlock.astro",
+);
+---
+
+{
+  attributes?.src && (
+    <figure class="c-blocks__image">
+      <Picture
+        alt={attributes?.alt ?? ""}
+        class="c-blog__hero-image"
+        fallbackFormat="webp"
+        formats={["avif", "webp"]}
+        height={height}
+        layout="constrained"
+        loading="lazy"
+        src={attributes.src}
+        width={width}
+      />
+      {attributes?.caption && <figcaption set:html={attributes.caption} />}
+    </figure>
+  )
+}
