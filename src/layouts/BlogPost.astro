@@ -19,6 +19,7 @@ import TableOfContents from "@components/post/TableOfContents.vue";
 import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
+import { computeConstrainedSize } from "@utils/constrainedImageSize";
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { defaultLang } from "@utils/i18n/ui";
 import { Breadcrumbs } from "astro-breadcrumbs";
@@ -33,9 +34,6 @@ export interface BlogPost {
 }
 
 type CoreHeading = CoreHeadingFragment;
-type MediaSize = NonNullable<
-  NonNullable<NonNullable<Post["featuredImage"]>["node"]["mediaDetails"]>["sizes"]
->[number];
 type Post = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 type RootQueryToCategoryConnection = Post["categories"];
 
@@ -59,16 +57,12 @@ const {
   headings,
 } = Astro.props as BlogPost;
 
-const featuredImageSizes = featuredImage?.node?.mediaDetails?.sizes as MediaSize[];
-
-// `layout="constrained"` wants the intended render width, not the raw WP
-// pixel size — Astro derives `sizes` straight from it. Height is scaled to
-// match, so we don't distort images that aren't 2:1.
-const heroRawWidth = Number(featuredImage?.node.mediaDetails?.width) || 0;
-const heroRawHeight = Number(featuredImage?.node.mediaDetails?.height) || 0;
-const heroWidth = 1120;
-const heroHeight =
-  heroRawWidth && heroRawHeight ? Math.round(heroWidth * (heroRawHeight / heroRawWidth)) : 400;
+const { height: heroHeight, width: heroWidth } = computeConstrainedSize(
+  1120,
+  featuredImage?.node.mediaDetails?.width,
+  featuredImage?.node.mediaDetails?.height,
+  "BlogPost.astro",
+);
 
 const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
 const t = useTranslations(lang);

@@ -1,6 +1,6 @@
 <template>
-  <figure class="c-blocks__image">
-    <picture v-if="attributes?.src">
+  <figure v-if="attributes?.src" class="c-blocks__image">
+    <picture>
       <source
         v-for="format in formats"
         :key="format"
@@ -23,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import { computeConstrainedSize } from "@utils/constrainedImageSize";
 import { imagorSrc, RESPONSIVE_WIDTHS } from "@utils/imagorClient";
 
 import type { CoreImageFragment } from "@/gql/graphql.ts";
@@ -35,14 +36,12 @@ const props = defineProps<FigureBlockProps>();
 
 const attributes = props.block.attributes;
 
-// Same convention as FigureBlock.astro's `layout="constrained"`: `width` is
-// the intended render size (matches the article column), not the raw WP
-// pixel size. Height follows the real WP aspect ratio so images aren't
-// distorted.
-const rawWidth = Number(props.block.mediaDetails?.width) || 0;
-const rawHeight = Number(props.block.mediaDetails?.height) || 0;
-const width = 800;
-const height = rawWidth && rawHeight ? Math.round(width * (rawHeight / rawWidth)) : 400;
+const { height, width } = computeConstrainedSize(
+  800,
+  props.block.mediaDetails?.width,
+  props.block.mediaDetails?.height,
+  "FigureBlock.vue",
+);
 const aspectRatio = height / width;
 
 const formats = ["avif", "webp"];
