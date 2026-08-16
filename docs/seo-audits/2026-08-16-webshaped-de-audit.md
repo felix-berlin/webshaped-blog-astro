@@ -17,7 +17,7 @@ Action plan items 1, 3, 4, and 5 are shipped in code (this branch). Item 2 is sp
 | 2b  | "Über mich" content rewrite      | ⏳ Pending | WordPress CMS — outside this repo, owner will write it                                                                                        |
 | 3   | `BlogPosting` JSON-LD on posts   | ✅ Fixed   | [`src/layouts/BlogPost.astro`](../../src/layouts/BlogPost.astro)                                                                              |
 | 4   | `/pagespeed-optimierung` 404     | ✅ Fixed   | [`nginx/conf.d/webshaped.conf`](../../nginx/conf.d/webshaped.conf)                                                                            |
-| 5   | 8 pages missing from sitemap     | ✅ Fixed   | [`src/pages/sitemap-index.xml.ts`](../../src/pages/sitemap-index.xml.ts)                                                                                  |
+| 5   | 8 pages missing from sitemap     | ✅ Fixed   | [`src/pages/sitemap-index.xml.ts`](../../src/pages/sitemap-index.xml.ts)                                                                      |
 
 Notes on the fixes:
 
@@ -33,9 +33,10 @@ Notes on the fixes:
 
   The `metaRobotsNoindex`/`translations` additions required extending existing GraphQL queries and running `pnpm gql:generate` against the live WordPress schema (real credentials via `infisical run`, explicitly requested).
 
-  While debugging why posts/pages vanished from the sitemap after adding the `noindex` filter, found the real cause: WordPress's global Settings → Reading → "Discourage search engines from indexing this site" checkbox was on. WPGraphQL/Yoast's per-post `metaRobotsNoindex` resolver returns the *effective* robots value, which is `noindex` for everything site-wide while that box is checked — not a bug in the query or the filter. Confirmed correct once the checkbox was unchecked: all 8 posts, 3 pages, and 7 category archives appeared with real dates and `hreflang` alternates.
+  While debugging why posts/pages vanished from the sitemap after adding the `noindex` filter, found the real cause: WordPress's global Settings → Reading → "Discourage search engines from indexing this site" checkbox was on. WPGraphQL/Yoast's per-post `metaRobotsNoindex` resolver returns the _effective_ robots value, which is `noindex` for everything site-wide while that box is checked — not a bug in the query or the filter. Confirmed correct once the checkbox was unchecked: all 8 posts, 3 pages, and 7 category archives appeared with real dates and `hreflang` alternates.
 
   The endpoint was renamed back from `/sitemap.xml` to **`/sitemap-index.xml`** — same URL search engines already have indexed/crawled for this site, no reason to make them relearn a new path. `robots.txt` and `BaseHead.astro`'s sitemap link point there again.
+
 - Added a basic XSL stylesheet ([`public/sitemap.xsl`](../../public/sitemap.xsl)) so `/sitemap-index.xml` renders as a readable table in a browser instead of raw unstyled XML — same pattern the RSS feeds already use (`pretty-feed-v3.xsl`).
 - Verified with `astro check --minimumSeverity error` — 0 errors across all Astro files after the changes.
 

@@ -91,7 +91,7 @@ export default defineConfig({
       //   launchEditor: "code",
       // },
     }),
-    // The sitemap is served dynamically by src/pages/sitemap.xml.ts instead
+    // The sitemap is served dynamically by src/pages/sitemap-index.xml.ts instead
     // of @astrojs/sitemap: the integration only scans prerendered build
     // output, so it can never see the SSR-only routes (homepage, legal
     // pages) and can only stamp every URL with the build timestamp rather
