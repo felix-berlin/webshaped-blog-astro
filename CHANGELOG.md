@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-beta.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.14.0-beta.2...v1.14.0-beta.3) (2026-08-16)
+
+
+### Bug Fixes
+
+* **a11y:** enlarge icon-button tap targets to 44px minimum ([eac6ece](https://github.com/felix-berlin/webshaped-blog-astro/commit/eac6ece478da5b615b381f1a0d54051810531736))
+* **gql:** paginate category post connections past WPGraphQL's default limit ([a35fa2b](https://github.com/felix-berlin/webshaped-blog-astro/commit/a35fa2b00708540c8c98a557cfe346e13d8fbc6d))
+* **head:** remove astro-capo, restoring view transitions ([29c5733](https://github.com/felix-berlin/webshaped-blog-astro/commit/29c5733d7b17bd4e7931299c9977ab77dd8dab6a))
+* **nginx:** add security headers, immutable caching, legacy redirect ([66badf5](https://github.com/felix-berlin/webshaped-blog-astro/commit/66badf5ca16b78fa277e23d1a736a443d9aa2975))
+* **nginx:** match legacy redirect slugs against path only, not query string ([9e8972a](https://github.com/felix-berlin/webshaped-blog-astro/commit/9e8972a3ec454b314c93482384dca6bb78132fbf))
+* reorder import statements and clean up test formatting for clarity ([ffa93f9](https://github.com/felix-berlin/webshaped-blog-astro/commit/ffa93f96e3fb6bbb58742f7831d862481156ded9))
+* **seo:** correct canonical scheme, og/twitter URLs, and hreflang ([6c6145e](https://github.com/felix-berlin/webshaped-blog-astro/commit/6c6145eeab699b1c87cc58d25d0a1b944071a77f))
+* **seo:** escape JSON-LD payloads, log unparseable toSiteOrigin input ([6eb7b55](https://github.com/felix-berlin/webshaped-blog-astro/commit/6eb7b55f9f0bf431c63c76d699a244211f89201c))
+* **sitemap:** dedupe categories, cover translated pages, handle WP-query failures ([fa4bfb7](https://github.com/felix-berlin/webshaped-blog-astro/commit/fa4bfb7be8ef77a6161323ecf7fee7b0f6602afe))
+
+
+### Features
+
+* **seo:** add BlogPosting/Person structured data, fix hero alt fallback ([c4cd97e](https://github.com/felix-berlin/webshaped-blog-astro/commit/c4cd97e50e791f66e6e8be554edeb3556aad831c))
+* **sitemap:** replace @astrojs/sitemap with a dynamic SSR endpoint ([678e132](https://github.com/felix-berlin/webshaped-blog-astro/commit/678e132a287d7ae3fdab46c8a7b04975b08f2caf))
+
 # [1.14.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.14.0-beta.1...v1.14.0-beta.2) (2026-08-16)
 
 
