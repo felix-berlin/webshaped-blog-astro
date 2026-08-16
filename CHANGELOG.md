@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.14.0-beta.1...v1.14.0-beta.2) (2026-08-16)
+
+
+### Bug Fixes
+
+* **build:** wire IMAGOR_HOST/IMAGOR_SECRET into env and Docker config ([d04a832](https://github.com/felix-berlin/webshaped-blog-astro/commit/d04a8322e1512b7c669631c73bdeff6d602f04fd))
+* **images:** correct and re-scope validation in /api/imagor ([3ae648e](https://github.com/felix-berlin/webshaped-blog-astro/commit/3ae648ea34a43c827dddc036951362da4a50e66f))
+* **images:** dedupe WP aspect-ratio fallback and fix empty <figure> rendering ([4f2a9da](https://github.com/felix-berlin/webshaped-blog-astro/commit/4f2a9da52fc3c3a6f040dbb2688933942638ef13))
+* **images:** stop dropping the base-width srcset candidate in imagorImageService ([0ef8226](https://github.com/felix-berlin/webshaped-blog-astro/commit/0ef822634bcee85a72d111d932841fd481ae6c2d))
+
 # [1.14.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.13.0...v1.14.0-beta.1) (2026-08-16)
 
 
