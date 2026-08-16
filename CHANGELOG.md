@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0-beta.1...v1.15.0-beta.2) (2026-08-16)
+
+
+### Bug Fixes
+
+* **category:** dedupe bidirectional translation routes in getStaticPaths ([17e45b9](https://github.com/felix-berlin/webshaped-blog-astro/commit/17e45b95240377d688290d073d13ca09c6d45a39))
+
 # [1.15.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.14.0...v1.15.0-beta.1) (2026-08-16)
 
 
