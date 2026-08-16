@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0-beta.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.13.0-beta.1...v1.13.0-beta.2) (2026-08-16)
+
+
+### Features
+
+* add /api/imagor signing endpoint for client-hydrated images ([172769a](https://github.com/felix-berlin/webshaped-blog-astro/commit/172769a9c0841782c6a39347ce482ae5bdd6a478))
+* add imagor Astro image service ([ff10da4](https://github.com/felix-berlin/webshaped-blog-astro/commit/ff10da4e2630e2a29ca8f823bc742033f5ff6850))
+* **ai:** add initial content for llms.txt (personal blog overview) ([e24595e](https://github.com/felix-berlin/webshaped-blog-astro/commit/e24595e3008d54f8ed196e163299bebad9406664))
+
 # [1.13.0-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.12.1-beta.2...v1.13.0-beta.1) (2026-08-15)
 
 
