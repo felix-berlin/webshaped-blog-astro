@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Fetch secrets from Infisical 🔐
-        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
+        uses: Infisical/secrets-action@6cd3f7c0e4cc0d2395ee4ef414eb6eeb5d3e73db # v1.0.17
         with:
           method: "oidc"
           identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
