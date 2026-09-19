@@ -87,7 +87,7 @@
     "astro-breadcrumbs": "^3.4.2",
     "astro-loading-indicator": "^0.9.0",
     "astro-matomo": "^1.12.0",
-    "floating-vue": "5.2.2",
+    "floating-vue": "5.4.0",
     "he": "^1.2.0",
     "nanostores": "^1.4.2",
     "pagefind": "^1.5.2",
