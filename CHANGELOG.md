@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.0...v1.15.1) (2026-09-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency floating-vue to v5.4.0 ([#715](https://github.com/felix-berlin/webshaped-blog-astro/issues/715)) ([52bd45e](https://github.com/felix-berlin/webshaped-blog-astro/commit/52bd45e4109a76ca8d453bd53c3c894d334788e6))
+
 # [1.15.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.14.0...v1.15.0) (2026-08-16)
 
 
