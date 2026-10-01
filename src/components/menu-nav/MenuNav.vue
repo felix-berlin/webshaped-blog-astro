@@ -1,6 +1,6 @@
 <template>
   <menu class="c-menu u-list-reset" role="menu">
-    <template v-for="(item, index) in menuItems" :key="item.label">
+    <template v-for="(item, index) in menuItems" :key="item.label ?? index">
       <MenuItem
         :menu-item="item"
         :depth="0"

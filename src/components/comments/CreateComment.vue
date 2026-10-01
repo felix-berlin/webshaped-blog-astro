@@ -25,7 +25,7 @@
         type="danger"
         class="c-comment__big-alert c-alert--big-centered"
       >
-        <template v-for="error in formResponses.errors" :key="error">
+        <template v-for="(error, index) in formResponses.errors" :key="index">
           <XCircle class="c-comment__big-alert-icon" />
           <p class="c-comment__big-alert-text">
             {{ error.message }}

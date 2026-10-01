@@ -4,7 +4,7 @@
       {{ t("categories") }}
     </p>
     <div class="c-categories__item-wrap">
-      <template v-for="(category, index) in categories.edges" :key="category.node.slug">
+      <template v-for="(category, index) in categories.edges" :key="category.node.slug ?? index">
         <a :href="categoryPathBuilder(category?.node?.slug ?? '', lang)" class="c-categories__link">
           {{ category.node.name }}
         </a>

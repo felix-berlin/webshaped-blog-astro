@@ -1,6 +1,6 @@
 <template>
   <div class="c-social-list">
-    <template v-for="(social, index) in socialItems" :key="social">
+    <template v-for="(social, index) in socialItems" :key="index">
       <a
         v-if="social?.url"
         v-tooltip="{ content: index, placement: 'top' }"
