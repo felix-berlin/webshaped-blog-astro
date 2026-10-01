@@ -187,7 +187,6 @@ import XCircle from "@components/icons/XCircle.vue";
 import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
 import { useMutation } from "@urql/vue";
-import { excludeObjectKeys } from "@utils/objectHelpers";
 import { promiseTimeout } from "@vueuse/core";
 import Info from "virtual:icons/lucide/info";
 import User from "virtual:icons/lucide/user";
@@ -225,13 +224,15 @@ interface FormErrors {
   privacy: string;
 }
 
-const commentForm: CommentForm = reactive({
+const initialCommentForm: CommentForm = {
   author: "",
   comment: "",
   email: "",
   privacy: false,
   saveUser: false,
-});
+};
+
+const commentForm: CommentForm = reactive({ ...initialCommentForm });
 
 const formErrors: FormErrors = reactive({
   author: "",
@@ -248,23 +249,9 @@ const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
 const showDialog = ref(false);
 const { t } = useI18n(() => props.lang);
 
-const emit = defineEmits(["commentCreated", "comment-created"]);
+const emit = defineEmits(["commentCreated"]);
 
-// reset commentForm function
-const resetCommentForm = () => {
-  Object.keys(commentForm).forEach((value) => {
-    if (typeof commentForm[value as keyof CommentForm] === "string") {
-      commentForm[value as keyof CommentForm] = "" as never;
-    } else if (typeof commentForm[value as keyof CommentForm] === "boolean") {
-      commentForm[value as keyof CommentForm] = false as never;
-    }
-  });
-};
-
-// reset formErrors function
-const resetFormErrors = () => {
-  Object.keys(formErrors).forEach((value) => (formErrors[value as keyof FormErrors] = ""));
-};
+const resetCommentForm = () => Object.assign(commentForm, initialCommentForm);
 
 /**
  * checks if the given form data is valid
@@ -302,7 +289,7 @@ const checkForm = async (): Promise<void> => {
  * @return  {Boolean}        If check passes return true
  */
 const validEmail = (email: string | undefined): boolean | undefined => {
-  if (!email && typeof email === "undefined") return;
+  if (!email) return;
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -327,15 +314,8 @@ const create = async () => {
       async (response) => {
         const { data, error } = response;
 
-        if (commentForm.saveUser) {
-          guest.set(
-            excludeObjectKeys(commentForm as unknown as Record<string, unknown>, ["comment"]),
-          );
-        }
-
-        if (!commentForm.saveUser) {
-          guest.set({ saveUser: false });
-        }
+        const { comment: _comment, ...guestData } = commentForm;
+        guest.set(commentForm.saveUser ? guestData : { saveUser: false });
 
         if (data) {
           formResponses.success = data.createComment?.success ?? false;
@@ -368,7 +348,7 @@ const create = async () => {
     );
 };
 
-watch(commentForm, (newValue, oldValue) => {
+watch(commentForm, (newValue) => {
   Object.keys(newValue).forEach((key) => {
     if (
       newValue[key as keyof CommentForm] &&

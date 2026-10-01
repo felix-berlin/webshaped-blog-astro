@@ -4,7 +4,6 @@
       'c-menu__item',
       {
         'has-child': hasChild,
-        'is-active': isCurrentPath,
         'has-visible-child': isOpen,
       },
     ]"
@@ -82,7 +81,6 @@ export interface MenuItemProps {
 const { depth, hasChild, index, menuItem } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
-const isCurrentPath = ref(false);
 const submenu = useTemplateRef("submenu");
 const submenuDirection = ref("right");
 

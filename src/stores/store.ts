@@ -9,18 +9,20 @@ export const currentWebmentionsCount = atom<WebmentionsCount>(0);
 
 export type DarkMode = boolean;
 
-export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, {
-  decode(value) {
+// Shared by every persistent atom — falls back to the raw string when the
+// stored value isn't valid JSON.
+const jsonCodec = {
+  decode(value: string) {
     try {
       return JSON.parse(value);
     } catch {
       return value;
     }
   },
-  encode(value) {
-    return JSON.stringify(value);
-  },
-});
+  encode: JSON.stringify,
+};
+
+export const isDarkMode = persistentAtom<DarkMode>("darkMode", false, jsonCodec);
 
 export interface Guest {
   author?: string;
@@ -30,24 +32,7 @@ export interface Guest {
   url?: string;
 }
 
-export const guest = persistentAtom<Guest>(
-  "guest",
-  {
-    saveUser: false,
-  },
-  {
-    decode(value) {
-      try {
-        return JSON.parse(value);
-      } catch {
-        return value;
-      }
-    },
-    encode(value) {
-      return JSON.stringify(value);
-    },
-  },
-);
+export const guest = persistentAtom<Guest>("guest", { saveUser: false }, jsonCodec);
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: Array<string>;

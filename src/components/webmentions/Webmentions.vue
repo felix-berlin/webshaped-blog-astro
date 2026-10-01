@@ -2,7 +2,7 @@
   <div>
     <div v-if="webmentionsCount > 0" class="c-webmentions">
       <WebmentionsItem
-        v-for="(mention, index) in state.mentions"
+        v-for="(mention, index) in mentions"
         :key="mention['wm-id']"
         :mention="mention"
         :index="index"
@@ -18,7 +18,7 @@ import type { Webmention } from "@components/webmentions/WebmentionsItem.vue";
 
 import { useStore } from "@nanostores/vue";
 import { currentWebmentionsCount } from "@stores/store";
-import { defineAsyncComponent, onMounted, reactive } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 
 const WebmentionsItem = defineAsyncComponent(
   () => import("@components/webmentions/WebmentionsItem.vue"),
@@ -40,55 +40,22 @@ export interface WebmentionsProps {
   target?: string;
 }
 
-interface Webmentions {
-  mentions: Webmention[];
-}
-
 const { currentUrl = false, lang, target = "" } = defineProps<WebmentionsProps>();
 
-const state: Webmentions = reactive({
-  mentions: [],
-});
+const mentions = ref<Webmention[]>([]);
 
 const webmentionsCount = useStore(currentWebmentionsCount);
 
-/**
- * Fake delay for testing purposes
- *
- *
- * @var {[type]}
- */
-// TODO: Remove or comment out. This is just for testing.
-// await fetch(`https://webmention.io/api/mentions.jf2?target=${target}`)
-//   .then((res) => res.json())
-//   .then(async (data) => {
-//     await new Promise((resolve) => setTimeout(resolve, 3000));
-
-//     currentWebmentionsCount.set(data.children.length);
-
-//     // create 10 fake mentions
-//     for (let i = 0; i < 10; i++) {
-//       data.children.push(data.children[0]);
-//     }
-
-//     state.mentions = data.children;
-//   });
-
-const getWebmentions = async (mentionTarget = target) => {
-  if (currentUrl) {
-    mentionTarget = window.location.href;
-  }
+const getWebmentions = async () => {
+  const mentionTarget = currentUrl ? window.location.href : target;
 
   const response = await fetch(`https://webmention.io/api/mentions.jf2?target=${mentionTarget}`);
   const data = await response.json();
-  console.log("Webmentions", data);
   currentWebmentionsCount.set(data.children.length);
-  state.mentions = data.children;
+  mentions.value = data.children;
 };
 
-onMounted(async () => {
-  await getWebmentions();
-});
+onMounted(getWebmentions);
 </script>
 
 <style lang="scss">

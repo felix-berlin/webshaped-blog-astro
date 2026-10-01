@@ -68,8 +68,6 @@ import CodeLangList from "./CodeLangList.vue";
 const loading = ref(true);
 const error = ref<null | string>(null);
 const languagePercentages = ref<{ language: string; percentage: number }[]>([]);
-const totalBytes = ref(0);
-const totalCommits = ref(0);
 
 interface GithubRepoSummary {
   description: string;
@@ -125,8 +123,6 @@ onMounted(() => {
     })
     .then((data) => {
       languagePercentages.value = data.languagePercentages;
-      totalBytes.value = data.totalBytes;
-      totalCommits.value = data.totalCommits;
       mostStarredRepos.value = data.mostStarredRepos;
       loading.value = false;
     })
