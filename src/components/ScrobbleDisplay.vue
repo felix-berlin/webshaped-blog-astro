@@ -220,6 +220,8 @@ const checkIfPlaying = async (): Promise<void> => {
  * @return  {void}
  */
 const startScrobbleUpdates = (immediately: boolean): void => {
+  stopScrobbleUpdates();
+
   // Immediately init API call
   if (immediately) checkIfPlaying();
 

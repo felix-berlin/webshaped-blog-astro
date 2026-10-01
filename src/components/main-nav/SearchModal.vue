@@ -70,15 +70,14 @@ const openSearchViaKeyboard = (event: KeyboardEvent): void => {
   }
   event.preventDefault();
   openSearch();
-  focusSearch();
 };
 
 onMounted(() => {
-  window.addEventListener("keydown", (event) => openSearchViaKeyboard(event));
+  window.addEventListener("keydown", openSearchViaKeyboard);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", (event) => openSearchViaKeyboard(event));
+  window.removeEventListener("keydown", openSearchViaKeyboard);
 });
 </script>
 
