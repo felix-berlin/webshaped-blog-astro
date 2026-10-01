@@ -1,3 +1,5 @@
+overrides:
+  "@csstools/postcss-private-rule": ^1.1.0
 allowBuilds:
   "@infisical/cli": true
   "@parcel/watcher": true
@@ -14,10 +16,52 @@ minimumReleaseAgeExclude:
   - playwright-core@1.62.0 || 1.62.1
   - playwright@1.62.0 || 1.62.1
   - sass@1.102.0
-  - vite@8.2.0 || 8.2.1
+  - vite@8.2.0 || 8.2.1 || 8.3.2
   - "@astrojs/node@11.1.0 || 11.1.2"
   - "@astrojs/vue@7.0.2"
   - astro@7.2.0 || 7.2.2
   - rollup-plugin-visualizer@7.1.1
   - "@faker-js/faker@10.6.0"
   - tm-themes@1.12.6
+  - "@csstools/cascade-layer-name-parser@3.0.2"
+  - "@csstools/css-calc@3.4.2"
+  - "@csstools/css-color-parser@4.2.5"
+  - "@csstools/css-parser-algorithms@4.0.2"
+  - "@csstools/media-query-list-parser@5.0.2"
+  - "@csstools/postcss-alpha-function@2.0.15"
+  - "@csstools/postcss-color-function-display-p3-linear@2.0.14"
+  - "@csstools/postcss-color-function@5.0.14"
+  - "@csstools/postcss-color-mix-function@4.0.14"
+  - "@csstools/postcss-color-mix-variadic-function-arguments@2.0.14"
+  - "@csstools/postcss-container-rule-prelude-list@1.0.3"
+  - "@csstools/postcss-content-alt-text@3.0.6"
+  - "@csstools/postcss-contrast-color-function@3.0.14"
+  - "@csstools/postcss-exponential-functions@3.0.8"
+  - "@csstools/postcss-gamut-mapping@3.0.14"
+  - "@csstools/postcss-gradients-interpolation-method@6.0.14"
+  - "@csstools/postcss-hwb-function@5.0.14"
+  - "@csstools/postcss-image-function@1.0.5"
+  - "@csstools/postcss-light-dark-function@3.0.6"
+  - "@csstools/postcss-media-minmax@3.0.7"
+  - "@csstools/postcss-media-queries-aspect-ratio-number-values@4.0.2"
+  - "@csstools/postcss-mixins@1.1.0"
+  - "@csstools/postcss-private-rule@1.1.0"
+  - "@csstools/postcss-oklab-function@5.0.14"
+  - "@csstools/postcss-property-rule-prelude-list@2.0.2"
+  - "@csstools/postcss-random-function@4.0.4"
+  - "@csstools/postcss-relative-color-syntax@4.0.14"
+  - "@csstools/postcss-sign-functions@2.0.8"
+  - "@csstools/postcss-stepped-value-functions@5.0.8"
+  - "@csstools/postcss-system-ui-font-family@2.0.2"
+  - "@csstools/postcss-trigonometric-functions@5.0.8"
+  - "@shikijs/core@4.5.0"
+  - "@shikijs/primitive@4.5.0"
+  - "@shikijs/transformers@4.5.0"
+  - "@shikijs/types@4.5.0"
+  - postcss-color-functional-notation@8.0.14
+  - postcss-custom-media@12.0.3
+  - postcss-custom-properties@15.0.3
+  - postcss-custom-selectors@9.0.3
+  - postcss-lab-function@8.0.14
+  - postcss-preset-env@11.5.5
+  - stylelint@17.16.0
