@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.15.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.1...v1.15.2) (2026-10-01)
+
+
+### Bug Fixes
+
+* **components:** stop leaking listeners, timers and body styles ([b61dd55](https://github.com/felix-berlin/webshaped-blog-astro/commit/b61dd55f971857b157a60f9f4c1d7ab072440e95))
+* **components:** use index-based v-for keys instead of nullable/object values ([8338c9f](https://github.com/felix-berlin/webshaped-blog-astro/commit/8338c9faf16d6fe4e0c626d638a0f4ec5b7ab4bc))
+* **sentry:** restore v10 PII defaults after v11 upgrade ([221a53c](https://github.com/felix-berlin/webshaped-blog-astro/commit/221a53c6f726bd294ad35c95dd0fecb4a45a3cc6))
+* **tests:** redefine global.document/navigator instead of assigning ([2d6e659](https://github.com/felix-berlin/webshaped-blog-astro/commit/2d6e6593dcb0dfa63aa096753c07de38bfb25ffd)), closes [#734](https://github.com/felix-berlin/webshaped-blog-astro/issues/734)
+* **vue:** lazy-load nanostores devtools to unbreak production SSR ([688cc00](https://github.com/felix-berlin/webshaped-blog-astro/commit/688cc00b01dd9e5cc250543de37651d3d8140796)), closes [#734](https://github.com/felix-berlin/webshaped-blog-astro/issues/734)
+
+
+### Performance Improvements
+
+* **toc:** compute TOC entries once and share heading ids ([f5d4a6a](https://github.com/felix-berlin/webshaped-blog-astro/commit/f5d4a6a7d6882c9ac446ba8d1a08ef19e1ee8a00))
+* trim per-request WordPress/GitHub work ([286c747](https://github.com/felix-berlin/webshaped-blog-astro/commit/286c747749ad6333b254929a8c8a8d2fa66b803d))
+
 ## [1.15.2-beta.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.1...v1.15.2-beta.1) (2026-10-01)
 
 
