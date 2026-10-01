@@ -10,7 +10,7 @@ import BaseHead from "@components/BaseHead.astro";
 import MainFooter from "@components/footer/MainFooter.astro";
 import MainHeader from "@components/hero/MainHeader.astro";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
-import { defaultLang } from "@utils/i18n/ui";
+import { getLang } from "@utils/i18n/utils";
 import { toJsonLd } from "@utils/helpers";
 import { SITE_URL } from "astro:env/client";
 
@@ -36,7 +36,7 @@ const {
   translationsRoutes,
 } = Astro.props as DefaultLayoutProps;
 
-const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+const lang = getLang(Astro.currentLocale);
 
 // Fetched once here (rather than in MainFooter, which also needs it) so the
 // Person/WebSite entity graph and the footer social links share one request.

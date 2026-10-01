@@ -6,18 +6,18 @@ import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
 
-import type { LanguageCodeEnum } from "@/gql/graphql.ts";
 import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
 import { PageFieldFragment } from "@services/queries/getPage";
 import type { TranslationRoutes } from "@/types/i18n";
-import { defaultLang } from "@utils/i18n/ui";
+import { getLang, toLanguageCode } from "@utils/i18n/utils";
 
-const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+const lang = getLang(Astro.currentLocale);
 
-const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
-  slugs: ["startseite"],
-});
+const [pagesResponse, postsResponse] = await Promise.all([
+  wpQuery(GetPagesBySlugsDocument, { slugs: ["startseite"] }),
+  wpQuery(GetPostsPreviewDocument, { first: 6, languages: [toLanguageCode(lang)] }),
+]);
 
 const indexPageRaw = pagesResponse.pages?.nodes[0];
 const indexPage = indexPageRaw ? useFragment(PageFieldFragment, indexPageRaw) : undefined;
@@ -35,11 +35,6 @@ const translationsRoutes = allPages.reduce<TranslationRoutes>((acc, candidate) =
   return acc;
 }, {});
 
-const languageCode: LanguageCodeEnum = lang === "en" ? "EN" : "DE";
-const postsResponse = await wpQuery(GetPostsPreviewDocument, {
-  first: 6,
-  languages: [languageCode],
-});
 const posts = postsResponse.posts?.nodes ?? [];
 ---
 
@@ -48,6 +43,6 @@ const posts = postsResponse.posts?.nodes ?? [];
     <h1 class="o-index__headline">{page?.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview posts={posts as unknown as BlogPostPreviewProps["posts"]} />
+    <BlogPostPreview lang={lang} posts={posts as unknown as BlogPostPreviewProps["posts"]} />
   </section>
 </DefaultLayout>

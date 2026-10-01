@@ -9,7 +9,7 @@
       class="c-has-translation__translations"
     >
       <a
-        :href="`/${translation?.language?.slug}/posts/${translation?.slug}`"
+        :href="postPathBuilder(translation?.slug, translation?.language?.slug ?? lang)"
         class="c-has-translation__link"
         :aria-label="t('blog.read_in_lang', { lang: translation?.language?.name ?? '' })"
       >
@@ -20,17 +20,19 @@
 </template>
 
 <script setup lang="ts">
-import { useTranslations } from "@utils/i18n/utils";
+import type { Lang } from "@utils/i18n/ui";
+
+import { postPathBuilder, useTranslations } from "@utils/i18n/utils";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
 interface HasTranslationsProps {
-  lang: string;
+  lang: Lang;
   translations: PostNode["translations"];
 }
 
 type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 
 const { lang, translations } = defineProps<HasTranslationsProps>();
-const t = useTranslations(lang as "de" | "en");
+const t = useTranslations(lang);
 </script>

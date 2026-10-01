@@ -251,7 +251,8 @@ export const toSiteOrigin = (url: string, siteOrigin: string): string => {
     // guarded by callers — only a non-empty-but-unparseable string is a real
     // WordPress data problem worth surfacing (the exact bug class this
     // function exists to fix in the first place).
-    if (url) console.error(`toSiteOrigin: received unparseable URL, passing through unchanged: ${url}`);
+    if (url)
+      console.error(`toSiteOrigin: received unparseable URL, passing through unchanged: ${url}`);
     return url;
   }
   const parsed = new URL(url);
@@ -268,6 +269,11 @@ export const toSiteOrigin = (url: string, siteOrigin: string): string => {
  * @return  {string}
  */
 export const toJsonLd = (data: unknown): string => JSON.stringify(data).replace(/</g, "\\u003c");
+
+// WPGraphQL's *Gmt fields serialize without a timezone suffix even though
+// they're already UTC — append "Z" so they parse as valid ISO 8601 instants.
+export const toIsoUtc = (value: null | string | undefined) =>
+  value && !value.endsWith("Z") ? `${value}Z` : (value ?? undefined);
 
 /**
  * Check if the given string is a valid URL

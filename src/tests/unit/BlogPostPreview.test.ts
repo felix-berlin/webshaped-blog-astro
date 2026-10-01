@@ -21,7 +21,7 @@ const mockPosts = [
 describe("BlogPostPreview.vue", () => {
   it("renders an article for each post", () => {
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: mockPosts as any },
+      props: { lang: "en", posts: mockPosts as any },
     });
 
     const articles = wrapper.findAll(".c-post-card");
@@ -30,7 +30,7 @@ describe("BlogPostPreview.vue", () => {
 
   it("renders post titles", () => {
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: mockPosts as any },
+      props: { lang: "en", posts: mockPosts as any },
     });
 
     const titles = wrapper.findAll(".c-post-card__title");
@@ -40,7 +40,7 @@ describe("BlogPostPreview.vue", () => {
 
   it("renders post excerpts", () => {
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: mockPosts as any },
+      props: { lang: "en", posts: mockPosts as any },
     });
 
     const excerpts = wrapper.findAll(".c-post-card__excerpt");
@@ -49,7 +49,7 @@ describe("BlogPostPreview.vue", () => {
 
   it("links to the correct post URL", () => {
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: mockPosts as any },
+      props: { lang: "en", posts: mockPosts as any },
     });
 
     const links = wrapper.findAll(".c-post-card__link");
@@ -58,7 +58,7 @@ describe("BlogPostPreview.vue", () => {
 
   it("renders read-more section", () => {
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: mockPosts as any },
+      props: { lang: "en", posts: mockPosts as any },
     });
 
     expect(wrapper.find(".c-post-card__read-more").exists()).toBe(true);
@@ -75,7 +75,7 @@ describe("BlogPostPreview.vue", () => {
     ];
 
     const wrapper = mount(BlogPostPreview, {
-      props: { posts: dePosts as any },
+      props: { lang: "de", posts: dePosts as any },
     });
 
     const link = wrapper.find(".c-post-card__link");

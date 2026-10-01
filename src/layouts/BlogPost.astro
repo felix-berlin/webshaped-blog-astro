@@ -16,13 +16,12 @@ import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
 import PostOlderThan from "@components/post/PostOlderThan.vue";
 import ReadingTime from "@components/post/ReadingTime.vue";
 import TableOfContents from "@components/post/TableOfContents.vue";
-import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
+// import TableOfContentsClientSide from "@components/post/TableOfContentsClientSide.vue";
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { computeConstrainedSize } from "@utils/constrainedImageSize";
-import { toJsonLd } from "@utils/helpers";
-import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
-import { defaultLang } from "@utils/i18n/ui";
+import { toIsoUtc, toJsonLd } from "@utils/helpers";
+import { categoryPathBuilder, getLang, postPathBuilder, useTranslations } from "@utils/i18n/utils";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import { Picture } from "astro:assets";
 import { SITE_URL } from "astro:env/client";
@@ -66,14 +65,14 @@ const { height: heroHeight, width: heroWidth } = computeConstrainedSize(
   "BlogPost.astro",
 );
 
-const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+const lang = getLang(Astro.currentLocale);
 const t = useTranslations(lang);
 
 const createBreadcrumbItems = () => {
   const items = [
     {
       href: "/",
-      text: lang === "de" ? "Start" : "Home",
+      text: t("breadcrumb.home"),
     },
   ];
 
@@ -121,20 +120,15 @@ const parsedHeadings: ParsedHeading[] =
 const translationSlug = translations?.[0]?.language?.slug;
 const translationPostSlug = translations?.[0]?.slug;
 const translationsRoutes: TranslationRoutes = {
-  [lang]: `/${lang}/posts/${slug}`,
+  [lang]: postPathBuilder(slug, lang),
   ...(translationSlug && translationPostSlug
-    ? { [translationSlug]: `/${translationSlug}/posts/${translationPostSlug}` }
+    ? { [translationSlug]: postPathBuilder(translationPostSlug, translationSlug) }
     : {}),
 };
 
-// WPGraphQL's *Gmt fields serialize without a timezone suffix even though
-// they're already UTC — append "Z" so they parse as valid ISO 8601 instants.
-const toIsoUtc = (value: null | string | undefined) =>
-  value && !value.endsWith("Z") ? `${value}Z` : (value ?? undefined);
-
 const authorName = `${author?.node.firstName ?? ""} ${author?.node.lastName ?? ""}`.trim();
 const datePublished = toIsoUtc(dateGmt);
-const postPath = translationsRoutes[lang] ?? `/${lang}/posts/${slug}`;
+const postPath = translationsRoutes[lang] ?? postPathBuilder(slug, lang);
 
 const articleSchema = {
   "@context": "https://schema.org",

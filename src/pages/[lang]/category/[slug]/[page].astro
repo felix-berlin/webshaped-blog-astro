@@ -14,6 +14,7 @@ import type { BlogPostPreviewProps } from '@components/BlogPostPreview.vue';
 import Pagination from '@components/Pagination.vue';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
 import { removeLocaleCode } from '@utils/helpers';
+import { getLang } from '@utils/i18n/utils';
 import { wpQuery } from '@services/wpGraphqlClient';
 
 import type { LanguageCodeEnum } from '@/gql/graphql.ts';
@@ -150,7 +151,7 @@ const translationsRoutes = availableLanguages.reduce<TranslationRoutes>((acc, la
     <h1 class='o-category__headline'>{content.title}</h1>
   </header>
   <section class='c-blog-posts'>
-    <BlogPostPreview posts={posts as unknown as BlogPostPreviewProps['posts']} />
+    <BlogPostPreview lang={getLang(lang)} posts={posts as unknown as BlogPostPreviewProps['posts']} />
   </section>
   <Pagination
     lang={

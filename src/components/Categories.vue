@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@utils/i18n/ui";
+
 import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
@@ -24,9 +26,9 @@ type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 
 interface Props {
   categories: CategoriesConnection;
-  lang: string;
+  lang: Lang;
 }
 
 const { categories, lang } = defineProps<Props>();
-const t = useTranslations(lang as "de" | "en");
+const t = useTranslations(lang);
 </script>

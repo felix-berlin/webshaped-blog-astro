@@ -5,7 +5,8 @@ import { PostTypeSeoFragment } from "@services/fragments/fragments";
 import { CategoryFields } from "@services/queries/getCategory";
 import { PageFieldFragment } from "@services/queries/getPage";
 import { wpQuery } from "@services/wpGraphqlClient";
-import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
+import { toIsoUtc } from "@utils/helpers";
+import { categoryPathBuilder, postPathBuilder } from "@utils/i18n/utils";
 
 import { useFragment } from "@/gql";
 import {
@@ -27,11 +28,6 @@ interface SitemapUrl {
 
 const escapeXml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-// WPGraphQL's *Gmt fields serialize without a timezone suffix even though
-// they're already UTC — append "Z" so they parse as valid ISO 8601 instants.
-const toIsoUtc = (value: null | string | undefined) =>
-  value && !value.endsWith("Z") ? `${value}Z` : (value ?? undefined);
 
 const isNoindex = (value: null | string | undefined) => (value ?? "").toLowerCase() === "noindex";
 
@@ -71,7 +67,9 @@ const fetchSection = async <T>(name: string, query: () => Promise<T>, empty: T):
   try {
     return await query();
   } catch (error) {
-    console.error(`sitemap-index.xml: "${name}" query failed, rendering without it: ${String(error)}`);
+    console.error(
+      `sitemap-index.xml: "${name}" query failed, rendering without it: ${String(error)}`,
+    );
     captureException(error);
     return empty;
   }
@@ -105,12 +103,15 @@ export const GET = async ({ site }: APIContext) => {
     const lang = post.language?.slug;
     if (!lang || !post.slug) return [];
 
-    const selfAlternate = { href: url(`/${lang}/posts/${post.slug}`), hreflang: lang };
+    const selfAlternate = { href: url(postPathBuilder(post.slug, lang)), hreflang: lang };
     const translationAlternates = (post.translations ?? []).flatMap((translation) => {
       const translationLang = translation?.language?.slug;
       if (!translationLang || !translation?.slug) return [];
       return [
-        { href: url(`/${translationLang}/posts/${translation.slug}`), hreflang: translationLang },
+        {
+          href: url(postPathBuilder(translation.slug, translationLang)),
+          hreflang: translationLang,
+        },
       ];
     });
 
@@ -175,10 +176,10 @@ export const GET = async ({ site }: APIContext) => {
     (rawCategory) => {
       const category = useFragment(CategoryFields, rawCategory);
       const lang = category.language?.slug;
-      if (!lang || !category.slug) return [];
+      const slug = category.slug;
+      if (!lang || !slug) return [];
 
       const totalPages = Math.max(1, Math.ceil((category.count ?? 0) / CATEGORY_PAGE_SIZE));
-      const basePath = removeLocaleCode(category.slug);
 
       // hreflang alternates only make sense for page 1 — a translated
       // category archive won't reliably have the same post count, so its
@@ -186,10 +187,9 @@ export const GET = async ({ site }: APIContext) => {
       const translationAlternates = (category.translations ?? []).flatMap((translation) => {
         const translationLang = translation?.language?.slug;
         if (!translationLang || !translation?.slug) return [];
-        const translationPath = removeLocaleCode(translation.slug);
         return [
           {
-            href: url(`/${translationLang}/category/${firstCategoryPage(translationPath)}`),
+            href: url(categoryPathBuilder(translation.slug, translationLang)),
             hreflang: translationLang,
           },
         ];
@@ -199,11 +199,11 @@ export const GET = async ({ site }: APIContext) => {
         alternates:
           index === 0
             ? [
-                { href: url(`/${lang}/category/${firstCategoryPage(basePath)}`), hreflang: lang },
+                { href: url(categoryPathBuilder(slug, lang)), hreflang: lang },
                 ...translationAlternates,
               ]
             : undefined,
-        loc: url(`/${lang}/category/${firstCategoryPage(basePath, String(index + 1))}`),
+        loc: url(categoryPathBuilder(slug, lang, String(index + 1))),
       }));
     },
   );
