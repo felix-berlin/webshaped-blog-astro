@@ -1,7 +1,7 @@
 <template>
   <component
     :is="`h${headlineLevel}`"
-    :id="generateId()"
+    :id="headingId(headline)"
     :class="`c-blocks__heading c-blocks__heading--${headlineLevel}`"
   >
     <span v-if="isHtml(headline)" v-html="headline" />
@@ -13,9 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { getHtmlContent, isHtml } from "@utils/helpers";
+import { headingId, isHtml } from "@utils/helpers";
 import he from "he";
-import slugify from "slugify";
 
 import type { CoreHeadingFragment } from "@/gql/graphql.ts";
 
@@ -27,13 +26,4 @@ const { block } = defineProps<HeadlineBlockProps>();
 
 const headline = block.attributes?.content ?? "";
 const headlineLevel = block.attributes?.level;
-
-/**
- * Generates an id for the headline.
- *
- * @return  {string}
- */
-const generateId = (): string => {
-  return isHtml(headline) ? getHtmlContent(headline) : slugify(headline, { lower: true });
-};
 </script>
