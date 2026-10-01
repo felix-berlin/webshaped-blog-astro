@@ -21,7 +21,7 @@ describe("ColorModeToggle", async () => {
 
     // Set the global window and document objects to the JSDOM window and document objects
     global.window = dom.window;
-    global.document = dom.window.document;
+    Object.defineProperty(global, "document", { value: dom.window.document, writable: true, configurable: true });
 
     // Mount the component
     const wrapper = mount(ColorModeToggle, { props: { lang: "de" } });
