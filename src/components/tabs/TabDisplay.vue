@@ -12,8 +12,6 @@
 <script setup lang="ts">
 import TabItem from "@components/tabs/TabItem.vue";
 import TabsView from "@components/tabs/TabsView.vue";
-import { useStore } from "@nanostores/vue";
-import { currentWebmentionsCount } from "@stores/store";
 import { defineAsyncComponent } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
@@ -34,5 +32,4 @@ export interface TabDisplayProps {
 const props = defineProps<TabDisplayProps>();
 
 const { t } = useI18n(() => props.lang);
-const WebmentionCount = useStore(currentWebmentionsCount);
 </script>

@@ -34,22 +34,25 @@
 // import ReadingTime from "@components/post/ReadingTime.vue";
 // import CommentCount from "@components/comments/CommentCount.vue";
 // import HasTranslations from "./HasTranslations.vue";
-import { useTranslations } from "@utils/i18n/utils";
+import type { Lang } from "@utils/i18n/ui";
+
+import { postPathBuilder, useTranslations } from "@utils/i18n/utils";
 import ArrowRight from "virtual:icons/lucide/arrow-right";
 
 import type { GetPostsPreviewQuery } from "@/gql/graphql.ts";
 
 export interface BlogPostPreviewProps {
+  lang: Lang;
   posts: Array<PostPreview>;
 }
 
 type PostPreview = NonNullable<GetPostsPreviewQuery["posts"]>["nodes"][number];
 
-const { posts } = defineProps<BlogPostPreviewProps>();
-const t = useTranslations(posts[0]?.language?.locale as "de" | "en");
+const { lang, posts } = defineProps<BlogPostPreviewProps>();
+const t = useTranslations(lang);
 
 const postLink = (post: PostPreview): string => {
-  return `/${post?.language?.slug}/posts/${post.slug}`;
+  return postPathBuilder(post.slug, post?.language?.slug ?? lang);
 };
 </script>
 

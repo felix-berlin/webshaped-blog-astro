@@ -1,3 +1,5 @@
+import slugify from "slugify";
+
 import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
 
 type Maybe<T> = null | T | undefined;
@@ -67,6 +69,13 @@ export const getHtmlContent = (str: string): string => {
   } while (str !== previous);
   return str;
 };
+
+/**
+ * Anchor id for a heading — shared by the rendered heading and the TOC links,
+ * which must produce the exact same value.
+ */
+export const headingId = (content: string): string =>
+  isHtml(content) ? getHtmlContent(content) : slugify(content, { lower: true });
 
 /**
  * Remove trailing slash from a string
@@ -251,12 +260,18 @@ export const toSiteOrigin = (url: string, siteOrigin: string): string => {
     // guarded by callers — only a non-empty-but-unparseable string is a real
     // WordPress data problem worth surfacing (the exact bug class this
     // function exists to fix in the first place).
-    if (url) console.error(`toSiteOrigin: received unparseable URL, passing through unchanged: ${url}`);
+    if (url)
+      console.error(`toSiteOrigin: received unparseable URL, passing through unchanged: ${url}`);
     return url;
   }
   const parsed = new URL(url);
   return new URL(`${parsed.pathname}${parsed.search}${parsed.hash}`, siteOrigin).toString();
 };
+
+// WPGraphQL's *Gmt fields serialize without a timezone suffix even though
+// they're already UTC — append "Z" so they parse as valid ISO 8601 instants.
+export const toIsoUtc = (value: null | string | undefined) =>
+  value && !value.endsWith("Z") ? `${value}Z` : (value ?? undefined);
 
 /**
  * Serialize a value as JSON for a `<script type="application/ld+json">` body.

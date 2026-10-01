@@ -4,7 +4,6 @@
       'c-menu__item',
       {
         'has-child': hasChild,
-        'is-active': isCurrentPath,
         'has-visible-child': isOpen,
       },
     ]"
@@ -49,7 +48,7 @@
         :is-open="isOpen"
         :class="[`is-level-${depth} is-${submenuDirection}`, { 'is-open': isOpen }]"
       >
-        <template v-for="(child, childItemIndex) in menuItem?.childItems?.nodes" :key="child.label">
+        <template v-for="(child, childItemIndex) in menuItem?.childItems?.nodes" :key="child.label ?? childItemIndex">
           <MenuItem
             :menu-item="child"
             :depth="depth + 1"
@@ -82,7 +81,6 @@ export interface MenuItemProps {
 const { depth, hasChild, index, menuItem } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
-const isCurrentPath = ref(false);
 const submenu = useTemplateRef("submenu");
 const submenuDirection = ref("right");
 

@@ -22,8 +22,8 @@ const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  /* Playwright default (half of the CPU cores) */
+  workers: undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters
    * The HTML report is always generated for humans to open later. For the live
    * terminal output, AI agents (detected via std-env, same signal Vitest 4.1+
@@ -43,9 +43,8 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
+      // https://playwright.dev/docs/browsers#chromium-new-headless-mode
+      use: { ...devices["Desktop Chrome"], channel: "chromium" },
     },
 
     {

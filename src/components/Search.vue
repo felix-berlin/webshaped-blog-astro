@@ -69,11 +69,11 @@ onMounted(() => {
     initPagefind();
   });
 
-  window.addEventListener("keydown", (event) => triggerSearchViaKeyboard(event));
+  window.addEventListener("keydown", triggerSearchViaKeyboard);
 });
 
 onUnmounted(() => {
-  window.removeEventListener("keydown", (event) => triggerSearchViaKeyboard(event));
+  window.removeEventListener("keydown", triggerSearchViaKeyboard);
 });
 </script>
 <style lang="scss">

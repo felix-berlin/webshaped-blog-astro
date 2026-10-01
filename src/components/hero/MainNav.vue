@@ -95,8 +95,8 @@ const toggleFlyout = (): void => {
  * @return  {void}
  */
 const controlScroll = (status: boolean): void => {
-  if (status) document.body.style.overflow = "hidden";
-  if (!status) document.body.removeAttribute("style");
+  // Only touch overflow — removeAttribute("style") wiped every other inline style on <body>.
+  document.body.style.overflow = status ? "hidden" : "";
 };
 
 /**

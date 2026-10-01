@@ -2,7 +2,7 @@ import type { OperationResult } from "@urql/core";
 
 import GhRepos from "@services/github/GhRepos.graphql";
 import GhSingleRepo from "@services/github/GhSingleRepo.graphql";
-import { cacheExchange, Client, fetchExchange } from "@urql/core";
+import { Client, fetchExchange } from "@urql/core";
 import { GITHUB_TOKEN } from "astro:env/server";
 
 // --- Types ---
@@ -61,7 +61,7 @@ const USER_QUERY = `
 `;
 
 const client = new Client({
-  exchanges: [cacheExchange, fetchExchange],
+  exchanges: [fetchExchange],
   fetchOptions: {
     headers: {
       Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -168,7 +168,8 @@ export async function GET(): Promise<Response> {
         totalCommits: totals.commits,
       }),
       {
-        headers: { "Content-Type": "application/json" },
+        // Every request re-crawls all repos sequentially — let browsers/proxies reuse it for an hour.
+        headers: { "Cache-Control": "public, max-age=3600", "Content-Type": "application/json" },
         status: 200,
       },
     );

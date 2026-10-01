@@ -1,6 +1,8 @@
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 
-import { defaultLang, localeStrings } from "./ui";
+import type { LanguageCodeEnum } from "@/gql/graphql.ts";
+
+import { defaultLang, type Lang, localeStrings } from "./ui";
 
 type TranslationKey = keyof (typeof localeStrings)[typeof defaultLang];
 type TranslationValue = number | string;
@@ -92,9 +94,27 @@ const pluralFormFor = (
  *
  * @param   {string}  categorySlug   The slug of the category.
  * @param   {string}  lang          The language code.
+ * @param   {string}  page          The archive page number.
  *
  * @return  {string}                The constructed path for the category.
  */
-export const categoryPathBuilder = (categorySlug: string, lang: string) => {
-  return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug))}`;
+export const categoryPathBuilder = (categorySlug: string, lang: string, page = "1") => {
+  return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug), page)}`;
 };
+
+/**
+ * Builds the path for a post based on the provided slug and language.
+ */
+export const postPathBuilder = (postSlug: null | string | undefined, lang: string) =>
+  `/${lang}/posts/${postSlug}`;
+
+/**
+ * Resolves `Astro.currentLocale` (or any locale string) to a supported language,
+ * falling back to the default language.
+ */
+export const getLang = (locale: null | string | undefined): Lang =>
+  locale && locale in localeStrings ? (locale as Lang) : defaultLang;
+
+/** Maps a language slug to WPGraphQL's `LanguageCodeEnum`. */
+export const toLanguageCode = (lang: Lang): LanguageCodeEnum =>
+  lang.toUpperCase() as LanguageCodeEnum;

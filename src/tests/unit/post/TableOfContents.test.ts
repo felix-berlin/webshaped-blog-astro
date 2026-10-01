@@ -98,13 +98,13 @@ describe("TableOfContents.vue", () => {
     expect(wrapper.find("nav").attributes("id")).toBe("my-toc");
   });
 
-  it("isActiveHeadline returns true when activeHeadlineId matches", () => {
+  it("marks the link active when activeHeadlineId matches", async () => {
     const wrapper = mount(TableOfContents, {
       props: { headings: [{ content: "Hello World", level: 2 }], tocId: "toc" },
     });
     wrapper.vm.activeHeadlineId = "hello-world";
-    const link = wrapper.find("a");
-    expect(wrapper.vm.isActiveHeadline({ content: "Hello World", level: 2 })).toBe(true);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find("a").classes()).toContain("is-active");
   });
 
   it("handleIntersect sets active headline when entry is intersecting", async () => {
