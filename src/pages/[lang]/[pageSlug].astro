@@ -2,7 +2,7 @@
 import GithubStats from "@components/GithubStats.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
-import { useTranslations } from "@utils/i18n/utils";
+import { getLang, useTranslations } from "@utils/i18n/utils";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
@@ -11,7 +11,6 @@ import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
 import { PageFieldFragment } from "@services/queries/getPage";
 import type { TranslationRoutes } from "@/types/i18n";
-import { defaultLang } from "@utils/i18n/ui";
 
 // "ueber-mich" (German canonical slug) gets the special developer-card
 // layout with live GitHub stats instead of generic WP page content — see
@@ -26,7 +25,7 @@ const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
 });
 
 const { pageSlug } = Astro.params;
-const lang = (Astro.currentLocale ?? defaultLang) as "de" | "en";
+const lang = getLang(Astro.currentLocale);
 
 const allPages = (pagesResponse.pages?.nodes ?? []).flatMap((node) => {
   const page = useFragment(PageFieldFragment, node);

@@ -18,6 +18,7 @@ import '@pagefind/default-ui/css/ui.css';
   }
 
   const initPagefind = () => {
+    if (!document.querySelector('#search')) return;
     new PagefindUI({
       bundlePath,
       element: '#search',

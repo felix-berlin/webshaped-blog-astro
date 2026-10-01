@@ -1,19 +1,15 @@
 <template>
   <component :is="htmlElement" :id="tocId" class="c-toc">
-    <template v-for="headline in headings" :key="headline">
+    <template v-for="(item, index) in items" :key="index">
       <a
-        :href="createHref(headline)"
+        :href="`#${item.id}`"
         :class="[
-          `c-toc__link c-toc__link--depth-${headline.level}`,
+          `c-toc__link c-toc__link--depth-${item.level}`,
           {
-            'is-active': isActiveHeadline(headline),
+            'is-active': activeHeadlineId === item.id,
           },
         ]"
-        v-bind="
-          isHtml(headline.content)
-            ? { textContent: getHtmlContent(headline.content) }
-            : { innerHTML: headline.content }
-        "
+        v-bind="item.attrs"
         @click="emit('tocLinkClicked')"
       />
     </template>
@@ -21,9 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { getHtmlContent, isHtml } from "@utils/helpers";
-import slugify from "slugify";
-import { onMounted, onUnmounted, ref } from "vue";
+import { getHtmlContent, headingId, isHtml } from "@utils/helpers";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 export interface TableOfContentsProps {
   headings: {
@@ -41,40 +36,17 @@ const emit = defineEmits(["currentHeadline", "tocLinkClicked"]);
 const activeHeadlineId = ref("");
 const observer = ref<IntersectionObserver | null>(null);
 
-/**
- * Checks if the headline is active.
- *
- * @param   {}  headline
- *
- * @return  {boolean}
- */
-const isActiveHeadline = (headline: TableOfContentsProps["headings"][0]): boolean => {
-  return (
-    activeHeadlineId.value ===
-    slugify(headline.content, {
-      lower: true,
-    })
-  );
-};
-
-/**
- * Creates the href for the headline.
- *
- * @param   {}  headline
- *
- * @return  {string}
- */
-const createHref = (headline: TableOfContentsProps["headings"][0]): string => {
-  const headlineContent = headline.content;
-
-  const href = isHtml(headlineContent)
-    ? getHtmlContent(headlineContent)
-    : slugify(headlineContent, {
-        lower: true,
-      });
-
-  return `#${href}`;
-};
+// Computed once per headings change instead of re-parsing every heading on
+// each render (every intersection change re-renders the whole list).
+const items = computed(() =>
+  headings.map((headline) => ({
+    attrs: isHtml(headline.content)
+      ? { textContent: getHtmlContent(headline.content) }
+      : { innerHTML: headline.content },
+    id: headingId(headline.content),
+    level: headline.level,
+  })),
+);
 
 /**
  * Handles the intersection of the observer.

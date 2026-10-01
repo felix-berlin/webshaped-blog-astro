@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Fetch secrets from Infisical 🔐
-        uses: Infisical/secrets-action@77ab1f4ccd183a543cb5b42435fbd181189f4995 # v1.0.16
+        uses: Infisical/secrets-action@d2e351f16c6ca20d17c85e6c992e04bdeb64e87d # v1.0.18
         with:
           method: "oidc"
           identity-id: "8938f75a-fe73-4688-a8ed-e12dc90e6c0f"
@@ -49,7 +49,7 @@ jobs:
           SITE_URL: "http://localhost:4321"
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v7.0.0
+        uses: codecov/codecov-action@v7.1.1
         with:
           directory: ./tests/unit/coverage
         env:
@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
-        uses: codecov/codecov-action@v7.0.0
+        uses: codecov/codecov-action@v7.1.1
         with:
           report_type: test_results
           files: ./test-report.junit.xml

@@ -12,3 +12,5 @@ export const localeStrings = {
   de,
   en,
 };
+
+export type Lang = keyof typeof localeStrings;
