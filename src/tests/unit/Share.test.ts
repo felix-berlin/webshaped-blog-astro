@@ -41,8 +41,8 @@ describe("Share.vue", () => {
   test("clicking the button calls the share function", async () => {
     const { window } = new JSDOM("<!DOCTYPE html>");
     global.window = window;
-    global.document = window.document;
-    global.navigator = window.navigator;
+    Object.defineProperty(global, "document", { value: window.document, writable: true, configurable: true });
+    Object.defineProperty(global, "navigator", { value: window.navigator, writable: true, configurable: true });
     window.navigator.share = shareMock;
 
     const wrapper = mount(Share, {

@@ -49,7 +49,10 @@
           "
         >
           <KeepAlive>
-            <Component :is="loadIcons(mention.url)" class="c-webmention__source-icon" />
+            <Component
+              :is="socialIcons[getHostName(mention.url, true)] ?? ExternalLink"
+              class="c-webmention__source-icon"
+            />
           </KeepAlive>
         </a>
       </footer>
@@ -60,6 +63,7 @@
 <script setup lang="ts">
 import Date from "@components/post/Date.vue";
 import { getHostName } from "@utils/helpers";
+import { socialIcons } from "@utils/socialIcons";
 import { defineAsyncComponent } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
@@ -96,29 +100,5 @@ interface WebmentionsProps {
 const { index, lang, mention } = defineProps<WebmentionsProps>();
 const { t } = useI18n(() => lang);
 
-/**
- * Load icons for the different social media platforms
- *
- * @param   {string}  url
- */
-const loadIcons = (url: string) => {
-  const platform = getHostName(url, true);
-
-  switch (platform) {
-    case "facebook":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook"));
-    case "github":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-github"));
-    case "mastodon":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-mastodon"));
-    case "reddit":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-reddit"));
-    case "twitter":
-      return defineAsyncComponent(() => import("virtual:icons/tabler/brand-twitter"));
-    default:
-      return defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
-  }
-};
+const ExternalLink = defineAsyncComponent(() => import("virtual:icons/lucide/external-link"));
 </script>
-
-<style scoped></style>

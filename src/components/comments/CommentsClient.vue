@@ -28,7 +28,11 @@
       class="c-comments__load-more-button c-button c-button--outline"
       @click="getComments()"
     >
-      <RefreshCw width="20" height="20" :class="loadingIconClass" />
+      <RefreshCw
+        width="20"
+        height="20"
+        :class="`c-comments__loading-icon${comments.fetching.value ? ' is-loading' : ''}`"
+      />
       <span>{{ t("comments.load_more.button") }}</span>
     </button>
   </section>
@@ -63,7 +67,6 @@ type CommentPageInfo = CommentsResult["pageInfo"];
 interface CommentsData {
   comments: Array<CommentEdge>;
   pageInfo: Partial<CommentPageInfo>;
-  partLoading: boolean;
 }
 
 type CommentsResult = NonNullable<GetCommentsByIdQuery["comments"]>;
@@ -73,7 +76,6 @@ const props = defineProps<CommentsProps>();
 const data = reactive<CommentsData>({
   comments: [],
   pageInfo: {},
-  partLoading: false,
 });
 
 const queryVariables = reactive<GetCommentsByIdQueryVariables>({
@@ -88,19 +90,7 @@ const comments = useQuery({
   variables: queryVariables,
 });
 
-const commentsCount = computed(() => {
-  return data.comments.length;
-});
-
-const hasComments = computed(() => {
-  return !!commentsCount.value;
-});
-
-const loadingIconClass = computed(() =>
-  ["c-comments__loading-icon", comments.fetching.value ? "is-loading" : ""]
-    .filter(Boolean)
-    .join(" "),
-);
+const hasComments = computed(() => data.comments.length > 0);
 
 const cleanComments = computed(() => {
   return data.comments.filter(

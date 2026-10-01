@@ -4,7 +4,7 @@ import Menu from "@components/Menu.vue";
 import SocialList from "@components/SocialList.vue";
 import { getSocialIconData } from "@utils/helpers";
 import "@styles/objects/_footer.scss";
-import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { categoryPathBuilder, toLanguageCode, useTranslations } from "@utils/i18n/utils";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
 // import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
@@ -30,14 +30,15 @@ interface MainFooterProps {
 
 const { author, lang } = Astro.props as MainFooterProps;
 
-const categoriesResponse = await wpQueryChrome(GetAllCategoriesDocument, {});
+const [categoriesResponse, footerMenuItemsResponse] = await Promise.all([
+  wpQueryChrome(GetAllCategoriesDocument, {}),
+  wpQueryChrome(GetMenuItemsDocument, {
+    language: toLanguageCode(lang),
+    location: "SECONDARY_MENU",
+  }),
+]);
 
 const categories = categoriesResponse?.categories;
-
-const footerMenuItemsResponse = await wpQueryChrome(GetMenuItemsDocument, {
-  language: lang.toUpperCase() as "DE" | "EN",
-  location: "SECONDARY_MENU",
-});
 
 // WP menu paths (e.g. "/impressum") don't know about the [lang]-prefixed
 // routing scheme (src/pages/[lang]/[pageSlug].astro) — prefix them here,
