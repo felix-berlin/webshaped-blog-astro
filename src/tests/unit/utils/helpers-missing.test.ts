@@ -3,6 +3,7 @@ import {
   removeLocaleCode,
   getWebmentionsUrl,
   toSiteOrigin,
+  toJsonLd,
 } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
 
@@ -94,5 +95,13 @@ describe("toSiteOrigin()", () => {
     expect(toSiteOrigin("https://cms.webshaped.de", "https://webshaped.de")).toBe(
       "https://webshaped.de/",
     );
+  });
+});
+
+describe("toJsonLd()", () => {
+  it("escapes < so a value cannot close the surrounding <script> tag", () => {
+    const json = toJsonLd({ headline: "</script><script>alert(1)</script>" });
+    expect(json).not.toContain("</script");
+    expect(JSON.parse(json)).toEqual({ headline: "</script><script>alert(1)</script>" });
   });
 });

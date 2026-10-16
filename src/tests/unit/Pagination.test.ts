@@ -1,6 +1,11 @@
 import Pagination from "@components/Pagination.vue";
-import { mount } from "@vue/test-utils";
+import { mount, type VueWrapper } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
+
+const disabledLabels = (wrapper: VueWrapper) =>
+  wrapper
+    .findAll(".c-pagination__item.is-disabled .c-pagination__link")
+    .map((link) => link.attributes("aria-label"));
 
 describe("Pagination", () => {
   it("renders the correct number of pages", () => {
@@ -41,8 +46,7 @@ describe("Pagination", () => {
       },
     });
 
-    const prevButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
-    expect(prevButton.exists()).toBe(true);
+    expect(disabledLabels(wrapper)).toEqual(["First page", "Previous page"]);
   });
 
   it("disables the next button on the last page", () => {
@@ -62,8 +66,19 @@ describe("Pagination", () => {
       },
     });
 
-    const nextButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
-    expect(nextButton.exists()).toBe(true);
+    expect(disabledLabels(wrapper)).toEqual(["Next page", "Last page"]);
+  });
+
+  it("renders nothing for a single page", () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        page: { lastPage: 1, currentPage: 1, url: { prev: null, next: null }, start: 0 },
+        slug: "javascript",
+        lang: "en",
+      },
+    });
+
+    expect(wrapper.find("nav").exists()).toBe(false);
   });
 
   it("renders the correct page links", () => {

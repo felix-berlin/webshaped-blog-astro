@@ -1,7 +1,31 @@
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { tocHeadings } from "@services/fragments/blockFragments";
 import { mount } from "@vue/test-utils";
-import { it, expect, describe, vi } from "vitest";
+import { afterEach, it, expect, describe, vi } from "vitest";
+
+const OriginalObserver = globalThis.IntersectionObserver;
+afterEach(() => vi.stubGlobal("IntersectionObserver", OriginalObserver));
+
+/** Replaces IntersectionObserver with one the test can fire by hand. */
+const stubObserver = () => {
+  let callback: IntersectionObserverCallback | undefined;
+  const disconnect = vi.fn();
+  vi.stubGlobal(
+    "IntersectionObserver",
+    class {
+      constructor(cb: IntersectionObserverCallback) {
+        callback = cb;
+      }
+      observe = vi.fn();
+      disconnect = disconnect;
+    },
+  );
+  return {
+    disconnect,
+    intersect: (target: Element, isIntersecting: boolean) =>
+      callback?.([{ isIntersecting, target }] as never, {} as never),
+  };
+};
 
 const heading = (content: string, level: number) =>
   tocHeadings([{ name: "core/heading", attributes: { content, level } } as never])[0];
@@ -64,15 +88,11 @@ describe("TableOfContents.vue", () => {
     expect(links[1].classes()).toContain("c-toc__link--depth-3");
   });
 
-  it("sets up IntersectionObserver on mount without errors", () => {
-    // IntersectionObserver is mocked globally in setup.ts - just verify no throw
-    expect(() => mount(TableOfContents, { props: { headings, tocId: "toc" } })).not.toThrow();
-  });
-
-  it("disconnects IntersectionObserver on unmount", () => {
+  it("disconnects its IntersectionObserver on unmount", () => {
+    const observer = stubObserver();
     const wrapper = mount(TableOfContents, { props: { headings, tocId: "toc" } });
-    // Should not throw on unmount
-    expect(() => wrapper.unmount()).not.toThrow();
+    wrapper.unmount();
+    expect(observer.disconnect).toHaveBeenCalledOnce();
   });
 
   it("emits tocLinkClicked when a link is clicked", async () => {
@@ -98,48 +118,35 @@ describe("TableOfContents.vue", () => {
     expect(wrapper.find("nav").attributes("id")).toBe("my-toc");
   });
 
-  it("marks the link active when activeHeadlineId matches", async () => {
+  it("marks the heading that scrolls into view as active and emits its text", async () => {
+    const observer = stubObserver();
     const wrapper = mount(TableOfContents, {
-      props: { headings: [heading("Hello World", 2)], tocId: "toc" },
+      props: { headings: [heading("Section", 2)], tocId: "toc" },
     });
-    wrapper.vm.activeHeadlineId = "hello-world";
+    const target = Object.assign(document.createElement("h2"), {
+      id: "section",
+      textContent: "Section",
+    });
+
+    observer.intersect(target, true);
     await wrapper.vm.$nextTick();
+
     expect(wrapper.find("a").classes()).toContain("is-active");
+    expect(wrapper.emitted("currentHeadline")).toEqual([["Section"]]);
   });
 
-  it("handleIntersect sets active headline when entry is intersecting", async () => {
+  it("ignores headings that are leaving the viewport", async () => {
+    const observer = stubObserver();
     const wrapper = mount(TableOfContents, {
       props: { headings: [heading("Section", 2)], tocId: "toc" },
-      attachTo: document.body,
     });
-    const mockEl = document.createElement("h2");
-    mockEl.id = "section";
-    mockEl.textContent = "Section";
-    document.body.appendChild(mockEl);
+    const target = Object.assign(document.createElement("h2"), { id: "section" });
 
-    const entries = [{ isIntersecting: true, target: mockEl }] as any;
-    wrapper.vm.handleIntersect(entries);
+    observer.intersect(target, false);
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.vm.activeHeadlineId).toBe("section");
-    expect(wrapper.emitted("currentHeadline")).toBeTruthy();
-
-    document.body.removeChild(mockEl);
-    wrapper.unmount();
-  });
-
-  it("handleIntersect skips non-intersecting entries", async () => {
-    const wrapper = mount(TableOfContents, {
-      props: { headings: [heading("Section", 2)], tocId: "toc" },
-    });
-    const mockEl = document.createElement("h2");
-    mockEl.id = "section";
-    wrapper.vm.activeHeadlineId = "other";
-
-    const entries = [{ isIntersecting: false, target: mockEl }] as any;
-    wrapper.vm.handleIntersect(entries);
-
-    expect(wrapper.vm.activeHeadlineId).toBe("other");
+    expect(wrapper.find("a").classes()).not.toContain("is-active");
+    expect(wrapper.emitted("currentHeadline")).toBeUndefined();
   });
 
   it("observes the post's h2/h3 headings on mount", () => {

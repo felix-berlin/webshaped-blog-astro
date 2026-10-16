@@ -60,11 +60,17 @@ describe("SearchModal.vue", () => {
     wrapper.unmount();
   });
 
-  it("removes the shortcut listener on unmount", async () => {
+  it("removes the shortcut listener on unmount", () => {
+    const add = vi.spyOn(window, "addEventListener");
+    const remove = vi.spyOn(window, "removeEventListener");
     const wrapper = mount(SearchModal, { props: { lang: "de" } });
-    const modal = wrapper.findComponent({ name: "Modal" });
+    const listener = add.mock.calls.find(([type]) => type === "keydown")?.[1];
+
     wrapper.unmount();
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "/" }));
-    expect(modal.props("open")).toBe(false);
+
+    expect(listener).toBeDefined();
+    expect(remove.mock.calls.some(([type, fn]) => type === "keydown" && fn === listener)).toBe(
+      true,
+    );
   });
 });
