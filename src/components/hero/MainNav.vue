@@ -18,33 +18,28 @@
 
     <Teleport v-if="isMobile" to="#mainHeader">
       <Transition name="fade">
-        <div v-if="flyoutIsOpen" class="c-main-nav__flyout" :class="{ 'is-open': flyoutIsOpen }">
+        <div v-if="flyoutIsOpen" class="c-main-nav__flyout is-open">
           <MenuNav
-            :menu-items="props.menuItems?.nodes ?? []"
-            class="c-main-nav__menu"
-            :class="{ 'is-open': flyoutIsOpen }"
+            :menu-items="menuItems?.nodes ?? []"
+            class="c-main-nav__menu is-open"
             @submenu-state="submenuIsOpen = $event"
             @menu-item-target-clicked="toggleFlyout"
           />
 
-          <ButtonBar :lang="props.lang" :translations-routes="props.translationsRoutes" />
+          <ButtonBar :lang="lang" :translations-routes="translationsRoutes" />
         </div>
       </Transition>
     </Teleport>
 
     <MenuNav
       v-else
-      :menu-items="props.menuItems?.nodes ?? []"
+      :menu-items="menuItems?.nodes ?? []"
       class="c-main-nav__menu"
       :class="{ 'is-open': submenuIsOpen }"
       @submenu-state="submenuIsOpen = $event"
     />
 
-    <ButtonBar
-      v-if="!isMobile"
-      :lang="props.lang"
-      :translations-routes="props.translationsRoutes"
-    />
+    <ButtonBar v-if="!isMobile" :lang="lang" :translations-routes="translationsRoutes" />
   </nav>
 </template>
 
@@ -54,16 +49,15 @@ import type { Lang } from "@i18n/ui";
 import Logo from "@components/Logo.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
-import { useStore } from "@nanostores/vue";
-import { isMobileBreakpoint, windowWidth } from "@stores/store";
-import { useResizeObserver } from "@vueuse/core";
 import MenuIcon from "virtual:icons/lucide/menu";
 import CloseIcon from "virtual:icons/lucide/x";
-import { onMounted, ref } from "vue";
+import { ref, watch } from "vue";
 
 import type { GetMenuByIdQuery } from "@/gql/graphql.ts";
 import type { TranslationRoutes } from "@/types/i18n";
 
+import { useBodyScrollLock } from "@/composables/useBodyScrollLock";
+import { useBelowBreakpoint } from "@/composables/useBreakpoint";
 import { useI18n } from "@/composables/useI18n";
 
 export interface MainNavProps {
@@ -72,72 +66,23 @@ export interface MainNavProps {
   translationsRoutes: TranslationRoutes;
 }
 
-const props = defineProps<MainNavProps>();
+const { lang, menuItems, translationsRoutes } = defineProps<MainNavProps>();
 
-const isMobile = useStore(isMobileBreakpoint);
+const isMobile = useBelowBreakpoint("sm");
 const flyoutIsOpen = ref(false);
 const submenuIsOpen = ref(false);
-const { t } = useI18n(() => props.lang);
+const { t } = useI18n(() => lang);
 
-/**
- * Toggle the flyout menu
- *
- * @return  {void}
- */
+const setScrollLock = useBodyScrollLock();
+watch(flyoutIsOpen, setScrollLock);
+
 const toggleFlyout = (): void => {
   flyoutIsOpen.value = !flyoutIsOpen.value;
-  controlScroll(flyoutIsOpen.value);
 };
 
-/**
- * Toggle disable scroll on body
- *
- * @param   {boolean}  status  yes/no
- *
- * @return  {void}
- */
-const controlScroll = (status: boolean): void => {
-  // Only touch overflow — removeAttribute("style") wiped every other inline style on <body>.
-  document.body.style.overflow = status ? "hidden" : "";
-};
-
-/**
- * Observes the width of the body element using the ResizeObserver API.
- * Disables or enables scroll on the body element based on the width and the state of the flyout menu.
- */
-onMounted(() => {
-  /**
-   * This code snippet uses the ResizeObserver API to observe the width of the body element and update the values of 'isMobile' variables accordingly.
-   * It also disables or enables scroll on the body element based on the width and the state of the flyout menu.
-   *
-   * @param   {object}  entries
-   *
-   * @return  {void}
-   */
-  useResizeObserver(document.body, (entries) => {
-    // Cache the computed style of the body element
-    const bodyStyle = window.getComputedStyle(document.body);
-
-    // Get the width of the body element and add the body padding
-    const bodyPadding = ["padding-left", "padding-right"].reduce(
-      (acc, prop) => acc + parseInt(bodyStyle.getPropertyValue(prop)),
-      0,
-    );
-    const bodyWidth = entries[0].contentRect.width + bodyPadding;
-
-    // Update the value of 'isMobile' based on the current screen width
-    isMobileBreakpoint.set(bodyWidth < 769);
-    windowWidth.set(bodyWidth);
-
-    // If the screen width is not mobile
-    if (!isMobile.value) {
-      // Close the flyout menu
-      flyoutIsOpen.value = false;
-
-      // Enable scroll on the body element
-      controlScroll(false);
-    }
-  });
+// Growing past the mobile breakpoint closes the flyout (and releases its scroll lock).
+watch(isMobile, (mobile) => {
+  if (!mobile) flyoutIsOpen.value = false;
 });
 </script>
 

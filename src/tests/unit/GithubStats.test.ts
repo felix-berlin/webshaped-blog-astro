@@ -1,10 +1,10 @@
-// @ts-ignore: Unresolved import
 import GithubStats from "@components/GithubStats.vue";
 import { mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
-import { it, expect, describe, beforeAll, afterAll, afterEach, vi } from "vitest";
+import { it, expect, describe, beforeEach, vi } from "vitest";
 import { nextTick } from "vue";
+
+import { server } from "@/tests/mocks/node";
 
 const mockStats = {
   languagePercentages: [
@@ -12,8 +12,6 @@ const mockStats = {
     { language: "Vue", percentage: 30.2 },
     { language: "CSS", percentage: 9.3 },
   ],
-  totalBytes: 100000,
-  totalCommits: 500,
   mostStarredRepos: [
     {
       name: "awesome-repo",
@@ -25,15 +23,9 @@ const mockStats = {
   ],
 };
 
-const server = setupServer(
-  http.get("/api/github/stats", () => {
-    return HttpResponse.json(mockStats);
-  }),
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeEach(() => {
+  server.use(http.get("/api/github/stats", () => HttpResponse.json(mockStats)));
+});
 
 describe("GithubStats.vue", () => {
   it("renders without error", () => {

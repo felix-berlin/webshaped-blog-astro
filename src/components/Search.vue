@@ -3,79 +3,35 @@
 </template>
 
 <script setup lang="ts">
-// `@pagefind/default-ui` ships no type declarations for this build.
-// @ts-expect-error -- untyped third-party module, no .d.ts available
 import { PagefindUI } from "@pagefind/default-ui";
-import { nextTick, onMounted, onUnmounted } from "vue";
+import { onMounted } from "vue";
 
 export interface SearchProps {
+  /** Focus the search input once Pagefind has rendered it. */
+  autofocus?: boolean;
   id: string;
 }
 
-interface PagefindUIOptions {
-  bundlePath?: string;
-  element?: string;
-  resetStyles?: boolean;
-  showImages?: boolean;
-}
-
-const { id } = defineProps<SearchProps>();
-
-let bundlePath = `${import.meta.env.BASE_URL}pagefind/`;
+const { autofocus = false, id } = defineProps<SearchProps>();
 
 if (import.meta.env.DEV) {
-  bundlePath = "/pagefind/";
   console.warn(
-    "If there are no search results, make sure you have run `npm run build` and that the `dist/pagefind` folder exists.",
+    "If there are no search results, make sure you have run `pnpm build` and that the `dist/pagefind` folder exists.",
   );
 }
 
-/**
- * Initialize Pagefind
- *
- */
-const initPagefind = async () => {
-  const options: PagefindUIOptions = {
-    bundlePath,
+onMounted(() => {
+  new PagefindUI({
+    bundlePath: import.meta.env.DEV ? "/pagefind/" : `${import.meta.env.BASE_URL}pagefind/`,
     element: `#${id}`,
     resetStyles: false,
     showImages: false,
-  };
-  new PagefindUI(options);
-};
-
-/**
- * Trigger search via keyboard
- *
- * @param   {KeyboardEvent}  event
- *
- * @return  {void}
- */
-const triggerSearchViaKeyboard = (event: KeyboardEvent): void => {
-  const activeElement = document.activeElement?.tagName;
-  // If input or textarea is focused, do nothing
-  if (activeElement === "INPUT" || activeElement === "TEXTAREA") return;
-
-  if (!(event.key === "/" || event.key === ".")) {
-    return;
-  }
-  event.preventDefault();
-  const inputElement = document?.querySelector(`#${id} input`) as HTMLElement;
-  inputElement?.focus();
-};
-
-onMounted(() => {
-  nextTick(() => {
-    initPagefind();
   });
 
-  window.addEventListener("keydown", triggerSearchViaKeyboard);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keydown", triggerSearchViaKeyboard);
+  if (autofocus) document.querySelector<HTMLInputElement>(`#${id} input`)?.focus();
 });
 </script>
+
 <style lang="scss">
 @use "@pagefind/default-ui/css/ui.css";
 </style>

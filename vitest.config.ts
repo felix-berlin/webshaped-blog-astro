@@ -44,8 +44,7 @@ export default getViteConfig({
         "src/astro.config.ts",
         // Async wrapper template only - all logic in Webmentions.vue
         "src/components/webmentions/LoadWebmentions.vue",
-        // Complex urql + GraphQL pagination - integration-level test only
-        "src/components/comments/CommentsClient.vue",
+        // urql mutation + form flow - integration-level test only
         "src/components/comments/CreateComment.vue",
         ...coverageConfigDefaults.exclude,
       ],

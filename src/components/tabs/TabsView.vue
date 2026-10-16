@@ -1,7 +1,7 @@
 <template>
-  <div ref="tabs" v-auto-animate class="c-tabs">
+  <div v-auto-animate class="c-tabs">
     <div class="c-tabs__header" role="tablist">
-      <template v-for="tab in tabsProps" :key="tab.tabId">
+      <template v-for="tab in tabs" :key="tab.tabId">
         <button
           :id="tab.tabId"
           role="tab"
@@ -17,9 +17,7 @@
           @click="selectedTabHeader = tab.header"
         >
           {{ tab.header }}
-          <span v-if="typeof tab?.badge !== 'undefined'" class="c-tabs__header-badge">{{
-            tab.badge
-          }}</span>
+          <span v-if="tab.badge !== undefined" class="c-tabs__header-badge">{{ tab.badge }}</span>
         </button>
       </template>
     </div>
@@ -31,22 +29,19 @@
 <script setup lang="ts">
 import { provide, ref, useSlots } from "vue";
 
-const tabsSlots = useSlots();
+import { SelectedTabKey, type TabMeta, TabsKey } from "./tabs";
 
-const tabsProps = ref();
+// Tab headers come from the <TabItem> children's props, read once at setup.
+const tabs: TabMeta[] = (useSlots().default?.() ?? []).map((tab, index) => ({
+  ...(tab.props as Pick<TabMeta, "badge" | "header">),
+  tabId: `tab-${index}`,
+  tabpanelId: `tabpanel-${index}`,
+}));
 
-if (tabsSlots.default) {
-  tabsProps.value = tabsSlots?.default()?.map((tab, index) => ({
-    ...tab.props,
-    tabId: `tab-${index}`,
-    tabpanelId: `tabpanel-${index}`,
-  }));
-}
+const selectedTabHeader = ref(tabs[0]?.header ?? "");
 
-const selectedTabHeader = ref<string>(tabsProps.value[0]?.header);
-
-provide("selectedTabHeader", selectedTabHeader);
-provide("tabProps", tabsProps);
+provide(SelectedTabKey, selectedTabHeader);
+provide(TabsKey, tabs);
 </script>
 
 <style lang="scss">

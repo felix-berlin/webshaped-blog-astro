@@ -31,7 +31,6 @@ export interface TabDisplayProps {
   postId: string;
 }
 
-const props = defineProps<TabDisplayProps>();
-
-const { t } = useI18n(() => props.lang);
+const { authorId, lang, postId } = defineProps<TabDisplayProps>();
+const { t } = useI18n(() => lang);
 </script>

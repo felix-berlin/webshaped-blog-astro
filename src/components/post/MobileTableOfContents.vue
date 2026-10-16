@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="pageWidth < 1024" ref="mobileToc" class="c-mobile-toc">
+  <nav v-if="isBelowDesktop" ref="mobileToc" class="c-mobile-toc">
     <details ref="toggleButton" class="c-mobile-toc__button-wrap">
       <summary class="c-mobile-toc__button">
         <div class="c-mobile-toc__fake-button c-button">
@@ -14,7 +14,7 @@
         :headings="headings"
         html-element="div"
         toc-id="mobileTableOfContents"
-        @current-headline="currentHeadline($event)"
+        @current-headline="activeHeadlineText = $event ?? ''"
         @toc-link-clicked="closeDropdown"
       />
     </details>
@@ -26,12 +26,11 @@ import type { TableOfContentsProps } from "@components/post/TableOfContents.vue"
 import type { Lang } from "@i18n/ui";
 
 import TableOfContents from "@components/post/TableOfContents.vue";
-import { useStore } from "@nanostores/vue";
-import { windowWidth } from "@stores/store";
 import { onClickOutside } from "@vueuse/core";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
-import { onMounted, ref, useTemplateRef } from "vue";
+import { ref, useTemplateRef } from "vue";
 
+import { useBelowBreakpoint } from "@/composables/useBreakpoint";
 import { useI18n } from "@/composables/useI18n";
 
 interface MobileTableOfContentsProps {
@@ -39,27 +38,21 @@ interface MobileTableOfContentsProps {
   lang: Lang;
 }
 
-const pageWidth = useStore(windowWidth);
-const props = defineProps<MobileTableOfContentsProps>();
-const { t } = useI18n(() => props.lang);
-const toggleButton = useTemplateRef("toggleButton");
-const activeHeadlineText = ref("");
-const mobileToc = useTemplateRef("mobileToc");
+const { headings, lang } = defineProps<MobileTableOfContentsProps>();
+const { t } = useI18n(() => lang);
 
-const currentHeadline = (text: null | string) => (activeHeadlineText.value = text ?? "");
+// The sidebar TOC takes over from the md breakpoint (see BlogPost.astro's client:media).
+const isBelowDesktop = useBelowBreakpoint("md");
+const toggleButton = useTemplateRef("toggleButton");
+const mobileToc = useTemplateRef("mobileToc");
+const activeHeadlineText = ref(headings[0]?.content ?? "");
 
 const closeDropdown = () => {
   if (!toggleButton.value) return;
   toggleButton.value.open = false;
 };
 
-onClickOutside(mobileToc, (): void => {
-  closeDropdown();
-});
-
-onMounted(() => {
-  activeHeadlineText.value = props.headings[0].content;
-});
+onClickOutside(mobileToc, closeDropdown);
 </script>
 
 <style lang="scss">

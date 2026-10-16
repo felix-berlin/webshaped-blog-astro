@@ -1,5 +1,4 @@
 import { persistentAtom } from "@nanostores/persistent";
-import { atom } from "nanostores";
 
 export type DarkMode = boolean;
 
@@ -27,6 +26,3 @@ export interface Guest {
 }
 
 export const guest = persistentAtom<Guest>("guest", { saveUser: false }, jsonCodec);
-
-export const isMobileBreakpoint = atom<boolean>(false);
-export const windowWidth = atom<number>(0);

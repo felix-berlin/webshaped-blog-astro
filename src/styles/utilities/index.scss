@@ -4,6 +4,11 @@
 @use "@sass-butler/functions" as butler-fn;
 @use "@styles/variables/base";
 
+// Toggled by useBodyScrollLock (modal, mobile flyout).
+.u-disable-scroll {
+  overflow: hidden !important;
+}
+
 :where(.u-list-reset) {
   list-style-type: none;
   margin: 0;

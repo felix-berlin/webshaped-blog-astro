@@ -1,10 +1,10 @@
 ---
-import Search from "@components/Search.astro";
+import Search from "@components/Search.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 ---
 
 <DefaultLayout content={{ title: "Not Found" }}>
   <h1>404</h1>
 
-  <Search />
+  <Search client:only="vue" id="search" />
 </DefaultLayout>

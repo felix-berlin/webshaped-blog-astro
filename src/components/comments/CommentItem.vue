@@ -1,12 +1,7 @@
 <template>
   <div
     class="c-comment"
-    :class="[
-      `is-level-${depth} ${isOdd(depth) ? 'is-odd' : 'is-even'}`,
-      {
-        'has-replies': comment?.replies?.nodes?.length != null && comment.replies.nodes.length > 0,
-      },
-    ]"
+    :class="[`is-level-${depth}`, parityClass(depth), { 'has-replies': replies.length }]"
   >
     <article :id="'comment-' + comment.id" class="c-comment__item">
       <header class="c-comment__header">
@@ -30,7 +25,7 @@
 
         <div class="c-comment__author-name-wrap">
           <h2 class="c-comment__author-name">
-            {{ comment?.author?.node.name }}
+            {{ comment.author?.node.name }}
           </h2>
           <Verified v-if="isAuthor" width="18" height="18" />
         </div>
@@ -49,7 +44,7 @@
             <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date :date="toIsoUtc(comment.dateGmt)!" :lang="props.lang" class="c-comment__date">
+          <Date :date="toIsoUtc(comment.dateGmt)!" :lang="lang" class="c-comment__date">
             <template #before>
               {{ t("comment.date") }}
             </template>
@@ -62,12 +57,12 @@
       v-if="replyToCommentForm"
       v-auto-animate
       class="c-comment is-create-comment"
-      :class="`is-level-${depth + 1} ${isOdd(depth) ? 'is-even' : 'is-odd'}`"
+      :class="[`is-level-${depth + 1}`, parityClass(depth + 1)]"
     >
       <CreateComment
         :current-post-id="currentPostId"
-        :reply-to-comment-id="comment?.id"
-        :lang="props.lang"
+        :reply-to-comment-id="comment.id"
+        :lang="lang"
       >
         <template #beforeContent>
           <button
@@ -81,18 +76,15 @@
       </CreateComment>
     </div>
 
-    <template v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0">
-      <CommentItem
-        v-for="reply in comment.replies.nodes"
-        :key="useFragment(CommentFieldsFragmentDoc, reply).id"
-        v-auto-animate
-        :comment="reply"
-        :depth="depth + 1"
-        :author-id="authorId"
-        :current-post-id="currentPostId"
-        :lang="props.lang"
-      />
-    </template>
+    <CommentItem
+      v-for="reply in replies"
+      :key="useFragment(CommentFieldsFragmentDoc, reply).id"
+      :comment="reply"
+      :depth="depth + 1"
+      :author-id="authorId"
+      :current-post-id="currentPostId"
+      :lang="lang"
+    />
   </div>
 </template>
 
@@ -108,10 +100,8 @@ import Verified from "virtual:icons/lucide/verified";
 import X from "virtual:icons/lucide/x";
 import { computed, ref } from "vue";
 
-import type { CommentFieldsFragment } from "@/gql/graphql.ts";
-
 import { useI18n } from "@/composables/useI18n";
-import { useFragment } from "@/gql/fragment-masking";
+import { type FragmentType, useFragment } from "@/gql/fragment-masking";
 import { CommentFieldsFragmentDoc } from "@/gql/graphql.ts";
 
 /**
@@ -119,10 +109,9 @@ import { CommentFieldsFragmentDoc } from "@/gql/graphql.ts";
  * CommentFields fragment (masked) plus the sibling `replies` field, which
  * recurses to the same shape.
  */
-export interface CommentNode {
-  " $fragmentRefs"?: { CommentFieldsFragment: CommentFieldsFragment };
+export type CommentNode = FragmentType<typeof CommentFieldsFragmentDoc> & {
   replies?: null | { nodes?: Array<CommentNode> | null };
-}
+};
 
 interface CommentItemProps {
   authorId?: string;
@@ -134,18 +123,12 @@ interface CommentItemProps {
 
 const props = defineProps<CommentItemProps>();
 const { t } = useI18n(() => props.lang);
-const comment = computed(() => ({
-  ...useFragment(CommentFieldsFragmentDoc, props.comment),
-  replies: props.comment.replies,
-}));
+const comment = computed(() => useFragment(CommentFieldsFragmentDoc, props.comment));
+const replies = computed(() => props.comment.replies?.nodes ?? []);
 const replyToCommentForm = ref(false);
 const isAuthor = computed(() => comment.value.author?.node.id === props.authorId);
 
-/**
- * Methods
- */
-
-const isOdd = (num: number) => num % 2;
+const parityClass = (depth: number) => (depth % 2 ? "is-odd" : "is-even");
 
 const toggleReplyCommentForm = () => (replyToCommentForm.value = !replyToCommentForm.value);
 </script>

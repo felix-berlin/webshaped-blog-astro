@@ -1,11 +1,11 @@
 <template>
-  <div v-if="translations && translations?.length > 0" class="c-has-translation">
+  <div v-if="translations?.length" class="c-has-translation">
     <p class="c-has-translation__headline">
       {{ t("post_also_available_in") }}
     </p>
     <div
       v-for="translation in translations"
-      :key="translation?.language?.slug!"
+      :key="translation?.language?.slug ?? translation?.slug ?? ''"
       class="c-has-translation__translations"
     >
       <a

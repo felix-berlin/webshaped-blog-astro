@@ -1,5 +1,6 @@
 <template>
   <li
+    ref="item"
     :class="[
       'c-menu__item',
       {
@@ -11,10 +12,10 @@
   >
     <a
       v-if="!hasChild"
-      :href="menuItem.path!"
+      :href="menuItem.path ?? undefined"
       class="c-menu__link"
       :class="`is-level-${depth}`"
-      @click="$emit('menu-item-target-clicked', depth, index, true)"
+      @click="$emit('menu-item-target-clicked')"
     >
       {{ menuItem.label }}
     </a>
@@ -22,15 +23,14 @@
     <!-- If menu item has child -->
     <template v-else>
       <button
-        :ref="`menu-title-${depth}${index}`"
         type="button"
         class="c-menu__link is-menu-title"
         :class="`is-level-${depth}`"
         :aria-expanded="isOpen"
         :aria-controls="`submenu${depth}${index}`"
-        @click="toggleMenuItem(depth, index)"
-        @mouseenter="toggleMenuItem(depth, index)"
-        @focus="toggleMenuItem(depth, index)"
+        @click="toggleMenuItem"
+        @mouseenter="toggleMenuItem"
+        @focus="toggleMenuItem"
       >
         <span class="c-menu__link-title">{{ menuItem.label }}</span>
         <span
@@ -48,17 +48,14 @@
         :is-open="isOpen"
         :class="[`is-level-${depth} is-${submenuDirection}`, { 'is-open': isOpen }]"
       >
-        <template v-for="(child, childItemIndex) in menuItem?.childItems?.nodes" :key="child.label ?? childItemIndex">
-          <MenuItem
-            :menu-item="child"
-            :depth="depth + 1"
-            :index="childItemIndex"
-            :has-child="(child?.childItems?.nodes ?? []).length > 0"
-            @mouseenter="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
-            @click="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
-            @focus="child?.childItems ? null : toggleMenuItem(depth + 1, childItemIndex)"
-          />
-        </template>
+        <MenuItem
+          v-for="(child, childItemIndex) in menuItem.childItems?.nodes"
+          :key="child.label ?? childItemIndex"
+          :menu-item="child"
+          :depth="depth + 1"
+          :index="childItemIndex"
+          :has-child="!!child.childItems?.nodes.length"
+        />
       </MenuSubmenu>
     </template>
   </li>
@@ -81,77 +78,40 @@ export interface MenuItemProps {
 const { depth, hasChild, index, menuItem } = defineProps<MenuItemProps>();
 
 const isOpen = ref(false);
+const item = useTemplateRef<HTMLLIElement>("item");
 const submenu = useTemplateRef("submenu");
 const submenuDirection = ref("right");
 
 const emit = defineEmits<{
-  "menu-item-target-clicked": [depth: number, index: number, value: boolean];
+  "menu-item-target-clicked": [];
   "submenu-state": [isOpen: boolean];
 }>();
 
-/**
- * Toggle the menu item
- *
- * @return  {Promise<void>}
- */
-const toggleMenuItem = async (
-  itemDepth: number,
-  itemIndex: number,
-  sendEmit?: boolean,
-): Promise<void> => {
-  if (itemDepth !== depth || itemIndex !== index) return;
+/** Flip the submenu to the left if it would overflow the viewport on the right. */
+const calSubmenuDirection = (): void => {
+  const submenuEl = item.value?.querySelector(".c-submenu");
+  if (!submenuEl) return;
 
-  isOpen.value = !isOpen.value;
-
-  if (sendEmit) {
-    emit("menu-item-target-clicked", depth, index, true);
-  }
-
-  await openSubmenu();
+  const { left, width } = submenuEl.getBoundingClientRect();
+  submenuDirection.value = left + width > window.innerWidth ? "left" : "right";
 };
 
-/**
- * Open the submenu
- *
- * @return  {<Promise><void>}
- */
-const openSubmenu = async (): Promise<void> => {
+const toggleMenuItem = async (): Promise<void> => {
+  isOpen.value = !isOpen.value;
   emit("submenu-state", isOpen.value);
 
+  if (!isOpen.value) return;
   await nextTick();
   calSubmenuDirection();
 };
 
-/**
- * If the user clicks outside the submenu, close the submenu
- *
- * @param   {[type]}  submenu
- * @param   {PointerEvent}  event
- *
- * @return  {void}             [return description]
- */
-onClickOutside(submenu, (event: PointerEvent): void => {
-  const target = event.target as HTMLElement;
+// Only items with a submenu can be open, so only they need to watch outside clicks.
+if (hasChild) {
+  onClickOutside(submenu, (event: PointerEvent): void => {
+    if ((event.target as HTMLElement).classList.contains("is-menu-title")) return;
 
-  if (target.classList.contains("is-menu-title")) return;
-
-  isOpen.value = false;
-  emit("submenu-state", isOpen.value);
-});
-
-/**
- * Set the submenu direction
- *
- * @return  {void}
- */
-const calSubmenuDirection = (): void => {
-  const submenuEl = document.querySelector(".c-submenu");
-
-  if (!submenuEl) return;
-
-  const { left, width } = submenuEl.getBoundingClientRect();
-  const windowWidth = window.innerWidth;
-
-  submenuDirection.value = left + width > windowWidth ? "left" : "right";
-};
+    isOpen.value = false;
+    emit("submenu-state", false);
+  });
+}
 </script>
