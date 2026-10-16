@@ -31,6 +31,12 @@ const urlFor = (outDir: string, filePath: string): string => {
   return `/${stripped}`;
 };
 
+// Fail the build rather than log: a build that exits 0 without an index ships
+// a site whose search is silently broken.
+const assertNoErrors = (step: string, errors: string[]): void => {
+  if (errors.length) throw new Error(`Pagefind failed to ${step}:\n${errors.join("\n")}`);
+};
+
 export default function pagefind(): AstroIntegration {
   let outDir: string;
   return {
@@ -44,11 +50,7 @@ export default function pagefind(): AstroIntegration {
         }
 
         const { errors: createErrors, index } = await createIndex();
-        if (!index) {
-          logger.error("Pagefind failed to create index");
-          createErrors.forEach((e) => logger.error(e));
-          return;
-        }
+        if (!index) throw new Error(`Pagefind failed to create index:\n${createErrors.join("\n")}`);
         const htmlFiles = await collectHtmlFiles(outDir);
         // The pagefind service handles requests concurrently, so read + index all files in parallel.
         const results = await Promise.all(
@@ -59,21 +61,15 @@ export default function pagefind(): AstroIntegration {
             }),
           ),
         );
-        const addErrors = results.flatMap(({ errors }) => errors);
-        if (addErrors.length) {
-          logger.error("Pagefind failed to index files");
-          addErrors.forEach((e) => logger.error(e));
-          return;
-        }
+        assertNoErrors(
+          "index files",
+          results.flatMap(({ errors }) => errors),
+        );
         logger.info(`Pagefind indexed ${results.filter(({ file }) => file).length} pages`);
         const { errors: writeErrors, outputPath } = await index.writeFiles({
           outputPath: path.join(outDir, "pagefind"),
         });
-        if (writeErrors.length) {
-          logger.error("Pagefind failed to write index");
-          writeErrors.forEach((e) => logger.error(e));
-          return;
-        }
+        assertNoErrors("write index", writeErrors);
         logger.info(`Pagefind wrote index to ${outputPath}`);
       },
       "astro:config:setup": ({ config }) => {

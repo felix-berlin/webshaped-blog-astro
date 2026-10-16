@@ -59,10 +59,10 @@ const operationName = (query: TypedDocumentNode<unknown, AnyVariables>): string 
  * (one unresolvable node, one restricted field). Throwing on those would drop 199
  * good posts because the 200th has a broken relation — so they are logged, not fatal.
  */
-export const wpQuery = async <TData, TVariables extends AnyVariables>(
+const queryWithPartialError = async <TData, TVariables extends AnyVariables>(
   query: TypedDocumentNode<TData, TVariables>,
   variables: TVariables,
-): Promise<TData> => {
+): Promise<{ data: TData; partialError?: Error }> => {
   const result = await wpGraphqlClient.query(query, variables).toPromise();
   // Only needed for error messages, so the document isn't walked on the happy path.
   const name = () => operationName(query as TypedDocumentNode<unknown, AnyVariables>);
@@ -81,8 +81,13 @@ export const wpQuery = async <TData, TVariables extends AnyVariables>(
     );
   }
 
-  return result.data;
+  return { data: result.data, partialError: result.error };
 };
+
+export const wpQuery = async <TData, TVariables extends AnyVariables>(
+  query: TypedDocumentNode<TData, TVariables>,
+  variables: TVariables,
+): Promise<TData> => (await queryWithPartialError(query, variables)).data;
 
 /**
  * `wpQuery` for page chrome (menus, categories, author) rather than content.
@@ -99,7 +104,8 @@ export const wpQuery = async <TData, TVariables extends AnyVariables>(
  *
  * Chrome (author, menus, categories) is identical for every request, so outside
  * dev each result is shared for a few minutes instead of re-fetched for every SSR
- * render and every prerendered page. Failures aren't cached.
+ * render and every prerendered page. Neither failures nor partial-error results
+ * are cached — a transient `menuItems: null` would otherwise stick for the TTL.
  */
 const chromeCache = new Map<string, { expires: number; result: Promise<unknown> }>();
 
@@ -111,13 +117,23 @@ export const wpQueryChrome = <TData, TVariables extends AnyVariables>(
   const cached = chromeCache.get(key);
   if (cached && cached.expires > Date.now()) return cached.result as Promise<null | TData>;
 
-  const result = wpQuery(query, variables).catch((error: unknown) => {
-    console.error(`WPGraphQL chrome query failed, rendering without it: ${String(error)}`);
-    captureException(error);
-    chromeCache.delete(key);
+  const result = queryWithPartialError(query, variables).then(
+    ({ data, partialError }) => {
+      if (partialError) {
+        captureException(partialError);
+        chromeCache.delete(key);
+      }
 
-    return null;
-  });
+      return data;
+    },
+    (error: unknown) => {
+      console.error(`WPGraphQL chrome query failed, rendering without it: ${String(error)}`);
+      captureException(error);
+      chromeCache.delete(key);
+
+      return null;
+    },
+  );
 
   if (!import.meta.env.DEV)
     chromeCache.set(key, { expires: Date.now() + CHROME_CACHE_TTL_MS, result });

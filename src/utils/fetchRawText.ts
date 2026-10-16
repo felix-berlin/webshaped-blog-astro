@@ -11,9 +11,11 @@ export const fetchRawText = (url: string): Promise<string> => {
   let pending = cache.get(url);
 
   if (!pending) {
-    pending = fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }).then((response) =>
-      response.text(),
-    );
+    pending = fetch(url, { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }).then((response) => {
+      // Otherwise a GitHub "404: Not Found" body is cached and rendered as the snippet.
+      if (!response.ok) throw new Error(`Fetching ${url} failed: HTTP ${response.status}`);
+      return response.text();
+    });
     pending.catch(() => cache.delete(url));
     cache.set(url, pending);
   }

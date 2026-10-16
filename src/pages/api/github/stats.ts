@@ -81,7 +81,8 @@ const fetchOwnRepos = async (): Promise<RepoNode[]> => {
   return repos;
 };
 
-// A missing extra repo shouldn't take down the whole endpoint.
+// A missing extra repo shouldn't take down the whole endpoint — but it is reported,
+// since the partial result is then cached for the full TTL.
 const fetchExtraRepo = ({ name, owner }: { name: string; owner: string }) =>
   ghQuery<SingleRepoQueryData, { name: string; owner: string }>("extra repo", GhSingleRepo, {
     name,
@@ -90,6 +91,7 @@ const fetchExtraRepo = ({ name, owner }: { name: string; owner: string }) =>
     .then(({ repository }) => (repository ? [repository] : []))
     .catch((error: Error) => {
       console.warn(`Skipping extra repo ${owner}/${name}: ${error.message}`);
+      captureException(error);
       return [];
     });
 

@@ -60,6 +60,26 @@ describe("Webmentions.vue", () => {
     await vi.waitFor(() => expect(target).toBe("https://example.com/post"));
   });
 
+  it("encodes the target so a query string in it survives", async () => {
+    let target: null | string = null;
+    mockMentions([], (url) => (target = url.searchParams.get("target")));
+    await mountWebmentions({ target: "https://example.com/post?a=1&b=2", lang: "de" });
+    await vi.waitFor(() => expect(target).toBe("https://example.com/post?a=1&b=2"));
+  });
+
+  it.each([
+    ["a network error", () => HttpResponse.error()],
+    ["an HTTP error page", () => new HttpResponse("Bad Gateway", { status: 502 })],
+    ["a body without children", () => HttpResponse.json({ error: "nope" })],
+  ])("falls back to NoMentions on %s", async (_, resolver) => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    server.use(http.get(MENTIONS_API, resolver));
+    const wrapper = await mountWebmentions({ target: "https://example.com/post", lang: "de" });
+    await vi.waitFor(() =>
+      expect(wrapper.findComponent({ name: "NoMentions" }).exists()).toBe(true),
+    );
+  });
+
   it("falls back to window.location.href as target", async () => {
     let target: null | string = null;
     mockMentions([], (url) => (target = url.searchParams.get("target")));

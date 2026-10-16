@@ -1,7 +1,7 @@
 // @vitest-environment node
 import Blocks from "@components/content-blocks/Blocks.astro";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
-import { beforeAll, describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 let container: AstroContainer;
 
@@ -83,6 +83,13 @@ describe("Blocks.astro", () => {
     expect(html).toContain("Inside");
   });
 
+  it("renders an empty details block without a stray 0", async () => {
+    const html = await render([
+      { name: "core/details", attributes: { summary: "More" }, innerBlocks: [] },
+    ]);
+    expect(html).toMatch(/<\/summary>\s*<\/details>/);
+  });
+
   it("highlights code blocks with the shared themes", async () => {
     const html = await render([
       { name: "core/code", attributes: { content: "const a = 1;", className: "js" } },
@@ -91,8 +98,12 @@ describe("Blocks.astro", () => {
     expect(html).toContain("astro-code");
   });
 
-  it("skips unknown and empty blocks", async () => {
+  it("skips unknown and empty blocks, warning about the unknown type", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     const html = await render([null, { name: "core/unknown" }, { name: null }]);
     expect(html.trim()).toBe("");
+    expect(warn).toHaveBeenCalledOnce();
+    expect(warn.mock.calls[0][0]).toContain('"core/unknown"');
+    warn.mockRestore();
   });
 });

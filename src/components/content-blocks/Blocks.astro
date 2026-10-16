@@ -58,7 +58,11 @@ const resolved = blocks.flatMap((block): ResolvedBlock[] => {
   }
 
   const entry = BLOCKS[block.name as keyof typeof BLOCKS];
-  if (!entry) return [];
+  if (!entry) {
+    // Logged so a block type added in WordPress doesn't vanish from posts unnoticed.
+    console.warn(`Blocks.astro: no renderer for block type "${block.name}", skipping it`);
+    return [];
+  }
 
   const [Component, fragment] = entry;
   return [{ Component, data: useFragment(fragment as never, block as never) }];

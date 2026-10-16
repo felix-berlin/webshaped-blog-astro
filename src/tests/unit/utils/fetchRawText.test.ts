@@ -39,4 +39,19 @@ describe("fetchRawText()", () => {
     await expect(fetchRawText("https://raw.example.test/flaky.ts")).resolves.toBe("recovered");
     expect(calls).toBe(2);
   });
+
+  it("rejects an HTTP error page instead of returning its body as the snippet", async () => {
+    let calls = 0;
+    server.use(
+      http.get("https://raw.example.test/missing.ts", () => {
+        calls++;
+        return calls === 1
+          ? HttpResponse.text("404: Not Found", { status: 404 })
+          : HttpResponse.text("found");
+      }),
+    );
+
+    await expect(fetchRawText("https://raw.example.test/missing.ts")).rejects.toThrow("HTTP 404");
+    await expect(fetchRawText("https://raw.example.test/missing.ts")).resolves.toBe("found");
+  });
 });

@@ -80,6 +80,26 @@ describe("ScrobbleDisplay", () => {
     wrapper.unmount();
   });
 
+  it("still idles out when the API keeps failing", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    server.use(
+      http.get(API, () => {
+        requests();
+        return new HttpResponse(null, { status: 503 });
+      }),
+    );
+    const wrapper = mountDisplay({ idleAfterCount: 1 });
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(1));
+
+    await vi.advanceTimersByTimeAsync(1000);
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(2));
+
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(requests).toHaveBeenCalledTimes(2);
+    wrapper.unmount();
+  });
+
   it("stops polling on unmount", async () => {
     vi.useFakeTimers();
     const wrapper = mountDisplay();

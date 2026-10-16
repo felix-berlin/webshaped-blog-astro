@@ -42,10 +42,17 @@ export interface WebmentionsProps {
 
 const { lang, target } = defineProps<WebmentionsProps>();
 
-const response = await fetch(
-  `${WEBMENTION_IO}api/mentions.jf2?target=${target ?? window.location.href}`,
-);
-const mentions: Webmention[] = (await response.json()).children;
+// Any failure (offline, blocker, error page, missing `children`) falls back to
+// NoMentions — an async setup that rejects would leave <Suspense> with nothing.
+const mentions: Webmention[] = await fetch(
+  `${WEBMENTION_IO}api/mentions.jf2?target=${encodeURIComponent(target ?? window.location.href)}`,
+)
+  .then((response) => (response.ok ? response.json() : {}))
+  .then((data: { children?: Webmention[] }) => data.children ?? [])
+  .catch((error: unknown) => {
+    console.error("Webmentions request failed:", error);
+    return [];
+  });
 </script>
 
 <style lang="scss">

@@ -151,10 +151,18 @@ const scrobbling = computed(
   () => !!tracks.value.recenttracks?.track.some((track) => !!track["@attr"]?.nowplaying),
 );
 
+// A failed poll keeps the last tracks but still counts, so the idle pause stops
+// polling a dead API instead of throwing every tick for as long as the tab is open.
 const checkIfPlaying = async (): Promise<void> => {
-  const response = await fetch(`${scrobbleApi}?limit=${numberOfDisplayedTracks}`);
-  tracks.value = await response.json();
-  updateCount.value++;
+  try {
+    const response = await fetch(`${scrobbleApi}?limit=${numberOfDisplayedTracks}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    tracks.value = await response.json();
+  } catch (error) {
+    console.error("Scrobble API request failed:", error);
+  } finally {
+    updateCount.value++;
+  }
 };
 
 // Fetches immediately, then every `updateRate` ms; `resume()` restarts both.

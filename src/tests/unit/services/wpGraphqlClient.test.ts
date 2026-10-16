@@ -184,5 +184,44 @@ describe("wpQueryChrome", () => {
         user: { name: "Felix" },
       });
     });
+
+    it("renders a partial-error result but neither caches it nor hides it from Sentry", async () => {
+      vi.stubEnv("DEV", false);
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: null }, errors: [{ message: "forbidden" }] });
+        }),
+      );
+
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "partial" })).resolves.toEqual({
+        user: null,
+      });
+      await wpQueryChrome(GetAuthorDocument, { id: "partial" });
+
+      expect(requests).toHaveBeenCalledTimes(2);
+      expect(captureException).toHaveBeenCalled();
+    });
+
+    it("re-fetches once the TTL has expired", async () => {
+      vi.stubEnv("DEV", false);
+      vi.useFakeTimers({ toFake: ["Date"] });
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: { name: "Felix" } } });
+        }),
+      );
+
+      await wpQueryChrome(GetAuthorDocument, { id: "ttl" });
+      vi.setSystemTime(Date.now() + 5 * 60_000 + 1);
+      await wpQueryChrome(GetAuthorDocument, { id: "ttl" });
+
+      expect(requests).toHaveBeenCalledTimes(2);
+      vi.useRealTimers();
+    });
   });
 });

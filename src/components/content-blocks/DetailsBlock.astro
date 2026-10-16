@@ -13,5 +13,5 @@ const { showContent, summary } = block.attributes ?? {};
 
 <details class="c-block-details" open={showContent}>
   <summary class="c-block-details__summary">{summary}</summary>
-  {block.innerBlocks?.length && <Blocks blocks={block.innerBlocks} />}
+  {!!block.innerBlocks?.length &&<Blocks blocks={block.innerBlocks} />}
 </details>

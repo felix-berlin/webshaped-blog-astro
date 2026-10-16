@@ -64,6 +64,28 @@ describe("GET /api/github/stats", () => {
     expect(stats.mostStarredRepos[0].description).toBe("No description available");
   });
 
+  it("still answers with the own repos when an extra repo fails, and reports it", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    mockGitHub();
+    const ownRepos = queryMock.getMockImplementation()!;
+    queryMock.mockImplementation(async (operation: string, variables: { after?: null | string }) =>
+      operation === "GhSingleRepo"
+        ? { error: { message: "not found" } }
+        : ownRepos(operation, variables),
+    );
+    const { GET } = await import("@/pages/api/github/stats");
+    const { captureException } = await import("@sentry/astro");
+
+    const response = await GET();
+
+    expect(response.status).toBe(200);
+    expect((await response.json()).mostStarredRepos.map((r: { name: string }) => r.name)).toEqual([
+      "b",
+      "a",
+    ]);
+    expect(captureException).toHaveBeenCalled();
+  });
+
   it("serves repeated requests from the in-process cache", async () => {
     mockGitHub();
     const { GET } = await import("@/pages/api/github/stats");
