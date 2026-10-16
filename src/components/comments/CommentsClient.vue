@@ -19,6 +19,7 @@
       <template v-else-if="fetching">
         <CommentItemSkeleton v-for="item in 5" :key="item" />
       </template>
+      <Alert v-else-if="loadFailed" type="danger">{{ t("comments.load_failed") }}</Alert>
       <NoComments v-else :lang="lang" />
     </div>
 
@@ -40,6 +41,7 @@
 <script setup lang="ts">
 import type { Lang } from "@i18n/ui";
 
+import Alert from "@components/Alert.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useQuery } from "@urql/vue";
@@ -69,6 +71,8 @@ const { t } = useI18n(() => lang);
 // Root comments only (the query filters `parent: 0`); replies come nested in each node.
 const comments = ref<CommentsResult["edges"]>([]);
 const pageInfo = ref<Partial<CommentsResult["pageInfo"]>>({});
+// Without this a failed load would render NoComments ("be the first to comment").
+const loadFailed = ref(false);
 
 const queryVariables = reactive<GetCommentsByIdQueryVariables>({
   after: null,
@@ -87,6 +91,7 @@ const getComments = async (): Promise<void> => {
   if (pageInfo.value.hasNextPage) queryVariables.after = pageInfo.value.endCursor;
 
   const { data, error } = await executeQuery({ variables: queryVariables });
+  loadFailed.value = !!error.value;
   if (error.value) {
     console.error("Error fetching comments:", error.value);
     return;

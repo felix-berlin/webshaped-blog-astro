@@ -164,7 +164,6 @@
 
 <script setup lang="ts">
 import type { Lang } from "@i18n/ui";
-import type { CombinedError } from "@urql/vue";
 
 import Alert from "@components/Alert.vue";
 import CheckCircle from "@components/icons/CheckCircle.vue";
@@ -224,7 +223,7 @@ const commentForm = reactive<CommentForm>({
 
 const formErrors = reactive({ author: "", comment: "", email: "", privacy: "" });
 
-const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
+const formResponses = reactive<{ errors: { message: string }[]; success: boolean }>({
   errors: [],
   success: false,
 });
@@ -237,6 +236,9 @@ const resetCommentForm = () => Object.assign(commentForm, initialCommentForm);
 
 /** Validates the form and submits it when every field passes. */
 const checkForm = async (): Promise<void> => {
+  // Start clean: a stale error (e.g. on an e-mail since emptied) would block submit for good.
+  Object.assign(formErrors, { author: "", comment: "", email: "", privacy: "" });
+
   if (commentForm.comment.length <= 1) {
     formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
@@ -275,25 +277,26 @@ const create = async (): Promise<void> => {
     parent: props.replyToCommentId,
   });
 
+  // `success: false` (or a null payload) is a failure too: keep the typed comment.
+  const success = !error && !!data?.createComment?.success;
+
+  formResponses.success = success;
+  formResponses.errors = success
+    ? []
+    : [error ?? { message: t.value("comment_form.error.not_created") }];
+  await flashDialog();
+  formResponses.success = false;
+  formResponses.errors = [];
+
+  if (!success) return;
+
   const { comment: _comment, ...guestData } = commentForm;
   guest.set(commentForm.saveUser ? guestData : { saveUser: false });
 
-  if (data) {
-    formResponses.success = data.createComment?.success ?? false;
-    await flashDialog();
-    formResponses.success = false;
+  emit("commentCreated");
 
-    emit("commentCreated");
-
-    if (!commentForm.saveUser) resetCommentForm();
-    commentForm.comment = "";
-  }
-
-  if (error) {
-    formResponses.errors = [error];
-    await flashDialog();
-    formResponses.errors = [];
-  }
+  if (!commentForm.saveUser) resetCommentForm();
+  commentForm.comment = "";
 };
 
 // Clear a field's error as soon as it gets a value again.

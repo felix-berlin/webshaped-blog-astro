@@ -70,6 +70,19 @@ describe("CommentsClient", () => {
     );
   });
 
+  it("says loading failed instead of 'no comments yet' when the query errors", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    server.use(
+      wordpress.query("GetCommentsById", () =>
+        HttpResponse.json({ errors: [{ message: "boom" }] }),
+      ),
+    );
+    const wrapper = mountComments();
+
+    await vi.waitFor(() => expect(wrapper.text()).toContain("The comments could not be loaded."));
+    expect(wrapper.findComponent({ name: "NoComments" }).exists()).toBe(false);
+  });
+
   it("appends the next page when 'load more' is clicked", async () => {
     mockComments({ "": page(["1"], true, "c1"), c1: page(["2"], false, "c2") });
     const wrapper = mountComments();

@@ -103,13 +103,18 @@ const skeletonLangDataMock = {
 onMounted(async () => {
   try {
     const response = await fetch("/api/github/stats");
-    if (!response.ok) throw new Error(`Error fetching data from API: ${response.statusText}`);
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new Error(`HTTP ${response.status}: ${body.error ?? "no details"}`);
+    }
 
     const stats: GithubStats = await response.json();
     languagePercentages.value = stats.languagePercentages;
     mostStarredRepos.value = stats.mostStarredRepos;
   } catch (err) {
-    error.value = `Error fetching data from API: ${(err as Error).message}`;
+    // Visitors get a translated notice; the details go to the console.
+    console.error("Fetching /api/github/stats failed:", err);
+    error.value = t.value("github_stats.error");
   } finally {
     loading.value = false;
   }

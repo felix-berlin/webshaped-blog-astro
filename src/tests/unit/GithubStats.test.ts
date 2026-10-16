@@ -52,17 +52,23 @@ describe("GithubStats.vue", () => {
     expect(wrapper.vm.mostStarredRepos).toHaveLength(1);
   });
 
-  it("displays error message when fetch fails", async () => {
+  it("shows a translated notice when the fetch fails", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
     server.use(
-      http.get("/api/github/stats", () => {
-        return new HttpResponse(null, { status: 500, statusText: "Internal Server Error" });
-      }),
+      http.get("/api/github/stats", () =>
+        HttpResponse.json({ error: "rate limited" }, { status: 500 }),
+      ),
     );
-    const wrapper = mount(GithubStats, { props: { lang: "de" } });
-    await new Promise((r) => setTimeout(r, 50));
-    await nextTick();
-    expect(wrapper.vm.error).toBeTruthy();
-    expect(wrapper.find(".c-github-stats-card").exists()).toBe(true);
+    const wrapper = mount(GithubStats, { props: { lang: "en" } });
+    await vi.waitFor(() =>
+      expect(wrapper.find(".c-github-stats-card").text()).toBe(
+        "The GitHub stats could not be loaded.",
+      ),
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ message: "HTTP 500: rate limited" }),
+    );
   });
 
   it("shows most starred repos after loading", async () => {
