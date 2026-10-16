@@ -65,9 +65,9 @@
     "predev": "pnpm run gql:generate"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.6",
+    "@astrojs/node": "^11.1.8",
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/vue": "^7.0.3",
+    "@astrojs/vue": "^7.1.0",
     "@formkit/auto-animate": "^0.10.0",
     "@nanostores/persistent": "^1.3.5",
     "@nanostores/vue": "^1.1.0",
@@ -76,7 +76,7 @@
     "@urql/core": "^6.0.3",
     "@urql/vue": "^2.1.1",
     "@vueuse/core": "^15.0.0",
-    "astro": "^7.3.5",
+    "astro": "^7.4.0",
     "astro-breadcrumbs": "^3.4.2",
     "astro-loading-indicator": "^0.9.0",
     "astro-matomo": "^1.12.0",
