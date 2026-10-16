@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.2...v1.16.0) (2026-10-16)
+
+
+### Bug Fixes
+
+* **comments:** unblock the form and tell visitors when something failed ([282692d](https://github.com/felix-berlin/webshaped-blog-astro/commit/282692dcdb48964df65551f650a9839e5f934d93))
+* reorder import statements in i18n overhaul documentation for clarity ([b236ec9](https://github.com/felix-berlin/webshaped-blog-astro/commit/b236ec964edb0d2d3f873bf914d3cf2bcd0c0703))
+* **sentry:** use v11 build option names so source maps upload again ([729bc14](https://github.com/felix-berlin/webshaped-blog-astro/commit/729bc146585d1d885676d180a9700a632d5982f6))
+* stop failures from passing silently in fetches, caches and the build ([2b8bffd](https://github.com/felix-berlin/webshaped-blog-astro/commit/2b8bffddf5ee60fbc6f8c0ef05a3b97d70473b37))
+* update preview script to use Infisical for environment management ([25b3237](https://github.com/felix-berlin/webshaped-blog-astro/commit/25b323744c873fafd521a645a3b0c84463a07d67))
+
+
+### Features
+
+* **graphql:** add new fragment references for playlists and tabs ([9432fdd](https://github.com/felix-berlin/webshaped-blog-astro/commit/9432fdd6e647b1d8b392b5e963a2d764a199935f))
+
+
+### Performance Improvements
+
+* **client:** keep the GraphQL documents out of the helpers chunk ([7260236](https://github.com/felix-berlin/webshaped-blog-astro/commit/7260236ac2cc626326912fac85fe3ab7eec61750))
+* cut per-request work on the server ([80d365f](https://github.com/felix-berlin/webshaped-blog-astro/commit/80d365f3906d82cb2a623aeeefd1e5b8a4837cda))
+
 ## [1.15.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.1...v1.15.2) (2026-10-01)
 
 
