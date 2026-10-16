@@ -453,6 +453,14 @@ export type CoreDetailsFragment = { name: string | null, attributes: { summary: 
     )
     | (
       { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CorePlaylist_Fragment': AllBlocks_CorePlaylist_Fragment } }
+    )
+    | (
+      { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CorePlaylistTrack_Fragment': AllBlocks_CorePlaylistTrack_Fragment } }
+    )
+    | (
+      { name: string | null }
       & { ' $fragmentRefs'?: { 'AllBlocks_CorePostAuthor_Fragment': AllBlocks_CorePostAuthor_Fragment } }
     )
     | (
@@ -605,7 +613,23 @@ export type CoreDetailsFragment = { name: string | null, attributes: { summary: 
     )
     | (
       { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabList_Fragment': AllBlocks_CoreTabList_Fragment } }
+    )
+    | (
+      { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabPanel_Fragment': AllBlocks_CoreTabPanel_Fragment } }
+    )
+    | (
+      { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabPanels_Fragment': AllBlocks_CoreTabPanels_Fragment } }
+    )
+    | (
+      { name: string | null }
       & { ' $fragmentRefs'?: { 'AllBlocks_CoreTable_Fragment': AllBlocks_CoreTable_Fragment } }
+    )
+    | (
+      { name: string | null }
+      & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabs_Fragment': AllBlocks_CoreTabs_Fragment } }
     )
     | (
       { name: string | null }
@@ -1055,6 +1079,14 @@ export type GetAllPostsQuery = { posts: { nodes: Array<{ title: string | null, s
         )
         | (
           { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CorePlaylist_Fragment': AllBlocks_CorePlaylist_Fragment } }
+        )
+        | (
+          { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CorePlaylistTrack_Fragment': AllBlocks_CorePlaylistTrack_Fragment } }
+        )
+        | (
+          { name: string | null }
           & { ' $fragmentRefs'?: { 'AllBlocks_CorePostAuthor_Fragment': AllBlocks_CorePostAuthor_Fragment } }
         )
         | (
@@ -1207,7 +1239,23 @@ export type GetAllPostsQuery = { posts: { nodes: Array<{ title: string | null, s
         )
         | (
           { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabList_Fragment': AllBlocks_CoreTabList_Fragment } }
+        )
+        | (
+          { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabPanel_Fragment': AllBlocks_CoreTabPanel_Fragment } }
+        )
+        | (
+          { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabPanels_Fragment': AllBlocks_CoreTabPanels_Fragment } }
+        )
+        | (
+          { name: string | null }
           & { ' $fragmentRefs'?: { 'AllBlocks_CoreTable_Fragment': AllBlocks_CoreTable_Fragment } }
+        )
+        | (
+          { name: string | null }
+          & { ' $fragmentRefs'?: { 'AllBlocks_CoreTabs_Fragment': AllBlocks_CoreTabs_Fragment } }
         )
         | (
           { name: string | null }
