@@ -49,7 +49,7 @@
             <span class="c-comment__reply-button-text">{{ t("comment.reply_button") }}</span>
           </button>
 
-          <Date :date="comment.dateGmt!" :lang="{ locale: props.lang }" class="c-comment__date">
+          <Date :date="toIsoUtc(comment.dateGmt)!" :lang="props.lang" class="c-comment__date">
             <template #before>
               {{ t("comment.date") }}
             </template>
@@ -97,8 +97,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import CreateComment from "@components/comments/CreateComment.vue";
 import Date from "@components/post/Date.vue";
+import { toIsoUtc } from "@utils/helpers";
 import Reply from "virtual:icons/lucide/reply";
 import User from "virtual:icons/lucide/user";
 import Verified from "virtual:icons/lucide/verified";
@@ -126,7 +129,7 @@ interface CommentItemProps {
   comment: CommentNode;
   currentPostId: string;
   depth: number;
-  lang: "de" | "en";
+  lang: Lang;
 }
 
 const props = defineProps<CommentItemProps>();

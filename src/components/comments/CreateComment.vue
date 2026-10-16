@@ -142,7 +142,7 @@
             for="privacy"
             v-html="
               t('comment_form.privacy.label', {
-                link: `/${props.lang}/datenschutz`,
+                link: pagePathBuilder(PRIVACY_PAGE_SLUG, props.lang),
               })
             "
           />
@@ -179,6 +179,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
 import type { CombinedError } from "@urql/vue";
 
 import Alert from "@components/Alert.vue";
@@ -187,6 +188,8 @@ import XCircle from "@components/icons/XCircle.vue";
 import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
 import { useMutation } from "@urql/vue";
+import { pagePathBuilder } from "@utils/i18n/utils";
+import { PRIVACY_PAGE_SLUG } from "@utils/routes";
 import { promiseTimeout } from "@vueuse/core";
 import Info from "virtual:icons/lucide/info";
 import User from "virtual:icons/lucide/user";
@@ -199,7 +202,7 @@ import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: string;
-  lang: "de" | "en";
+  lang: Lang;
   replyToCommentId?: CreateCommentMutationVariables["parent"];
 }
 

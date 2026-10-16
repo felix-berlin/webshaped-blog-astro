@@ -27,21 +27,20 @@
 </template>
 
 <script setup lang="ts">
-import { languages } from "@utils/i18n/ui";
+import type { Lang } from "@i18n/ui";
+
+import { languages, LOCALES } from "@utils/i18n/ui";
 import Languages from "virtual:icons/lucide/languages";
 import { computed } from "vue";
 
 import type { TranslationRoutes } from "@/types/i18n";
 
-const LOCALES = ["de", "en"] as const;
-
 const props = defineProps<{
-  lang: "de" | "en";
+  lang: Lang;
   routes: TranslationRoutes;
 }>();
 
-// Only render entries for actual locales — defensive against any non-locale
-// key that might land in `routes`.
+// Locales this page has a translation for, in a stable display order.
 const availableRoutes = computed(() =>
   LOCALES.filter((language) => props.routes[language]).map((language) => ({
     language,

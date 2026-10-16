@@ -1,3 +1,5 @@
+import type { Lang } from "@i18n/ui";
+
 import slugify from "slugify";
 
 import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
@@ -106,57 +108,48 @@ export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"):
 export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): boolean =>
   !!path?.includes(categoryPath);
 
+type MenuLevel = { nodes: MenuNode[] };
+type MenuNode = { childItems?: MenuLevel | null; path?: null | string };
+
 /**
- * Update category paths in the main menu
- *
- * Returns a new menu structure rather than mutating `mainMenuItems` in
- * place — mutating the input here previously meant that if the same
- * object ever got processed more than once (observed intermittently in
- * dev, cleared by a hard reload — a Vite/Astro dev-server module-caching
- * quirk, not reproducible against a production build), each extra pass
- * prepended another "/de" and appended another "/1" on top of the last.
- * Returning fresh objects makes repeat processing safe regardless of the
- * exact cause.
+ * Returns a copy of a WP menu connection with every item's path (at every
+ * level) mapped through `mapPath`. Never mutates its input, so processing the
+ * same menu object twice can't stack prefixes.
+ */
+export const mapMenuPaths = <T extends MenuLevel | null | undefined>(
+  menu: T,
+  mapPath: (path: string) => string,
+): T =>
+  menu &&
+  ({
+    ...menu,
+    nodes: menu.nodes.map((item) => ({
+      ...item,
+      childItems: mapMenuPaths(item.childItems, mapPath),
+      path: item.path && mapPath(item.path),
+    })),
+  } as T);
+
+/**
+ * Point the main menu's category links (second level) at our first archive page.
+ * German WP paths lack the "/de" prefix; English category slugs carry a "-en" suffix.
  */
 export const updateCategoryPaths = (
   mainMenuItems: MenuItemsConnection,
-  lang: "de" | "en",
-): MenuItemsConnection => {
-  if (!mainMenuItems) return mainMenuItems;
-
-  return {
+  lang: Lang,
+): MenuItemsConnection =>
+  mainMenuItems && {
     ...mainMenuItems,
-    nodes: mainMenuItems.nodes.map((item: MenuItem) => {
-      if (!item?.childItems) return item;
-
-      return {
-        ...item,
-        childItems: {
-          ...item.childItems,
-          nodes: item.childItems.nodes.map((childItem) => {
-            if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
-              return childItem;
-            }
-
-            // In german locale, /de is missing in the path
-            if (lang === "de") {
-              return { ...childItem, path: `/de${firstCategoryPage(childItem?.path || null)}` };
-            }
-            // In english locale, categories are postfixed with "-en", we need to remove it
-            if (lang === "en") {
-              return {
-                ...childItem,
-                path: firstCategoryPage(removeLocaleCode(childItem?.path || null)),
-              };
-            }
-
-            return childItem;
-          }),
-        },
-      };
-    }),
+    nodes: mainMenuItems.nodes.map((item: MenuItem) => ({
+      ...item,
+      childItems: mapMenuPaths(item.childItems, (path) => {
+        if (!isCategoryPath(path)) return path;
+        return lang === "de"
+          ? `/de${firstCategoryPage(path)}`
+          : firstCategoryPage(removeLocaleCode(path));
+      }),
+    })),
   };
-};
 
 /**
  * Get the domain name without TDL from a URL
@@ -260,6 +253,22 @@ export const getSocialIconData = (
   return socialItems;
 };
 
+type AuthorWithSocials =
+  | null
+  | undefined
+  | { seo?: null | { social?: null | SeoUserSocial }; socialAdvanced?: null | SocialAdvanced };
+
+// GitHub and Mastodon link back to this site, so they get rel="me" (IndieWeb identity).
+const REL_ME_SOCIALS = { github: { rel: "me" }, mastodon: { rel: "me" } };
+
+/** Social icon data for an author's Yoast socials plus the custom GitHub/Mastodon fields. */
+export const getAuthorSocialItems = (author: AuthorWithSocials, size: number): SocialItems =>
+  getSocialIconData(
+    { ...author?.seo?.social, ...author?.socialAdvanced } as SeoUserSocial | SocialAdvanced,
+    { size },
+    REL_ME_SOCIALS,
+  );
+
 export const removeLocaleCode = (category: null | string) => {
   if (!category) return "";
   return category.replace(/-(de|en)$/, "");
@@ -277,22 +286,7 @@ export const WEBMENTION_IO = "https://webmention.io/";
 export const getWebmentionsUrl = (url: URL): string => `${WEBMENTION_IO}${url.hostname}`;
 
 // WP menu IDs are per language and have no queryable relation to the locale.
-const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
-
-/**
- * Resolve the WP menu ID for a locale.
- *
- * An unknown lang (crawler on /fr/…) used to render an empty nav with HTTP 200 and
- * no log line — indistinguishable from WordPress returning an empty menu.
- */
-export const resolveMenuId = (lang: string): string | undefined => {
-  const menuId = MENU_ID_BY_LANG[lang];
-
-  if (!menuId)
-    console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
-
-  return menuId;
-};
+export const MENU_ID_BY_LANG: Record<Lang, string> = { de: "2", en: "125" };
 
 type LanguageTagged = { language?: null | { slug?: null | string } };
 

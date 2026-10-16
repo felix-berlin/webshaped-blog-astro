@@ -13,13 +13,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Share from "@components/Share.vue";
 import Heart from "virtual:icons/lucide/heart";
 import ThumbsUp from "virtual:icons/lucide/thumbs-up";
 
 import { useI18n } from "@/composables/useI18n";
 
-const { lang } = defineProps<{ lang: "de" | "en" }>();
+const { lang } = defineProps<{ lang: Lang }>();
 const { t } = useI18n(() => lang);
 </script>
 

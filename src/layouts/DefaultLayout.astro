@@ -17,13 +17,11 @@ import { SITE_URL } from "astro:env/client";
 import { GetAuthorDocument } from "@/gql/graphql.ts";
 import type { TranslationRoutes } from "@/types/i18n";
 
-export interface DefaultLayoutProps {
+export interface Props {
   bodyClasses?: Array<string> | string;
   content: {
-    // language isn't consumed here — each page passes its own query's shape.
-    language: unknown;
-    seo: Seo;
-    title: string;
+    seo?: null | Seo;
+    title?: null | string;
   };
   contentClasses?: Array<string> | string;
   translationsRoutes?: TranslationRoutes;
@@ -33,8 +31,8 @@ const {
   bodyClasses,
   content: { seo, title },
   contentClasses,
-  translationsRoutes,
-} = Astro.props as DefaultLayoutProps;
+  translationsRoutes = {},
+} = Astro.props;
 
 const lang = getLang(Astro.currentLocale);
 
@@ -76,7 +74,7 @@ const siteSchema = {
 
 <!-- TODO: Remove after lightmode is final: #9 -->
 <html class="dark" lang={lang}>
-  <BaseHead lang={lang} seo={seo} title={title} translationsRoutes={translationsRoutes ?? {}}>
+  <BaseHead lang={lang} seo={seo} title={title ?? ""} translationsRoutes={translationsRoutes}>
     <Fragment slot="head">
       <script is:inline type="application/ld+json" set:html={toJsonLd(siteSchema)} />
       <slot name="head" />
@@ -84,7 +82,7 @@ const siteSchema = {
   </BaseHead>
 
   <body class="o-body" class:list={bodyClasses}>
-    <MainHeader lang={lang} translationsRoutes={translationsRoutes ?? {}} transition:persist />
+    <MainHeader lang={lang} translationsRoutes={translationsRoutes} transition:persist />
     <main class="o-content" class:list={contentClasses}>
       <slot />
     </main>

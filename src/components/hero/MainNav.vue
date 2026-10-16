@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Logo from "@components/Logo.vue";
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import MenuNav from "@components/menu-nav/MenuNav.vue";
@@ -65,7 +67,7 @@ import type { TranslationRoutes } from "@/types/i18n";
 import { useI18n } from "@/composables/useI18n";
 
 export interface MainNavProps {
-  lang: "de" | "en";
+  lang: Lang;
   menuItems: NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
   translationsRoutes: TranslationRoutes;
 }

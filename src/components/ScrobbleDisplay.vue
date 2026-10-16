@@ -86,6 +86,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import X from "virtual:icons/lucide/x";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
 import { onBeforeUnmount, onMounted, reactive, watch, watchEffect } from "vue";
@@ -98,7 +100,7 @@ export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
   idleAfterCount?: number;
   idleIfInactive?: boolean;
-  lang: "de" | "en";
+  lang: Lang;
   numberOfDisplayedTracks?: number;
   scrobbleApi?: string;
   updateRate?: number;

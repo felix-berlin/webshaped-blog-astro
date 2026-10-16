@@ -1,106 +1,64 @@
 import { firstCategoryPage, removeLocaleCode } from "@utils/helpers";
 
 import type { LanguageCodeEnum } from "@/gql/graphql.ts";
+import type { TranslationRoutes } from "@/types/i18n";
 
 import { defaultLang, type Lang, localeStrings } from "./ui";
 
 type TranslationKey = keyof (typeof localeStrings)[typeof defaultLang];
 type TranslationValue = number | string;
 
+const PLACEHOLDER = /\{\s*(\w+)\s*\}/g;
+const pluralRules = new Map<Lang, Intl.PluralRules>();
+
 /**
- * Custom hook to use translations based on the provided language.
+ * Returns a translate function `t(key, varsToReplace?, plural?)` for the given language.
  *
- * @param   {keyof typeof localeStrings}  lang  The language key to use for translations.
- *
- * @return  {function}  A function to get the translated string.
- *
- * The returned function `t` has the following parameters:
- *
- * @param   {keyof (typeof localeStrings)[typeof defaultLang]}  key             The locale key to look up the translation string.
- * @param   {object}                                            varsToReplace   An optional object with variables to replace in the translation string.
- * @param   {number}                                            plural          An optional number to determine the plural form.
- *
- * @return  {string}  The translated string, with variables replaced and plural form applied if applicable.
+ * `{name}` placeholders are replaced from `varsToReplace`; keys ending in "--plural"
+ * pick their form via `Intl.PluralRules` when `plural` is given. Missing keys fall
+ * back to the default language, then to the key itself.
  */
 export const useTranslations =
-  (lang: keyof typeof localeStrings) =>
+  (lang: Lang) =>
   (
     key: TranslationKey,
     varsToReplace?: Record<string, TranslationValue>,
     plural?: number,
   ): string => {
-    const shortLang = lang?.includes("_")
-      ? (lang.split("_")[0] as keyof typeof localeStrings)
-      : lang;
-
-    /**
-     * Looks up the translation string using the language key.
-     * If variables are present, they are searched for and replaced within the string.
-     * If the string should have a plural object, this will be analyzed before swapping the translation variables.
-     *
-     * @param   {string}  key             locale key
-     * @param   {object}  varsToReplace      object with variables to replace
-     * @param   {number}  plural             plural form in numbers
-     *
-     * @return  {string}                     return the translated string
-     */
     const rawTranslation: Record<string, string> | string =
-      localeStrings[shortLang][key] || localeStrings[defaultLang][key];
+      localeStrings[lang][key] || localeStrings[defaultLang][key];
 
-    // If the translation string ends with "--plural", execute the plural form function and store the result in the translation string.
-    let translationStr: string =
+    const translationStr =
       key.endsWith("--plural") && plural !== undefined
-        ? pluralFormFor(rawTranslation, plural, shortLang)
+        ? pluralFormFor(rawTranslation, plural, lang)
         : (rawTranslation as string);
 
-    // If there is a filled object with variables to replace, replace them.
-    if (varsToReplace !== undefined && Object.keys(varsToReplace).length !== 0) {
-      const regex = new RegExp(`\\{\\s*(${Object.keys(varsToReplace).join("|")})\\s*\\}`, "gi");
+    const replaced = varsToReplace
+      ? translationStr?.replace(PLACEHOLDER, (match, name: string) =>
+          name in varsToReplace ? String(varsToReplace[name] ?? "") : match,
+        )
+      : translationStr;
 
-      translationStr = translationStr
-        .toString()
-        .replace(regex, (_matched: string, variableName: string) => {
-          return String(varsToReplace[variableName] ?? "");
-        });
-    }
-
-    return translationStr || key;
+    return replaced || key;
   };
 
-/**
- * Selects the correct plural based on the language and the plural object supplied.
- *
- * @param   {string}  translationString  translation string
- * @param   {number}  count              number to determine the plural form
- * @param   {string}  locale             locale key
- *
- * @return  {string}                     return the plural string
- */
+/** Selects the plural form for `count` from a `{ one, other, … }` translation object. */
 const pluralFormFor = (
   translationForms: Record<string, string> | string,
   count: number,
-  locale: string,
+  lang: Lang,
 ): string => {
   if (typeof translationForms === "string") return translationForms;
 
-  const pluralRules = new Intl.PluralRules(locale);
-  const matchingForm = pluralRules.select(count);
+  let rules = pluralRules.get(lang);
+  if (!rules) pluralRules.set(lang, (rules = new Intl.PluralRules(lang)));
 
-  return translationForms[matchingForm] ?? "";
+  return translationForms[rules.select(count)] ?? "";
 };
 
-/**
- * Builds the path for a category based on the provided slug and language.
- *
- * @param   {string}  categorySlug   The slug of the category.
- * @param   {string}  lang          The language code.
- * @param   {string}  page          The archive page number.
- *
- * @return  {string}                The constructed path for the category.
- */
-export const categoryPathBuilder = (categorySlug: string, lang: string, page = "1") => {
-  return `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug), page)}`;
-};
+/** Path of a category archive page; WP's "-de"/"-en" slug suffixes are stripped. */
+export const categoryPathBuilder = (categorySlug: string, lang: string, page = "1") =>
+  `/${lang}/category/${firstCategoryPage(removeLocaleCode(categorySlug), page)}`;
 
 /**
  * Builds the path for a post based on the provided slug and language.
@@ -108,12 +66,35 @@ export const categoryPathBuilder = (categorySlug: string, lang: string, page = "
 export const postPathBuilder = (postSlug: null | string | undefined, lang: string) =>
   `/${lang}/posts/${postSlug}`;
 
+/** Path of a WP page (legal/about) served by `src/pages/[lang]/[pageSlug].astro`. */
+export const pagePathBuilder = (pageSlug: string, lang: string) => `/${lang}/${pageSlug}`;
+
+export const rssPathBuilder = (lang: string) => `/${lang}/rss.xml`;
+
+export const isLang = (value: unknown): value is Lang =>
+  typeof value === "string" && value in localeStrings;
+
+/** A `[language slug, path]` pair as read from WPGraphQL — either side may be missing. */
+export type TranslationEntry = [
+  lang: null | string | undefined,
+  path: false | null | string | undefined,
+];
+
+/**
+ * Builds `TranslationRoutes` from `[language slug, path]` pairs, skipping entries
+ * whose language isn't a supported locale or that have no path.
+ */
+export const buildTranslationRoutes = (entries: Iterable<TranslationEntry>): TranslationRoutes =>
+  Object.fromEntries(
+    [...entries].filter((entry): entry is [Lang, string] => isLang(entry[0]) && !!entry[1]),
+  );
+
 /**
  * Resolves `Astro.currentLocale` (or any locale string) to a supported language,
  * falling back to the default language.
  */
 export const getLang = (locale: null | string | undefined): Lang =>
-  locale && locale in localeStrings ? (locale as Lang) : defaultLang;
+  isLang(locale) ? locale : defaultLang;
 
 /** Maps a language slug to WPGraphQL's `LanguageCodeEnum`. */
 export const toLanguageCode = (lang: Lang): LanguageCodeEnum =>

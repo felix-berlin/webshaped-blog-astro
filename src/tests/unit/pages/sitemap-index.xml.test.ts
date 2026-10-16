@@ -3,9 +3,24 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const captureExceptionMock = vi.fn();
 vi.mock("@sentry/astro", () => ({ captureException: captureExceptionMock }));
 
+vi.mock("astro:env/server", () => ({ WP_AUTH_PASS: "pass", WP_AUTH_USER: "user" }));
+
+// Mock the urql transport rather than wpGraphqlClient itself, so the sitemap
+// runs through the real wpQueryChrome error handling.
 const wpQueryMock = vi.fn();
-vi.mock("@services/wpGraphqlClient", () => ({
-  wpQuery: (...args: unknown[]) => wpQueryMock(...args),
+vi.mock("@urql/core", () => ({
+  Client: class {
+    query(query: unknown, variables: unknown) {
+      return {
+        toPromise: () =>
+          wpQueryMock(query, variables).then(
+            (data: unknown) => ({ data }),
+            (error: Error) => ({ error }),
+          ),
+      };
+    }
+  },
+  fetchExchange: {},
 }));
 
 const { GET } = await import("@/pages/sitemap-index.xml");

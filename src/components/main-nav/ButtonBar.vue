@@ -14,6 +14,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import LanguageDropdown from "@components/LanguageDropdown.vue";
 // import ColorModeToggle from "@components/ColorModeToggle.vue";
 import SearchModal from "@components/main-nav/SearchModal.vue";
@@ -22,7 +24,7 @@ import RssLink from "@components/RssLink.vue";
 import type { TranslationRoutes } from "@/types/i18n";
 
 defineProps<{
-  lang: "de" | "en";
+  lang: Lang;
   translationsRoutes: TranslationRoutes;
 }>();
 </script>

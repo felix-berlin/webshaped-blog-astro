@@ -17,9 +17,11 @@
 <script setup lang="ts">
 import type { Lang } from "@utils/i18n/ui";
 
-import { categoryPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { categoryPathBuilder } from "@utils/i18n/utils";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 type CategoriesConnection = PostNode["categories"];
 type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
@@ -30,5 +32,5 @@ interface Props {
 }
 
 const { categories, lang } = defineProps<Props>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>

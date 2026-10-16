@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import type { TableOfContentsProps } from "@components/post/TableOfContents.vue";
+import type { Lang } from "@i18n/ui";
 
 import TableOfContents from "@components/post/TableOfContents.vue";
 import { useStore } from "@nanostores/vue";
@@ -35,7 +36,7 @@ import { useI18n } from "@/composables/useI18n";
 
 interface MobileTableOfContentsProps {
   headings: TableOfContentsProps["headings"];
-  lang: "de" | "en";
+  lang: Lang;
 }
 
 const pageWidth = useStore(windowWidth);

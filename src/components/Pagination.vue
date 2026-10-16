@@ -1,53 +1,22 @@
 <template>
   <nav v-if="page.lastPage > 1" class="c-pagination">
     <ul class="c-pagination__list u-list-reset">
-      <li :class="['c-pagination__item', { 'is-disabled': 1 === page.currentPage }]">
-        <component
-          :is="1 === page.currentPage ? 'span' : 'a'"
-          :href="`/${path}/${page.start}`"
-          :aria-label="t('pagination.first')"
-          class="c-pagination__link"
-        >
-          <ChevronFirst />
-        </component>
-      </li>
-      <li :class="['c-pagination__item', { 'is-disabled': !page.url.prev }]">
-        <component
-          :is="page.url.prev ? 'a' : 'span'"
-          :href="page.url.prev"
-          :aria-label="t('pagination.previous')"
-          class="c-pagination__link"
-        >
-          <ChevronLeft />
-        </component>
-      </li>
-
       <li
-        v-for="index in page.lastPage"
-        :key="index"
-        :class="['c-pagination__item', { 'is-current': index === page.currentPage }]"
+        v-for="item in items"
+        :key="item.key"
+        :class="[
+          'c-pagination__item',
+          { 'is-disabled': item.disabled, 'is-current': item.current },
+        ]"
       >
-        <a :href="`/${path}/${index}`" class="c-pagination__link">{{ index }}</a>
-      </li>
-
-      <li :class="['c-pagination__item', { 'is-disabled': !page.url.next }]">
         <component
-          :is="page.url.next ? 'a' : 'span'"
-          :href="page.url.next"
-          :aria-label="t('pagination.next')"
+          :is="item.disabled ? 'span' : 'a'"
+          :href="item.disabled ? undefined : item.href"
+          :aria-label="item.label"
           class="c-pagination__link"
         >
-          <ChevronRight />
-        </component>
-      </li>
-      <li :class="['c-pagination__item', { 'is-disabled': page.lastPage === page.currentPage }]">
-        <component
-          :is="page.lastPage === page.currentPage ? 'span' : 'a'"
-          :href="`/${path}/${page.lastPage}`"
-          :aria-label="t('pagination.last')"
-          class="c-pagination__link"
-        >
-          <ChevronLast />
+          <component :is="item.icon" v-if="item.icon" />
+          <template v-else>{{ item.key }}</template>
         </component>
       </li>
     </ul>
@@ -55,25 +24,78 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
 import type { Page } from "astro";
+import type { Component } from "vue";
 
-import { defaultLang } from "@utils/i18n/ui";
+import { categoryPathBuilder } from "@utils/i18n/utils";
 import ChevronFirst from "virtual:icons/lucide/chevron-first";
 import ChevronLast from "virtual:icons/lucide/chevron-last";
 import ChevronLeft from "virtual:icons/lucide/chevron-left";
 import ChevronRight from "virtual:icons/lucide/chevron-right";
-
-import type { LanguageCodeEnum } from "@/gql/graphql.ts";
+import { computed } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
 
-const props = defineProps<{
-  lang: null | { code: LanguageCodeEnum | null; locale: null | string; slug: null | string };
+interface PaginationItem {
+  current?: boolean;
+  disabled?: boolean;
+  href?: string;
+  icon?: Component;
+  key: number | string;
+  label?: string;
+}
+
+const { lang, page, slug } = defineProps<{
+  lang: Lang;
   page: Page;
-  path: string;
+  /** Category slug; links are built with `categoryPathBuilder`. */
+  slug: string;
 }>();
 
-const { t } = useI18n(() => (props.lang?.slug ?? defaultLang) as "de" | "en");
+const { t } = useI18n(() => lang);
+
+const pageHref = (index: number) => categoryPathBuilder(slug, lang, String(index));
+
+const items = computed<PaginationItem[]>(() => {
+  const { currentPage, lastPage, url } = page;
+
+  return [
+    {
+      disabled: currentPage === 1,
+      href: pageHref(1),
+      icon: ChevronFirst,
+      key: "first",
+      label: t.value("pagination.first"),
+    },
+    {
+      disabled: !url.prev,
+      href: url.prev,
+      icon: ChevronLeft,
+      key: "prev",
+      label: t.value("pagination.previous"),
+    },
+    ...Array.from({ length: lastPage }, (_, i) => ({
+      current: i + 1 === currentPage,
+      href: pageHref(i + 1),
+      key: i + 1,
+    })),
+    {
+      disabled: !url.next,
+      href: url.next,
+      icon: ChevronRight,
+      key: "next",
+      label: t.value("pagination.next"),
+    },
+    {
+      disabled: currentPage === lastPage,
+      href: pageHref(lastPage),
+      icon: ChevronLast,
+      key: "last",
+      label: t.value("pagination.last"),
+    },
+  ];
+});
 </script>
 
 <style lang="scss">

@@ -39,6 +39,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useQuery } from "@urql/vue";
@@ -58,7 +60,7 @@ export interface CommentsProps {
   authorId?: string;
   currentPostId: string;
   id?: string;
-  lang: "de" | "en";
+  lang: Lang;
 }
 
 type CommentEdge = CommentsResult["edges"][number];

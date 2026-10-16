@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Pagination from "@components/Pagination.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
@@ -16,11 +15,8 @@ describe("Pagination", () => {
           },
           start: 1,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -40,11 +36,8 @@ describe("Pagination", () => {
           },
           start: 1,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -64,11 +57,8 @@ describe("Pagination", () => {
           },
           start: 41,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -88,11 +78,8 @@ describe("Pagination", () => {
           },
           start: 21,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -104,5 +91,26 @@ describe("Pagination", () => {
     expect(pages[4].text()).toBe("3");
     expect(pages[5].text()).toBe("4");
     expect(pages[6].text()).toBe("5");
+  });
+
+  it("links the first/last buttons and page numbers to the category archive pages", () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        page: { lastPage: 3, currentPage: 2, url: { prev: "/x/1", next: "/x/3" }, start: 6 },
+        slug: "javascript",
+        lang: "en",
+      },
+    });
+
+    const hrefs = wrapper.findAll("a.c-pagination__link").map((link) => link.attributes("href"));
+    expect(hrefs).toEqual([
+      "/en/category/javascript/1",
+      "/x/1",
+      "/en/category/javascript/1",
+      "/en/category/javascript/2",
+      "/en/category/javascript/3",
+      "/x/3",
+      "/en/category/javascript/3",
+    ]);
   });
 });

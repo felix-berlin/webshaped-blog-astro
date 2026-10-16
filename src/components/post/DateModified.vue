@@ -3,20 +3,22 @@
     <p class="c-date-modified__headline">
       {{ t("last_updated") }}
     </p>
-    <Date :date="date!" :lang="{ locale: lang }" class="c-date-modified__date" />
+    <Date :date="toIsoUtc(date)!" :lang="lang" class="c-date-modified__date" />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { localeStrings } from "@i18n/ui";
+import type { Lang } from "@i18n/ui";
 
 import Date from "@components/post/Date.vue";
-import { useTranslations } from "@utils/i18n/utils";
+import { toIsoUtc } from "@utils/helpers";
+
+import { useI18n } from "@/composables/useI18n";
 export interface DateModifiedProps {
   date: string | undefined;
-  lang: keyof typeof localeStrings;
+  lang: Lang;
 }
 
 const { date, lang } = defineProps<DateModifiedProps>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>

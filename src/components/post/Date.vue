@@ -2,33 +2,31 @@
   <div class="c-date">
     <slot name="before" />
 
-    <time class="c-date" v-text="formattedDate(date, props.lang?.locale ?? '')" />
+    <time :datetime="date" v-text="formattedDate" />
 
     <slot name="after" />
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
+import { localeTags } from "@i18n/ui";
+import { computed } from "vue";
+
 export interface DateProps {
+  /** ISO 8601 date; WPGraphQL `*Gmt` values must go through `toIsoUtc` first. */
   date: string;
-  lang: null | undefined | { locale?: null | string };
+  lang: Lang;
 }
 
-const props = defineProps<DateProps>();
+const { date, lang } = defineProps<DateProps>();
 
-const formattedDate = (date: string, locale: string): string => {
-  const dumpSafariDateFormat = date.replace(/-/g, "/").replace(/T/g, " ");
-
-  if (!locale) locale = "de-DE";
-
-  const formattedLocale = locale.replace(/_/g, "-");
-
-  const dateToFormat = new Date(dumpSafariDateFormat);
-
-  return dateToFormat.toLocaleString(formattedLocale, {
+const formattedDate = computed(() =>
+  new Date(date).toLocaleDateString(localeTags[lang], {
     day: "numeric",
     month: "long",
     year: "numeric",
-  });
-};
+  }),
+);
 </script>

@@ -1,44 +1,27 @@
 ---
+import type { Lang } from "@i18n/ui";
+import type { PostTypeSeoFragmentFragment } from "@/gql/graphql.ts";
 import type { TranslationRoutes } from "@/types/i18n";
 
 // import SetColorMode from "@components/SetColorMode.astro";
 import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-400-normal.woff2";
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl, toSiteOrigin } from "@utils/helpers.ts";
+import { defaultLang } from "@utils/i18n/ui";
+import { rssPathBuilder } from "@utils/i18n/utils";
 import LoadingIndicator from "astro-loading-indicator/component";
-import { SITE_URL } from "astro:env/client";
+import { SITE_URL, WP_API } from "astro:env/client";
 import { IMAGOR_HOST } from "astro:env/server";
 import { ClientRouter } from "astro:transitions";
 
 export interface Props {
-  lang: "de" | "en";
-  seo: Seo;
+  lang: Lang;
+  seo?: null | Seo;
   title: string;
   translationsRoutes: TranslationRoutes;
 }
 
-export interface Seo {
-  canonical?: string;
-  metaDesc?: string;
-  metaRobotsNofollow?: string;
-  metaRobotsNoindex?: string;
-  opengraphAuthor?: string;
-  opengraphDescription?: string;
-  opengraphImage?: {
-    sourceUrl: string;
-  };
-  opengraphModifiedTime?: string;
-  opengraphPublishedTime?: string;
-  opengraphPublisher?: string;
-  opengraphSiteName?: string;
-  opengraphTitle?: string;
-  opengraphType?: string;
-  opengraphUrl?: string;
-  readingTime?: number;
-  title: string;
-  twitterDescription?: string;
-  twitterTitle?: string;
-}
+export type Seo = Partial<PostTypeSeoFragmentFragment>;
 
 const { lang, seo, title, translationsRoutes } = Astro.props;
 
@@ -73,7 +56,7 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
     // multilingual pages.
     Object.keys(translationsRoutes).length > 0 && (
       <link
-        href={new URL(translationsRoutes["de"] || Object.values(translationsRoutes)[0], SITE_URL).toString()}
+        href={new URL(translationsRoutes[defaultLang] || Object.values(translationsRoutes)[0], SITE_URL).toString()}
         hreflang="x-default"
         rel="alternate"
       />
@@ -131,7 +114,7 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
 
   <!-- RSS auto discovery -->
   <link
-    href={new URL(`${lang}/rss.xml`, Astro.site)}
+    href={new URL(rssPathBuilder(lang), Astro.site)}
     rel="alternate"
     title="Web Shaped"
     type="application/rss+xml"
@@ -142,7 +125,7 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
   <link href={`${webmentionUrl}/xmlrpc`} rel="pingback" />
   <link href="//webmention.io" rel="preconnect" />
 
-  <link href="//cms.webshaped.de" rel="preconnect" />
+  <link href={new URL(WP_API).origin} rel="preconnect" />
   <link href="//analytics.webshaped.de" rel="preconnect" />
   <link href={IMAGOR_HOST} rel="preconnect" />
 

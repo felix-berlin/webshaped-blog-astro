@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Modal from "@components/Modal.vue";
 import Search from "@components/Search.vue";
 import SearchIcon from "virtual:icons/lucide/search";
@@ -26,7 +28,7 @@ import { nextTick, onMounted, onUnmounted, ref } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
 
-const props = defineProps<{ lang: "de" | "en" }>();
+const props = defineProps<{ lang: Lang }>();
 const searchId = "main-search";
 const searchVisible = ref(false);
 const { t } = useI18n(() => props.lang);

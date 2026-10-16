@@ -28,11 +28,7 @@
       <div class="c-webmentions__text c-comment__text" v-text="mention.content.text" />
 
       <footer class="c-webmention__footer c-comment__footer">
-        <Date
-          class="c-webmentions__date c-comment__date"
-          :date="mention.published"
-          :lang="{ locale: lang }"
-        >
+        <Date class="c-webmentions__date c-comment__date" :date="mention.published" :lang="lang">
           <template #before>
             {{ t("webmention.posted_on") }}
           </template>
@@ -56,6 +52,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Date from "@components/post/Date.vue";
 import { getHostName } from "@utils/helpers";
 import { socialIcons } from "@utils/socialIcons";
@@ -88,7 +86,7 @@ export interface Webmention {
 
 interface WebmentionsProps {
   index: number;
-  lang: "de" | "en";
+  lang: Lang;
   mention: Webmention;
 }
 

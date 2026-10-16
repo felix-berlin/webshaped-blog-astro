@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import X from "virtual:icons/lucide/x";
 import { onMounted, onUnmounted, ref, watch } from "vue";
 
@@ -23,7 +25,7 @@ import { useI18n } from "@/composables/useI18n";
 export interface ModalProps {
   closeOnClickOutside?: boolean;
   disableScroll?: boolean;
-  lang: "de" | "en";
+  lang: Lang;
   open?: boolean;
   position?: "bottom" | "center" | "top";
   showCloseButton?: boolean;

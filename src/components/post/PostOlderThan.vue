@@ -1,32 +1,30 @@
 <template>
-  <div v-if="getYearDiff(date!, Date.now()) >= showAfterYears" class="c-post-older-than">
+  <div v-if="years >= showAfterYears" class="c-post-older-than">
     <p class="c-post-older-than__text">
-      {{
-        t("post_older_than.text", {
-          years: getYearDiff(date!, Date.now()),
-        })
-      }}
+      {{ t("post_older_than.text", { years }) }}
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { localeStrings } from "@i18n/ui";
+import type { Lang } from "@i18n/ui";
 
-import { useTranslations } from "@utils/i18n/utils";
+import { computed } from "vue";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface PostOlderThanProps {
   date: null | string | undefined;
-  lang: keyof typeof localeStrings;
+  lang: Lang;
   showAfterYears: number;
 }
 
 const { date, lang, showAfterYears } = defineProps<PostOlderThanProps>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 
-const getYearDiff = (date1: number | string, date2: number | string) => {
-  return Math.abs(new Date(date2).getFullYear() - new Date(date1).getFullYear());
-};
+const years = computed(() =>
+  Math.abs(new Date().getFullYear() - new Date(date ?? "").getFullYear()),
+);
 </script>
 
 <style lang="scss">

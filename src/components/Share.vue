@@ -16,6 +16,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import { useShare } from "@vueuse/core";
 import Share2 from "virtual:icons/lucide/share-2";
 import { onMounted, ref } from "vue";
@@ -23,7 +25,7 @@ import { onMounted, ref } from "vue";
 import { useI18n } from "@/composables/useI18n";
 
 export interface ShareProps {
-  lang: "de" | "en";
+  lang: Lang;
   showButton?: boolean;
   text?: string;
   title?: string;

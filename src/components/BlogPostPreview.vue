@@ -16,10 +16,12 @@
 <script setup lang="ts">
 import type { Lang } from "@utils/i18n/ui";
 
-import { postPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { postPathBuilder } from "@utils/i18n/utils";
 import ArrowRight from "virtual:icons/lucide/arrow-right";
 
 import type { GetPostsPreviewQuery } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface BlogPostPreviewProps {
   lang: Lang;
@@ -29,7 +31,7 @@ export interface BlogPostPreviewProps {
 type PostPreview = NonNullable<GetPostsPreviewQuery["posts"]>["nodes"][number];
 
 const { lang, posts } = defineProps<BlogPostPreviewProps>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 
 const postLink = (post: PostPreview): string => {
   return postPathBuilder(post.slug, post?.language?.slug ?? lang);

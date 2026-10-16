@@ -2,8 +2,6 @@
 import "@styles/components/_blog.scss";
 import "@styles/components/_blog-sidebar.scss";
 
-import type { TranslationRoutes } from "@/types/i18n";
-
 import Categories from "@components/Categories.vue";
 import HasTranslations from "@components/HasTranslations.vue";
 import Author from "@components/post/Author.astro";
@@ -16,15 +14,22 @@ import TabDisplay from "@components/tabs/TabDisplay.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { computeConstrainedSize } from "@utils/constrainedImageSize";
 import { toIsoUtc, toJsonLd } from "@utils/helpers";
-import { categoryPathBuilder, getLang, postPathBuilder, useTranslations } from "@utils/i18n/utils";
+import {
+  buildTranslationRoutes,
+  categoryPathBuilder,
+  getLang,
+  postPathBuilder,
+  type TranslationEntry,
+  useTranslations,
+} from "@utils/i18n/utils";
 import { Breadcrumbs } from "astro-breadcrumbs";
 import { Picture } from "astro:assets";
-import { SITE_URL } from "astro:env/client";
+import { LAST_FM_SCROBBLER_API, SITE_URL } from "astro:env/client";
 import ChevronRight from "~icons/lucide/chevron-right";
 
 import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
 
-export interface BlogPost {
+export interface Props {
   content: Post;
   headings?: CoreHeadingFragment[];
 }
@@ -38,7 +43,6 @@ const {
     categories,
     dateGmt,
     featuredImage,
-    language,
     modifiedGmt,
     postId,
     seo,
@@ -47,7 +51,7 @@ const {
     translations,
   },
   headings,
-} = Astro.props as BlogPost;
+} = Astro.props;
 
 const { height: heroHeight, width: heroWidth } = computeConstrainedSize(
   1120,
@@ -108,14 +112,13 @@ const parsedHeadings: ParsedHeading[] =
     })
     .filter((h): h is ParsedHeading => !!h) || [];
 
-const translationSlug = translations?.[0]?.language?.slug;
-const translationPostSlug = translations?.[0]?.slug;
-const translationsRoutes: TranslationRoutes = {
-  [lang]: postPathBuilder(slug, lang),
-  ...(translationSlug && translationPostSlug
-    ? { [translationSlug]: postPathBuilder(translationPostSlug, translationSlug) }
-    : {}),
-};
+const translationsRoutes = buildTranslationRoutes([
+  [lang, postPathBuilder(slug, lang)],
+  ...(translations ?? []).map((translation): TranslationEntry => [
+    translation?.language?.slug,
+    translation?.slug && postPathBuilder(translation.slug, translation.language?.slug ?? ""),
+  ]),
+]);
 
 const authorName = `${author?.node.firstName ?? ""} ${author?.node.lastName ?? ""}`.trim();
 const datePublished = toIsoUtc(dateGmt);
@@ -137,13 +140,13 @@ const articleSchema = {
 ---
 
 <DefaultLayout
-  content={{ language, seo, title }}
+  content={{ seo, title }}
   contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
   <script is:inline type="application/ld+json" set:html={toJsonLd(articleSchema)} slot="head" />
   <!-- LastFM API -->
-  <link href="//last-fm.kasimir.dev" rel="preconnect" slot="head" />
+  <link href={new URL(LAST_FM_SCROBBLER_API).origin} rel="preconnect" slot="head" />
   <!-- Gravatar -->
   <link href="//secure.gravatar.com" rel="preconnect" slot="head" />
   <MobileTableOfContents client:only="vue" headings={parsedHeadings} lang={lang} />

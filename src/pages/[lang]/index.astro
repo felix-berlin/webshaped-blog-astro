@@ -6,11 +6,9 @@ import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
 
-import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument, GetPostsPreviewDocument } from "@/gql/graphql.ts";
-import { PageFieldFragment } from "@services/queries/getPage";
-import type { TranslationRoutes } from "@/types/i18n";
-import { getLang, toLanguageCode } from "@utils/i18n/utils";
+import { pageVariants } from "@services/queries/getPage";
+import { buildTranslationRoutes, getLang, toLanguageCode } from "@utils/i18n/utils";
 
 const lang = getLang(Astro.currentLocale);
 
@@ -19,28 +17,23 @@ const [pagesResponse, postsResponse] = await Promise.all([
   wpQuery(GetPostsPreviewDocument, { first: 6, languages: [toLanguageCode(lang)] }),
 ]);
 
-const indexPageRaw = pagesResponse.pages?.nodes[0];
-const indexPage = indexPageRaw ? useFragment(PageFieldFragment, indexPageRaw) : undefined;
-const translations =
-  indexPageRaw?.translations?.map((translation) => useFragment(PageFieldFragment, translation)) ?? [];
-const allPages = [indexPage, ...translations].filter((page) => page !== undefined);
+const indexPageNode = pagesResponse.pages?.nodes[0];
+const allPages = indexPageNode ? pageVariants(indexPageNode) : [];
 
-const page = allPages.find((candidate) => candidate?.language?.slug === lang);
+const page = allPages.find((candidate) => candidate.language?.slug === lang);
 
 if (!page) return Astro.rewrite("/404");
 
-const translationsRoutes = allPages.reduce<TranslationRoutes>((acc, candidate) => {
-  const langSlug = candidate?.language?.slug as "de" | "en" | undefined;
-  if (langSlug) acc[langSlug] = `/${langSlug}`;
-  return acc;
-}, {});
+const translationsRoutes = buildTranslationRoutes(
+  allPages.map((candidate) => [candidate.language?.slug, `/${candidate.language?.slug}`]),
+);
 
 const posts = postsResponse.posts?.nodes ?? [];
 ---
 
 <DefaultLayout content={page} contentClasses="o-index" translationsRoutes={translationsRoutes}>
   <header class="o-index__header">
-    <h1 class="o-index__headline">{page?.title}</h1>
+    <h1 class="o-index__headline">{page.title}</h1>
   </header>
   <section class="c-blog-posts">
     <BlogPostPreview lang={lang} posts={posts as unknown as BlogPostPreviewProps["posts"]} />

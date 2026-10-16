@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import StarIcon from "virtual:icons/lucide/star";
 import { computed, onMounted, ref } from "vue";
 
@@ -70,7 +72,7 @@ interface GithubRepoSummary {
 }
 
 const mostStarredRepos = ref<GithubRepoSummary[]>([]);
-const props = defineProps<{ lang: "de" | "en" }>();
+const props = defineProps<{ lang: Lang }>();
 const { t } = useI18n(() => props.lang);
 
 const filteredLanguagePercentages = computed(() => {

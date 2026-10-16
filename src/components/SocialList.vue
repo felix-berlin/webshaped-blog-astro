@@ -11,15 +11,13 @@
         :rel="social.rel || 'noopener noreferrer'"
         itemprop="sameAs"
       >
-        <KeepAlive>
-          <component
-            :is="socialIcons[index] ?? null"
-            :class="`c-social-list__icon is-${index}`"
-            :color="social.color || 'currentColor'"
-            :width="social.size || 24"
-            :height="social.size || 24"
-          />
-        </KeepAlive>
+        <component
+          :is="socialIcons[index]"
+          :class="`c-social-list__icon is-${index}`"
+          :color="social.color || 'currentColor'"
+          :width="social.size || 24"
+          :height="social.size || 24"
+        />
       </a>
     </template>
   </div>
@@ -28,8 +26,9 @@
 <script setup lang="ts">
 import type { Lang } from "@utils/i18n/ui";
 
-import { useTranslations } from "@utils/i18n/utils";
 import { socialIcons } from "@utils/socialIcons";
+
+import { useI18n } from "@/composables/useI18n";
 
 export interface SocialItems {
   class?: string;
@@ -60,7 +59,7 @@ export interface SocialListProps {
 
 const { lang, socialItems } = defineProps<SocialListProps>();
 
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>
 
 <style lang="scss">
