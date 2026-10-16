@@ -52,11 +52,12 @@ services:
       SENTRY_PROJECT_ID: ${SENTRY_PROJECT_ID:-}
       SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN:-}
       SENTRY_ENVIRONMENT: ${SENTRY_ENVIRONMENT:-}
+    # Distroless runtime: no shell, and node isn't on PATH.
     healthcheck:
       test:
         [
           "CMD",
-          "node",
+          "/nodejs/bin/node",
           "-e",
           "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
         ]

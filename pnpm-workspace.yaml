@@ -1,5 +1,8 @@
 overrides:
   "@csstools/postcss-private-rule": ^1.1.0
+  # Security: pull in patched transitive versions until upstream bumps them.
+  http-cache-semantics: ^4.3.0 # GHSA, via astro (runtime)
+  handlebars: ^4.7.10 # GHSA, via semantic-release (dev)
 allowBuilds:
   "@infisical/cli": true
   "@parcel/watcher": true

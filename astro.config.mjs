@@ -3,7 +3,6 @@ import vue from "@astrojs/vue";
 import codecovAstroPlugin from "@codecov/astro-plugin";
 // import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
-import spotlightjs from "@spotlightjs/astro";
 import matomo from "astro-matomo";
 import { defineConfig, envField } from "astro/config";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -168,7 +167,6 @@ export default defineConfig({
         excludeReplayIframe: true,
       },
     }),
-    // spotlightjs(),
     codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "web-shaped-bundle",

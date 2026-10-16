@@ -5,6 +5,9 @@ node_modules
 dist
 coverage
 test-results
+playwright-report
+.astro
+*.log
 dev-dist
 tests
 src/tests
@@ -21,3 +24,4 @@ src/tests
 .github
 docs
 openspec
+specs
