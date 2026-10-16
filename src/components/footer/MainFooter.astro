@@ -4,7 +4,6 @@ import GreenHosted from "@components/footer/GreenHosted.vue";
 import Menu from "@components/Menu.vue";
 import SocialList from "@components/SocialList.vue";
 import { getAuthorSocialItems, mapMenuPaths } from "@utils/helpers";
-import "@styles/objects/_footer.scss";
 import { categoryPathBuilder, toLanguageCode, useTranslations } from "@utils/i18n/utils";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
 import Copyright from "~icons/lucide/copyright";
@@ -28,7 +27,7 @@ interface Props {
 const { author, lang } = Astro.props;
 
 const [categoriesResponse, footerMenuItemsResponse] = await Promise.all([
-  wpQueryChrome(GetAllCategoriesDocument, {}),
+  wpQueryChrome(GetAllCategoriesDocument, { languages: [toLanguageCode(lang)] }),
   wpQueryChrome(GetMenuItemsDocument, {
     language: toLanguageCode(lang),
     location: "SECONDARY_MENU",
@@ -72,7 +71,6 @@ const t = useTranslations(lang);
           categories &&
             categories.nodes
               .map((category) => useFragment(CategoryFields, category))
-              .filter((category) => category.language?.slug === lang)
               .map((category) => (
                 <li class="c-menu__item">
                   <a

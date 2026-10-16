@@ -4,6 +4,9 @@ import { WP_API } from "astro:env/client";
 import { WP_AUTH_PASS, WP_AUTH_USER } from "astro:env/server";
 
 const REQUEST_TIMEOUT_MS = 15_000;
+const CHROME_CACHE_TTL_MS = 5 * 60_000;
+
+const AUTHORIZATION = `Basic ${Buffer.from(`${WP_AUTH_USER}:${WP_AUTH_PASS}`).toString("base64")}`;
 
 /**
  * Shared, authenticated urql Client for server-side WPGraphQL requests.
@@ -17,7 +20,8 @@ const REQUEST_TIMEOUT_MS = 15_000;
  *
  * No cacheExchange: this module lives for the whole process and urql's document
  * cache has no TTL, so SSR routes would freeze at their first post-boot fetch.
- * Tradeoff: no request-level dedup either — every SSR render hits WordPress.
+ * Only page chrome gets a short TTL cache (see wpQueryChrome); content queries
+ * always hit WordPress.
  *
  * Not exported: every caller must go through wpQuery/wpQueryChrome to get their
  * no-data/partial-error handling — a caller reaching for the raw client would
@@ -29,7 +33,7 @@ const wpGraphqlClient = new Client({
   // per request — a shared signal would abort every request after the first timeout.
   fetchOptions: () => ({
     headers: {
-      Authorization: `Basic ${Buffer.from(`${WP_AUTH_USER}:${WP_AUTH_PASS}`).toString("base64")}`,
+      Authorization: AUTHORIZATION,
       "Content-Type": "application/json",
     },
     // Without this, a hung cms.webshaped.de leaves the SSR request hanging
@@ -60,18 +64,21 @@ export const wpQuery = async <TData, TVariables extends AnyVariables>(
   variables: TVariables,
 ): Promise<TData> => {
   const result = await wpGraphqlClient.query(query, variables).toPromise();
-  const name = operationName(query as TypedDocumentNode<unknown, AnyVariables>);
+  // Only needed for error messages, so the document isn't walked on the happy path.
+  const name = () => operationName(query as TypedDocumentNode<unknown, AnyVariables>);
 
   if (!result.data) {
     throw new Error(
-      `WPGraphQL "${name}" returned no data (${JSON.stringify(variables)}): ${
+      `WPGraphQL "${name()}" returned no data (${JSON.stringify(variables)}): ${
         result.error?.message ?? "unknown error"
       }`,
     );
   }
 
   if (result.error) {
-    console.error(`WPGraphQL "${name}" partial errors, rendering anyway: ${result.error.message}`);
+    console.error(
+      `WPGraphQL "${name()}" partial errors, rendering anyway: ${result.error.message}`,
+    );
   }
 
   return result.data;
@@ -89,14 +96,31 @@ export const wpQuery = async <TData, TVariables extends AnyVariables>(
  * (a bad WP_AUTH_PASS rotation, a WPGraphQL schema break) behind a blank nav/
  * footer on every page, with a 200 status — console output alone is invisible
  * in production unless someone happens to be tailing container logs.
+ *
+ * Chrome (author, menus, categories) is identical for every request, so outside
+ * dev each result is shared for a few minutes instead of re-fetched for every SSR
+ * render and every prerendered page. Failures aren't cached.
  */
-export const wpQueryChrome = async <TData, TVariables extends AnyVariables>(
+const chromeCache = new Map<string, { expires: number; result: Promise<unknown> }>();
+
+export const wpQueryChrome = <TData, TVariables extends AnyVariables>(
   query: TypedDocumentNode<TData, TVariables>,
   variables: TVariables,
-): Promise<null | TData> =>
-  wpQuery(query, variables).catch((error: unknown) => {
+): Promise<null | TData> => {
+  const key = `${operationName(query as TypedDocumentNode<unknown, AnyVariables>)}:${JSON.stringify(variables)}`;
+  const cached = chromeCache.get(key);
+  if (cached && cached.expires > Date.now()) return cached.result as Promise<null | TData>;
+
+  const result = wpQuery(query, variables).catch((error: unknown) => {
     console.error(`WPGraphQL chrome query failed, rendering without it: ${String(error)}`);
     captureException(error);
+    chromeCache.delete(key);
 
     return null;
   });
+
+  if (!import.meta.env.DEV)
+    chromeCache.set(key, { expires: Date.now() + CHROME_CACHE_TTL_MS, result });
+
+  return result;
+};

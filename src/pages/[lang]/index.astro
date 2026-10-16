@@ -12,7 +12,7 @@ import { buildTranslationRoutes, getLang, toLanguageCode } from "@utils/i18n/uti
 const lang = getLang(Astro.currentLocale);
 
 const [pagesResponse, postsResponse] = await Promise.all([
-  wpQuery(GetPagesBySlugsDocument, { slugs: ["startseite"] }),
+  wpQuery(GetPagesBySlugsDocument, { slugs: ["startseite"], withContent: false }),
   wpQuery(GetPostsPreviewDocument, { first: 6, languages: [toLanguageCode(lang)] }),
 ]);
 

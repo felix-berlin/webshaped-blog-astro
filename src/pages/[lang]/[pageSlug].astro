@@ -76,7 +76,7 @@ const t = useTranslations(lang);
           />
         </header>
 
-        <GithubStats client:only="vue" lang={lang} />
+        <GithubStats client:visible lang={lang} />
       </Fragment>
     ) : (
       <div>

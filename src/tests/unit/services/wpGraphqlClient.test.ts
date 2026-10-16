@@ -152,4 +152,38 @@ describe("wpQueryChrome", () => {
       user: { name: "Felix" },
     });
   });
+
+  describe("outside dev", () => {
+    afterEach(() => vi.unstubAllEnvs());
+
+    it("shares a successful result between calls instead of re-fetching", async () => {
+      vi.stubEnv("DEV", false);
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: { name: "Felix" } } });
+        }),
+      );
+
+      await wpQueryChrome(GetAuthorDocument, { id: "cache-hit" });
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-hit" })).resolves.toEqual({
+        user: { name: "Felix" },
+      });
+      expect(requests).toHaveBeenCalledOnce();
+    });
+
+    it("does not cache a failure", async () => {
+      vi.stubEnv("DEV", false);
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      // Later handlers take precedence: the first request fails, the retry succeeds.
+      server.use(http.all(WP_API, () => HttpResponse.json({ data: { user: { name: "Felix" } } })));
+      server.use(http.all(WP_API, () => HttpResponse.json({ data: null }), { once: true }));
+
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-miss" })).resolves.toBeNull();
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-miss" })).resolves.toEqual({
+        user: { name: "Felix" },
+      });
+    });
+  });
 });

@@ -80,7 +80,7 @@ export const GET = async ({ site }: APIContext) => {
   const [postsResponse, categoriesResponse, pagesResponse] = await Promise.all([
     wpQueryChrome(GetPostsPreviewDocument, { languages: LOCALES.map(toLanguageCode) }),
     wpQueryChrome(GetAllCategoriesDocument, {}),
-    wpQueryChrome(GetPagesBySlugsDocument, { slugs: STATIC_PAGE_SLUGS }),
+    wpQueryChrome(GetPagesBySlugsDocument, { slugs: STATIC_PAGE_SLUGS, withContent: false }),
   ]);
 
   const homeAlternates = [

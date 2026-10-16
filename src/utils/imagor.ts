@@ -36,7 +36,8 @@ export function buildImagorPath(
   const alignmentPrefix = align
     ? `/${align.horizontal ?? "center"}/${align.vertical ?? "middle"}`
     : "";
-  const paddingPrefix = normalizePadding(padding) ? `/${normalizePadding(padding)}` : "";
+  const paddingSpec = normalizePadding(padding);
+  const paddingPrefix = paddingSpec ? `/${paddingSpec}` : "";
   const smartPrefix = smart ? "/smart" : "";
 
   return `${mode}/${width}x${height}${paddingPrefix}${alignmentPrefix}${smartPrefix}/filters:format(${targetFormat}):quality(${targetQuality})${filterSuffix}/${encodeURIComponent(upstreamUrl)}`;

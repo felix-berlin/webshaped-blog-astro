@@ -8,7 +8,7 @@ export const PageFieldFragment = graphql(`
   fragment PageFieldFragment on Page {
     slug
     title
-    content
+    content @include(if: $withContent)
     language {
       code
       locale
@@ -22,7 +22,8 @@ export const PageFieldFragment = graphql(`
 `);
 
 export const GetPagesBySlugs = graphql(`
-  query GetPagesBySlugs($slugs: [String] = []) {
+  # withContent: false skips the page HTML where only title/SEO/language are needed.
+  query GetPagesBySlugs($slugs: [String] = [], $withContent: Boolean = true) {
     pages(where: { nameIn: $slugs }) {
       nodes {
         ...PageFieldFragment
