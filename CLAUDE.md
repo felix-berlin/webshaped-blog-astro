@@ -72,7 +72,7 @@ Written after exactly that leak on 2026-07-31 (twice — Infisical values, then 
 
 ### Local/self-hosted deployment (`compose.yaml`)
 
-`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret; the running container's `environment:` block reads `${VAR:?}` values that Compose fills in from an auto-loaded `.env` in the project directory) — it doesn't call Infisical itself. It brings up two containers: `app` (Node adapter on 4321, `expose`d only) behind `proxy` (nginx on `${HOST_PORT:-80}`), each with a healthcheck.
+`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret; the running container's `environment:` block reads `${VAR:?}` values that Compose fills in from an auto-loaded `.env` in the project directory) — it doesn't call Infisical itself. It brings up two containers: `app` (Node adapter on 4321, `expose`d only) behind `proxy` (nginx on `${HOST_PORT:-80}`), each with a healthcheck. The `app` runtime image is distroless (`gcr.io/distroless/cc-debian12:nonroot`): no shell, so debug with `docker compose logs app`, not `docker compose exec app sh`.
 
 **The two env files are not interchangeable.** The Dockerfile `source`s the build secret in a shell, so values need `%q` quoting; Compose's own `.env` variable-substitution parses values literally and would keep those backslashes. `WP_AUTH_PASS` is a WordPress Application Password with spaces, so getting this wrong truncates it at the first space. `scripts/write-build-env.sh` writes both formats and fails loudly on any empty required var:
 
@@ -109,7 +109,7 @@ Proxied services configured in `dev` at path `/` (verified working):
 | `wordpress` | `cms.webshaped.de/graphql` | Header rewrite, Basic Auth `WP_AUTH_USER`/`_PASS` |
 | `sentry`    | `sentry.io`                | Header rewrite, Bearer `SENTRY_AUTH_TOKEN`        |
 
-The `--set-env WP_AUTH_*=x` dummies in the script exist because the env scrub drops those names, and `astro.config.mjs` declares them `optional: false` — the real credential comes from the proxy, Astro just needs the schema satisfied.
+The `--set-env WP_AUTH_*=x` / `IMAGOR_SECRET=x` dummies in the script exist because the env scrub drops those names, and `astro.config.mjs` declares them `optional: false` — the real credential comes from the proxy, Astro just needs the schema satisfied.
 
 **Verified end to end on 2026-08-02** with CLI 0.43.116 (the sandboxed `run` mode needs ≥ 0.43.115). Inside the sandbox, `GITHUB_TOKEN` is a 40-character placeholder; a request carrying it to `api.github.com` came back `200`, and a `POST` to the WPGraphQL endpoint returned real data rather than the maintenance page. The real values never entered the agent's environment.
 
@@ -148,32 +148,37 @@ Do not add client-side state or interactivity to `.astro` components — create 
 
 ### Directory Structure
 
-| Directory          | Purpose                                                             |
-| ------------------ | ------------------------------------------------------------------- |
-| `src/pages/`       | File-based routing; `[lang]/` for i18n, `api/` for server endpoints |
-| `src/components/`  | Mixed Vue + Astro components                                        |
-| `src/layouts/`     | Page wrappers (`DefaultLayout`, `BlogPost`)                         |
-| `src/features/`    | Feature modules with co-located components, types, and services     |
-| `src/stores/`      | Nanostores atoms (`store.ts`)                                       |
-| `src/composables/` | Vue composables (e.g., `useI18n`)                                   |
-| `src/services/`    | GraphQL queries/mutations + fetch utilities                         |
-| `src/lib/`         | Server-only service clients (e.g. imagor image-proxy signing)       |
-| `src/gql/`         | **Auto-generated — never edit manually**                            |
-| `src/utils/i18n/`  | Translation helpers (`useTranslations`)                             |
-| `src/styles/`      | Global SCSS (ITCSS: base, components, objects, utilities)           |
-| `src/content/`     | Astro content collections — only locale JSON files                  |
-| `src/tests/`       | Unit tests (`unit/`), E2E tests (`e2e/`), MSW mocks                 |
+| Directory          | Purpose                                                                   |
+| ------------------ | ------------------------------------------------------------------------- |
+| `src/pages/`       | File-based routing; `[lang]/` for i18n, `api/` for server endpoints       |
+| `src/components/`  | Mixed Vue + Astro components (`content-blocks/` renders WP editor blocks) |
+| `src/layouts/`     | Page wrappers (`DefaultLayout`, `BlogPost`)                               |
+| `src/stores/`      | Nanostores atoms (`store.ts`)                                             |
+| `src/composables/` | Vue composables (e.g., `useI18n`, `useBodyScrollLock`, `useBreakpoint`)   |
+| `src/services/`    | GraphQL queries/mutations/fragments + `wpGraphqlClient` (`wpQuery`)       |
+| `src/lib/`         | Astro image service (`imagorImageService.ts`)                             |
+| `src/utils/`       | Shared helpers, imagor URL signing, routes, `fetchRawText`                |
+| `src/gql/`         | **Auto-generated — never edit manually**                                  |
+| `src/utils/i18n/`  | Locales, path builders, translation helpers (`useTranslations`)           |
+| `src/styles/`      | Global SCSS (ITCSS: base, components, objects, utilities)                 |
+| `src/content/`     | Locale JSON files only (plain imports, no content collections)            |
+| `src/tests/`       | Unit tests (`unit/`), MSW mocks (`mocks/`), `setup.ts`                    |
 
 **Blog posts come from WordPress GraphQL, not Astro content collections.**
 
 ### Path Aliases
 
 ```typescript
+@/*             → src/*
 @components/*   → src/components/*
 @composables/*  → src/composables/*
+@layouts/*      → src/layouts/*
+@lib/*          → src/lib/*
+@utils/*        → src/utils/*
 @stores/*       → src/stores/*
 @services/*     → src/services/*
 @i18n/*         → src/utils/i18n/*
+@assets/*       → src/assets/*
 ```
 
 ### SCSS Aliases
@@ -203,7 +208,7 @@ Fragment masking is enabled — components can only access fields defined in the
 
 ## State Management
 
-Nanostores atoms in `src/stores/store.ts`: `isDarkMode` (persistent), `loadingState`, `guest` (persistent — comment form data).
+Nanostores atoms in `src/stores/store.ts`: `isDarkMode` and `guest` (comment form data), both persistent and sharing `jsonCodec`.
 
 ```typescript
 import { useStore } from "@nanostores/vue";
@@ -230,7 +235,6 @@ Persistent atoms use encode/decode functions for SSR safety — maintain this pa
 - **`src/gql/` is fully auto-generated** — changes will be overwritten by `gql:generate`.
 - **`pnpm gql:generate` requires `WP_API`** — codegen fetches the live schema; will fail without it.
 - **Dark mode is class-based** (`.dark` on `<html>`), not CSS variables.
-- **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable; `@vite-pwa/astro`'s peer range tops out at Astro 5, still incompatible on Astro 7.
+- **PWA was removed** (no `@vite-pwa/astro` / `vite-plugin-pwa` installed) — re-adding it means installing `@vite-pwa/astro`, whose peer range tops out at Astro 5 and which is incompatible with `@codecov/astro-plugin`.
 - **`pnpm build:strict` is the CI standard** — always type-check before considering a build complete.
-- **`@codecov/astro-plugin`** is not compatible with `@vite-pwa/astro` — keep PWA disabled or migrate to direct Vite plugins.
 - **Imagor (`src/pages/api/imagor.ts`) is for operator-controlled image sources only** (WordPress content images, embedded Wikimedia/Amazon media) — the endpoint itself only enforces HTTPS, a `format` allowlist, and a fixed set of allowed widths/heights (its own filter-string construction, not SSRF). SSRF and host restriction are enforced by the imagor **deployment's own** `HTTP_LOADER_ALLOWED_SOURCES` / `HTTP_LOADER_BLOCK_PRIVATE_NETWORKS` / `_LOOPBACK_NETWORKS` / `_LINK_LOCAL_NETWORKS` / `HTTP_LOADER_HTTPS_ONLY` config, which lives outside this repo — this endpoint has no app-side allowlist or private-IP check of its own, by design. Never route genuinely untrusted, attacker-supplied URLs (e.g. webmention author photos) through it regardless; render those with their original, unproxied `src` instead.

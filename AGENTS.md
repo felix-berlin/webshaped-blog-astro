@@ -49,31 +49,37 @@ Do not add client-side state or interactivity to Astro components; create a Vue 
 
 ### Directory Map
 
-| Directory          | Purpose                                                             |
-| ------------------ | ------------------------------------------------------------------- |
-| `src/pages/`       | File-based routing; `[lang]/` for i18n, `api/` for server endpoints |
-| `src/components/`  | Mixed Vue + Astro components                                        |
-| `src/layouts/`     | Page wrappers (`DefaultLayout`, `BlogPost`)                         |
-| `src/features/`    | Feature modules with co-located components, types, and services     |
-| `src/stores/`      | Nanostores atoms (`store.ts`) and i18n store (`i18n.ts`)            |
-| `src/composables/` | Vue composables (e.g., `useI18n`)                                   |
-| `src/services/`    | GraphQL queries/mutations + fetch utilities                         |
-| `src/gql/`         | **Auto-generated** — DO NOT EDIT manually                           |
-| `src/utils/i18n/`  | Translation helpers (`getLangFromUrl`, `useTranslations`)           |
-| `src/styles/`      | Global SCSS (ITCSS pattern: base, components, objects, utilities)   |
-| `src/content/`     | Astro content collections — only locale JSON files                  |
-| `src/tests/`       | Unit tests (`unit/`), E2E tests (`e2e/`), MSW mocks                 |
+| Directory          | Purpose                                                                   |
+| ------------------ | ------------------------------------------------------------------------- |
+| `src/pages/`       | File-based routing; `[lang]/` for i18n, `api/` for server endpoints       |
+| `src/components/`  | Mixed Vue + Astro components (`content-blocks/` renders WP editor blocks) |
+| `src/layouts/`     | Page wrappers (`DefaultLayout`, `BlogPost`)                               |
+| `src/stores/`      | Nanostores atoms (`store.ts`)                                             |
+| `src/composables/` | Vue composables (e.g., `useI18n`, `useBodyScrollLock`, `useBreakpoint`)   |
+| `src/services/`    | GraphQL queries/mutations/fragments + `wpGraphqlClient` (`wpQuery`)       |
+| `src/lib/`         | Astro image service (`imagorImageService.ts`)                             |
+| `src/utils/`       | Shared helpers, imagor URL signing, routes, `fetchRawText`                |
+| `src/gql/`         | **Auto-generated — never edit manually**                                  |
+| `src/utils/i18n/`  | Locales, path builders, translation helpers (`useTranslations`)           |
+| `src/styles/`      | Global SCSS (ITCSS: base, components, objects, utilities)                 |
+| `src/content/`     | Locale JSON files only (plain imports, no content collections)            |
+| `src/tests/`       | Unit tests (`unit/`), MSW mocks (`mocks/`), `setup.ts`                    |
 
 **Blog posts come from WordPress GraphQL, not Astro content collections.**
 
 ### Path Aliases (tsconfig)
 
 ```typescript
+@/*             → src/*
 @components/*   → src/components/*
 @composables/*  → src/composables/*
+@layouts/*      → src/layouts/*
+@lib/*          → src/lib/*
+@utils/*        → src/utils/*
 @stores/*       → src/stores/*
 @services/*     → src/services/*
 @i18n/*         → src/utils/i18n/*
+@assets/*       → src/assets/*
 ```
 
 ## GraphQL Workflow
@@ -95,12 +101,12 @@ The `pnpm gql:generate` command **requires `WP_API` to be set** in `.env` — it
 - Languages: `de` (default), `en`
 - URL structure: `/de/...` and `/en/...`
 - Locale files: `src/content/i18n/de-DE.json` and `en-US.json`
-- In Astro: use `getLangFromUrl(url)` + `useTranslations(lang)` from `@i18n/utils`
+- In Astro: use `Astro.currentLocale` + `useTranslations(lang)` from `@i18n/utils`
 - In Vue: use the `useI18n()` composable from `@composables/useI18n`
 
 ## State Management
 
-Nanostores atoms in `src/stores/store.ts`: `currentLanguage`, `isDarkMode` (persistent), `loadingState`, `guest` (persistent — comment form data).
+Nanostores atoms in `src/stores/store.ts`: `isDarkMode` and `guest` (comment form data), both persistent and sharing `jsonCodec`.
 
 ```typescript
 import { useStore } from "@nanostores/vue";
@@ -170,9 +176,9 @@ Sass utility library: `@felix_berlin/sass-butler` (imported as `@sass-butler/*`)
 - **`src/gql/` is fully auto-generated** — changes will be overwritten by `gql:generate`.
 - **`pnpm gql:generate` requires `WP_API` to be set** — codegen fetches the live schema.
 - **Dark mode is class-based** (`.dark` on `<html>`), not CSS variables.
-- **PWA is disabled** (commented out in `astro.config.mjs`) — do not re-enable without testing manifest issues.
+- **PWA was removed** (no `@vite-pwa/astro` / `vite-plugin-pwa` installed) — re-adding it means installing `@vite-pwa/astro`, whose peer range tops out at Astro 5.
 - **`pnpm build:strict` is the CI standard** — always type-check before considering a build complete.
-- **Astro 6 compatibility**: `@codecov/astro-plugin` and `@vite-pwa/astro` are not compatible — keep disabled or migrate to direct Vite plugins.
+- **`@codecov/astro-plugin`** is not compatible with `@vite-pwa/astro` — another reason PWA stays out.
 
 ## Troubleshooting
 
