@@ -2,7 +2,6 @@
 import "@styles/components/_blog-posts.scss";
 import "@styles/objects/_blog-listing.scss";
 import BlogPostPreview from "@components/BlogPostPreview.vue";
-import type { BlogPostPreviewProps } from "@components/BlogPostPreview.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
 
@@ -36,6 +35,6 @@ const posts = postsResponse.posts?.nodes ?? [];
     <h1 class="o-index__headline">{page.title}</h1>
   </header>
   <section class="c-blog-posts">
-    <BlogPostPreview lang={lang} posts={posts as unknown as BlogPostPreviewProps["posts"]} />
+    <BlogPostPreview lang={lang} posts={posts} />
   </section>
 </DefaultLayout>

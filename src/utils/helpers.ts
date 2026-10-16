@@ -1,14 +1,17 @@
 import type { Lang } from "@i18n/ui";
 
+import { UserSocials } from "@services/fragments/fragments";
 import slugify from "slugify";
 
-import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
+import type { GetMenuByIdQuery, UserSocialsFragment } from "@/gql/graphql.ts";
+
+import { type FragmentType, useFragment } from "@/gql";
 
 type Maybe<T> = null | T | undefined;
 type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
 type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
-type SeoUserSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
-type SocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
+type SeoUserSocial = NonNullable<NonNullable<UserSocialsFragment["seo"]>["social"]>;
+type SocialAdvanced = NonNullable<UserSocialsFragment["socialAdvanced"]>;
 
 /**
  * Checks if the given string is HTML
@@ -247,27 +250,27 @@ export const getSocialIconData = (
   for (const [key, value] of Object.entries(socials)) {
     if (!value || key === "__typename") continue;
 
-    socialItems[key] = { url: value, ...iconStyles, ...additionalData[key] };
+    socialItems[key] = { url: String(value), ...iconStyles, ...additionalData[key] };
   }
 
   return socialItems;
 };
 
-type AuthorWithSocials =
-  | null
-  | undefined
-  | { seo?: null | { social?: null | SeoUserSocial }; socialAdvanced?: null | SocialAdvanced };
-
 // GitHub and Mastodon link back to this site, so they get rel="me" (IndieWeb identity).
 const REL_ME_SOCIALS = { github: { rel: "me" }, mastodon: { rel: "me" } };
 
 /** Social icon data for an author's Yoast socials plus the custom GitHub/Mastodon fields. */
-export const getAuthorSocialItems = (author: AuthorWithSocials, size: number): SocialItems =>
-  getSocialIconData(
-    { ...author?.seo?.social, ...author?.socialAdvanced } as SeoUserSocial | SocialAdvanced,
+export const getAuthorSocialItems = (
+  author: FragmentType<typeof UserSocials> | null | undefined,
+  size: number,
+): SocialItems => {
+  const socials = useFragment(UserSocials, author);
+  return getSocialIconData(
+    { ...socials?.seo?.social, ...socials?.socialAdvanced } as SeoUserSocial | SocialAdvanced,
     { size },
     REL_ME_SOCIALS,
   );
+};
 
 export const removeLocaleCode = (category: null | string) => {
   if (!category) return "";

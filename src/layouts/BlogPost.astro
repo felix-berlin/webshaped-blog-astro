@@ -27,11 +27,14 @@ import { Picture } from "astro:assets";
 import { LAST_FM_SCROBBLER_API, SITE_URL } from "astro:env/client";
 import ChevronRight from "~icons/lucide/chevron-right";
 
-import type { CoreHeadingFragment, GetAllPostsQuery } from "@/gql/graphql.ts";
+import { useFragment } from "@/gql";
+import type { GetAllPostsQuery } from "@/gql/graphql.ts";
+import type { TocHeading } from "@services/fragments/blockFragments";
+import { PostTypeSeoFragment } from "@services/fragments/fragments";
 
 export interface Props {
   content: Post;
-  headings?: CoreHeadingFragment[];
+  headings: TocHeading[];
 }
 
 type Post = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
@@ -94,24 +97,6 @@ const createBreadcrumbItems = () => {
   return items;
 };
 
-interface ParsedHeading {
-  content: string;
-  level: number;
-}
-
-// create new array with allready parsed JSON and only the headline.
-const parsedHeadings: ParsedHeading[] =
-  headings
-    ?.map((heading) => {
-      const headlineContent = heading?.attributes;
-      if (!headlineContent || typeof headlineContent.content !== "string") return undefined;
-      return {
-        content: headlineContent.content,
-        level: headlineContent.level,
-      };
-    })
-    .filter((h): h is ParsedHeading => !!h) || [];
-
 const translationsRoutes = buildTranslationRoutes([
   [lang, postPathBuilder(slug, lang)],
   ...(translations ?? []).map((translation): TranslationEntry => [
@@ -140,7 +125,7 @@ const articleSchema = {
 ---
 
 <DefaultLayout
-  content={{ seo, title }}
+  content={{ seo: useFragment(PostTypeSeoFragment, seo), title }}
   contentClasses={["c-blog h-entry"]}
   translationsRoutes={translationsRoutes}
 >
@@ -149,7 +134,7 @@ const articleSchema = {
   <link href={new URL(LAST_FM_SCROBBLER_API).origin} rel="preconnect" slot="head" />
   <!-- Gravatar -->
   <link href="//secure.gravatar.com" rel="preconnect" slot="head" />
-  <MobileTableOfContents client:only="vue" headings={parsedHeadings} lang={lang} />
+  <MobileTableOfContents client:only="vue" headings={headings} lang={lang} />
 
   <Breadcrumbs crumbs={createBreadcrumbItems()} indexText="home">
     <ChevronRight height="20" slot="separator" width="20" />
@@ -197,7 +182,7 @@ const articleSchema = {
       <h2 class="c-blog-sidebar__headline is-toc">
         {t("blog.table_of_contents")}
       </h2>
-      <TableOfContents client:media="(min-width: 64.0625rem)" headings={parsedHeadings} tocId="tableOfContents" />
+      <TableOfContents client:media="(min-width: 64.0625rem)" headings={headings} tocId="tableOfContents" />
     </div>
   </aside>
 </DefaultLayout>

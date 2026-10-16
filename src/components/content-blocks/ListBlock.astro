@@ -1,0 +1,45 @@
+---
+import { CoreListItem } from "@services/fragments/blockFragments";
+
+import { type FragmentType, useFragment } from "@/gql";
+
+type ListItem = FragmentType<typeof CoreListItem> & { innerBlocks?: Array<null | object> | null };
+
+/** A CoreList block, or the list nested inside one of its items (one level, see CoreList). */
+interface Props {
+  block: {
+    attributes?: null | { ordered?: boolean | null };
+    innerBlocks?: Array<ListItem | null> | null;
+  };
+}
+
+const { block } = Astro.props;
+
+const ordered = !!block.attributes?.ordered;
+const Tag = ordered ? "ol" : "ul";
+
+const items = (block.innerBlocks ?? []).flatMap((item) =>
+  item
+    ? [
+        {
+          content: useFragment(CoreListItem, item).attributes?.content,
+          // Only nested CoreList blocks select fields, so any other inner block is an empty object.
+          nested: item.innerBlocks?.find((inner) => inner && "attributes" in inner) as
+            | Props["block"]
+            | undefined,
+        },
+      ]
+    : [],
+);
+---
+
+<Tag class:list={["c-blocks__list", `c-blocks__list--${ordered ? "ordered" : "unordered"}`]}>
+  {
+    items.map(({ content, nested }) => (
+      <li class="c-blocks__list-item">
+        <span set:html={content} />
+        {nested && <Astro.self block={nested} />}
+      </li>
+    ))
+  }
+</Tag>

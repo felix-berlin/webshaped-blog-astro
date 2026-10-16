@@ -1,17 +1,17 @@
-// @ts-ignore: Unresolved import
 import MobileTableOfContents from "@components/post/MobileTableOfContents.vue";
+import { tocHeadings } from "@services/fragments/blockFragments";
 import { windowWidth } from "@stores/store";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe, beforeEach } from "vitest";
+
+const heading = (content: string, level: number) =>
+  tocHeadings([{ name: "core/heading", attributes: { content, level } } as never])[0];
 
 beforeEach(() => {
   windowWidth.set(800);
 });
 
-const headings = [
-  { content: "Introduction", level: 2 },
-  { content: "Getting Started", level: 3 },
-];
+const headings = [heading("Introduction", 2), heading("Getting Started", 3)];
 
 describe("MobileTableOfContents.vue", () => {
   it("renders nav when windowWidth < 1024", () => {

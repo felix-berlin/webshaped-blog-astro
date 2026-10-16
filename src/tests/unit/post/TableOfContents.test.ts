@@ -1,12 +1,15 @@
-// @ts-ignore: Unresolved import
 import TableOfContents from "@components/post/TableOfContents.vue";
+import { tocHeadings } from "@services/fragments/blockFragments";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe, vi } from "vitest";
 
+const heading = (content: string, level: number) =>
+  tocHeadings([{ name: "core/heading", attributes: { content, level } } as never])[0];
+
 const headings = [
-  { content: "Introduction", level: 2 },
-  { content: "Getting Started", level: 2 },
-  { content: "Advanced Topics", level: 3 },
+  heading("Introduction", 2),
+  heading("Getting Started", 2),
+  heading("Advanced Topics", 3),
 ];
 
 describe("TableOfContents.vue", () => {
@@ -35,7 +38,7 @@ describe("TableOfContents.vue", () => {
 
   it("creates correct href from plain text heading", () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Hello World", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Hello World", 2)], tocId: "toc" },
     });
     const link = wrapper.find("a");
     expect(link.attributes("href")).toBe("#hello-world");
@@ -43,7 +46,7 @@ describe("TableOfContents.vue", () => {
 
   it("creates correct href from HTML heading", () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "<em>Test</em>", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("<em>Test</em>", 2)], tocId: "toc" },
     });
     const link = wrapper.find("a");
     expect(link.attributes("href")).toBe("#Test");
@@ -52,10 +55,7 @@ describe("TableOfContents.vue", () => {
   it("adds depth class to links", () => {
     const wrapper = mount(TableOfContents, {
       props: {
-        headings: [
-          { content: "H2 heading", level: 2 },
-          { content: "H3 heading", level: 3 },
-        ],
+        headings: [heading("H2 heading", 2), heading("H3 heading", 3)],
         tocId: "toc",
       },
     });
@@ -77,7 +77,7 @@ describe("TableOfContents.vue", () => {
 
   it("emits tocLinkClicked when a link is clicked", async () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Hello", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Hello", 2)], tocId: "toc" },
     });
     await wrapper.find("a").trigger("click");
     expect(wrapper.emitted("tocLinkClicked")).toBeTruthy();
@@ -85,7 +85,7 @@ describe("TableOfContents.vue", () => {
 
   it("isActiveHeadline returns false for non-active heading", () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Test Heading", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Test Heading", 2)], tocId: "toc" },
     });
     const link = wrapper.find("a");
     expect(link.classes()).not.toContain("is-active");
@@ -100,7 +100,7 @@ describe("TableOfContents.vue", () => {
 
   it("marks the link active when activeHeadlineId matches", async () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Hello World", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Hello World", 2)], tocId: "toc" },
     });
     wrapper.vm.activeHeadlineId = "hello-world";
     await wrapper.vm.$nextTick();
@@ -109,7 +109,7 @@ describe("TableOfContents.vue", () => {
 
   it("handleIntersect sets active headline when entry is intersecting", async () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Section", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Section", 2)], tocId: "toc" },
       attachTo: document.body,
     });
     const mockEl = document.createElement("h2");
@@ -130,7 +130,7 @@ describe("TableOfContents.vue", () => {
 
   it("handleIntersect skips non-intersecting entries", async () => {
     const wrapper = mount(TableOfContents, {
-      props: { headings: [{ content: "Section", level: 2 }], tocId: "toc" },
+      props: { headings: [heading("Section", 2)], tocId: "toc" },
     });
     const mockEl = document.createElement("h2");
     mockEl.id = "section";
@@ -142,7 +142,16 @@ describe("TableOfContents.vue", () => {
     expect(wrapper.vm.activeHeadlineId).toBe("other");
   });
 
-  it("observes headings in .c-blog__post on mount (covers line 104)", () => {
+  it("observes the post's h2/h3 headings on mount", () => {
+    const observe = vi.fn();
+    const OriginalObserver = globalThis.IntersectionObserver;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        observe = observe;
+        disconnect = vi.fn();
+      },
+    );
     document.body.innerHTML = `
       <div class="c-blog__post">
         <h2 id="intro">Introduction</h2>
@@ -153,9 +162,9 @@ describe("TableOfContents.vue", () => {
       props: { headings, tocId: "toc" },
       attachTo: document.body,
     });
-    const observerInstance = wrapper.vm.observer as any;
-    expect(observerInstance?.observe).toHaveBeenCalled();
+    expect(observe).toHaveBeenCalledTimes(2);
     wrapper.unmount();
     document.body.innerHTML = "";
+    vi.stubGlobal("IntersectionObserver", OriginalObserver);
   });
 });

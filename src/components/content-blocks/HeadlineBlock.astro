@@ -1,0 +1,20 @@
+---
+import { headingId, isHtml } from "@utils/helpers";
+import he from "he";
+
+import type { CoreHeadingFragment } from "@/gql/graphql.ts";
+
+interface Props {
+  block: CoreHeadingFragment;
+}
+
+const { block } = Astro.props;
+
+const headline = block.attributes?.content ?? "";
+const Tag = `h${block.attributes?.level ?? 2}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+const hasHtml = isHtml(headline);
+---
+
+<Tag class={`c-blocks__heading c-blocks__heading--${block.attributes?.level}`} id={headingId(headline)}>
+  {hasHtml ? <span set:html={headline} /> : he.decode(headline)}
+</Tag>

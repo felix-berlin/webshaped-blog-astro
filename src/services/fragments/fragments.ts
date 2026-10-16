@@ -24,25 +24,24 @@ export const PostTypeSeoFragment = graphql(`
   }
 `);
 
-export const CommentDetails = graphql(`
-  fragment CommentDetails on Comment {
-    content
-    dateGmt
-    id
-    parentId
-    commentId
-    author {
-      node {
-        name
-        id
-        avatar {
-          foundAvatar
-          default
-          height
-          width
-          url
-        }
+export const UserSocials = graphql(`
+  fragment UserSocials on User {
+    seo {
+      social {
+        facebook
+        instagram
+        linkedIn
+        mySpace
+        pinterest
+        soundCloud
+        twitter
+        wikipedia
+        youTube
       }
+    }
+    socialAdvanced {
+      github
+      mastodon
     }
   }
 `);

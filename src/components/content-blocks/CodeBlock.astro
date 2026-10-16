@@ -1,0 +1,22 @@
+---
+import type { CodeLanguage } from "astro";
+
+import { Code } from "astro/components";
+
+interface Props {
+  code: string;
+  /** Free-form language name from the CMS; Shiki falls back to plain text for unknown ones. */
+  lang?: null | string;
+}
+
+const { code, lang } = Astro.props;
+---
+
+<div class="c-blocks__code">
+  <Code
+    code={code}
+    lang={(lang ?? undefined) as CodeLanguage | undefined}
+    themes={{ dark: "material-theme-palenight", light: "material-theme-lighter" }}
+    wrap
+  />
+</div>

@@ -5,7 +5,6 @@ import '@styles/components/_blog-posts.scss';
 import type { GetStaticPaths, InferGetStaticParamsType, PaginateFunction } from 'astro';
 
 import BlogPostPreview from '@components/BlogPostPreview.vue';
-import type { BlogPostPreviewProps } from '@components/BlogPostPreview.vue';
 import Pagination from '@components/Pagination.vue';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
 import type { Lang } from '@i18n/ui';
@@ -74,7 +73,7 @@ const translationsRoutes = buildTranslationRoutes(
     <h1 class='o-category__headline'>{content.title}</h1>
   </header>
   <section class='c-blog-posts'>
-    <BlogPostPreview lang={lang} posts={page.data as unknown as BlogPostPreviewProps['posts']} />
+    <BlogPostPreview lang={lang} posts={page.data} />
   </section>
   <Pagination lang={lang} page={page} slug={slug} />
 </DefaultLayout>

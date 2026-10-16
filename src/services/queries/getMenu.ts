@@ -1,10 +1,5 @@
 import { graphql } from "@/gql";
 
-/**
- * ID 2 = DE
- * ID 125 = EN
- */
-
 export const GetMenuItems = graphql(`
   query GetMenuItems(
     $language: LanguageCodeFilterEnum = DE
@@ -27,13 +22,7 @@ export const GetMenuItems = graphql(`
   }
 `);
 
-/**
- * GetMenuById
- *
- * Primary menu IDs:
- * 2 = DE
- * 125 = EN
- */
+/** Menu IDs per language: see MENU_ID_BY_LANG in src/utils/helpers.ts. */
 export const GetMenuById = graphql(`
   query GetMenuById($id: ID = "") {
     menu(idType: DATABASE_ID, id: $id) {

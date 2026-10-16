@@ -46,7 +46,7 @@ const toggleButton = useTemplateRef("toggleButton");
 const activeHeadlineText = ref("");
 const mobileToc = useTemplateRef("mobileToc");
 
-const currentHeadline = (event: string) => (activeHeadlineText.value = event);
+const currentHeadline = (text: null | string) => (activeHeadlineText.value = text ?? "");
 
 const closeDropdown = () => {
   if (!toggleButton.value) return;

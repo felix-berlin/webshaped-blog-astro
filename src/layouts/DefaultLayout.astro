@@ -14,7 +14,9 @@ import { getLang } from "@utils/i18n/utils";
 import { toJsonLd } from "@utils/helpers";
 import { SITE_URL } from "astro:env/client";
 
+import { useFragment } from "@/gql";
 import { GetAuthorDocument } from "@/gql/graphql.ts";
+import { UserSocials } from "@services/fragments/fragments";
 import type { TranslationRoutes } from "@/types/i18n";
 
 export interface Props {
@@ -40,8 +42,9 @@ const lang = getLang(Astro.currentLocale);
 // Person/WebSite entity graph and the footer social links share one request.
 const authorResponse = await wpQueryChrome(GetAuthorDocument, {});
 const author = authorResponse?.user;
+const socialAdvanced = useFragment(UserSocials, author)?.socialAdvanced;
 
-const sameAs = [author?.socialAdvanced?.github, author?.socialAdvanced?.mastodon].filter(
+const sameAs = [socialAdvanced?.github, socialAdvanced?.mastodon].filter(
   (url): url is string => Boolean(url),
 );
 

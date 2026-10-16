@@ -1,45 +1,15 @@
 ---
-// Styles
 import "@styles/components/_blocks.scss";
 import "@styles/plugins/shiki.scss";
 
-import type { CodeLanguage, GetStaticPaths, InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import type { GetStaticPaths } from "astro";
 
-import ButtonsBlock from "@components/content-blocks/ButtonsBlock.vue";
-import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
-import DetailsBlock from "@components/content-blocks/DetailsBlock.vue";
-import type { DetailsBlockProps } from "@components/content-blocks/DetailsBlock.vue";
-import FigureBlock from "@components/content-blocks/FigureBlock.astro";
-import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
-import HeadlineBlock from "@components/content-blocks/HeadlineBlock.vue";
-import ListBlock from "@components/content-blocks/ListBlock.vue";
-import type { ListBlockProps } from "@components/content-blocks/ListBlock.vue";
-import ParagraphBlock from "@components/content-blocks/ParagraphBlock.vue";
-// Components
+import Blocks from "@components/content-blocks/Blocks.astro";
 import BlogPost from "@layouts/BlogPost.astro";
-import { Code } from "astro/components";
-import he from "he";
+import { tocHeadings } from "@services/fragments/blockFragments";
 import { wpQuery } from "@services/wpGraphqlClient";
-import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
-import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
-import { useFragment } from "@/gql";
-import type {
-  CoreButtonsFragment,
-  CoreHeadingFragment,
-  CoreImageFragment,
-  CoreParagraphFragment,
-} from "@/gql/graphql.ts";
 import { GetAllPostsDocument } from "@/gql/graphql.ts";
-import {
-  CoreButtons,
-  CoreCode,
-  CoreDetails,
-  CoreHeading,
-  CoreImage,
-  CoreList,
-  CoreParagraph,
-} from "@services/fragments/blockFragments";
 
 export const prerender = true;
 
@@ -47,102 +17,18 @@ export const getStaticPaths = (async () => {
   const postsResponse = await wpQuery(GetAllPostsDocument, { size: 90 });
 
   // Posts without slugs happen mostly on draft posts
-  const posts = postsResponse.posts?.nodes.filter((post) => post?.slug);
-
-  if (!posts) {
-    return [];
-  }
-
-  return posts.map((post) => {
-    return {
-      params: {
-        lang: post?.language?.slug ?? undefined,
-        postSlug: post.slug ?? undefined,
-      },
-      props: {
-        post: post,
-      },
-    };
-  });
+  return (postsResponse.posts?.nodes ?? [])
+    .filter((post) => post.slug)
+    .map((post) => ({
+      params: { lang: post.language?.slug ?? undefined, postSlug: post.slug ?? undefined },
+      props: { post },
+    }));
 }) satisfies GetStaticPaths;
 
-type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
-
-const { lang, postSlug } = Astro.params as Params;
 const { post } = Astro.props;
-
-const isCoreHeading = (block: unknown): block is CoreHeadingFragment => {
-  if (!block || typeof block !== "object") {
-    return false;
-  }
-
-  const headingBlock = block as {
-    attributes?: {
-      level?: number;
-    };
-    name?: string;
-  };
-
-  return (
-    headingBlock.name === "core/heading" &&
-    (headingBlock.attributes?.level === 2 || headingBlock.attributes?.level === 3)
-  );
-};
-
-const headings = post?.editorBlocks?.filter(isCoreHeading) as unknown as CoreHeadingFragment[];
+const blocks = post.editorBlocks ?? [];
 ---
 
-<BlogPost content={post} headings={headings}>
-  {
-    post?.editorBlocks?.map((block) => {
-      if (!block) return null;
-
-      if (block.name === "core/paragraph") {
-        return <ParagraphBlock block={useFragment(CoreParagraph, block as never) as CoreParagraphFragment} />;
-      }
-      if (block.name === "core/heading") {
-        return <HeadlineBlock block={useFragment(CoreHeading, block as never) as CoreHeadingFragment} />;
-      }
-      if (block.name === "core/image") {
-        return <FigureBlock block={useFragment(CoreImage, block as never) as CoreImageFragment} />;
-      }
-      if (block.name === "core/buttons") {
-        return <ButtonsBlock block={useFragment(CoreButtons, block as never) as CoreButtonsFragment} />;
-      }
-      if (block.name === "core/list") {
-        return <ListBlock block={useFragment(CoreList, block as never) as unknown as ListBlockProps["block"]} />;
-      }
-      if (block.name === "core/details") {
-        return (
-          <DetailsBlock block={useFragment(CoreDetails(""), block as never) as unknown as DetailsBlockProps["block"]} />
-        );
-      }
-      if (block.name === "acf/github-raw-data") {
-        return <GitHubRawData block={block} />;
-      }
-      if (block.name === "acf/code-highlighting") {
-        return <CodeHighlighting block={block} />;
-      }
-      if (block.name === "core/code") {
-        const codeBlock = useFragment(CoreCode, block as never);
-        return (
-          <div class="c-blocks__code">
-            <Code
-              code={he.decode(codeBlock.attributes?.content || "")}
-              lang={(codeBlock.attributes?.className ?? undefined) as CodeLanguage | undefined}
-              themes={{
-                dark: { ...materialThemePalenight, type: materialThemePalenight.type as "dark" },
-                light: { ...materialThemeLighter, type: materialThemeLighter.type as "light" },
-              }}
-              wrap
-            />
-          </div>
-        );
-      } else {
-        const rawBlock = block as unknown as { originalContent?: string | null };
-        return <Fragment set:html={rawBlock.originalContent} />;
-      }
-    })
-  }
+<BlogPost content={post} headings={tocHeadings(blocks)}>
+  <Blocks blocks={blocks} />
 </BlogPost>
