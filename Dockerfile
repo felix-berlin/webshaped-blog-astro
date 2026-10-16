@@ -25,11 +25,13 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
-# Distroless: same Node major and Debian release as the build stages, but no
-# shell, package manager, npm/yarn or setuid binaries — a far smaller image and
+# Distroless runtime: only glibc/libstdc++ plus the Node binary from the official
+# (digest-pinned, Renovate-updated) image above — same Node release as the build,
+# but no shell, package manager, npm/yarn or setuid binaries. Far smaller image and
 # attack surface. Runs as the unprivileged `nonroot` user (uid 65532); the app
 # files stay root-owned, so the process can read but not modify them.
-FROM gcr.io/distroless/nodejs24-debian12:nonroot@sha256:14d42e2511532589a7c7e01a753667a74fcc96266e137e8125006b87b0c32d0a AS runtime
+FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57b217585af0786db3845d1f0ec1a0dd182f AS runtime
+COPY --from=base /usr/local/bin/node /usr/local/bin/node
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -40,11 +42,10 @@ ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
 
-# No shell in distroless, so call node by its absolute path (it isn't on PATH).
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD ["/nodejs/bin/node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+  CMD ["node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 
 # Already the :nonroot image's default; stated so scanners and readers see it.
 USER nonroot
-# The image's entrypoint is node itself.
-CMD ["./dist/server/entry.mjs"]
+# Exec form only: there is no shell to run a CMD string.
+CMD ["node", "./dist/server/entry.mjs"]
