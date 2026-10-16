@@ -1,6 +1,6 @@
 ---
 import { headingId, isHtml } from "@utils/helpers";
-import he from "he";
+import { decode } from "he";
 
 import type { CoreHeadingFragment } from "@/gql/graphql.ts";
 
@@ -16,5 +16,5 @@ const hasHtml = isHtml(headline);
 ---
 
 <Tag class={`c-blocks__heading c-blocks__heading--${block.attributes?.level}`} id={headingId(headline)}>
-  {hasHtml ? <span set:html={headline} /> : he.decode(headline)}
+  {hasHtml ? <span set:html={headline} /> : decode(headline)}
 </Tag>

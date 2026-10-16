@@ -100,7 +100,7 @@ $langs: (
     gap: 0.75rem;
     transition: all 0.2s ease-in-out;
 
-    @include butler-mx.hover {
+    @include butler-mx.hover-focus {
       transform: scale(1.02);
     }
   }

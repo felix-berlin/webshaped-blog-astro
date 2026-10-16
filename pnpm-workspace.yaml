@@ -22,7 +22,6 @@ minimumReleaseAgeExclude:
   - astro@7.2.0 || 7.2.2
   - rollup-plugin-visualizer@7.1.1
   - "@faker-js/faker@10.6.0"
-  - tm-themes@1.12.6
   - "@csstools/cascade-layer-name-parser@3.0.2"
   - "@csstools/css-calc@3.4.2"
   - "@csstools/css-color-parser@4.2.5"

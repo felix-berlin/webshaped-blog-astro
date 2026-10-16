@@ -21,7 +21,7 @@ import {
   CoreList,
   CoreParagraph,
 } from "@services/fragments/blockFragments";
-import he from "he";
+import { decode } from "he";
 
 import { useFragment } from "@/gql";
 
@@ -54,7 +54,7 @@ const resolved = blocks.flatMap((block): ResolvedBlock[] => {
 
   if (block.name === "core/code") {
     const { attributes } = useFragment(CoreCode, block as never);
-    return [{ code: he.decode(attributes?.content ?? ""), lang: attributes?.className }];
+    return [{ code: decode(attributes?.content ?? ""), lang: attributes?.className }];
   }
 
   const entry = BLOCKS[block.name as keyof typeof BLOCKS];

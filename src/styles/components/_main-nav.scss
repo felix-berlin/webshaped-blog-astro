@@ -117,7 +117,7 @@
       @include mx.breakpoint("sm") {
         --size-font: 18px;
       }
-      @include butler-mx.hover {
+      @include butler-mx.hover-focus {
         text-decoration: underline;
       }
 

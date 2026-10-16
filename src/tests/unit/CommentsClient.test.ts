@@ -1,10 +1,13 @@
 import CommentsClient from "@components/comments/CommentsClient.vue";
 import { mount } from "@vue/test-utils";
-import { graphql, HttpResponse } from "msw";
+import { HttpResponse } from "msw";
+import { graphql } from "msw/graphql";
 import { it, expect, describe, vi, beforeEach } from "vitest";
 
 import { server } from "@/tests/mocks/node";
 
+// Same endpoint the urql client in src/tests/setup.ts talks to.
+const wordpress = graphql.link("https://cms.webshaped.test/graphql");
 const requests = vi.fn();
 
 const commentNode = (id: string, content: string) => ({
@@ -35,7 +38,7 @@ const page = (ids: string[], hasNextPage: boolean, endCursor: string) => ({
 
 const mockComments = (pages: Record<string, ReturnType<typeof page>>) =>
   server.use(
-    graphql.query("GetCommentsById", ({ variables }) => {
+    wordpress.query("GetCommentsById", ({ variables }) => {
       requests(variables);
       return HttpResponse.json({ data: pages[variables.after ?? ""] });
     }),

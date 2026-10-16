@@ -30,13 +30,7 @@
       "@styles/*": ["./src/styles/*"],
       "@/*": ["./src/*"]
     },
-    "types": [
-      "vitest/globals",
-      "unplugin-icons/types/astro",
-      "unplugin-icons/types/vue",
-      "vite-plugin-pwa/client",
-      "vite-plugin-pwa/info"
-    ],
+    "types": ["vitest/globals", "unplugin-icons/types/astro", "unplugin-icons/types/vue"],
     // https://bobbyhadz.com/blog/typescript-module-can-only-be-default-imported-esmoduleinterop
     "esModuleInterop": true,
     "plugins": [
