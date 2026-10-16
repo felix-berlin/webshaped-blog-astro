@@ -155,9 +155,10 @@ export default defineConfig({
     // }),
     sentry({
       telemetry: false,
-      sourceMapsUploadOptions: {
-        project: SENTRY_PROJECT_ID,
-        authToken: SENTRY_AUTH_TOKEN,
+      // v11 removed `sourceMapsUploadOptions` (silently ignored, so nothing was uploaded).
+      project: SENTRY_PROJECT_ID,
+      authToken: SENTRY_AUTH_TOKEN,
+      sourcemaps: {
         filesToDeleteAfterUpload: ["dist/**/*.map"],
       },
       debug: false,
