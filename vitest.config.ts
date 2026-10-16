@@ -40,8 +40,6 @@ export default getViteConfig({
         "src/tests/**",
         // Simple icon wrapper templates (no logic)
         "src/components/icons/**",
-        // Astro build/config file (not runtime code)
-        "src/astro.config.ts",
         // Async wrapper template only - all logic in Webmentions.vue
         "src/components/webmentions/LoadWebmentions.vue",
         // urql mutation + form flow - integration-level test only

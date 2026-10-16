@@ -1,7 +1,6 @@
 import node from "@astrojs/node";
 import vue from "@astrojs/vue";
 import codecovAstroPlugin from "@codecov/astro-plugin";
-// import AstroPWA from "@vite-pwa/astro";
 import sentry from "@sentry/astro";
 import matomo from "astro-matomo";
 import { defineConfig, envField } from "astro/config";
@@ -21,12 +20,12 @@ const sassAliases = {
 const {
   WP_API,
   SENTRY_DSN,
+  SENTRY_ORG,
   SENTRY_PROJECT_ID,
   SENTRY_AUTH_TOKEN,
   SITE_URL,
   CODECOV_TOKEN,
   ENABLE_ANALYTICS,
-  PWA_DEBUG,
   BUNDLE_ANALYZER_OPEN,
   IMAGOR_HOST,
 } = loadEnv(process.env.NODE_ENV, process.cwd(), "");
@@ -106,55 +105,11 @@ export default defineConfig({
         contentElement: "main",
       },
     }),
-    // FIXME: PWA is not working (manifest is not found ect.)
-    // AstroPWA({
-    //   $schema: "https://json.schemastore.org/web-manifest-combined.json",
-    //   mode: import.meta.env.DEV ? "development" : "production",
-    //   base: "/",
-    //   scope: "/",
-    //   includeAssets: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
-    //   registerType: "autoUpdate",
-    //   manifest: {
-    //     name: "Web Shaped",
-    //     short_name: "WS",
-    //     theme_color: "#ffffff",
-    //     background_color: "#303956",
-    //     lang: "en",
-    //     icons: [
-    //       {
-    //         src: "android-chrome-192x192.png",
-    //         sizes: "192x192",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "android-chrome-512x512.png",
-    //         sizes: "512x512",
-    //         type: "image/png",
-    //       },
-    //       {
-    //         src: "android-chrome-512x512.png",
-    //         sizes: "512x512",
-    //         type: "image/png",
-    //         purpose: "any maskable",
-    //       },
-    //     ],
-    //   },
-    //   workbox: {
-    //     globDirectory: "dist",
-    //     // navigateFallback: "/404",
-    //     globPatterns: ["**/*.{js,css,html,svg,png,jpg,jpeg,gif,webp,avif,woff2,ico,txt}"],
-    //   },
-    //   devOptions: {
-    //     enabled: PWA_DEBUG === "true",
-    //     navigateFallbackAllowlist: [/^\/$/],
-    //   },
-    //   experimental: {
-    //     directoryAndTrailingSlashHandler: true,
-    //   },
-    // }),
     sentry({
       telemetry: false,
-      // v11 removed `sourceMapsUploadOptions` (silently ignored, so nothing was uploaded).
+      // v11 removed `sourceMapsUploadOptions` (only warned about, so nothing was uploaded).
+      // `org` is only needed with a user auth token; an org token (sntrys_…) carries it.
+      org: SENTRY_ORG,
       project: SENTRY_PROJECT_ID,
       authToken: SENTRY_AUTH_TOKEN,
       sourcemaps: {
@@ -220,6 +175,7 @@ export default defineConfig({
         optional: true,
         url: true,
       }),
+      SENTRY_ORG: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_PROJECT_ID: envField.string({ context: "server", access: "public", optional: true }),
       SENTRY_AUTH_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
       SENTRY_ENVIRONMENT: envField.string({ context: "server", access: "public", optional: true }),
@@ -239,7 +195,6 @@ export default defineConfig({
         access: "secret",
         optional: true,
       }),
-      PWA_DEBUG: envField.boolean({ context: "server", access: "public", default: false }),
       BUNDLE_ANALYZER_OPEN: envField.boolean({
         context: "server",
         access: "public",

@@ -7,9 +7,10 @@ WORKDIR /app
 FROM base AS deps
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /app/
 
-# Runtime dependencies only. Lifecycle scripts are skipped: the ones allowed in
-# pnpm-workspace.yaml (sentry-cli download, esbuild/sharp checks, Infisical CLI)
-# are build tooling, and sharp ships prebuilt binaries as optional packages.
+# Runtime dependencies only. Lifecycle scripts are skipped: everything in
+# pnpm-workspace.yaml's `allowBuilds` is build tooling (sentry-cli download,
+# esbuild/sharp checks, Infisical CLI, …), and sharp ships prebuilt binaries as
+# optional packages.
 FROM deps AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile --ignore-scripts
 
@@ -25,7 +26,8 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
-# Distroless runtime: only glibc/libstdc++ plus the Node binary from the official
+# Distroless runtime: a minimal glibc base (libc, libstdc++, libssl, CA certs,
+# tzdata) plus the Node binary from the official
 # (digest-pinned, Renovate-updated) image above — same Node release as the build,
 # but no shell, package manager, npm/yarn or setuid binaries. Far smaller image and
 # attack surface. Runs as the unprivileged `nonroot` user (uid 65532); the app
