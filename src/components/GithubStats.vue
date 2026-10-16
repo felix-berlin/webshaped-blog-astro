@@ -22,14 +22,6 @@
     <i>{{ t("github_stats.lang_graph.hint") }}</i>
   </div>
 
-  <!-- <section class="o-github-total-lines" v-if="!error">
-    <div class="c-github-stats-card c-post-card is-total-lines-1">
-      <h2>{{ t("github_stats.total_lines.headline") }}</h2>
-    </div>
-    <div class="c-github-stats-card c-post-card is-total-lines-2">
-      {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
-    </div>
-  </section> -->
   <section v-if="!error" class="o-github-most-starred">
     <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
     <div class="o-github-most-starred__list">
@@ -88,10 +80,6 @@ const filteredLanguagePercentages = computed(() => {
       .map(({ language, percentage }) => [language, percentage]),
   );
 });
-
-const formatLargeNumber = (number: number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
 
 const skeletonLangDataMock = {
   Astro: 1.3031886346985595,

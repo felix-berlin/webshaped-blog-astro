@@ -19,14 +19,6 @@
   </svg>
 </template>
 
-<script setup lang="ts">
-export interface CheckCircleProps {
-  type?: "error" | "success";
-}
-
-defineProps<CheckCircleProps>();
-</script>
-
 <style lang="scss">
 @use "@styles/components/circle-icon";
 </style>

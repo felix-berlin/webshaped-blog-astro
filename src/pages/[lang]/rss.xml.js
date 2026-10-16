@@ -30,19 +30,11 @@ export const GET = async (context) => {
   }));
 
   return rss({
-    // (optional) Benutzerdefinierten XML-Code einfügen
     customData: `<language>${lang}</language>`,
-    // `<description>`-Feld in der XML-Ausgabe
     description: "Ein bescheidener Astronaut und sein Weg zu den Sternen",
-    // Liste von `<item>`-Elementen in der XML-Ausgabe
-    // Einfaches Beispiel: Items für jede md-Datei in /src/pages erzeugen
-    // Siehe Abschnitt "Generieren von `items`" für erforderliche Frontmatter und erweiterte Anwendungsfälle
     items,
-    // Basis-URL für RSS-<item>-Links
-    // SITE verwendet "site" aus der astro.config deines Projekts.
     site: context.site,
     stylesheet: "/rss/pretty-feed-v3.xsl",
-    // `<title>`-Feld in der XML-Ausgabe
     title: `Web Shaped Blog (${lang.toUpperCase()})`,
   });
 };

@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts">
-import { parse } from "@utils/helpers";
-
 import type { CoreParagraphFragment } from "@/gql/graphql.ts";
 
 export interface ParagraphBlockProps {

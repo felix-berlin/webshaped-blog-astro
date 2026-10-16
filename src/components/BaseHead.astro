@@ -6,7 +6,6 @@ import SourceSansPro400 from "@fontsource/source-sans-pro/files/source-sans-pro-
 import SourceSansPro700 from "@fontsource/source-sans-pro/files/source-sans-pro-latin-700-normal.woff2";
 import { getWebmentionsUrl, toSiteOrigin } from "@utils/helpers.ts";
 import LoadingIndicator from "astro-loading-indicator/component";
-// import { pwaInfo } from "virtual:pwa-info";
 import { SITE_URL } from "astro:env/client";
 import { IMAGOR_HOST } from "astro:env/server";
 import { ClientRouter } from "astro:transitions";
@@ -41,16 +40,6 @@ export interface Seo {
   twitterTitle?: string;
 }
 
-export interface SeoProps {
-  lang: "de" | "en";
-  seo: Seo;
-  title: Title;
-}
-
-export interface Title {
-  title: string;
-}
-
 const { lang, seo, title, translationsRoutes } = Astro.props;
 
 const webmentionUrl = getWebmentionsUrl(Astro.url);
@@ -70,10 +59,6 @@ const opengraphUrl = seo?.opengraphUrl ? toSiteOrigin(seo.opengraphUrl, SITE_URL
   <!-- <SetColorMode /> -->
   <ClientRouter />
   <LoadingIndicator color="var(--color-base)" height="2px" />
-
-  <!-- FIXME: PWA is not working (manifest is not found ect.) -->
-  <!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />} -->
-  <!-- <script src="/src/services/pwa.ts"></script> -->
 
   <!-- Locale -->
   {

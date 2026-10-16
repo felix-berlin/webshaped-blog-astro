@@ -32,5 +32,3 @@ const tabProps = inject("tabProps") as Ref<
 // Find the current tab's properties based on the header
 const currentTab = ref(tabProps.value?.find((tab) => tab.header === header));
 </script>
-
-<style scoped></style>

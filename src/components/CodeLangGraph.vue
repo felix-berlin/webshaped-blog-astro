@@ -25,5 +25,3 @@ const { languages, showTooltips = true } = defineProps<{
   showTooltips?: boolean;
 }>();
 </script>
-
-<style lang="scss"></style>

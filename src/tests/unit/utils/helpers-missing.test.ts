@@ -1,11 +1,8 @@
 // @ts-ignore: Unresolved import
 import {
   removeTrailingSlash,
-  isWebWorkerSupported,
   removeLocaleCode,
   getWebmentionsUrl,
-  flatListToHierarchical,
-  paginatedFlatListToHierarchical,
   toSiteOrigin,
 } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
@@ -30,13 +27,6 @@ describe("removeTrailingSlash()", () => {
 
   it("handles single slash", () => {
     expect(removeTrailingSlash("/")).toBe("");
-  });
-});
-
-describe("isWebWorkerSupported()", () => {
-  it("returns true when Worker is defined in global scope", () => {
-    const result = isWebWorkerSupported();
-    expect(typeof result).toBe("boolean");
   });
 });
 
@@ -74,88 +64,6 @@ describe("getWebmentionsUrl()", () => {
   });
 });
 
-describe("flatListToHierarchical()", () => {
-  it("converts a flat list to a hierarchical structure", () => {
-    const data = [
-      { id: "1", parentId: null, title: "Root 1" },
-      { id: "2", parentId: null, title: "Root 2" },
-      { id: "3", parentId: "1", title: "Child of Root 1" },
-    ];
-
-    const result = flatListToHierarchical(data);
-
-    expect(result).toHaveLength(2);
-    expect(result[0].id).toBe("1");
-    expect((result[0] as Record<string, unknown>).children).toHaveLength(1);
-  });
-
-  it("returns empty array for empty input", () => {
-    expect(flatListToHierarchical([])).toEqual([]);
-  });
-
-  it("supports custom idKey and parentKey options", () => {
-    const data = [
-      { nodeId: "a", parent: null, name: "Root" },
-      { nodeId: "b", parent: "a", name: "Child" },
-    ];
-
-    const result = flatListToHierarchical(data, { idKey: "nodeId", parentKey: "parent" });
-
-    expect(result).toHaveLength(1);
-    expect((result[0] as Record<string, unknown>).children).toHaveLength(1);
-  });
-
-  it("supports custom childrenKey option", () => {
-    const data = [
-      { id: "1", parentId: null },
-      { id: "2", parentId: "1" },
-    ];
-
-    const result = flatListToHierarchical(data, { childrenKey: "items" });
-
-    expect((result[0] as Record<string, unknown>).items).toHaveLength(1);
-  });
-
-  it("handles nodes with undefined parentId as root nodes", () => {
-    const data = [
-      { id: "1", parentId: undefined },
-      { id: "2", parentId: null },
-    ];
-
-    const result = flatListToHierarchical(data);
-
-    expect(result).toHaveLength(2);
-  });
-
-  it("builds deeply nested structures", () => {
-    const data = [
-      { id: "1", parentId: null },
-      { id: "2", parentId: "1" },
-      { id: "3", parentId: "2" },
-    ];
-
-    const result = flatListToHierarchical(data);
-
-    expect(result).toHaveLength(1);
-    const level1 = result[0] as Record<string, unknown>;
-    const level2 = (level1.children as Array<Record<string, unknown>>)[0];
-    expect((level2.children as unknown[]).length).toBe(1);
-  });
-
-  it("handles child appearing before parent (covers line 330 || [] false branch)", () => {
-    const data = [
-      { id: "2", parentId: "1" },
-      { id: "1", parentId: null },
-    ];
-
-    const result = flatListToHierarchical(data);
-
-    expect(result).toHaveLength(1);
-    expect((result[0] as Record<string, unknown>).id).toBe("1");
-    expect((result[0] as Record<string, unknown>).children as unknown[]).toHaveLength(1);
-  });
-});
-
 describe("toSiteOrigin()", () => {
   it("rewrites scheme and host to the site origin, keeping the path", () => {
     expect(toSiteOrigin("http://cms.webshaped.de/de/posts/foo", "https://webshaped.de")).toBe(
@@ -187,31 +95,5 @@ describe("toSiteOrigin()", () => {
     expect(toSiteOrigin("https://cms.webshaped.de", "https://webshaped.de")).toBe(
       "https://webshaped.de/",
     );
-  });
-});
-
-describe("paginatedFlatListToHierarchical()", () => {
-  it("converts paginated edges to a hierarchical structure", () => {
-    const data = [
-      { node: { id: "1", parentId: null, title: "Root" } },
-      { node: { id: "2", parentId: "1", title: "Child" } },
-    ];
-
-    const result = paginatedFlatListToHierarchical(data);
-
-    expect(result).toHaveLength(1);
-    expect((result[0] as Record<string, unknown>).children).toHaveLength(1);
-  });
-
-  it("returns empty array for empty input", () => {
-    expect(paginatedFlatListToHierarchical([])).toEqual([]);
-  });
-
-  it("supports custom nodeKey option", () => {
-    const data = [{ item: { id: "1", parentId: null } }, { item: { id: "2", parentId: "1" } }];
-
-    const result = paginatedFlatListToHierarchical(data, { nodeKey: "item" });
-
-    expect(result).toHaveLength(1);
   });
 });

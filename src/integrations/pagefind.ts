@@ -3,7 +3,7 @@ import type { AstroIntegration } from "astro";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createIndex, type PagefindServiceConfig } from "pagefind";
+import { createIndex } from "pagefind";
 import sirv from "sirv";
 
 // Astro's `trailingSlash: "never"` means built pages live at
@@ -31,17 +31,7 @@ const urlFor = (outDir: string, filePath: string): string => {
   return `/${stripped}`;
 };
 
-/**
- * Pagefind Astro integration options.
- */
-export interface PagefindOptions {
-  /**
-   * `PagefindServiceConfig` passed to pagefind's `createIndex`
-   */
-  indexConfig?: PagefindServiceConfig;
-}
-
-export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIntegration {
+export default function pagefind(): AstroIntegration {
   let outDir: string;
   return {
     hooks: {
@@ -53,30 +43,29 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           return;
         }
 
-        const { errors: createErrors, index } = await createIndex(indexConfig);
+        const { errors: createErrors, index } = await createIndex();
         if (!index) {
           logger.error("Pagefind failed to create index");
           createErrors.forEach((e) => logger.error(e));
           return;
         }
         const htmlFiles = await collectHtmlFiles(outDir);
-        const addErrors: string[] = [];
-        let page_count = 0;
-        for (const filePath of htmlFiles) {
-          const { errors, file } = await index.addHTMLFile({
-            content: await readFile(filePath, "utf-8"),
-            url: urlFor(outDir, filePath),
-          });
-          addErrors.push(...errors);
-          if (file) page_count++;
-        }
+        // The pagefind service handles requests concurrently, so read + index all files in parallel.
+        const results = await Promise.all(
+          htmlFiles.map(async (filePath) =>
+            index.addHTMLFile({
+              content: await readFile(filePath, "utf-8"),
+              url: urlFor(outDir, filePath),
+            }),
+          ),
+        );
+        const addErrors = results.flatMap(({ errors }) => errors);
         if (addErrors.length) {
           logger.error("Pagefind failed to index files");
           addErrors.forEach((e) => logger.error(e));
           return;
-        } else {
-          logger.info(`Pagefind indexed ${page_count} pages`);
         }
+        logger.info(`Pagefind indexed ${results.filter(({ file }) => file).length} pages`);
         const { errors: writeErrors, outputPath } = await index.writeFiles({
           outputPath: path.join(outDir, "pagefind"),
         });
@@ -84,25 +73,13 @@ export default function pagefind({ indexConfig }: PagefindOptions = {}): AstroIn
           logger.error("Pagefind failed to write index");
           writeErrors.forEach((e) => logger.error(e));
           return;
-        } else {
-          logger.info(`Pagefind wrote index to ${outputPath}`);
         }
+        logger.info(`Pagefind wrote index to ${outputPath}`);
       },
       "astro:config:setup": ({ config }) => {
-        // if (config.output === "server") {
-        //   logger.warn(
-        //     "Output type `server` does not produce static *.html pages in its output and thus will not work with astro-pagefind integration.",
-        //   );
-        //   return;
-        // }
-
-        if (config.adapter?.name === "@astrojs/cloudflare") {
-          outDir = fileURLToPath(new URL(config.base?.replace(/^\//, ""), config.outDir));
-        } else if (config.adapter?.name === "@astrojs/node") {
-          outDir = fileURLToPath(config.build.client);
-        } else {
-          outDir = fileURLToPath(config.outDir);
-        }
+        outDir = fileURLToPath(
+          config.adapter?.name === "@astrojs/node" ? config.build.client : config.outDir,
+        );
       },
       "astro:server:setup": ({ logger, server }) => {
         if (!outDir) {

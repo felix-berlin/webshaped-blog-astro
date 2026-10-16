@@ -7,23 +7,18 @@
  * @see https://css-tricks.com/custom-styling-form-inputs-with-modern-css-features/
  */
 
-$icon-color: currentcolor;
-$icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$icon-color}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>";
-
 .c-input,
-.c-textarea,
-.c-select {
+.c-textarea {
   --spacing-inner: #{vars.$spacer * 0.55};
   --color-border: var(--blue-dark-400);
   --color-border-hover: var(--accent-color);
   --size-font: 1rem;
-  // --box-shadow-focus: 2px
-  //   color-mix(in rgba, var(--accent-color) 30%, transparent);
-  --box-shadow-focus: 3px #{rgba(vars.$red-light, 0.3)};
+  --box-shadow-focus: 3px #{butler-fn.hex-to-rgb(vars.$red-light, 30%)};
   --color-background: #fff;
   --color-background-disabled: var(--grey-200);
   --width-border: 1px;
 
+  padding: var(--spacing-inner);
   font-size: var(--size-font);
   box-shadow: 0 0 0 1px transparent;
   background-color: var(--color-background);
@@ -41,10 +36,6 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     outline: var(--width-border) solid var(--accent-color);
   }
 
-  &:not(.c-input--file) {
-    padding: var(--spacing-inner);
-  }
-
   &:disabled {
     --color-background: var(--color-background-disabled);
 
@@ -57,57 +48,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   line-height: 1.35;
 }
 
-.c-input--number,
-.c-input--email,
-.c-input--tel {
-  --spacing-inner-vertical: #{vars.$spacer * 0.75};
-  --spacing-inner-horizontal: calc(var(--spacing-inner-vertical) * 2);
-
-  padding: var(--spacing-inner-vertical) var(--spacing-inner-horizontal);
-}
-
-// button,
-// input[type='submit'],
-// input[type='button'],
-// input[type='reset'],
-// input[type='color'] {
-// 	@extend .c-button;
-
-// 	--spacing-inner-vertical: #{vars.$spacer * .75};
-// 	--spacing-inner-horizontal: calc(var(--spacing-inner-vertical) * 2);
-// }
-
-// select,
-// .c-select {
-//   --spacing-inner-vertical: #{vars.$spacer};
-//   --spacing-inner-horizontal: calc(var(--spacing-inner-vertical) * 2);
-//   --size-font: 1rem;
-//   --spacing-inner: #{vars.$spacer * 0.75} #{vars.$spacer * 4.5} #{vars.$spacer *
-//     0.75} #{vars.$spacer * 1.5};
-
-//   padding: var(--spacing-inner-vertical) var(--spacing-inner-horizontal);
-//   font-size: var(--size-font);
-//   font-weight: 500;
-//   cursor: pointer;
-
-//   background: {
-//     image: url("#{butler-fn.escape-svg($icon-chevron-down)}");
-//     repeat: no-repeat;
-//     position: right vars.$spacer * 1.5 center;
-//     size: 16px 12px;
-//   }
-
-//   &:not(:disabled):hover {
-//     --color-hover-background: var(--grey-200);
-//   }
-// }
-
-// .c-input--color {
-//   padding: 0;
-// }
-
-.c-input--checkbox,
-.c-input--radio {
+.c-input--checkbox {
   --color-active: var(--red-light);
   --color-inner-active: #fff;
   --color-border-disabled-checked: #{color.scale(vars.$red-light, $lightness: 60%)};
@@ -194,7 +135,7 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
   & + label {
     --cursor: pointer;
 
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height: 21px;
     vertical-align: top;
     cursor: var(--cursor);
@@ -247,138 +188,3 @@ $icon-chevron-down: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' 
     }
   }
 }
-
-// .c-input--radio {
-//   border-radius: 50%;
-
-//   &::after {
-//     width: 19px;
-//     height: 19px;
-//     border-radius: 50%;
-//     background: var(--color-inner-active);
-//     opacity: 0;
-//     transform: scale(var(--scale, 0.7));
-//   }
-
-//   &:checked {
-//     --scale: 0.5;
-//   }
-// }
-
-// %track {
-//   background-color: vars.$grey-200;
-//   width: 100%;
-//   height: 0.3rem;
-// }
-
-// %thumb {
-//   background-color: var(--color-background-thumb);
-//   width: var(--size-thumb);
-//   height: var(--size-thumb);
-//   margin-top: calc(
-//     -1 * var(--height-track) - 0.05rem
-//   ); // -1 * to negate the value
-
-//   border-radius: 50%;
-// }
-
-// .c-input--range {
-//   $color-background-track: vars.$grey-200;
-//   $color-background-thumb: vars.$red-200;
-//   $height-track: 0.3rem;
-//   $size-thumb: 1rem;
-
-//   --color-background-track: var(--grey-200);
-//   --color-background-thumb: var(--red-200);
-//   --height-track: 0.3rem;
-//   --size-thumb: 1rem;
-
-//   appearance: none;
-//   background-color: transparent; // Mozilla need this
-
-//   &::-webkit-slider-runnable-track {
-//     background-color: vars.$grey-200;
-//     width: 100%;
-//     height: $height-track;
-//   }
-
-//   &::-moz-range-thumb {
-//     background-color: $color-background-thumb;
-//     width: $size-thumb;
-//     height: $size-thumb;
-//     margin-top: -($height-track - 0.05rem);
-//     border-radius: 50%;
-//     border-color: transparent; // Mozilla need this
-//     border-width: 0; // Mozilla need this
-//     appearance: none;
-//   }
-
-//   &::-moz-range-track {
-//     background-color: vars.$grey-200;
-//     width: 100%;
-//     height: $height-track;
-//   }
-
-//   &::-webkit-slider-thumb {
-//     background-color: $color-background-thumb;
-//     width: $size-thumb;
-//     height: $size-thumb;
-//     margin-top: -($height-track - 0.05rem);
-//     border-radius: 50%;
-//   }
-// }
-
-// .c-input--file {
-//   &:not(:disabled) {
-//     cursor: pointer;
-
-//     &:hover {
-//       &::file-selector-button {
-//         --width-border: 0;
-//         --color-border-hover: var(--grey-200);
-
-//         border-inline-end-width: 1px;
-//       }
-//     }
-//   }
-
-//   &::file-selector-button {
-//     // FIXME: Herausfinden, warum die gesamte .c-button Klasse entfernt wird, wenn dieses Pseudo-Element extended wird — Autoprefixer
-//     // @extend .c-button;
-
-//     --width-border: 0;
-
-//     margin-inline-end: vars.$spacer;
-//     border-inline-end-width: 1px;
-//     border-color: inherit;
-//     border-top-right-radius: 0;
-//     border-bottom-right-radius: 0;
-//   }
-// }
-
-// .c-fieldset {
-//   --spacing-after: #{vars.$spacer * 2};
-//   --spacing-inner: #{vars.$spacer * 2};
-//   --spacing-legend: calc(var(--spacing-inner) / 2);
-//   --color-border: #{vars.$grey-200};
-//   --width-border: 2px;
-//   --style-border: solid;
-
-//   padding: var(--spacing-inner);
-//   margin-bottom: var(--spacing-after);
-//   border: var(--width-border) var(--style-border) var(--color-border);
-
-//   legend {
-//     font-weight: 600;
-//     padding: 0 var(--spacing-legend);
-//     margin-left: calc(-1 * var(--spacing-legend));
-//   }
-// }
-
-// .u-check {
-//   display: block;
-
-//   &:not(:last-of-type) {
-//     margin-bottom: vars.$spacer;
-//   }
-// }

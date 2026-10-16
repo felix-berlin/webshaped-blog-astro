@@ -4,9 +4,6 @@
 @use "@styles/variables/colors";
 @use "@styles/mixins" as mx;
 
-// @use '../../../node_modules/@fontsource/source-sans-pro/scss/mixins' as fontsource-mx;
-// @include fontsource-mx.fontFace($weight: 700);
-
 :root {
   @each $name, $size in fonts.$font-sizes {
     --font-size-#{$name}: #{$size};
@@ -26,7 +23,7 @@ html {
   color: var(--color-base, #{colors.$blue-dark});
 
   &[class~="dark"] {
-    --color-base: #ffb433;
+    --color-base: #{colors.$red-light};
   }
 }
 

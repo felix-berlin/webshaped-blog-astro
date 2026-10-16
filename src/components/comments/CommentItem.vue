@@ -36,13 +36,6 @@
         </div>
       </header>
       <main class="c-comment__content">
-        <!-- <a
-          v-if="comment.parentId"
-          :href="`#comment-${comment.parentId}`"
-          class="c-comment__reply-to"
-          >Reply to</a
-        > -->
-
         <div class="c-comment__text" v-html="comment.content" />
 
         <footer class="c-comment__footer">
@@ -65,7 +58,6 @@
       </main>
     </article>
 
-    <!-- <Transition name="fade" mode="in-out"> -->
     <div
       v-if="replyToCommentForm"
       v-auto-animate
@@ -88,7 +80,6 @@
         </template>
       </CreateComment>
     </div>
-    <!-- </Transition> -->
 
     <template v-if="comment?.replies?.nodes && comment?.replies?.nodes.length > 0">
       <CommentItem

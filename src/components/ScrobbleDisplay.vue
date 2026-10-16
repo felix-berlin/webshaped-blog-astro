@@ -25,12 +25,6 @@
         </header>
         <p v-html="t('scrobble_display.text')" />
 
-        <!-- <TransitionGroup
-          name="list"
-          tag="div"
-          mode="out-in"
-          class="c-scrobble-display__list"
-        > -->
         <div
           v-if="state?.tracks?.recenttracks?.track"
           v-auto-animate
@@ -70,7 +64,6 @@
             </p>
           </div>
         </div>
-        <!-- </TransitionGroup> -->
         <footer>
           <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{

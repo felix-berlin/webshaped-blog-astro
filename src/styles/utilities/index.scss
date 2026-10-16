@@ -4,11 +4,6 @@
 @use "@sass-butler/functions" as butler-fn;
 @use "@styles/variables/base";
 
-.u-slide-parent {
-  overflow: hidden;
-  position: relative;
-}
-
 :where(.u-list-reset) {
   list-style-type: none;
   margin: 0;

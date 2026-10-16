@@ -3,22 +3,6 @@
     <a class="c-post-card__link" :href="postLink(post)">
       <h2 class="c-post-card__title">{{ post.title }}</h2>
 
-      <!-- <Date
-      :date="post.dateGmt"
-    /> -->
-
-      <!-- <CommentCount
-      :comment-total="post.commentCount"
-      is-element="div"
-    /> -->
-
-      <!-- <ReadingTime :time="post.seo.readingTime" /> -->
-
-      <!-- <HasTranslations
-      v-if="post.translations && post.translations.length"
-      :translations="post.translations"
-    /> -->
-
       <div class="c-post-card__excerpt" v-html="post.excerpt" />
 
       <div class="c-post-card__read-more">
@@ -30,10 +14,6 @@
 </template>
 
 <script setup lang="ts">
-// import Date from "@components/post/Date.vue";
-// import ReadingTime from "@components/post/ReadingTime.vue";
-// import CommentCount from "@components/comments/CommentCount.vue";
-// import HasTranslations from "./HasTranslations.vue";
 import type { Lang } from "@utils/i18n/ui";
 
 import { postPathBuilder, useTranslations } from "@utils/i18n/utils";

@@ -20,5 +20,3 @@ const { languages } = defineProps<{
   languages: LanguagesProps;
 }>();
 </script>
-
-<style lang="scss"></style>

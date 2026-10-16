@@ -1,4 +1,3 @@
-// import { SHOW_TEST_DATA } from "astro:env/client";
 import { graphql } from "@/gql";
 
 // TODO: add condition for test data

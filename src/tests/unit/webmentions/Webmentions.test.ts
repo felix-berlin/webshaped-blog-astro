@@ -1,115 +1,70 @@
-// @ts-ignore: Unresolved import
 import Webmentions from "@components/webmentions/Webmentions.vue";
-import { currentWebmentionsCount } from "@stores/store";
 import { flushPromises, mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
-import { it, expect, describe, beforeAll, afterAll, afterEach, vi } from "vitest";
-import { defineComponent } from "vue";
+import { it, expect, describe, vi } from "vitest";
+import { defineComponent, h, Suspense } from "vue";
 
-vi.mock("@components/webmentions/WebmentionsItem.vue", () => {
-  const component = defineComponent({
-    name: "WebmentionsItem",
-    template: "<div class='webmentions-item-stub'></div>",
-  });
+import { server } from "@/tests/mocks/node";
+
+vi.mock("@components/webmentions/WebmentionsItem.vue", async () => {
+  const { defineComponent, h } = await vi.importActual<typeof import("vue")>("vue");
   return {
-    default: component,
-    __isTeleport: false,
-    __isKeepAlive: false,
     __esModule: true,
+    default: defineComponent({
+      name: "WebmentionsItem",
+      render: () => h("div", { class: "webmentions-item-stub" }),
+    }),
   };
 });
 
-const server = setupServer(
-  http.get("https://webmention.io/api/mentions.jf2", () => {
-    return HttpResponse.json({ children: [] });
-  }),
-);
+const MENTIONS_API = "https://webmention.io/api/mentions.jf2";
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  currentWebmentionsCount.set(0);
-});
-// ponytail: several mounts above leave Webmentions.vue's unawaited onMounted
-// fetch() pending; without this it can resolve after this file's module env
-// is torn down and crash an unrelated later test file. Same fix as
-// ScrobbleDisplay.test.ts.
-afterEach(async () => {
+const mockMentions = (children: unknown[], onRequest?: (url: URL) => void) =>
+  server.use(
+    http.get(MENTIONS_API, ({ request }) => {
+      onRequest?.(new URL(request.url));
+      return HttpResponse.json({ children });
+    }),
+  );
+
+// Webmentions has an async setup, so it only renders inside <Suspense>.
+const mountWebmentions = async (props: Record<string, unknown>) => {
+  const wrapper = mount(
+    defineComponent({ render: () => h(Suspense, null, { default: () => h(Webmentions, props) }) }),
+  );
   await flushPromises();
-});
-afterAll(() => server.close());
+  // Let the child async components (items, NoMentions) resolve as well.
+  await vi.dynamicImportSettled();
+  await flushPromises();
+  return wrapper;
+};
 
 describe("Webmentions.vue", () => {
-  it("renders wrapper div", () => {
-    currentWebmentionsCount.set(0);
-    const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
-    expect(wrapper.find("div").exists()).toBe(true);
-  });
-
-  it("shows NoMentions when webmentionsCount is 0", async () => {
-    currentWebmentionsCount.set(0);
-    const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
-    await wrapper.vm.$nextTick();
-    const noMentions = wrapper.findComponent({ name: "NoMentions" });
-    // async component might not be resolved yet, check v-if condition
-    expect(wrapper.vm.webmentionsCount).toBe(0);
-  });
-
-  it("hides webmentions list when count is 0", () => {
-    currentWebmentionsCount.set(0);
-    const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
+  it("shows NoMentions and no list when there are no mentions", async () => {
+    mockMentions([]);
+    const wrapper = await mountWebmentions({ target: "https://example.com/post", lang: "de" });
     expect(wrapper.find(".c-webmentions").exists()).toBe(false);
+    expect(wrapper.findComponent({ name: "NoMentions" }).exists()).toBe(true);
   });
 
-  it("shows webmentions list when count > 0", () => {
-    currentWebmentionsCount.set(3);
-    const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
+  it("renders one item per mention", async () => {
+    mockMentions([{ "wm-id": 1 }, { "wm-id": 2 }]);
+    const wrapper = await mountWebmentions({ target: "https://example.com/post", lang: "de" });
     expect(wrapper.find(".c-webmentions").exists()).toBe(true);
+    expect(wrapper.findAll(".webmentions-item-stub")).toHaveLength(2);
   });
 
-  it("calls fetch with target URL on mount", async () => {
-    server.use(
-      http.get("https://webmention.io/api/mentions.jf2", ({ request }) => {
-        const url = new URL(request.url);
-        expect(url.searchParams.get("target")).toBe("https://example.com/post");
-        return HttpResponse.json({ children: [] });
-      }),
-    );
-    currentWebmentionsCount.set(0);
-    mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
-    // Just verify it mounts without errors
+  it("requests mentions for the given target", async () => {
+    let target: null | string = null;
+    mockMentions([], (url) => (target = url.searchParams.get("target")));
+    await mountWebmentions({ target: "https://example.com/post", lang: "de" });
+    expect(target).toBe("https://example.com/post");
   });
 
-  it("uses window.location.href as target when currentUrl=true", async () => {
-    currentWebmentionsCount.set(0);
-    const wrapper = mount(Webmentions, {
-      props: { currentUrl: true, lang: "de" },
-    });
-    expect(wrapper.vm.currentUrl).toBe(true);
-  });
-
-  it("updates webmentionsCount after fetch completes", async () => {
-    server.use(
-      http.get("https://webmention.io/api/mentions.jf2", () => {
-        return HttpResponse.json({ children: [{ "wm-id": 1 }, { "wm-id": 2 }] });
-      }),
-    );
-    currentWebmentionsCount.set(0);
-    const wrapper = mount(Webmentions, {
-      props: { target: "https://example.com/post", lang: "de" },
-    });
-    await new Promise((r) => setTimeout(r, 50));
-    expect(currentWebmentionsCount.get()).toBe(2);
+  it("falls back to window.location.href as target", async () => {
+    let target: null | string = null;
+    mockMentions([], (url) => (target = url.searchParams.get("target")));
+    await mountWebmentions({ lang: "de" });
+    expect(target).toBe(window.location.href);
   });
 });

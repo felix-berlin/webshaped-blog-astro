@@ -6,7 +6,6 @@ import { getSocialIconData } from "@utils/helpers";
 import "@styles/objects/_footer.scss";
 import { categoryPathBuilder, toLanguageCode, useTranslations } from "@utils/i18n/utils";
 import { wpQueryChrome } from "@services/wpGraphqlClient";
-// import InstallApp from "@components/InstallApp.vue";
 import Copyright from "~icons/lucide/copyright";
 import GitCommit from "~icons/lucide/git-commit";
 
@@ -158,8 +157,6 @@ const allSocials = {
       </a>
 
       <GreenHosted lang={lang} />
-      <!-- FIXME: PWA is not working (manifest is not found ect.) -->
-      <!-- <InstallApp showIcon={true} client:only="vue" cssClass="c-button--like-link" /> -->
     </div>
   </div>
 </footer>

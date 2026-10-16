@@ -80,13 +80,6 @@ describe("GithubStats.vue", () => {
     expect(wrapper.vm.mostStarredRepos[0].name).toBe("awesome-repo");
   });
 
-  it("formatLargeNumber formats numbers with dot separators", () => {
-    const wrapper = mount(GithubStats, { props: { lang: "de" } });
-    expect((wrapper.vm as any).formatLargeNumber(1234567)).toBe("1.234.567");
-    expect((wrapper.vm as any).formatLargeNumber(1000)).toBe("1.000");
-    expect((wrapper.vm as any).formatLargeNumber(999)).toBe("999");
-  });
-
   it("filteredLanguagePercentages excludes languages with 0.00 percentage", async () => {
     server.use(
       http.get("/api/github/stats", () => {

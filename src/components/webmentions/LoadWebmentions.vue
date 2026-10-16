@@ -1,7 +1,7 @@
 <template>
   <Transition name="fade" mode="in-out">
     <Suspense>
-      <Webmentions :current-url="true" :lang="lang" />
+      <Webmentions :lang="lang" />
 
       <template #fallback>
         <div class="c-webmentions">
@@ -13,8 +13,10 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Webmentions from "@components/webmentions/Webmentions.vue";
 import WebmentionSkeleton from "@components/webmentions/WebmentionSkeleton.vue";
 
-defineProps<{ lang: "de" | "en" }>();
+defineProps<{ lang: Lang }>();
 </script>

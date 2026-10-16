@@ -28,25 +28,6 @@ $spacing: 121;
 .c-comment {
   container-type: inline-size;
 
-  // @include butler-mx.hover {
-  //   &:not(.is-create-comment) {
-  //     .c-comment__content:not(.is-comment-item) {
-  //       --float-distance: -20px;
-  //       &::before,
-  //       &::after,
-  //       & {
-  //         transform: translateY(0);
-  //         animation: var(--animation-comment, float 5s ease-in-out infinite);
-  //       }
-  //       &::before {
-  //         --float-distance: -15px;
-  //       }
-  //       &::after {
-  //         --float-distance: -8px;
-  //       }
-  //     }
-  //   }
-  // }
   &__item {
     display: grid;
     grid-template-columns: var(--columns-grid-comment);
@@ -273,17 +254,3 @@ $spacing: 121;
     z-index: -1;
   }
 }
-
-// @keyframes float {
-//   0% {
-//     transform: translateY(0);
-//   }
-
-//   50% {
-//     transform: translateY(var(--float-distance, -20px));
-//   }
-
-//   100% {
-//     transform: translateY(0);
-//   }
-// }
