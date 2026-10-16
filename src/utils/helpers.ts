@@ -1,11 +1,8 @@
 import type { Lang } from "@i18n/ui";
 
-import { UserSocials } from "@services/fragments/fragments";
 import slugify from "slugify";
 
 import type { GetMenuByIdQuery, UserSocialsFragment } from "@/gql/graphql.ts";
-
-import { type FragmentType, useFragment } from "@/gql";
 
 type Maybe<T> = null | T | undefined;
 type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
@@ -254,22 +251,6 @@ export const getSocialIconData = (
   }
 
   return socialItems;
-};
-
-// GitHub and Mastodon link back to this site, so they get rel="me" (IndieWeb identity).
-const REL_ME_SOCIALS = { github: { rel: "me" }, mastodon: { rel: "me" } };
-
-/** Social icon data for an author's Yoast socials plus the custom GitHub/Mastodon fields. */
-export const getAuthorSocialItems = (
-  author: FragmentType<typeof UserSocials> | null | undefined,
-  size: number,
-): SocialItems => {
-  const socials = useFragment(UserSocials, author);
-  return getSocialIconData(
-    { ...socials?.seo?.social, ...socials?.socialAdvanced } as SeoUserSocial | SocialAdvanced,
-    { size },
-    REL_ME_SOCIALS,
-  );
 };
 
 export const removeLocaleCode = (category: null | string) => {
