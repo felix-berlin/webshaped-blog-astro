@@ -1,8 +1,8 @@
 general: {}
 secrets-management:
-    project-id: 15cc4eb8-b1bc-4e3a-8b83-fba9c17e976a
-    default-environment: ""
-    mappings:
-        git-branch-to-environment:
-            .*: dev
-            main: prod
+  project-id: 15cc4eb8-b1bc-4e3a-8b83-fba9c17e976a
+  default-environment: ""
+  mappings:
+    git-branch-to-environment:
+      .*: dev
+      main: prod
