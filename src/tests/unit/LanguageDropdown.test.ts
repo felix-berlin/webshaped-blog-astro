@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import LanguageDropdown from "@components/LanguageDropdown.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

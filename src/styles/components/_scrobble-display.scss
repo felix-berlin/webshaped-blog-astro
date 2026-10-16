@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "@styles/variables/colors";
+@use "@styles/variables/base";
 @use "@sass-butler/mixins" as butler-mx;
 @use "@sass-butler/functions" as butler-fn;
 
@@ -27,7 +28,7 @@
       / auto 1fr;
     gap: 0.2rem 0.75rem;
     background-color: var(--color-background-item, #{butler-fn.hex-to-rgb(colors.$blue-dark, 10%)});
-    border-radius: 3px;
+    border-radius: base.$border-radius;
     padding: 0.25rem;
 
     &.is-playing {
@@ -37,7 +38,7 @@
 
   &__image {
     grid-area: image;
-    border-radius: 3px;
+    border-radius: base.$border-radius;
   }
 
   &__track {

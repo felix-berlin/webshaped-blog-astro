@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import MusicBars from "@components/MusicBars.vue";
 import { mount } from "@vue/test-utils";
 import { test, expect, describe } from "vitest";

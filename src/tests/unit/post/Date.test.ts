@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Date from "@components/post/Date.vue";
 import { mount } from "@vue/test-utils";
 import { test, expect, describe } from "vitest";

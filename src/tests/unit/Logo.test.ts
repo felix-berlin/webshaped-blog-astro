@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Logo from "@components/Logo.vue";
 import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
 import { isDarkMode } from "@stores/store";

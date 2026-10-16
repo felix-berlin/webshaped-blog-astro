@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import ReadingTime from "@components/post/ReadingTime.vue";
 import { mount } from "@vue/test-utils";
 import { test, expect } from "vitest";

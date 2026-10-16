@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import ButtonBar from "@components/main-nav/ButtonBar.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("astro:env/server", () => ({ GITHUB_TOKEN: "token" }));
-vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
 
 // Mock the urql transport: answer each GitHub query by its operation name.
 const queryMock = vi.fn();

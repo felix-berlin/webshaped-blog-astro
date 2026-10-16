@@ -1,4 +1,5 @@
 import { useAutoAnimate } from "@formkit/auto-animate/vue";
+import { captureException } from "@sentry/astro";
 import urql, { cacheExchange, fetchExchange } from "@urql/vue";
 import { config } from "@vue/test-utils";
 import {
@@ -10,7 +11,7 @@ import {
   Tooltip,
   Menu,
 } from "floating-vue";
-import { afterAll, afterEach, beforeAll, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
 
 import { server } from "./mocks/node.ts";
 
@@ -69,6 +70,13 @@ class IntersectionObserverMock {
   }
 }
 vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
+
+// Sentry is mocked everywhere; tests assert on it via vi.mocked(captureException).
+vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
+
+beforeEach(() => {
+  vi.mocked(captureException).mockClear();
+});
 
 beforeAll(() => {
   server.listen();

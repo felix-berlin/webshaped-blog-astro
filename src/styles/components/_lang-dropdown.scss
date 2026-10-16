@@ -1,3 +1,5 @@
+@use "@sass-butler/mixins" as butler-mx;
+
 .c-lang-dropdown {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,7 @@
   &__link {
     margin: 0;
 
-    &:hover {
+    @include butler-mx.hover {
       text-decoration: underline;
     }
 

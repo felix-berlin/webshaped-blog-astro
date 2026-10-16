@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import NoMentions from "@components/webmentions/NoMentions.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

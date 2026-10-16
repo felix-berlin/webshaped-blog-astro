@@ -14,7 +14,6 @@ vi.mock("astro:env/server", () => ({
   WP_AUTH_USER: "wp-user",
 }));
 vi.mock("astro:env/client", () => ({ WP_API }));
-vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
 
 const { wpQuery, wpQueryChrome } = await import("@services/wpGraphqlClient");
 const { captureException } = await import("@sentry/astro");

@@ -2,6 +2,7 @@
 @use "@styles/variables" as vars;
 @use "@styles/mixins" as mx;
 @use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
 
 /**
  * @see https://css-tricks.com/custom-styling-form-inputs-with-modern-css-features/
@@ -110,11 +111,9 @@
     }
   }
 
-  &:hover {
-    &:not(:checked) {
-      &:not(:disabled) {
-        --color-border: var(--color-border-hover);
-      }
+  @include butler-mx.hover {
+    &:not(:checked, :disabled) {
+      --color-border: var(--color-border-hover);
     }
   }
 

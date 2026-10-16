@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Menu from "@components/Menu.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

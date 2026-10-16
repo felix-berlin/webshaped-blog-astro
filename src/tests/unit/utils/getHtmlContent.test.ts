@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import { getHtmlContent } from "@utils/helpers";
 import { it, expect, describe, vi } from "vitest";
 

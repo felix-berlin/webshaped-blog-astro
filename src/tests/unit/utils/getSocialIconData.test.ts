@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import { getSocialIconData } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
 

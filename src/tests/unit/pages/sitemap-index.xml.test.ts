@@ -1,7 +1,5 @@
+import { captureException } from "@sentry/astro";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const captureExceptionMock = vi.fn();
-vi.mock("@sentry/astro", () => ({ captureException: captureExceptionMock }));
 
 vi.mock("astro:env/server", () => ({ WP_AUTH_PASS: "pass", WP_AUTH_USER: "user" }));
 
@@ -198,7 +196,7 @@ describe("GET /sitemap-index.xml", () => {
     const response = await GET({ site: new URL("https://webshaped.de") } as never);
 
     expect(response.status).toBe(200);
-    expect(captureExceptionMock).toHaveBeenCalledOnce();
+    expect(vi.mocked(captureException)).toHaveBeenCalledOnce();
     const body = await response.text();
     expect(body).toContain("still-here");
   });

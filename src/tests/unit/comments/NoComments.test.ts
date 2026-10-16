@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import NoComments from "@components/comments/NoComments.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

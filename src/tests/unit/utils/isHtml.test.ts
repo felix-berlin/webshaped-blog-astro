@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import { isHtml } from "@utils/helpers";
 import { it, expect, describe, afterEach, beforeEach } from "vitest";
 

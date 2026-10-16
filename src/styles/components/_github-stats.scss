@@ -1,4 +1,5 @@
 @use "@styles/mixins" as mx;
+@use "@sass-butler/mixins" as butler-mx;
 
 /// https://github.com/ozh/github-colors
 $langs: (
@@ -99,7 +100,7 @@ $langs: (
     gap: 0.75rem;
     transition: all 0.2s ease-in-out;
 
-    &:hover {
+    @include butler-mx.hover {
       transform: scale(1.02);
     }
   }

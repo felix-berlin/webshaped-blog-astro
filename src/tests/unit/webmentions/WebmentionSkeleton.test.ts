@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import WebmentionSkeleton from "@components/webmentions/WebmentionSkeleton.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
