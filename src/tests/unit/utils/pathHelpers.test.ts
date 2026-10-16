@@ -1,4 +1,5 @@
-import { getAuthorSocialItems, mapMenuPaths, toIsoUtc } from "@utils/helpers";
+import { getAuthorSocialItems } from "@utils/authorSocials";
+import { mapMenuPaths, toIsoUtc } from "@utils/helpers";
 import {
   buildTranslationRoutes,
   categoryPathBuilder,
