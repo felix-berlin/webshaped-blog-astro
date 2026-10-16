@@ -179,7 +179,7 @@ Do not add client-side state or interactivity to `.astro` components — create 
 ### SCSS Aliases
 
 ```scss
-@sass-butler/*  → node_modules/@felix_berlin/sass-butler/
+@sass-butler; /*  → node_modules/@felix_berlin/sass-butler/
 @styles/*       → src/styles/
 ```
 
