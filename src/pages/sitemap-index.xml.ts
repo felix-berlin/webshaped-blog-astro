@@ -1,12 +1,19 @@
 import type { APIContext } from "astro";
 
-import { captureException } from "@sentry/astro";
-import { PostTypeSeoFragment } from "@services/fragments/fragments";
 import { CategoryFields } from "@services/queries/getCategory";
-import { PageFieldFragment } from "@services/queries/getPage";
-import { wpQuery } from "@services/wpGraphqlClient";
+import { pageVariants } from "@services/queries/getPage";
+import { wpQueryChrome } from "@services/wpGraphqlClient";
 import { toIsoUtc } from "@utils/helpers";
-import { categoryPathBuilder, postPathBuilder } from "@utils/i18n/utils";
+import { defaultLang, LOCALES } from "@utils/i18n/ui";
+import {
+  buildTranslationRoutes,
+  categoryPathBuilder,
+  pagePathBuilder,
+  postPathBuilder,
+  type TranslationEntry,
+  toLanguageCode,
+} from "@utils/i18n/utils";
+import { CATEGORY_PAGE_SIZE, STATIC_PAGE_SLUGS } from "@utils/routes";
 
 import { useFragment } from "@/gql";
 import {
@@ -59,67 +66,46 @@ const renderUrl = ({ alternates, lastmod, loc }: SitemapUrl) => {
   return `<url><loc>${escapeXml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}${alternateLinks}</url>`;
 };
 
-// Fetches one sitemap section; on failure, logs + reports to Sentry and
-// degrades to an empty section instead of taking the whole sitemap down —
-// a broken categories query shouldn't also drop posts and pages that
-// fetched fine.
-const fetchSection = async <T>(name: string, query: () => Promise<T>, empty: T): Promise<T> => {
-  try {
-    return await query();
-  } catch (error) {
-    console.error(
-      `sitemap-index.xml: "${name}" query failed, rendering without it: ${String(error)}`,
-    );
-    captureException(error);
-    return empty;
-  }
-};
-
 export const GET = async ({ site }: APIContext) => {
   const url = (path: string) => new URL(path, site).toString();
+  const toAlternates = (entries: TranslationEntry[]): Alternate[] =>
+    Object.entries(buildTranslationRoutes(entries)).map(([hreflang, path]) => ({
+      href: url(path),
+      hreflang,
+    }));
 
+  // Each section degrades to empty on failure (logged + reported to Sentry by
+  // wpQueryChrome) — a broken categories query shouldn't also drop posts and
+  // pages that fetched fine.
   const [postsResponse, categoriesResponse, pagesResponse] = await Promise.all([
-    fetchSection("posts", () => wpQuery(GetPostsPreviewDocument, { languages: ["DE", "EN"] }), {
-      posts: null,
-    }),
-    fetchSection("categories", () => wpQuery(GetAllCategoriesDocument, {}), { categories: null }),
-    fetchSection(
-      "pages",
-      () => wpQuery(GetPagesBySlugsDocument, { slugs: ["datenschutz", "impressum", "ueber-mich"] }),
-      { pages: null },
-    ),
+    wpQueryChrome(GetPostsPreviewDocument, { languages: LOCALES.map(toLanguageCode) }),
+    wpQueryChrome(GetAllCategoriesDocument, {}),
+    wpQueryChrome(GetPagesBySlugsDocument, { slugs: STATIC_PAGE_SLUGS, withContent: false }),
   ]);
 
-  const homeUrls: SitemapUrl[] = ["de", "en"].map((lang) => ({
-    alternates: [
-      { href: url("/de"), hreflang: "de" },
-      { href: url("/en"), hreflang: "en" },
-      { href: url("/de"), hreflang: "x-default" },
-    ],
+  const homeAlternates = [
+    ...toAlternates(LOCALES.map((lang) => [lang, `/${lang}`])),
+    { href: url(`/${defaultLang}`), hreflang: "x-default" },
+  ];
+  const homeUrls: SitemapUrl[] = LOCALES.map((lang) => ({
+    alternates: homeAlternates,
     loc: url(`/${lang}`),
   }));
 
-  const postEntries = (postsResponse.posts?.nodes ?? []).flatMap((post) => {
+  const postEntries = (postsResponse?.posts?.nodes ?? []).flatMap((post) => {
     const lang = post.language?.slug;
     if (!lang || !post.slug) return [];
 
-    const selfAlternate = { href: url(postPathBuilder(post.slug, lang)), hreflang: lang };
-    const translationAlternates = (post.translations ?? []).flatMap((translation) => {
-      const translationLang = translation?.language?.slug;
-      if (!translationLang || !translation?.slug) return [];
-      return [
-        {
-          href: url(postPathBuilder(translation.slug, translationLang)),
-          hreflang: translationLang,
-        },
-      ];
-    });
-
     return [
       {
-        alternates: [selfAlternate, ...translationAlternates],
+        alternates: toAlternates(
+          [post, ...(post.translations ?? [])].map((variant) => [
+            variant?.language?.slug,
+            variant?.slug && postPathBuilder(variant.slug, variant.language?.slug ?? ""),
+          ]),
+        ),
         lastmod: toIsoUtc(post.modifiedGmt) ?? toIsoUtc(post.dateGmt),
-        loc: selfAlternate.href,
+        loc: url(postPathBuilder(post.slug, lang)),
         noindex: isNoindex(post.seo?.metaRobotsNoindex),
       },
     ];
@@ -132,22 +118,16 @@ export const GET = async ({ site }: APIContext) => {
   // of the sitemap entirely and made hreflang non-reciprocal (Google expects
   // every language variant to have its own <url> entry with the same
   // alternate list).
-  const pageEntries = (pagesResponse.pages?.nodes ?? []).flatMap((rawPage) => {
-    const rawVariants = [rawPage, ...(rawPage.translations ?? [])].filter(
-      (rawVariant): rawVariant is NonNullable<typeof rawVariant> => Boolean(rawVariant),
-    );
-
-    const variants = rawVariants.flatMap((rawVariant) => {
-      const variant = useFragment(PageFieldFragment, rawVariant);
+  const pageEntries = (pagesResponse?.pages?.nodes ?? []).flatMap((rawPage) => {
+    const variants = pageVariants(rawPage).flatMap((variant) => {
       const lang = variant.language?.slug;
       if (!lang || !variant.slug) return [];
 
-      const seo = variant.seo ? useFragment(PostTypeSeoFragment, variant.seo) : undefined;
       return [
         {
-          href: url(`/${lang}/${variant.slug}`),
+          href: url(pagePathBuilder(variant.slug, lang)),
           hreflang: lang,
-          noindex: isNoindex(seo?.metaRobotsNoindex),
+          noindex: isNoindex(variant.seo?.metaRobotsNoindex),
         },
       ];
     });
@@ -161,18 +141,14 @@ export const GET = async ({ site }: APIContext) => {
   });
   const pageUrls = dropNoindexed(pageEntries);
 
-  // Matches the pageSize used for pagination in
-  // src/pages/[lang]/category/[slug]/[page].astro — category archives
-  // beyond this many posts split into additional prerendered (and
-  // therefore crawlable) pages.
-  const CATEGORY_PAGE_SIZE = 6;
-
   // WPGraphQL's root `categories` connection already returns every term
   // flat — children included as their own `nodes` entries (confirmed by
   // MainFooter.astro rendering the same connection with no children
   // traversal). Walking `children`/`children.children` on top of that
   // duplicated every child category 2-3x in the sitemap.
-  const categoryUrls: SitemapUrl[] = (categoriesResponse.categories?.nodes ?? []).flatMap(
+  // Category archives beyond CATEGORY_PAGE_SIZE posts split into additional
+  // prerendered (and therefore crawlable) pages.
+  const categoryUrls: SitemapUrl[] = (categoriesResponse?.categories?.nodes ?? []).flatMap(
     (rawCategory) => {
       const category = useFragment(CategoryFields, rawCategory);
       const lang = category.language?.slug;
@@ -184,25 +160,15 @@ export const GET = async ({ site }: APIContext) => {
       // hreflang alternates only make sense for page 1 — a translated
       // category archive won't reliably have the same post count, so its
       // own pagination doesn't line up page-for-page with this one.
-      const translationAlternates = (category.translations ?? []).flatMap((translation) => {
-        const translationLang = translation?.language?.slug;
-        if (!translationLang || !translation?.slug) return [];
-        return [
-          {
-            href: url(categoryPathBuilder(translation.slug, translationLang)),
-            hreflang: translationLang,
-          },
-        ];
-      });
+      const firstPageAlternates = toAlternates(
+        [category, ...(category.translations ?? [])].map((variant) => [
+          variant?.language?.slug,
+          variant?.slug && categoryPathBuilder(variant.slug, variant.language?.slug ?? ""),
+        ]),
+      );
 
       return Array.from({ length: totalPages }, (_, index) => ({
-        alternates:
-          index === 0
-            ? [
-                { href: url(categoryPathBuilder(slug, lang)), hreflang: lang },
-                ...translationAlternates,
-              ]
-            : undefined,
+        alternates: index === 0 ? firstPageAlternates : undefined,
         loc: url(categoryPathBuilder(slug, lang, String(index + 1))),
       }));
     },

@@ -12,13 +12,8 @@
 </template>
 
 <script setup lang="ts">
-interface LanguagesProps {
-  [key: string]: number;
-}
-
 const { languages } = defineProps<{
-  languages: LanguagesProps;
+  /** Percentage per language name. */
+  languages: Record<string, number>;
 }>();
 </script>
-
-<style lang="scss"></style>

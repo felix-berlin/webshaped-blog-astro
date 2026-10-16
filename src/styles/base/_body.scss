@@ -90,7 +90,7 @@ body {
     --gradient-background: linear-gradient(
       14deg,
       #{butler-fn.hex-to-rgb(#ffcb70, 60%)} 0%,
-      #{butler-fn.hex-to-rgb(#ed3c63, 0%)} 40%
+      #{butler-fn.hex-to-rgb(colors.$red-orig, 0%)} 40%
     );
 
     @include butler-mx.dark-mode-class {
@@ -109,7 +109,7 @@ body {
     --gradient-background: linear-gradient(
       25deg,
       #{butler-fn.hex-to-rgb(colors.$orange-light, 0%)} 60%,
-      #{butler-fn.hex-to-rgb(#ed3c63, 10%)} 100%
+      #{butler-fn.hex-to-rgb(colors.$red-orig, 10%)} 100%
     );
 
     @include butler-mx.dark-mode-class {

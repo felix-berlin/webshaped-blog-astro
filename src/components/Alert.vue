@@ -1,9 +1,5 @@
 <template>
-  <component
-    :is="props.element"
-    :class="[props.componentClass, props.componentClass + '--' + props.type]"
-    role="alert"
-  >
+  <component :is="element" :class="[componentClass, `${componentClass}--${type}`]" role="alert">
     <slot />
   </component>
 </template>
@@ -15,11 +11,7 @@ interface AlertProps {
   type?: "danger" | "info" | "success" | "warning";
 }
 
-const props = withDefaults(defineProps<AlertProps>(), {
-  componentClass: "c-alert",
-  element: "div",
-  type: "info",
-});
+const { componentClass = "c-alert", element = "div", type = "info" } = defineProps<AlertProps>();
 </script>
 
 <style lang="scss">

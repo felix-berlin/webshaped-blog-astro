@@ -1,156 +1,112 @@
-// @ts-ignore: Unresolved import
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import { mount, flushPromises } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
-import { it, expect, describe, vi, beforeAll, afterAll, afterEach, beforeEach } from "vitest";
+import { it, expect, describe, vi, beforeEach, afterEach } from "vitest";
 
-const mockHandler = http.get("https://last-fm.kasimir.dev", () => {
-  return HttpResponse.json({
-    recenttracks: {
-      track: [
-        {
-          name: "Song 1",
-          artist: { "#text": "Artist 1" },
-          album: { "#text": "Album 1" },
-          image: [{ "#text": "image1.png" }, { "#text": "image2.png" }],
-          url: "https://www.last.fm/music/Artist+1/_/Song+1",
-          "@attr": { nowplaying: true },
-        },
-        {
-          name: "Song 2",
-          artist: { "#text": "Artist 2" },
-          album: { "#text": "Album 2" },
-          image: [{ "#text": "image3.png" }, { "#text": "image4.png" }],
-          url: "https://www.last.fm/music/Artist+2/_/Song+2",
-        },
-      ],
-      "@attr": { total: 2 },
-    },
-  });
+import { server } from "@/tests/mocks/node";
+
+const API = "https://last-fm.test";
+const requests = vi.fn();
+
+const lastFmResponse = (nowPlaying: boolean) => ({
+  recenttracks: {
+    track: [
+      {
+        name: "Song 1",
+        artist: { "#text": "Artist 1" },
+        album: { "#text": "Album 1" },
+        image: [{ "#text": "image1.png" }, { "#text": "image2.png" }],
+        url: "https://www.last.fm/music/Artist+1/_/Song+1",
+        ...(nowPlaying ? { "@attr": { nowplaying: "true" } } : {}),
+      },
+    ],
+    "@attr": { total: "1", user: "felix" },
+  },
 });
 
-const server = setupServer(mockHandler);
+const mountDisplay = (props: Record<string, unknown> = {}) =>
+  mount(ScrobbleDisplay, {
+    props: { numberOfDisplayedTracks: 1, scrobbleApi: API, lang: "de", updateRate: 1000, ...props },
+  });
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-// ponytail: several tests below mount without unmounting, leaving the
-// component's onMounted fetch() promise pending; without this the promise
-// resolves after the test file's module env is torn down and crashes an
-// unrelated later test file. Flushing here settles it while still alive.
+beforeEach(() => {
+  requests.mockClear();
+  server.use(
+    http.get(API, ({ request }) => {
+      requests(new URL(request.url).searchParams.get("limit"));
+      return HttpResponse.json(lastFmResponse(true));
+    }),
+  );
+});
+
+// Settle the pending fetch while this file's environment is still alive.
 afterEach(async () => {
   await flushPromises();
+  vi.useRealTimers();
 });
-afterAll(() => server.close());
 
 describe("ScrobbleDisplay", () => {
-  it("renders the the dropdown", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        numberOfDisplayedTracks: 2,
-        scrobbleApi: "https://last-fm.kasimir.dev",
-        lang: "de",
-      },
-    });
+  it("fetches the configured number of tracks on mount", async () => {
+    const wrapper = mountDisplay();
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledWith("1"));
+    wrapper.unmount();
+  });
 
+  it("animates the music bars while a track is playing", async () => {
+    const wrapper = mountDisplay();
+    await vi.waitFor(() =>
+      expect(wrapper.findComponent({ name: "MusicBars" }).props("animate")).toBe(true),
+    );
+    wrapper.unmount();
+  });
+
+  it("renders the dropdown", () => {
+    const wrapper = mountDisplay();
     wrapper.find(".c-scrobble-display__music-bar").trigger("click");
-
-    const dropdown = wrapper.findComponent({ name: "VPopperContent" });
-
-    expect(dropdown.exists()).toBe(true);
-  });
-
-  it("unmounts without errors (covers onBeforeUnmount/stopScrobbleUpdates)", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        lang: "de",
-        numberOfDisplayedTracks: 2,
-        scrobbleApi: "https://last-fm.kasimir.dev",
-      },
-    });
-    await wrapper.vm.$nextTick();
-    expect(() => wrapper.unmount()).not.toThrow();
-  });
-
-  it("stopScrobbleUpdates clears interval when updateIntervalId is set", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        lang: "de",
-        numberOfDisplayedTracks: 2,
-        scrobbleApi: "https://last-fm.kasimir.dev",
-        updateRate: 100,
-      },
-    });
-    await wrapper.vm.$nextTick();
-    const clearSpy = vi.spyOn(globalThis, "clearInterval");
-    wrapper.unmount();
-    expect(clearSpy).toHaveBeenCalled();
-    clearSpy.mockRestore();
-  });
-
-  it("watcher fires when isDropdownShown toggles (covers lines 181-184)", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        lang: "de",
-        numberOfDisplayedTracks: 2,
-        scrobbleApi: "https://last-fm.kasimir.dev",
-        updateRate: 60_000,
-      },
-    });
-    await wrapper.vm.$nextTick();
-
-    const vm = wrapper.vm as any;
-    // Set isDropdownShown to true → watcher fires, enters if-branch (lines 181-184)
-    vm.state.isDropdownShown = true;
-    await flushPromises();
-    await wrapper.vm.$nextTick();
-
-    // Set back to false → watcher fires again, skips if-branch (false branch of line 181)
-    vm.state.isDropdownShown = false;
-    await wrapper.vm.$nextTick();
-
-    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.findComponent({ name: "VPopperContent" }).exists()).toBe(true);
     wrapper.unmount();
   });
 
-  it("stopScrobbleUpdates does nothing when updateIntervalId is undefined (covers line 234 false branch)", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        lang: "de",
-        scrobbleApi: "https://last-fm.kasimir.dev",
-        updateRate: 60_000,
-      },
-    });
-    await wrapper.vm.$nextTick();
+  it("stops polling after idleAfterCount background updates", async () => {
+    vi.useFakeTimers();
+    const wrapper = mountDisplay({ idleAfterCount: 1 });
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(1));
 
-    const vm = wrapper.vm as any;
-    const savedId = vm.state.updateIntervalId;
-    vm.state.updateIntervalId = undefined;
+    await vi.advanceTimersByTimeAsync(1000);
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(2));
 
-    expect(() => vm.stopScrobbleUpdates()).not.toThrow();
-
-    vm.state.updateIntervalId = savedId;
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(requests).toHaveBeenCalledTimes(2);
     wrapper.unmount();
   });
 
-  it("watchEffect calls stopScrobbleUpdates when idleAfterCount is reached (covers line 174)", async () => {
-    const wrapper = mount(ScrobbleDisplay, {
-      props: {
-        lang: "de",
-        scrobbleApi: "https://last-fm.kasimir.dev",
-        idleAfterCount: 1, // state.idleAfterCount = 2
-        updateRate: 50,
-      },
-    });
-    // First checkIfPlaying() fires immediately in onMounted (updateCount becomes 1)
-    await flushPromises();
-    await wrapper.vm.$nextTick();
-    // Wait for setInterval (50ms) to fire → second checkIfPlaying (updateCount becomes 2 = idleAfterCount)
-    await new Promise((resolve) => setTimeout(resolve, 60));
-    await flushPromises();
-    await wrapper.vm.$nextTick();
-    // watchEffect should have fired: idleAfterCount (2) === updateCount (2) → stopScrobbleUpdates()
-    expect(wrapper.exists()).toBe(true);
+  it("still idles out when the API keeps failing", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    server.use(
+      http.get(API, () => {
+        requests();
+        return new HttpResponse(null, { status: 503 });
+      }),
+    );
+    const wrapper = mountDisplay({ idleAfterCount: 1 });
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(1));
+
+    await vi.advanceTimersByTimeAsync(1000);
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(2));
+
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(requests).toHaveBeenCalledTimes(2);
     wrapper.unmount();
+  });
+
+  it("stops polling on unmount", async () => {
+    vi.useFakeTimers();
+    const wrapper = mountDisplay();
+    await vi.waitFor(() => expect(requests).toHaveBeenCalledTimes(1));
+    wrapper.unmount();
+
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(requests).toHaveBeenCalledTimes(1);
   });
 });

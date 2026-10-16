@@ -1,9 +1,4 @@
-import { http, HttpResponse } from "msw";
+import type { RequestHandler } from "msw";
 
-import { testData } from "./apiData.js";
-
-export const handlers = [
-  http.get("/api/test", () => {
-    return HttpResponse.json(testData);
-  }),
-];
+// Default handlers shared by every test; individual tests add their own via `server.use(...)`.
+export const handlers: RequestHandler[] = [];

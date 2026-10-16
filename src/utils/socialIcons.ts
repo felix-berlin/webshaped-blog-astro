@@ -1,7 +1,7 @@
 import { type Component, defineAsyncComponent } from "vue";
 
 // Built once at module level: creating the async component inside a render
-// function returned a new definition every render and defeated <KeepAlive>.
+// function would return a new definition (and re-fetch the chunk) every render.
 export const socialIcons: Record<string, Component> = {
   facebook: defineAsyncComponent(() => import("virtual:icons/tabler/brand-facebook")),
   github: defineAsyncComponent(() => import("virtual:icons/tabler/brand-github")),

@@ -35,16 +35,6 @@ export const GetAllCategories = graphql(`
     ) {
       nodes {
         ...CategoryFields
-        children {
-          nodes {
-            ...CategoryFields
-            children {
-              nodes {
-                ...CategoryFields
-              }
-            }
-          }
-        }
       }
     }
   }

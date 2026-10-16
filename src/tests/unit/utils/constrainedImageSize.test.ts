@@ -1,7 +1,5 @@
+import { captureException } from "@sentry/astro";
 import { describe, expect, it, vi } from "vitest";
-
-const captureExceptionMock = vi.fn();
-vi.mock("@sentry/astro", () => ({ captureException: captureExceptionMock }));
 
 const { computeConstrainedSize } = await import("@utils/constrainedImageSize");
 
@@ -19,13 +17,13 @@ describe("computeConstrainedSize", () => {
   ])(
     "falls back to a fixed 400px height and reports it when dimensions are missing (%o, %o)",
     (rawWidth, rawHeight) => {
-      captureExceptionMock.mockClear();
+      vi.mocked(captureException).mockClear();
 
       const result = computeConstrainedSize(800, rawWidth, rawHeight, "test-context");
 
       expect(result).toEqual({ height: 400, width: 800 });
-      expect(captureExceptionMock).toHaveBeenCalledOnce();
-      expect(captureExceptionMock.mock.calls[0][0].message).toContain("test-context");
+      expect(vi.mocked(captureException)).toHaveBeenCalledOnce();
+      expect(vi.mocked(captureException).mock.calls[0][0].message).toContain("test-context");
     },
   );
 });

@@ -1,14 +1,13 @@
+import { captureException } from "@sentry/astro";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const buildImagorPathMock = vi.fn(() => "fit-in/100x100/filters:format(webp):quality(80)/enc");
 const signImagorPathMock = vi.fn((path: string) => `https://assets.kasimir.dev/signed/${path}`);
-const captureExceptionMock = vi.fn();
 
 vi.mock("@utils/imagor", () => ({
   buildImagorPath: buildImagorPathMock,
   signImagorPath: signImagorPathMock,
 }));
-vi.mock("@sentry/astro", () => ({ captureException: captureExceptionMock }));
 
 const { GET } = await import("@/pages/api/imagor");
 
@@ -33,7 +32,7 @@ describe("GET /api/imagor", () => {
       "https://assets.kasimir.dev/signed/fit-in/100x100/filters:format(webp):quality(80)/enc",
     );
     expect(response.headers.get("Cache-Control")).toBe("public, max-age=86400");
-    expect(captureExceptionMock).not.toHaveBeenCalled();
+    expect(vi.mocked(captureException)).not.toHaveBeenCalled();
   });
 
   it("allows a tall (portrait) height at the widest responsive breakpoint", async () => {
@@ -55,7 +54,7 @@ describe("GET /api/imagor", () => {
   it("rejects a missing src", async () => {
     const response = await GET(request({ h: "100", w: "800" }) as never);
     expect(response.status).toBe(400);
-    expect(captureExceptionMock).toHaveBeenCalledOnce();
+    expect(vi.mocked(captureException)).toHaveBeenCalledOnce();
   });
 
   it.each([

@@ -14,7 +14,6 @@ vi.mock("astro:env/server", () => ({
   WP_AUTH_USER: "wp-user",
 }));
 vi.mock("astro:env/client", () => ({ WP_API }));
-vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
 
 const { wpQuery, wpQueryChrome } = await import("@services/wpGraphqlClient");
 const { captureException } = await import("@sentry/astro");
@@ -150,6 +149,79 @@ describe("wpQueryChrome", () => {
 
     await expect(wpQueryChrome(GetAuthorDocument, {})).resolves.toEqual({
       user: { name: "Felix" },
+    });
+  });
+
+  describe("outside dev", () => {
+    afterEach(() => vi.unstubAllEnvs());
+
+    it("shares a successful result between calls instead of re-fetching", async () => {
+      vi.stubEnv("DEV", false);
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: { name: "Felix" } } });
+        }),
+      );
+
+      await wpQueryChrome(GetAuthorDocument, { id: "cache-hit" });
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-hit" })).resolves.toEqual({
+        user: { name: "Felix" },
+      });
+      expect(requests).toHaveBeenCalledOnce();
+    });
+
+    it("does not cache a failure", async () => {
+      vi.stubEnv("DEV", false);
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      // Later handlers take precedence: the first request fails, the retry succeeds.
+      server.use(http.all(WP_API, () => HttpResponse.json({ data: { user: { name: "Felix" } } })));
+      server.use(http.all(WP_API, () => HttpResponse.json({ data: null }), { once: true }));
+
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-miss" })).resolves.toBeNull();
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "cache-miss" })).resolves.toEqual({
+        user: { name: "Felix" },
+      });
+    });
+
+    it("renders a partial-error result but neither caches it nor hides it from Sentry", async () => {
+      vi.stubEnv("DEV", false);
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: null }, errors: [{ message: "forbidden" }] });
+        }),
+      );
+
+      await expect(wpQueryChrome(GetAuthorDocument, { id: "partial" })).resolves.toEqual({
+        user: null,
+      });
+      await wpQueryChrome(GetAuthorDocument, { id: "partial" });
+
+      expect(requests).toHaveBeenCalledTimes(2);
+      expect(captureException).toHaveBeenCalled();
+    });
+
+    it("re-fetches once the TTL has expired", async () => {
+      vi.stubEnv("DEV", false);
+      vi.useFakeTimers({ toFake: ["Date"] });
+      const requests = vi.fn();
+      server.use(
+        http.all(WP_API, () => {
+          requests();
+          return HttpResponse.json({ data: { user: { name: "Felix" } } });
+        }),
+      );
+
+      await wpQueryChrome(GetAuthorDocument, { id: "ttl" });
+      vi.setSystemTime(Date.now() + 5 * 60_000 + 1);
+      await wpQueryChrome(GetAuthorDocument, { id: "ttl" });
+
+      expect(requests).toHaveBeenCalledTimes(2);
+      vi.useRealTimers();
     });
   });
 });

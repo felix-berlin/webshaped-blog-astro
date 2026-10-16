@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Categories from "@components/Categories.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

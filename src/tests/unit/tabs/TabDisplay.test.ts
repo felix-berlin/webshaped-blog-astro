@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import TabDisplay from "@components/tabs/TabDisplay.vue";
 import { mount, flushPromises } from "@vue/test-utils";
 import { it, expect, describe, vi } from "vitest";

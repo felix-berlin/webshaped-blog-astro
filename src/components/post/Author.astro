@@ -1,48 +1,27 @@
 ---
+import type { Lang } from "@i18n/ui";
 import "@styles/components/_author.scss";
 import "@styles/components/_details.scss";
 import ScrobbleDisplay from "@components/ScrobbleDisplay.vue";
 import SocialList from "@components/SocialList.vue";
-import { getSocialIconData } from "@utils/helpers";
+import { getAuthorSocialItems } from "@utils/authorSocials";
 import { useTranslations } from "@utils/i18n/utils";
 import { LAST_FM_SCROBBLER_API, SITE_URL } from "astro:env/client";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
 
-export interface AuthorProps {
+export interface Props {
   author: NodeWithAuthorToUserConnectionEdge | undefined;
-  lang: "de" | "en";
+  lang: Lang;
 }
 
-type AuthorNode = NonNullable<NodeWithAuthorToUserConnectionEdge>["node"];
-type AuthorSocial = NonNullable<NonNullable<AuthorNode["seo"]>["social"]>;
-type AuthorSocialAdvanced = NonNullable<AuthorNode["socialAdvanced"]>;
 type NodeWithAuthorToUserConnectionEdge = NonNullable<
   GetAllPostsQuery["posts"]
 >["nodes"][number]["author"];
 
-const { author, lang } = Astro.props as AuthorProps;
+const { author, lang } = Astro.props;
 const t = useTranslations(lang);
-const scrobbleApi = LAST_FM_SCROBBLER_API;
-
-const iconStyles = {
-  size: 20,
-  strokeWidth: 1,
-};
-
-const additionalSoicalData = {
-  github: {
-    rel: "me",
-  },
-  mastodon: {
-    rel: "me",
-  },
-};
-
-const allSocials = {
-  ...author?.node?.seo?.social,
-  ...author?.node?.socialAdvanced,
-} as AuthorSocial | AuthorSocialAdvanced;
+const authorName = `${author?.node.firstName ?? ""} ${author?.node.lastName ?? ""}`.trim();
 ---
 
 <div
@@ -55,7 +34,7 @@ const allSocials = {
     {
       author?.node?.avatar?.url && (
         <img
-          alt={`Foto des Author: ${author?.node.firstName} ${author?.node.lastName}`}
+          alt={t("comment.author.image.alt", { author: authorName })}
           class="c-author__image"
           height={author.node.avatar.height}
           itemprop="image"
@@ -71,12 +50,12 @@ const allSocials = {
       dropdownPlacement="left"
       idle-after-count={1}
       lang={lang}
-      scrobbleApi={scrobbleApi}
+      scrobbleApi={LAST_FM_SCROBBLER_API}
     />
   </div>
 
   <p class="c-author__name" itemprop="name">
-    {`${author?.node.firstName} ${author?.node.lastName}`}
+    {authorName}
   </p>
 
   <p class="c-author__description" itemprop="description">
@@ -87,7 +66,7 @@ const allSocials = {
     <summary><span class="c-details__title">{t("more")}</span></summary>
     <SocialList
       lang={lang}
-      socialItems={getSocialIconData(allSocials, iconStyles, additionalSoicalData)}
+      socialItems={getAuthorSocialItems(author?.node, 20)}
     />
   </details>
 </div>

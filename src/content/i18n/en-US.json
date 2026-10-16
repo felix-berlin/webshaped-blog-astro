@@ -36,6 +36,7 @@
   "comment.nothing_is_happening": "Nothing is happening here yet...",
   "comments.no_comments": "Your chance for <br/> the <a href=\"{ link }\">first comment</a> !",
   "comments.load_more.button": "Load more comments",
+  "comments.load_failed": "The comments could not be loaded.",
   "comment.date": "commented on: ",
   "comment.author.image.alt": "Profile picture of { author }",
   "comment.reply_button": "Reply",
@@ -52,6 +53,7 @@
   "comment_form.gravatar_hint": "Your Gravatar profile picture.",
   "comment_form.privacy.label": "By using this form, you consent to the storage and processing of your data by this website. For more information, please see the <a href=\"{ link }\" target=\"_blank\">privacy policy</a>",
   "comment_form.error.privacy_not_accepted": "Please accept the privacy policy.",
+  "comment_form.error.not_created": "Your comment could not be saved. Please try again later.",
   "comment_form.save_user.label": "Save my data for the next comment",
   "comment_form.success": "Thank you for your comment!",
   "green_hosted": "CO<sub>2</sub> neutral hosted",
@@ -74,6 +76,7 @@
   "dev_card.header_text": "I have been a full-stack software developer in Berlin for over 10 years now, but my special focus is on the development of dynamic, accessible and high-performance frontends.",
   "github_stats.lang_graph.headline": "I write the following languages the most:",
   "github_stats.lang_graph.hint": "The language graph refers to my public and private repositories (main branch).",
+  "github_stats.error": "The GitHub stats could not be loaded.",
   "github_stats.total_lines.headline": "Total lines of code:",
   "github_stats.most_starred.headline": "My { count } most popular repositories:",
   "install_app.not_ready.tooltip": "The app is not yet ready for installation, please wait a moment."

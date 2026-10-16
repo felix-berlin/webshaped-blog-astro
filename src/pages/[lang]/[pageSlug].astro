@@ -2,43 +2,36 @@
 import GithubStats from "@components/GithubStats.vue";
 import DefaultLayout from "@layouts/DefaultLayout.astro";
 import { wpQuery } from "@services/wpGraphqlClient";
-import { getLang, useTranslations } from "@utils/i18n/utils";
+import { buildTranslationRoutes, getLang, pagePathBuilder, useTranslations } from "@utils/i18n/utils";
+import { ABOUT_PAGE_SLUG, STATIC_PAGE_SLUGS } from "@utils/routes";
 import "@styles/components/_post-card.scss";
 import "@styles/objects/_developer-card.scss";
 import { Image } from "astro:assets";
 
-import { useFragment } from "@/gql";
 import { GetPagesBySlugsDocument } from "@/gql/graphql.ts";
-import { PageFieldFragment } from "@services/queries/getPage";
-import type { TranslationRoutes } from "@/types/i18n";
+import { pageVariants } from "@services/queries/getPage";
 
-// "ueber-mich" (German canonical slug) gets the special developer-card
-// layout with live GitHub stats instead of generic WP page content — see
+// The about page (ABOUT_PAGE_SLUG) gets the special developer-card layout
+// with live GitHub stats instead of generic WP page content — see
 // isAboutPage below. Merged into this catch-all route because Astro's
 // route priority (dynamic single-segment beats rest params) means a
 // separate [...about].astro under the same [lang]/ parent would never be
 // reached: [pageSlug] always wins the match first.
-const ABOUT_CANONICAL_SLUG = "ueber-mich";
-
-const pagesResponse = await wpQuery(GetPagesBySlugsDocument, {
-  slugs: ["datenschutz", "impressum", ABOUT_CANONICAL_SLUG],
-});
+const pagesResponse = await wpQuery(GetPagesBySlugsDocument, { slugs: STATIC_PAGE_SLUGS });
 
 const { pageSlug } = Astro.params;
 const lang = getLang(Astro.currentLocale);
 
 const allPages = (pagesResponse.pages?.nodes ?? []).flatMap((node) => {
-  const page = useFragment(PageFieldFragment, node);
-  const translations =
-    node.translations?.map((translation) => useFragment(PageFieldFragment, translation)) ?? [];
-  // Tag every entry (main + translations) with the German slug we queried
-  // by, so we can tell which WP page group a match belongs to regardless
-  // of which language's slug the URL actually matched.
-  return [page, ...translations].map((entry) => ({ ...entry, canonicalSlug: page.slug }));
+  const variants = pageVariants(node);
+  // Tag every variant with the German slug we queried by, so we can tell
+  // which WP page group a match belongs to regardless of which language's
+  // slug the URL actually matched.
+  return variants.map((variant) => ({ ...variant, canonicalSlug: variants[0].slug }));
 });
 
 const page = allPages.find(
-  (candidate) => candidate?.slug === pageSlug && candidate?.language?.slug === lang,
+  (candidate) => candidate.slug === pageSlug && candidate.language?.slug === lang,
 );
 
 if (!page) return Astro.rewrite("/404");
@@ -47,15 +40,13 @@ if (!page) return Astro.rewrite("/404");
 // contains every fetched page's translations combined, and reducing over
 // all of them unscoped would let the last-processed page's language links
 // silently overwrite this page's own.
-const translationsRoutes = allPages
-  .filter((candidate) => candidate.canonicalSlug === page.canonicalSlug)
-  .reduce<TranslationRoutes>((acc, candidate) => {
-    const langSlug = candidate?.language?.slug as "de" | "en" | undefined;
-    if (langSlug && candidate?.slug) acc[langSlug] = `/${langSlug}/${candidate.slug}`;
-    return acc;
-  }, {});
+const translationsRoutes = buildTranslationRoutes(
+  allPages
+    .filter((candidate) => candidate.canonicalSlug === page.canonicalSlug)
+    .map(({ language, slug }) => [language?.slug, slug && pagePathBuilder(slug, language?.slug ?? "")]),
+);
 
-const isAboutPage = page.canonicalSlug === ABOUT_CANONICAL_SLUG;
+const isAboutPage = page.canonicalSlug === ABOUT_PAGE_SLUG;
 const t = useTranslations(lang);
 ---
 
@@ -85,7 +76,7 @@ const t = useTranslations(lang);
           />
         </header>
 
-        <GithubStats client:only="vue" lang={lang} />
+        <GithubStats client:visible lang={lang} />
       </Fragment>
     ) : (
       <div>

@@ -29,11 +29,13 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import MessageSquareDashed from "virtual:icons/lucide/message-square-dashed";
 
 import { useI18n } from "@/composables/useI18n";
 
-const { lang } = defineProps<{ lang: "de" | "en" }>();
+const { lang } = defineProps<{ lang: Lang }>();
 const { t } = useI18n(() => lang);
 </script>
 

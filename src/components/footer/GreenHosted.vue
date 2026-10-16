@@ -11,16 +11,17 @@
 </template>
 
 <script setup lang="ts">
-import type { localeStrings } from "@i18n/ui";
+import type { Lang } from "@i18n/ui";
 
-import { useTranslations } from "@utils/i18n/utils";
 import Leaf from "virtual:icons/lucide/leaf";
 
+import { useI18n } from "@/composables/useI18n";
+
 interface GreenHostedProps {
-  lang: keyof typeof localeStrings;
+  lang: Lang;
 }
 
 const { lang } = defineProps<GreenHostedProps>();
 
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>

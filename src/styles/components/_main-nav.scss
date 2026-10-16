@@ -4,6 +4,7 @@
 @use "@styles/variables/colors";
 @use "@styles/variables/base";
 @use "@sass-butler/functions" as butler-fn;
+@use "@sass-butler/mixins" as butler-mx;
 
 .c-main-nav {
   display: grid;
@@ -116,8 +117,7 @@
       @include mx.breakpoint("sm") {
         --size-font: 18px;
       }
-
-      &:hover {
+      @include butler-mx.hover-focus {
         text-decoration: underline;
       }
 

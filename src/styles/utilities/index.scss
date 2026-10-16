@@ -4,9 +4,9 @@
 @use "@sass-butler/functions" as butler-fn;
 @use "@styles/variables/base";
 
-.u-slide-parent {
-  overflow: hidden;
-  position: relative;
+// Toggled by useBodyScrollLock (modal, mobile flyout).
+.u-disable-scroll {
+  overflow: hidden !important;
 }
 
 :where(.u-list-reset) {

@@ -4,34 +4,34 @@
       <CreateComment :current-post-id="currentPostId" :lang="lang" @comment-created="getComments" />
     </div>
 
-    <NoComments v-if="!hasComments" :lang="lang" />
-
     <div v-auto-animate class="c-comments__list">
-      <template v-if="hasComments">
+      <template v-if="comments.length">
         <CommentItem
-          v-for="comment in cleanComments"
+          v-for="comment in comments"
           :key="useFragment(CommentFieldsFragmentDoc, comment.node).id"
           :comment="comment.node"
           :depth="0"
-          :author-id="authorId!"
+          :author-id="authorId"
           :current-post-id="currentPostId"
           :lang="lang"
         />
       </template>
-      <template v-if="!comments.fetching">
+      <template v-else-if="fetching">
         <CommentItemSkeleton v-for="item in 5" :key="item" />
       </template>
+      <Alert v-else-if="loadFailed" type="danger">{{ t("comments.load_failed") }}</Alert>
+      <NoComments v-else :lang="lang" />
     </div>
 
     <button
-      v-if="data?.pageInfo?.hasNextPage"
+      v-if="pageInfo.hasNextPage"
       class="c-comments__load-more-button c-button c-button--outline"
       @click="getComments()"
     >
       <RefreshCw
         width="20"
         height="20"
-        :class="`c-comments__loading-icon${comments.fetching.value ? ' is-loading' : ''}`"
+        :class="`c-comments__loading-icon${fetching ? ' is-loading' : ''}`"
       />
       <span>{{ t("comments.load_more.button") }}</span>
     </button>
@@ -39,11 +39,14 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
+import Alert from "@components/Alert.vue";
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import CreateComment from "@components/comments/CreateComment.vue";
 import { useQuery } from "@urql/vue";
 import RefreshCw from "virtual:icons/lucide/refresh-cw";
-import { computed, defineAsyncComponent, reactive } from "vue";
+import { defineAsyncComponent, onMounted, reactive, ref } from "vue";
 
 import type { GetCommentsByIdQuery, GetCommentsByIdQueryVariables } from "@/gql/graphql.ts";
 
@@ -57,101 +60,51 @@ const NoComments = defineAsyncComponent(() => import("@components/comments/NoCom
 export interface CommentsProps {
   authorId?: string;
   currentPostId: string;
-  id?: string;
-  lang: "de" | "en";
-}
-
-type CommentEdge = CommentsResult["edges"][number];
-type CommentPageInfo = CommentsResult["pageInfo"];
-
-interface CommentsData {
-  comments: Array<CommentEdge>;
-  pageInfo: Partial<CommentPageInfo>;
+  lang: Lang;
 }
 
 type CommentsResult = NonNullable<GetCommentsByIdQuery["comments"]>;
 
-const props = defineProps<CommentsProps>();
+const { authorId, currentPostId, lang } = defineProps<CommentsProps>();
+const { t } = useI18n(() => lang);
 
-const data = reactive<CommentsData>({
-  comments: [],
-  pageInfo: {},
-});
+// Root comments only (the query filters `parent: 0`); replies come nested in each node.
+const comments = ref<CommentsResult["edges"]>([]);
+const pageInfo = ref<Partial<CommentsResult["pageInfo"]>>({});
+// Without this a failed load would render NoComments ("be the first to comment").
+const loadFailed = ref(false);
 
 const queryVariables = reactive<GetCommentsByIdQueryVariables>({
-  after: null, // Startcursor (für Pagination)
-  contentId: props.currentPostId,
-  first: 5, // Anzahl der Kommentare pro Seite
+  after: null,
+  contentId: currentPostId,
+  first: 5,
 });
 
-const comments = useQuery({
+const { executeQuery, fetching } = useQuery({
   pause: true,
   query: GetCommentsByIdDocument,
   variables: queryVariables,
 });
 
-const hasComments = computed(() => data.comments.length > 0);
+/** Loads the next page of comments and appends it. */
+const getComments = async (): Promise<void> => {
+  if (pageInfo.value.hasNextPage) queryVariables.after = pageInfo.value.endCursor;
 
-const cleanComments = computed(() => {
-  return data.comments.filter(
-    (edge) => useFragment(CommentFieldsFragmentDoc, edge.node).parentId === null,
-  );
-});
-
-const { t } = useI18n(() => props.lang);
-
-/**
- * Get comments by post id
- *
- * @param currentPostId
- * @param first
- * @param after
- */
-const getComments = () => {
-  if (data.pageInfo.hasNextPage) {
-    queryVariables.after = data.pageInfo.endCursor;
+  const { data, error } = await executeQuery({ variables: queryVariables });
+  loadFailed.value = !!error.value;
+  if (error.value) {
+    console.error("Error fetching comments:", error.value);
+    return;
   }
 
-  comments.executeQuery({ variables: queryVariables }).then((response) => {
-    const { error } = response;
-    if (error.value) {
-      console.error("Error fetching comments:", error.value);
-      return;
-    }
-
-    const newEdges = response.data.value?.comments?.edges || [];
-    const pageInfo = response.data.value?.comments?.pageInfo;
-
-    if (newEdges.length) {
-      // Append new comments to the existing list
-      data.comments = [...data.comments, ...newEdges];
-    }
-
-    if (pageInfo) data.pageInfo = pageInfo;
-  });
+  comments.value = [...comments.value, ...(data.value?.comments?.edges ?? [])];
+  if (data.value?.comments?.pageInfo) pageInfo.value = data.value.comments.pageInfo;
 };
 
-getComments();
+onMounted(getComments);
 </script>
 
 <style lang="scss">
 @use "@styles/components/comments/comments";
 @use "@styles/components/comments/comment";
-.list-move, /* apply transition to moving elements */
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.3s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
-.list-leave-active {
-  position: absolute;
-}
 </style>

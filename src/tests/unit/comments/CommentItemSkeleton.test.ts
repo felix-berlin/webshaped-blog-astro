@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import CommentItemSkeleton from "@components/comments/CommentItemSkeleton.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";

@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import MenuItem from "@components/menu-nav/MenuItem.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe, nextTick, vi } from "vitest";
@@ -106,22 +105,6 @@ describe("MenuItem", () => {
     await wrapper.vm.$nextTick();
     expect(wrapper.vm.submenuDirection).toBe("right");
     wrapper.unmount();
-  });
-
-  it("toggleMenuItem returns early when depth/index mismatch", async () => {
-    const wrapper = mount(MenuItem, {
-      props: { menuItem: twoMenuItem, depth: 0, index: 0, hasChild: true },
-    });
-    await wrapper.vm.toggleMenuItem(1, 1);
-    expect(wrapper.vm.isOpen).toBe(false);
-  });
-
-  it("emits menu-item-target-clicked when sendEmit is true", async () => {
-    const wrapper = mount(MenuItem, {
-      props: { menuItem: twoMenuItem, depth: 0, index: 0, hasChild: true },
-    });
-    await wrapper.vm.toggleMenuItem(0, 0, true);
-    expect(wrapper.emitted("menu-item-target-clicked")).toBeTruthy();
   });
 
   it("mouseenter on button triggers toggle", async () => {
@@ -271,5 +254,13 @@ describe("MenuItem", () => {
     expect(wrapper.vm.submenuDirection).toBe("left");
     wrapper.unmount();
     document.body.innerHTML = "";
+  });
+
+  it("emits menu-item-target-clicked when a leaf link is clicked", async () => {
+    const wrapper = mount(MenuItem, {
+      props: { menuItem: { label: "Leaf", path: "/leaf" }, depth: 0, index: 0, hasChild: false },
+    });
+    await wrapper.find("a").trigger("click");
+    expect(wrapper.emitted("menu-item-target-clicked")).toHaveLength(1);
   });
 });

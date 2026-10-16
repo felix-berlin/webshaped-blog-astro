@@ -1,62 +1,22 @@
-// @ts-ignore: Unresolved import
 import Share from "@components/Share.vue";
-import { mount, flushPromises } from "@vue/test-utils";
-import { JSDOM } from "jsdom";
+import { mount } from "@vue/test-utils";
 import Share2 from "virtual:icons/lucide/share-2";
-import { test, expect, describe, vi, beforeAll, afterAll } from "vitest";
-import { nextTick } from "vue";
+import { test, expect, describe, vi, beforeEach } from "vitest";
 
-const shareMock = vi.fn().mockResolvedValue({ state: "granted" });
-const permissionsMock = { query: shareMock };
-const originalPermissions = navigator.permissions;
+const shareMock = vi.fn();
 
 vi.mock("@vueuse/core", () => ({
-  useShare: () => ({
-    isSupported: true, // Mock isSupported to always be true
-    share: shareMock, // Use shareMock here
-  }),
+  useShare: () => ({ isSupported: true, share: shareMock }),
 }));
 
-beforeAll(() => {
-  Object.defineProperty(global.navigator, "share", {
-    value: shareMock,
-    writable: true,
-  });
-
-  Object.defineProperty(navigator, "permissions", {
-    value: permissionsMock,
-    writable: true,
-  });
-});
-
-afterAll(() => {
-  global.navigator.share = vi.fn();
-  Object.defineProperty(navigator, "permissions", {
-    value: originalPermissions,
-    writable: true,
-  });
-});
+beforeEach(() => shareMock.mockClear());
 
 describe("Share.vue", () => {
-  test("clicking the button calls the share function", async () => {
-    const { window } = new JSDOM("<!DOCTYPE html>");
-    global.window = window;
-    Object.defineProperty(global, "document", { value: window.document, writable: true, configurable: true });
-    Object.defineProperty(global, "navigator", { value: window.navigator, writable: true, configurable: true });
-    window.navigator.share = shareMock;
-
+  test("shares the given title, text and url", async () => {
     const wrapper = mount(Share, {
-      props: {
-        title: "Test Title",
-        text: "Test Text",
-        url: "https://example.com",
-        lang: "en",
-      },
+      props: { title: "Test Title", text: "Test Text", url: "https://example.com", lang: "en" },
     });
-
-    // Assuming that wrapper and shareMock are defined and initialized properly
     await wrapper.find("button").trigger("click");
-
     expect(shareMock).toHaveBeenCalledWith({
       title: "Test Title",
       text: "Test Text",
@@ -64,52 +24,19 @@ describe("Share.vue", () => {
     });
   });
 
-  test("it sets currentUrl to window.location.href if props.url is not provided", async () => {
-    // Create a new JSDOM instance with the desired URL
-    const jsdom = new JSDOM("", { url: "https://example.com" });
-
-    // Replace the global window object with the window object from the JSDOM instance
-    global.window = jsdom.window;
-
-    // Mount the component without providing props.url
-    const wrapper = mount(Share, {
-      props: {
-        title: "Test Title",
-        text: "Test Text",
-        lang: "de",
-        // Don't provide url
-      },
-    });
-
-    // Wait for any asynchronous updates to complete
-    await nextTick();
-
-    // Now check if currentUrl was set to window.location.href
-    expect(wrapper.vm.currentUrl).toBe("https://example.com/");
-
-    // Restore the original window object after the test
-    global.window = jsdom.window.parent;
+  test("falls back to the current page URL", async () => {
+    const wrapper = mount(Share, { props: { title: "Test Title", lang: "de" } });
+    await wrapper.find("button").trigger("click");
+    expect(shareMock).toHaveBeenCalledWith(expect.objectContaining({ url: window.location.href }));
   });
 
   test("renders Share2 component when showButton is true", () => {
-    const wrapper = mount(Share, {
-      props: {
-        showButton: true,
-        lang: "de",
-      },
-    });
-
+    const wrapper = mount(Share, { props: { lang: "de" } });
     expect(wrapper.findComponent(Share2).exists()).toBe(true);
   });
 
   test("does not render Share2 component when showButton is false", () => {
-    const wrapper = mount(Share, {
-      props: {
-        showButton: false,
-        lang: "de",
-      },
-    });
-
+    const wrapper = mount(Share, { props: { showButton: false, lang: "de" } });
     expect(wrapper.findComponent(Share2).exists()).toBe(false);
   });
 });

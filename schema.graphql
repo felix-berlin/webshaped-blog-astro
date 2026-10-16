@@ -232,15 +232,6 @@ type AcfMediaItemConnectionEdge implements Edge & MediaItemConnectionEdge & OneT
   node: MediaItem!
 }
 
-"""Options Page registered by ACF"""
-interface AcfOptionsPage implements Node {
-  """The globally unique ID for the object"""
-  id: ID!
-  menuTitle: String
-  pageTitle: String
-  parentId: String
-}
-
 """
 Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from.
 """
@@ -322,7 +313,7 @@ type Category implements DatabaseIdentifier & HierarchicalNode & HierarchicalTer
     """The number of items to return before the referenced "before" cursor"""
     last: Int
   ): CategoryToAncestorsCategoryConnection
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the term."""
   categoryId: Int @deprecated(reason: "Deprecated in favor of databaseId")
   """Connection between the category type and its children categories."""
   children(
@@ -378,6 +369,8 @@ type Category implements DatabaseIdentifier & HierarchicalNode & HierarchicalTer
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedScriptConnectionWhereArgs
   ): TermNodeToEnqueuedScriptConnection
   """Connection between the TermNode type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -393,6 +386,8 @@ type Category implements DatabaseIdentifier & HierarchicalNode & HierarchicalTer
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedStylesheetConnectionWhereArgs
   ): TermNodeToEnqueuedStylesheetConnection
   """The globally unique ID for the object"""
   id: ID!
@@ -880,40 +875,28 @@ type CategoryToTaxonomyConnectionEdge implements Edge & OneToOneConnection & Tax
 A response or reaction to content submitted by users. Comments are typically associated with a specific content entry.
 """
 type Comment implements DatabaseIdentifier & Node & UniformResourceIdentifiable {
-  """
-  User agent used to post the comment. This field is equivalent to WP_Comment-&gt;comment_agent and the value matching the &quot;comment_agent&quot; column in SQL.
-  """
+  """User agent (browser or client) used to post the comment."""
   agent: String
-  """
-  The approval status of the comment. This field is equivalent to WP_Comment-&gt;comment_approved and the value matching the &quot;comment_approved&quot; column in SQL.
-  """
+  """The approval status of the comment."""
   approved: Boolean @deprecated(reason: "Deprecated in favor of the `status` field")
   """The author of the comment"""
   author: CommentToCommenterConnectionEdge
-  """
-  IP address for the author at the time of commenting. This field is equivalent to WP_Comment-&gt;comment_author_IP and the value matching the &quot;comment_author_IP&quot; column in SQL.
-  """
+  """IP address for the author at the time of commenting."""
   authorIp: String @deprecated(reason: "Use the ipAddress field on the edge between the comment and author")
   """ID for the comment, unique among comments."""
   commentId: Int @deprecated(reason: "Deprecated in favor of databaseId")
   """Connection between the Comment type and the ContentNode type"""
   commentedOn: CommentToContentNodeConnectionEdge
-  """
-  Content of the comment. This field is equivalent to WP_Comment-&gt;comment_content and the value matching the &quot;comment_content&quot; column in SQL.
-  """
+  """Content of the comment."""
   content(
     """Format of the field output"""
     format: PostObjectFieldFormatEnum
   ): String
   """The unique identifier stored in the database"""
   databaseId: Int!
-  """
-  Date the comment was posted in local time. This field is equivalent to WP_Comment-&gt;date and the value matching the &quot;date&quot; column in SQL.
-  """
+  """Date the comment was posted in local time."""
   date: String
-  """
-  Date the comment was posted in GMT. This field is equivalent to WP_Comment-&gt;date_gmt and the value matching the &quot;date_gmt&quot; column in SQL.
-  """
+  """Date the comment was posted in GMT."""
   dateGmt: String
   """The globally unique identifier for the comment object"""
   id: ID!
@@ -929,9 +912,7 @@ type Comment implements DatabaseIdentifier & Node & UniformResourceIdentifiable 
   isRestricted: Boolean
   """Whether the node is a Term"""
   isTermNode: Boolean!
-  """
-  Karma value for the comment. This field is equivalent to WP_Comment-&gt;comment_karma and the value matching the &quot;comment_karma&quot; column in SQL.
-  """
+  """Karma value for the comment."""
   karma: Int
   """The permalink of the comment"""
   link: String
@@ -963,13 +944,9 @@ type Comment implements DatabaseIdentifier & Node & UniformResourceIdentifiable 
     """Arguments for filtering the connection"""
     where: CommentToCommentConnectionWhereArgs
   ): CommentToCommentConnection
-  """
-  The approval status of the comment. This field is equivalent to WP_Comment-&gt;comment_approved and the value matching the &quot;comment_approved&quot; column in SQL.
-  """
+  """The approval status of the comment."""
   status: CommentStatusEnum
-  """
-  Type of comment. This field is equivalent to WP_Comment-&gt;comment_type and the value matching the &quot;comment_type&quot; column in SQL.
-  """
+  """Type of comment."""
   type: String
   """The unique resource identifier path"""
   uri: String
@@ -1186,9 +1163,7 @@ type CommentToCommenterConnectionEdge implements CommenterConnectionEdge & Edge 
   cursor: String
   """Email address representing the author for this particular comment"""
   email: String
-  """
-  IP address of the author at the time of making this comment. This field is equivalent to WP_Comment-&gt;comment_author_IP and the value matching the &quot;comment_author_IP&quot; column in SQL.
-  """
+  """IP address of the author at the time of making this comment."""
   ipAddress: String
   """The display name of the comment author for this particular comment"""
   name: String
@@ -1368,14 +1343,6 @@ enum CommentsConnectionOrderbyEnum {
   USER_ID
 }
 
-type CompanyInformations implements AcfOptionsPage & Node {
-  """The globally unique ID for the object"""
-  id: ID!
-  menuTitle: String
-  pageTitle: String
-  parentId: String
-}
-
 """
 A paginated relationship between objects. Supports cursor-based pagination with edges containing relationship metadata and nodes containing the related objects.
 """
@@ -1424,6 +1391,8 @@ interface ContentNode implements Node & UniformResourceIdentifiable {
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedScriptConnectionWhereArgs
   ): ContentNodeToEnqueuedScriptConnection
   """
   Connection between the ContentNode type and the EnqueuedStylesheet type
@@ -1441,9 +1410,11 @@ interface ContentNode implements Node & UniformResourceIdentifiable {
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedStylesheetConnectionWhereArgs
   ): ContentNodeToEnqueuedStylesheetConnection
   """
-  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  The global unique identifier for this content node. This is a stable, unique identifier for the node that does not change even if the node is moved or its url changes.
   """
   guid: String
   """The globally unique ID for the object"""
@@ -1476,12 +1447,12 @@ interface ContentNode implements Node & UniformResourceIdentifiable {
   modifiedGmt: String
   """The database id of the preview node"""
   previewRevisionDatabaseId: Int
-  """Whether the object is a node in the preview state"""
+  """The globally unique ID of the preview node"""
   previewRevisionId: ID
   """The Yoast SEO data of the ContentNode"""
   seo: PostTypeSEO
   """
-  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  The URL-friendly, human-readable identifier for the content node, used in its permalink.
   """
   slug: String
   """The current status of the object"""
@@ -1615,6 +1586,16 @@ type ContentNodeToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConn
 }
 
 """
+Arguments for filtering the ContentNodeToEnqueuedScriptConnection connection
+"""
+input ContentNodeToEnqueuedScriptConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
+}
+
+"""
 Connection between the ContentNode type and the EnqueuedStylesheet type
 """
 type ContentNodeToEnqueuedStylesheetConnection implements Connection & EnqueuedStylesheetConnection {
@@ -1649,6 +1630,16 @@ type ContentNodeToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyles
   """When paginating backwards, the cursor to continue."""
   startCursor: String
   total: Int
+}
+
+"""
+Arguments for filtering the ContentNodeToEnqueuedStylesheetConnection connection
+"""
+input ContentNodeToEnqueuedStylesheetConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
 }
 
 """
@@ -2864,10 +2855,6 @@ type CoreButtonAttributes implements BlockWithSupportsAnchor {
   The &quot;url&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes
   """
   url: String
-  """
-  The &quot;width&quot; field on the &quot;CoreButtonAttributes&quot; block or block attributes
-  """
-  width: Float
 }
 
 """A block used for editing the site"""
@@ -4397,6 +4384,10 @@ type CoreCoverAttributes implements BlockWithSupportsAnchor {
   """
   align: String
   """
+  The &quot;allowedVideoProviders&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes
+  """
+  allowedVideoProviders: BlockAttributesArray!
+  """
   The &quot;alt&quot; field on the &quot;CoreCoverAttributes&quot; block or block attributes
   """
   alt: String!
@@ -4999,6 +4990,10 @@ type CoreGalleryAttributes implements BlockWithSupportsAnchor {
   """
   columns: Float
   """
+  The &quot;dynamicContent&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes
+  """
+  dynamicContent: BlockAttributesObject
+  """
   The &quot;fixedHeight&quot; field on the &quot;CoreGalleryAttributes&quot; block or block attributes
   """
   fixedHeight: Boolean!
@@ -5325,6 +5320,10 @@ type CoreHomeLinkAttributes implements BlockWithSupportsAnchor {
   """
   className: String
   """
+  The &quot;description&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes
+  """
+  description: String
+  """
   The &quot;fontFamily&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes
   """
   fontFamily: String
@@ -5344,6 +5343,10 @@ type CoreHomeLinkAttributes implements BlockWithSupportsAnchor {
   The &quot;metadata&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes
   """
   metadata: BlockAttributesObject
+  """
+  The &quot;opensInNewTab&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes
+  """
+  opensInNewTab: Boolean!
   """
   The &quot;style&quot; field on the &quot;CoreHomeLinkAttributes&quot; block or block attributes
   """
@@ -5447,6 +5450,14 @@ type CoreIconAttributes implements BlockWithSupportsAnchor {
   """
   className: String
   """
+  The &quot;flipHorizontal&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
+  """
+  flipHorizontal: Boolean!
+  """
+  The &quot;flipVertical&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
+  """
+  flipVertical: Boolean!
+  """
   The &quot;icon&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
   """
   icon: String
@@ -5458,6 +5469,10 @@ type CoreIconAttributes implements BlockWithSupportsAnchor {
   The &quot;metadata&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
   """
   metadata: BlockAttributesObject
+  """
+  The &quot;rotation&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
+  """
+  rotation: Float!
   """
   The &quot;style&quot; field on the &quot;CoreIconAttributes&quot; block or block attributes
   """
@@ -5552,6 +5567,10 @@ type CoreImageAttributes implements BlockWithSupportsAnchor {
   The &quot;id&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes
   """
   id: Float
+  """
+  The &quot;isDecorative&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes
+  """
+  isDecorative: Boolean!
   """
   The &quot;lightbox&quot; field on the &quot;CoreImageAttributes&quot; block or block attributes
   """
@@ -5761,10 +5780,6 @@ type CoreLatestPostsAttributes implements BlockWithSupportsAnchor {
   """
   className: String
   """
-  The &quot;columns&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
-  """
-  columns: Float!
-  """
   The &quot;displayAuthor&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
   """
   displayAuthor: Boolean!
@@ -5817,6 +5832,10 @@ type CoreLatestPostsAttributes implements BlockWithSupportsAnchor {
   """
   gradient: String
   """
+  The &quot;layout&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
+  """
+  layout: BlockAttributesObject
+  """
   The &quot;lock&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
   """
   lock: BlockAttributesObject
@@ -5832,10 +5851,6 @@ type CoreLatestPostsAttributes implements BlockWithSupportsAnchor {
   The &quot;orderBy&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
   """
   orderBy: String!
-  """
-  The &quot;postLayout&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
-  """
-  postLayout: String!
   """
   The &quot;postsToShow&quot; field on the &quot;CoreLatestPostsAttributes&quot; block or block attributes
   """
@@ -6703,10 +6718,6 @@ type CoreNavigationLinkAttributes implements BlockWithSupportsAnchor {
   """
   fontSize: String
   """
-  The &quot;hreflang&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  hreflang: String
-  """
   The &quot;id&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
   """
   id: Float
@@ -6723,10 +6734,6 @@ type CoreNavigationLinkAttributes implements BlockWithSupportsAnchor {
   """
   label: String
   """
-  The &quot;lang&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  lang: String
-  """
   The &quot;lock&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
   """
   lock: BlockAttributesObject
@@ -6738,22 +6745,6 @@ type CoreNavigationLinkAttributes implements BlockWithSupportsAnchor {
   The &quot;opensInNewTab&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
   """
   opensInNewTab: Boolean!
-  """
-  The &quot;pll_flag&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  pllFlag: String
-  """
-  The &quot;pll_name&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  pllName: String
-  """
-  The &quot;pll_show_flags&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  pllShowFlags: Boolean
-  """
-  The &quot;pll_show_names&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
-  """
-  pllShowNames: Boolean
   """
   The &quot;rel&quot; field on the &quot;CoreNavigationLinkAttributes&quot; block or block attributes
   """
@@ -6897,10 +6888,6 @@ type CoreNavigationSubmenuAttributes implements BlockWithSupportsAnchor {
   """
   fontSize: String
   """
-  The &quot;hreflang&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  hreflang: String
-  """
   The &quot;id&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
   """
   id: Float
@@ -6921,10 +6908,6 @@ type CoreNavigationSubmenuAttributes implements BlockWithSupportsAnchor {
   """
   label: String
   """
-  The &quot;lang&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  lang: String
-  """
   The &quot;lock&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
   """
   lock: BlockAttributesObject
@@ -6936,22 +6919,6 @@ type CoreNavigationSubmenuAttributes implements BlockWithSupportsAnchor {
   The &quot;opensInNewTab&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
   """
   opensInNewTab: Boolean!
-  """
-  The &quot;pll_flag&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  pllFlag: String
-  """
-  The &quot;pll_name&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  pllName: String
-  """
-  The &quot;pll_show_flags&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  pllShowFlags: Boolean
-  """
-  The &quot;pll_show_names&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
-  """
-  pllShowNames: Boolean
   """
   The &quot;rel&quot; field on the &quot;CoreNavigationSubmenuAttributes&quot; block or block attributes
   """
@@ -7312,6 +7279,224 @@ type CorePatternAttributes {
   The &quot;style&quot; field on the &quot;CorePatternAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
+}
+
+"""A block used for editing the site"""
+type CorePlaylist implements BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The anchor field for the block."""
+  anchor: String
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CorePlaylist Block Type"""
+  attributes: CorePlaylistAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CorePlaylist Block Type"""
+type CorePlaylistAttributes implements BlockWithSupportsAnchor {
+  """
+  The &quot;align&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  align: String
+  """
+  The &quot;anchor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  anchor: String
+  """
+  The &quot;backgroundColor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  backgroundColor: String
+  """
+  The &quot;borderColor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  borderColor: String
+  """
+  The &quot;caption&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  caption: String
+  """
+  The &quot;className&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;fontSize&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  fontSize: String
+  """
+  The &quot;gradient&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  gradient: String
+  """
+  The &quot;lock&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;order&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  order: String!
+  """
+  The &quot;showArtists&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showArtists: Boolean!
+  """
+  The &quot;showImages&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showImages: Boolean!
+  """
+  The &quot;showNumbers&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showNumbers: Boolean!
+  """
+  The &quot;showPlayButtonArtwork&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showPlayButtonArtwork: Boolean!
+  """
+  The &quot;showTrackLength&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showTrackLength: Boolean!
+  """
+  The &quot;showTracklist&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  showTracklist: Boolean!
+  """
+  The &quot;style&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;textColor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  textColor: String
+  """
+  The &quot;type&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  type: String!
+  """
+  The &quot;waveformBackgroundColor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  waveformBackgroundColor: String
+  """
+  The &quot;waveformBackgroundGradient&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  waveformBackgroundGradient: String
+  """
+  The &quot;waveformColor&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  waveformColor: String
+  """
+  The &quot;waveformGradient&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  waveformGradient: String
+  """
+  The &quot;waveformStyle&quot; field on the &quot;CorePlaylistAttributes&quot; block or block attributes
+  """
+  waveformStyle: String!
+}
+
+"""A block used for editing the site"""
+type CorePlaylistTrack implements EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CorePlaylistTrack Block Type"""
+  attributes: CorePlaylistTrackAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CorePlaylistTrack Block Type"""
+type CorePlaylistTrackAttributes {
+  """
+  The &quot;album&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  album: String
+  """
+  The &quot;artist&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  artist: String
+  """
+  The &quot;blob&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  blob: String
+  """
+  The &quot;className&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;id&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  id: Float
+  """
+  The &quot;image&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  image: String
+  """
+  The &quot;imageAlt&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  imageAlt: String
+  """
+  The &quot;length&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  length: String
+  """
+  The &quot;lock&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;src&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  src: String
+  """
+  The &quot;style&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;title&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  title: String
+  """
+  The &quot;type&quot; field on the &quot;CorePlaylistTrackAttributes&quot; block or block attributes
+  """
+  type: String!
 }
 
 """A block used for editing the site"""
@@ -8035,10 +8220,6 @@ type CorePostDateAttributes implements BlockWithSupportsAnchor {
   """
   style: BlockAttributesObject
   """
-  The &quot;textAlign&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes
-  """
-  textAlign: String
-  """
   The &quot;textColor&quot; field on the &quot;CorePostDateAttributes&quot; block or block attributes
   """
   textColor: String
@@ -8126,10 +8307,6 @@ type CorePostExcerptAttributes implements BlockWithSupportsAnchor {
   The &quot;style&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
-  """
-  The &quot;textAlign&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes
-  """
-  textAlign: String
   """
   The &quot;textColor&quot; field on the &quot;CorePostExcerptAttributes&quot; block or block attributes
   """
@@ -8334,10 +8511,6 @@ type CorePostNavigationLinkAttributes implements BlockWithSupportsAnchor {
   The &quot;taxonomy&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes
   """
   taxonomy: String!
-  """
-  The &quot;textAlign&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes
-  """
-  textAlign: String
   """
   The &quot;textColor&quot; field on the &quot;CorePostNavigationLinkAttributes&quot; block or block attributes
   """
@@ -8765,6 +8938,10 @@ type CorePostTitleAttributes implements BlockWithSupportsAnchor {
   """
   metadata: BlockAttributesObject
   """
+  The &quot;placeholder&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes
+  """
+  placeholder: String
+  """
   The &quot;rel&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes
   """
   rel: String!
@@ -8772,10 +8949,6 @@ type CorePostTitleAttributes implements BlockWithSupportsAnchor {
   The &quot;style&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
-  """
-  The &quot;textAlign&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes
-  """
-  textAlign: String
   """
   The &quot;textColor&quot; field on the &quot;CorePostTitleAttributes&quot; block or block attributes
   """
@@ -8940,10 +9113,6 @@ type CorePullquoteAttributes implements BlockWithSupportsAnchor {
   The &quot;style&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
-  """
-  The &quot;textAlign&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes
-  """
-  textAlign: String
   """
   The &quot;textColor&quot; field on the &quot;CorePullquoteAttributes&quot; block or block attributes
   """
@@ -9505,10 +9674,6 @@ type CoreQueryTitleAttributes implements BlockWithSupportsAnchor {
   """
   style: BlockAttributesObject
   """
-  The &quot;textAlign&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes
-  """
-  textAlign: String
-  """
   The &quot;textColor&quot; field on the &quot;CoreQueryTitleAttributes&quot; block or block attributes
   """
   textColor: String
@@ -9973,10 +10138,6 @@ type CoreSearchAttributes implements BlockWithSupportsAnchor {
   """
   gradient: String
   """
-  The &quot;isSearchFieldHidden&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes
-  """
-  isSearchFieldHidden: Boolean!
-  """
   The &quot;label&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes
   """
   label: String
@@ -10004,6 +10165,10 @@ type CoreSearchAttributes implements BlockWithSupportsAnchor {
   The &quot;style&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
+  """
+  The &quot;tagName&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes
+  """
+  tagName: String!
   """
   The &quot;textColor&quot; field on the &quot;CoreSearchAttributes&quot; block or block attributes
   """
@@ -10291,10 +10456,6 @@ type CoreSiteTaglineAttributes implements BlockWithSupportsAnchor {
   """
   style: BlockAttributesObject
   """
-  The &quot;textAlign&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes
-  """
-  textAlign: String
-  """
   The &quot;textColor&quot; field on the &quot;CoreSiteTaglineAttributes&quot; block or block attributes
   """
   textColor: String
@@ -10390,10 +10551,6 @@ type CoreSiteTitleAttributes implements BlockWithSupportsAnchor {
   The &quot;style&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes
   """
   style: BlockAttributesObject
-  """
-  The &quot;textAlign&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes
-  """
-  textAlign: String
   """
   The &quot;textColor&quot; field on the &quot;CoreSiteTitleAttributes&quot; block or block attributes
   """
@@ -10637,6 +10794,236 @@ type CoreSpacerAttributes implements BlockWithSupportsAnchor {
 }
 
 """A block used for editing the site"""
+type CoreTabList implements EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CoreTabList Block Type"""
+  attributes: CoreTabListAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CoreTabList Block Type"""
+type CoreTabListAttributes {
+  """
+  The &quot;ariaLabel&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  ariaLabel: String
+  """
+  The &quot;backgroundColor&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  backgroundColor: String
+  """
+  The &quot;borderColor&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  borderColor: String
+  """
+  The &quot;className&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;fontFamily&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  fontFamily: String
+  """
+  The &quot;fontSize&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  fontSize: String
+  """
+  The &quot;layout&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  layout: BlockAttributesObject
+  """
+  The &quot;lock&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;style&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;tabs&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  tabs: [CoreTabListAttributesTabs]!
+  """
+  The &quot;textColor&quot; field on the &quot;CoreTabListAttributes&quot; block or block attributes
+  """
+  textColor: String
+}
+
+"""
+The &quot;CoreTabListAttributesTabs&quot; field on the &quot;CoreTabListAttributes&quot; block attribute field
+"""
+type CoreTabListAttributesTabs {
+  """
+  The &quot;label&quot; field on the &quot;CoreTabListAttributesTabs&quot; block attribute field
+  """
+  label: String
+}
+
+"""A block used for editing the site"""
+type CoreTabPanel implements BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The anchor field for the block."""
+  anchor: String
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CoreTabPanel Block Type"""
+  attributes: CoreTabPanelAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CoreTabPanel Block Type"""
+type CoreTabPanelAttributes implements BlockWithSupportsAnchor {
+  """
+  The &quot;anchor&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  anchor: String
+  """
+  The &quot;backgroundColor&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  backgroundColor: String
+  """
+  The &quot;className&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;fontFamily&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  fontFamily: String
+  """
+  The &quot;fontSize&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  fontSize: String
+  """
+  The &quot;label&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  label: String!
+  """
+  The &quot;layout&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  layout: BlockAttributesObject
+  """
+  The &quot;lock&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;style&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;textColor&quot; field on the &quot;CoreTabPanelAttributes&quot; block or block attributes
+  """
+  textColor: String
+}
+
+"""A block used for editing the site"""
+type CoreTabPanels implements EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CoreTabPanels Block Type"""
+  attributes: CoreTabPanelsAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CoreTabPanels Block Type"""
+type CoreTabPanelsAttributes {
+  """
+  The &quot;backgroundColor&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  backgroundColor: String
+  """
+  The &quot;borderColor&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  borderColor: String
+  """
+  The &quot;className&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;fontFamily&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  fontFamily: String
+  """
+  The &quot;fontSize&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  fontSize: String
+  """
+  The &quot;lock&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;style&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;textColor&quot; field on the &quot;CoreTabPanelsAttributes&quot; block or block attributes
+  """
+  textColor: String
+}
+
+"""A block used for editing the site"""
 type CoreTable implements BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock {
   """The anchor field for the block."""
   anchor: String
@@ -10854,6 +11241,90 @@ type CoreTableAttributesHeadCells {
   The &quot;tag&quot; field on the &quot;CoreTableAttributesHeadCells&quot; block attribute field
   """
   tag: String!
+}
+
+"""A block used for editing the site"""
+type CoreTabs implements BlockWithSupportsAnchor & EditorBlock & PageEditorBlock & PostEditorBlock {
+  """The anchor field for the block."""
+  anchor: String
+  """The API version of the Gutenberg Block"""
+  apiVersion: Int
+  """Attributes of the CoreTabs Block Type"""
+  attributes: CoreTabsAttributes
+  """The name of the category the Block belongs to"""
+  blockEditorCategoryName: String
+  """The id of the Block"""
+  clientId: String
+  """CSS Classnames to apply to the block"""
+  cssClassNames: [String]
+  """The inner blocks of the Block"""
+  innerBlocks: [EditorBlock]
+  """Whether the block is Dynamic (server rendered)"""
+  isDynamic: Boolean!
+  """The name of the block"""
+  name: String
+  """The parent id of the Block"""
+  parentClientId: String
+  """The rendered HTML for the block"""
+  renderedHtml: String
+  """The (GraphQL) type of the block"""
+  type: String
+}
+
+"""Attributes of the CoreTabs Block Type"""
+type CoreTabsAttributes implements BlockWithSupportsAnchor {
+  """
+  The &quot;activeTabIndex&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  activeTabIndex: Float!
+  """
+  The &quot;align&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  align: String
+  """
+  The &quot;anchor&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  anchor: String
+  """
+  The &quot;backgroundColor&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  backgroundColor: String
+  """
+  The &quot;className&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  className: String
+  """
+  The &quot;editorActiveTabIndex&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  editorActiveTabIndex: Float
+  """
+  The &quot;fontFamily&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  fontFamily: String
+  """
+  The &quot;fontSize&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  fontSize: String
+  """
+  The &quot;layout&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  layout: BlockAttributesObject
+  """
+  The &quot;lock&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  lock: BlockAttributesObject
+  """
+  The &quot;metadata&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  metadata: BlockAttributesObject
+  """
+  The &quot;style&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  style: BlockAttributesObject
+  """
+  The &quot;textColor&quot; field on the &quot;CoreTabsAttributes&quot; block or block attributes
+  """
+  textColor: String
 }
 
 """A block used for editing the site"""
@@ -11249,10 +11720,6 @@ type CoreTermNameAttributes implements BlockWithSupportsAnchor {
   """
   style: BlockAttributesObject
   """
-  The &quot;textAlign&quot; field on the &quot;CoreTermNameAttributes&quot; block or block attributes
-  """
-  textAlign: String
-  """
   The &quot;textColor&quot; field on the &quot;CoreTermNameAttributes&quot; block or block attributes
   """
   textColor: String
@@ -11617,6 +12084,10 @@ type CoreVideoAttributes implements BlockWithSupportsAnchor {
   """
   controls: Boolean!
   """
+  The &quot;height&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes
+  """
+  height: Float
+  """
   The &quot;id&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes
   """
   id: Float
@@ -11660,6 +12131,10 @@ type CoreVideoAttributes implements BlockWithSupportsAnchor {
   The &quot;tracks&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes
   """
   tracks: [BlockAttributesObject]!
+  """
+  The &quot;width&quot; field on the &quot;CoreVideoAttributes&quot; block or block attributes
+  """
+  width: Float
 }
 
 """A block used for editing the site"""
@@ -12712,6 +13187,8 @@ interface HierarchicalContentNode implements ContentNode & DatabaseIdentifier & 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedScriptConnectionWhereArgs
   ): ContentNodeToEnqueuedScriptConnection
   """
   Connection between the ContentNode type and the EnqueuedStylesheet type
@@ -12729,9 +13206,11 @@ interface HierarchicalContentNode implements ContentNode & DatabaseIdentifier & 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedStylesheetConnectionWhereArgs
   ): ContentNodeToEnqueuedStylesheetConnection
   """
-  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  The global unique identifier for this content node. This is a stable, unique identifier for the node that does not change even if the node is moved or its url changes.
   """
   guid: String
   """The globally unique ID for the object"""
@@ -12770,12 +13249,12 @@ interface HierarchicalContentNode implements ContentNode & DatabaseIdentifier & 
   parentId: ID
   """The database id of the preview node"""
   previewRevisionDatabaseId: Int
-  """Whether the object is a node in the preview state"""
+  """The globally unique ID of the preview node"""
   previewRevisionId: ID
   """The Yoast SEO data of the ContentNode"""
   seo: PostTypeSEO
   """
-  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  The URL-friendly, human-readable identifier for the content node, used in its permalink.
   """
   slug: String
   """The current status of the object"""
@@ -13016,6 +13495,8 @@ interface HierarchicalTermNode implements DatabaseIdentifier & HierarchicalNode 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedScriptConnectionWhereArgs
   ): TermNodeToEnqueuedScriptConnection
   """Connection between the TermNode type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -13031,6 +13512,8 @@ interface HierarchicalTermNode implements DatabaseIdentifier & HierarchicalNode 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedStylesheetConnectionWhereArgs
   ): TermNodeToEnqueuedStylesheetConnection
   """The globally unique ID for the object"""
   id: ID!
@@ -13678,6 +14161,8 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedScriptConnectionWhereArgs
   ): ContentNodeToEnqueuedScriptConnection
   """
   Connection between the ContentNode type and the EnqueuedStylesheet type
@@ -13695,6 +14180,8 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedStylesheetConnectionWhereArgs
   ): ContentNodeToEnqueuedStylesheetConnection
   """
   The filename of the mediaItem for the specified size (default size is full)
@@ -13714,7 +14201,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     size: MediaItemSizeEnum
   ): Int
   """
-  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  The global unique identifier for this content node. This is a stable, unique identifier for the node that does not change even if the node is moved or its url changes.
   """
   guid: String
   """Whether the attachment object is password protected."""
@@ -13743,7 +14230,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
   link: String
   """Details about the mediaItem"""
   mediaDetails: MediaDetails
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the content node."""
   mediaItemId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
   """Url of the mediaItem"""
   mediaItemUrl: String
@@ -13769,7 +14256,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
   password: String
   """The database id of the preview node"""
   previewRevisionDatabaseId: Int
-  """Whether the object is a node in the preview state"""
+  """The globally unique ID of the preview node"""
   previewRevisionId: ID
   """The Yoast SEO data of the ContentNode"""
   seo: PostTypeSEO
@@ -13779,7 +14266,7 @@ type MediaItem implements ContentNode & DatabaseIdentifier & HierarchicalContent
     size: MediaItemSizeEnum
   ): String
   """
-  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  The URL-friendly, human-readable identifier for the content node, used in its permalink.
   """
   slug: String
   """Url of the mediaItem"""
@@ -14098,9 +14585,9 @@ type Menu implements DatabaseIdentifier & Node {
     """Arguments for filtering the connection"""
     where: MenuToMenuItemConnectionWhereArgs
   ): MenuToMenuItemConnection
-  """Display name of the menu. Equivalent to WP_Term-&gt;name."""
+  """Display name of the menu."""
   name: String
-  """The url friendly name of the menu. Equivalent to WP_Term-&gt;slug"""
+  """The url friendly name of the menu."""
   slug: String
 }
 
@@ -15135,6 +15622,8 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedScriptConnectionWhereArgs
   ): ContentNodeToEnqueuedScriptConnection
   """
   Connection between the ContentNode type and the EnqueuedStylesheet type
@@ -15152,6 +15641,8 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedStylesheetConnectionWhereArgs
   ): ContentNodeToEnqueuedStylesheetConnection
   """
   Connection between the NodeWithFeaturedImage type and the MediaItem type
@@ -15164,7 +15655,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
   """Globally unique ID of the featured image assigned to the node"""
   featuredImageId: ID
   """
-  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  The global unique identifier for this content node. This is a stable, unique identifier for the node that does not change even if the node is moved or its url changes.
   """
   guid: String
   """Whether the page object is password protected."""
@@ -15209,7 +15700,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
   The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT.
   """
   modifiedGmt: String
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the content node."""
   pageId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
   """The parent of the node. The parent object can be of various types"""
   parent: HierarchicalContentNodeToParentContentNodeConnectionEdge
@@ -15223,7 +15714,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
   preview: PageToPreviewConnectionEdge
   """The database id of the preview node"""
   previewRevisionDatabaseId: Int
-  """Whether the object is a node in the preview state"""
+  """The globally unique ID of the preview node"""
   previewRevisionId: ID
   """
   If the current node is a revision, this field exposes the node this is a revision of. Returns null if the node is not a revision of another node.
@@ -15249,7 +15740,7 @@ type Page implements ContentNode & DatabaseIdentifier & HierarchicalContentNode 
   """The Yoast SEO data of the ContentNode"""
   seo: PostTypeSEO
   """
-  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  The URL-friendly, human-readable identifier for the content node, used in its permalink.
   """
   slug: String
   """Fields of the Startseite ACF Field Group"""
@@ -16076,6 +16567,8 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedScriptConnectionWhereArgs
   ): ContentNodeToEnqueuedScriptConnection
   """
   Connection between the ContentNode type and the EnqueuedStylesheet type
@@ -16093,6 +16586,8 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: ContentNodeToEnqueuedStylesheetConnectionWhereArgs
   ): ContentNodeToEnqueuedStylesheetConnection
   """The excerpt of the post."""
   excerpt(
@@ -16110,7 +16605,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
   """Globally unique ID of the featured image assigned to the node"""
   featuredImageId: ID
   """
-  The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+  The global unique identifier for this content node. This is a stable, unique identifier for the node that does not change even if the node is moved or its url changes.
   """
   guid: String
   """Whether the post object is password protected."""
@@ -16174,7 +16669,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
     """Arguments for filtering the connection"""
     where: PostToPostFormatConnectionWhereArgs
   ): PostToPostFormatConnection
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the content node."""
   postId: Int! @deprecated(reason: "Deprecated in favor of the databaseId field")
   """Connection between the post type and the post type"""
   preview: PostToPreviewConnectionEdge
@@ -16206,7 +16701,7 @@ type Post implements ContentNode & DatabaseIdentifier & MenuItemLinkable & Node 
   """The Yoast SEO data of the ContentNode"""
   seo: PostTypeSEO
   """
-  The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+  The URL-friendly, human-readable identifier for the content node, used in its permalink.
   """
   slug: String
   """The current status of the object"""
@@ -16404,6 +16899,8 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedScriptConnectionWhereArgs
   ): TermNodeToEnqueuedScriptConnection
   """Connection between the TermNode type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -16419,6 +16916,8 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedStylesheetConnectionWhereArgs
   ): TermNodeToEnqueuedStylesheetConnection
   """The globally unique ID for the object"""
   id: ID!
@@ -16438,7 +16937,7 @@ type PostFormat implements DatabaseIdentifier & Node & TermNode & UniformResourc
   link: String
   """The human friendly name of the object."""
   name: String
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the term."""
   postFormatId: Int @deprecated(reason: "Deprecated in favor of databaseId")
   """Connection between the PostFormat type and the post type"""
   posts(
@@ -18049,7 +18548,7 @@ type RootMutation {
 }
 
 """The root entry point into the Graph"""
-type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptionsPageThemeGeneralSettings {
+type RootQuery {
   """Entry point to get all settings for the site"""
   allSettings: Settings
   """Connection between the RootQuery type and the category type"""
@@ -18100,13 +18599,8 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
     """Arguments for filtering the connection"""
     where: RootQueryToCommentConnectionWhereArgs
   ): RootQueryToCommentConnection
-  companyInformations: CompanyInformations
   """A node used to manage content"""
   contentNode(
-    """
-    Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned. If the ID provided is a URI and has a preview query arg, it will be used as a fallback if the "asPreview" argument is not explicitly provided as an argument.
-    """
-    asPreview: Boolean
     """
     The content type the node is used for. Required when idType is set to "name" or "slug"
     """
@@ -18169,10 +18663,6 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
   languages: [Language]
   """An object of the mediaItem Type. """
   mediaItem(
-    """
-    Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned. If the ID provided is a URI and has a preview query arg, it will be used as a fallback if the "asPreview" argument is not explicitly provided as an argument.
-    """
-    asPreview: Boolean
     """The globally unique identifier of the object."""
     id: ID!
     """Type of unique identifier to fetch by. Default is Global ID"""
@@ -18272,10 +18762,6 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
   ): UniformResourceIdentifiable
   """An object of the page Type. """
   page(
-    """
-    Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned. If the ID provided is a URI and has a preview query arg, it will be used as a fallback if the "asPreview" argument is not explicitly provided as an argument.
-    """
-    asPreview: Boolean
     """The globally unique identifier of the object."""
     id: ID!
     """Type of unique identifier to fetch by. Default is Global ID"""
@@ -18333,10 +18819,6 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
   ): RootQueryToPluginConnection
   """An object of the post Type. """
   post(
-    """
-    Whether to return the Preview Node instead of the Published Node. When the ID of a Node is provided along with asPreview being set to true, the preview node with un-published changes will be returned instead of the published node. If no preview node exists or the requester doesn't have proper capabilities to preview, no node will be returned. If the ID provided is a URI and has a preview query arg, it will be used as a fallback if the "asPreview" argument is not explicitly provided as an argument.
-    """
-    asPreview: Boolean
     """The globally unique identifier of the object."""
     id: ID!
     """Type of unique identifier to fetch by. Default is Global ID"""
@@ -18410,6 +18892,8 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: RootQueryToEnqueuedScriptConnectionWhereArgs
   ): RootQueryToEnqueuedScriptConnection
   """Connection between the RootQuery type and the EnqueuedStylesheet type"""
   registeredStylesheets(
@@ -18425,6 +18909,8 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: RootQueryToEnqueuedStylesheetConnectionWhereArgs
   ): RootQueryToEnqueuedStylesheetConnection
   """Connection between the RootQuery type and the ContentNode type"""
   revisions(
@@ -18526,7 +19012,6 @@ type RootQuery implements WithAcfOptionsPageCompanyInformations & WithAcfOptions
     """The globally unique identifier of the theme."""
     id: ID!
   ): Theme
-  themeGeneralSettings: ThemeGeneralSettings
   """Connection between the RootQuery type and the Theme type"""
   themes(
     """
@@ -18965,6 +19450,16 @@ type RootQueryToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnec
   total: Int
 }
 
+"""
+Arguments for filtering the RootQueryToEnqueuedScriptConnection connection
+"""
+input RootQueryToEnqueuedScriptConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
+}
+
 """Connection between the RootQuery type and the EnqueuedStylesheet type"""
 type RootQueryToEnqueuedStylesheetConnection implements Connection & EnqueuedStylesheetConnection {
   """Edges for the RootQueryToEnqueuedStylesheetConnection connection"""
@@ -18998,6 +19493,16 @@ type RootQueryToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyleshe
   """When paginating backwards, the cursor to continue."""
   startCursor: String
   total: Int
+}
+
+"""
+Arguments for filtering the RootQueryToEnqueuedStylesheetConnection connection
+"""
+input RootQueryToEnqueuedStylesheetConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
 }
 
 """Connection between the RootQuery type and the mediaItem type"""
@@ -20452,6 +20957,10 @@ type SafeSvgSvgIconAttributes {
   """
   dimensionWidth: Float
   """
+  The &quot;href&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
+  """
+  href: String
+  """
   The &quot;imageHeight&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
   """
   imageHeight: Float
@@ -20468,6 +20977,14 @@ type SafeSvgSvgIconAttributes {
   """
   imageWidth: Float
   """
+  The &quot;linkLabel&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
+  """
+  linkLabel: String
+  """
+  The &quot;linkTarget&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
+  """
+  linkTarget: String!
+  """
   The &quot;lock&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
   """
   lock: BlockAttributesObject
@@ -20475,6 +20992,14 @@ type SafeSvgSvgIconAttributes {
   The &quot;metadata&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
   """
   metadata: BlockAttributesObject
+  """
+  The &quot;nofollow&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
+  """
+  nofollow: Boolean!
+  """
+  The &quot;sponsored&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
+  """
+  sponsored: Boolean!
   """
   The &quot;style&quot; field on the &quot;SafeSvgSvgIconAttributes&quot; block or block attributes
   """
@@ -20840,6 +21365,8 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedScriptConnectionWhereArgs
   ): TermNodeToEnqueuedScriptConnection
   """Connection between the TermNode type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -20855,6 +21382,8 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedStylesheetConnectionWhereArgs
   ): TermNodeToEnqueuedStylesheetConnection
   """The globally unique ID for the object"""
   id: ID!
@@ -20897,7 +21426,7 @@ type Tag implements DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Un
   seo: TaxonomySEO
   """An alphanumeric identifier for the object unique to its type."""
   slug: String
-  """The id field matches the WP_Post-&gt;ID field."""
+  """The unique numeric identifier for the term."""
   tagId: Int @deprecated(reason: "Deprecated in favor of databaseId")
   """Connection between the Tag type and the Taxonomy type"""
   taxonomy: TagToTaxonomyConnectionEdge
@@ -21220,9 +21749,7 @@ type Taxonomy implements Node {
     """The number of items to return before the referenced "before" cursor"""
     last: Int
   ): TaxonomyToTermNodeConnection
-  """
-  Description of the taxonomy. This field is equivalent to WP_Taxonomy-&gt;description
-  """
+  """Description of the taxonomy."""
   description: String
   """The plural name of the post type within the GraphQL Schema."""
   graphqlPluralName: String
@@ -21236,21 +21763,23 @@ type Taxonomy implements Node {
   isRestricted: Boolean
   """Name of the taxonomy shown in the menu. Usually plural."""
   label: String
-  """
-  The display name of the taxonomy. This field is equivalent to WP_Taxonomy-&gt;label
-  """
+  """The display name of the taxonomy."""
   name: String
-  """Whether the taxonomy is publicly queryable"""
+  """
+  Whether the taxonomy is intended for public use. This is a broad statement of intent rather than a behavior of its own: the more specific settings, such as publiclyQueryable, showUi and showInNavMenus, follow it unless they are given their own value.
+  """
   public: Boolean
+  """
+  Whether terms in this taxonomy can be queried from the front end of the site.
+  """
+  publiclyQueryable: Boolean
   """
   Name of content type to display in REST API &quot;wp/v2&quot; namespace.
   """
   restBase: String
   """The REST Controller class assigned to handling this content type."""
   restControllerClass: String
-  """
-  Whether to show the taxonomy as part of a tag cloud widget. This field is equivalent to WP_Taxonomy-&gt;show_tagcloud
-  """
+  """Whether to show the taxonomy as part of a tag cloud widget."""
   showCloud: Boolean
   """
   Whether to display a column for the taxonomy on its post type listing screens.
@@ -21476,6 +22005,8 @@ interface TermNode implements Node & UniformResourceIdentifiable {
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedScriptConnectionWhereArgs
   ): TermNodeToEnqueuedScriptConnection
   """Connection between the TermNode type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -21491,6 +22022,8 @@ interface TermNode implements Node & UniformResourceIdentifiable {
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: TermNodeToEnqueuedStylesheetConnectionWhereArgs
   ): TermNodeToEnqueuedStylesheetConnection
   """The globally unique ID for the object"""
   id: ID!
@@ -21616,6 +22149,16 @@ type TermNodeToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnect
   total: Int
 }
 
+"""
+Arguments for filtering the TermNodeToEnqueuedScriptConnection connection
+"""
+input TermNodeToEnqueuedScriptConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
+}
+
 """Connection between the TermNode type and the EnqueuedStylesheet type"""
 type TermNodeToEnqueuedStylesheetConnection implements Connection & EnqueuedStylesheetConnection {
   """Edges for the TermNodeToEnqueuedStylesheetConnection connection"""
@@ -21652,6 +22195,16 @@ type TermNodeToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStyleshee
 }
 
 """
+Arguments for filtering the TermNodeToEnqueuedStylesheetConnection connection
+"""
+input TermNodeToEnqueuedStylesheetConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
+}
+
+"""
 Sorting attributes for taxonomy term collections. Determines which property of taxonomy terms is used for ordering results.
 """
 enum TermObjectsConnectionOrderbyEnum {
@@ -21673,45 +22226,35 @@ enum TermObjectsConnectionOrderbyEnum {
 
 """A theme object"""
 type Theme implements Node {
-  """
-  Name of the theme author(s), could also be a company name. This field is equivalent to WP_Theme-&gt;get( &quot;Author&quot; ).
-  """
+  """Name of the theme author(s), could also be a company name."""
   author: String
-  """
-  URI for the author/company website. This field is equivalent to WP_Theme-&gt;get( &quot;AuthorURI&quot; ).
-  """
+  """URI for the author/company website."""
   authorUri: String
-  """
-  The description of the theme. This field is equivalent to WP_Theme-&gt;get( &quot;Description&quot; ).
-  """
+  """The description of the theme."""
   description: String
   """The globally unique identifier of the theme object."""
   id: ID!
   """Whether the object is restricted from the current viewer"""
   isRestricted: Boolean
-  """
-  Display name of the theme. This field is equivalent to WP_Theme-&gt;get( &quot;Name&quot; ).
-  """
+  """Display name of the theme."""
   name: String
   """
-  The URL of the screenshot for the theme. The screenshot is intended to give an overview of what the theme looks like. This field is equivalent to WP_Theme-&gt;get_screenshot().
+  The URL of the screenshot for the theme. The screenshot is intended to give an overview of what the theme looks like.
   """
   screenshot: String
   """
-  The theme slug is used to internally match themes. Theme slugs can have subdirectories like: my-theme/sub-theme. This field is equivalent to WP_Theme-&gt;get_stylesheet().
+  The theme slug is used to internally match themes. Theme slugs can have subdirectories like: my-theme/sub-theme.
   """
   slug: String
   """
-  URI for the author/company website. This field is equivalent to WP_Theme-&gt;get( &quot;Tags&quot; ).
+  A list of tags associated with the theme, typically describing its features (e.g. custom-logo, accessibility-ready, full-site-editing).
   """
   tags: [String]
   """
-  A URI if the theme has a website associated with it. The Theme URI is handy for directing users to a theme site for support etc. This field is equivalent to WP_Theme-&gt;get( &quot;ThemeURI&quot; ).
+  A URI if the theme has a website associated with it. The Theme URI is handy for directing users to a theme site for support etc.
   """
   themeUri: String
-  """
-  The current version of the theme. This field is equivalent to WP_Theme-&gt;get( &quot;Version&quot; ).
-  """
+  """The current version of the theme."""
   version: String
 }
 
@@ -21756,14 +22299,6 @@ interface ThemeConnectionPageInfo implements PageInfo & WPPageInfo {
   """When paginating backwards, the cursor to continue."""
   startCursor: String
   total: Int
-}
-
-type ThemeGeneralSettings implements AcfOptionsPage & Node {
-  """The globally unique ID for the object"""
-  id: ID!
-  menuTitle: String
-  pageTitle: String
-  parentId: String
 }
 
 """
@@ -22263,9 +22798,7 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   databaseId: Int!
   """Description of the user."""
   description: String
-  """
-  Email address of the user. This is equivalent to the WP_User-&gt;user_email property.
-  """
+  """Email address of the user."""
   email: String
   """Connection between the User type and the EnqueuedScript type"""
   enqueuedScripts(
@@ -22281,6 +22814,8 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: UserToEnqueuedScriptConnectionWhereArgs
   ): UserToEnqueuedScriptConnection
   """Connection between the User type and the EnqueuedStylesheet type"""
   enqueuedStylesheets(
@@ -22296,14 +22831,14 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     first: Int
     """The number of items to return before the referenced "before" cursor"""
     last: Int
+    """Arguments for filtering the connection"""
+    where: UserToEnqueuedStylesheetConnectionWhereArgs
   ): UserToEnqueuedStylesheetConnection
   """
-  A complete list of capabilities including capabilities inherited from a role. This is equivalent to the array keys of WP_User-&gt;allcaps.
+  A complete list of capabilities including capabilities inherited from a role.
   """
   extraCapabilities: [String]
-  """
-  First name of the user. This is equivalent to the WP_User-&gt;user_first_name property.
-  """
+  """First name of the user."""
   firstName: String
   """
   Whether the user has enabled keyboard shortcuts for comment moderation. Defaults to false.
@@ -22351,9 +22886,7 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   A unique secret tied to the users JWT token that can be revoked or refreshed. Revoking the secret prevents JWT tokens from being issued to the user. Refreshing the token invalidates previously issued tokens, but allows new tokens to be issued.
   """
   jwtUserSecret: String
-  """
-  Last name of the user. This is equivalent to the WP_User-&gt;user_last_name property.
-  """
+  """Last name of the user."""
   lastName: String
   """
   The preferred language locale set for the user. Value derived from get_user_locale().
@@ -22376,12 +22909,10 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
     """Arguments for filtering the connection"""
     where: UserToMediaItemConnectionWhereArgs
   ): UserToMediaItemConnection
-  """
-  Display name of the user. This is equivalent to the WP_User-&gt;display_name property.
-  """
+  """Display name of the user."""
   name: String
   """
-  The nicename for the user. This field is equivalent to WP_User-&gt;user_nicename
+  The url friendly name for the user, used to reference the user in a public url.
   """
   nicename: String
   """Nickname of the user."""
@@ -22462,9 +22993,7 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   Whether the Toolbar should be displayed when the user is viewing the site.
   """
   shouldShowAdminToolbar: Boolean
-  """
-  The slug for the user. This field is equivalent to WP_User-&gt;user_nicename
-  """
+  """The url friendly identifier for the user."""
   slug: String
   """Fields of the SocialAdvanced ACF Field Group"""
   socialAdvanced: SocialAdvanced
@@ -22472,10 +23001,10 @@ type User implements Commenter & DatabaseIdentifier & Node & UniformResourceIden
   uri: String
   """A website url that is associated with the user."""
   url: String
-  """The Id of the user. Equivalent to WP_User-&gt;ID"""
+  """The unique numeric identifier for the user."""
   userId: Int @deprecated(reason: "Deprecated in favor of the databaseId field")
   """
-  Username for the user. This field is equivalent to WP_User-&gt;user_login.
+  Username for the user. This is the unique identifier the user provides to log in.
   """
   username: String
 }
@@ -22764,6 +23293,14 @@ type UserToEnqueuedScriptConnectionPageInfo implements EnqueuedScriptConnectionP
   total: Int
 }
 
+"""Arguments for filtering the UserToEnqueuedScriptConnection connection"""
+input UserToEnqueuedScriptConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
+}
+
 """Connection between the User type and the EnqueuedStylesheet type"""
 type UserToEnqueuedStylesheetConnection implements Connection & EnqueuedStylesheetConnection {
   """Edges for the UserToEnqueuedStylesheetConnection connection"""
@@ -22797,6 +23334,16 @@ type UserToEnqueuedStylesheetConnectionPageInfo implements EnqueuedStylesheetCon
   """When paginating backwards, the cursor to continue."""
   startCursor: String
   total: Int
+}
+
+"""
+Arguments for filtering the UserToEnqueuedStylesheetConnection connection
+"""
+input UserToEnqueuedStylesheetConnectionWhereArgs {
+  """
+  Limit results to assets whose handle is in the provided list. Handles that do not match an asset are ignored. An empty list matches no assets, while omitting the argument (or passing null) leaves the connection unfiltered.
+  """
+  handlesIn: [String]
 }
 
 """Connection between the User type and the mediaItem type"""
@@ -23329,16 +23876,6 @@ Provides access to fields of the &quot;Hosting&quot; ACF Field Group via the &qu
 interface WithAcfHosting {
   """Fields of the Hosting ACF Field Group"""
   hosting: Hosting
-}
-
-"""Access point for the &quot;CompanyInformations&quot; ACF Options Page"""
-interface WithAcfOptionsPageCompanyInformations {
-  companyInformations: CompanyInformations
-}
-
-"""Access point for the &quot;ThemeGeneralSettings&quot; ACF Options Page"""
-interface WithAcfOptionsPageThemeGeneralSettings {
-  themeGeneralSettings: ThemeGeneralSettings
 }
 
 """

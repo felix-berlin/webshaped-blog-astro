@@ -1,84 +1,57 @@
 <template>
   <component :is="htmlElement" :id="tocId" class="c-toc">
-    <template v-for="(item, index) in items" :key="index">
-      <a
-        :href="`#${item.id}`"
-        :class="[
-          `c-toc__link c-toc__link--depth-${item.level}`,
-          {
-            'is-active': activeHeadlineId === item.id,
-          },
-        ]"
-        v-bind="item.attrs"
-        @click="emit('tocLinkClicked')"
-      />
-    </template>
+    <a
+      v-for="item in headings"
+      :key="item.id"
+      :href="`#${item.id}`"
+      :class="[
+        `c-toc__link c-toc__link--depth-${item.level}`,
+        { 'is-active': activeHeadlineId === item.id },
+      ]"
+      v-bind="item.linkAttrs"
+      @click="emit('tocLinkClicked')"
+    />
   </component>
 </template>
 
 <script setup lang="ts">
-import { getHtmlContent, headingId, isHtml } from "@utils/helpers";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import type { TocHeading } from "@services/fragments/blockFragments";
+
+import { onMounted, onUnmounted, ref } from "vue";
 
 export interface TableOfContentsProps {
-  headings: {
-    content: string;
-    level: number;
-  }[];
+  headings: TocHeading[];
   htmlElement?: string;
   tocId: string;
 }
 
 const { headings, htmlElement = "nav", tocId } = defineProps<TableOfContentsProps>();
 
-const emit = defineEmits(["currentHeadline", "tocLinkClicked"]);
+const emit = defineEmits<{ currentHeadline: [text: null | string]; tocLinkClicked: [] }>();
 
 const activeHeadlineId = ref("");
-const observer = ref<IntersectionObserver | null>(null);
+let observer: IntersectionObserver | undefined;
 
-// Computed once per headings change instead of re-parsing every heading on
-// each render (every intersection change re-renders the whole list).
-const items = computed(() =>
-  headings.map((headline) => ({
-    attrs: isHtml(headline.content)
-      ? { textContent: getHtmlContent(headline.content) }
-      : { innerHTML: headline.content },
-    id: headingId(headline.content),
-    level: headline.level,
-  })),
-);
-
-/**
- * Handles the intersection of the observer.
- *
- * @param   {IntersectionObserverEntry[]}  entries
- *
- * @return  {void}
- */
+/** Marks the heading that just scrolled into the top 40% of the viewport as active. */
 const handleIntersect = (entries: IntersectionObserverEntry[]): void => {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
-    const headline = entry.target as HTMLElement;
-    activeHeadlineId.value = headline.id;
-
-    emit("currentHeadline", headline.textContent);
+    activeHeadlineId.value = entry.target.id;
+    emit("currentHeadline", entry.target.textContent);
   });
 };
 
 onMounted(() => {
-  observer.value = new IntersectionObserver(handleIntersect, {
+  observer = new IntersectionObserver(handleIntersect, {
     rootMargin: "0px 0px -60% 0px",
     threshold: 0,
   });
-  if (observer.value)
-    document
-      .querySelectorAll(".c-blog__post h2[id], .c-blog__post h3[id]")
-      .forEach((section) => observer.value?.observe(section));
+  document
+    .querySelectorAll(".c-blog__post h2[id], .c-blog__post h3[id]")
+    .forEach((section) => observer?.observe(section));
 });
 
-onUnmounted(() => {
-  observer.value?.disconnect();
-});
+onUnmounted(() => observer?.disconnect());
 </script>
 
 <style lang="scss">

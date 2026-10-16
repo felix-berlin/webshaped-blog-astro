@@ -1,8 +1,11 @@
 <template>
   <span class="o-music-bars">
-    <template v-for="(bar, index) in 3" :key="index">
-      <span class="o-music-bars__bar" :class="{ 'is-animated': props.animate }" />
-    </template>
+    <span
+      v-for="bar in 3"
+      :key="bar"
+      class="o-music-bars__bar"
+      :class="{ 'is-animated': animate }"
+    />
   </span>
 </template>
 
@@ -11,9 +14,7 @@ interface MusicBarsProps {
   animate?: boolean;
 }
 
-const props = withDefaults(defineProps<MusicBarsProps>(), {
-  animate: false,
-});
+const { animate = false } = defineProps<MusicBarsProps>();
 </script>
 
 <style lang="scss">

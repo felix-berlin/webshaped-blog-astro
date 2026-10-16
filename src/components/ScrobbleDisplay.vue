@@ -1,12 +1,12 @@
 <template>
   <div class="c-scrobble-display">
     <VDropdown
-      v-model:shown="state.isDropdownShown"
+      v-model:shown="isDropdownShown"
       popper-class="c-scrobble-display__dropdown"
       :placement="dropdownPlacement"
       :distance="10"
     >
-      <MusicBars :animate="state.scrobbling" class="c-scrobble-display__music-bar" />
+      <MusicBars :animate="scrobbling" class="c-scrobble-display__music-bar" />
 
       <template #popper>
         <header class="c-scrobble-display__header">
@@ -25,19 +25,9 @@
         </header>
         <p v-html="t('scrobble_display.text')" />
 
-        <!-- <TransitionGroup
-          name="list"
-          tag="div"
-          mode="out-in"
-          class="c-scrobble-display__list"
-        > -->
-        <div
-          v-if="state?.tracks?.recenttracks?.track"
-          v-auto-animate
-          class="c-scrobble-display__list"
-        >
+        <div v-if="tracks.recenttracks?.track" v-auto-animate class="c-scrobble-display__list">
           <div
-            v-for="track in state.tracks.recenttracks.track"
+            v-for="track in tracks.recenttracks.track"
             :key="track.url"
             class="c-scrobble-display__track-item"
             :class="{ 'is-playing': track['@attr']?.nowplaying }"
@@ -70,19 +60,18 @@
             </p>
           </div>
         </div>
-        <!-- </TransitionGroup> -->
         <footer>
           <IconBrandLastfm class="c-scrobble-display__scrobble" width="25" height="25" />
           <span>{{
             t("scrobble_display.total_text", {
-              total: state?.tracks?.recenttracks?.["@attr"]?.total ?? "",
+              total: tracks.recenttracks?.["@attr"]?.total ?? "",
             })
           }}</span
           ><br />
           <span
             v-html="
               t('scrobble_display.follow_me', {
-                link: `https://www.last.fm/user/${state?.tracks?.recenttracks?.['@attr']?.user}`,
+                link: `https://www.last.fm/user/${tracks.recenttracks?.['@attr']?.user}`,
               })
             "
           />
@@ -93,9 +82,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
+import { useIntervalFn } from "@vueuse/core";
 import X from "virtual:icons/lucide/x";
 import IconBrandLastfm from "virtual:icons/tabler/brand-lastfm";
-import { onBeforeUnmount, onMounted, reactive, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
 
@@ -103,9 +95,9 @@ import MusicBars from "./MusicBars.vue";
 
 export interface ScrobbleDisplayProps {
   dropdownPlacement?: string;
+  /** Stop polling after this many background updates while the dropdown is closed. */
   idleAfterCount?: number;
-  idleIfInactive?: boolean;
-  lang: "de" | "en";
+  lang: Lang;
   numberOfDisplayedTracks?: number;
   scrobbleApi?: string;
   updateRate?: number;
@@ -138,114 +130,52 @@ interface LastFmTrack {
   url: string;
 }
 
-interface State {
-  idleAfterCount: number | undefined;
-  isDropdownShown: boolean;
-  scrobbling: boolean;
-  tracks: Partial<LastFmData>;
-  updateCount: number;
-  updateIntervalId: ReturnType<typeof setInterval> | undefined;
-}
-
 const {
   dropdownPlacement = "auto",
-  idleAfterCount = undefined, // if idleAfterCount is equal to the current update count, the background update task will stop
-  idleIfInactive = false,
+  idleAfterCount,
   lang,
   numberOfDisplayedTracks = 5,
   scrobbleApi = "",
   updateRate = 180_000, // check every 180 seconds (3 min)
 } = defineProps<ScrobbleDisplayProps>();
 
-const state: State = reactive({
-  idleAfterCount: idleAfterCount ? idleAfterCount + 1 : undefined,
-  isDropdownShown: false,
-  scrobbling: false,
-  tracks: {},
-  updateCount: 0,
-  updateIntervalId: undefined,
-});
-
 const { t } = useI18n(() => lang);
 
-const stop = watchEffect(() => {
-  /**
-   * Idle all API calls if the idleAfterCount is equal to the current update count and dropdown is not shown
-   */
-  if (state.idleAfterCount === state.updateCount && !state.isDropdownShown) {
-    stopScrobbleUpdates();
-  }
-});
+const tracks = ref<Partial<LastFmData>>({});
+const isDropdownShown = ref(false);
+const updateCount = ref(0);
+// The initial fetch counts as an update, so idle after one more than requested.
+const idleAt = idleAfterCount ? idleAfterCount + 1 : undefined;
 
-watch(
-  () => state.isDropdownShown,
-  () => {
-    if (state.isDropdownShown) {
-      state.updateCount = 0;
-
-      return startScrobbleUpdates(true);
-    }
-  },
+const scrobbling = computed(
+  () => !!tracks.value.recenttracks?.track.some((track) => !!track["@attr"]?.nowplaying),
 );
 
-/**
- * Fetch the last tracks from the last.fm api
- *
- * @return  {object}  api response
- */
-const getScrobbles = async (): Promise<LastFmData> => {
-  const response = await fetch(`${scrobbleApi}?limit=${numberOfDisplayedTracks}`);
-  return await response.json();
-};
-
-/**
- * Checks the API for new scrobbles and updates the state if necessary
- *
- * @return  {void}  [return description]
- */
+// A failed poll keeps the last tracks but still counts, so the idle pause stops
+// polling a dead API instead of throwing every tick for as long as the tab is open.
 const checkIfPlaying = async (): Promise<void> => {
-  await getScrobbles().then((data) => {
-    state.tracks = data;
-    state.updateCount++;
-
-    state.scrobbling = !!data.recenttracks.track.find((track) => !!track["@attr"]?.nowplaying);
-  });
+  try {
+    const response = await fetch(`${scrobbleApi}?limit=${numberOfDisplayedTracks}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    tracks.value = await response.json();
+  } catch (error) {
+    console.error("Scrobble API request failed:", error);
+  } finally {
+    updateCount.value++;
+  }
 };
 
-/**
- * Start looking for new scrobbles
- *
- * @param   {boolean}  immediately  make a API call before starting the interval
- *
- * @return  {void}
- */
-const startScrobbleUpdates = (immediately: boolean): void => {
-  stopScrobbleUpdates();
+// Fetches immediately, then every `updateRate` ms; `resume()` restarts both.
+const { pause, resume } = useIntervalFn(checkIfPlaying, updateRate, { immediateCallback: true });
 
-  // Immediately init API call
-  if (immediately) checkIfPlaying();
-
-  // Start update interval
-  state.updateIntervalId = setInterval(checkIfPlaying, updateRate);
-};
-
-/**
- * stop looking for new scrobbles
- *
- * @return  {void}
- */
-const stopScrobbleUpdates = (): void => {
-  if (typeof state.updateIntervalId !== "undefined") clearInterval(state.updateIntervalId);
-};
-
-onMounted(async () => {
-  startScrobbleUpdates(true);
+watch([updateCount, isDropdownShown], ([count, shown]) => {
+  if (count === idleAt && !shown) pause();
 });
 
-onBeforeUnmount(() => {
-  stopScrobbleUpdates();
-
-  stop();
+watch(isDropdownShown, (shown) => {
+  if (!shown) return;
+  updateCount.value = 0;
+  resume();
 });
 </script>
 

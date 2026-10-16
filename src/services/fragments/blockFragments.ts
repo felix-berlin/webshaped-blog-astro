@@ -1,4 +1,6 @@
-import { graphql } from "@/gql";
+import { getHtmlContent, headingId, isHtml } from "@utils/helpers";
+
+import { graphql, useFragment } from "@/gql";
 
 export const CoreParagraph = graphql(`
   fragment CoreParagraph on CoreParagraph {
@@ -10,14 +12,33 @@ export const CoreParagraph = graphql(`
   }
 `);
 
+export const CoreListItem = graphql(`
+  fragment CoreListItem on CoreListItem {
+    attributes {
+      content
+    }
+  }
+`);
+
+// GraphQL fragments can't recurse, so one level of nested lists is selected explicitly.
 export const CoreList = graphql(`
   fragment CoreList on CoreList {
     name
+    attributes {
+      ordered
+    }
     innerBlocks {
-      name
+      ...CoreListItem
       ... on CoreListItem {
-        attributes {
-          content
+        innerBlocks {
+          ... on CoreList {
+            attributes {
+              ordered
+            }
+            innerBlocks {
+              ...CoreListItem
+            }
+          }
         }
       }
     }
@@ -62,15 +83,6 @@ export const CoreImage = graphql(`
       width
     }
     mediaDetails {
-      sizes {
-        sourceUrl
-        file
-        fileSize
-        height
-        mimeType
-        name
-        width
-      }
       height
       width
     }
@@ -122,19 +134,19 @@ export const AcfCodeHighlighting = graphql(`
   }
 `);
 
-export const CoreDetails = (_allInnerBlocks: string) =>
-  graphql(`
-    fragment CoreDetails on CoreDetails {
-      name
-      attributes {
-        summary
-        showContent
-      }
-      innerBlocks {
-        ...AllBlocks
-      }
+export const CoreDetails = graphql(`
+  fragment CoreDetails on CoreDetails {
+    name
+    attributes {
+      summary
+      showContent
     }
-  `);
+    innerBlocks {
+      name
+      ...AllBlocks
+    }
+  }
+`);
 
 export const AllBlocks = graphql(`
   fragment AllBlocks on EditorBlock {
@@ -149,3 +161,24 @@ export const AllBlocks = graphql(`
     ...AcfCodeHighlighting
   }
 `);
+
+export interface TocHeading {
+  content: string;
+  /** Anchor id, identical to the one HeadlineBlock renders. */
+  id: string;
+  level: number;
+  /** Bound onto the TOC link; computed here so the client islands need no HTML parsing. */
+  linkAttrs: { innerHTML: string } | { textContent: string };
+}
+
+/** The h2/h3 headings of a post's top-level blocks, for the table of contents. */
+export const tocHeadings = (blocks: ReadonlyArray<null | { name?: null | string }>): TocHeading[] =>
+  blocks.flatMap((block) => {
+    if (block?.name !== "core/heading") return [];
+    const { content, level } = useFragment(CoreHeading, block as never).attributes ?? {};
+    if (!content || (level !== 2 && level !== 3)) return [];
+    const linkAttrs = isHtml(content)
+      ? { textContent: getHtmlContent(content) }
+      : { innerHTML: content };
+    return [{ content, id: headingId(content), level, linkAttrs }];
+  });

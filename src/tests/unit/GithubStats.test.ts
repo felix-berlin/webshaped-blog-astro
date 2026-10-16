@@ -1,10 +1,10 @@
-// @ts-ignore: Unresolved import
 import GithubStats from "@components/GithubStats.vue";
 import { mount } from "@vue/test-utils";
 import { http, HttpResponse } from "msw";
-import { setupServer } from "msw/node";
-import { it, expect, describe, beforeAll, afterAll, afterEach, vi } from "vitest";
+import { it, expect, describe, beforeEach, vi } from "vitest";
 import { nextTick } from "vue";
+
+import { server } from "@/tests/mocks/node";
 
 const mockStats = {
   languagePercentages: [
@@ -12,8 +12,6 @@ const mockStats = {
     { language: "Vue", percentage: 30.2 },
     { language: "CSS", percentage: 9.3 },
   ],
-  totalBytes: 100000,
-  totalCommits: 500,
   mostStarredRepos: [
     {
       name: "awesome-repo",
@@ -25,15 +23,9 @@ const mockStats = {
   ],
 };
 
-const server = setupServer(
-  http.get("/api/github/stats", () => {
-    return HttpResponse.json(mockStats);
-  }),
-);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeEach(() => {
+  server.use(http.get("/api/github/stats", () => HttpResponse.json(mockStats)));
+});
 
 describe("GithubStats.vue", () => {
   it("renders without error", () => {
@@ -60,17 +52,23 @@ describe("GithubStats.vue", () => {
     expect(wrapper.vm.mostStarredRepos).toHaveLength(1);
   });
 
-  it("displays error message when fetch fails", async () => {
+  it("shows a translated notice when the fetch fails", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
     server.use(
-      http.get("/api/github/stats", () => {
-        return new HttpResponse(null, { status: 500, statusText: "Internal Server Error" });
-      }),
+      http.get("/api/github/stats", () =>
+        HttpResponse.json({ error: "rate limited" }, { status: 500 }),
+      ),
     );
-    const wrapper = mount(GithubStats, { props: { lang: "de" } });
-    await new Promise((r) => setTimeout(r, 50));
-    await nextTick();
-    expect(wrapper.vm.error).toBeTruthy();
-    expect(wrapper.find(".c-github-stats-card").exists()).toBe(true);
+    const wrapper = mount(GithubStats, { props: { lang: "en" } });
+    await vi.waitFor(() =>
+      expect(wrapper.find(".c-github-stats-card").text()).toBe(
+        "The GitHub stats could not be loaded.",
+      ),
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      expect.any(String),
+      expect.objectContaining({ message: "HTTP 500: rate limited" }),
+    );
   });
 
   it("shows most starred repos after loading", async () => {
@@ -78,13 +76,6 @@ describe("GithubStats.vue", () => {
     await new Promise((r) => setTimeout(r, 50));
     await nextTick();
     expect(wrapper.vm.mostStarredRepos[0].name).toBe("awesome-repo");
-  });
-
-  it("formatLargeNumber formats numbers with dot separators", () => {
-    const wrapper = mount(GithubStats, { props: { lang: "de" } });
-    expect((wrapper.vm as any).formatLargeNumber(1234567)).toBe("1.234.567");
-    expect((wrapper.vm as any).formatLargeNumber(1000)).toBe("1.000");
-    expect((wrapper.vm as any).formatLargeNumber(999)).toBe("999");
   });
 
   it("filteredLanguagePercentages excludes languages with 0.00 percentage", async () => {

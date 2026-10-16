@@ -1,0 +1,11 @@
+---
+import type { CoreParagraphFragment } from "@/gql/graphql.ts";
+
+interface Props {
+  block: CoreParagraphFragment;
+}
+
+const { block } = Astro.props;
+---
+
+<p class="c-blocks__paragraph" set:html={block.attributes?.content} />

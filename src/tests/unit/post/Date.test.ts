@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import Date from "@components/post/Date.vue";
 import { mount } from "@vue/test-utils";
 import { test, expect, describe } from "vitest";
@@ -6,11 +5,8 @@ import { test, expect, describe } from "vitest";
 describe("Date.vue", () => {
   const wrapper = mount(Date, {
     props: {
-      date: "2018-09-23 15:36:00",
-      lang: {
-        locale: "en_US",
-        id: "en",
-      },
+      date: "2018-09-23T15:36:00",
+      lang: "en",
     },
   });
 

@@ -1,5 +1,8 @@
 overrides:
   "@csstools/postcss-private-rule": ^1.1.0
+  # Security: pull in patched transitive versions until upstream bumps them.
+  http-cache-semantics: ^4.3.0 # GHSA, via astro (runtime)
+  handlebars: ^4.7.10 # GHSA, via semantic-release (dev)
 allowBuilds:
   "@infisical/cli": true
   "@parcel/watcher": true
@@ -17,12 +20,11 @@ minimumReleaseAgeExclude:
   - playwright@1.62.0 || 1.62.1
   - sass@1.102.0
   - vite@8.2.0 || 8.2.1 || 8.3.2
-  - "@astrojs/node@11.1.0 || 11.1.2"
-  - "@astrojs/vue@7.0.2"
-  - astro@7.2.0 || 7.2.2
+  - "@astrojs/node@11.1.0 || 11.1.2 || 11.1.8"
+  - "@astrojs/vue@7.0.2 || 7.1.0"
+  - astro@7.2.0 || 7.2.2 || 7.4.0
   - rollup-plugin-visualizer@7.1.1
   - "@faker-js/faker@10.6.0"
-  - tm-themes@1.12.6
   - "@csstools/cascade-layer-name-parser@3.0.2"
   - "@csstools/css-calc@3.4.2"
   - "@csstools/css-color-parser@4.2.5"
@@ -65,3 +67,7 @@ minimumReleaseAgeExclude:
   - postcss-lab-function@8.0.14
   - postcss-preset-env@11.5.5
   - stylelint@17.16.0
+  - "@astrojs/internal-helpers@0.13.0"
+  - "@astrojs/markdown-satteri@0.4.4"
+  - "@astrojs/prism@4.1.0"
+  - "@astrojs/telemetry@3.4.0"

@@ -1,12 +1,5 @@
 import { useTestStorageEngine, setTestStorageKey, cleanTestStorage } from "@nanostores/persistent";
-import {
-  isDarkMode,
-  guest,
-  loadingState,
-  currentWebmentionsCount,
-  isMobileBreakpoint,
-  windowWidth,
-} from "@stores/store";
+import { isDarkMode, guest } from "@stores/store";
 import { it, expect, describe, beforeAll, afterEach } from "vitest";
 
 describe("store atoms", () => {
@@ -16,55 +9,6 @@ describe("store atoms", () => {
 
   afterEach(() => {
     cleanTestStorage();
-  });
-
-  describe("loadingState", () => {
-    it("has default value of 'empty'", () => {
-      expect(loadingState.get()).toBe("empty");
-    });
-
-    it("can be set to 'loading'", () => {
-      loadingState.set("loading");
-      expect(loadingState.get()).toBe("loading");
-    });
-
-    it("can be set to 'loaded'", () => {
-      loadingState.set("loaded");
-      expect(loadingState.get()).toBe("loaded");
-    });
-  });
-
-  describe("currentWebmentionsCount", () => {
-    it("has default value of 0", () => {
-      expect(currentWebmentionsCount.get()).toBe(0);
-    });
-
-    it("can be updated", () => {
-      currentWebmentionsCount.set(42);
-      expect(currentWebmentionsCount.get()).toBe(42);
-    });
-  });
-
-  describe("isMobileBreakpoint", () => {
-    it("has default value of false", () => {
-      expect(isMobileBreakpoint.get()).toBe(false);
-    });
-
-    it("can be set to true", () => {
-      isMobileBreakpoint.set(true);
-      expect(isMobileBreakpoint.get()).toBe(true);
-    });
-  });
-
-  describe("windowWidth", () => {
-    it("has default value of 0", () => {
-      expect(windowWidth.get()).toBe(0);
-    });
-
-    it("can be updated", () => {
-      windowWidth.set(1024);
-      expect(windowWidth.get()).toBe(1024);
-    });
   });
 
   describe("isDarkMode (persistent atom)", () => {

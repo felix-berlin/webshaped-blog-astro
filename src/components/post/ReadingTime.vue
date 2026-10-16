@@ -10,15 +10,15 @@
 </template>
 
 <script setup lang="ts">
-import type { localeStrings } from "@i18n/ui";
+import type { Lang } from "@i18n/ui";
 
-import { useTranslations } from "@utils/i18n/utils";
+import { useI18n } from "@/composables/useI18n";
 
 export interface ReadingTimeProps {
-  lang: keyof typeof localeStrings;
+  lang: Lang;
   time: number | undefined;
 }
 
 const { lang, time } = defineProps<ReadingTimeProps>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>

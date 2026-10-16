@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import { updateCategoryPaths } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
 

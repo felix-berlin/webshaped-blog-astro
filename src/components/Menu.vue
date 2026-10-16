@@ -1,20 +1,11 @@
 <template>
   <menu class="c-menu u-list-reset">
     <li
-      v-for="item in props.menuItems.nodes"
-      :key="item.label!"
-      :class="[
-        'c-menu__item',
-        {
-          'has-child': item?.childItems?.nodes && item.childItems.nodes.length > 0,
-        },
-      ]"
+      v-for="(item, index) in menuItems.nodes"
+      :key="item.label ?? index"
+      :class="['c-menu__item', { 'has-child': item.childItems?.nodes.length }]"
     >
-      <a
-        v-if="item?.childItems?.nodes && item.childItems.nodes.length <= 0"
-        :href="item.path!"
-        class="c-menu__link"
-      >
+      <a v-if="!item.childItems?.nodes.length" :href="item.path ?? undefined" class="c-menu__link">
         {{ item.label }}
       </a>
 
@@ -27,8 +18,12 @@
       </span>
 
       <menu class="c-submenu u-list-reset">
-        <li v-for="child in item?.childItems?.nodes" :key="child.label!" class="c-submenu__item">
-          <a :href="child.path!" class="c-submenu__link">{{ child.label }}</a>
+        <li
+          v-for="(child, childIndex) in item.childItems?.nodes"
+          :key="child.label ?? childIndex"
+          class="c-submenu__item"
+        >
+          <a :href="child.path ?? undefined" class="c-submenu__link">{{ child.label }}</a>
         </li>
       </menu>
     </li>
@@ -44,7 +39,7 @@ export interface MenuProps {
 
 type MenuItemConnection = NonNullable<GetMenuItemsQuery["menuItems"]>;
 
-const props = defineProps<MenuProps>();
+const { menuItems } = defineProps<MenuProps>();
 </script>
 
 <style lang="scss">

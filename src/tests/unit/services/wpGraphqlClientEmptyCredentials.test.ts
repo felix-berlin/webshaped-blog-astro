@@ -12,7 +12,6 @@ const WP_API = "https://cms.webshaped.test/graphql";
 // astro:env/server with blank credentials without affecting wpGraphqlClient.test.ts.
 vi.mock("astro:env/server", () => ({ WP_AUTH_PASS: "", WP_AUTH_USER: "" }));
 vi.mock("astro:env/client", () => ({ WP_API }));
-vi.mock("@sentry/astro", () => ({ captureException: vi.fn() }));
 
 const { wpQuery } = await import("@services/wpGraphqlClient");
 

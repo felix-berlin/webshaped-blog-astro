@@ -14,10 +14,6 @@
   </article>
 </template>
 
-<script setup lang="ts"></script>
-
 <style lang="scss">
-// @use "@styles/components/comments/comment";
-// @use "@styles/components/webmentions/webmentions";
 @use "@styles/components/comment-item-skeleton.scss";
 </style>

@@ -2,148 +2,70 @@
 import '@styles/objects/_category.scss';
 import '@styles/objects/_blog-listing.scss';
 import '@styles/components/_blog-posts.scss';
-import type {
-  GetStaticPaths,
-  InferGetStaticParamsType,
-  InferGetStaticPropsType,
-  PaginateFunction,
-} from 'astro';
+import type { GetStaticPaths, InferGetStaticParamsType, PaginateFunction } from 'astro';
 
 import BlogPostPreview from '@components/BlogPostPreview.vue';
-import type { BlogPostPreviewProps } from '@components/BlogPostPreview.vue';
 import Pagination from '@components/Pagination.vue';
 import DefaultLayout from '@layouts/DefaultLayout.astro';
+import type { Lang } from '@i18n/ui';
 import { removeLocaleCode } from '@utils/helpers';
-import { getLang } from '@utils/i18n/utils';
+import { buildTranslationRoutes, categoryPathBuilder, isLang } from '@utils/i18n/utils';
+import { CATEGORY_PAGE_SIZE } from '@utils/routes';
 import { wpQuery } from '@services/wpGraphqlClient';
 
-import type { LanguageCodeEnum } from '@/gql/graphql.ts';
 import { GetAllPostPreviewsByCategoryDocument } from '@/gql/graphql.ts';
-import type { TranslationRoutes } from '@/types/i18n';
 
 export const prerender = true;
 
-interface Paginate {
-  paginate: PaginateFunction;
-}
-
-export const getStaticPaths = (async ({ paginate }: Paginate) => {
+export const getStaticPaths = (async ({ paginate }: { paginate: PaginateFunction }) => {
   const postsResponse = await wpQuery(GetAllPostPreviewsByCategoryDocument, {});
-  const postPreviews = postsResponse.categories;
-  const pageCount = 6;
-
-  /**
-   * @see https://docs.astro.build/en/core-concepts/routing/#nested-pagination
-   */
-  if (!Array.isArray(postPreviews?.nodes)) {
-    return [];
-  }
 
   // WPGraphQL links category translations bidirectionally: both the German
   // original and its English counterpart appear as their own top-level node
-  // in `postPreviews.nodes`, AND each one's `translations` array points back
-  // at the other. Without deduping by the (lang, slug) the URL actually uses,
-  // every cross-language pair got built twice — once from its own node, once
-  // again via the sibling's `translations` traversal — which Astro's build
-  // then rejects as a route conflict (and, for the node's own English slug,
-  // built the wrong un-stripped "-en" URL as an extra, unwanted route).
+  // AND in each other's `translations`. Without deduping by the (lang, slug)
+  // the URL actually uses, every cross-language pair got built twice, which
+  // Astro's build rejects as a route conflict.
   const seenRoutes = new Set<string>();
 
-  return postPreviews.nodes.flatMap((category) => {
-    const { seo } = category;
-    const categoriesDe = category.posts?.nodes;
-    const categoriesEn = category.translations;
+  return (postsResponse.categories?.nodes ?? []).flatMap((category) => {
+    if (!category.posts?.nodes.length) return [];
 
-    const availableLanguages: string[] = [];
+    // The category itself plus each translation that has posts. Translations
+    // don't carry their own seo data in this query, so all share the parent's.
+    const variants = [category, ...(category.translations ?? [])].flatMap((variant) => {
+      const lang = variant?.language?.slug;
+      const posts = variant?.posts?.nodes ?? [];
+      const slug = removeLocaleCode(variant?.slug ?? null);
+      return isLang(lang) && slug && posts.length ? [{ lang, posts, slug, title: variant?.name }] : [];
+    });
+    const availableLanguages: Lang[] = variants.map(({ lang }) => lang);
 
-    const hasDeCategories = Array.isArray(categoriesDe) && categoriesDe.length;
+    return variants.flatMap(({ lang, posts, slug, title }) => {
+      const routeKey = `${lang}:${slug}`;
+      if (seenRoutes.has(routeKey)) return [];
+      seenRoutes.add(routeKey);
 
-    if (hasDeCategories && category.language?.slug) {
-      availableLanguages.push(category.language.slug);
-    }
-
-    if (!hasDeCategories) return [];
-
-    const ownLang = category.language?.slug;
-    const ownSlug = removeLocaleCode(category.slug ?? null);
-    const ownRouteKey = ownLang && ownSlug ? `${ownLang}:${ownSlug}` : null;
-
-    const germanPaths =
-      ownRouteKey && !seenRoutes.has(ownRouteKey)
-        ? (() => {
-            seenRoutes.add(ownRouteKey);
-            return paginate(categoriesDe, {
-              pageSize: pageCount,
-              params: {
-                lang: ownLang as string,
-                slug: ownSlug,
-              },
-              props: {
-                availableLanguages: availableLanguages,
-                content: {
-                  language: category.language,
-                  seo,
-                  title: category.name,
-                },
-              },
-            });
-          })()
-        : [];
-
-    // TODO: make slug the same as in german
-    const englishPaths =
-      categoriesEn?.flatMap((translation) => {
-        // Translations don't carry their own seo data in this query; fall back to the parent category's.
-        const categoriesEnPosts = translation?.posts?.nodes;
-
-        const hasEnCategories = Array.isArray(categoriesEnPosts) && categoriesEnPosts.length;
-        const translationLang = translation?.language?.slug;
-
-        if (hasEnCategories && translationLang) {
-          availableLanguages.push(translationLang);
-        }
-
-        if (!hasEnCategories) return [];
-
-        const translationSlug = removeLocaleCode(translation?.slug ?? null);
-        const routeKey = translationLang && translationSlug ? `${translationLang}:${translationSlug}` : null;
-        if (!routeKey || seenRoutes.has(routeKey)) return [];
-        seenRoutes.add(routeKey);
-
-        return paginate(categoriesEnPosts, {
-          pageSize: pageCount,
-          params: {
-            lang: translationLang as string,
-            slug: translationSlug,
-          },
-          props: {
-            availableLanguages: availableLanguages,
-            content: {
-              language: translation?.language,
-              seo,
-              title: translation?.name,
-            },
-          },
-        });
-      }) ?? [];
-
-    return [...germanPaths, ...englishPaths];
+      return paginate(posts, {
+        pageSize: CATEGORY_PAGE_SIZE,
+        params: { lang, slug },
+        props: { availableLanguages, content: { seo: category.seo, title } },
+      });
+    });
   });
 }) satisfies GetStaticPaths;
 
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { availableLanguages, content, page } = Astro.props;
 const { lang, slug } = Astro.params as Params;
 
-const path = `${lang}/category/${slug}`;
-const posts = page.data;
-
-const translationsRoutes = availableLanguages.reduce<TranslationRoutes>((acc, language) => {
-  acc[language as 'de' | 'en'] = `/${language}/category/${slug}/${page.currentPage}`;
-  return acc;
-}, {});
+// TODO: make slug the same as in german — translations currently reuse this page's slug.
+const translationsRoutes = buildTranslationRoutes(
+  availableLanguages.map((language) => [
+    language,
+    categoryPathBuilder(slug, language, String(page.currentPage)),
+  ]),
+);
 ---
 
 <DefaultLayout content={content} contentClasses='o-category' translationsRoutes={translationsRoutes}>
@@ -151,15 +73,7 @@ const translationsRoutes = availableLanguages.reduce<TranslationRoutes>((acc, la
     <h1 class='o-category__headline'>{content.title}</h1>
   </header>
   <section class='c-blog-posts'>
-    <BlogPostPreview lang={getLang(lang)} posts={posts as unknown as BlogPostPreviewProps['posts']} />
+    <BlogPostPreview lang={lang} posts={page.data} />
   </section>
-  <Pagination
-    lang={
-      content.language as unknown as
-        | ({ code: LanguageCodeEnum | null; locale: string | null; slug: string | null } & string)
-        | null
-    }
-    page={page}
-    path={path}
-  />
+  <Pagination lang={lang} page={page} slug={slug} />
 </DefaultLayout>

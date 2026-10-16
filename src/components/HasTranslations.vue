@@ -1,11 +1,11 @@
 <template>
-  <div v-if="translations && translations?.length > 0" class="c-has-translation">
+  <div v-if="translations?.length" class="c-has-translation">
     <p class="c-has-translation__headline">
       {{ t("post_also_available_in") }}
     </p>
     <div
       v-for="translation in translations"
-      :key="translation?.language?.slug!"
+      :key="translation?.language?.slug ?? translation?.slug ?? ''"
       class="c-has-translation__translations"
     >
       <a
@@ -22,9 +22,11 @@
 <script setup lang="ts">
 import type { Lang } from "@utils/i18n/ui";
 
-import { postPathBuilder, useTranslations } from "@utils/i18n/utils";
+import { postPathBuilder } from "@utils/i18n/utils";
 
 import type { GetAllPostsQuery } from "@/gql/graphql.ts";
+
+import { useI18n } from "@/composables/useI18n";
 
 interface HasTranslationsProps {
   lang: Lang;
@@ -34,5 +36,5 @@ interface HasTranslationsProps {
 type PostNode = NonNullable<GetAllPostsQuery["posts"]>["nodes"][number];
 
 const { lang, translations } = defineProps<HasTranslationsProps>();
-const t = useTranslations(lang);
+const { t } = useI18n(() => lang);
 </script>

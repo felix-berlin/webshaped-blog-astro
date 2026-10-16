@@ -3,6 +3,18 @@ import { graphql } from "@/gql";
 // TODO: add condition for test data
 // SHOW_TEST_DATA ? "[DRAFT, PUBLISH]" : "[PUBLISH]",
 
+/** Everything a post card (BlogPostPreview) and the RSS feed render. */
+export const PostCardFields = graphql(`
+  fragment PostCardFields on Post {
+    title
+    excerpt
+    slug
+    language {
+      slug
+    }
+  }
+`);
+
 export const GetPostsPreview = graphql(`
   query GetPostsPreview(
     $first: Int = 10000
@@ -16,41 +28,20 @@ export const GetPostsPreview = graphql(`
       where: { languages: $languages, stati: $stati, orderby: { field: $field, order: $order } }
     ) {
       nodes {
+        ...PostCardFields
         dateGmt
         modifiedGmt
         slug
-        commentCount
-        excerpt
-        title
         language {
-          code
-          locale
-          name
           slug
         }
         translations {
           slug
           language {
-            code
-            locale
-            name
             slug
           }
         }
-        featuredImage {
-          node {
-            altText
-            mediaItemUrl
-            srcSet
-            sizes
-            mediaDetails {
-              height
-              width
-            }
-          }
-        }
         seo {
-          readingTime
           metaRobotsNoindex
         }
       }
@@ -68,41 +59,14 @@ export const GetAllPostPreviewsByCategory = graphql(`
   ) {
     categories(where: { exclude: $exclude }) {
       nodes {
-        count
         name
         slug
         language {
-          code
-          locale
-          name
           slug
-        }
-        children {
-          nodes {
-            count
-            name
-            slug
-            children {
-              nodes {
-                count
-                name
-                slug
-                id
-              }
-            }
-          }
         }
         posts(first: $first, where: { orderby: { field: $field, order: $order }, stati: $stati }) {
           nodes {
-            title
-            excerpt
-            language {
-              code
-              locale
-              name
-              slug
-            }
-            slug
+            ...PostCardFields
           }
         }
         translations {
@@ -113,21 +77,14 @@ export const GetAllPostPreviewsByCategory = graphql(`
             where: { orderby: { field: $field, order: $order }, stati: $stati }
           ) {
             nodes {
-              title
-              excerpt
-              language {
-                code
-                locale
-                name
-                slug
-              }
-              slug
+              ...PostCardFields
             }
           }
           language {
             slug
           }
         }
+        # TaxonomySEO, so PostTypeSeoFragment can't be spread here.
         seo {
           title
           canonical

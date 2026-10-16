@@ -3,7 +3,7 @@ import { test, expect, describe } from "vitest";
 
 describe("useTranslations i18n", () => {
   test("translation string", () => {
-    const locale = "de_DE";
+    const locale = "de";
     const t = useTranslations(locale);
     const translationString = "comment_label";
     const expected = "Schreibe einen Kommentar:";
@@ -14,7 +14,7 @@ describe("useTranslations i18n", () => {
   });
 
   test("replaces variables", () => {
-    const locale = "en_US";
+    const locale = "en";
     const t = useTranslations(locale);
     const translationString = "scrobble_display.album_cover.alt";
     const varsToReplace = { album: "Album", artist: "Artist" };
@@ -26,7 +26,7 @@ describe("useTranslations i18n", () => {
   });
 
   test("plural forms", () => {
-    const locale = "de_DE";
+    const locale = "de";
     const t = useTranslations(locale);
     const translationString = "reading_time.text--plural";
     const expected = "5 Minuten";
@@ -37,7 +37,7 @@ describe("useTranslations i18n", () => {
   });
 
   test("replaces null variable with empty string via ?? operator (covers line 75)", () => {
-    const locale = "en_US";
+    const locale = "en";
     const t = useTranslations(locale);
     // album is null → varsToReplace["album"] = null → null ?? "" = ""
     const result = t("scrobble_display.album_cover.alt", {

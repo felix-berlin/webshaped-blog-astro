@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import DateModified from "@components/post/DateModified.vue";
 import { mount } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
@@ -7,7 +6,7 @@ describe("DateModified.vue", () => {
   const wrapper = mount(DateModified, {
     props: {
       date: "2023-06-15T10:00:00",
-      lang: "en_US",
+      lang: "en",
     },
   });
 
@@ -29,7 +28,7 @@ describe("DateModified.vue", () => {
     const deWrapper = mount(DateModified, {
       props: {
         date: "2023-06-15T10:00:00",
-        lang: "de_DE",
+        lang: "de",
       },
     });
     expect(deWrapper.find(".c-date-modified").exists()).toBe(true);

@@ -7,77 +7,52 @@
 
   <Modal
     :uid="searchId"
-    :lang="props.lang"
+    :lang="lang"
     :open="searchVisible"
     position="top"
     :disable-scroll="true"
     @close="searchVisible = false"
   >
-    <Search :id="searchId" />
+    <!-- Pagefind UI is only loaded once the search is first opened. -->
+    <Search v-if="searchLoaded" :id="searchId" autofocus />
   </Modal>
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import Modal from "@components/Modal.vue";
-import Search from "@components/Search.vue";
+import { useEventListener } from "@vueuse/core";
 import SearchIcon from "virtual:icons/lucide/search";
 import SquareSlash from "virtual:icons/lucide/square-slash";
-import { nextTick, onMounted, onUnmounted, ref } from "vue";
+import { defineAsyncComponent, nextTick, ref } from "vue";
 
 import { useI18n } from "@/composables/useI18n";
 
-const props = defineProps<{ lang: "de" | "en" }>();
+const Search = defineAsyncComponent(() => import("@components/Search.vue"));
+
+const { lang } = defineProps<{ lang: Lang }>();
 const searchId = "main-search";
 const searchVisible = ref(false);
-const { t } = useI18n(() => props.lang);
+const searchLoaded = ref(false);
+const { t } = useI18n(() => lang);
 
-/**
- * Open the search modal
- *
- * @return  {void}
- */
-const openSearch = (): void => {
+const openSearch = async (): Promise<void> => {
   searchVisible.value = true;
-  focusSearch();
+  searchLoaded.value = true;
+  // On later openings Search is already mounted, so focus its input directly.
+  await nextTick();
+  document.querySelector<HTMLInputElement>(`#${searchId} input`)?.focus();
 };
 
-/**
- * Focus the search input
- *
- * @return  {void}
- */
-const focusSearch = (): void => {
-  nextTick(() => {
-    const inputElement = document?.querySelector(`#${searchId} input`) as HTMLInputElement;
-    inputElement?.focus();
-  });
-};
+// "/" or "." opens the search from anywhere except while typing into a field.
+useEventListener(window, "keydown", (event: KeyboardEvent) => {
+  const activeTag = document.activeElement?.tagName;
+  if (activeTag === "INPUT" || activeTag === "TEXTAREA") return;
+  if (event.key !== "/" && event.key !== ".") return;
 
-/**
- * Open the search modal via keyboard
- *
- * @param   {KeyboardEvent}  event  Keyboard event
- *
- * @return  {void}
- */
-const openSearchViaKeyboard = (event: KeyboardEvent): void => {
-  // If input or textarea is focused, do nothing
-  if (document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA")
-    return;
-
-  if (!(event.key === "/" || event.key === ".")) {
-    return;
-  }
   event.preventDefault();
-  openSearch();
-};
-
-onMounted(() => {
-  window.addEventListener("keydown", openSearchViaKeyboard);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keydown", openSearchViaKeyboard);
+  void openSearch();
 });
 </script>
 

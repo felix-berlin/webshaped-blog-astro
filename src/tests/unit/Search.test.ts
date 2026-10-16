@@ -1,81 +1,35 @@
-// @ts-ignore: Unresolved import
 import Search from "@components/Search.vue";
+import { PagefindUI } from "@pagefind/default-ui";
 import { mount } from "@vue/test-utils";
-import { JSDOM } from "jsdom";
-import { it, expect, describe, vi } from "vitest";
+import { it, expect, describe, vi, beforeEach } from "vitest";
 
-describe("Search", async () => {
-  it("Search component renders correctly", async () => {
-    // Create a new JSDOM instance
-    const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>");
+vi.mock("@pagefind/default-ui", () => ({
+  PagefindUI: vi.fn(function (options?: { element: string }) {
+    if (options) document.querySelector(options.element)?.append(document.createElement("input"));
+  }),
+}));
 
-    // Set the global window and document objects to the JSDOM window and document objects
-    global.window = dom.window;
-    Object.defineProperty(global, "document", { value: dom.window.document, writable: true, configurable: true });
+beforeEach(() => vi.mocked(PagefindUI).mockClear());
 
-    // Mount the Search component
-    const wrapper = mount(Search, {
-      props: {
-        id: "search",
-      },
-    });
-
-    // Assert that the component renders correctly
-    expect(wrapper.html()).toMatchSnapshot();
-  });
-
-  it("renders container div with correct id", () => {
+describe("Search", () => {
+  it("renders the container with the given id", () => {
     const wrapper = mount(Search, { props: { id: "my-search" } });
-    const div = wrapper.find("div.c-search");
-    expect(div.attributes("id")).toBe("my-search");
+    expect(wrapper.find("div.c-search").attributes("id")).toBe("my-search");
   });
 
-  it("triggers search on '/' keydown", async () => {
+  it("initialises Pagefind on that container", () => {
+    mount(Search, { props: { id: "my-search" }, attachTo: document.body });
+    expect(PagefindUI).toHaveBeenCalledWith(
+      expect.objectContaining({ element: "#my-search", resetStyles: false, showImages: false }),
+    );
+  });
+
+  it("focuses the search input when autofocus is set", () => {
     const wrapper = mount(Search, {
-      props: { id: "search-test" },
+      props: { id: "focus-search", autofocus: true },
       attachTo: document.body,
     });
-    const event = new KeyboardEvent("keydown", { key: "/" });
-    window.dispatchEvent(event);
-    await wrapper.vm.$nextTick();
-    // Should not throw; keyboard handler runs
-    expect(wrapper.exists()).toBe(true);
+    expect(document.activeElement).toBe(wrapper.find("input").element);
     wrapper.unmount();
-  });
-
-  it("ignores keydown when INPUT is focused", async () => {
-    const wrapper = mount(Search, {
-      props: { id: "search-test" },
-      attachTo: document.body,
-    });
-    const input = document.createElement("input");
-    document.body.appendChild(input);
-    input.focus();
-    const event = new KeyboardEvent("keydown", { key: "/" });
-    window.dispatchEvent(event);
-    await wrapper.vm.$nextTick();
-    expect(wrapper.exists()).toBe(true);
-    input.remove();
-    wrapper.unmount();
-  });
-
-  it("ignores keydown for unrelated keys", async () => {
-    const wrapper = mount(Search, {
-      props: { id: "search-test" },
-      attachTo: document.body,
-    });
-    const event = new KeyboardEvent("keydown", { key: "Escape" });
-    window.dispatchEvent(event);
-    await wrapper.vm.$nextTick();
-    expect(wrapper.exists()).toBe(true);
-    wrapper.unmount();
-  });
-
-  it("removes event listener on unmount", () => {
-    const wrapper = mount(Search, {
-      props: { id: "search-test" },
-      attachTo: document.body,
-    });
-    expect(() => wrapper.unmount()).not.toThrow();
   });
 });

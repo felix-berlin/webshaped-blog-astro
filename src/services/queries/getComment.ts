@@ -31,7 +31,7 @@ export const GetCommentsById = graphql(`
     $after: String = ""
   ) {
     comments(
-      where: { contentId: $contentId, contentStatus: $contentStatus, orderby: $orderby }
+      where: { contentId: $contentId, contentStatus: $contentStatus, orderby: $orderby, parent: 0 }
       first: $first
       after: $after
     ) {

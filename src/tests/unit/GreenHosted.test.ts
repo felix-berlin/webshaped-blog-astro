@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import GreenHosted from "@components/footer/GreenHosted.vue";
 import { mount } from "@vue/test-utils";
 import Leaf from "virtual:icons/lucide/leaf";

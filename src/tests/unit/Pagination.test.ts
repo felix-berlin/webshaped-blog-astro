@@ -1,7 +1,11 @@
-// @ts-ignore: Unresolved import
 import Pagination from "@components/Pagination.vue";
-import { mount } from "@vue/test-utils";
+import { mount, type VueWrapper } from "@vue/test-utils";
 import { it, expect, describe } from "vitest";
+
+const disabledLabels = (wrapper: VueWrapper) =>
+  wrapper
+    .findAll(".c-pagination__item.is-disabled .c-pagination__link")
+    .map((link) => link.attributes("aria-label"));
 
 describe("Pagination", () => {
   it("renders the correct number of pages", () => {
@@ -16,11 +20,8 @@ describe("Pagination", () => {
           },
           start: 1,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -40,16 +41,12 @@ describe("Pagination", () => {
           },
           start: 1,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
-    const prevButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
-    expect(prevButton.exists()).toBe(true);
+    expect(disabledLabels(wrapper)).toEqual(["First page", "Previous page"]);
   });
 
   it("disables the next button on the last page", () => {
@@ -64,16 +61,24 @@ describe("Pagination", () => {
           },
           start: 41,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
-    const nextButton = wrapper.find(".c-pagination__item.is-disabled .c-pagination__link");
-    expect(nextButton.exists()).toBe(true);
+    expect(disabledLabels(wrapper)).toEqual(["Next page", "Last page"]);
+  });
+
+  it("renders nothing for a single page", () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        page: { lastPage: 1, currentPage: 1, url: { prev: null, next: null }, start: 0 },
+        slug: "javascript",
+        lang: "en",
+      },
+    });
+
+    expect(wrapper.find("nav").exists()).toBe(false);
   });
 
   it("renders the correct page links", () => {
@@ -88,11 +93,8 @@ describe("Pagination", () => {
           },
           start: 21,
         },
-        path: "/page",
-        lang: {
-          locale: "en_US",
-          id: "en",
-        },
+        slug: "javascript",
+        lang: "en",
       },
     });
 
@@ -104,5 +106,26 @@ describe("Pagination", () => {
     expect(pages[4].text()).toBe("3");
     expect(pages[5].text()).toBe("4");
     expect(pages[6].text()).toBe("5");
+  });
+
+  it("links the first/last buttons and page numbers to the category archive pages", () => {
+    const wrapper = mount(Pagination, {
+      props: {
+        page: { lastPage: 3, currentPage: 2, url: { prev: "/x/1", next: "/x/3" }, start: 6 },
+        slug: "javascript",
+        lang: "en",
+      },
+    });
+
+    const hrefs = wrapper.findAll("a.c-pagination__link").map((link) => link.attributes("href"));
+    expect(hrefs).toEqual([
+      "/en/category/javascript/1",
+      "/x/1",
+      "/en/category/javascript/1",
+      "/en/category/javascript/2",
+      "/en/category/javascript/3",
+      "/x/3",
+      "/en/category/javascript/3",
+    ]);
   });
 });

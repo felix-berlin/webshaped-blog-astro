@@ -1,0 +1,80 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+
+import ButtonsBlock from "@components/content-blocks/ButtonsBlock.astro";
+import CodeBlock from "@components/content-blocks/CodeBlock.astro";
+import CodeHighlighting from "@components/content-blocks/CodeHighlighting.astro";
+import DetailsBlock from "@components/content-blocks/DetailsBlock.astro";
+import FigureBlock from "@components/content-blocks/FigureBlock.astro";
+import GitHubRawData from "@components/content-blocks/GitHubRawData.astro";
+import HeadlineBlock from "@components/content-blocks/HeadlineBlock.astro";
+import ListBlock from "@components/content-blocks/ListBlock.astro";
+import ParagraphBlock from "@components/content-blocks/ParagraphBlock.astro";
+import {
+  AcfCodeHighlighting,
+  AcfGithubRawData,
+  CoreButtons,
+  CoreCode,
+  CoreDetails,
+  CoreHeading,
+  CoreImage,
+  CoreList,
+  CoreParagraph,
+} from "@services/fragments/blockFragments";
+import { decode } from "he";
+
+import { useFragment } from "@/gql";
+
+/** Renders WPGraphQL editor blocks; DetailsBlock recurses into this for its inner blocks. */
+interface Props {
+  blocks: ReadonlyArray<null | { name?: null | string }>;
+}
+
+const { blocks } = Astro.props;
+
+// Block name → [component, fragment it reads]. `name` is a plain string on every block
+// type, so TS can't narrow the masked union; the lookup below is the one place that casts.
+const BLOCKS = {
+  "acf/code-highlighting": [CodeHighlighting, AcfCodeHighlighting],
+  "acf/github-raw-data": [GitHubRawData, AcfGithubRawData],
+  "core/buttons": [ButtonsBlock, CoreButtons],
+  "core/details": [DetailsBlock, CoreDetails],
+  "core/heading": [HeadlineBlock, CoreHeading],
+  "core/image": [FigureBlock, CoreImage],
+  "core/list": [ListBlock, CoreList],
+  "core/paragraph": [ParagraphBlock, CoreParagraph],
+} as const;
+
+type ResolvedBlock =
+  | { code: string; lang?: null | string }
+  | { Component: AstroComponentFactory; data: never };
+
+const resolved = blocks.flatMap((block): ResolvedBlock[] => {
+  if (!block?.name) return [];
+
+  if (block.name === "core/code") {
+    const { attributes } = useFragment(CoreCode, block as never);
+    return [{ code: decode(attributes?.content ?? ""), lang: attributes?.className }];
+  }
+
+  const entry = BLOCKS[block.name as keyof typeof BLOCKS];
+  if (!entry) {
+    // Logged so a block type added in WordPress doesn't vanish from posts unnoticed.
+    console.warn(`Blocks.astro: no renderer for block type "${block.name}", skipping it`);
+    return [];
+  }
+
+  const [Component, fragment] = entry;
+  return [{ Component, data: useFragment(fragment as never, block as never) }];
+});
+---
+
+{
+  resolved.map((block) =>
+    "Component" in block ? (
+      <block.Component block={block.data} />
+    ) : (
+      <CodeBlock code={block.code} lang={block.lang} />
+    ),
+  )
+}

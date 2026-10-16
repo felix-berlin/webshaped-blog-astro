@@ -2,7 +2,7 @@
   <article class="c-comment__item">
     <header class="c-comment__header">
       <div class="c-comment__author-icon">
-        <User v-if="!validEmail(commentForm.email)" width="86" height="86" />
+        <User v-if="!isValidEmail" width="86" height="86" />
         <span v-else>{{ t("comment_form.gravatar_hint") }}</span>
       </div>
 
@@ -21,7 +21,7 @@
       </h2>
 
       <Alert
-        v-if="formResponses?.errors && formResponses.errors.length > 0 && showDialog"
+        v-if="formResponses.errors.length && showDialog"
         type="danger"
         class="c-comment__big-alert c-alert--big-centered"
       >
@@ -47,7 +47,7 @@
         <div
           v-auto-animate
           class="c-form__item is-vertical"
-          :class="{ 'c-textarea--error': formErrors.comment.length }"
+          :class="{ 'c-textarea--error': formErrors.comment }"
         >
           <label class="c-form__label" for="comment">{{ t("comment_form.comment.label") }}</label>
 
@@ -59,7 +59,7 @@
             rows="4"
             placeholder=" "
           />
-          <Alert v-if="formErrors.comment.length" type="danger" class="c-alert--small">
+          <Alert v-if="formErrors.comment" type="danger" class="c-alert--small">
             {{ formErrors.comment }}
           </Alert>
         </div>
@@ -68,7 +68,7 @@
           <div
             v-auto-animate
             class="c-form__item is-vertical"
-            :class="{ 'has-error': formErrors.author.length }"
+            :class="{ 'has-error': formErrors.author }"
           >
             <label class="c-form__label c-label is-required" for="author">{{
               t("comment_form.name.label")
@@ -82,7 +82,7 @@
               name="author"
               placeholder=" "
             />
-            <Alert v-if="formErrors.author.length" type="danger" class="c-alert--small">
+            <Alert v-if="formErrors.author" type="danger" class="c-alert--small">
               {{ formErrors.author }}
             </Alert>
           </div>
@@ -90,9 +90,7 @@
           <div
             v-auto-animate
             class="c-form__item is-vertical"
-            :class="{
-              'has-error': formErrors.email && formErrors.email.length,
-            }"
+            :class="{ 'has-error': formErrors.email }"
           >
             <label class="c-form__label" for="user-email"
               >{{ t("comment_form.email.label") }}
@@ -114,22 +112,12 @@
               name="user-email"
               placeholder=" "
             />
-            <Alert
-              v-if="formErrors.email && formErrors.email.length"
-              type="danger"
-              class="c-alert--small"
-            >
+            <Alert v-if="formErrors.email" type="danger" class="c-alert--small">
               {{ formErrors.email }}
             </Alert>
           </div>
         </div>
-        <div
-          v-auto-animate
-          class="c-form__item"
-          :class="{
-            'has-error': formErrors.privacy && formErrors.privacy.length,
-          }"
-        >
+        <div v-auto-animate class="c-form__item" :class="{ 'has-error': formErrors.privacy }">
           <input
             id="privacy"
             v-model="commentForm.privacy"
@@ -142,16 +130,12 @@
             for="privacy"
             v-html="
               t('comment_form.privacy.label', {
-                link: `/${props.lang}/datenschutz`,
+                link: pagePathBuilder(PRIVACY_PAGE_SLUG, props.lang),
               })
             "
           />
 
-          <Alert
-            v-if="formErrors.privacy && formErrors.privacy.length"
-            type="danger"
-            class="c-alert--small"
-          >
+          <Alert v-if="formErrors.privacy" type="danger" class="c-alert--small">
             {{ formErrors.privacy }}
           </Alert>
         </div>
@@ -179,18 +163,19 @@
 </template>
 
 <script setup lang="ts">
-import type { CombinedError } from "@urql/vue";
+import type { Lang } from "@i18n/ui";
 
 import Alert from "@components/Alert.vue";
 import CheckCircle from "@components/icons/CheckCircle.vue";
 import XCircle from "@components/icons/XCircle.vue";
-import { mapStores } from "@nanostores/vue";
 import { guest } from "@stores/store";
 import { useMutation } from "@urql/vue";
+import { pagePathBuilder } from "@utils/i18n/utils";
+import { PRIVACY_PAGE_SLUG } from "@utils/routes";
 import { promiseTimeout } from "@vueuse/core";
 import Info from "virtual:icons/lucide/info";
 import User from "virtual:icons/lucide/user";
-import { onMounted, reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 
 import type { CreateCommentMutationVariables } from "@/gql/graphql.ts";
 
@@ -199,29 +184,23 @@ import { CreateCommentDocument } from "@/gql/graphql.ts";
 
 interface Props {
   currentPostId: string;
-  lang: "de" | "en";
+  lang: Lang;
   replyToCommentId?: CreateCommentMutationVariables["parent"];
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits<{ commentCreated: [] }>();
+const { t } = useI18n(() => props.lang);
 
-const { guestUser } = mapStores({
-  guestUser: guest,
-});
+const EMAIL_RE =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 interface CommentForm {
   author: string;
   comment: string;
-  email?: string;
+  email: string;
   privacy: boolean;
-  saveUser?: boolean;
-}
-
-interface FormErrors {
-  author: string;
-  comment: string;
-  email?: string;
-  privacy: string;
+  saveUser: boolean;
 }
 
 const initialCommentForm: CommentForm = {
@@ -232,33 +211,34 @@ const initialCommentForm: CommentForm = {
   saveUser: false,
 };
 
-const commentForm: CommentForm = reactive({ ...initialCommentForm });
-
-const formErrors: FormErrors = reactive({
-  author: "",
-  comment: "",
-  email: "",
-  privacy: "",
+// Prefilled from the guest data a previous comment saved (see `saveUser`).
+const { author = "", email = "", privacy = false, saveUser = false } = guest.get();
+const commentForm = reactive<CommentForm>({
+  ...initialCommentForm,
+  author,
+  email,
+  privacy,
+  saveUser,
 });
 
-const formResponses = reactive<{ errors: CombinedError[]; success: boolean }>({
+const formErrors = reactive({ author: "", comment: "", email: "", privacy: "" });
+
+const formResponses = reactive<{ errors: { message: string }[]; success: boolean }>({
   errors: [],
   success: false,
 });
 
 const showDialog = ref(false);
-const { t } = useI18n(() => props.lang);
 
-const emit = defineEmits(["commentCreated"]);
+const isValidEmail = computed(() => EMAIL_RE.test(commentForm.email));
 
 const resetCommentForm = () => Object.assign(commentForm, initialCommentForm);
 
-/**
- * checks if the given form data is valid
- *
- * @return  {Promise<void>}
- */
+/** Validates the form and submits it when every field passes. */
 const checkForm = async (): Promise<void> => {
+  // Start clean: a stale error (e.g. on an e-mail since emptied) would block submit for good.
+  Object.assign(formErrors, { author: "", comment: "", email: "", privacy: "" });
+
   if (commentForm.comment.length <= 1) {
     formErrors.comment = t.value("comment_form.error.comment_to_short");
   }
@@ -267,8 +247,8 @@ const checkForm = async (): Promise<void> => {
     formErrors.author = t.value("comment_form.error.author_to_short");
   }
 
-  // If an e-mail address is given, validate it
-  if (commentForm.email && commentForm.email.length > 0 && !validEmail(commentForm.email)) {
+  // The e-mail address is optional, but must be valid if given.
+  if (commentForm.email && !isValidEmail.value) {
     formErrors.email = t.value("comment_form.error.email_invalid");
   }
 
@@ -276,95 +256,58 @@ const checkForm = async (): Promise<void> => {
     formErrors.privacy = t.value("comment_form.error.privacy_not_accepted");
   }
 
-  if (Object.values(formErrors).every((v) => v.length === 0)) {
-    await create();
-  }
-};
-
-/**
- * Checks if its a real email address
- *
- * @param   {String}  email  E-Mail address
- *
- * @return  {Boolean}        If check passes return true
- */
-const validEmail = (email: string | undefined): boolean | undefined => {
-  if (!email) return;
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  return re.test(email);
+  if (Object.values(formErrors).every((error) => !error)) await create();
 };
 
 const createComment = useMutation(CreateCommentDocument);
 
-/**
- * Send a GraphQL request to create a comment
- */
-const create = async () => {
-  await createComment
-    .executeMutation({
-      author: commentForm.author,
-      authorEmail: commentForm.email,
-      commentOn: Number(props.currentPostId),
-      content: commentForm.comment,
-      parent: props.replyToCommentId,
-    })
-    .then(
-      async (response) => {
-        const { data, error } = response;
-
-        const { comment: _comment, ...guestData } = commentForm;
-        guest.set(commentForm.saveUser ? guestData : { saveUser: false });
-
-        if (data) {
-          formResponses.success = data.createComment?.success ?? false;
-          showDialog.value = true;
-
-          await promiseTimeout(3000);
-
-          showDialog.value = false;
-          formResponses.success = false;
-
-          emit("commentCreated");
-
-          if (!commentForm.saveUser) resetCommentForm();
-          commentForm.comment = "";
-        }
-
-        if (error) {
-          formResponses.errors = [error];
-          showDialog.value = true;
-
-          await promiseTimeout(3000);
-
-          showDialog.value = false;
-          formResponses.errors = [];
-        }
-      },
-      (error) => {
-        console.error("Cant save comment", error);
-      },
-    );
+/** Shows the success/error dialog for three seconds. */
+const flashDialog = async (): Promise<void> => {
+  showDialog.value = true;
+  await promiseTimeout(3000);
+  showDialog.value = false;
 };
 
-watch(commentForm, (newValue) => {
-  Object.keys(newValue).forEach((key) => {
-    if (
-      newValue[key as keyof CommentForm] &&
-      (formErrors[key as keyof FormErrors]?.length ?? 0) > 0
-    ) {
-      formErrors[key as keyof FormErrors] = "";
-    }
+const create = async (): Promise<void> => {
+  const { data, error } = await createComment.executeMutation({
+    author: commentForm.author,
+    authorEmail: commentForm.email,
+    commentOn: Number(props.currentPostId),
+    content: commentForm.comment,
+    parent: props.replyToCommentId,
   });
-});
 
-onMounted(() => {
-  if (guestUser.author) commentForm.author = guestUser.author;
-  if (guestUser.email) commentForm.email = guestUser.email;
-  if (guestUser.privacy) commentForm.privacy = guestUser.privacy;
-  if (guestUser.saveUser) commentForm.saveUser = guestUser.saveUser;
-});
+  // `success: false` (or a null payload) is a failure too: keep the typed comment.
+  const success = !error && !!data?.createComment?.success;
+
+  formResponses.success = success;
+  formResponses.errors = success
+    ? []
+    : [error ?? { message: t.value("comment_form.error.not_created") }];
+  await flashDialog();
+  formResponses.success = false;
+  formResponses.errors = [];
+
+  if (!success) return;
+
+  const { comment: _comment, ...guestData } = commentForm;
+  guest.set(commentForm.saveUser ? guestData : { saveUser: false });
+
+  emit("commentCreated");
+
+  if (!commentForm.saveUser) resetCommentForm();
+  commentForm.comment = "";
+};
+
+// Clear a field's error as soon as it gets a value again.
+for (const field of ["author", "comment", "email", "privacy"] as const) {
+  watch(
+    () => commentForm[field],
+    (value) => {
+      if (value) formErrors[field] = "";
+    },
+  );
+}
 </script>
 
 <style lang="scss">

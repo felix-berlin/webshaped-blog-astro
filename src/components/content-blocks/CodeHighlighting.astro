@@ -1,31 +1,16 @@
 ---
+import CodeBlock from "@components/content-blocks/CodeBlock.astro";
 import { parse } from "@utils/helpers";
-import { Code } from "astro/components";
-import materialThemeLighter from "tm-themes/themes/material-theme-lighter.json";
-import materialThemePalenight from "tm-themes/themes/material-theme-palenight.json";
 
 import type { AcfCodeHighlightingFragment } from "@/gql/graphql.ts";
 
-interface GitHubRawDataProps {
+interface Props {
   block: AcfCodeHighlightingFragment;
 }
 
-const { block } = Astro.props as GitHubRawDataProps;
+const { block } = Astro.props;
 
-const blockAttrs = parse(block?.attributes?.data as string | undefined);
-const { code, custom_language, language, use_custom_language } = blockAttrs;
-
-const codeLang = use_custom_language ? custom_language : language;
+const { code, custom_language, language, use_custom_language } = parse(block.attributes?.data as string | undefined) ?? {};
 ---
 
-<div class="c-blocks__code">
-  <Code
-    code={code}
-    lang={codeLang}
-    themes={{
-      dark: { ...materialThemePalenight, type: materialThemePalenight.type as "dark" },
-      light: { ...materialThemeLighter, type: materialThemeLighter.type as "light" },
-    }}
-    wrap
-  />
-</div>
+<CodeBlock code={code} lang={use_custom_language ? custom_language : language} />

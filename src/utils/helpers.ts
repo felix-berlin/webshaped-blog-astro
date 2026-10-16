@@ -1,12 +1,14 @@
+import type { Lang } from "@i18n/ui";
+
 import slugify from "slugify";
 
-import type { GetAuthorQuery, GetMenuByIdQuery } from "@/gql/graphql.ts";
+import type { GetMenuByIdQuery, UserSocialsFragment } from "@/gql/graphql.ts";
 
 type Maybe<T> = null | T | undefined;
 type MenuItem = NonNullable<MenuItemsConnection>["nodes"][number];
 type MenuItemsConnection = NonNullable<GetMenuByIdQuery["menu"]>["menuItems"];
-type SeoUserSocial = NonNullable<NonNullable<NonNullable<GetAuthorQuery["user"]>["seo"]>["social"]>;
-type SocialAdvanced = NonNullable<NonNullable<GetAuthorQuery["user"]>["socialAdvanced"]>;
+type SeoUserSocial = NonNullable<NonNullable<UserSocialsFragment["seo"]>["social"]>;
+type SocialAdvanced = NonNullable<UserSocialsFragment["socialAdvanced"]>;
 
 /**
  * Checks if the given string is HTML
@@ -84,13 +86,7 @@ export const headingId = (content: string): string =>
  *
  * @return  {string}       - The string without the trailing slash.
  */
-export const removeTrailingSlash = (str: string): string => {
-  if (!str) return "";
-  if (str.endsWith("/")) {
-    return str.slice(0, -1);
-  }
-  return str;
-};
+export const removeTrailingSlash = (str: string): string => (str ?? "").replace(/\/$/, "");
 
 /**
  * Create URL to the first page of a category
@@ -99,17 +95,8 @@ export const removeTrailingSlash = (str: string): string => {
  *
  * @return  {string}
  */
-export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"): string => {
-  if (firstPage.startsWith("/")) {
-    firstPage = firstPage.slice(1);
-  }
-
-  if (categoryPath?.endsWith("/")) {
-    categoryPath = removeTrailingSlash(categoryPath);
-  }
-
-  return `${categoryPath}/${firstPage}`;
-};
+export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"): string =>
+  `${categoryPath?.replace(/\/$/, "")}/${firstPage.replace(/^\//, "")}`;
 
 /**
  * Check if the given path is a category path
@@ -118,105 +105,51 @@ export const firstCategoryPage = (categoryPath: Maybe<string>, firstPage = "1"):
  *
  * @return  {boolean}
  */
-export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): boolean => {
-  if (!path) return false;
-  // if path contains 'category' is within the path string return true
-  return path?.includes(categoryPath);
-};
+export const isCategoryPath = (path: Maybe<string>, categoryPath = "category"): boolean =>
+  !!path?.includes(categoryPath);
+
+type MenuLevel = { nodes: MenuNode[] };
+type MenuNode = { childItems?: MenuLevel | null; path?: null | string };
 
 /**
- * Update category paths in the main menu
- *
- * Returns a new menu structure rather than mutating `mainMenuItems` in
- * place — mutating the input here previously meant that if the same
- * object ever got processed more than once (observed intermittently in
- * dev, cleared by a hard reload — a Vite/Astro dev-server module-caching
- * quirk, not reproducible against a production build), each extra pass
- * prepended another "/de" and appended another "/1" on top of the last.
- * Returning fresh objects makes repeat processing safe regardless of the
- * exact cause.
+ * Returns a copy of a WP menu connection with every item's path (at every
+ * level) mapped through `mapPath`. Never mutates its input, so processing the
+ * same menu object twice can't stack prefixes.
+ */
+export const mapMenuPaths = <T extends MenuLevel | null | undefined>(
+  menu: T,
+  mapPath: (path: string) => string,
+): T =>
+  menu &&
+  ({
+    ...menu,
+    nodes: menu.nodes.map((item) => ({
+      ...item,
+      childItems: mapMenuPaths(item.childItems, mapPath),
+      path: item.path && mapPath(item.path),
+    })),
+  } as T);
+
+/**
+ * Point the main menu's category links (second level) at our first archive page.
+ * German WP paths lack the "/de" prefix; English category slugs carry a "-en" suffix.
  */
 export const updateCategoryPaths = (
   mainMenuItems: MenuItemsConnection,
-  lang: "de" | "en",
-): MenuItemsConnection => {
-  if (!mainMenuItems) return mainMenuItems;
-
-  return {
+  lang: Lang,
+): MenuItemsConnection =>
+  mainMenuItems && {
     ...mainMenuItems,
-    nodes: mainMenuItems.nodes.map((item: MenuItem) => {
-      if (!item?.childItems) return item;
-
-      return {
-        ...item,
-        childItems: {
-          ...item.childItems,
-          nodes: item.childItems.nodes.map((childItem) => {
-            if (!("path" in childItem && isCategoryPath(childItem?.path || null))) {
-              return childItem;
-            }
-
-            // In german locale, /de is missing in the path
-            if (lang === "de") {
-              return { ...childItem, path: `/de${firstCategoryPage(childItem?.path || null)}` };
-            }
-            // In english locale, categories are postfixed with "-en", we need to remove it
-            if (lang === "en") {
-              return {
-                ...childItem,
-                path: firstCategoryPage(removeLocaleCode(childItem?.path || null)),
-              };
-            }
-
-            return childItem;
-          }),
-        },
-      };
-    }),
+    nodes: mainMenuItems.nodes.map((item: MenuItem) => ({
+      ...item,
+      childItems: mapMenuPaths(item.childItems, (path) => {
+        if (!isCategoryPath(path)) return path;
+        return lang === "de"
+          ? `/de${firstCategoryPage(path)}`
+          : firstCategoryPage(removeLocaleCode(path));
+      }),
+    })),
   };
-};
-
-/**
- * Get special characters from a string
- *
- * @param   {string}       str
- * @param   {string[]}  specialChars
- *
- * @return  {string | null}
- */
-export const getDelimiter = (
-  str: string,
-  specialChars: string[] = ["_", "-", "*"],
-): null | string => {
-  if (!str || !Array.isArray(specialChars) || specialChars.some((char) => typeof char !== "string"))
-    return null;
-
-  return specialChars.find((specialChar) => str.includes(specialChar)) || null;
-};
-
-/**
- * Capitalize the first letter of a string
- *
- * @param   {string}  str
- *
- * @return  {string}
- */
-export const capitalize = (str: null | string | undefined): string => {
-  if (str == null || typeof str === "undefined" || typeof str !== "string") {
-    return "";
-  }
-
-  str = str?.trim(); // Trim the input string to remove leading and trailing whitespaces
-
-  const firstChar = str.charAt(0);
-  const restOfString = str.slice(1);
-
-  if (/[a-zA-Z]/.test(firstChar)) {
-    return `${firstChar.toUpperCase()}${restOfString}`;
-  } else {
-    return `${firstChar}${restOfString}`;
-  }
-};
 
 /**
  * Get the domain name without TDL from a URL
@@ -227,13 +160,7 @@ export const capitalize = (str: null | string | undefined): string => {
  * @throws  {Error} If the URL is not valid.
  */
 export const getHostName = (url: string, hostnameOnly = false): string => {
-  if (
-    url === null ||
-    typeof url === "undefined" ||
-    !isValidUrl(url) ||
-    (!url.startsWith("http://") && !url.startsWith("https://"))
-  )
-    throw new Error("Invalid URL");
+  if (!isValidUrl(url) || !/^https?:\/\//.test(url)) throw new Error("Invalid URL");
 
   const parsedUrl = new URL(url);
 
@@ -291,18 +218,7 @@ export const toJsonLd = (data: unknown): string => JSON.stringify(data).replace(
  *
  * @return  {boolean}
  */
-export const isValidUrl = (url: string): boolean => {
-  if (url === null || typeof url === "undefined" || typeof url !== "string" || url === "") {
-    return false;
-  }
-
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
+export const isValidUrl = (url: string): boolean => typeof url === "string" && URL.canParse(url);
 
 type AdditionalData = {
   [key: string]: object;
@@ -328,30 +244,13 @@ export const getSocialIconData = (
   if (!socials) return {};
   const socialItems: SocialItems = {};
 
-  // If urql cache is used, the __typename is added to the object
-  // and we need to remove it to avoid errors
-  const socialsRecord = socials as Record<string, unknown>;
-  if (socialsRecord.__typename) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { __typename, ...rest } = socialsRecord;
-    socials = rest as SeoUserSocial | SocialAdvanced;
-  }
-
   for (const [key, value] of Object.entries(socials)) {
-    if (!value) continue;
+    if (!value || key === "__typename") continue;
 
-    socialItems[key] = { url: value, ...iconStyles };
-
-    if (additionalData[key]) {
-      socialItems[key] = { ...socialItems[key], ...additionalData[key] };
-    }
+    socialItems[key] = { url: String(value), ...iconStyles, ...additionalData[key] };
   }
 
   return socialItems;
-};
-
-export const isWebWorkerSupported = () => {
-  return typeof Worker !== "undefined";
 };
 
 export const removeLocaleCode = (category: null | string) => {
@@ -366,66 +265,12 @@ export const removeLocaleCode = (category: null | string) => {
  *
  * @return  {string}
  */
-export const getWebmentionsUrl = (url: URL): string => {
-  const siteDomain = new URL(url).hostname;
-  const webmentionUrlStart = "https://webmention.io/";
-  return `${webmentionUrlStart}${siteDomain}`;
-};
+export const WEBMENTION_IO = "https://webmention.io/";
 
-/**
- * WPGraphQL API: Convert a flat list of items to a hierarchical structure
- * @see: https://www.wpgraphql.com/docs/hierarchical-data#converting-flat-lists-to-hierarchical
- */
-export function flatListToHierarchical<T extends Record<string, unknown>>(
-  data: T[] = [],
-  options: {
-    childrenKey?: string;
-    idKey?: keyof T;
-    parentKey?: keyof T;
-  } = {},
-): T[] {
-  const { childrenKey = "children", idKey = "id", parentKey = "parentId" } = options;
-
-  const tree: T[] = [];
-  const childrenOf: Record<number | string, T[]> = {};
-
-  data.forEach((item) => {
-    const newItem: Record<string, unknown> = { ...item };
-    const id = newItem[idKey as string] as number | string;
-    // parentId can be undefined or null, treat as 0 (root)
-    const parentId = (newItem[parentKey as string] as number | string | undefined) ?? 0;
-
-    childrenOf[id] = childrenOf[id] || [];
-    newItem[childrenKey] = childrenOf[id];
-
-    if (parentId && parentId !== 0) {
-      childrenOf[parentId] = childrenOf[parentId] || [];
-      childrenOf[parentId].push(newItem as unknown as T);
-    } else {
-      tree.push(newItem as unknown as T);
-    }
-  });
-
-  return tree;
-}
+export const getWebmentionsUrl = (url: URL): string => `${WEBMENTION_IO}${url.hostname}`;
 
 // WP menu IDs are per language and have no queryable relation to the locale.
-const MENU_ID_BY_LANG: Record<string, string> = { de: "2", en: "125" };
-
-/**
- * Resolve the WP menu ID for a locale.
- *
- * An unknown lang (crawler on /fr/…) used to render an empty nav with HTTP 200 and
- * no log line — indistinguishable from WordPress returning an empty menu.
- */
-export const resolveMenuId = (lang: string): string | undefined => {
-  const menuId = MENU_ID_BY_LANG[lang];
-
-  if (!menuId)
-    console.error(`MainHeader: unsupported lang "${lang}", rendering without navigation`);
-
-  return menuId;
-};
+export const MENU_ID_BY_LANG: Record<Lang, string> = { de: "2", en: "125" };
 
 type LanguageTagged = { language?: null | { slug?: null | string } };
 
@@ -441,24 +286,3 @@ export const filterPostsByLanguage = <T extends LanguageTagged>(
   lang: string,
 ): T[] =>
   (postsResponse?.posts?.nodes ?? []).filter((post): post is T => post?.language?.slug === lang);
-
-/**
- * Convert a paginated (edges/nodes) flat list to a hierarchical structure.
- * @param data - Array of edges with { node: {...} }
- * @param options - Keys for id, parent, children, and node accessor
- */
-export function paginatedFlatListToHierarchical<T extends Record<string, unknown>>(
-  data: Array<Record<string, T>> = [],
-  options: {
-    childrenKey?: string;
-    idKey?: keyof T;
-    nodeKey?: string; // defaults to 'node'
-    parentKey?: keyof T;
-  } = {},
-): T[] {
-  const { nodeKey = "node" } = options;
-  // Extract nodes from edges
-  const nodes = data.map((edge) => edge[nodeKey]);
-  // Use the existing flatListToHierarchical function
-  return flatListToHierarchical(nodes, options);
-}

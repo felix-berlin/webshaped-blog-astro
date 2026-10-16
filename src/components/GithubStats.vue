@@ -3,83 +3,74 @@
     {{ error }}
   </div>
 
-  <div v-if="!error" class="c-github-stats-card c-post-card is-graph">
-    <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
-    <CodeLangGraph
-      v-if="loading"
-      class="is-skeleton"
-      :languages="skeletonLangDataMock"
-      :show-tooltips="false"
-    />
-    <CodeLangList v-if="loading" class="is-skeleton" :languages="filteredLanguagePercentages" />
-
-    <Transition name="fade" mode="out-in">
-      <CodeLangGraph v-if="!loading" :languages="filteredLanguagePercentages" />
-    </Transition>
-    <Transition name="fade" mode="out-in">
-      <CodeLangList v-if="!loading" :languages="filteredLanguagePercentages" />
-    </Transition>
-    <i>{{ t("github_stats.lang_graph.hint") }}</i>
-  </div>
-
-  <!-- <section class="o-github-total-lines" v-if="!error">
-    <div class="c-github-stats-card c-post-card is-total-lines-1">
-      <h2>{{ t("github_stats.total_lines.headline") }}</h2>
+  <template v-else>
+    <div class="c-github-stats-card c-post-card is-graph">
+      <h2>{{ t("github_stats.lang_graph.headline") }}</h2>
+      <Transition name="fade" mode="out-in">
+        <CodeLangGraph
+          :key="String(loading)"
+          :class="{ 'is-skeleton': loading }"
+          :languages="loading ? skeletonLangDataMock : filteredLanguagePercentages"
+          :show-tooltips="!loading"
+        />
+      </Transition>
+      <Transition name="fade" mode="out-in">
+        <CodeLangList
+          :key="String(loading)"
+          :class="{ 'is-skeleton': loading }"
+          :languages="filteredLanguagePercentages"
+        />
+      </Transition>
+      <i>{{ t("github_stats.lang_graph.hint") }}</i>
     </div>
-    <div class="c-github-stats-card c-post-card is-total-lines-2">
-      {{ loading ? 0 : formatLargeNumber(totalAdditions) }}
-    </div>
-  </section> -->
-  <section v-if="!error" class="o-github-most-starred">
-    <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
-    <div class="o-github-most-starred__list">
-      <a
-        v-for="repo in mostStarredRepos"
-        :key="repo.name"
-        :href="repo.url"
-        target="_blank"
-        class="c-post-card o-github-most-starred__item"
-      >
-        <h3 class="o-github-most-starred__title">{{ repo.name }}</h3>
-        <p class="o-github-most-starred__description">{{ repo.description }}</p>
-        <div
-          class="o-github-most-starred__lang"
-          :class="`is-${repo.mostUsedLanguage.toLowerCase()}`"
+
+    <section class="o-github-most-starred">
+      <h2>{{ t("github_stats.most_starred.headline", { count: mostStarredRepos.length }) }}</h2>
+      <div class="o-github-most-starred__list">
+        <a
+          v-for="repo in mostStarredRepos"
+          :key="repo.name"
+          :href="repo.url"
+          target="_blank"
+          class="c-post-card o-github-most-starred__item"
         >
-          {{ repo.mostUsedLanguage }}
-        </div>
-        <div class="o-github-most-starred__stars">
-          <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
-        </div>
-      </a>
-    </div>
-  </section>
+          <h3 class="o-github-most-starred__title">{{ repo.name }}</h3>
+          <p class="o-github-most-starred__description">{{ repo.description }}</p>
+          <div
+            class="o-github-most-starred__lang"
+            :class="`is-${repo.mostUsedLanguage.toLowerCase()}`"
+          >
+            {{ repo.mostUsedLanguage }}
+          </div>
+          <div class="o-github-most-starred__stars">
+            <StarIcon width="16" height="16" /><span>{{ repo.stars }}</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </template>
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import StarIcon from "virtual:icons/lucide/star";
 import { computed, onMounted, ref } from "vue";
+
+import type { GithubStats } from "@/pages/api/github/stats";
 
 import { useI18n } from "@/composables/useI18n";
 
 import CodeLangGraph from "./CodeLangGraph.vue";
 import CodeLangList from "./CodeLangList.vue";
 
+const { lang } = defineProps<{ lang: Lang }>();
+const { t } = useI18n(() => lang);
+
 const loading = ref(true);
 const error = ref<null | string>(null);
-const languagePercentages = ref<{ language: string; percentage: number }[]>([]);
-
-interface GithubRepoSummary {
-  description: string;
-  mostUsedLanguage: string;
-  name: string;
-  stars: number;
-  url: string;
-}
-
-const mostStarredRepos = ref<GithubRepoSummary[]>([]);
-const props = defineProps<{ lang: "de" | "en" }>();
-const { t } = useI18n(() => props.lang);
+const languagePercentages = ref<GithubStats["languagePercentages"]>([]);
+const mostStarredRepos = ref<GithubStats["mostStarredRepos"]>([]);
 
 const filteredLanguagePercentages = computed(() => {
   return Object.fromEntries(
@@ -88,10 +79,6 @@ const filteredLanguagePercentages = computed(() => {
       .map(({ language, percentage }) => [language, percentage]),
   );
 });
-
-const formatLargeNumber = (number: number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
 
 const skeletonLangDataMock = {
   Astro: 1.3031886346985595,
@@ -113,23 +100,24 @@ const skeletonLangDataMock = {
   Vue: 0.7794710680480621,
 };
 
-onMounted(() => {
-  fetch("/api/github/stats")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Error fetching data from API: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      languagePercentages.value = data.languagePercentages;
-      mostStarredRepos.value = data.mostStarredRepos;
-      loading.value = false;
-    })
-    .catch((err) => {
-      error.value = `Error fetching data from API: ${err.message}`;
-      loading.value = false;
-    });
+onMounted(async () => {
+  try {
+    const response = await fetch("/api/github/stats");
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new Error(`HTTP ${response.status}: ${body.error ?? "no details"}`);
+    }
+
+    const stats: GithubStats = await response.json();
+    languagePercentages.value = stats.languagePercentages;
+    mostStarredRepos.value = stats.mostStarredRepos;
+  } catch (err) {
+    // Visitors get a translated notice; the details go to the console.
+    console.error("Fetching /api/github/stats failed:", err);
+    error.value = t.value("github_stats.error");
+  } finally {
+    loading.value = false;
+  }
 });
 </script>
 

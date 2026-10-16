@@ -1,0 +1,32 @@
+---
+import "@styles/components/content-blocks/_buttons-block.scss";
+import { CoreButton } from "@services/fragments/blockFragments";
+
+import type { CoreButtonsFragment } from "@/gql/graphql.ts";
+
+import { useFragment } from "@/gql";
+
+interface Props {
+  block: CoreButtonsFragment;
+}
+
+const { block } = Astro.props;
+
+const buttons = useFragment(CoreButton, (block.innerBlocks ?? []).filter((button) => button != null));
+---
+
+<div class="c-buttons">
+  {
+    buttons.map(({ attributes }) => (
+      <a
+        class="c-button c-button--primary"
+        href={attributes?.url}
+        rel={attributes?.rel}
+        target={attributes?.linkTarget}
+        title={attributes?.title}
+      >
+        {attributes?.text}
+      </a>
+    ))
+  }
+</div>

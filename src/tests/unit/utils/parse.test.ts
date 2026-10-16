@@ -1,4 +1,3 @@
-// @ts-ignore: Unresolved import
 import { parse } from "@utils/helpers";
 import { it, expect, describe } from "vitest";
 

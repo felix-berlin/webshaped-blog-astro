@@ -1,0 +1,17 @@
+---
+import Blocks from "@components/content-blocks/Blocks.astro";
+
+import type { CoreDetailsFragment } from "@/gql/graphql.ts";
+
+interface Props {
+  block: CoreDetailsFragment;
+}
+
+const { block } = Astro.props;
+const { showContent, summary } = block.attributes ?? {};
+---
+
+<details class="c-block-details" open={showContent}>
+  <summary class="c-block-details__summary">{summary}</summary>
+  {!!block.innerBlocks?.length &&<Blocks blocks={block.innerBlocks} />}
+</details>

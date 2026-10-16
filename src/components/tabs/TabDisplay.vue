@@ -10,6 +10,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Lang } from "@i18n/ui";
+
 import TabItem from "@components/tabs/TabItem.vue";
 import TabsView from "@components/tabs/TabsView.vue";
 import { defineAsyncComponent } from "vue";
@@ -25,11 +27,10 @@ const LoadWebmentions = defineAsyncComponent(
 
 export interface TabDisplayProps {
   authorId: string | undefined;
-  lang: "de" | "en";
+  lang: Lang;
   postId: string;
 }
 
-const props = defineProps<TabDisplayProps>();
-
-const { t } = useI18n(() => props.lang);
+const { authorId, lang, postId } = defineProps<TabDisplayProps>();
+const { t } = useI18n(() => lang);
 </script>
