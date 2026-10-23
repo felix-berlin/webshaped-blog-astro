@@ -126,7 +126,7 @@
     "graphql-config": "^5.1.8",
     "jsdom": "^30.1.2",
     "msw": "^3.0.3",
-    "oxfmt": "^0.73.0",
+    "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
     "pagefind": "^1.5.2",
     "postcss-html": "^2.0.0",
