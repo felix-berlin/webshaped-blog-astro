@@ -29,8 +29,45 @@ export const isLocaleShapedPath = (pathname: string): boolean => {
   return !lastSegment.includes(".");
 };
 
+// Pre-migration WordPress post URLs (top-level slug) -> current post slug.
+// Matched on the first path segment only, so "/slug", "/slug/" and
+// "/slug/anything" all redirect; the rest of the path is dropped, the query
+// string is kept. Must run before the locale 404 below.
+const LEGACY_POST_SLUGS: Record<string, string> = {
+  "automatische-matomo-backups": "automatische-matomo-backups",
+  "code-dokumentieren-leicht-gemacht-vs-code-extension-guide":
+    "code-dokumentieren-leicht-gemacht-vs-code-extension-guide",
+  "datenschutz-checkbox-fuer-wordpress-kommentare-ohne-plugin":
+    "datenschutz-checkbox-fuer-wordpress-kommentare-ohne-plugin",
+  "gutenberg-standard-vollbildmodus-deaktivieren-wordpress-5-4":
+    "gutenberg-standard-vollbildmodus-deaktivieren-wordpress-5-4",
+  "matomo-tracking-script-optimal-einbinden": "matomo-tracking-script-optimal-einbinden",
+  // Pre-rename WordPress slug for this post, still indexed by Google under
+  // the title "Automatische Matomo Backups via Bash Script und Cronjob" —
+  // confirmed 404ing before this entry was added (2026-08-16 SEO audit).
+  // Intentionally maps to a *different* slug than the key, not a
+  // copy-paste error: the post itself was renamed during migration.
+  "pagespeed-optimierung": "automatische-matomo-backups",
+  "stockfoto-sammlung": "stockfoto-sammlung",
+  "wordpress-comment-form-validation-interaktiv-mit-javascript":
+    "wordpress-comment-form-validation-interaktiv-mit-javascript",
+};
+
+export const legacyRedirectTarget = (url: URL): string | undefined => {
+  const firstSegment = url.pathname.split("/")[1];
+  const slug = Object.hasOwn(LEGACY_POST_SLUGS, firstSegment)
+    ? LEGACY_POST_SLUGS[firstSegment]
+    : undefined;
+  return slug && `/de/posts/${slug}${url.search}`;
+};
+
 export const onRequest = defineMiddleware((context, next) => {
   const { pathname } = context.url;
+
+  const legacyTarget = legacyRedirectTarget(context.url);
+  if (legacyTarget) {
+    return context.redirect(legacyTarget, 301);
+  }
 
   if (pathname === "/") {
     return redirectToDefaultLocale(context, 302);
