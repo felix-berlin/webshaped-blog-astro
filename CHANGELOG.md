@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.16.1...v1.16.2) (2026-10-30)
+
+
+### Bug Fixes
+
+* **imagor:** only sign src URLs from allowlisted hosts ([50dcc24](https://github.com/felix-berlin/webshaped-blog-astro/commit/50dcc2401c92bd64ce6550c4e7ee7978a7f3d22b))
+
 ## [1.16.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.16.0...v1.16.1) (2026-10-30)
 
 
