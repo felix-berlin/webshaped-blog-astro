@@ -1,3 +1,20 @@
+# One-time exception for Renovate #779/#780 (published 2026-10-29) so CI can run now.
+# Remove after 2026-10-31 together with the whole minimumReleaseAgeExclude key.
+minimumReleaseAgeExclude:
+  - "@csstools/postcss-color-mix-function@4.0.16"
+  - "@csstools/postcss-content-alt-text@3.0.8"
+  - "@csstools/postcss-hwb-function@5.0.16"
+  - "@csstools/postcss-ic-unit@5.0.6"
+  - "@csstools/postcss-light-dark-function@3.0.8"
+  - "@csstools/postcss-logical-viewport-units@4.0.4"
+  - "@csstools/postcss-oklab-function@5.0.16"
+  - "@csstools/postcss-relative-color-syntax@4.0.16"
+  - "@vue/language-core@3.3.14"
+  - "postcss-double-position-gradients@7.0.6"
+  - "postcss-lab-function@8.0.16"
+  - "postcss-preset-env@11.6.2"
+  - "vue-tsc@3.3.14"
+
 overrides:
   "@csstools/postcss-private-rule": ^1.1.0
   # Security: pull in patched transitive versions until upstream bumps them.
