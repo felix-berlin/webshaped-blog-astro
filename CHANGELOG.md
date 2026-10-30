@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.1](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.16.0...v1.16.1) (2026-10-30)
+
+
+### Bug Fixes
+
+* **renovate:** wait for pnpm's minimum release age before proposing updates ([c9fcf28](https://github.com/felix-berlin/webshaped-blog-astro/commit/c9fcf28fa659a4d9c602822525f2ec24467eee71))
+
 # [1.16.0](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.15.2...v1.16.0) (2026-10-16)
 
 

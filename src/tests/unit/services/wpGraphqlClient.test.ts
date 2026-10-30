@@ -94,7 +94,7 @@ describe("wpQuery", () => {
   });
 
   it("throws on a non-GraphQL transport failure", async () => {
-    // The realistic outage: nginx answers with an HTML 502, so urql produces a
+    // The realistic outage: the reverse proxy answers with an HTML 502, so urql produces a
     // network/parse error rather than a GraphQL one.
     server.use(http.all(WP_API, () => new HttpResponse("<html>502</html>", { status: 502 })));
 

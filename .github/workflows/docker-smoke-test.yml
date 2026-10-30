@@ -9,7 +9,6 @@ on:
     paths:
       - "Dockerfile"
       - "compose.yaml"
-      - "nginx/**"
       - "scripts/docker-smoke-test.sh"
       - "scripts/write-build-env.sh"
       - ".github/workflows/docker-smoke-test.yml"

@@ -3,7 +3,8 @@
 set -euo pipefail
 
 # Docker Smoke Test Script
-# This script boots the Docker Compose stack and validates the proxy behavior.
+# This script boots the Docker Compose stack and validates the app directly
+# (www redirect, compression and security headers live in Traefik, not here).
 
 PROJECT_NAME="webshaped-blog-astro-smoke"
 COMPOSE_FILE="compose.yaml"
@@ -135,7 +136,7 @@ trap cleanup EXIT
 echo "📦 Step 1: Starting Docker Compose stack..."
 compose down --remove-orphans >/dev/null 2>&1 || true
 remove_existing_app_container
-if compose up --build -d; then
+if compose up --build -d --wait; then
   echo "✅ Compose stack started"
 else
   echo "❌ Failed to start Docker Compose stack"
@@ -144,32 +145,12 @@ fi
 
 echo ""
 
-# Step 2.5: Validate nginx config syntax
-echo "🔍 Step 2.5: Checking nginx config syntax (nginx -t)..."
-if ! compose exec -T proxy nginx -t; then
-  echo "⚠️  Could not exec into running proxy container. Trying fallback check via one-off proxy container..."
-  echo ""
-  echo "📋 Docker Compose services:"
-  compose ps || true
-  echo ""
-
-  if ! compose run --rm --no-deps --entrypoint nginx proxy -t; then
-    echo "❌ nginx config test failed"
-    echo ""
-    echo "📋 Docker Compose logs:"
-    compose logs --no-color || true
-    exit 1
-  fi
-fi
-echo "✅ nginx config syntax is valid"
-echo ""
-
-# Step 2: Wait for proxy to be ready
-echo "⏳ Step 2: Waiting for proxy on 127.0.0.1:${HOST_PORT}..."
+# Step 2: Wait for app to be ready
+echo "⏳ Step 2: Waiting for app on 127.0.0.1:${HOST_PORT}..."
 elapsed=0
 while [ $elapsed -lt $TIMEOUT ]; do
   if curl --silent --show-error --output /dev/null --header "Host: webshaped.de" "${BASE_URL}/" > /dev/null 2>&1; then
-    echo "✅ Proxy is responding"
+    echo "✅ App is responding"
     break
   fi
 
@@ -181,7 +162,7 @@ while [ $elapsed -lt $TIMEOUT ]; do
 done
 
 if [ $elapsed -ge $TIMEOUT ]; then
-  echo "❌ Proxy failed to become ready within ${TIMEOUT} seconds"
+  echo "❌ App failed to become ready within ${TIMEOUT} seconds"
   echo ""
   echo "📋 Docker Compose services:"
   compose ps || true
@@ -209,32 +190,17 @@ assert_status "${home_status}" "200" "Homepage (/de) returns HTTP 200"
 assert_header_contains "${home_headers}" "content-type" "text/html" "Homepage (/de) returns HTML"
 
 echo ""
-echo "  3b. Testing www redirect"
-IFS='|' read -r www_status www_headers _ <<< "$(run_request www-redirect '/?utm_source=smoke' --header 'Host: www.webshaped.de')"
-assert_status "${www_status}" "301" "www host redirects"
-assert_header_equals "${www_headers}" "location" "http://webshaped.de/?utm_source=smoke" "www redirect location"
-
-echo ""
-echo "  3c. Testing legacy redirect"
-IFS='|' read -r legacy_status legacy_headers _ <<< "$(run_request legacy-redirect '/stockfoto-sammlung/?ref=legacy' --header 'Host: webshaped.de')"
+echo "  3b. Testing legacy redirects"
+IFS='|' read -r legacy_status legacy_headers _ <<< "$(run_request legacy-redirect '/stockfoto-sammlung?ref=legacy' --header 'Host: webshaped.de')"
 assert_status "${legacy_status}" "301" "Legacy URL redirects"
 assert_header_equals "${legacy_headers}" "location" "/de/posts/stockfoto-sammlung?ref=legacy" "Legacy redirect location"
 
-echo ""
-echo "  3d. Testing Brotli encoding"
-IFS='|' read -r br_status br_headers _ <<< "$(run_request br /de --header 'Host: webshaped.de' --header 'Accept-Encoding: br')"
-assert_status "${br_status}" "200" "Brotli request returns HTTP 200"
-assert_header_equals "${br_headers}" "content-encoding" "br" "Brotli encoding is enabled"
+IFS='|' read -r renamed_status renamed_headers _ <<< "$(run_request renamed-redirect /pagespeed-optimierung --header 'Host: webshaped.de')"
+assert_status "${renamed_status}" "301" "Renamed legacy URL redirects"
+assert_header_equals "${renamed_headers}" "location" "/de/posts/automatische-matomo-backups" "Renamed legacy redirect location"
 
 echo ""
-echo "  3e. Testing gzip encoding"
-IFS='|' read -r gzip_status gzip_headers _ <<< "$(run_request gzip /de --header 'Host: webshaped.de' --header 'Accept-Encoding: gzip')"
-assert_status "${gzip_status}" "200" "gzip request returns HTTP 200"
-assert_header_equals "${gzip_headers}" "content-encoding" "gzip" "gzip encoding is enabled"
-assert_header_contains "${gzip_headers}" "vary" "Accept-Encoding" "gzip response varies on Accept-Encoding"
-
-echo ""
-echo "  3f. Testing 404 handling"
+echo "  3c. Testing 404 handling"
 IFS='|' read -r missing_status _ _ <<< "$(run_request missing /nonexistent --header 'Host: webshaped.de')"
 assert_status "${missing_status}" "404" "Missing pages return HTTP 404"
 

@@ -16,7 +16,7 @@ Action plan items 1, 3, 4, and 5 are shipped in code (this branch). Item 2 is sp
 | 2a  | Person/WebSite JSON-LD           | ✅ Fixed   | [`src/layouts/DefaultLayout.astro`](../../src/layouts/DefaultLayout.astro)                                                                    |
 | 2b  | "Über mich" content rewrite      | ⏳ Pending | WordPress CMS — outside this repo, owner will write it                                                                                        |
 | 3   | `BlogPosting` JSON-LD on posts   | ✅ Fixed   | [`src/layouts/BlogPost.astro`](../../src/layouts/BlogPost.astro)                                                                              |
-| 4   | `/pagespeed-optimierung` 404     | ✅ Fixed   | [`nginx/conf.d/webshaped.conf`](../../nginx/conf.d/webshaped.conf)                                                                            |
+| 4   | `/pagespeed-optimierung` 404     | ✅ Fixed   | [`src/middleware.ts`](../../src/middleware.ts) (originally nginx)                                                                             |
 | 5   | 8 pages missing from sitemap     | ✅ Fixed   | [`src/pages/sitemap-index.xml.ts`](../../src/pages/sitemap-index.xml.ts)                                                                      |
 
 Notes on the fixes:
@@ -50,7 +50,7 @@ Notes on the fixes:
 | Schema / Structured Data | 10%    | 25    | Only a `BreadcrumbList` exists site-wide                          |
 | Performance (CWV)        | 10%    | 99    | Lab-only; all 3 Core Web Vitals pass Good                         |
 | AI Search Readiness      | 10%    | 61    | Fully crawlable by AI bots, but no `llms.txt`                     |
-| Images                   | 5%     | 55*   | *Estimated from incidental findings, not deep-audited             |
+| Images                   | 5%     | 55\*  | \*Estimated from incidental findings, not deep-audited            |
 
 No local business, e-commerce, or backlink-API signals were detected, so `seo-local`, `seo-maps`, `seo-ecommerce`, and `seo-backlinks` were correctly not spawned. `seo-images` was not run as a dedicated pass.
 

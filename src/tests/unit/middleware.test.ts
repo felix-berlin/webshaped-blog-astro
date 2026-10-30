@@ -1,6 +1,51 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
-import { isLocaleShapedPath } from "../../middleware";
+import { isLocaleShapedPath, legacyRedirectTarget, onRequest } from "../../middleware";
+
+const target = (path: string) => legacyRedirectTarget(new URL(path, "https://webshaped.de"));
+
+describe("legacyRedirectTarget", () => {
+  it("redirects a legacy slug and keeps the query string", () => {
+    expect(target("/stockfoto-sammlung")).toBe("/de/posts/stockfoto-sammlung");
+    expect(target("/stockfoto-sammlung?utm_source=x")).toBe(
+      "/de/posts/stockfoto-sammlung?utm_source=x",
+    );
+  });
+
+  it("matches on the first segment only and drops the rest of the path", () => {
+    expect(target("/stockfoto-sammlung/")).toBe("/de/posts/stockfoto-sammlung");
+    expect(target("/stockfoto-sammlung/foo?ref=legacy")).toBe(
+      "/de/posts/stockfoto-sammlung?ref=legacy",
+    );
+  });
+
+  it("maps the renamed pagespeed-optimierung post to its new slug", () => {
+    expect(target("/pagespeed-optimierung")).toBe("/de/posts/automatische-matomo-backups");
+  });
+
+  it("ignores unknown slugs, prefixes and already-migrated paths", () => {
+    expect(target("/")).toBeUndefined();
+    expect(target("/stockfoto-sammlung-2")).toBeUndefined();
+    expect(target("/de/posts/stockfoto-sammlung")).toBeUndefined();
+    expect(target("/constructor")).toBeUndefined();
+  });
+});
+
+describe("onRequest", () => {
+  it("301-redirects a legacy slug before anything else runs", async () => {
+    const redirect = vi.fn(() => new Response(null, { status: 301 }));
+    const next = vi.fn();
+    const context = {
+      url: new URL("https://webshaped.de/stockfoto-sammlung?ref=legacy"),
+      redirect,
+    };
+
+    await onRequest(context as never, next);
+
+    expect(redirect).toHaveBeenCalledWith("/de/posts/stockfoto-sammlung?ref=legacy", 301);
+    expect(next).not.toHaveBeenCalled();
+  });
+});
 
 describe("isLocaleShapedPath", () => {
   it("matches a two-letter locale segment", () => {
