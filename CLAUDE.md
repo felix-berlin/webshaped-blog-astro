@@ -123,6 +123,14 @@ Known limits on WSL2:
 - **Credential paths must not be symlinks.** `~/.aws` and `~/.azure` pointed into `/mnt/c`; bwrap could not mount its deny-tmpfs over them and refused to start. Fixed by replacing them with real directories — do not re-link them.
 - **No Infisical token inside the sandbox** (deliberate) — it blocks `~/.infisical` and the keyring, so `pnpm dev`, `pnpm gql:generate`, and `pnpm build:local` cannot run there; they all shell out to `infisical run`.
 
+### Deployment (Komodo)
+
+Production and beta are not deployed from this repo's `compose.yaml` (that one is for local/self-hosted use). The Komodo GitOps repo `felix-berlin/komodo` (local: `../komodo`) holds the stacks `web-shaped-blog-prod` (webshaped.de) and `web-shaped-blog-beta` (develop.webshaped.de) in `komodo.toml`, with compose files under `remote/hetzner/web-shaped-blog-{prod,beta}/` (old server; copies in `remote/thrash/` are the migration target, check `komodo.toml` for which one is live).
+
+- `docker-build.yml` pushes the image; Komodo auto-updates the stacks (`poll_for_updates` / `auto_update`). Changes to ports, env vars, volumes, healthchecks or Traefik labels belong in the komodo repo, not here.
+- Runtime secrets are set in the stack `environment` in `komodo.toml` (Komodo `[[SECRET]]` interpolation / Infisical), not from a `.env`.
+- Pull `komodo` before editing it (Komodo commits to `main` itself) and read its `CLAUDE.md` first; every decision goes into its `docs/entscheidungen.md`.
+
 ### Warning when a session isn't sandboxed
 
 Nothing forces `pnpm agent` to be used. `claude` is a native binary, not a shell script, so a `.zshrc` alias only catches terminal launches — it does nothing for the VS Code extension, which almost certainly starts the process directly. Enforcement has to live somewhere the harness itself reads regardless of launch path.
