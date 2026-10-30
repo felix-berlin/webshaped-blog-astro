@@ -4,6 +4,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const buildImagorPathMock = vi.fn(() => "fit-in/100x100/filters:format(webp):quality(80)/enc");
 const signImagorPathMock = vi.fn((path: string) => `https://assets.kasimir.dev/signed/${path}`);
 
+// The endpoint derives its CMS host from WP_API; pin it so the test doesn't
+// depend on which environment the secrets resolved to.
+vi.mock("astro:env/client", () => ({ WP_API: "https://cms.webshaped.test/graphql" }));
+
 vi.mock("@utils/imagor", () => ({
   buildImagorPath: buildImagorPathMock,
   signImagorPath: signImagorPathMock,
