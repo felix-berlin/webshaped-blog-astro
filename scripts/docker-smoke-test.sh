@@ -191,7 +191,7 @@ assert_header_contains "${home_headers}" "content-type" "text/html" "Homepage (/
 
 echo ""
 echo "  3b. Testing legacy redirects"
-IFS='|' read -r legacy_status legacy_headers _ <<< "$(run_request legacy-redirect '/stockfoto-sammlung/?ref=legacy' --header 'Host: webshaped.de')"
+IFS='|' read -r legacy_status legacy_headers _ <<< "$(run_request legacy-redirect '/stockfoto-sammlung?ref=legacy' --header 'Host: webshaped.de')"
 assert_status "${legacy_status}" "301" "Legacy URL redirects"
 assert_header_equals "${legacy_headers}" "location" "/de/posts/stockfoto-sammlung?ref=legacy" "Legacy redirect location"
 
