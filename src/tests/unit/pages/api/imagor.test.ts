@@ -4,6 +4,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const buildImagorPathMock = vi.fn(() => "fit-in/100x100/filters:format(webp):quality(80)/enc");
 const signImagorPathMock = vi.fn((path: string) => `https://assets.kasimir.dev/signed/${path}`);
 
+// The endpoint derives its CMS host from WP_API; pin it so the test doesn't
+// depend on which environment the secrets resolved to.
+vi.mock("astro:env/client", () => ({ WP_API: "https://cms.webshaped.test/graphql" }));
+
 vi.mock("@utils/imagor", () => ({
   buildImagorPath: buildImagorPathMock,
   signImagorPath: signImagorPathMock,
@@ -44,11 +48,26 @@ describe("GET /api/imagor", () => {
     expect(response.status).toBe(302);
   });
 
-  it("redirects for any https host — imagor's own HTTP_LOADER_ALLOWED_SOURCES is the host allowlist, not this endpoint", async () => {
-    const response = await GET(
-      request({ h: "100", src: "https://upload.wikimedia.org/foo.png", w: "800" }) as never,
-    );
+  it.each([
+    "https://upload.wikimedia.org/foo.png",
+    "https://m.media-amazon.com/foo.jpg",
+    "https://CMS.webshaped.test./foo.png",
+    "https://cms.webshaped.de/wp-content/foo.png",
+  ])("redirects for an allowlisted host %s", async (src) => {
+    const response = await GET(request({ h: "100", src, w: "800" }) as never);
     expect(response.status).toBe(302);
+  });
+
+  it.each([
+    "https://evil.example/foo.png",
+    "https://cms.webshaped.test.evil.example/foo.png",
+    "https://evilwebshaped.de/foo.png",
+    "https://169.254.169.254/latest/meta-data",
+    "https://user:pass@cms.webshaped.test/foo.png",
+  ])("rejects a src outside the host allowlist: %s", async (src) => {
+    const response = await GET(request({ h: "100", src, w: "800" }) as never);
+    expect(response.status).toBe(400);
+    expect(signImagorPathMock).not.toHaveBeenCalled();
   });
 
   it("rejects a missing src", async () => {

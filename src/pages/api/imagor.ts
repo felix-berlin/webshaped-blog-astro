@@ -1,19 +1,20 @@
 import type { APIRoute } from "astro";
+import { WP_API } from "astro:env/client";
 
 import { captureException } from "@sentry/astro";
 import { buildImagorPath, signImagorPath } from "@utils/imagor";
 import { RESPONSIVE_WIDTHS } from "@utils/imagorClient";
 
-// This endpoint is a signing oracle: anyone can ask it to sign a fetch of a
-// `src` (imagor does the actual fetch). SSRF and host restriction are
-// enforced by imagor's own HTTP loader config (HTTP_LOADER_ALLOWED_SOURCES,
-// HTTP_LOADER_BLOCK_PRIVATE_NETWORKS / _LOOPBACK_NETWORKS /
-// _LINK_LOCAL_NETWORKS, HTTP_LOADER_HTTPS_ONLY) — that's the right place for
-// it: it runs immediately before the actual fetch, not at sign time, so it
-// isn't subject to the DNS-rebinding TOCTOU gap a check here would have.
-// Duplicating an allowlist here would also drift from imagor's own (it also
-// allows upload.wikimedia.org and m.media-amazon.com for embedded post
-// images, not just our own WP media host).
+// This endpoint signs a fetch of a caller-supplied `src` (imagor does the
+// actual fetch), so it only signs for the hosts our own posts embed images
+// from: webshaped.de (+ subdomains, incl. the WP media host),
+// upload.wikimedia.org and m.media-amazon.com. Mirrors this site's share of
+// imagor's HTTP_LOADER_ALLOWED_SOURCES (komodo repo) — keep both in sync. imagor's
+// loader config (that allowlist, HTTP_LOADER_BLOCK_PRIVATE_NETWORKS /
+// _LOOPBACK_NETWORKS / _LINK_LOCAL_NETWORKS, HTTP_LOADER_HTTPS_ONLY) stays
+// the authoritative SSRF guard: it runs right before the fetch, so it isn't
+// subject to the DNS-rebinding gap a sign-time check has. The check here only
+// stops this endpoint from minting signatures for arbitrary hosts.
 //
 // What's validated here instead is specific to *this* endpoint: `format` is
 // interpolated into imagor's filter pipeline string that we build ourselves
@@ -35,6 +36,12 @@ import { RESPONSIVE_WIDTHS } from "@utils/imagorClient";
 const ALLOWED_WIDTHS = new Set([...RESPONSIVE_WIDTHS, 800]);
 const MAX_HEIGHT = 5000;
 const ALLOWED_FORMATS = new Set(["avif", "jpeg", "png", "webp"]);
+const ALLOWED_SRC_HOSTS = new Set([
+  new URL(WP_API).hostname,
+  "webshaped.de",
+  "m.media-amazon.com",
+  "upload.wikimedia.org",
+]);
 
 function reject(reason: string, detail: string): Response {
   const message = `/api/imagor rejected (${reason}): ${detail}`;
@@ -72,6 +79,13 @@ export const GET: APIRoute = async ({ url }) => {
 
   if (upstream.protocol !== "https:") {
     return reject("non-https src", src);
+  }
+  if (upstream.username || upstream.password) {
+    return reject("credentials in src", src);
+  }
+  const host = upstream.hostname.replace(/\.$/, "");
+  if (!ALLOWED_SRC_HOSTS.has(host) && !host.endsWith(".webshaped.de")) {
+    return reject("disallowed host", src);
   }
 
   const path = buildImagorPath(src, { format, height, width });
