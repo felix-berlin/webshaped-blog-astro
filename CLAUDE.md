@@ -72,7 +72,7 @@ Written after exactly that leak on 2026-07-31 (twice — Infisical values, then 
 
 ### Local/self-hosted deployment (`compose.yaml`)
 
-`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret; the running container's `environment:` block reads `${VAR:?}` values that Compose fills in from an auto-loaded `.env` in the project directory) — it doesn't call Infisical itself. It brings up two containers: `app` (Node adapter on 4321, `expose`d only) behind `proxy` (nginx on `${HOST_PORT:-80}`), each with a healthcheck. The `app` runtime image is distroless (`gcr.io/distroless/cc-debian12:nonroot`): no shell, so debug with `docker compose logs app`, not `docker compose exec app sh`.
+`compose.yaml` builds and runs the app via plain files (`BUILD_ENV_FILE` for the build secret; the running container's `environment:` block reads `${VAR:?}` values that Compose fills in from an auto-loaded `.env` in the project directory) — it doesn't call Infisical itself. It brings up a single `app` container (Node adapter, published on `${HOST_PORT:-4321}`) with a healthcheck. There is no reverse proxy in this repo: in production Traefik (komodo GitOps repo) handles www→apex, compression and security headers; the legacy WordPress slug redirects live in `src/middleware.ts`. The `app` runtime image is distroless (`gcr.io/distroless/cc-debian12:nonroot`): no shell, so debug with `docker compose logs app`, not `docker compose exec app sh`.
 
 **The two env files are not interchangeable.** The Dockerfile `source`s the build secret in a shell, so values need `%q` quoting; Compose's own `.env` variable-substitution parses values literally and would keep those backslashes. `WP_AUTH_PASS` is a WordPress Application Password with spaces, so getting this wrong truncates it at the first space. `scripts/write-build-env.sh` writes both formats and fails loudly on any empty required var:
 
@@ -85,8 +85,8 @@ BUILD_ENV_FILE=.build.env docker compose up --build
 Verify, then tear down — both files hold real production secrets:
 
 ```bash
-docker compose ps                      # both services should report (healthy)
-curl -f http://localhost:${HOST_PORT:-80}/
+docker compose ps                      # app should report (healthy)
+curl -f http://localhost:${HOST_PORT:-4321}/
 docker compose logs app | grep -i "error\|unauthenticated"
 docker compose down && rm -f .env .build.env
 ```

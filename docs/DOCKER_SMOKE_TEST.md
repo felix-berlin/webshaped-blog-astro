@@ -1,19 +1,17 @@
-# Docker Smoke Test (Proxy Stack)
+# Docker Smoke Test
 
-Automatisierter Smoke Test für das Docker-Setup mit Nginx-Proxy vor der Astro-App. Läuft bei jedem PR und prüft die wichtigsten Funktionen des produktionsnahen Stacks.
+Automatisierter Smoke Test für das Docker-Image der Astro-App. Läuft bei jedem PR und prüft die App direkt, ohne Reverse Proxy. www-Redirect, Kompression und Security-Header liegen in Produktion bei Traefik (komodo-Repo) und werden hier nicht getestet.
 
 ## Was wird getestet?
 
 Der Smoke Test prüft folgende Punkte:
 
-1. **Compose Build/Start** – Startet App und Nginx-Proxy via `docker compose -f compose.yaml up`
-2. **Proxy Health Check** – Überprüft den öffentlichen HTTP-Endpoint des Proxys
-3. **Root Response via Proxy** – Prüft, dass `/` auf `/de` weiterleitet und die Startseite (`/de`) über den Proxy lädt
-4. **Host Redirect** – Prüft Weiterleitung von www.webshaped.de → webshaped.de
-5. **Legacy Redirect** – Prüft Weiterleitung alter Post-URLs auf `/de/posts/...`
-6. **Brotli & Gzip Compression** – Stellt sicher, dass beide Kompressionsarten aktiv sind
-7. **404 Passthrough** – Testet, dass 404-Fehler korrekt über den Proxy durchgereicht werden
-8. **Log Analysis** – Analysiert die Logs aller Container auf Fehler
+1. **Compose Build/Start** – Baut und startet die App via `docker compose -f compose.yaml up --wait` (wartet auf den Healthcheck)
+2. **App Health Check** – Überprüft den veröffentlichten HTTP-Port der App
+3. **Root Response** – Prüft, dass `/` auf `/de` weiterleitet und die Startseite (`/de`) lädt
+4. **Legacy Redirects** – Prüft die 301-Weiterleitung alter Post-URLs auf `/de/posts/...` (aus `src/middleware.ts`), inkl. Query-String
+5. **404** – Testet, dass unbekannte Pfade 404 liefern
+6. **Log Analysis** – Analysiert die Container-Logs auf Fehler
 
 ## Lokal ausführen
 
@@ -34,7 +32,7 @@ infisical run --env=dev -- scripts/write-build-env.sh .env raw
 ```
 
 ```bash
-# Alternativer Host-Port (z. B. falls 80/8080 belegt ist)
+# Alternativer Host-Port (z. B. falls 8080 belegt ist)
 HOST_PORT=5432 ./scripts/docker-smoke-test.sh
 ```
 
@@ -49,7 +47,7 @@ Bei älteren Docker-Setups kann es nötig sein, BuildKit explizit zu aktivieren:
 DOCKER_BUILDKIT=1 ./scripts/docker-smoke-test.sh
 ```
 
-Das Skript baut App und Proxy, prüft Redirects, Kompression und 404-Verhalten und räumt den Stack nach Abschluss automatisch auf.
+Das Skript baut die App, prüft Redirects und 404-Verhalten und räumt den Stack nach Abschluss automatisch auf.
 
 ## Logs analysieren
 
