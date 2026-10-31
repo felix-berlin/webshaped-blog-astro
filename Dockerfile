@@ -27,20 +27,13 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
-# Arch-independent copy of libatomic (path differs between amd64 and arm64).
-FROM base AS libatomic
-RUN cp -L /usr/lib/*-linux-gnu/libatomic.so.1 /libatomic.so.1
-
-# Distroless runtime: a minimal glibc base (libc, libstdc++, libssl, CA certs,
-# tzdata) plus the Node binary from the official
-# (digest-pinned, Renovate-updated) image above — same Node release as the build,
-# but no shell, package manager, npm/yarn or setuid binaries. Far smaller image and
-# attack surface. Runs as the unprivileged `nonroot` user (uid 65532); the app
-# files stay root-owned, so the process can read but not modify them.
-FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57b217585af0786db3845d1f0ec1a0dd182f AS runtime
-COPY --from=base /usr/local/bin/node /usr/local/bin/node
-# Node 26 links libatomic, which distroless/cc does not ship.
-COPY --from=libatomic /libatomic.so.1 /usr/lib/libatomic.so.1
+# Distroless runtime: the official Node image from distroless (libc, libstdc++,
+# libatomic, libssl, CA certs, tzdata and Node itself), digest-pinned and
+# Renovate-updated — but no shell, package manager, npm/yarn or setuid binaries. Far
+# smaller image and attack surface. Runs as the unprivileged `nonroot` user
+# (uid 65532); the app files stay root-owned, so the process can read but not modify
+# them. Same Node major as the build stage above (keep in sync with .nvmrc).
+FROM gcr.io/distroless/nodejs26-debian13:nonroot@sha256:a51c5d631b90e1b298e17a88a307b77f0b959b47de942d033acce0c96be3fb83 AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -52,9 +45,10 @@ ENV PORT=4321
 EXPOSE 4321
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD ["node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+  CMD ["/nodejs/bin/node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 
 # Already the :nonroot image's default; stated so scanners and readers see it.
 USER nonroot
+# The image's ENTRYPOINT is already /nodejs/bin/node (not on PATH).
 # Exec form only: there is no shell to run a CMD string.
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["./dist/server/entry.mjs"]
