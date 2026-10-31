@@ -1,7 +1,8 @@
-FROM node:lts-slim@sha256:2fe369e969550cde8e867afc3fe370b260140cab4a23d467074295b42163d553 AS base
+FROM node:lts-slim@sha256:e4db4c914bf8ad241bd24804fc25d272d89bad97e68cdc8a1414862790a02c39 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+# Corepack is no longer bundled with Node (removed in 25).
+RUN npm install -g corepack && corepack enable
 WORKDIR /app
 
 FROM base AS deps
@@ -26,6 +27,10 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
+# Arch-independent copy of libatomic (path differs between amd64 and arm64).
+FROM base AS libatomic
+RUN cp -L /usr/lib/*-linux-gnu/libatomic.so.1 /libatomic.so.1
+
 # Distroless runtime: a minimal glibc base (libc, libstdc++, libssl, CA certs,
 # tzdata) plus the Node binary from the official
 # (digest-pinned, Renovate-updated) image above — same Node release as the build,
@@ -34,6 +39,8 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
 # files stay root-owned, so the process can read but not modify them.
 FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57b217585af0786db3845d1f0ec1a0dd182f AS runtime
 COPY --from=base /usr/local/bin/node /usr/local/bin/node
+# Node 26 links libatomic, which distroless/cc does not ship.
+COPY --from=libatomic /libatomic.so.1 /usr/lib/libatomic.so.1
 WORKDIR /app
 ENV NODE_ENV=production
 
