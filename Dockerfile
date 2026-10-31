@@ -1,7 +1,8 @@
-FROM node:lts-slim@sha256:2fe369e969550cde8e867afc3fe370b260140cab4a23d467074295b42163d553 AS base
+FROM node:lts-slim@sha256:e4db4c914bf8ad241bd24804fc25d272d89bad97e68cdc8a1414862790a02c39 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+# Corepack is no longer bundled with Node (removed in 25).
+RUN npm install -g corepack && corepack enable
 WORKDIR /app
 
 FROM base AS deps
@@ -26,14 +27,13 @@ RUN --mount=type=secret,id=build_env,target=/run/secrets/build_env \
   && set -a && . /run/secrets/build_env && set +a \
   && pnpm run build
 
-# Distroless runtime: a minimal glibc base (libc, libstdc++, libssl, CA certs,
-# tzdata) plus the Node binary from the official
-# (digest-pinned, Renovate-updated) image above — same Node release as the build,
-# but no shell, package manager, npm/yarn or setuid binaries. Far smaller image and
-# attack surface. Runs as the unprivileged `nonroot` user (uid 65532); the app
-# files stay root-owned, so the process can read but not modify them.
-FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57b217585af0786db3845d1f0ec1a0dd182f AS runtime
-COPY --from=base /usr/local/bin/node /usr/local/bin/node
+# Distroless runtime: the official Node image from distroless (libc, libstdc++,
+# libatomic, libssl, CA certs, tzdata and Node itself), digest-pinned and
+# Renovate-updated — but no shell, package manager, npm/yarn or setuid binaries. Far
+# smaller image and attack surface. Runs as the unprivileged `nonroot` user
+# (uid 65532); the app files stay root-owned, so the process can read but not modify
+# them. Same Node major as the build stage above (keep in sync with .nvmrc).
+FROM gcr.io/distroless/nodejs26-debian13:nonroot@sha256:a51c5d631b90e1b298e17a88a307b77f0b959b47de942d033acce0c96be3fb83 AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
@@ -45,9 +45,10 @@ ENV PORT=4321
 EXPOSE 4321
 
 HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
-  CMD ["node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+  CMD ["/nodejs/bin/node", "-e", "fetch('http://localhost:4321/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 
 # Already the :nonroot image's default; stated so scanners and readers see it.
 USER nonroot
+# The image's ENTRYPOINT is already /nodejs/bin/node (not on PATH).
 # Exec form only: there is no shell to run a CMD string.
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["./dist/server/entry.mjs"]
