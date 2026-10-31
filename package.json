@@ -148,5 +148,8 @@
     "vitest": "^5.0.4",
     "vue-tsc": "^3.3.13"
   },
+  "engines": {
+    "node": ">=26"
+  },
   "packageManager": "pnpm@12.16.1"
 }
