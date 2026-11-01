@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.3](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.16.2...v1.16.3) (2026-11-01)
+
+
+### Bug Fixes
+
+* **ci:** shorter Renovate release age for minor/major updates ([9b3b106](https://github.com/felix-berlin/webshaped-blog-astro/commit/9b3b1069e5004cbe94b5787aa03afa5e8022f2d2))
+
 ## [1.16.2](https://github.com/felix-berlin/webshaped-blog-astro/compare/v1.16.1...v1.16.2) (2026-10-30)
 
 
