@@ -143,6 +143,14 @@ Nothing forces `pnpm agent` to be used. `claude` is a native binary, not a shell
 
 These predate the Infisical integration and are no longer referenced by `docker-build.yml`. Do not delete them until the Infisical-based pipeline has run successfully at least once — keep as a rollback path in the meantime.
 
+## Renovate
+
+- Validate `renovate.json` with `npx --yes --package renovate@latest -- renovate-config-validator renovate.json` — a cached older Renovate reports options as invalid.
+- Only patch updates of stable (non-`0.x`) packages automerge; minor/major open a PR. GitHub Actions and Docker images never automerge, and `platformAutomerge` is off.
+- `minimumReleaseAge` (3 days patch, 2 days minor/major) must stay above pnpm's own gate (1 day, explicit `1440` in `pnpm-workspace.yaml`), otherwise `pnpm install` breaks on `main`.
+- Related packages update as one group; give every new package family its own group rule.
+- `minimumReleaseAgeExclude` is only a short-lived exception for one concrete version — remove it once that version is old enough.
+
 ## Architecture
 
 Personal blog frontend: **Astro 7 (SSR)** + **Vue 3 islands**, backed by a **WordPress GraphQL API**.
