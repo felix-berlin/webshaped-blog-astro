@@ -39,9 +39,11 @@ describe("MenuSubmenu.vue", () => {
   it("menu is hidden when isOpen=false", () => {
     const wrapper = mount(MenuSubmenu, {
       props: { isOpen: false },
+      attachTo: document.body, // jsdom 31 computes styles only for attached elements
     });
     const menu = wrapper.find("menu");
     expect(menu.isVisible()).toBe(false);
+    wrapper.unmount();
   });
 
   it("menu is visible when isOpen=true", () => {

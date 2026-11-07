@@ -2,6 +2,8 @@ minimumReleaseAge: 1440
 
 overrides:
   "@csstools/postcss-private-rule": ^1.1.0
+  # @napi-rs/wasm-runtime peer is "*" and resolved to 2.0.0-beta.2, which crashes @astrojs/check on exit.
+  "@emnapi/runtime": ^1.11.3
   # Security: pull in patched transitive versions until upstream bumps them.
   http-cache-semantics: ^4.3.0 # GHSA, via astro (runtime)
   handlebars: ^4.7.10 # GHSA, via semantic-release (dev)
